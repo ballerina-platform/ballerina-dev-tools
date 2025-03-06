@@ -18,14 +18,18 @@
 
 package io.ballerina.flowmodelgenerator.core;
 
+import io.ballerina.compiler.syntax.tree.ClassDefinitionNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
+import io.ballerina.compiler.syntax.tree.ServiceDeclarationNode;
 import io.ballerina.projects.Document;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextRange;
 import org.ballerinalang.langserver.common.utils.PositionUtil;
+
+import java.util.function.Predicate;
 
 /**
  * Enclosed node finder.
@@ -36,10 +40,12 @@ public class EnclosedNodeFinder {
 
     private final Document document;
     private final LinePosition position;
+    private final boolean findClass;
 
-    public EnclosedNodeFinder(Document document, LinePosition position) {
+    public EnclosedNodeFinder(Document document, LinePosition position, boolean findClass) {
         this.document = document;
         this.position = position;
+        this.findClass = findClass;
     }
 
     public LineRange findEnclosedNode() {
@@ -47,9 +53,18 @@ public class EnclosedNodeFinder {
         int positionOffset = PositionUtil.getPositionOffset(PositionUtil.toPosition(position), document.syntaxTree());
         TextRange textRange = TextRange.from(positionOffset, 1);
         NonTerminalNode nonTerminalNode = modulePartNode.findNode(textRange);
-        while (nonTerminalNode != null && !(nonTerminalNode instanceof FunctionDefinitionNode)) {
+
+        Predicate<NonTerminalNode> nodeMatcher;
+        if (findClass) {
+            nodeMatcher = node -> !(node instanceof ClassDefinitionNode) && !(node instanceof ServiceDeclarationNode);
+        } else {
+            nodeMatcher = node -> !(node instanceof FunctionDefinitionNode);
+        }
+
+        while (nonTerminalNode != null && nodeMatcher.test(nonTerminalNode)) {
             nonTerminalNode = nonTerminalNode.parent();
         }
+
         if (nonTerminalNode == null) {
             throw new RuntimeException("No enclosed node found");
         }

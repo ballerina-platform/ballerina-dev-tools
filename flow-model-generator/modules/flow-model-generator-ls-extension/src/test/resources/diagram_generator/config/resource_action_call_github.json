@@ -283,8 +283,7 @@
               "offset": 3
             }
           },
-          "sourceCode": "final github:Client githubClient = check new ({\n    auth: {token: \"\"}\n});",
-          "id": 0
+          "sourceCode": "final github:Client githubClient = check new ({\n    auth: {token: \"\"}\n});"
         },
         "returning": false,
         "properties": {

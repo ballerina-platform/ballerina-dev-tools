@@ -40,7 +40,7 @@
         "metadata": {
           "label": "get",
           "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.3.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png"
         },
         "codedata": {
           "node": "REMOTE_ACTION_CALL",
@@ -48,7 +48,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "get",
-          "version": "2.13.3",
+          "version": "2.14.0",
           "lineRange": {
             "fileName": "http_get_node.bal",
             "startLine": {
@@ -193,7 +193,7 @@
         "metadata": {
           "label": "get",
           "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.3.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png"
         },
         "codedata": {
           "node": "REMOTE_ACTION_CALL",
@@ -201,7 +201,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "get",
-          "version": "2.13.3",
+          "version": "2.14.0",
           "lineRange": {
             "fileName": "http_get_node.bal",
             "startLine": {
@@ -348,7 +348,7 @@
         "metadata": {
           "label": "New Connection",
           "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.3.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png"
         },
         "codedata": {
           "node": "NEW_CONNECTION",
@@ -367,8 +367,7 @@
               "offset": 45
             }
           },
-          "sourceCode": "http:Client foodClient = check new (\"/food\");",
-          "id": 0
+          "sourceCode": "http:Client foodClient = check new (\"/food\");"
         },
         "returning": false,
         "properties": {
@@ -415,7 +414,7 @@
             "typeMembers": [
               {
                 "type": "ResponseLimitConfigs",
-                "packageInfo": "ballerina:http:2.13.3",
+                "packageInfo": "ballerina:http:2.14.0",
                 "kind": "RECORD_TYPE",
                 "selected": false
               }
@@ -439,7 +438,7 @@
             "typeMembers": [
               {
                 "type": "CacheConfig",
-                "packageInfo": "ballerina:http:2.13.3",
+                "packageInfo": "ballerina:http:2.14.0",
                 "kind": "RECORD_TYPE",
                 "selected": false
               }
@@ -463,7 +462,7 @@
             "typeMembers": [
               {
                 "type": "CookieConfig",
-                "packageInfo": "ballerina:http:2.13.3",
+                "packageInfo": "ballerina:http:2.14.0",
                 "kind": "RECORD_TYPE",
                 "selected": false
               },
@@ -493,43 +492,43 @@
             "typeMembers": [
               {
                 "type": "CredentialsConfig",
-                "packageInfo": "ballerina:http:2.13.3",
+                "packageInfo": "ballerina:http:2.14.0",
                 "kind": "RECORD_TYPE",
                 "selected": false
               },
               {
                 "type": "BearerTokenConfig",
-                "packageInfo": "ballerina:http:2.13.3",
+                "packageInfo": "ballerina:http:2.14.0",
                 "kind": "RECORD_TYPE",
                 "selected": false
               },
               {
                 "type": "JwtIssuerConfig",
-                "packageInfo": "ballerina:http:2.13.3",
+                "packageInfo": "ballerina:http:2.14.0",
                 "kind": "RECORD_TYPE",
                 "selected": false
               },
               {
                 "type": "OAuth2ClientCredentialsGrantConfig",
-                "packageInfo": "ballerina:http:2.13.3",
+                "packageInfo": "ballerina:http:2.14.0",
                 "kind": "RECORD_TYPE",
                 "selected": false
               },
               {
                 "type": "OAuth2PasswordGrantConfig",
-                "packageInfo": "ballerina:http:2.13.3",
+                "packageInfo": "ballerina:http:2.14.0",
                 "kind": "RECORD_TYPE",
                 "selected": false
               },
               {
                 "type": "OAuth2RefreshTokenGrantConfig",
-                "packageInfo": "ballerina:http:2.13.3",
+                "packageInfo": "ballerina:http:2.14.0",
                 "kind": "RECORD_TYPE",
                 "selected": false
               },
               {
                 "type": "OAuth2JwtBearerGrantConfig",
-                "packageInfo": "ballerina:http:2.13.3",
+                "packageInfo": "ballerina:http:2.14.0",
                 "kind": "RECORD_TYPE",
                 "selected": false
               },
@@ -559,7 +558,7 @@
             "typeMembers": [
               {
                 "type": "RetryConfig",
-                "packageInfo": "ballerina:http:2.13.3",
+                "packageInfo": "ballerina:http:2.14.0",
                 "kind": "RECORD_TYPE",
                 "selected": false
               },
@@ -589,7 +588,7 @@
             "typeMembers": [
               {
                 "type": "PoolConfiguration",
-                "packageInfo": "ballerina:http:2.13.3",
+                "packageInfo": "ballerina:http:2.14.0",
                 "kind": "RECORD_TYPE",
                 "selected": false
               },
@@ -667,7 +666,7 @@
             "typeMembers": [
               {
                 "type": "ClientSocketConfig",
-                "packageInfo": "ballerina:http:2.13.3",
+                "packageInfo": "ballerina:http:2.14.0",
                 "kind": "RECORD_TYPE",
                 "selected": false
               }
@@ -715,7 +714,7 @@
             "typeMembers": [
               {
                 "type": "ProxyConfig",
-                "packageInfo": "ballerina:http:2.13.3",
+                "packageInfo": "ballerina:http:2.14.0",
                 "kind": "RECORD_TYPE",
                 "selected": false
               },
@@ -745,7 +744,7 @@
             "typeMembers": [
               {
                 "type": "HttpVersion",
-                "packageInfo": "ballerina:http:2.13.3",
+                "packageInfo": "ballerina:http:2.14.0",
                 "kind": "BASIC_TYPE",
                 "selected": false
               }
@@ -769,7 +768,7 @@
             "typeMembers": [
               {
                 "type": "FollowRedirects",
-                "packageInfo": "ballerina:http:2.13.3",
+                "packageInfo": "ballerina:http:2.14.0",
                 "kind": "RECORD_TYPE",
                 "selected": false
               },
@@ -799,7 +798,7 @@
             "typeMembers": [
               {
                 "type": "ClientSecureSocket",
-                "packageInfo": "ballerina:http:2.13.3",
+                "packageInfo": "ballerina:http:2.14.0",
                 "kind": "RECORD_TYPE",
                 "selected": false
               },
@@ -829,7 +828,7 @@
             "typeMembers": [
               {
                 "type": "CircuitBreakerConfig",
-                "packageInfo": "ballerina:http:2.13.3",
+                "packageInfo": "ballerina:http:2.14.0",
                 "kind": "RECORD_TYPE",
                 "selected": false
               },
@@ -859,7 +858,7 @@
             "typeMembers": [
               {
                 "type": "ClientHttp2Settings",
-                "packageInfo": "ballerina:http:2.13.3",
+                "packageInfo": "ballerina:http:2.14.0",
                 "kind": "RECORD_TYPE",
                 "selected": false
               }
@@ -883,7 +882,7 @@
             "typeMembers": [
               {
                 "type": "Compression",
-                "packageInfo": "ballerina:http:2.13.3",
+                "packageInfo": "ballerina:http:2.14.0",
                 "kind": "BASIC_TYPE",
                 "selected": false
               }
@@ -907,7 +906,7 @@
             "typeMembers": [
               {
                 "type": "ClientHttp1Settings",
-                "packageInfo": "ballerina:http:2.13.3",
+                "packageInfo": "ballerina:http:2.14.0",
                 "kind": "RECORD_TYPE",
                 "selected": false
               }

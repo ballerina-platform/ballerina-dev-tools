@@ -13,8 +13,7 @@
     }
   },
   "queryMap": {
-    "q": "sum",
-    "includeAvailable": "true"
+    "q": "sum"
   },
   "categories": [
     {

@@ -20,31 +20,56 @@
       "module": "docusign.dsadmin",
       "object": "Client",
       "symbol": "init",
-      "version": "2.0.0",
-      "id": 915
+      "version": "2.0.0"
     },
     "returning": false,
     "properties": {
-      "serviceUrl": {
+      "responseLimits": {
         "metadata": {
-          "label": "serviceUrl",
-          "description": "URL of the target service "
+          "label": "responseLimits",
+          "description": "Configurations associated with inbound response size limits"
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "string",
-        "placeholder": "\"\"",
-        "optional": false,
+        "valueTypeConstraint": "http:ResponseLimitConfigs",
+        "placeholder": "{}",
+        "optional": true,
         "editable": true,
-        "advanced": false,
+        "advanced": true,
         "codedata": {
-          "kind": "REQUIRED",
-          "originalName": "serviceUrl"
+          "kind": "INCLUDED_FIELD",
+          "originalName": "responseLimits",
+          "importStatements": "ballerina/http"
         },
         "typeMembers": [
           {
-            "type": "string",
-            "packageInfo": "",
-            "kind": "BASIC_TYPE",
+            "type": "ResponseLimitConfigs",
+            "packageInfo": "ballerina:http:2.10.11",
+            "kind": "RECORD_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "cache": {
+        "metadata": {
+          "label": "cache",
+          "description": "HTTP caching related configurations"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "http:CacheConfig",
+        "placeholder": "{}",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "cache",
+          "importStatements": "ballerina/http"
+        },
+        "typeMembers": [
+          {
+            "type": "CacheConfig",
+            "packageInfo": "ballerina:http:2.10.11",
+            "kind": "RECORD_TYPE",
             "selected": false
           }
         ]
@@ -80,74 +105,74 @@
           }
         ]
       },
-      "httpVersion": {
+      "retryConfig": {
         "metadata": {
-          "label": "httpVersion",
-          "description": "The HTTP version understood by the client"
+          "label": "retryConfig",
+          "description": "Configurations associated with retrying"
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "http:HttpVersion",
-        "placeholder": "http:HTTP_2_0",
-        "optional": true,
-        "editable": true,
-        "advanced": true,
-        "codedata": {
-          "kind": "INCLUDED_FIELD",
-          "originalName": "httpVersion",
-          "importStatements": "ballerina/http"
-        },
-        "typeMembers": [
-          {
-            "type": "HttpVersion",
-            "packageInfo": "ballerina:http:2.10.11",
-            "kind": "BASIC_TYPE",
-            "selected": false
-          }
-        ]
-      },
-      "http1Settings": {
-        "metadata": {
-          "label": "http1Settings",
-          "description": "Configurations related to HTTP/1.x protocol"
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "dsadmin:ClientHttp1Settings",
+        "valueTypeConstraint": "http:RetryConfig",
         "placeholder": "{}",
         "optional": true,
         "editable": true,
         "advanced": true,
         "codedata": {
           "kind": "INCLUDED_FIELD",
-          "originalName": "http1Settings"
+          "originalName": "retryConfig",
+          "importStatements": "ballerina/http"
         },
         "typeMembers": [
           {
-            "type": "dsadmin:ClientHttp1Settings",
-            "packageInfo": "ballerinax:docusign.dsadmin:2.0.0",
+            "type": "RetryConfig",
+            "packageInfo": "ballerina:http:2.10.11",
             "kind": "RECORD_TYPE",
             "selected": false
           }
         ]
       },
-      "http2Settings": {
+      "serviceUrl": {
         "metadata": {
-          "label": "http2Settings",
-          "description": "Configurations related to HTTP/2 protocol"
+          "label": "serviceUrl",
+          "description": "URL of the target service "
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "http:ClientHttp2Settings",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"\"",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "serviceUrl"
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "poolConfig": {
+        "metadata": {
+          "label": "poolConfig",
+          "description": "Configurations associated with request pooling"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "http:PoolConfiguration",
         "placeholder": "{}",
         "optional": true,
         "editable": true,
         "advanced": true,
         "codedata": {
           "kind": "INCLUDED_FIELD",
-          "originalName": "http2Settings",
+          "originalName": "poolConfig",
           "importStatements": "ballerina/http"
         },
         "typeMembers": [
           {
-            "type": "ClientHttp2Settings",
+            "type": "PoolConfiguration",
             "packageInfo": "ballerina:http:2.10.11",
             "kind": "RECORD_TYPE",
             "selected": false
@@ -202,50 +227,125 @@
           }
         ]
       },
-      "poolConfig": {
+      "proxy": {
         "metadata": {
-          "label": "poolConfig",
-          "description": "Configurations associated with request pooling"
+          "label": "proxy",
+          "description": "Proxy server related options"
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "http:PoolConfiguration",
+        "valueTypeConstraint": "http:ProxyConfig",
         "placeholder": "{}",
         "optional": true,
         "editable": true,
         "advanced": true,
         "codedata": {
           "kind": "INCLUDED_FIELD",
-          "originalName": "poolConfig",
+          "originalName": "proxy",
           "importStatements": "ballerina/http"
         },
         "typeMembers": [
           {
-            "type": "PoolConfiguration",
+            "type": "ProxyConfig",
             "packageInfo": "ballerina:http:2.10.11",
             "kind": "RECORD_TYPE",
             "selected": false
           }
         ]
       },
-      "cache": {
+      "httpVersion": {
         "metadata": {
-          "label": "cache",
-          "description": "HTTP caching related configurations"
+          "label": "httpVersion",
+          "description": "The HTTP version understood by the client"
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "http:CacheConfig",
+        "valueTypeConstraint": "http:HttpVersion",
+        "placeholder": "http:HTTP_2_0",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "httpVersion",
+          "importStatements": "ballerina/http"
+        },
+        "typeMembers": [
+          {
+            "type": "HttpVersion",
+            "packageInfo": "ballerina:http:2.10.11",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "secureSocket": {
+        "metadata": {
+          "label": "secureSocket",
+          "description": "SSL/TLS-related options"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "http:ClientSecureSocket",
         "placeholder": "{}",
         "optional": true,
         "editable": true,
         "advanced": true,
         "codedata": {
           "kind": "INCLUDED_FIELD",
-          "originalName": "cache",
+          "originalName": "secureSocket",
           "importStatements": "ballerina/http"
         },
         "typeMembers": [
           {
-            "type": "CacheConfig",
+            "type": "ClientSecureSocket",
+            "packageInfo": "ballerina:http:2.10.11",
+            "kind": "RECORD_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "circuitBreaker": {
+        "metadata": {
+          "label": "circuitBreaker",
+          "description": "Configurations associated with the behaviour of the Circuit Breaker"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "http:CircuitBreakerConfig",
+        "placeholder": "{}",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "circuitBreaker",
+          "importStatements": "ballerina/http"
+        },
+        "typeMembers": [
+          {
+            "type": "CircuitBreakerConfig",
+            "packageInfo": "ballerina:http:2.10.11",
+            "kind": "RECORD_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "http2Settings": {
+        "metadata": {
+          "label": "http2Settings",
+          "description": "Configurations related to HTTP/2 protocol"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "http:ClientHttp2Settings",
+        "placeholder": "{}",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "http2Settings",
+          "importStatements": "ballerina/http"
+        },
+        "typeMembers": [
+          {
+            "type": "ClientHttp2Settings",
             "packageInfo": "ballerina:http:2.10.11",
             "kind": "RECORD_TYPE",
             "selected": false
@@ -277,126 +377,25 @@
           }
         ]
       },
-      "circuitBreaker": {
+      "http1Settings": {
         "metadata": {
-          "label": "circuitBreaker",
-          "description": "Configurations associated with the behaviour of the Circuit Breaker"
+          "label": "http1Settings",
+          "description": "Configurations related to HTTP/1.x protocol"
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "http:CircuitBreakerConfig",
+        "valueTypeConstraint": "dsadmin:ClientHttp1Settings",
         "placeholder": "{}",
         "optional": true,
         "editable": true,
         "advanced": true,
         "codedata": {
           "kind": "INCLUDED_FIELD",
-          "originalName": "circuitBreaker",
-          "importStatements": "ballerina/http"
+          "originalName": "http1Settings"
         },
         "typeMembers": [
           {
-            "type": "CircuitBreakerConfig",
-            "packageInfo": "ballerina:http:2.10.11",
-            "kind": "RECORD_TYPE",
-            "selected": false
-          }
-        ]
-      },
-      "retryConfig": {
-        "metadata": {
-          "label": "retryConfig",
-          "description": "Configurations associated with retrying"
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "http:RetryConfig",
-        "placeholder": "{}",
-        "optional": true,
-        "editable": true,
-        "advanced": true,
-        "codedata": {
-          "kind": "INCLUDED_FIELD",
-          "originalName": "retryConfig",
-          "importStatements": "ballerina/http"
-        },
-        "typeMembers": [
-          {
-            "type": "RetryConfig",
-            "packageInfo": "ballerina:http:2.10.11",
-            "kind": "RECORD_TYPE",
-            "selected": false
-          }
-        ]
-      },
-      "responseLimits": {
-        "metadata": {
-          "label": "responseLimits",
-          "description": "Configurations associated with inbound response size limits"
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "http:ResponseLimitConfigs",
-        "placeholder": "{}",
-        "optional": true,
-        "editable": true,
-        "advanced": true,
-        "codedata": {
-          "kind": "INCLUDED_FIELD",
-          "originalName": "responseLimits",
-          "importStatements": "ballerina/http"
-        },
-        "typeMembers": [
-          {
-            "type": "ResponseLimitConfigs",
-            "packageInfo": "ballerina:http:2.10.11",
-            "kind": "RECORD_TYPE",
-            "selected": false
-          }
-        ]
-      },
-      "secureSocket": {
-        "metadata": {
-          "label": "secureSocket",
-          "description": "SSL/TLS-related options"
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "http:ClientSecureSocket",
-        "placeholder": "{}",
-        "optional": true,
-        "editable": true,
-        "advanced": true,
-        "codedata": {
-          "kind": "INCLUDED_FIELD",
-          "originalName": "secureSocket",
-          "importStatements": "ballerina/http"
-        },
-        "typeMembers": [
-          {
-            "type": "ClientSecureSocket",
-            "packageInfo": "ballerina:http:2.10.11",
-            "kind": "RECORD_TYPE",
-            "selected": false
-          }
-        ]
-      },
-      "proxy": {
-        "metadata": {
-          "label": "proxy",
-          "description": "Proxy server related options"
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "http:ProxyConfig",
-        "placeholder": "{}",
-        "optional": true,
-        "editable": true,
-        "advanced": true,
-        "codedata": {
-          "kind": "INCLUDED_FIELD",
-          "originalName": "proxy",
-          "importStatements": "ballerina/http"
-        },
-        "typeMembers": [
-          {
-            "type": "ProxyConfig",
-            "packageInfo": "ballerina:http:2.10.11",
+            "type": "dsadmin:ClientHttp1Settings",
+            "packageInfo": "ballerinax:docusign.dsadmin:2.0.0",
             "kind": "RECORD_TYPE",
             "selected": false
           }

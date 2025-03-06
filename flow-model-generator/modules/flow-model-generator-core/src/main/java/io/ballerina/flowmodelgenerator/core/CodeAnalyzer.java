@@ -1038,7 +1038,6 @@ class CodeAnalyzer extends NodeVisitor {
                     .icon(CommonUtils.generateIcon(org, packageName, functionData.version()))
                     .stepOut()
                 .codedata()
-                    .id(functionData.functionId())
                     .org(org)
                     .module(packageName)
                     .object(classSymbol.getName().orElse(""))

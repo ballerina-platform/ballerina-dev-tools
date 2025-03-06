@@ -25,35 +25,10 @@
       "module": "covid19",
       "object": "Client",
       "symbol": "init",
-      "version": "1.5.1",
-      "id": 2900
+      "version": "1.5.1"
     },
     "returning": false,
     "properties": {
-      "config": {
-        "metadata": {
-          "label": "config",
-          "description": "The configurations to be used when initializing the `connector` "
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "covid19:ConnectionConfig",
-        "placeholder": "{}",
-        "optional": true,
-        "editable": true,
-        "advanced": true,
-        "codedata": {
-          "kind": "DEFAULTABLE",
-          "originalName": "config"
-        },
-        "typeMembers": [
-          {
-            "type": "ConnectionConfig",
-            "packageInfo": "ballerinax:covid19:1.5.1",
-            "kind": "RECORD_TYPE",
-            "selected": false
-          }
-        ]
-      },
       "serviceUrl": {
         "metadata": {
           "label": "serviceUrl",
@@ -74,6 +49,30 @@
             "type": "string",
             "packageInfo": "",
             "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "config": {
+        "metadata": {
+          "label": "config",
+          "description": "The configurations to be used when initializing the `connector` "
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "covid19:ConnectionConfig",
+        "placeholder": "{}",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "config"
+        },
+        "typeMembers": [
+          {
+            "type": "ConnectionConfig",
+            "packageInfo": "ballerinax:covid19:1.5.1",
+            "kind": "RECORD_TYPE",
             "selected": false
           }
         ]

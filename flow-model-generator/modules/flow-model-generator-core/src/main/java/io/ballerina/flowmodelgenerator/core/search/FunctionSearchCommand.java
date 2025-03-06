@@ -94,9 +94,7 @@ class FunctionSearchCommand extends SearchCommand {
         if (!moduleNames.isEmpty()) {
             searchResults.addAll(dbManager.searchFunctionsByPackages(moduleNames, List.of(), limit, offset));
         }
-        if (includeAvailableNodes) {
-            searchResults.addAll(defaultViewHolder.get(this).getOrDefault(FETCH_KEY, List.of()));
-        }
+        searchResults.addAll(defaultViewHolder.get(this).getOrDefault(FETCH_KEY, List.of()));
         buildLibraryNodes(searchResults);
         return rootBuilder.build().items();
     }
@@ -169,20 +167,11 @@ class FunctionSearchCommand extends SearchCommand {
     private void buildLibraryNodes(List<SearchResult> functionSearchList) {
         // Set the categories based on the available flags
         Category.Builder importedFnBuilder = rootBuilder.stepIn(Category.Name.IMPORTED_FUNCTIONS);
-        Category.Builder availableFnBuilder = null;
-        if (includeAvailableNodes) {
-            availableFnBuilder = rootBuilder.stepIn(Category.Name.AVAILABLE_FUNCTIONS);
-        }
+        Category.Builder availableFnBuilder = rootBuilder.stepIn(Category.Name.AVAILABLE_FUNCTIONS);
 
         // Add the library functions
         for (SearchResult searchResult : functionSearchList) {
             SearchResult.Package packageInfo = searchResult.packageInfo();
-
-            // Skip if the module is not imported and available functions are not included
-            boolean isImportedModule = moduleNames.contains(packageInfo.name());
-            if (!isImportedModule && !includeAvailableNodes) {
-                continue;
-            }
 
             // Add the function to the respective category
             String icon = CommonUtils.generateIcon(packageInfo.org(), packageInfo.name(), packageInfo.version());
@@ -198,7 +187,8 @@ class FunctionSearchCommand extends SearchCommand {
                     .symbol(searchResult.name())
                     .version(packageInfo.version())
                     .build();
-            Category.Builder builder = isImportedModule ? importedFnBuilder : availableFnBuilder;
+            Category.Builder builder =
+                    moduleNames.contains(packageInfo.name()) ? importedFnBuilder : availableFnBuilder;
             if (builder != null) {
                 builder.stepIn(packageInfo.name(), "", List.of())
                         .node(new AvailableNode(metadata, codedata, true));

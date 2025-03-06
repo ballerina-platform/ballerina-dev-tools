@@ -427,6 +427,217 @@
                 "version": "1.7.0"
               },
               "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "fileReadJson",
+                "description": "Reads file content as a JSON.\n```ballerina\njson|io:Error content = io:fileReadJson(\"./resources/myfile.json\");\n```",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.7.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "io",
+                "symbol": "fileReadJson",
+                "version": "1.7.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "fileReadString",
+                "description": "Reads the entire file content as a `string`.\nThe resulting string output does not contain the terminal carriage (e.g., `\\r` or `\\n`).\n```ballerina\nstring|io:Error content = io:fileReadString(\"./resources/myfile.txt\");\n```",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.7.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "io",
+                "symbol": "fileReadString",
+                "version": "1.7.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "fileWriteJson",
+                "description": "Write a JSON to a file.\n```ballerina\njson content = {\"name\": \"Anne\", \"age\": 30};\nio:Error? result = io:fileWriteJson(\"./resources/myfile.json\", content);\n```",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.7.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "io",
+                "symbol": "fileWriteJson",
+                "version": "1.7.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "fileWriteString",
+                "description": "Write a string content to a file.\n```ballerina\nstring content = \"Hello Universe..!!\";\nio:Error? result = io:fileWriteString(\"./resources/myfile.txt\", content);\n```",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.7.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "io",
+                "symbol": "fileWriteString",
+                "version": "1.7.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "print",
+                "description": "Prints `any`, `error`, or string templates (such as `The respective int value is ${val}`) value(s) to the `STDOUT`.\n```ballerina\nio:print(\"Start processing the CSV file from \", srcFileName);\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.7.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "io",
+                "symbol": "print",
+                "version": "1.7.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "println",
+                "description": "Prints `any`, `error` or string templates(such as `The respective int value is ${val}`) value(s) to the STDOUT\nfollowed by a new line.\n```ballerina\nio:println(\"Start processing the CSV file from \", srcFileName);\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.7.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "io",
+                "symbol": "println",
+                "version": "1.7.0"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "time",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "utcFromString",
+                "description": "Converts from RFC 3339 timestamp (e.g., `2007-12-03T10:15:30.00Z`) to Utc.\n```ballerina\ntime:Utc|time:Error utc = time:utcFromString(\"2007-12-03T10:15:30.00Z\");\n```",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.6.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "time",
+                "symbol": "utcFromString",
+                "version": "2.6.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "utcNow",
+                "description": "Returns the UTC representing the current time (current instant of the system clock in seconds from the epoch of `1970-01-01T00:00:00`).\n```ballerina\ntime:Utc utc = time:utcNow();\n```",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.6.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "time",
+                "symbol": "utcNow",
+                "version": "2.6.0"
+              },
+              "enabled": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "metadata": {
+        "label": "Available Functions",
+        "description": "Functions available in the library",
+        "keywords": [
+          "Available",
+          "Function",
+          "Library"
+        ]
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "log",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "printDebug",
+                "description": "Prints debug logs.\n```ballerina\nlog:printDebug(\"debug message\", id = 845315)\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.11.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "log",
+                "symbol": "printDebug",
+                "version": "2.11.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "printError",
+                "description": "Prints error logs.\n```ballerina\nerror e = error(\"error occurred\");\nlog:printError(\"error log with cause\", 'error = e, id = 845315);\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.11.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "log",
+                "symbol": "printError",
+                "version": "2.11.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "printInfo",
+                "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.11.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "log",
+                "symbol": "printInfo",
+                "version": "2.11.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "printWarn",
+                "description": "Prints warn logs.\n```ballerina\nlog:printWarn(\"warn message\", id = 845315)\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.11.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "log",
+                "symbol": "printWarn",
+                "version": "2.11.0"
+              },
+              "enabled": true
             }
           ]
         }

@@ -27,8 +27,7 @@
       "org": "ballerina",
       "module": "http",
       "object": "Client",
-      "symbol": "get",
-      "id": 545
+      "symbol": "get"
     },
     "returning": false,
     "properties": {

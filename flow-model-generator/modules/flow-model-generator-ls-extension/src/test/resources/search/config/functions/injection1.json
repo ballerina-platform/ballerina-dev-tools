@@ -14,7 +14,6 @@
   },
   "queryMap": {
     "q": "UNION SELECT NULL,@@version;--",
-    "includeAvailable": "true",
     "limit": "12",
     "offset": "0"
   },
