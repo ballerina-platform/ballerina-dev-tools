@@ -122,7 +122,7 @@ CREATE TABLE ServiceTypeFunction (
     function_id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
     description TEXT,
-    accessor TEXT CHECK(accessor IN ('get', 'post', 'put', 'delete', 'options', 'head', 'patch')),
+    accessor TEXT CHECK(accessor IN ('get', 'post', 'put', 'delete', 'options', 'head', 'patch', '')),
     kind TEXT CHECK(kind IN ('FUNCTION', 'REMOTE', 'RESOURCE')),
     return_type JSON, -- JSON type for return type information
     return_type_editable INTEGER CHECK(return_type_editable IN (0, 1)),
@@ -137,7 +137,7 @@ CREATE TABLE ServiceTypeFunctionParameter (
     name TEXT NOT NULL,
     label TEXT NOT NULL,
     description TEXT,
-    kind TEXT CHECK(kind IN ('REQUIRED', 'DEFAULTABLE', 'INCLUDED_RECORD', 'REST_PARAMETER')),
+    kind TEXT CHECK(kind IN ('REQUIRED', 'DEFAULTABLE', 'INCLUDED_RECORD', 'REST')),
     type JSON, -- JSON type for parameter type information
     default_value TEXT,
     import_statements TEXT,
