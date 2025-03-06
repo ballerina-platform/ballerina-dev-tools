@@ -257,7 +257,6 @@ public class AvailableNodesGenerator {
                             .version(version)
                             .parentSymbol(parentSymbolName)
                             .resourcePath(methodFunction.resourcePath())
-                            .id(methodFunction.functionId())
                             .stepOut()
                         .buildAvailableNode();
                 methods.add(node);

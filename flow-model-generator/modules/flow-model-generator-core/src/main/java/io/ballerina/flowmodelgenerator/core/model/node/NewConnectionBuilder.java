@@ -123,7 +123,6 @@ public class NewConnectionBuilder extends CallBuilder {
                 .object(functionData.name())
                 .version(functionData.version())
                 .symbol(INIT_SYMBOL)
-                .id(functionData.functionId())
                 .isGenerated(codedata.isGenerated());
 
         setParameterProperties(functionData);

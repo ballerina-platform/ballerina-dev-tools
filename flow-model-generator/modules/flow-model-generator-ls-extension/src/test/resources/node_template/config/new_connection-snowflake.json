@@ -20,8 +20,7 @@
       "module": "snowflake",
       "object": "Client",
       "symbol": "init",
-      "version": "2.0.0",
-      "id": 680
+      "version": "2.0.0"
     },
     "returning": false,
     "properties": {

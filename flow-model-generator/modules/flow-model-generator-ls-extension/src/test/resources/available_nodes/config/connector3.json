@@ -31,8 +31,7 @@
                 "symbol": "send",
                 "version": "1.13.2",
                 "parentSymbol": "moduleClient",
-                "resourcePath": "",
-                "id": 0
+                "resourcePath": ""
               },
               "enabled": true
             },
@@ -50,8 +49,7 @@
                 "symbol": "complete",
                 "version": "1.13.2",
                 "parentSymbol": "moduleClient",
-                "resourcePath": "",
-                "id": 0
+                "resourcePath": ""
               },
               "enabled": true
             },
@@ -69,8 +67,7 @@
                 "symbol": "sendError",
                 "version": "1.13.2",
                 "parentSymbol": "moduleClient",
-                "resourcePath": "",
-                "id": 0
+                "resourcePath": ""
               },
               "enabled": true
             },
@@ -88,8 +85,7 @@
                 "symbol": "receive",
                 "version": "1.13.2",
                 "parentSymbol": "moduleClient",
-                "resourcePath": "",
-                "id": 0
+                "resourcePath": ""
               },
               "enabled": true
             }

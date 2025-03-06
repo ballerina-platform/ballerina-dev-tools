@@ -29,8 +29,7 @@
               "offset": 64
             }
           },
-          "sourceCode": "final grpc:Client grpcClient = check new (\"http://example.com\");",
-          "id": 0
+          "sourceCode": "final grpc:Client grpcClient = check new (\"http://example.com\");"
         },
         "returning": false,
         "properties": {
@@ -373,8 +372,7 @@
               "offset": 64
             }
           },
-          "sourceCode": "final http:Client httpClient = check new (\"http://example.com\");",
-          "id": 0
+          "sourceCode": "final http:Client httpClient = check new (\"http://example.com\");"
         },
         "returning": false,
         "properties": {
@@ -1029,8 +1027,7 @@
               "offset": 46
             }
           },
-          "sourceCode": "final redis:Client redisClient = check new ();",
-          "id": 0
+          "sourceCode": "final redis:Client redisClient = check new ();"
         },
         "returning": false,
         "properties": {

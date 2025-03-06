@@ -307,8 +307,7 @@
               "offset": 46
             }
           },
-          "sourceCode": "final mysql:Client mysqlClient = check new ();",
-          "id": 0
+          "sourceCode": "final mysql:Client mysqlClient = check new ();"
         },
         "returning": false,
         "properties": {

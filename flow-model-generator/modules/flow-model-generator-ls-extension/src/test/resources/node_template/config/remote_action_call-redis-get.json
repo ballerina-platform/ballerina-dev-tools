@@ -27,8 +27,7 @@
       "module": "redis",
       "object": "Client",
       "symbol": "get",
-      "version": "3.1.0",
-      "id": 834
+      "version": "3.1.0"
     },
     "returning": false,
     "properties": {
