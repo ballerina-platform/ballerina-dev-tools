@@ -118,7 +118,7 @@
                     "name": "ClientObject",
                     "orgName": "ballerina",
                     "moduleName": "http",
-                    "version": "2.13.3"
+                    "version": "2.14.0"
                   },
                   "defaultable": false,
                   "isRestType": false,
@@ -138,7 +138,7 @@
               "name": "Client",
               "orgName": "ballerina",
               "moduleName": "http",
-              "version": "2.13.3"
+              "version": "2.14.0"
             },
             "defaultable": false,
             "isRestType": false,
