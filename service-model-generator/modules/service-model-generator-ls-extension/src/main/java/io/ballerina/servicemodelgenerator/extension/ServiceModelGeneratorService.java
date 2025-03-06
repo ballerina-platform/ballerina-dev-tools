@@ -44,6 +44,9 @@ import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.compiler.syntax.tree.TypeDefinitionNode;
 import io.ballerina.compiler.syntax.tree.TypeDescriptorNode;
+import io.ballerina.modelgenerator.commons.CommonUtils;
+import io.ballerina.modelgenerator.commons.ServiceDatabaseManager;
+import io.ballerina.modelgenerator.commons.ServiceDeclaration;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.ModuleId;
@@ -116,6 +119,7 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
+import static io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtils.getProtocol;
 import static io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtils.updateGenericServiceModel;
 import static io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtils.updateListenerItems;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.expectsTriggerByName;
@@ -143,7 +147,8 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
 
     private WorkspaceManager workspaceManager;
     private final Map<String, TriggerProperty> triggerProperties;
-    private static final Type propertyMapType = new TypeToken<Map<String, TriggerProperty>>() { }.getType();
+    private static final Type propertyMapType = new TypeToken<Map<String, TriggerProperty>>() {
+    }.getType();
 
     public ServiceModelGeneratorService() {
         InputStream newPropertiesStream = getClass().getClassLoader()
@@ -434,7 +439,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 String functionDefinition = ServiceModelGeneratorConstants.LINE_SEPARATOR +
                         "\t" + getFunction(request.function(), statusCodeResponses)
                         .replace(ServiceModelGeneratorConstants.LINE_SEPARATOR,
-                        ServiceModelGeneratorConstants.LINE_SEPARATOR + "\t")
+                                ServiceModelGeneratorConstants.LINE_SEPARATOR + "\t")
                         + ServiceModelGeneratorConstants.LINE_SEPARATOR;
                 List<TextEdit> textEdits = new ArrayList<>();
                 textEdits.add(new TextEdit(Utils.toRange(serviceEnd.startLine()), functionDefinition));
@@ -1104,19 +1109,22 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
     }
 
     private Optional<TriggerBasicInfo> getTriggerBasicInfoByName(String name) {
-        if (triggerProperties.values().stream().noneMatch(trigger -> trigger.name().equals(name))) {
-            return Optional.empty();
-        }
-        InputStream resourceStream = getClass().getClassLoader()
-                .getResourceAsStream(String.format("listeners/%s.json", name));
-        if (resourceStream == null) {
-            return Optional.empty();
-        }
+        Optional<ServiceDeclaration> serviceDeclaration = ServiceDatabaseManager.getInstance()
+                .getServiceDeclaration(name);
 
-        try (JsonReader reader = new JsonReader(new InputStreamReader(resourceStream, StandardCharsets.UTF_8))) {
-            return Optional.of(new Gson().fromJson(reader, TriggerBasicInfo.class));
-        } catch (IOException e) {
+        if (serviceDeclaration.isEmpty()) {
             return Optional.empty();
         }
+        ServiceDeclaration serviceTemplate = serviceDeclaration.get();
+        ServiceDeclaration.Package pkg = serviceTemplate.packageInfo();
+        String protocol = getProtocol(name);
+        String label = serviceTemplate.displayName();
+        String icon = CommonUtils.generateIcon(pkg.org(), pkg.name(), pkg.version());
+        TriggerBasicInfo triggerBasicInfo = new TriggerBasicInfo(pkg.packageId(),
+                label, pkg.org(), pkg.name(), pkg.name(),
+                pkg.version(), pkg.name(), label, "",
+                protocol, icon);
+
+        return Optional.of(triggerBasicInfo);
     }
 }
