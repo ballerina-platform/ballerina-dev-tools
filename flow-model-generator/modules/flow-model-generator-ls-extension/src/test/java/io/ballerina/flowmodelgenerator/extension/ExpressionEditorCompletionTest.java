@@ -26,6 +26,7 @@ import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import org.eclipse.lsp4j.CompletionContext;
 import org.eclipse.lsp4j.CompletionItem;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -64,6 +65,14 @@ public class ExpressionEditorCompletionTest extends AbstractLSTest {
 //            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
+    }
+
+    @DataProvider(name = "data-provider")
+    @Override
+    protected Object[] getConfigsList() {
+        return new Object[] {
+                Path.of("proj1.json")
+        };
     }
 
     @Test

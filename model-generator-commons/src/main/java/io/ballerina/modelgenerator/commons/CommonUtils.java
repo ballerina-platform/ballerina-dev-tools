@@ -374,6 +374,14 @@ public class CommonUtils {
         return project.currentPackage().getDefaultModule().document(documentId);
     }
 
+    public static Optional<Document> getDocument(WorkspaceManager workspaceManager, Path filePath) {
+        try {
+            return workspaceManager.document(filePath);
+        } catch (Throwable t) {
+            return Optional.empty();
+        }
+    }
+
     /***
      * Check whether the given line range is within a do clause.
      *

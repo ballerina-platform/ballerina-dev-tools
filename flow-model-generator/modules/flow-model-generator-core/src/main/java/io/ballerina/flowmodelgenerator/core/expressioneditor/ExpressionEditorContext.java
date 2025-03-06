@@ -27,8 +27,12 @@ import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.projects.Document;
+import io.ballerina.projects.DocumentConfig;
+import io.ballerina.projects.DocumentId;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.ModuleDescriptor;
+import io.ballerina.projects.ModuleId;
+import io.ballerina.projects.Project;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
@@ -53,12 +57,10 @@ import java.util.Optional;
  */
 public class ExpressionEditorContext {
 
-    private final WorkspaceManagerProxy workspaceManagerProxy;
-    private final String fileUri;
     private final Info info;
-    private final Path filePath;
     private final DocumentContext documentContext;
     private final Property property;
+    private static final String RESERVED_FILE = "__reserved__.bal";
 
     // State variables
     private int expressionOffset;
@@ -66,19 +68,13 @@ public class ExpressionEditorContext {
 
     public ExpressionEditorContext(WorkspaceManagerProxy workspaceManagerProxy, String fileUri, Info info,
                                    Path filePath) {
-        this.workspaceManagerProxy = workspaceManagerProxy;
-        this.fileUri = fileUri;
         this.info = info;
-        this.filePath = filePath;
         this.documentContext = new DocumentContext(workspaceManagerProxy, fileUri, filePath);
         this.property = new Property(info.property(), info.codedata());
     }
 
     public ExpressionEditorContext(WorkspaceManagerProxy workspaceManagerProxy, String fileUri, Path filePath,
                                    Document document) {
-        this.workspaceManagerProxy = workspaceManagerProxy;
-        this.fileUri = fileUri;
-        this.filePath = filePath;
         this.info = null;
         this.documentContext = new DocumentContext(workspaceManagerProxy, fileUri, filePath, document);
         this.property = new Property(null, null);
@@ -120,14 +116,9 @@ public class ExpressionEditorContext {
     }
 
     public Optional<TextEdit> getImport(String importStatement) {
-        try {
-            this.workspaceManagerProxy.get(fileUri).loadProject(filePath);
-        } catch (WorkspaceDocumentException | EventSyncException e) {
-            return Optional.empty();
-        }
-
         // Check if the import statement represents the current module
-        Optional<Module> currentModule = this.workspaceManagerProxy.get(fileUri).module(filePath);
+        documentContext.project();
+        Optional<Module> currentModule = documentContext.module();
         if (currentModule.isPresent()) {
             ModuleDescriptor descriptor = currentModule.get().descriptor();
             if (CommonUtils.getImportStatement(descriptor.org().toString(), descriptor.packageName().value(),
@@ -210,14 +201,14 @@ public class ExpressionEditorContext {
         LinePosition startLine = LinePosition.from(cursorStartLine.line() + lineOffset, cursorStartLine.offset());
         LinePosition endLineRange = LinePosition.from(startLine.line(),
                 startLine.offset() + statement.length());
-        this.statementLineRange = LineRange.from(filePath.toString(), startLine, endLineRange);
+        this.statementLineRange = LineRange.from(documentContext.filePath().toString(), startLine, endLineRange);
         return statementLineRange;
     }
 
     public LineRange getExpressionLineRange() {
         LinePosition startLine = info().startLine();
         LinePosition endLine = LinePosition.from(startLine.line(), startLine.offset() + info().expression().length());
-        Path fileName = filePath.getFileName();
+        Path fileName = documentContext.filePath().getFileName();
         return LineRange.from(fileName == null ? "" : fileName.toString(), startLine, endLine);
     }
 
@@ -257,7 +248,7 @@ public class ExpressionEditorContext {
     }
 
     public String fileUri() {
-        return fileUri;
+        return documentContext.fileUri();
     }
 
     public TextDocument textDocument() {
@@ -265,11 +256,11 @@ public class ExpressionEditorContext {
     }
 
     public Path filePath() {
-        return filePath;
+        return documentContext.filePath();
     }
 
     public WorkspaceManager workspaceManager() {
-        return workspaceManagerProxy.get(fileUri);
+        return documentContext.workspaceManager();
     }
 
     public Property getProperty() {
@@ -415,33 +406,117 @@ public class ExpressionEditorContext {
     private static class DocumentContext {
 
         private final WorkspaceManagerProxy workspaceManagerProxy;
-        private final String fileUri;
-        private final Path filePath;
+        private final String inputFileUri;
+        private final Path inputFilePath;
 
+        private static final String RESERVED_FILE = "__reserved__.bal";
+
+        private String fileUri;
+        private Path filePath;
         private Document document;
+        private Module module;
         private List<ImportDeclarationNode> imports;
+        private WorkspaceManager workspaceManager;
 
-        public DocumentContext(WorkspaceManagerProxy workspaceManagerProxy, String fileUri, Path filePath) {
-            this(workspaceManagerProxy, fileUri, filePath, null);
+        public DocumentContext(WorkspaceManagerProxy workspaceManagerProxy, String inputFileUri, Path inputFilePath) {
+            this(workspaceManagerProxy, inputFileUri, inputFilePath, null);
         }
 
-        public DocumentContext(WorkspaceManagerProxy workspaceManagerProxy, String fileUri, Path filePath,
+        public DocumentContext(WorkspaceManagerProxy workspaceManagerProxy, String inputFileUri, Path inputFilePath,
                                Document document) {
             this.workspaceManagerProxy = workspaceManagerProxy;
-            this.fileUri = fileUri;
-            this.filePath = filePath;
+            this.inputFileUri = inputFileUri;
+            this.inputFilePath = inputFilePath;
             this.document = document;
+        }
+
+        public WorkspaceManager workspaceManager() {
+            if (workspaceManager == null) {
+                workspaceManager = workspaceManagerProxy.get(inputFileUri);
+            }
+            return workspaceManager;
+        }
+
+        public Optional<Project> project() {
+            try {
+                return Optional.of(workspaceManager().loadProject(inputFilePath));
+            } catch (Exception ignored) {
+                return Optional.empty();
+            }
+        }
+
+        public Optional<Module> module() {
+            if (module != null) {
+                return Optional.of(module);
+            }
+            return workspaceManager().module(inputFilePath);
+        }
+
+        public String fileUri() {
+            if (fileUri == null) {
+                // Check if the document exists
+                Optional<Document> inputDoc = CommonUtils.getDocument(workspaceManager(), inputFilePath);
+                if (inputDoc.isPresent()) {
+                    document = inputDoc.get();
+                    filePath = inputFilePath;
+                    fileUri = inputFileUri;
+                    return fileUri;
+                }
+
+                // Check if the reserved file exists
+                Optional<Document> reservedDoc =
+                        CommonUtils.getDocument(workspaceManager(), inputFilePath.resolve(RESERVED_FILE));
+                if (reservedDoc.isPresent()) {
+                    document = reservedDoc.get();
+                    filePath = inputFilePath.resolve(RESERVED_FILE);
+                    fileUri = CommonUtils.getExprUri(filePath.toString());
+                    return fileUri;
+                }
+
+
+                // Generate the reserved file if not exists
+                Optional<Module> optModule = workspaceManager().module(inputFilePath);
+                Module currentModule;
+                if (optModule.isPresent()) {
+                    currentModule = optModule.get();
+                } else {
+                    // Get the default module if not exists
+                    Optional<Project> project = workspaceManager().project(inputFilePath);
+                    if (project.isEmpty()) {
+                        throw new IllegalStateException("Project not found for the file: " + inputFilePath);
+                    }
+                    currentModule = project.get().currentPackage().getDefaultModule();
+                }
+                ModuleId moduleId = currentModule.moduleId();
+                DocumentId documentId = DocumentId.create(RESERVED_FILE, moduleId);
+                DocumentConfig documentConfig = DocumentConfig.from(documentId, "", RESERVED_FILE);
+                document = currentModule.modify().addDocument(documentConfig).apply().document(documentId);
+                filePath = inputFilePath.resolve(RESERVED_FILE);
+                fileUri = CommonUtils.getExprUri(filePath.toString());
+                module = currentModule;
+                try {
+                    workspaceManager.loadProject(filePath());
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+                workspaceManager().document(filePath());
+                return fileUri;
+            }
+            return fileUri;
         }
 
         public Document document() {
             if (document == null) {
-                Optional<Document> optionalDocument = workspaceManagerProxy.get(fileUri).document(filePath);
-                if (optionalDocument.isEmpty()) {
-                    throw new IllegalStateException("Document not found for the given path: " + filePath);
-                }
-                document = optionalDocument.get();
+                fileUri();
             }
             return document;
+        }
+
+        public Path filePath() {
+            if (filePath == null) {
+                fileUri();
+            }
+            return filePath;
         }
 
         public List<ImportDeclarationNode> imports() {
