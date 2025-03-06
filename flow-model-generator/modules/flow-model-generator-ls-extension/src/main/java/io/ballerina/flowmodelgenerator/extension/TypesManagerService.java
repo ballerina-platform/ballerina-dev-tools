@@ -57,6 +57,7 @@ import org.eclipse.lsp4j.jsonrpc.services.JsonSegment;
 import org.eclipse.lsp4j.services.LanguageServer;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
@@ -270,6 +271,82 @@ public class TypesManagerService implements ExtendedLanguageServerService {
             }
             return response;
         });
+    }
+
+    @JsonRequest
+    public CompletableFuture<RecordConfigResponse> dumb(Request request) {
+        return CompletableFuture.supplyAsync(() -> {
+            RecordConfigResponse response = new RecordConfigResponse();
+            try {
+                for (TypeConstrainDetails details : request.details()) {
+                    try {
+                        Type type = getType(details.codedata(), request.filePath(), details.typeConstraint(),
+                                request.expr());
+                        if (type.selected) {
+                            response.setRecordConfig(type);
+                            break;
+                        }
+                    } catch (Throwable e) {
+                    }
+                }
+            } catch (Throwable e) {
+                response.setError(e);
+            }
+            return response;
+        });
+    }
+
+    record Request(String filePath, String expr, List<TypeConstrainDetails> details) {
+    }
+
+    record CData(String org, String module, String version) {}
+
+    record TypeConstrainDetails(CData codedata, String typeConstraint) {}
+
+    private Type getType(CData codedata, String path, String typeConstrain, String expr) {
+        String orgName = codedata.org();
+        String packageName = codedata.module();
+        String versionName = codedata.version();
+        Path filePath = Path.of(path);
+
+        // Find the semantic model
+        Optional<SemanticModel> semanticModel = PackageUtil.getSemanticModelIfMatched(workspaceManager,
+                filePath, orgName, packageName, versionName);
+        if (semanticModel.isEmpty()) {
+            semanticModel = PackageUtil.getSemanticModel(orgName, packageName, versionName);
+        }
+        if (semanticModel.isEmpty()) {
+            throw new IllegalArgumentException(
+                    String.format("Package '%s/%s:%s' not found", orgName, packageName, versionName));
+        }
+
+        // Get the type symbol
+        Optional<TypeSymbol> typeSymbol = semanticModel.get().moduleSymbols().parallelStream()
+                .filter(symbol -> symbol.kind() == SymbolKind.TYPE_DEFINITION &&
+                        symbol.nameEquals(typeConstrain))
+                .map(symbol -> ((TypeDefinitionSymbol) symbol).typeDescriptor())
+                .findFirst();
+
+        if (typeSymbol.isEmpty()) {
+            throw new IllegalArgumentException(String.format("Type '%s' not found in package '%s/%s:%s'",
+                    typeConstrain,
+                    orgName,
+                    packageName,
+                    versionName));
+        }
+
+        ExpressionNode expressionNode = NodeParser.parseExpression(expr);
+        Type type = Type.fromSemanticSymbol(typeSymbol.get());
+        if (expressionNode instanceof MappingConstructorExpressionNode mapping) {
+            if (type instanceof RecordType recordType) {
+                RecordValueAnalyzer.updateTypeConfig(recordType, mapping);
+            } else if (type instanceof UnionType unionType) {
+                RecordValueAnalyzer.updateUnionTypeConfig(unionType, mapping);
+            }
+        } else {
+            throw new IllegalArgumentException("Invalid expression");
+        }
+        return type;
     }
 
     @JsonRequest
