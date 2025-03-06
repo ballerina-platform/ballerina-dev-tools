@@ -27,11 +27,9 @@ import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.projects.Document;
-import io.ballerina.projects.DocumentConfig;
 import io.ballerina.projects.DocumentId;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.ModuleDescriptor;
-import io.ballerina.projects.ModuleId;
 import io.ballerina.projects.Project;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
@@ -39,14 +37,13 @@ import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextDocumentChange;
 import io.ballerina.tools.text.TextEdit;
 import io.ballerina.tools.text.TextRange;
-import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
-import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManagerProxy;
 import org.eclipse.lsp4j.Position;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,7 +57,6 @@ public class ExpressionEditorContext {
     private final Info info;
     private final DocumentContext documentContext;
     private final Property property;
-    private static final String RESERVED_FILE = "__reserved__.bal";
 
     // State variables
     private int expressionOffset;
@@ -409,8 +405,6 @@ public class ExpressionEditorContext {
         private final String inputFileUri;
         private final Path inputFilePath;
 
-        private static final String RESERVED_FILE = "__reserved__.bal";
-
         private String fileUri;
         private Path filePath;
         private Document document;
@@ -418,15 +412,19 @@ public class ExpressionEditorContext {
         private List<ImportDeclarationNode> imports;
         private WorkspaceManager workspaceManager;
 
-        public DocumentContext(WorkspaceManagerProxy workspaceManagerProxy, String inputFileUri, Path inputFilePath) {
-            this(workspaceManagerProxy, inputFileUri, inputFilePath, null);
+        public DocumentContext(WorkspaceManagerProxy workspaceManagerProxy, Path filePath) {
+            this(workspaceManagerProxy, null, filePath, null);
         }
 
-        public DocumentContext(WorkspaceManagerProxy workspaceManagerProxy, String inputFileUri, Path inputFilePath,
+        public DocumentContext(WorkspaceManagerProxy workspaceManagerProxy, String fileUri, Path filePath) {
+            this(workspaceManagerProxy, fileUri, filePath, null);
+        }
+
+        public DocumentContext(WorkspaceManagerProxy workspaceManagerProxy, String fileUri, Path filePath,
                                Document document) {
             this.workspaceManagerProxy = workspaceManagerProxy;
-            this.inputFileUri = inputFileUri;
-            this.inputFilePath = inputFilePath;
+            this.inputFileUri = fileUri;
+            this.inputFilePath = filePath;
             this.document = document;
         }
 
@@ -459,47 +457,35 @@ public class ExpressionEditorContext {
                 if (inputDoc.isPresent()) {
                     document = inputDoc.get();
                     filePath = inputFilePath;
-                    fileUri = inputFileUri;
+                    fileUri = fileUri == null ? CommonUtils.getExprUri(filePath.toString()) : inputFileUri;
                     return fileUri;
                 }
-
-                // Check if the reserved file exists
-                Optional<Document> reservedDoc =
-                        CommonUtils.getDocument(workspaceManager(), inputFilePath.resolve(RESERVED_FILE));
-                if (reservedDoc.isPresent()) {
-                    document = reservedDoc.get();
-                    filePath = inputFilePath.resolve(RESERVED_FILE);
-                    fileUri = CommonUtils.getExprUri(filePath.toString());
-                    return fileUri;
-                }
-
 
                 // Generate the reserved file if not exists
                 Optional<Module> optModule = workspaceManager().module(inputFilePath);
-                Module currentModule;
                 if (optModule.isPresent()) {
-                    currentModule = optModule.get();
+                    module = optModule.get();
                 } else {
                     // Get the default module if not exists
                     Optional<Project> project = workspaceManager().project(inputFilePath);
                     if (project.isEmpty()) {
                         throw new IllegalStateException("Project not found for the file: " + inputFilePath);
                     }
-                    currentModule = project.get().currentPackage().getDefaultModule();
+                    module = project.get().currentPackage().getDefaultModule();
                 }
-                ModuleId moduleId = currentModule.moduleId();
-                DocumentId documentId = DocumentId.create(RESERVED_FILE, moduleId);
-                DocumentConfig documentConfig = DocumentConfig.from(documentId, "", RESERVED_FILE);
-                document = currentModule.modify().addDocument(documentConfig).apply().document(documentId);
-                filePath = inputFilePath.resolve(RESERVED_FILE);
+
+                // If the file is not found, it defaults to the end of a random file. Although we can create a
+                // private document using the project API, this approach is not feasible because the
+                // BallerinaWorkspaceManager is tightly coupled with the file system.
+                // Get the first document ID from the module
+                Collection<DocumentId> documentIds = module.documentIds();
+                if (documentIds.isEmpty()) {
+                    throw new IllegalStateException("No documents found in the module: " + module.moduleName());
+                }
+                DocumentId documentId = documentIds.iterator().next();
+                document = module.document(documentId);
+                filePath = inputFilePath.resolve(document.name());
                 fileUri = CommonUtils.getExprUri(filePath.toString());
-                module = currentModule;
-                try {
-                    workspaceManager.loadProject(filePath());
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-                workspaceManager().document(filePath());
                 return fileUri;
             }
             return fileUri;
