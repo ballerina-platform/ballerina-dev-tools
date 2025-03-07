@@ -20,7 +20,9 @@ package io.ballerina.modelgenerator.commons;
 
 import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.AnnotationAttachmentSymbol;
 import io.ballerina.compiler.api.symbols.ArrayTypeSymbol;
+import io.ballerina.compiler.api.symbols.ExternalFunctionSymbol;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.FutureTypeSymbol;
 import io.ballerina.compiler.api.symbols.IntersectionTypeSymbol;
@@ -69,6 +71,7 @@ import java.net.URI;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -88,6 +91,8 @@ public class CommonUtils {
     public static final String BALLERINA_ORG_NAME = "ballerina";
     public static final String BALLERINAX_ORG_NAME = "ballerinax";
     public static final String VALUE_LANG_LIB = "lang.value";
+    private static final String LLM_CALL = "LlmCall";
+    private static final String CALL_LLM = "callLlm";
 
     /**
      * Removes the quotes from the given string.
@@ -774,6 +779,32 @@ public class CommonUtils {
 
         ModuleID moduleId = module.get().id();
         return moduleId.orgName().equals(CommonUtils.BALLERINAX_ORG_NAME) && moduleId.packageName().equals("np");
+    }
+
+    /**
+     * Check whether the particular function symbol is a NP function
+     *
+     * @param functionSymbol Function symbol to evalute
+     * @return true if the function is a NP function, false otherwise
+     */
+    public static boolean isNpFunction(FunctionSymbol functionSymbol) {
+        if (CommonUtils.isNpModule(functionSymbol) && functionSymbol.getName().isPresent() &&
+                functionSymbol.getName().get().equals(CALL_LLM)) {
+            // `np:callLlm` function
+            return true;
+        }
+
+        if (!functionSymbol.external()) {
+            return false;
+        }
+
+        List<AnnotationAttachmentSymbol> annotAttachments =
+                ((ExternalFunctionSymbol) functionSymbol).annotAttachmentsOnExternal();
+        return annotAttachments.stream()
+                .anyMatch(annot ->
+                        isNpModule(annot.typeDescriptor()) &&
+                                annot.getName().isPresent() &&
+                                annot.getName().get().equals(LLM_CALL));
     }
 
     public static String getClassType(String packageName, String clientName) {

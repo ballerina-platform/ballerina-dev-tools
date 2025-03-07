@@ -125,6 +125,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.StartBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.VariableBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.WaitBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.XmlPayloadBuilder;
+import io.ballerina.flowmodelgenerator.core.utils.FlowNodeUtil;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.FunctionData;
@@ -1210,7 +1211,7 @@ class CodeAnalyzer extends NodeVisitor {
 
         if (dataMappings.containsKey(functionName)) {
             startNode(NodeKind.DATA_MAPPER_CALL, functionCallExpressionNode.parent());
-        } else if (isNpFunction(functionSymbol)) {
+        } else if (CommonUtils.isNpFunction(functionSymbol)) {
             startNode(NodeKind.NP_FUNCTION_CALL, functionCallExpressionNode.parent());
         } else {
             startNode(NodeKind.FUNCTION_CALL, functionCallExpressionNode.parent());
@@ -1708,27 +1709,6 @@ class CodeAnalyzer extends NodeVisitor {
                 .lineRange(comment.position)
                 .sourceCode(comment.comment());
         endNode();
-    }
-
-    // Check whether the particular function symbol is a NP function
-    private boolean isNpFunction(FunctionSymbol functionSymbol) {
-        if (CommonUtils.isNpModule(functionSymbol) && functionSymbol.getName().isPresent() &&
-                functionSymbol.getName().get().equals(CALL_LLM)) {
-            // `np:callLlm` function
-            return true;
-        }
-
-        if (!functionSymbol.external()) {
-            return false;
-        }
-
-        List<AnnotationAttachmentSymbol> annotAttachments =
-                ((ExternalFunctionSymbol) functionSymbol).annotAttachmentsOnExternal();
-        return annotAttachments.stream()
-                .anyMatch(annot ->
-                        CommonUtils.isNpModule(annot) &&
-                                annot.getName().isPresent() &&
-                                annot.getName().get().equals(LLM_CALL));
     }
 
     // Check whether a type symbol is subType of `RawTemplate`
