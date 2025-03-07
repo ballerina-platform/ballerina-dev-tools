@@ -20,9 +20,11 @@ package io.ballerina.flowmodelgenerator.core;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
+import io.ballerina.compiler.api.symbols.ModuleSymbol;
 import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
@@ -67,6 +69,8 @@ public class AvailableNodesGenerator {
     private static final String HTTP_MODULE = "http";
     private static final List<String> HTTP_REMOTE_METHOD_SKIP_LIST = List.of("get", "put", "post", "head",
             "delete", "patch", "options");
+    private static final String BALLERINAX = "ballerinax";
+    private static final String AI_AGENT = "ai.agent";
 
     public AvailableNodesGenerator(SemanticModel semanticModel, Document document) {
         this.rootBuilder = new Category.Builder(null).name(Category.Name.ROOT);
@@ -76,12 +80,26 @@ public class AvailableNodesGenerator {
     }
 
     public JsonArray getAvailableNodes(LinePosition position) {
-        List<Item> connectionItems = new ArrayList<>();
-        semanticModel.visibleSymbols(document, position).stream()
-                .flatMap(symbol -> getConnection(symbol).stream())
-                .sorted(Comparator.comparing(category -> category.metadata().label()))
-                .forEach(connectionItems::add);
-        this.rootBuilder.stepIn(Category.Name.CONNECTIONS).items(connectionItems).stepOut();
+        List<Category> connections = new ArrayList<>();
+        List<Category> agents = new ArrayList<>();
+        List<Symbol> symbols = semanticModel.visibleSymbols(document, position);
+        for (Symbol symbol : symbols) {
+            Optional<ConnectionCategory> optConnectionCategory = getConnection(symbol);
+            if (optConnectionCategory.isEmpty()) {
+                continue;
+            }
+            ConnectionCategory connectionCategory = optConnectionCategory.get();
+            if (connectionCategory.isAgent()) {
+                agents.add(connectionCategory.category());
+            } else {
+                connections.add(connectionCategory.category());
+            }
+        }
+        connections.sort(Comparator.comparing(connection -> connection.metadata().label()));
+        agents.sort(Comparator.comparing(agent -> agent.metadata().label()));
+
+        this.rootBuilder.stepIn(Category.Name.CONNECTIONS).items(new ArrayList<>(connections)).stepOut();
+        this.rootBuilder.stepIn(Category.Name.AGENTS).items(new ArrayList<>(agents)).stepOut();
 
         List<Item> items = new ArrayList<>();
         items.addAll(getAvailableFlowNodes(position));
@@ -197,7 +215,7 @@ public class AvailableNodesGenerator {
         return typeSymbol.isEmpty() || typeSymbol.get().subtypeOf(semanticModel.types().NIL);
     }
 
-    private Optional<Category> getConnection(Symbol symbol) {
+    private Optional<ConnectionCategory> getConnection(Symbol symbol) {
         try {
             TypeReferenceTypeSymbol typeDescriptorSymbol =
                     (TypeReferenceTypeSymbol) ((VariableSymbol) symbol).typeDescriptor();
@@ -218,6 +236,7 @@ public class AvailableNodesGenerator {
                     .moduleInfo(moduleInfo)
                     .buildChildNodes();
 
+            boolean isAgentCall = isAgentCall(classSymbol);
             List<Item> methods = new ArrayList<>();
             for (FunctionData methodFunction : methodFunctionsData) {
                 String org = methodFunction.org();
@@ -236,11 +255,18 @@ public class AvailableNodesGenerator {
                     nodeBuilder = NodeBuilder.getNodeFromKind(NodeKind.RESOURCE_ACTION_CALL);
                 } else {
                     label = methodFunction.name();
-                    nodeBuilder = switch (methodFunction.kind()) {
-                        case REMOTE -> NodeBuilder.getNodeFromKind(NodeKind.REMOTE_ACTION_CALL);
-                        case FUNCTION -> NodeBuilder.getNodeFromKind(NodeKind.METHOD_CALL);
-                        default -> throw new IllegalStateException("Unexpected value: " + methodFunction.kind());
-                    };
+                    FunctionData.Kind kind = methodFunction.kind();
+                    if (kind == FunctionData.Kind.REMOTE) {
+                        if (isAgentCall) {
+                            nodeBuilder = NodeBuilder.getNodeFromKind(NodeKind.AGENT_CALL);
+                        } else {
+                            nodeBuilder = NodeBuilder.getNodeFromKind(NodeKind.REMOTE_ACTION_CALL);
+                        }
+                    } else if (kind == FunctionData.Kind.FUNCTION) {
+                        nodeBuilder = NodeBuilder.getNodeFromKind(NodeKind.METHOD_CALL);
+                    } else {
+                        throw new IllegalStateException("Unexpected value: " + kind);
+                    }
                 }
 
                 Item node = nodeBuilder
@@ -265,9 +291,27 @@ public class AvailableNodesGenerator {
             Metadata metadata = new Metadata.Builder<>(null)
                     .label(parentSymbolName)
                     .build();
-            return Optional.of(new Category(metadata, methods));
+            return Optional.of(new ConnectionCategory(new Category(metadata, methods), isAgentCall));
         } catch (RuntimeException ignored) {
             return Optional.empty();
         }
+    }
+
+    private boolean isAgentCall(Symbol symbol) {
+        Optional<ModuleSymbol> optModule = symbol.getModule();
+        if (optModule.isEmpty()) {
+            return false;
+        }
+        ModuleID id = optModule.get().id();
+        boolean isAIModule = id.orgName().equals(BALLERINAX) && id.packageName().equals(AI_AGENT);
+        if (!isAIModule) {
+            return false;
+        }
+
+        return symbol.getName().isPresent() && symbol.getName().get().equals("Agent");
+    }
+
+    private record ConnectionCategory(Category category, boolean isAgent) {
+
     }
 }

@@ -16,13 +16,14 @@
  *  under the License.
  */
 
-package io.ballerina.flowmodelgenerator.extension;
+package io.ballerina.flowmodelgenerator.extension.agentsmanager;
 
 import com.google.gson.JsonArray;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelAvailableNodesRequest;
 import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import io.ballerina.tools.text.LinePosition;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -35,6 +36,14 @@ import java.nio.file.Path;
  * @since 2.0.0
  */
 public class AvailableNodesTest extends AbstractLSTest {
+
+    @DataProvider(name = "data-provider")
+    @Override
+    protected Object[] getConfigsList() {
+        return new Object[][]{
+                {Path.of("available_agents.json")},
+        };
+    }
 
     @Override
     @Test(dataProvider = "data-provider")
@@ -58,16 +67,8 @@ public class AvailableNodesTest extends AbstractLSTest {
     }
 
     @Override
-    protected String[] skipList() {
-        //TODO: Need a better approach on how we can mock the central data
-        return new String[]{
-                "remote_connector.json"
-        };
-    }
-
-    @Override
     protected String getResourceDir() {
-        return "available_nodes";
+        return "agents_manager";
     }
 
     @Override

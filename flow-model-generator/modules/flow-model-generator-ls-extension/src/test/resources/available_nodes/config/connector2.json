@@ -4267,6 +4267,13 @@
     },
     {
       "metadata": {
+        "label": "Agents",
+        "description": "The agents used in the flow"
+      },
+      "items": []
+    },
+    {
+      "metadata": {
         "label": "Statement",
         "description": "Fundamental executable units in a program"
       },
