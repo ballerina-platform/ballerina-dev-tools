@@ -33,13 +33,10 @@ import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.SearchResult;
 import io.ballerina.projects.Module;
-import io.ballerina.tools.diagnostics.Location;
 import io.ballerina.tools.text.LineRange;
-import org.ballerinalang.langserver.common.utils.PositionUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
@@ -134,20 +131,11 @@ class NPFunctionSearchCommand extends SearchCommand {
     private void buildLibraryNodes(List<SearchResult> functionSearchList) {
         // Set the categories based on the available flags
         Category.Builder importedFnBuilder = rootBuilder.stepIn(Category.Name.IMPORTED_FUNCTIONS);
-        Category.Builder availableFnBuilder = null;
-        if (includeAvailableNodes) {
-            availableFnBuilder = rootBuilder.stepIn(Category.Name.AVAILABLE_FUNCTIONS);
-        }
+        Category.Builder availableFnBuilder = rootBuilder.stepIn(Category.Name.AVAILABLE_FUNCTIONS);
 
         // Add the library functions
         for (SearchResult searchResult : functionSearchList) {
             SearchResult.Package packageInfo = searchResult.packageInfo();
-
-            // Skip if the module is not imported and available functions are not included
-            boolean isImportedModule = moduleNames.contains(packageInfo.name());
-            if (!isImportedModule && !includeAvailableNodes) {
-                continue;
-            }
 
             // Add the function to the respective category
             String icon = CommonUtils.generateIcon(packageInfo.org(), packageInfo.name(), packageInfo.version());
@@ -157,13 +145,14 @@ class NPFunctionSearchCommand extends SearchCommand {
                     .icon(icon)
                     .build();
             Codedata codedata = new Codedata.Builder<>(null)
-                    .node(NodeKind.NP_FUNCTION_CALL)
+                    .node(NodeKind.FUNCTION_CALL)
                     .org(packageInfo.org())
                     .module(packageInfo.name())
                     .symbol(searchResult.name())
                     .version(packageInfo.version())
                     .build();
-            Category.Builder builder = isImportedModule ? importedFnBuilder : availableFnBuilder;
+            Category.Builder builder =
+                    moduleNames.contains(packageInfo.name()) ? importedFnBuilder : availableFnBuilder;
             if (builder != null) {
                 builder.stepIn(packageInfo.name(), "", List.of())
                         .node(new AvailableNode(metadata, codedata, true));
