@@ -97,7 +97,7 @@
               "label": "sqlQuery",
               "description": "The SQL query such as `` `SELECT * from Album WHERE name=${albumName}` ``"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "RAW_TEMPLATE",
             "valueTypeConstraint": "sql:ParameterizedQuery",
             "value": "``",
             "placeholder": "``",
@@ -220,7 +220,7 @@
               "label": "sqlQuery",
               "description": "The SQL query such as `` `SELECT * from Album WHERE name=${albumName}` ``"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "RAW_TEMPLATE",
             "valueTypeConstraint": "sql:ParameterizedQuery",
             "value": "``",
             "placeholder": "``",

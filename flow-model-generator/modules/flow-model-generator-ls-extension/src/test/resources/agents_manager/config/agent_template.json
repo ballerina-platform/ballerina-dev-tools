@@ -21,7 +21,9 @@
       "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.7.9.png",
       "data": {
         "paramsToHide": [
-          "model"
+          "model",
+          "tools",
+          "type"
         ]
       }
     },
