@@ -4570,6 +4570,38 @@
           "enabled": true
         }
       ]
+    },
+    {
+      "metadata": {
+        "label": "Prompt as code"
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "Call LLM",
+            "description": "AI Call\n```ballerina\nnp:callLlm(\"prompt message\", id = 845315)\n```\n\n",
+            "icon": "https://gist.github.com/user-attachments/assets/903c5c16-7d67-4af8-8113-ce7c59ccdaab"
+          },
+          "codedata": {
+            "node": "NP_FUNCTION_CALL",
+            "org": "ballerinax",
+            "module": "np",
+            "symbol": "callLlm",
+            "version": "0.1.0"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Prompt as code",
+            "description": "Prompt as code functions"
+          },
+          "codedata": {
+            "node": "NP_FUNCTION"
+          },
+          "enabled": true
+        }
+      ]
     }
   ]
 }
