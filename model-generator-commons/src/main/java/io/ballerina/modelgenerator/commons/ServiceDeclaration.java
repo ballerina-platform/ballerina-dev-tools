@@ -36,6 +36,7 @@ package io.ballerina.modelgenerator.commons;
  * @param stringLiteralDescription The description of the string literal
  * @param stringLiteralDefaultValue The default value of the string literal
  * @param listenerKind The kind of the listener
+ * @param kind The kind of the service
  *
  * @since 2.0.0
  */
