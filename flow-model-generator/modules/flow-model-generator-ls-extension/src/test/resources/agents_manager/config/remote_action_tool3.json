@@ -1,0 +1,487 @@
+{
+  "source": "agent_1/agents.bal",
+  "name": "toolFunc",
+  "connection": "gmailClient",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "31",
+    "metadata": {
+      "label": "post",
+      "description": "Sends the specified, existing draft to the recipients in the `To`, `Cc`, and `Bcc` headers.\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.gmail_4.0.1.png"
+    },
+    "codedata": {
+      "node": "RESOURCE_ACTION_CALL",
+      "org": "ballerinax",
+      "module": "googleapis.gmail",
+      "object": "Client",
+      "symbol": "post",
+      "id": 1065
+    },
+    "returning": false,
+    "properties": {
+      "connection": {
+        "metadata": {
+          "label": "Connection",
+          "description": "Connection to use"
+        },
+        "valueType": "IDENTIFIER",
+        "valueTypeConstraint": "gmail:Client",
+        "value": "gmailClient",
+        "optional": true,
+        "editable": false,
+        "advanced": false
+      },
+      "resourcePath": {
+        "metadata": {
+          "label": "Resource Path",
+          "description": "Resource Path"
+        },
+        "valueType": "EXPRESSION",
+        "value": "/users/[userId]/drafts/send",
+        "optional": false,
+        "editable": false,
+        "advanced": false,
+        "codedata": {
+          "originalName": "/users/[userId]/drafts/send"
+        }
+      },
+      "userId": {
+        "metadata": {
+          "label": "userId",
+          "description": "The user's email address. The special value `me` can be used to indicate the authenticated user."
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"\"",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "PATH_PARAM",
+          "originalName": "userId"
+        },
+        "typeMembers": []
+      },
+      "payload": {
+        "metadata": {
+          "label": "payload",
+          "description": "The ID of the existing draft to send. (Optional) Updated draft if necessary."
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "gmail:DraftRequest",
+        "placeholder": "{}",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "payload"
+        },
+        "typeMembers": [
+          {
+            "type": "gmail:DraftRequest",
+            "packageInfo": "ballerinax:googleapis.gmail:4.0.1",
+            "kind": "RECORD_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "xgafv": {
+        "metadata": {
+          "label": "xgafv",
+          "description": "V1 error format."
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "gmail:Xgafv|()",
+        "placeholder": "()",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "xgafv"
+        },
+        "typeMembers": [
+          {
+            "type": "()",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "gmail:Xgafv",
+            "packageInfo": "ballerinax:googleapis.gmail:4.0.1",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "access_token": {
+        "metadata": {
+          "label": "access_token",
+          "description": "OAuth access token."
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string|()",
+        "placeholder": "()",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "access_token"
+        },
+        "typeMembers": [
+          {
+            "type": "()",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "alt": {
+        "metadata": {
+          "label": "alt",
+          "description": "Data format for response."
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "gmail:Alt|()",
+        "placeholder": "()",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "alt"
+        },
+        "typeMembers": [
+          {
+            "type": "()",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "gmail:Alt",
+            "packageInfo": "ballerinax:googleapis.gmail:4.0.1",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "callback": {
+        "metadata": {
+          "label": "callback",
+          "description": "JSONP"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string|()",
+        "placeholder": "()",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "callback"
+        },
+        "typeMembers": [
+          {
+            "type": "()",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "fields": {
+        "metadata": {
+          "label": "fields",
+          "description": "Selector specifying which fields to include in a partial response."
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string|()",
+        "placeholder": "()",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "fields"
+        },
+        "typeMembers": [
+          {
+            "type": "()",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "key": {
+        "metadata": {
+          "label": "key",
+          "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token."
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string|()",
+        "placeholder": "()",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "'key"
+        },
+        "typeMembers": [
+          {
+            "type": "()",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "oauth_token": {
+        "metadata": {
+          "label": "oauth_token",
+          "description": "OAuth 2.0 token for the current user."
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string|()",
+        "placeholder": "()",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "oauth_token"
+        },
+        "typeMembers": [
+          {
+            "type": "()",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "prettyPrint": {
+        "metadata": {
+          "label": "prettyPrint",
+          "description": "Returns response with indentations and line breaks."
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "boolean|()",
+        "placeholder": "()",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "prettyPrint"
+        },
+        "typeMembers": [
+          {
+            "type": "()",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "boolean",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "quotaUser": {
+        "metadata": {
+          "label": "quotaUser",
+          "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters."
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string|()",
+        "placeholder": "()",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "quotaUser"
+        },
+        "typeMembers": [
+          {
+            "type": "()",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "upload_protocol": {
+        "metadata": {
+          "label": "upload_protocol",
+          "description": "Upload protocol for media (e.g. \"raw\", \"multipart\")."
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string|()",
+        "placeholder": "()",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "upload_protocol"
+        },
+        "typeMembers": [
+          {
+            "type": "()",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "uploadType": {
+        "metadata": {
+          "label": "uploadType",
+          "description": "Legacy upload protocol for media (e.g. \"media\", \"multipart\")."
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string|()",
+        "placeholder": "()",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "uploadType"
+        },
+        "typeMembers": [
+          {
+            "type": "()",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "type": {
+        "metadata": {
+          "label": "Variable Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "gmail:Message",
+        "placeholder": "var",
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "gmailMessage",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "checkError": {
+        "metadata": {
+          "label": "Check Error",
+          "description": "Trigger error flow"
+        },
+        "valueType": "FLAG",
+        "value": true,
+        "optional": false,
+        "editable": true,
+        "advanced": true
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "agent_1/agents.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import ballerinax/googleapis.gmail;"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "# Sends the specified, existing draft to the recipients in the `To`, `Cc`, and `Bcc` headers.\n# + userId - The user's email address. The special value `me` can be used to indicate the authenticated user.\n# + payload - The ID of the existing draft to send. (Optional) Updated draft if necessary.\n# + xgafv - V1 error format.\n# + access_token - OAuth access token.\n# + alt - Data format for response.\n# + callback - JSONP\n# + fields - Selector specifying which fields to include in a partial response.\n# + key - API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.\n# + oauth_token - OAuth 2.0 token for the current user.\n# + prettyPrint - Returns response with indentations and line breaks.\n# + quotaUser - Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.\n# + upload_protocol - Upload protocol for media (e.g. \"raw\", \"multipart\").\n# + uploadType - Legacy upload protocol for media (e.g. \"media\", \"multipart\").\n@agent:Tool\n@display {label: \"\",iconPath: \"https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.gmail_4.0.1.png\"}\nfunction toolFunc( string userId, gmail:DraftRequest payload, gmail:Xgafv|() xgafv, string|() access_token, gmail:Alt|() alt, string|() callback, string|() fields, string|() key, string|() oauth_token, boolean|() prettyPrint, string|() quotaUser, string|() upload_protocol, string|() uploadType) returns gmail:Message| error { gmail:Message gmailMessage = check gmailClient-> /users/[userId]/drafts/send. post( {}) ;\nreturn gmailMessage;\n}"
+      }
+    ]
+  }
+}

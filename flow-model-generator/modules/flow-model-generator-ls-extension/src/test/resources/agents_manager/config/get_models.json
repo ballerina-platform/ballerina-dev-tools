@@ -1,0 +1,8 @@
+{
+  "source": "agent_2/agents.bal",
+  "description": "Sample diagram node",
+  "agent": "FunctionCallAgent",
+  "models": [
+    "chatGptModelAgent"
+  ]
+}
