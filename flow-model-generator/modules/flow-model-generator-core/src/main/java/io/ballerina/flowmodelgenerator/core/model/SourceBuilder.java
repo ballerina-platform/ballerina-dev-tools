@@ -33,7 +33,6 @@ import io.ballerina.modelgenerator.commons.ParameterData;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.ModuleDescriptor;
-import io.ballerina.projects.ProjectException;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.formatter.core.FormattingTreeModifier;
@@ -119,7 +118,7 @@ public class SourceBuilder {
         return this;
     }
 
-    public SourceBuilder textEdit(boolean isExpression, String fileName, boolean allowEdits) {
+    public SourceBuilder textEdit(boolean isExpression, String fileName) {
         // If it is not new, use the existing file
         if (flowNode.codedata().isNew() == null || !flowNode.codedata().isNew()) {
             return textEdit(isExpression);

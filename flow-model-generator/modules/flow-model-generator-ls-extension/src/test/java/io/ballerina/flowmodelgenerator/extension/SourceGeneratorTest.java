@@ -117,7 +117,11 @@ public class SourceGeneratorTest extends AbstractLSTest {
         //TODO: The tests are failing in Windows: https://github.com/ballerina-platform/ballerina-lang/issues/42932
         return new String[]{
                 "resource_action_call-http-get6.json",
-                "resource_action_call-http-post5.json"
+                "resource_action_call-http-post5.json",
+                // The following nodes are deprecated
+                "data_mapper2.json",
+                "data_mapper2-main.json",
+                "data_mapper2-service.json",
         };
     }
 

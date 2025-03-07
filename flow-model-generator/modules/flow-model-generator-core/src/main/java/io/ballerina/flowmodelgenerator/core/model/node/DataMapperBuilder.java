@@ -244,7 +244,7 @@ public class DataMapperBuilder extends NodeBuilder {
 
         getTransformFunctionLocation(sourceBuilder, functionNameString).ifPresentOrElse(
                 lineRange -> sourceBuilder.textEdit(false, "data_mappings.bal", lineRange, false),
-                () -> sourceBuilder.textEdit(false, "data_mappings.bal", false));
+                () -> sourceBuilder.textEdit(false, "data_mappings.bal"));
 
         return sourceBuilder.build();
     }
