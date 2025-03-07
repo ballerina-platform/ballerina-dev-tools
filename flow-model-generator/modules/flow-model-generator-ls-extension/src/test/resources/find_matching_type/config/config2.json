@@ -1,0 +1,13 @@
+{
+  "filePath": "proj",
+  "typeMembers": [
+    {
+      "type": "Employee",
+      "packageInfo": "org:source:0.3.0",
+      "kind": "RECORD_TYPE",
+      "selected": false
+    }
+  ],
+  "expr": "{country: \"\", city: \"\", salary: 0}",
+  "output": {}
+}

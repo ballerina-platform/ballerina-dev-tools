@@ -30,10 +30,12 @@ import io.ballerina.compiler.syntax.tree.MappingConstructorExpressionNode;
 import io.ballerina.compiler.syntax.tree.NodeParser;
 import io.ballerina.flowmodelgenerator.core.TypesManager;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
+import io.ballerina.flowmodelgenerator.core.model.PropertyTypeMemberInfo;
 import io.ballerina.flowmodelgenerator.core.model.TypeData;
 import io.ballerina.flowmodelgenerator.core.type.RecordValueAnalyzer;
 import io.ballerina.flowmodelgenerator.core.type.RecordValueGenerator;
 import io.ballerina.flowmodelgenerator.extension.request.FilePathRequest;
+import io.ballerina.flowmodelgenerator.extension.request.FindTypeRequest;
 import io.ballerina.flowmodelgenerator.extension.request.GetTypeRequest;
 import io.ballerina.flowmodelgenerator.extension.request.RecordConfigRequest;
 import io.ballerina.flowmodelgenerator.extension.request.RecordValueGenerateRequest;
@@ -58,6 +60,7 @@ import org.eclipse.lsp4j.services.LanguageServer;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
@@ -68,6 +71,13 @@ import java.util.stream.Stream;
 public class TypesManagerService implements ExtendedLanguageServerService {
 
     private WorkspaceManager workspaceManager;
+
+    // Cache key for SemanticModel
+    private record CacheKey(String org, String packageName, String version) {
+    }
+
+    // Cache for SemanticModel instances
+    private static final ConcurrentHashMap<CacheKey, SemanticModel> semanticModelCache = new ConcurrentHashMap<>();
 
     @Override
     public void init(LanguageServer langServer, WorkspaceManager workspaceManager) {
@@ -276,27 +286,46 @@ public class TypesManagerService implements ExtendedLanguageServerService {
     }
 
     @JsonRequest
-    public CompletableFuture<RecordConfigResponse> dumb(Request request) {
+    public CompletableFuture<RecordConfigResponse> findMatchingType(FindTypeRequest request) {
         return CompletableFuture.supplyAsync(() -> {
             RecordConfigResponse response = new RecordConfigResponse();
             try {
                 // Process each detail in parallel, find the first selected type
-                request.details().parallelStream()
-                        .flatMap(detail -> {
-                            try {
-                                Type type = getType(
-                                        detail.codedata(),
-                                        request.filePath(),
-                                        detail.typeConstraint(),
-                                        request.expr()
-                                );
-                                return type.selected ? Stream.of(type) : Stream.empty();
-                            } catch (Throwable e) {
-                                return Stream.empty();
-                            }
-                        })
-                        .findAny()
-                        .ifPresent(response::setRecordConfig);
+                String filePath = request.filePath();
+                String expression = request.expr();
+
+                for (PropertyTypeMemberInfo memberInfo : request.typeMembers()) {
+                    try {
+                        TypePackageInfo info = from(memberInfo.packageInfo());
+                        Type type = getType(info, filePath, memberInfo.type(), expression);
+                        if (type != null && type.selected) {
+                            response.setRecordConfig(type);
+                            type.name = memberInfo.type();
+                            response.setTypeName(memberInfo.type());
+                            break;
+                        }
+                    } catch (Throwable e) {
+                    }
+                }
+
+                // Process each detail in parallel, find the first selected type
+//                Optional<PropertyTypeMemberInfo> selectedTypeMember = request.typeMembers().parallelStream()
+//                        .map(memberInfo -> {
+//                            try {
+//                                TypePackageInfo info = from(memberInfo.packageInfo());
+//                                Type type = getType(info, filePath, memberInfo.type(), expression);
+//                                if (type != null && type.selected) {
+//                                    response.setRecordConfig(type);
+//                                    response.setTypeName(memberInfo.type());
+//                                    return memberInfo;
+//                                }
+//                            } catch (Throwable e) {
+//                                // Log the error if necessary
+//                            }
+//                            return null;
+//                        })
+//                        .filter(Objects::nonNull)
+//                        .findFirst();
             } catch (Throwable e) {
                 response.setError(e);
             }
@@ -305,11 +334,13 @@ public class TypesManagerService implements ExtendedLanguageServerService {
         });
     }
 
-    // Cache key for SemanticModel
-    private record CacheKey(String org, String packageName, String version) {}
-
-    // Cache for SemanticModel instances
-    private static final ConcurrentHashMap<CacheKey, SemanticModel> semanticModelCache = new ConcurrentHashMap<>();
+    private TypePackageInfo from(String packageInfo) {
+        if (packageInfo.isEmpty()) {
+            return new TypePackageInfo(null, null, null);
+        }
+        String[] parts = packageInfo.split(":");
+        return new TypePackageInfo(parts[0], parts[1], parts[2]);
+    }
 
     private Optional<SemanticModel> getCachedSemanticModel(String org, String packageName, String version,
                                                            Path filePath) {
@@ -341,10 +372,10 @@ public class TypesManagerService implements ExtendedLanguageServerService {
         return model;
     }
 
-    private Type getType(CData codedata, String path, String typeConstraint, String expr) {
-        String orgName = codedata.org();
-        String packageName = codedata.module();
-        String versionName = codedata.version();
+    private Type getType(TypePackageInfo packageInfo, String path, String typeConstraint, String expr) {
+        String orgName = packageInfo.org();
+        String packageName = packageInfo.module();
+        String versionName = packageInfo.version();
         Path filePath = Path.of(path);
 
         // Retrieve cached or load new semantic model
@@ -383,12 +414,8 @@ public class TypesManagerService implements ExtendedLanguageServerService {
         return type;
     }
 
-    record Request(String filePath, String expr, List<TypeConstrainDetails> details) {
+    record TypePackageInfo(String org, String module, String version) {
     }
-
-    record CData(String org, String module, String version) {}
-
-    record TypeConstrainDetails(CData codedata, String typeConstraint) {}
 
     @JsonRequest
     public CompletableFuture<RecordValueGenerateResponse> generateValue(RecordValueGenerateRequest request) {
