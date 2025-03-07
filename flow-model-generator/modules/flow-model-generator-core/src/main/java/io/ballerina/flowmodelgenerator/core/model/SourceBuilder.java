@@ -78,6 +78,35 @@ public class SourceBuilder {
         return newVariable(Property.TYPE_KEY);
     }
 
+    public SourceBuilder newVariableWithInferredType() {
+        Optional<Property> optionalType = flowNode.getProperty(Property.TYPE_KEY);
+        Optional<Property> variable = flowNode.getProperty(Property.VARIABLE_KEY);
+
+        if (optionalType.isEmpty() || variable.isEmpty()) {
+            return this;
+        }
+
+        // Derive the type name form the inferred type
+        Property type = optionalType.get();
+        String typeName = type.value().toString();
+        if (flowNode.codedata().inferredReturnType() != null) {
+            Optional<Property> inferredParam = flowNode.properties().values().stream()
+                    .filter(property -> property.codedata() != null && property.codedata().kind() != null &&
+                            property.codedata().kind().equals(ParameterData.Kind.PARAM_FOR_TYPE_INFER.name()))
+                    .findFirst();
+            if (inferredParam.isPresent()) {
+                String returnType = flowNode.codedata().inferredReturnType();
+                String inferredType = inferredParam.get().value().toString();
+                String inferredTypeDef = inferredParam.get()
+                        .metadata().label();
+                typeName = returnType.replace(inferredTypeDef, inferredType);
+            }
+        }
+
+        tokenBuilder.expressionWithType(typeName, variable.get()).keyword(SyntaxKind.EQUAL_TOKEN);
+        return this;
+    }
+
     public SourceBuilder newVariable(String typeKey) {
         Optional<Property> type = flowNode.getProperty(typeKey);
         Optional<Property> variable = flowNode.getProperty(Property.VARIABLE_KEY);
@@ -146,7 +175,42 @@ public class SourceBuilder {
         Codedata codedata = flowNode.codedata();
         String org = codedata.org();
         String module = codedata.module();
+        return acceptImport(resolvedPath, org, module);
+    }
 
+    public SourceBuilder acceptImportWithVariableType() {
+        Optional<Property> optionalType = flowNode.getProperty(Property.TYPE_KEY);
+        if (optionalType.isPresent()) {
+            Property type = optionalType.get();
+
+            // TODO: There can be cases where the return type and the value type both come from imported modules. We
+            //  have
+            //  to optimize how we handle the return type, as the current implementation does not allow the user to
+            //  assign the error to a variable and handle it.
+            // Add the import statements if exists in the return type
+            if (type.codedata() != null && type.codedata().importStatements() != null &&
+                    flowNode.getProperty(Property.CHECK_ERROR_KEY).map(property -> property.value().equals("false"))
+                            .orElse(true)) {
+                // TODO: Improve this logic to process all the imports at once
+                for (String importStatement : type.codedata().importStatements().split(",")) {
+                    String[] importParts = importStatement.split("/");
+                    acceptImport(importParts[0], importParts[1]);
+                }
+            }
+        }
+        acceptImport();
+        return this;
+    }
+
+    public SourceBuilder acceptImport() {
+        return acceptImport(filePath);
+    }
+
+    public SourceBuilder acceptImport(String org, String module) {
+        return acceptImport(filePath, org, module);
+    }
+
+    public SourceBuilder acceptImport(Path resolvedPath, String org, String module) {
         if (org == null || module == null || org.equals(CommonUtil.BALLERINA_ORG_NAME) &&
                 CommonUtil.PRE_DECLARED_LANG_LIBS.contains(module)) {
             return this;
@@ -184,12 +248,12 @@ public class SourceBuilder {
         // Add the import statement
         if (!importExists) {
             String importSignature;
-            Boolean generated = codedata.isGenerated();
+            Boolean generated = flowNode.codedata().isGenerated();
             // TODO: Check this condition for other cases like persist module
             if (!currentModuleName.isEmpty() && generated != null && generated) {
                 importSignature = currentModuleName + "." + module;
             } else {
-                importSignature = codedata.getImportSignature();
+                importSignature = CommonUtils.getImportStatement(org, module, module);
             }
             tokenBuilder
                     .keyword(SyntaxKind.IMPORT_KEYWORD)
@@ -198,10 +262,6 @@ public class SourceBuilder {
             textEdit(false, resolvedPath, CommonUtils.toRange(lineRange.startLine()));
         }
         return this;
-    }
-
-    public SourceBuilder acceptImport() {
-        return acceptImport(filePath);
     }
 
     public Optional<TypeDefinitionSymbol> getTypeDefinitionSymbol(String typeName) {
@@ -317,6 +377,10 @@ public class SourceBuilder {
             Property prop = property.get();
             String kind = prop.codedata().kind();
             boolean optional = prop.optional();
+
+            if (kind.equals(ParameterData.Kind.PARAM_FOR_TYPE_INFER.name())) {
+                continue;
+            }
 
             if (firstParamAdded) {
                 if ((kind.equals(ParameterData.Kind.REST_PARAMETER.name()))) {
@@ -530,6 +594,11 @@ public class SourceBuilder {
             return this;
         }
 
+        public TokenBuilder expressionWithType(String type, Property variable) {
+            sb.append(type).append(WHITE_SPACE).append(variable.toSourceCode()).append(WHITE_SPACE);
+            return this;
+        }
+
         public TokenBuilder expressionWithType(Property property) {
             sb.append(property.valueType()).append(WHITE_SPACE).append(property.toSourceCode());
             return this;
@@ -579,6 +648,30 @@ public class SourceBuilder {
 
         public TokenBuilder skipFormatting() {
             this.skipFormatting = true;
+            return this;
+        }
+
+        public TokenBuilder descriptionDoc(String description) {
+            sb.append(SyntaxKind.HASH_TOKEN.stringValue())
+                    .append(WHITE_SPACE)
+                    .append(description);
+            if (!description.endsWith(System.lineSeparator())) {
+                sb.append(System.lineSeparator());
+            }
+            return this;
+        }
+
+        public TokenBuilder parameterDoc(String paramName, String description) {
+            sb.append(SyntaxKind.HASH_TOKEN.stringValue())
+                    .append(WHITE_SPACE)
+                    .append(SyntaxKind.PLUS_TOKEN.stringValue())
+                    .append(WHITE_SPACE)
+                    .append(paramName)
+                    .append(WHITE_SPACE)
+                    .append("-")
+                    .append(WHITE_SPACE)
+                    .append(description)
+                    .append(System.lineSeparator());
             return this;
         }
 

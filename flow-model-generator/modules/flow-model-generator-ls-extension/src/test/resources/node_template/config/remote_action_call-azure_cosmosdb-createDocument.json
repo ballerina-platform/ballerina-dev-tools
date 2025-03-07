@@ -23,8 +23,7 @@
       "module": "azure_cosmosdb",
       "object": "DataPlaneClient",
       "symbol": "createDocument",
-      "version": "4.2.0",
-      "id": 0
+      "version": "4.2.0"
     },
     "returning": false,
     "properties": {
@@ -39,6 +38,96 @@
         "optional": false,
         "editable": false,
         "advanced": false
+      },
+      "partitionKey": {
+        "metadata": {
+          "label": "partitionKey",
+          "description": "The specific value related to the partition key field of the container "
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "int|float|decimal|string",
+        "placeholder": "0",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "partitionKey"
+        },
+        "typeMembers": [
+          {
+            "type": "int",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "float",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "decimal",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "document": {
+        "metadata": {
+          "label": "document",
+          "description": "A JSON document to be saved in the database"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "map<json>",
+        "placeholder": "{}",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "document"
+        },
+        "typeMembers": [
+          {
+            "type": "map<json>",
+            "packageInfo": "",
+            "kind": "MAP_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "documemtId": {
+        "metadata": {
+          "label": "documemtId",
+          "description": "ID of the document"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"\"",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "documemtId"
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
       },
       "databaseId": {
         "metadata": {
@@ -88,96 +177,6 @@
           }
         ]
       },
-      "documemtId": {
-        "metadata": {
-          "label": "documemtId",
-          "description": "ID of the document"
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "string",
-        "placeholder": "\"\"",
-        "optional": false,
-        "editable": true,
-        "advanced": false,
-        "codedata": {
-          "kind": "REQUIRED",
-          "originalName": "documemtId"
-        },
-        "typeMembers": [
-          {
-            "type": "string",
-            "packageInfo": "",
-            "kind": "BASIC_TYPE",
-            "selected": false
-          }
-        ]
-      },
-      "document": {
-        "metadata": {
-          "label": "document",
-          "description": "A JSON document to be saved in the database"
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "map<json>",
-        "placeholder": "{}",
-        "optional": false,
-        "editable": true,
-        "advanced": false,
-        "codedata": {
-          "kind": "REQUIRED",
-          "originalName": "document"
-        },
-        "typeMembers": [
-          {
-            "type": "map<json>",
-            "packageInfo": "",
-            "kind": "MAP_TYPE",
-            "selected": false
-          }
-        ]
-      },
-      "partitionKey": {
-        "metadata": {
-          "label": "partitionKey",
-          "description": "The specific value related to the partition key field of the container "
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "int|float|decimal|string",
-        "placeholder": "0",
-        "optional": false,
-        "editable": true,
-        "advanced": false,
-        "codedata": {
-          "kind": "REQUIRED",
-          "originalName": "partitionKey"
-        },
-        "typeMembers": [
-          {
-            "type": "int",
-            "packageInfo": "",
-            "kind": "BASIC_TYPE",
-            "selected": false
-          },
-          {
-            "type": "float",
-            "packageInfo": "",
-            "kind": "BASIC_TYPE",
-            "selected": false
-          },
-          {
-            "type": "decimal",
-            "packageInfo": "",
-            "kind": "BASIC_TYPE",
-            "selected": false
-          },
-          {
-            "type": "string",
-            "packageInfo": "",
-            "kind": "BASIC_TYPE",
-            "selected": false
-          }
-        ]
-      },
       "requestOptions": {
         "metadata": {
           "label": "requestOptions",
@@ -218,7 +217,8 @@
         "placeholder": "var",
         "optional": false,
         "editable": false,
-        "advanced": false
+        "advanced": false,
+        "codedata": {}
       },
       "variable": {
         "metadata": {

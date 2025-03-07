@@ -123,13 +123,12 @@ public class NewConnectionBuilder extends CallBuilder {
                 .object(functionData.name())
                 .version(functionData.version())
                 .symbol(INIT_SYMBOL)
-                .id(functionData.functionId())
                 .isGenerated(codedata.isGenerated());
 
         setParameterProperties(functionData);
 
         if (CommonUtils.hasReturn(functionData.returnType())) {
-            setReturnTypeProperties(functionData.returnType(), context, false, CONNECTION_NAME_LABEL);
+            setReturnTypeProperties(functionData, context, CONNECTION_NAME_LABEL);
         }
 
         properties()

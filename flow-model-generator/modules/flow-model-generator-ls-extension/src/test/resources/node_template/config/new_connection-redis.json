@@ -25,11 +25,58 @@
       "module": "redis",
       "object": "Client",
       "symbol": "init",
-      "version": "3.0.2",
-      "id": 1105
+      "version": "3.0.2"
     },
     "returning": false,
     "properties": {
+      "secureSocket": {
+        "metadata": {
+          "label": "secureSocket",
+          "description": ""
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "redis:SecureSocket",
+        "placeholder": "{}",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "secureSocket"
+        },
+        "typeMembers": [
+          {
+            "type": "SecureSocket",
+            "packageInfo": "ballerinax:redis:3.0.2",
+            "kind": "RECORD_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "connectionPooling": {
+        "metadata": {
+          "label": "connectionPooling",
+          "description": ""
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "boolean",
+        "placeholder": "false",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "connectionPooling"
+        },
+        "typeMembers": [
+          {
+            "type": "boolean",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
       "connection": {
         "metadata": {
           "label": "connection",
@@ -60,30 +107,6 @@
           }
         ]
       },
-      "connectionPooling": {
-        "metadata": {
-          "label": "connectionPooling",
-          "description": ""
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "boolean",
-        "placeholder": "false",
-        "optional": true,
-        "editable": true,
-        "advanced": true,
-        "codedata": {
-          "kind": "INCLUDED_FIELD",
-          "originalName": "connectionPooling"
-        },
-        "typeMembers": [
-          {
-            "type": "boolean",
-            "packageInfo": "",
-            "kind": "BASIC_TYPE",
-            "selected": false
-          }
-        ]
-      },
       "isClusterConnection": {
         "metadata": {
           "label": "isClusterConnection",
@@ -108,30 +131,6 @@
           }
         ]
       },
-      "secureSocket": {
-        "metadata": {
-          "label": "secureSocket",
-          "description": ""
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "redis:SecureSocket",
-        "placeholder": "{}",
-        "optional": true,
-        "editable": true,
-        "advanced": true,
-        "codedata": {
-          "kind": "INCLUDED_FIELD",
-          "originalName": "secureSocket"
-        },
-        "typeMembers": [
-          {
-            "type": "SecureSocket",
-            "packageInfo": "ballerinax:redis:3.0.2",
-            "kind": "RECORD_TYPE",
-            "selected": false
-          }
-        ]
-      },
       "type": {
         "metadata": {
           "label": "Variable Type",
@@ -142,7 +141,8 @@
         "placeholder": "var",
         "optional": false,
         "editable": false,
-        "advanced": false
+        "advanced": false,
+        "codedata": {}
       },
       "variable": {
         "metadata": {

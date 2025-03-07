@@ -24,8 +24,7 @@
       "org": "ballerina",
       "module": "log",
       "symbol": "printInfo",
-      "version": "2.10.0",
-      "id": 104
+      "version": "2.10.0"
     },
     "returning": false,
     "properties": {
@@ -83,6 +82,23 @@
           }
         ]
       },
+      "additionalValues": {
+        "metadata": {
+          "label": "Additional Values",
+          "description": "Capture key value pairs"
+        },
+        "valueType": "MAPPING_EXPRESSION_SET",
+        "valueTypeConstraint": "log:Value",
+        "placeholder": "{}",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_RECORD_REST",
+          "originalName": "Additional Values"
+        },
+        "typeMembers": []
+      },
       "stackTrace": {
         "metadata": {
           "label": "stackTrace",
@@ -112,23 +128,6 @@
             "selected": false
           }
         ]
-      },
-      "additionalValues": {
-        "metadata": {
-          "label": "Additional Values",
-          "description": "Capture key value pairs"
-        },
-        "valueType": "MAPPING_EXPRESSION_SET",
-        "valueTypeConstraint": "log:Value",
-        "placeholder": "{}",
-        "optional": true,
-        "editable": true,
-        "advanced": true,
-        "codedata": {
-          "kind": "INCLUDED_RECORD_REST",
-          "originalName": "Additional Values"
-        },
-        "typeMembers": []
       }
     },
     "flags": 0

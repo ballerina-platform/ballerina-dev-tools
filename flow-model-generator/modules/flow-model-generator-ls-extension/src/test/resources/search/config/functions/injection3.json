@@ -14,7 +14,6 @@
   },
   "queryMap": {
     "q": "test) FROM sqlite_master;--",
-    "includeAvailable": "true",
     "limit": "12",
     "offset": "0"
   },

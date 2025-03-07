@@ -1,0 +1,130 @@
+{
+  "source": "data_mapper/main.bal",
+  "position": {
+    "line": 14,
+    "offset": 0
+  },
+  "description": "Sample diagram node",
+  "codedata": {
+    "node": "REMOTE_ACTION_CALL",
+    "org": "ballerinax",
+    "module": "mysql",
+    "object": "Client",
+    "symbol": "queryRow",
+    "version": "1.14.0",
+    "parentSymbol": "mysqlClient",
+    "resourcePath": "",
+    "id": 0
+  },
+  "output": {
+    "id": "31",
+    "metadata": {
+      "label": "queryRow",
+      "description": "Executes the query, which is expected to return at most one row of the result.\nIf the query does not return any results, `sql:NoRowsError` is returned.\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mysql_1.13.1.png"
+    },
+    "codedata": {
+      "node": "REMOTE_ACTION_CALL",
+      "org": "ballerinax",
+      "module": "mysql",
+      "object": "Client",
+      "symbol": "queryRow",
+      "version": "1.14.0",
+      "inferredReturnType": "returnType"
+    },
+    "returning": false,
+    "properties": {
+      "connection": {
+        "metadata": {
+          "label": "Connection",
+          "description": "Connection to use"
+        },
+        "valueType": "IDENTIFIER",
+        "valueTypeConstraint": "mysql:Client",
+        "value": "mysqlClient",
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      },
+      "returnType": {
+        "metadata": {
+          "label": "returnType",
+          "description": "The `typedesc` of the record to which the result needs to be returned.\nIt can be a basic type if the query result contains only one column"
+        },
+        "valueType": "TYPE",
+        "valueTypeConstraint": "anydata",
+        "placeholder": "anydata",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "PARAM_FOR_TYPE_INFER",
+          "originalName": "returnType"
+        }
+      },
+      "sqlQuery": {
+        "metadata": {
+          "label": "sqlQuery",
+          "description": "The SQL query such as `` `SELECT * from Album WHERE name=${albumName}` ``"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "sql:ParameterizedQuery",
+        "placeholder": "``",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "sqlQuery",
+          "importStatements": "ballerina/sql"
+        },
+        "typeMembers": [
+          {
+            "type": "ParameterizedQuery",
+            "packageInfo": "ballerina:sql:1.14.0",
+            "kind": "OBJECT_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "type": {
+        "metadata": {
+          "label": "Variable Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "returnType",
+        "placeholder": "var",
+        "optional": false,
+        "editable": false,
+        "advanced": false,
+        "codedata": {
+          "importStatements": "ballerina/sql"
+        }
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "returnType",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "checkError": {
+        "metadata": {
+          "label": "Check Error",
+          "description": "Trigger error flow"
+        },
+        "valueType": "FLAG",
+        "value": true,
+        "optional": false,
+        "editable": true,
+        "advanced": true
+      }
+    },
+    "flags": 0
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "source": "agent_1/agents.bal",
+  "description": "Sample diagram node",
+  "agent": "FunctionCallAgent",
+  "models": [
+    {
+      "node": "CLASS_INIT",
+      "org": "ballerinax",
+      "module": "ai.agent",
+      "object": "OpenAiModel",
+      "symbol": "init",
+      "version": "0.7.9"
+    },
+    {
+      "node": "CLASS_INIT",
+      "org": "ballerinax",
+      "module": "ai.agent",
+      "object": "AzureOpenAiModel",
+      "symbol": "init",
+      "version": "0.7.9"
+    }
+  ]
+}

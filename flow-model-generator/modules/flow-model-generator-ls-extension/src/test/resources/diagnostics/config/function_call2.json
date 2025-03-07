@@ -46,7 +46,7 @@
       "code": {
         "left": "BCE2066"
       },
-      "message": "incompatible types: expected 'ballerina/time:2.6.0:Civil', found 'int'"
+      "message": "incompatible types: expected 'ballerina/time:2.7.0:Civil', found 'int'"
     }
   ]
 }

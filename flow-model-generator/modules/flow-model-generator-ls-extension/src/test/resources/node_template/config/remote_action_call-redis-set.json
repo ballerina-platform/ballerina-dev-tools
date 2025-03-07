@@ -10,7 +10,7 @@
     "org": "ballerinax",
     "module": "redis",
     "object": "Client",
-    "version": "3.1.0",
+    "version": "3.0.2",
     "symbol": "set",
     "parentSymbol": "redisCl"
   },
@@ -27,8 +27,7 @@
       "module": "redis",
       "object": "Client",
       "symbol": "set",
-      "version": "3.1.0",
-      "id": 1166
+      "version": "3.0.2"
     },
     "returning": false,
     "properties": {
@@ -43,30 +42,6 @@
         "optional": false,
         "editable": false,
         "advanced": false
-      },
-      "key": {
-        "metadata": {
-          "label": "key",
-          "description": "Key referring to a value"
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "string",
-        "placeholder": "\"\"",
-        "optional": false,
-        "editable": true,
-        "advanced": false,
-        "codedata": {
-          "kind": "REQUIRED",
-          "originalName": "key"
-        },
-        "typeMembers": [
-          {
-            "type": "string",
-            "packageInfo": "",
-            "kind": "BASIC_TYPE",
-            "selected": false
-          }
-        ]
       },
       "value": {
         "metadata": {
@@ -92,6 +67,30 @@
           }
         ]
       },
+      "key": {
+        "metadata": {
+          "label": "key",
+          "description": "Key referring to a value"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"\"",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "key"
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
       "type": {
         "metadata": {
           "label": "Variable Type",
@@ -102,7 +101,8 @@
         "placeholder": "var",
         "optional": false,
         "editable": false,
-        "advanced": false
+        "advanced": false,
+        "codedata": {}
       },
       "variable": {
         "metadata": {

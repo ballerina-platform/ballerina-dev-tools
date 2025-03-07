@@ -28,7 +28,6 @@ import io.ballerina.projects.Module;
 import io.ballerina.tools.text.LineRange;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -49,17 +48,14 @@ public abstract class SearchCommand {
     protected final String query;
     protected final int limit;
     protected final int offset;
-    protected final boolean includeAvailableNodes;
     final SearchDatabaseManager dbManager;
     final DefaultViewHolder defaultViewHolder;
 
-    protected static final String INCLUDE_AVAILABLE_FUNCTIONS_FLAG = "includeAvailable";
     protected static final String DATA_MAPPER_FILE_NAME = "data_mappings.bal";
     private static final Gson GSON = new Gson();
 
     private static final int DEFAULT_LIMIT = 20;
     private static final int DEFAULT_OFFSET = 0;
-    private static final boolean DEFAULT_INCLUDE_AVAILABLE_FUNCTIONS = false;
 
     public static SearchCommand from(Kind kind, Module module, LineRange position, Map<String, String> queryMap) {
         return switch (kind) {
@@ -81,13 +77,10 @@ public abstract class SearchCommand {
             this.query = "";
             this.limit = DEFAULT_LIMIT;
             this.offset = DEFAULT_OFFSET;
-            this.includeAvailableNodes = DEFAULT_INCLUDE_AVAILABLE_FUNCTIONS;
         } else {
             this.query = queryMap.getOrDefault("q", "");
             this.limit = parseIntParam(queryMap.get("limit"), DEFAULT_LIMIT);
             this.offset = parseIntParam(queryMap.get("offset"), DEFAULT_OFFSET);
-            this.includeAvailableNodes = parseBooleanParam(queryMap.get(INCLUDE_AVAILABLE_FUNCTIONS_FLAG),
-                    DEFAULT_INCLUDE_AVAILABLE_FUNCTIONS);
         }
     }
 
@@ -137,25 +130,6 @@ public abstract class SearchCommand {
         try {
             return Integer.parseInt(value);
         } catch (NumberFormatException e) {
-            return defaultValue;
-        }
-    }
-
-    /**
-     * Parses a string value into a boolean.
-     *
-     * @param value        the string value to be parsed as a boolean
-     * @param defaultValue Default value to use if parsing fails
-     * @return The parsed boolean value or the default value
-     */
-    private static boolean parseBooleanParam(String value, boolean defaultValue) {
-        if (value == null) {
-            return defaultValue;
-        }
-
-        try {
-            return Boolean.parseBoolean(value.trim().toLowerCase(Locale.ROOT));
-        } catch (Exception e) {
             return defaultValue;
         }
     }

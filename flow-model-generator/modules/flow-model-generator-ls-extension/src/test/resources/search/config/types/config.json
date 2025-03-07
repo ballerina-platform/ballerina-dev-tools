@@ -4,7 +4,6 @@
   "source": "proj/main.bal",
   "queryMap": {
     "q": "client config",
-    "includeAvailable": "true",
     "limit": "25"
   },
   "categories": [

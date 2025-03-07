@@ -45,6 +45,7 @@ public class ServiceDatabaseManager {
     private final String dbPath;
 
     private static class Holder {
+
         private static final ServiceDatabaseManager INSTANCE = new ServiceDatabaseManager();
     }
 
@@ -111,7 +112,8 @@ public class ServiceDatabaseManager {
                         null,
                         null,
                         rs.getBoolean("return_error"),
-                        false);
+                        false,
+                        null);
                 functionData.setPackageId(rs.getString("package_id"));
                 return Optional.of(functionData);
             }
@@ -198,8 +200,196 @@ public class ServiceDatabaseManager {
         }
     }
 
+    public Optional<ServiceDeclaration> getServiceDeclaration(String moduleName) {
+        StringBuilder sql = new StringBuilder("SELECT ");
+        sql.append("s.display_name, ");
+        sql.append("s.optional_type_descriptor, ");
+        sql.append("s.type_descriptor_label, ");
+        sql.append("s.type_descriptor_description, ");
+        sql.append("s.type_descriptor_default_value, ");
+        sql.append("s.add_default_type_descriptor, ");
+        sql.append("s.optional_absolute_resource_path, ");
+        sql.append("s.absolute_resource_path_label, ");
+        sql.append("s.absolute_resource_path_description, ");
+        sql.append("s.absolute_resource_path_default_value, ");
+        sql.append("s.optional_string_literal, ");
+        sql.append("s.string_literal_label, ");
+        sql.append("s.string_literal_description, ");
+        sql.append("s.string_literal_default_value, ");
+        sql.append("s.listener_kind, ");
+        sql.append("p.package_id, ");
+        sql.append("p.org, ");
+        sql.append("p.name AS package_name, ");
+        sql.append("p.version ");
+        sql.append("FROM ServiceDeclaration s ");
+        sql.append("JOIN Package p ON s.package_id = p.package_id ");
+        sql.append("WHERE p.name = ?");
+
+        try (Connection conn = DriverManager.getConnection(dbPath);
+             PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
+            stmt.setString(1, moduleName);
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                ServiceDeclaration.Package packageInfo = new ServiceDeclaration.Package(
+                        rs.getInt("package_id"),
+                        rs.getString("org"),
+                        rs.getString("package_name"),
+                        rs.getString("version")
+                );
+
+                ServiceDeclaration serviceDeclaration = new ServiceDeclaration(
+                        packageInfo,
+                        rs.getString("display_name"),
+                        rs.getInt("optional_type_descriptor"),
+                        rs.getString("type_descriptor_label"),
+                        rs.getString("type_descriptor_description"),
+                        rs.getString("type_descriptor_default_value"),
+                        rs.getInt("add_default_type_descriptor"),
+                        rs.getInt("optional_absolute_resource_path"),
+                        rs.getString("absolute_resource_path_label"),
+                        rs.getString("absolute_resource_path_description"),
+                        rs.getString("absolute_resource_path_default_value"),
+                        rs.getInt("optional_string_literal"),
+                        rs.getString("string_literal_label"),
+                        rs.getString("string_literal_description"),
+                        rs.getString("string_literal_default_value"),
+                        rs.getString("listener_kind")
+                );
+
+                return Optional.of(serviceDeclaration);
+            }
+            return Optional.empty();
+        } catch (SQLException e) {
+            Logger.getGlobal().severe("Error executing query: " + e.getMessage());
+            return Optional.empty();
+        }
+    }
+
+    public List<String> getServiceTypes(int packageId) {
+        String sql = "SELECT DISTINCT name FROM ServiceType WHERE package_id = ?";
+        List<String> serviceTypes = new ArrayList<>();
+        try (Connection conn = DriverManager.getConnection(dbPath);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, packageId);
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                serviceTypes.add(rs.getString("name"));
+            }
+            return serviceTypes;
+        } catch (SQLException e) {
+            Logger.getGlobal().severe("Error executing query: " + e.getMessage());
+            return List.of();
+        }
+    }
+
+    private int getServiceTypeId(int packageId, String serviceType) {
+        String sql = "SELECT service_type_id FROM ServiceType WHERE package_id = ? AND name = ?";
+        try (Connection conn = DriverManager.getConnection(dbPath);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, packageId);
+            stmt.setString(2, serviceType);
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("service_type_id");
+            }
+            return -1;
+        } catch (SQLException e) {
+            Logger.getGlobal().severe("Error executing query: " + e.getMessage());
+            return -1;
+        }
+    }
+
+    public List<ServiceTypeFunction> getMatchingServiceTypeFunctions(int packageId, String serviceType) {
+        int serviceTypeId = getServiceTypeId(packageId, serviceType);
+        if (serviceTypeId == -1) {
+            return List.of();
+        }
+        String sql = "SELECT " +
+                "f.function_id, " +
+                "f.name, " +
+                "f.description, " +
+                "f.accessor, " +
+                "f.kind, " +
+                "f.return_type, " +
+                "f.return_type_editable, " +
+                "f.import_statements, " +
+                "f.enable " +
+                "FROM ServiceTypeFunction f " +
+                "WHERE f.service_type_id = ?";
+
+        try (Connection conn = DriverManager.getConnection(dbPath);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, serviceTypeId);
+
+            ResultSet rs = stmt.executeQuery();
+            List<ServiceTypeFunction> functions = new ArrayList<>();
+            while (rs.next()) {
+                int functionId = rs.getInt("function_id");
+                List<ServiceTypeFunction.ServiceTypeFunctionParameter> params = getServiceFunctionParams(functionId);
+                functions.add(new ServiceTypeFunction(
+                        rs.getInt("function_id"),
+                        rs.getString("name"),
+                        rs.getString("description"),
+                        rs.getString("accessor"),
+                        rs.getString("kind"),
+                        rs.getString("return_type"),
+                        rs.getInt("return_type_editable"),
+                        rs.getString("import_statements"),
+                        rs.getInt("enable"),
+                        params
+                ));
+            }
+            return functions;
+        } catch (SQLException e) {
+            Logger.getGlobal().severe("Error executing query: " + e.getMessage());
+            return List.of();
+        }
+    }
+
+    private List<ServiceTypeFunction.ServiceTypeFunctionParameter> getServiceFunctionParams(int functionId) {
+        String sql = "SELECT " +
+                "parameter_id, " +
+                "name, " +
+                "label, " +
+                "description, " +
+                "kind, " +
+                "type, " +
+                "default_value, " +
+                "import_statements " +
+                "FROM ServiceTypeFunctionParameter " +
+                "WHERE function_id = ?";
+
+        try (Connection conn = DriverManager.getConnection(dbPath);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, functionId);
+
+            ResultSet rs = stmt.executeQuery();
+            List<ServiceTypeFunction.ServiceTypeFunctionParameter> parameters = new ArrayList<>();
+            while (rs.next()) {
+                parameters.add(new ServiceTypeFunction.ServiceTypeFunctionParameter(
+                        rs.getInt("parameter_id"),
+                        rs.getString("name"),
+                        rs.getString("label"),
+                        rs.getString("description"),
+                        rs.getString("kind"),
+                        rs.getString("type"),
+                        rs.getString("default_value"),
+                        rs.getString("import_statements")
+                ));
+            }
+            return parameters;
+        } catch (SQLException e) {
+            Logger.getGlobal().severe("Error executing query: " + e.getMessage());
+            return List.of();
+        }
+    }
+
     // Helper builder class
     private static class ParameterDataBuilder {
+
         int parameterId;
         String name;
         String type;

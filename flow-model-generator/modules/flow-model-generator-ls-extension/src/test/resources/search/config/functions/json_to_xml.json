@@ -14,7 +14,6 @@
   },
   "queryMap": {
     "q": "json to xml",
-    "includeAvailable": "true",
     "limit": "12",
     "offset": "0"
   },

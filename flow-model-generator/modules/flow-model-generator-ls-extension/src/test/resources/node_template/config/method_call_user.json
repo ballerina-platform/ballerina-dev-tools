@@ -21,8 +21,7 @@
     "codedata": {
       "node": "METHOD_CALL",
       "object": "Cart",
-      "symbol": "addItem",
-      "id": 0
+      "symbol": "addItem"
     },
     "returning": false,
     "properties": {
@@ -71,7 +70,8 @@
         "placeholder": "var",
         "optional": false,
         "editable": false,
-        "advanced": false
+        "advanced": false,
+        "codedata": {}
       },
       "variable": {
         "metadata": {

@@ -40,7 +40,7 @@
         "metadata": {
           "label": "get",
           "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.3.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png"
         },
         "codedata": {
           "node": "REMOTE_ACTION_CALL",
@@ -48,7 +48,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "get",
-          "version": "2.13.3",
+          "version": "2.14.0",
           "lineRange": {
             "fileName": "clients.bal",
             "startLine": {
@@ -60,7 +60,8 @@
               "offset": 51
             }
           },
-          "sourceCode": "json moduleVal = check moduleCl->get(\"/hello\");"
+          "sourceCode": "json moduleVal = check moduleCl->get(\"/hello\");",
+          "inferredReturnType": "targetType"
         },
         "returning": false,
         "properties": {
@@ -74,6 +75,23 @@
             "optional": false,
             "editable": false,
             "advanced": false
+          },
+          "targetType": {
+            "metadata": {
+              "label": "targetType",
+              "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
+            },
+            "valueType": "TYPE",
+            "valueTypeConstraint": "http:Response|anydata|stream<http:SseEvent, error?>",
+            "value": "json",
+            "placeholder": "http:Response|anydata|stream<http:SseEvent, error?>",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "codedata": {
+              "kind": "PARAM_FOR_TYPE_INFER",
+              "originalName": "targetType"
+            }
           },
           "path": {
             "metadata": {
@@ -130,23 +148,6 @@
               }
             ]
           },
-          "targetType": {
-            "metadata": {
-              "label": "targetType",
-              "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
-            },
-            "valueType": "EXPRESSION",
-            "valueTypeConstraint": "json",
-            "placeholder": "json",
-            "optional": true,
-            "editable": true,
-            "advanced": true,
-            "codedata": {
-              "kind": "PARAM_FOR_TYPE_INFER",
-              "originalName": "targetType"
-            },
-            "typeMembers": []
-          },
           "checkError": {
             "metadata": {
               "label": "Check Error",
@@ -191,8 +192,9 @@
             "value": "json",
             "placeholder": "var",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 1
@@ -244,7 +246,7 @@
         "metadata": {
           "label": "New Connection",
           "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.3.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png"
         },
         "codedata": {
           "node": "NEW_CONNECTION",
@@ -263,8 +265,7 @@
               "offset": 66
             }
           },
-          "sourceCode": "http:Client localCl = check new (\"http://localhost:8080\", {});",
-          "id": 0
+          "sourceCode": "http:Client localCl = check new (\"http://localhost:8080\", {});"
         },
         "returning": false,
         "properties": {
@@ -312,7 +313,7 @@
             "typeMembers": [
               {
                 "type": "ClientConfiguration",
-                "packageInfo": "ballerina:http:2.13.3",
+                "packageInfo": "ballerina:http:2.14.0",
                 "kind": "RECORD_TYPE",
                 "selected": true
               }
@@ -374,7 +375,8 @@
             "placeholder": "var",
             "optional": false,
             "editable": false,
-            "advanced": false
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 1
@@ -384,7 +386,7 @@
         "metadata": {
           "label": "get",
           "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.3.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png"
         },
         "codedata": {
           "node": "REMOTE_ACTION_CALL",
@@ -392,7 +394,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "get",
-          "version": "2.13.3",
+          "version": "2.14.0",
           "lineRange": {
             "fileName": "clients.bal",
             "startLine": {
@@ -404,7 +406,8 @@
               "offset": 49
             }
           },
-          "sourceCode": "json localVal = check localCl->get(\"/hello\");"
+          "sourceCode": "json localVal = check localCl->get(\"/hello\");",
+          "inferredReturnType": "targetType"
         },
         "returning": false,
         "properties": {
@@ -418,6 +421,23 @@
             "optional": false,
             "editable": false,
             "advanced": false
+          },
+          "targetType": {
+            "metadata": {
+              "label": "targetType",
+              "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
+            },
+            "valueType": "TYPE",
+            "valueTypeConstraint": "http:Response|anydata|stream<http:SseEvent, error?>",
+            "value": "json",
+            "placeholder": "http:Response|anydata|stream<http:SseEvent, error?>",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "codedata": {
+              "kind": "PARAM_FOR_TYPE_INFER",
+              "originalName": "targetType"
+            }
           },
           "path": {
             "metadata": {
@@ -474,23 +494,6 @@
               }
             ]
           },
-          "targetType": {
-            "metadata": {
-              "label": "targetType",
-              "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
-            },
-            "valueType": "EXPRESSION",
-            "valueTypeConstraint": "json",
-            "placeholder": "json",
-            "optional": true,
-            "editable": true,
-            "advanced": true,
-            "codedata": {
-              "kind": "PARAM_FOR_TYPE_INFER",
-              "originalName": "targetType"
-            },
-            "typeMembers": []
-          },
           "checkError": {
             "metadata": {
               "label": "Check Error",
@@ -535,8 +538,9 @@
             "value": "json",
             "placeholder": "var",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 1
@@ -565,8 +569,7 @@
               "offset": 29
             }
           },
-          "sourceCode": "MyClient myLocalCl = new;",
-          "id": 0
+          "sourceCode": "MyClient myLocalCl = new;"
         },
         "returning": false,
         "properties": {
@@ -626,7 +629,8 @@
             "placeholder": "var",
             "optional": false,
             "editable": false,
-            "advanced": false
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 0
@@ -717,7 +721,7 @@
         "metadata": {
           "label": "New Connection",
           "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.3.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png"
         },
         "codedata": {
           "node": "NEW_CONNECTION",
@@ -736,8 +740,7 @@
               "offset": 63
             }
           },
-          "sourceCode": "http:Client moduleCl = check new (\"http://localhost:9090\", {});",
-          "id": 0
+          "sourceCode": "http:Client moduleCl = check new (\"http://localhost:9090\", {});"
         },
         "returning": false,
         "properties": {
@@ -785,7 +788,7 @@
             "typeMembers": [
               {
                 "type": "ClientConfiguration",
-                "packageInfo": "ballerina:http:2.13.3",
+                "packageInfo": "ballerina:http:2.14.0",
                 "kind": "RECORD_TYPE",
                 "selected": true
               }
@@ -847,7 +850,8 @@
             "placeholder": "var",
             "optional": false,
             "editable": false,
-            "advanced": false
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 1
@@ -876,8 +880,7 @@
               "offset": 45
             }
           },
-          "sourceCode": "MyClient myExplicitModuleCl = new MyClient();",
-          "id": 0
+          "sourceCode": "MyClient myExplicitModuleCl = new MyClient();"
         },
         "returning": false,
         "properties": {
@@ -937,7 +940,8 @@
             "placeholder": "var",
             "optional": false,
             "editable": false,
-            "advanced": false
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 0
@@ -966,8 +970,7 @@
               "offset": 26
             }
           },
-          "sourceCode": "MyClient myModuleCl = new;",
-          "id": 0
+          "sourceCode": "MyClient myModuleCl = new;"
         },
         "returning": false,
         "properties": {
@@ -1027,7 +1030,8 @@
             "placeholder": "var",
             "optional": false,
             "editable": false,
-            "advanced": false
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 0

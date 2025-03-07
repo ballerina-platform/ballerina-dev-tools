@@ -3,8 +3,7 @@
   "kind": "TYPE",
   "source": "empty.bal",
   "queryMap": {
-    "q": "health",
-    "includeAvailable": "true"
+    "q": "health"
   },
   "categories": [
     {

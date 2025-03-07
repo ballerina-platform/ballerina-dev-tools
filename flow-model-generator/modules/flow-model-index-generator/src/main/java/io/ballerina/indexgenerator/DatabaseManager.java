@@ -77,7 +77,7 @@ class DatabaseManager {
         }
     }
 
-    private static void executeQuery(String sql) {
+    public static void executeQuery(String sql) {
         try (Connection conn = DriverManager.getConnection(dbPath);
              Statement stmt = conn.createStatement()) { // Use Statement instead
             stmt.executeUpdate(sql);
@@ -93,17 +93,19 @@ class DatabaseManager {
     }
 
     public static int insertFunction(int packageId, String name, String description, String returnType, String kind,
-                                     String resourcePath, int returnError, boolean inferredReturnType) {
+                                     String resourcePath, int returnError, boolean inferredReturnType,
+                                     String importStatements) {
         String sql = "INSERT INTO Function (package_id, name, description, " +
-                "return_type, kind, resource_path, return_error, inferred_return_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                "return_type, kind, resource_path, return_error, inferred_return_type, import_statements) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         return insertEntry(sql, new Object[]{packageId, name, description,
-                returnType, kind, resourcePath, returnError, inferredReturnType ? 1 : 0});
+                returnType, kind, resourcePath, returnError, inferredReturnType ? 1 : 0, importStatements});
     }
 
     public static int insertFunctionParameter(int functionId, String paramName, String paramDescription,
-                                               String paramType, String defaultValue,
-                                               IndexGenerator.FunctionParameterKind parameterKind,
-                                               int optional, String importStatements) {
+                                              String paramType, String defaultValue,
+                                              IndexGenerator.FunctionParameterKind parameterKind,
+                                              int optional, String importStatements) {
 
         String sql =
                 "INSERT INTO Parameter (function_id, name, description, type, default_value, kind, optional, " +

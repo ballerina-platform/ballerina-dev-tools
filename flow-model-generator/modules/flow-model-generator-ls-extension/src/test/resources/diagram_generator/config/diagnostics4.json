@@ -106,7 +106,8 @@
             "placeholder": "var",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 0
@@ -225,8 +226,9 @@
             "value": "Target",
             "placeholder": "var",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {}
           }
         },
         "diagnostics": {
@@ -348,8 +350,9 @@
             "value": "Target",
             "placeholder": "var",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {}
           }
         },
         "diagnostics": {
@@ -471,8 +474,9 @@
             "value": "int",
             "placeholder": "var",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {}
           }
         },
         "diagnostics": {
@@ -485,14 +489,14 @@
         "metadata": {
           "label": "prettify",
           "description": "Prettifies a `json` value to print it.\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.jsondata_1.0.0.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.jsondata_1.1.0.png"
         },
         "codedata": {
           "node": "FUNCTION_CALL",
           "org": "ballerina",
           "module": "data.jsondata",
           "symbol": "prettify",
-          "version": "1.0.0",
+          "version": "1.1.0",
           "lineRange": {
             "fileName": "main.bal",
             "startLine": {
@@ -599,8 +603,9 @@
             "value": "string",
             "placeholder": "var",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {}
           }
         },
         "diagnostics": {

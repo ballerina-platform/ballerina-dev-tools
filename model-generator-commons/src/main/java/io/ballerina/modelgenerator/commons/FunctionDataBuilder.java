@@ -254,7 +254,7 @@ public class FunctionDataBuilder {
                         String clientName = getFunctionName();
                         FunctionData functionData = new FunctionData(0, clientName, getDescription(classSymbol),
                                 getTypeSignature(clientName), moduleInfo.packageName(), moduleInfo.org(),
-                                moduleInfo.version(), "", functionKind, false, false);
+                                moduleInfo.version(), "", functionKind, false, false, null);
                         functionData.setParameters(Map.of());
                         return functionData;
                     }
@@ -308,7 +308,7 @@ public class FunctionDataBuilder {
 
         FunctionData functionData = new FunctionData(0, getFunctionName(), description, returnData.returnType(),
                 moduleInfo.packageName(), moduleInfo.org(), moduleInfo.version(), resourcePath, functionKind,
-                returnData.returnError(), paramForTypeInfer != null);
+                returnData.returnError(), paramForTypeInfer != null, returnData.importStatements());
 
         Types types = semanticModel.types();
         TypeBuilder builder = semanticModel.types().builder();
@@ -327,7 +327,8 @@ public class FunctionDataBuilder {
 
     private ReturnData getReturnData(FunctionSymbol symbol) {
         FunctionTypeSymbol functionTypeSymbol = symbol.typeDescriptor();
-        String returnType = functionTypeSymbol.returnTypeDescriptor()
+        Optional<TypeSymbol> returnTypeSymbol = functionTypeSymbol.returnTypeDescriptor();
+        String returnType = returnTypeSymbol
                 .map(typeSymbol -> {
                     if (functionKind == FunctionData.Kind.CONNECTOR) {
                         return CommonUtils.getClassType(moduleInfo.packageName(),
@@ -344,22 +345,25 @@ public class FunctionDataBuilder {
                     .filter(paramSym -> paramSym.paramKind() == ParameterKind.DEFAULTABLE)
                     .forEach(paramSymbol -> paramNameList.add(paramSymbol.getName().orElse(""))));
 
-            Map<String, TypeSymbol> returnTypeMap =
-                    allMembers(functionTypeSymbol.returnTypeDescriptor().orElse(null));
+            Map<String, TypeSymbol> returnTypeMap = new HashMap<>();
+            returnTypeSymbol.ifPresent(typeSymbol -> allMembers(returnTypeMap, typeSymbol));
             for (String paramName : paramNameList) {
                 if (returnTypeMap.containsKey(paramName)) {
-                    returnType = "json";
-                    String defaultValue =
-                            DefaultValueGeneratorUtil.getDefaultValueForType(returnTypeMap.get(paramName));
-                    paramForTypeInfer = new ParamForTypeInfer(paramName, defaultValue, returnType);
+                    TypeSymbol typeDescriptor = returnTypeMap.get(paramName);
+                    String defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(typeDescriptor);
+                    paramForTypeInfer = new ParamForTypeInfer(paramName, defaultValue,
+                            CommonUtils.getTypeSignature(semanticModel, CommonUtils.getRawType(typeDescriptor), true));
                     break;
                 }
             }
         }
 
-        boolean returnError = functionTypeSymbol.returnTypeDescriptor()
+        String importStatements = returnTypeSymbol.flatMap(
+                typeSymbol -> CommonUtils.getImportStatements(returnTypeSymbol.get(), moduleInfo)).orElse(null);
+
+        boolean returnError = returnTypeSymbol
                 .map(returnTypeDesc -> CommonUtils.subTypeOf(returnTypeDesc, errorTypeSymbol)).orElse(false);
-        return new ReturnData(returnType, paramForTypeInfer, returnError);
+        return new ReturnData(returnType, paramForTypeInfer, returnError, importStatements);
     }
 
     private void setParentSymbol() {
@@ -397,9 +401,12 @@ public class FunctionDataBuilder {
     }
 
     public List<FunctionData> buildChildNodes() {
-        // TODO: If the name and the module info is present, check in the index
-//        if (parentSymbolType != null && moduleInfo != null) {
-//        }
+        if (parentSymbolType != null && moduleInfo != null) {
+            List<FunctionData> fetchedMethods = getMethodsFromIndex();
+            if (!fetchedMethods.isEmpty()) {
+                return fetchedMethods;
+            }
+        }
 
         // The parent symbol must be present
         if (this.parentSymbol == null && this.parentSymbolType == null) {
@@ -453,7 +460,8 @@ public class FunctionDataBuilder {
                     methodResourcePath,
                     methodKind,
                     returnData.returnError(),
-                    returnData.paramForTypeInfer() != null);
+                    returnData.paramForTypeInfer() != null,
+                    returnData.importStatements());
             functionDataList.add(functionData);
         }
         return functionDataList;
@@ -463,8 +471,7 @@ public class FunctionDataBuilder {
         DatabaseManager dbManager = DatabaseManager.getInstance();
         Optional<FunctionData> optFunctionResult =
                 dbManager.getFunction(moduleInfo.org(), moduleInfo.packageName(), getFunctionName(),
-                        functionKind,
-                        resourcePath);
+                        functionKind, resourcePath);
         if (optFunctionResult.isEmpty()) {
             return Optional.empty();
         }
@@ -473,6 +480,18 @@ public class FunctionDataBuilder {
                 dbManager.getFunctionParametersAsMap(functionData.functionId());
         functionData.setParameters(parameters);
         return Optional.of(functionData);
+    }
+
+    private List<FunctionData> getMethodsFromIndex() {
+        DatabaseManager dbManager = DatabaseManager.getInstance();
+        List<FunctionData> methods = dbManager.getMethods(parentSymbolType, moduleInfo.org(),
+                moduleInfo.packageName(), moduleInfo.version());
+        if (methods.isEmpty()) {
+            return new ArrayList<>();
+        }
+        methods.parallelStream()
+                .forEach(method -> method.setParameters(dbManager.getFunctionParametersAsMap(method.functionId())));
+        return methods;
     }
 
     private Map<String, ParameterData> getParameters(ParameterSymbol paramSymbol,
@@ -692,22 +711,43 @@ public class FunctionDataBuilder {
         }
     }
 
-    private static Map<String, TypeSymbol> allMembers(TypeSymbol typeSymbol) {
-        Map<String, TypeSymbol> members = new HashMap<>();
-        if (typeSymbol == null) {
-            return members;
-        } else if (typeSymbol.typeKind() == TypeDescKind.UNION) {
-            UnionTypeSymbol unionTypeSymbol = (UnionTypeSymbol) typeSymbol;
-            unionTypeSymbol.memberTypeDescriptors()
-                    .forEach(memberType -> members.put(memberType.getName().orElse(""), memberType));
-        } else if (typeSymbol.typeKind() == TypeDescKind.INTERSECTION) {
-            IntersectionTypeSymbol intersectionTypeSymbol = (IntersectionTypeSymbol) typeSymbol;
-            intersectionTypeSymbol.memberTypeDescriptors()
-                    .forEach(memberType -> members.put(memberType.getName().orElse(""), memberType));
-        } else {
-            members.put(typeSymbol.getName().orElse(""), typeSymbol);
+    public static void allMembers(Map<String, TypeSymbol> typeMap, TypeSymbol typeSymbol) {
+
+        switch (typeSymbol.typeKind()) {
+            case UNION -> {
+                UnionTypeSymbol unionTypeSymbol = (UnionTypeSymbol) typeSymbol;
+                unionTypeSymbol.memberTypeDescriptors().forEach(memberType -> allMembers(typeMap, memberType));
+            }
+            case INTERSECTION -> {
+                IntersectionTypeSymbol intersectionTypeSymbol = (IntersectionTypeSymbol) typeSymbol;
+                intersectionTypeSymbol.memberTypeDescriptors().forEach(memberType -> allMembers(typeMap, memberType));
+            }
+            case STREAM -> {
+                StreamTypeSymbol streamTypeSymbol = (StreamTypeSymbol) typeSymbol;
+                allMembers(typeMap, streamTypeSymbol.typeParameter());
+                allMembers(typeMap, streamTypeSymbol.completionValueTypeParameter());
+            }
+            case ARRAY -> {
+                ArrayTypeSymbol arrayTypeSymbol = (ArrayTypeSymbol) typeSymbol;
+                allMembers(typeMap, arrayTypeSymbol.memberTypeDescriptor());
+            }
+            case MAP -> {
+                MapTypeSymbol mapTypeSymbol = (MapTypeSymbol) typeSymbol;
+                allMembers(typeMap, mapTypeSymbol.typeParam());
+            }
+            case TABLE -> {
+                TableTypeSymbol tableTypeSymbol = (TableTypeSymbol) typeSymbol;
+                allMembers(typeMap, tableTypeSymbol.rowTypeParameter());
+                tableTypeSymbol.keyConstraintTypeParameter().ifPresent(keyType -> allMembers(typeMap, keyType));
+            }
+            case RECORD -> {
+                RecordTypeSymbol recordTypeSymbol = (RecordTypeSymbol) typeSymbol;
+                recordTypeSymbol.fieldDescriptors()
+                        .forEach((key, value) -> allMembers(typeMap, value.typeDescriptor()));
+                recordTypeSymbol.restTypeDescriptor().ifPresent(restType -> allMembers(typeMap, restType));
+            }
+            default -> typeMap.put(typeSymbol.getName().orElse(""), typeSymbol);
         }
-        return members;
     }
 
     private ResourcePathTemplate buildResourcePathTemplate(FunctionSymbol functionSymbol) {
@@ -795,6 +835,7 @@ public class FunctionDataBuilder {
     private record ParamForTypeInfer(String paramName, String defaultValue, String type) {
     }
 
-    private record ReturnData(String returnType, ParamForTypeInfer paramForTypeInfer, boolean returnError) {
+    private record ReturnData(String returnType, ParamForTypeInfer paramForTypeInfer, boolean returnError,
+                              String importStatements) {
     }
 }

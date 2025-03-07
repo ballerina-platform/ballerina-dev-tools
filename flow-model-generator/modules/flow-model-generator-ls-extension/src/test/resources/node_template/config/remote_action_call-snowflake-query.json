@@ -28,7 +28,7 @@
       "object": "Client",
       "symbol": "query",
       "version": "2.1.0",
-      "id": 641
+      "inferredReturnType": "stream<rowType, sql:Error?>"
     },
     "returning": false,
     "properties": {
@@ -44,6 +44,22 @@
         "editable": false,
         "advanced": false
       },
+      "rowType": {
+        "metadata": {
+          "label": "rowType",
+          "description": "The `typedesc` of the record to which the result needs to be returned"
+        },
+        "valueType": "TYPE",
+        "valueTypeConstraint": "record {|anydata...;|}",
+        "placeholder": "record {|anydata...;|}",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "PARAM_FOR_TYPE_INFER",
+          "originalName": "rowType"
+        }
+      },
       "sqlQuery": {
         "metadata": {
           "label": "sqlQuery",
@@ -51,7 +67,7 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "sql:ParameterizedQuery",
-        "placeholder": "object {}",
+        "placeholder": "``",
         "optional": false,
         "editable": true,
         "advanced": false,
@@ -69,30 +85,6 @@
           }
         ]
       },
-      "rowType": {
-        "metadata": {
-          "label": "rowType",
-          "description": "The `typedesc` of the record to which the result needs to be returned"
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "record {|anydata...;|}",
-        "placeholder": "<>",
-        "optional": true,
-        "editable": true,
-        "advanced": true,
-        "codedata": {
-          "kind": "DEFAULTABLE",
-          "originalName": "rowType"
-        },
-        "typeMembers": [
-          {
-            "type": "typedesc<record {|anydata...;|}>",
-            "packageInfo": "",
-            "kind": "OTHER",
-            "selected": false
-          }
-        ]
-      },
       "type": {
         "metadata": {
           "label": "Variable Type",
@@ -103,7 +95,10 @@
         "placeholder": "var",
         "optional": false,
         "editable": false,
-        "advanced": false
+        "advanced": false,
+        "codedata": {
+          "importStatements": "ballerina/sql"
+        }
       },
       "variable": {
         "metadata": {

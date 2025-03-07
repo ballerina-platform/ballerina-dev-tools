@@ -5,6 +5,7 @@
     "line": 17,
     "offset": 16
   },
+  "findClass": false,
   "response": {
     "filePath": "proj_1/services.bal",
     "startLine": {

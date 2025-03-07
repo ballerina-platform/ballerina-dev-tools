@@ -27,8 +27,7 @@
       "module": "covid19",
       "object": "Client",
       "symbol": "getStatusByCountry",
-      "version": "1.5.1",
-      "id": 723
+      "version": "1.5.1"
     },
     "returning": false,
     "properties": {
@@ -43,30 +42,6 @@
         "optional": false,
         "editable": false,
         "advanced": false
-      },
-      "country": {
-        "metadata": {
-          "label": "country",
-          "description": "A country name, iso2, iso3, or country ID code "
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "string",
-        "placeholder": "\"\"",
-        "optional": false,
-        "editable": true,
-        "advanced": false,
-        "codedata": {
-          "kind": "REQUIRED",
-          "originalName": "country"
-        },
-        "typeMembers": [
-          {
-            "type": "string",
-            "packageInfo": "",
-            "kind": "BASIC_TYPE",
-            "selected": false
-          }
-        ]
       },
       "yesterday": {
         "metadata": {
@@ -98,6 +73,30 @@
           }
         ]
       },
+      "country": {
+        "metadata": {
+          "label": "country",
+          "description": "A country name, iso2, iso3, or country ID code "
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"\"",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "country"
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
       "twoDaysAgo": {
         "metadata": {
           "label": "twoDaysAgo",
@@ -112,6 +111,36 @@
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "twoDaysAgo"
+        },
+        "typeMembers": [
+          {
+            "type": "()",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "allowNull": {
+        "metadata": {
+          "label": "allowNull",
+          "description": "By default, value is 0. Enter `1` to allow nulls to be returned "
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string|()",
+        "placeholder": "()",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "allowNull"
         },
         "typeMembers": [
           {
@@ -152,36 +181,6 @@
           }
         ]
       },
-      "allowNull": {
-        "metadata": {
-          "label": "allowNull",
-          "description": "By default, value is 0. Enter `1` to allow nulls to be returned "
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "string|()",
-        "placeholder": "()",
-        "optional": true,
-        "editable": true,
-        "advanced": true,
-        "codedata": {
-          "kind": "DEFAULTABLE",
-          "originalName": "allowNull"
-        },
-        "typeMembers": [
-          {
-            "type": "()",
-            "packageInfo": "",
-            "kind": "BASIC_TYPE",
-            "selected": false
-          },
-          {
-            "type": "string",
-            "packageInfo": "",
-            "kind": "BASIC_TYPE",
-            "selected": false
-          }
-        ]
-      },
       "type": {
         "metadata": {
           "label": "Variable Type",
@@ -192,7 +191,8 @@
         "placeholder": "var",
         "optional": false,
         "editable": false,
-        "advanced": false
+        "advanced": false,
+        "codedata": {}
       },
       "variable": {
         "metadata": {

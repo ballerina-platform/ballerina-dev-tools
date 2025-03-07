@@ -48,6 +48,12 @@ public class ConnectorSearchCommand extends SearchCommand {
     private static final String CONNECTORS_LANDING_JSON = "connectors_landing.json";
     private static final Type CONNECTION_CATEGORY_LIST_TYPE = new TypeToken<Map<String, List<String>>>() { }.getType();
 
+    // TODO: Remove this once the name is retrieved from the library module
+    private static final String CONNECTOR_NAME_CORRECTION_JSON = "connector_name_correction.json";
+    private static final Type CONNECTOR_NAME_MAP_TYPE = new TypeToken<Map<String, String>>() { }.getType();
+    private static final Map<String, String> CONNECTOR_NAME_MAP =
+            LocalIndexCentral.getInstance().readJsonResource(CONNECTOR_NAME_CORRECTION_JSON, CONNECTOR_NAME_MAP_TYPE);
+
     public ConnectorSearchCommand(Module module, LineRange position, Map<String, String> queryMap) {
         super(module, position, queryMap);
     }
@@ -85,9 +91,7 @@ public class ConnectorSearchCommand extends SearchCommand {
     private static AvailableNode generateAvailableNode(SearchResult searchResult) {
         SearchResult.Package packageInfo = searchResult.packageInfo();
         Metadata metadata = new Metadata.Builder<>(null)
-                .label(packageInfo.name().substring(0, 1).toUpperCase(Locale.ROOT) + packageInfo.name().substring(1) +
-                        " " +
-                        searchResult.name())
+                .label(getConnectorName(searchResult, packageInfo))
                 .description(searchResult.description())
                 .icon(CommonUtils.generateIcon(packageInfo.org(),
                         packageInfo.name(),
@@ -104,4 +108,16 @@ public class ConnectorSearchCommand extends SearchCommand {
         return new AvailableNode(metadata, codedata, true);
     }
 
+    private static String getConnectorName(SearchResult searchResult, SearchResult.Package packageInfo) {
+        String connectorName = searchResult.name();
+        String rawPackageName = packageInfo.name();
+        String packageName = CONNECTOR_NAME_MAP.getOrDefault(rawPackageName, getLastPackagePrefix(rawPackageName));
+        return packageName + " " + connectorName;
+    }
+
+    private static String getLastPackagePrefix(String rawPackageName) {
+        String trimmedPackageName = rawPackageName.contains(".")
+                ? rawPackageName.substring(rawPackageName.lastIndexOf('.') + 1) : rawPackageName;
+        return trimmedPackageName.substring(0, 1).toUpperCase(Locale.ROOT) + trimmedPackageName.substring(1);
+    }
 }

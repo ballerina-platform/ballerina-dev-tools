@@ -127,8 +127,9 @@
             "value": "github:ManifestConversions",
             "placeholder": "var",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 1
@@ -249,8 +250,9 @@
             "value": "$CompilationError$",
             "placeholder": "var",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 1
@@ -281,8 +283,7 @@
               "offset": 3
             }
           },
-          "sourceCode": "final github:Client githubClient = check new ({\n    auth: {token: \"\"}\n});",
-          "id": 0
+          "sourceCode": "final github:Client githubClient = check new ({\n    auth: {token: \"\"}\n});"
         },
         "returning": false,
         "properties": {
@@ -391,7 +392,8 @@
             "placeholder": "var",
             "optional": false,
             "editable": false,
-            "advanced": false
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 1
