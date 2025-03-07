@@ -783,7 +783,7 @@ public class CommonUtils {
     }
 
     /**
-     * Check whether the particular function symbol is a NP function
+     * Check whether the particular function symbol is a NP function.
      *
      * @param functionSymbol Function symbol to evalute
      * @return true if the function is a NP function, false otherwise
