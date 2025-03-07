@@ -27,7 +27,6 @@ import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import org.eclipse.lsp4j.TextEdit;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -120,8 +119,8 @@ public class SourceGeneratorTest extends AbstractLSTest {
                 "resource_action_call-http-post5.json",
                 // The following nodes are deprecated
                 "data_mapper2.json",
-                "data_mapper2-main.json",
-                "data_mapper2-service.json",
+                "data_mapper-main.json",
+                "data_mapper-service.json",
         };
     }
 

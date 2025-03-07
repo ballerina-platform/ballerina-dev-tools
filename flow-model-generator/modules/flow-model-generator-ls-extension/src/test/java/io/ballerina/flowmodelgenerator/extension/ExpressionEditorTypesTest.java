@@ -23,6 +23,7 @@ import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorTypesRe
 import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import org.eclipse.lsp4j.CompletionItem;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -51,7 +52,7 @@ public class ExpressionEditorTypesTest extends AbstractLSTest {
         if (!assertArray("completions", actualCompletions, testConfig.completions())) {
             TestConfig updatedConfig = new TestConfig(testConfig.description(), testConfig.source(),
                     testConfig.typeConstraint(), actualCompletions);
-//            updateConfig(configJsonPath, updatedConfig);
+            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
     }

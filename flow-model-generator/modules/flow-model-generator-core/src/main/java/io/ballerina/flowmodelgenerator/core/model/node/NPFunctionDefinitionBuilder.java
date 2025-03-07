@@ -187,7 +187,7 @@ public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
                         .semicolon()
                         .skipFormatting()
                         .stepOut()
-                    .textEdit(false, FUNCTIONS_BAL, false);
+                    .textEdit(false, FUNCTIONS_BAL);
         } else {
             sourceBuilder
                     .token().skipFormatting().stepOut()

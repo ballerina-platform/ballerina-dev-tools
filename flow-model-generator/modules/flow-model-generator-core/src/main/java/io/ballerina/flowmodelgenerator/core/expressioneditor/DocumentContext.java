@@ -24,6 +24,7 @@ import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.modelgenerator.commons.CommonUtils;
+import io.ballerina.modelgenerator.commons.PackageUtil;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.DocumentId;
 import io.ballerina.projects.Module;
@@ -152,6 +153,7 @@ public class DocumentContext {
             return;
         }
         // Check if the document exists
+        PackageUtil.loadProject(workspaceManager(), inputFilePath);
         Optional<Document> inputDoc = CommonUtils.getDocument(workspaceManager(), inputFilePath);
         if (inputDoc.isPresent()) {
             document = inputDoc.get();
