@@ -479,8 +479,7 @@ public class SearchDatabaseManager {
             return "";
         }
         // Escape quotes and remove special SQLite FTS operators, and only allow alphanumeric characters and spaces
-        return q.replace("\"", "\"\"")
-                .replaceAll("(?i)(UNION|SELECT|FROM|OR|AND|WHERE|MATCH|NEAR|NOT)|[^a-zA-Z0-9\\s\"]", " ")
+        return q.replaceAll("(?i)\\b(UNION|SELECT|FROM|OR|AND|WHERE|MATCH|NEAR|NOT)\\b|[^a-zA-Z0-9\\s]", " ")
                 .trim();
     }
 
