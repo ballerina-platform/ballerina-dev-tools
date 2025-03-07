@@ -35,16 +35,22 @@ import io.ballerina.compiler.api.symbols.MapTypeSymbol;
 import io.ballerina.compiler.api.symbols.MethodSymbol;
 import io.ballerina.compiler.api.symbols.ObjectTypeSymbol;
 import io.ballerina.compiler.api.symbols.ParameterSymbol;
+import io.ballerina.compiler.api.symbols.PathParameterSymbol;
+import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.RecordFieldSymbol;
 import io.ballerina.compiler.api.symbols.RecordTypeSymbol;
+import io.ballerina.compiler.api.symbols.ResourceMethodSymbol;
 import io.ballerina.compiler.api.symbols.StreamTypeSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TableTypeSymbol;
 import io.ballerina.compiler.api.symbols.TupleTypeSymbol;
+import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
+import io.ballerina.compiler.api.symbols.resourcepath.PathSegmentList;
+import io.ballerina.compiler.api.symbols.resourcepath.ResourcePath;
 import io.ballerina.compiler.syntax.tree.DefaultableParameterNode;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
@@ -73,6 +79,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -89,7 +96,8 @@ import java.util.logging.Logger;
 class ServiceIndexGenerator {
 
     private static final java.lang.reflect.Type typeToken = new TypeToken<Map<String,
-            List<PackageMetadataInfo>>>() { }.getType();
+            List<PackageMetadataInfo>>>() {
+    }.getType();
     private static final Logger LOGGER = Logger.getLogger(ServiceIndexGenerator.class.getName());
     private static final String PACKAGE_JSON_FILE = "packages.json";
 
@@ -139,7 +147,11 @@ class ServiceIndexGenerator {
             return;
         }
 
+        DatabaseManager.insertServiceDeclaration(packageId, packageMetadataInfo.serviceDeclaration());
+
         TypeSymbol errorTypeSymbol = semanticModel.types().ERROR;
+
+        Map<String, ServiceType> serviceTypes = packageMetadataInfo.serviceTypes();
 
         for (Symbol symbol : semanticModel.moduleSymbols()) {
 
@@ -158,15 +170,40 @@ class ServiceIndexGenerator {
                 continue;
             }
 
-            // TODO: handle service types
+            if (symbol instanceof TypeDefinitionSymbol typeDefinitionSymbol) {
+                TypeSymbol typeSymbol = typeDefinitionSymbol.typeDescriptor();
+                if (typeSymbol instanceof ObjectTypeSymbol objectTypeSymbol
+                        && objectTypeSymbol.qualifiers().contains(Qualifier.SERVICE)) {
+                    String serviceName = typeDefinitionSymbol.getName().orElse("Service");
+                    if (!serviceTypes.containsKey(serviceName) && !packageMetadataInfo.serviceTypeSkipList()
+                            .contains(serviceName)) {
+                        ServiceType serviceType = new ServiceType(serviceName, getDescription(typeDefinitionSymbol),
+                                null);
+                        DatabaseManager.insertServiceType(packageId, serviceType);
+                        handleServiceType(objectTypeSymbol, semanticModel, packageId);
+                    }
+                }
+            }
 
             // TODO: process the annotation attachments
+        }
+
+        // insert hardcoded service types
+        for (Map.Entry<String, ServiceType> entry : serviceTypes.entrySet()) {
+            ServiceType serviceType = entry.getValue();
+            DatabaseManager.insertServiceType(packageId, serviceType);
+            for (ServiceTypeFunction function : serviceType.functions()) {
+                int functionId = DatabaseManager.insertServiceTypeFunction(packageId, function);
+                for (ServiceTypeFunctionParameter parameter : function.parameters()) {
+                    DatabaseManager.insertServiceTypeFunctionParameter(functionId, parameter);
+                }
+            }
         }
     }
 
     private static void processListenerInit(SemanticModel semanticModel, FunctionSymbol functionSymbol,
-                                           Documentable documentable, int packageId,
-                                           TypeSymbol errorTypeSymbol, Package resolvedPackage) {
+                                            Documentable documentable, int packageId,
+                                            TypeSymbol errorTypeSymbol, Package resolvedPackage) {
         // Capture the name of the function
         Optional<String> name = functionSymbol.getName();
         if (name.isEmpty()) {
@@ -386,16 +423,78 @@ class ServiceIndexGenerator {
         return documentable.documentation().flatMap(Documentation::description).orElse("");
     }
 
-    enum FunctionType {
-        FUNCTION,
-        REMOTE,
-        LISTENER_INIT,
-        RESOURCE
-    }
+    private static void handleServiceType(ObjectTypeSymbol objectTypeSymbol, SemanticModel semanticModel,
+                                          int serviceTypeId) {
 
-    enum AttachToServiceKind {
-        SERVICE,
-        LISTENER
+        objectTypeSymbol.methods().forEach((methodName, methodSymbol) -> {
+            if (methodSymbol.qualifiers().contains(Qualifier.REMOTE)) {
+                Optional<Documentation> documentation = methodSymbol.documentation();
+                String methodDescription = "";
+                Map<String, String> paramDocMap = new HashMap<>();
+                if (documentation.isPresent()) {
+                    methodDescription = documentation.get().description().orElse("");
+                    paramDocMap = documentation.get().parameterMap();
+                }
+
+                List<ServiceTypeFunctionParameter> parameters = new ArrayList<>();
+                ServiceTypeFunction function = new ServiceTypeFunction(methodName,
+                        methodDescription, "", "REMOTE", CommonUtils.getTypeSignature(
+                        semanticModel, methodSymbol.typeDescriptor().returnTypeDescriptor().get(), false),
+                        1, "", 1, parameters);
+
+                int functionId = DatabaseManager.insertServiceTypeFunction(serviceTypeId, function);
+
+                FunctionTypeSymbol functionTypeSymbol = methodSymbol.typeDescriptor();
+                Optional<List<ParameterSymbol>> params = functionTypeSymbol.params();
+                if (params.isPresent()) {
+                    for (ParameterSymbol param : params.get()) {
+                        String paramName = param.getName().orElse("param");
+                        String paramDescription = paramDocMap.get(paramName) == null ? "" : paramDocMap.get(paramName);
+                        ServiceTypeFunctionParameter parameter = new ServiceTypeFunctionParameter(
+                                paramName, paramName, paramDescription, param.paramKind().name(),
+                                CommonUtils.getTypeSignature(semanticModel, param.typeDescriptor(), false),
+                                "", ""
+                        );
+                        DatabaseManager.insertServiceTypeFunctionParameter(functionId, parameter);
+                    }
+                }
+            } else if (methodSymbol.qualifiers().contains(Qualifier.RESOURCE)) {
+                Optional<Documentation> documentation = methodSymbol.documentation();
+                String methodDescription = "";
+                Map<String, String> paramDocMap = new HashMap<>();
+                if (documentation.isPresent()) {
+                    methodDescription = documentation.get().description().orElse("");
+                    paramDocMap = documentation.get().parameterMap();
+                }
+
+                ResourceMethodSymbol resourceMethodSymbol = (ResourceMethodSymbol) methodSymbol;
+                String path = getPath(resourceMethodSymbol, semanticModel);
+
+                List<ServiceTypeFunctionParameter> parameters = new ArrayList<>();
+                ServiceTypeFunction function = new ServiceTypeFunction(path,
+                        methodDescription, resourceMethodSymbol.getName().orElse("get"), "RESOURCE",
+                        CommonUtils.getTypeSignature(semanticModel, methodSymbol.typeDescriptor()
+                                .returnTypeDescriptor().get(), false),
+                        1, "", 1, parameters);
+
+                int functionId = DatabaseManager.insertServiceTypeFunction(serviceTypeId, function);
+
+                FunctionTypeSymbol functionTypeSymbol = methodSymbol.typeDescriptor();
+                Optional<List<ParameterSymbol>> params = functionTypeSymbol.params();
+                if (params.isPresent()) {
+                    for (ParameterSymbol param : params.get()) {
+                        String paramName = param.getName().orElse("param");
+                        String paramDescription = paramDocMap.get(paramName) == null ? "" : paramDocMap.get(paramName);
+                        ServiceTypeFunctionParameter parameter = new ServiceTypeFunctionParameter(
+                                paramName, paramName, paramDescription, param.paramKind().name(),
+                                CommonUtils.getTypeSignature(semanticModel, param.typeDescriptor(), false),
+                                "", ""
+                        );
+                        DatabaseManager.insertServiceTypeFunctionParameter(functionId, parameter);
+                    }
+                }
+            }
+        });
     }
 
     enum FunctionParameterKind {
@@ -473,5 +572,71 @@ class ServiceIndexGenerator {
     private record ParamForTypeInfer(String paramName, String defaultValue, String type) {
     }
 
-    private record PackageMetadataInfo(String name, String version, List<String> serviceTypeSkipList) { }
+    private record PackageMetadataInfo(String name, String version, List<String> serviceTypeSkipList,
+                                       ServiceDeclaration serviceDeclaration,
+                                       Map<String, ServiceType> serviceTypes) {
+    }
+
+    record ServiceDeclaration(int optionalTypeDescriptor, String displayName, String typeDescriptorLabel,
+                              String typeDescriptorDescription, String typeDescriptorDefaultValue,
+                              int addDefaultTypeDescriptor, int optionalAbsoluteResourcePath,
+                              String absoluteResourcePathLabel, String absoluteResourcePathDescription,
+                              String absoluteResourcePathDefaultValue, int optionalStringLiteral,
+                              String stringLiteralLabel, String stringLiteralDescription,
+                              String stringLiteralDefaultValue, String listenerKind) {
+    }
+
+    record ServiceType(
+            String name,
+            String description,
+            List<ServiceTypeFunction> functions
+    ) {
+    }
+
+    record ServiceTypeFunction(
+            String name,
+            String description,
+            String accessor,
+            String kind,
+            String returnType,
+            int returnTypeEditable,
+            String importStatements,
+            int enable,
+            List<ServiceTypeFunctionParameter> parameters
+    ) {
+    }
+
+    record ServiceTypeFunctionParameter(
+            String name,
+            String label,
+            String description,
+            String kind,
+            String type, // Store JSON as String
+            String defaultValue,
+            String importStatements
+    ) {
+    }
+
+    private static String getPath(ResourceMethodSymbol resourceMethodSymbol, SemanticModel semanticModel) {
+        ResourcePath resourcePath = resourceMethodSymbol.resourcePath();
+        List<String> paths = new ArrayList<>();
+        switch (resourcePath.kind()) {
+            case PATH_SEGMENT_LIST -> {
+                PathSegmentList pathSegmentList = (PathSegmentList) resourcePath;
+                for (Symbol pathSegment : pathSegmentList.list()) {
+                    if (pathSegment instanceof PathParameterSymbol pathParameterSymbol) {
+                        String type = CommonUtils.getTypeSignature(semanticModel, pathParameterSymbol.typeDescriptor(),
+                                true);
+                        String paramName = pathParameterSymbol.getName().orElse("");
+                        paths.add("[%s %s]".formatted(type, paramName));
+                    } else {
+                        paths.add(pathSegment.getName().orElse(""));
+                    }
+                }
+            }
+            case DOT_RESOURCE_PATH -> paths.add(".");
+            default -> paths.add("");
+        }
+        return String.join("/", paths);
+    }
 }

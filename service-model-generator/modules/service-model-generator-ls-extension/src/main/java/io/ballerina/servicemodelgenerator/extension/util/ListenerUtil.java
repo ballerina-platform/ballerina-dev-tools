@@ -163,7 +163,7 @@ public class ListenerUtil {
                 .setType(functionData.packageName())
                 .setDisplayName(formattedModuleName)
                 .setDescription(functionData.description())
-                .setListenerProtocol(functionData.packageName().toLowerCase(Locale.ROOT))
+                .setListenerProtocol(getListenerProtocol(functionData.packageName()))
                 .setModuleName(functionData.packageName())
                 .setOrgName(functionData.org())
                 .setPackageName(functionData.packageName())
@@ -174,6 +174,12 @@ public class ListenerUtil {
 
         properties.put("name", nameProperty());
         return listenerBuilder.build();
+    }
+
+    private static String getListenerProtocol(String packageName) {
+        String pkgName = packageName.toLowerCase(Locale.ROOT);
+        String[] split = pkgName.split("\\.");
+        return split[split.length - 1];
     }
 
     public static Optional<Listener> getListenerModelByName(String moduleName) {
