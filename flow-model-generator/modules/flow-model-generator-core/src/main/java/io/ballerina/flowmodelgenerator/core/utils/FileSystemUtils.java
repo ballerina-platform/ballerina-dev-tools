@@ -22,12 +22,11 @@ import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Project;
 import io.ballerina.projects.ProjectException;
-import org.ballerinalang.langserver.LSClientLogger;
+import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.FileChangeType;
 import org.eclipse.lsp4j.FileEvent;
-import org.eclipse.lsp4j.MessageType;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -69,6 +68,25 @@ public class FileSystemUtils {
         // Obtain the default semantic model if not exists
         Project project = workspaceManager.project(filePath).orElseThrow();
         return project.currentPackage().getDefaultModule().getCompilation().getSemanticModel();
+    }
+
+    public static void createFileIfNotExists(WorkspaceManager workspaceManager, Path filePath) {
+        try {
+            workspaceManager.loadProject(filePath);
+        } catch (WorkspaceDocumentException | EventSyncException e) {
+            throw new RuntimeException(e);
+        } catch (ProjectException e) {
+            // Create a new file as it does not exist
+            try {
+                Files.createFile(filePath);
+                CREATED_FILES.add(filePath);
+                FileEvent fileEvent = new FileEvent(filePath.toUri().toString(), FileChangeType.Created);
+                workspaceManager.didChangeWatched(filePath, fileEvent);
+            } catch (IOException | WorkspaceDocumentException fileCreationException) {
+                throw new RuntimeException("Error occurred while creating the file: " + filePath,
+                        fileCreationException);
+            }
+        }
     }
 
     public static void deleteCreatedFiles() {

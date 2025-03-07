@@ -120,6 +120,11 @@ public class SourceBuilder {
     }
 
     public SourceBuilder textEdit(boolean isExpression, String fileName, boolean allowEdits) {
+        // If it is not new, use the existing file
+        if (flowNode.codedata().isNew() == null || !flowNode.codedata().isNew()) {
+            return textEdit(isExpression);
+        }
+
         Path resolvedPath = workspaceManager.projectRoot(filePath).resolve(fileName);
         LineRange flowNodeLineRange = flowNode.codedata().lineRange();
         if (flowNodeLineRange != null && allowEdits) {
@@ -137,13 +142,10 @@ public class SourceBuilder {
         try {
             // If the file exists, get the end line of the file
             workspaceManager.loadProject(filePath);
-            Document document = workspaceManager.document(resolvedPath).orElseThrow();
+            Document document = FileSystemUtils.getDocument(workspaceManager, resolvedPath);
             linePosition = document.syntaxTree().rootNode().lineRange().endLine();
         } catch (WorkspaceDocumentException | EventSyncException e) {
             throw new RuntimeException(e);
-        } catch (ProjectException e) {
-            // If the file does not exist, set the line range to (0,0)
-            linePosition = LinePosition.from(0, 0);
         }
 
         // Add the current source to the end of the file

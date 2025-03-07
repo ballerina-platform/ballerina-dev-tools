@@ -28,6 +28,7 @@ import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.flowmodelgenerator.core.TypesManager;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.TypeData;
+import io.ballerina.flowmodelgenerator.core.utils.FileSystemUtils;
 import io.ballerina.flowmodelgenerator.extension.request.FilePathRequest;
 import io.ballerina.flowmodelgenerator.extension.request.GetTypeRequest;
 import io.ballerina.flowmodelgenerator.extension.request.RecordConfigRequest;
@@ -143,13 +144,10 @@ public class TypesManagerService implements ExtendedLanguageServerService {
             TypeUpdateResponse response = new TypeUpdateResponse();
             try {
                 Path filePath = Path.of(request.filePath());
-                this.workspaceManager.loadProject(filePath);
+                FileSystemUtils.createFileIfNotExists(workspaceManager, filePath);
                 TypeData typeData = (new Gson()).fromJson(request.type(), TypeData.class);
-                Optional<Document> document = this.workspaceManager.document(filePath);
-                if (document.isEmpty()) {
-                    return response;
-                }
-                TypesManager typesManager = new TypesManager(document.get());
+                Document document = FileSystemUtils.getDocument(workspaceManager, filePath);
+                TypesManager typesManager = new TypesManager(document);
                 response.setName(typeData.name());
                 response.setTextEdits(typesManager.updateType(filePath, typeData));
             } catch (Throwable e) {
