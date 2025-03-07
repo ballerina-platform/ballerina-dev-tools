@@ -21,10 +21,13 @@ package io.ballerina.flowmodelgenerator.extension;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import io.ballerina.flowmodelgenerator.core.utils.FileSystemUtils;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelSourceGeneratorRequest;
 import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import org.eclipse.lsp4j.TextEdit;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -43,8 +46,7 @@ import java.util.Map;
  */
 public class SourceGeneratorTest extends AbstractLSTest {
 
-    private static final Type textEditListType = new TypeToken<Map<String, List<TextEdit>>>() {
-    }.getType();
+    private static final Type textEditListType = new TypeToken<Map<String, List<TextEdit>>>() { }.getType();
 
     @Override
     @Test(dataProvider = "data-provider")
@@ -88,6 +90,11 @@ public class SourceGeneratorTest extends AbstractLSTest {
 //            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
+    }
+
+    @AfterClass
+    void cleanFiles() {
+        FileSystemUtils.deleteCreatedFiles();
     }
 
     @Override
