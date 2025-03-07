@@ -20,7 +20,8 @@
         "stringLiteralLabel": "Service Base Path",
         "stringLiteralDescription": "The base path of the service",
         "stringLiteralDefaultValue": "\"/\"",
-        "listenerKind": "MULTIPLE_SELECT"
+        "listenerKind": "MULTIPLE_SELECT",
+        "kind": "http"
       },
       "serviceTypes": {
         "Service": {
@@ -49,7 +50,8 @@
         "stringLiteralLabel": "Service Base Path",
         "stringLiteralDescription": "The base path of the service",
         "stringLiteralDefaultValue": "\"/graphql\"",
-        "listenerKind": "MULTIPLE_SELECT"
+        "listenerKind": "MULTIPLE_SELECT",
+        "kind": "graphql"
       },
       "serviceTypes": {
         "Service": {
@@ -78,7 +80,8 @@
         "stringLiteralLabel": "Service Base Path",
         "stringLiteralDescription": "The base path of the service",
         "stringLiteralDefaultValue": "",
-        "listenerKind": "MULTIPLE_SELECT"
+        "listenerKind": "MULTIPLE_SELECT",
+        "kind": "tcp"
       },
       "serviceTypes": {
         "Service": {
@@ -128,7 +131,8 @@
         "stringLiteralLabel": "Service Base Path",
         "stringLiteralDescription": "The base path of the service",
         "stringLiteralDefaultValue": "",
-        "listenerKind": "MULTIPLE_SELECT"
+        "listenerKind": "MULTIPLE_SELECT",
+        "kind": "file"
       },
       "serviceTypes": {
         "Service": {
@@ -219,7 +223,8 @@
         "stringLiteralLabel": "Service Base Path",
         "stringLiteralDescription": "The base path of the service",
         "stringLiteralDefaultValue": "",
-        "listenerKind": "MULTIPLE_SELECT"
+        "listenerKind": "MULTIPLE_SELECT",
+        "kind": "file"
       },
       "serviceTypes": {
         "Service": {
@@ -278,7 +283,8 @@
         "stringLiteralLabel": "Service Base Path",
         "stringLiteralDescription": "The base path of the service",
         "stringLiteralDefaultValue": "",
-        "listenerKind": "MULTIPLE_SELECT"
+        "listenerKind": "MULTIPLE_SELECT",
+        "kind": "event"
       },
       "serviceTypes": {
         "Service": {
@@ -331,7 +337,8 @@
         "stringLiteralLabel": "Service Base Path",
         "stringLiteralDescription": "The base path of the service",
         "stringLiteralDefaultValue": "",
-        "listenerKind": "MULTIPLE_SELECT"
+        "listenerKind": "MULTIPLE_SELECT",
+        "kind": "event"
       },
       "serviceTypes": {
         "Service": {
@@ -402,7 +409,8 @@
         "stringLiteralLabel": "Queue Name",
         "stringLiteralDescription": "The name of the queue",
         "stringLiteralDefaultValue": "\"\"",
-        "listenerKind": "MULTIPLE_SELECT"
+        "listenerKind": "MULTIPLE_SELECT",
+        "kind": "event"
       },
       "serviceTypes": {
         "Service": {
@@ -520,7 +528,8 @@
         "stringLiteralLabel": "Service Base Path",
         "stringLiteralDescription": "The base path of the service",
         "stringLiteralDefaultValue": "",
-        "listenerKind": "SINGLE_SELECT"
+        "listenerKind": "SINGLE_SELECT",
+        "kind": "event"
       },
       "serviceTypes": {
         "Service": {
@@ -599,7 +608,8 @@
         "stringLiteralLabel": "Service Base Path",
         "stringLiteralDescription": "The base path of the service",
         "stringLiteralDefaultValue": "",
-        "listenerKind": "MULTIPLE_SELECT"
+        "listenerKind": "MULTIPLE_SELECT",
+        "kind": "event"
       },
       "serviceTypes": {
       }
@@ -623,7 +633,33 @@
         "stringLiteralLabel": "Service Base Path",
         "stringLiteralDescription": "The base path of the service",
         "stringLiteralDefaultValue": "",
-        "listenerKind": "MULTIPLE_SELECT"
+        "listenerKind": "MULTIPLE_SELECT",
+        "kind": "event"
+      },
+      "serviceTypes": {
+      }
+    },
+    {
+      "name": "ai.agent",
+      "version": "0.7.10",
+      "serviceTypeSkipList": [],
+      "serviceDeclaration": {
+        "displayName": "AI Agent Service",
+        "optionalTypeDescriptor": 1,
+        "typeDescriptorLabel": "Agent Service Type",
+        "typeDescriptorDescription": "The service type descriptor",
+        "typeDescriptorDefaultValue": "",
+        "addDefaultTypeDescriptor": 0,
+        "optionalAbsoluteResourcePath": 1,
+        "absoluteResourcePathLabel": "Service Base Path",
+        "absoluteResourcePathDescription": "The base path of the service",
+        "absoluteResourcePathDefaultValue": "",
+        "optionalStringLiteral": 1,
+        "stringLiteralLabel": "Service Base Path",
+        "stringLiteralDescription": "The base path of the service",
+        "stringLiteralDefaultValue": "",
+        "listenerKind": "MULTIPLE_SELECT",
+        "kind": "event"
       },
       "serviceTypes": {
       }

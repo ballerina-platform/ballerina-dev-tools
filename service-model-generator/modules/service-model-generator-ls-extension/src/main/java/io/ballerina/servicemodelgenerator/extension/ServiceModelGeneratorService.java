@@ -120,6 +120,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 import static io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtils.getProtocol;
+import static io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtils.updateFunctionList;
 import static io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtils.updateGenericServiceModel;
 import static io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtils.updateListenerItems;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.expectsTriggerByName;
@@ -352,6 +353,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                     service.getProperties().put("returningServiceClass", Value.getTcpValue(serviceName));
                 }
 
+                updateFunctionList(service);
                 String serviceDeclaration = getServiceDeclarationNode(service);
                 edits.add(new TextEdit(Utils.toRange(lineRange.endLine()),
                         ServiceModelGeneratorConstants.LINE_SEPARATOR + serviceDeclaration));
@@ -437,7 +439,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 LineRange serviceEnd = serviceNode.closeBraceToken().lineRange();
                 List<String> statusCodeResponses = new ArrayList<>();
                 String functionDefinition = ServiceModelGeneratorConstants.LINE_SEPARATOR +
-                        "\t" + getFunction(request.function(), statusCodeResponses)
+                        "\t" + getFunction(request.function(), statusCodeResponses, Utils.FunctionBodyKind.DO_BLOCK)
                         .replace(ServiceModelGeneratorConstants.LINE_SEPARATOR,
                                 ServiceModelGeneratorConstants.LINE_SEPARATOR + "\t")
                         + ServiceModelGeneratorConstants.LINE_SEPARATOR;
@@ -546,7 +548,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
     }
 
     private static String serviceTypeWithoutPrefix(ModuleAndServiceType moduleAndServiceType) {
-        String[] serviceTypeNames = moduleAndServiceType.serviceType().split(":", 2);
+        String[] serviceTypeNames = moduleAndServiceType.serviceType().split(":");
         String serviceType = "Service";
         if (serviceTypeNames.length > 1) {
             serviceType = serviceTypeNames[1];
@@ -671,7 +673,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                     functionLineRange = members.get(members.size() - 1).lineRange();
                 }
                 String functionNode = ServiceModelGeneratorConstants.LINE_SEPARATOR + "\t"
-                        + getFunction(request.function(), new ArrayList<>())
+                        + getFunction(request.function(), new ArrayList<>(), Utils.FunctionBodyKind.DO_BLOCK)
                         .replace(ServiceModelGeneratorConstants.LINE_SEPARATOR,
                                 ServiceModelGeneratorConstants.LINE_SEPARATOR + "\t");
                 edits.add(new TextEdit(Utils.toRange(functionLineRange.endLine()), functionNode));
@@ -1122,7 +1124,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
         String icon = CommonUtils.generateIcon(pkg.org(), pkg.name(), pkg.version());
         TriggerBasicInfo triggerBasicInfo = new TriggerBasicInfo(pkg.packageId(),
                 label, pkg.org(), pkg.name(), pkg.name(),
-                pkg.version(), pkg.name(), label, "",
+                pkg.version(), serviceTemplate.kind(), label, "",
                 protocol, icon);
 
         return Optional.of(triggerBasicInfo);

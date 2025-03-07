@@ -221,6 +221,13 @@ public class ServiceModelUtils {
         return Optional.of(service);
     }
 
+    public static void updateFunctionList(Service service) {
+        int packageId = Integer.parseInt(service.getId());
+        String serviceTypeName = service.getServiceType().getValue();
+        ServiceDatabaseManager.getInstance().getMatchingServiceTypeFunctions(packageId, serviceTypeName)
+                .forEach(function -> service.getFunctions().add(getFunction(function)));
+    }
+
     private static Function getFunction(ServiceTypeFunction function) {
 
         List<Parameter> parameters = new ArrayList<>();

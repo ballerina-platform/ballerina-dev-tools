@@ -217,6 +217,7 @@ public class ServiceDatabaseManager {
         sql.append("s.string_literal_description, ");
         sql.append("s.string_literal_default_value, ");
         sql.append("s.listener_kind, ");
+        sql.append("s.kind, ");
         sql.append("p.package_id, ");
         sql.append("p.org, ");
         sql.append("p.name AS package_name, ");
@@ -254,7 +255,8 @@ public class ServiceDatabaseManager {
                         rs.getString("string_literal_label"),
                         rs.getString("string_literal_description"),
                         rs.getString("string_literal_default_value"),
-                        rs.getString("listener_kind")
+                        rs.getString("listener_kind"),
+                        rs.getString("kind")
                 );
 
                 return Optional.of(serviceDeclaration);

@@ -1022,9 +1022,11 @@ public final class Utils {
             String onConnectFunc = Utils.getTcpOnConnectTemplate().formatted(serviceClassName, serviceClassName);
             functions.add(onConnectFunc);
         } else {
+            boolean isAiAgent = service.getModuleName().equals("ai.agent");
+            FunctionBodyKind kind = isAiAgent ? FunctionBodyKind.EMPTY : FunctionBodyKind.DO_BLOCK;
             service.getFunctions().forEach(function -> {
                 if (function.isEnabled()) {
-                    String functionNode = "\t" + getFunction(function, new ArrayList<>())
+                    String functionNode = "\t" + getFunction(function, new ArrayList<>(), kind)
                             .replace(System.lineSeparator(), System.lineSeparator() + "\t");
                     functions.add(functionNode);
                 }
@@ -1060,7 +1062,7 @@ public final class Utils {
         return String.format("{%s}", String.join(", ", params));
     }
 
-    public static String getFunction(Function function, List<String> statusCodeResponses) {
+    public static String getFunction(Function function, List<String> statusCodeResponses, FunctionBodyKind kind) {
         StringBuilder builder = new StringBuilder();
         String functionQualifiers = getFunctionQualifiers(function);
         if (!functionQualifiers.isEmpty()) {
@@ -1086,20 +1088,40 @@ public final class Utils {
         builder.append(getFunctionSignature(function, statusCodeResponses));
         builder.append("{");
         builder.append(System.lineSeparator());
-        builder.append("\tdo {");
-        builder.append(System.lineSeparator());
-        builder.append("\t\tpanic error(\"Unimplemented function\");");
-        builder.append(System.lineSeparator());
-        builder.append("\t} on fail error err {");
-        builder.append(System.lineSeparator());
-        builder.append("\t\t// handle error");
-        builder.append(System.lineSeparator());
-        builder.append("\t\tpanic error(\"Unhandled error\");");
-        builder.append(System.lineSeparator());
-        builder.append("\t}");
-        builder.append(System.lineSeparator());
+        if (kind.equals(FunctionBodyKind.DO_BLOCK) || kind.equals(FunctionBodyKind.BLOCK_WITH_PANIC)) {
+            builder.append("\tdo {");
+            builder.append(System.lineSeparator());
+        }
+        if (kind.equals(FunctionBodyKind.BLOCK_WITH_PANIC)) {
+            builder.append("\t\tpanic error(\"Unimplemented function\");");
+            builder.append(System.lineSeparator());
+            builder.append("\t} on fail error err {");
+            builder.append(System.lineSeparator());
+            builder.append("\t\t// handle error");
+            builder.append(System.lineSeparator());
+            builder.append("\t\tpanic error(\"Unhandled error\");");
+            builder.append(System.lineSeparator());
+            builder.append("\t}");
+            builder.append(System.lineSeparator());
+        }
+        if (kind.equals(FunctionBodyKind.DO_BLOCK)) {
+            builder.append("\t} on fail error err {");
+            builder.append(System.lineSeparator());
+            builder.append("\t\t// handle error");
+            builder.append(System.lineSeparator());
+            builder.append("\t\tpanic error(\"Unhandled error\");");
+            builder.append(System.lineSeparator());
+            builder.append("\t}");
+            builder.append(System.lineSeparator());
+        }
         builder.append("}");
         return builder.toString();
+    }
+
+    public enum FunctionBodyKind {
+        EMPTY,
+        BLOCK_WITH_PANIC,
+        DO_BLOCK
     }
 
     public static String getFunctionSignature(Function function, List<String> statusCodeResponses) {

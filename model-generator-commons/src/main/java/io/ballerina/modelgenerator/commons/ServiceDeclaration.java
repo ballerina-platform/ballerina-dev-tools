@@ -46,7 +46,7 @@ public record ServiceDeclaration(Package packageInfo, String displayName,
                                  String absoluteResourcePathLabel, String absoluteResourcePathDescription,
                                  String absoluteResourcePathDefaultValue, int optionalStringLiteral,
                                  String stringLiteralLabel, String stringLiteralDescription,
-                                 String stringLiteralDefaultValue, String listenerKind) {
+                                 String stringLiteralDefaultValue, String listenerKind, String kind) {
 
     public record Package(int packageId, String org, String name, String version) {
     }
