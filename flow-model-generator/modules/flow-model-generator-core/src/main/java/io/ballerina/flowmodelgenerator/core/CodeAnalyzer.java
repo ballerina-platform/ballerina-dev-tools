@@ -29,6 +29,7 @@ import io.ballerina.compiler.api.symbols.ModuleSymbol;
 import io.ballerina.compiler.api.symbols.ParameterSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
+import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
@@ -172,6 +173,9 @@ class CodeAnalyzer extends NodeVisitor {
     private final DiagnosticHandler diagnosticHandler;
     private final boolean forceAssign;
     private final String connectionScope;
+
+    private static final String LLM_CALL = "LlmCall";
+    private static final String CALL_LLM = "callLlm";
 
     // State fields
     private NodeBuilder nodeBuilder;
@@ -638,7 +642,7 @@ class CodeAnalyzer extends NodeVisitor {
                                 .label(unescapedParamName)
                                 .description(paramResult.description())
                                 .stepOut()
-                            .type(getPropertyTypeFromParamKind(paramResult.kind()))
+                            .type(getPropertyTypeFromParam(parameterSymbol, paramResult.kind()))
                             .typeConstraint(paramResult.type())
                             .typeMembers(paramResult.typeMembers(), selectedType)
                             .value(value)
@@ -668,7 +672,7 @@ class CodeAnalyzer extends NodeVisitor {
                             .label(unescapedParamName)
                             .description(restParamResult.description())
                             .stepOut()
-                        .type(getPropertyTypeFromParamKind(restParamResult.kind()))
+                        .type(getPropertyTypeFromParam(restParamSymbol, restParamResult.kind()))
                         .typeConstraint(restParamResult.type())
                         .typeMembers(restParamResult.typeMembers())
                         .value(restArgs)
@@ -736,7 +740,7 @@ class CodeAnalyzer extends NodeVisitor {
                                         .label(unescapedParamName)
                                         .description(paramResult.description())
                                         .stepOut()
-                                    .type(getPropertyTypeFromParamKind(paramResult.kind()))
+                                    .type(getPropertyTypeFromParam(parameterSymbol, paramResult.kind()))
                                     .typeConstraint(paramResult.type())
                                     .typeMembers(paramResult.typeMembers(), selectedType)
                                     .value(value)
@@ -782,7 +786,7 @@ class CodeAnalyzer extends NodeVisitor {
                                             .label(unescapedParamName)
                                             .description(paramResult.description())
                                             .stepOut()
-                                        .type(getPropertyTypeFromParamKind(paramResult.kind()))
+                                        .type(getPropertyTypeFromParam(parameterSymbol, paramResult.kind()))
                                         .typeConstraint(paramResult.type())
                                         .typeMembers(paramResult.typeMembers(), selectedType)
                                         .value(value)
@@ -823,7 +827,7 @@ class CodeAnalyzer extends NodeVisitor {
                                         .label(unescapedParamName)
                                         .description(paramResult.description())
                                         .stepOut()
-                                    .type(getPropertyTypeFromParamKind(paramResult.kind()))
+                                    .type(getPropertyTypeFromParam(parameterSymbol, paramResult.kind()))
                                     .typeConstraint(paramResult.type())
                                     .typeMembers(paramResult.typeMembers(), selectedType)
                                     .value(value)
@@ -869,7 +873,7 @@ class CodeAnalyzer extends NodeVisitor {
                             .label(unescapedParamName)
                             .description(paramResult.description())
                             .stepOut()
-                        .type(getPropertyTypeFromParamKind(paramResult.kind()))
+                        .type(getPropertyTypeFromParam(parameterSymbol, paramResult.kind()))
                         .typeConstraint(paramResult.type())
                         .typeMembers(paramResult.typeMembers(), selectedType)
                         .value(value)
@@ -900,7 +904,7 @@ class CodeAnalyzer extends NodeVisitor {
                             .label(unescapedParamName)
                             .description(includedRecordRest.description())
                             .stepOut()
-                        .type(getPropertyTypeFromParamKind(includedRecordRest.kind()))
+                        .type(getPropertyTypeFromParam(null, includedRecordRest.kind()))
                         .typeConstraint(includedRecordRest.type())
                         .typeMembers(includedRecordRest.typeMembers())
                         .value(includedRecordRestArgs)
@@ -934,11 +938,13 @@ class CodeAnalyzer extends NodeVisitor {
         }
     }
 
-    private Property.ValueType getPropertyTypeFromParamKind(ParameterData.Kind kind) {
+    private Property.ValueType getPropertyTypeFromParam(ParameterSymbol paramSymbol, ParameterData.Kind kind) {
         if (kind == ParameterData.Kind.REST_PARAMETER) {
             return Property.ValueType.EXPRESSION_SET;
         } else if (kind == ParameterData.Kind.INCLUDED_RECORD_REST) {
             return Property.ValueType.MAPPING_EXPRESSION_SET;
+        } else if (paramSymbol != null && isSubTypeOfRawTemplate(paramSymbol.typeDescriptor())) {
+            return Property.ValueType.RAW_TEMPLATE;
         }
         return Property.ValueType.EXPRESSION;
     }
@@ -1296,6 +1302,8 @@ class CodeAnalyzer extends NodeVisitor {
             return;
         }
 
+        FunctionSymbol functionSymbol = (FunctionSymbol) symbol.get();
+
         NameReferenceNode nameReferenceNode = functionCallExpressionNode.functionName();
         String functionName = getIdentifierName(nameReferenceNode);
 
@@ -1303,11 +1311,11 @@ class CodeAnalyzer extends NodeVisitor {
             startNode(NodeKind.DATA_MAPPER_CALL, functionCallExpressionNode.parent());
         } else if (isAgentCall(symbol.get())) {
             startNode(NodeKind.AGENT_CALL, functionCallExpressionNode.parent());
+        } else if (CommonUtils.isNpFunction(functionSymbol)) {
+            startNode(NodeKind.NP_FUNCTION_CALL, functionCallExpressionNode.parent());
         } else {
             startNode(NodeKind.FUNCTION_CALL, functionCallExpressionNode.parent());
         }
-
-        FunctionSymbol functionSymbol = (FunctionSymbol) symbol.get();
 
         if (CommonUtils.isDefaultPackage(functionSymbol, moduleInfo)) {
             functionSymbol.getLocation()
@@ -1993,6 +2001,17 @@ class CodeAnalyzer extends NodeVisitor {
             return (ImplicitNewExpressionNode) expr;
         }
         throw new IllegalStateException("Implicit new expression not found");
+    }
+
+    // Check whether a type symbol is subType of `RawTemplate`
+    private boolean isSubTypeOfRawTemplate(TypeSymbol typeSymbol) {
+        // TODO: Once https://github.com/ballerina-platform/ballerina-lang/pull/43871 is merged,
+        //  we can use `typeSymbol.subtypeOf(semanticModel.types().RAW_TEMPLATE)` to check the subtyping
+        TypeDefinitionSymbol rawTypeDefSymbol = (TypeDefinitionSymbol)
+                semanticModel.types().getTypeByName("ballerina", "lang.object", "0.0.0", "RawTemplate").get();
+
+        TypeSymbol rawTemplateTypeDesc = rawTypeDefSymbol.typeDescriptor();
+        return typeSymbol.subtypeOf(rawTemplateTypeDesc);
     }
 
     public List<FlowNode> getFlowNodes() {

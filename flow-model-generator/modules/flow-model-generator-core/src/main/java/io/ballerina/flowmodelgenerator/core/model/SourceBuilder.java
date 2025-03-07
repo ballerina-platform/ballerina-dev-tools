@@ -604,6 +604,16 @@ public class SourceBuilder {
             return this;
         }
 
+        public TokenBuilder equal() {
+            sb.append(WHITE_SPACE).append(SyntaxKind.EQUAL_TOKEN.stringValue()).append(WHITE_SPACE);
+            return this;
+        }
+
+        public TokenBuilder semicolon() {
+            sb.append(SyntaxKind.SEMICOLON_TOKEN.stringValue()).append(System.lineSeparator());
+            return this;
+        }
+
         public TokenBuilder closeBrace() {
             sb.append(WHITE_SPACE)
                     .append(SyntaxKind.CLOSE_BRACE_TOKEN.stringValue())

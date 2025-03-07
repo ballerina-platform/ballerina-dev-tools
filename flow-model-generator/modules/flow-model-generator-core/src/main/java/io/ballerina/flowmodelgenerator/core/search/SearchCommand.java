@@ -61,6 +61,7 @@ public abstract class SearchCommand {
         return switch (kind) {
             case FUNCTION -> new FunctionSearchCommand(module, position, queryMap);
             case CONNECTOR -> new ConnectorSearchCommand(module, position, queryMap);
+            case NP_FUNCTION -> new NPFunctionSearchCommand(module, position, queryMap);
             case TYPE -> new TypeSearchCommand(module, position, queryMap);
         };
     }
@@ -136,6 +137,7 @@ public abstract class SearchCommand {
     public enum Kind {
         FUNCTION,
         CONNECTOR,
-        TYPE
+        TYPE,
+        NP_FUNCTION
     }
 }
