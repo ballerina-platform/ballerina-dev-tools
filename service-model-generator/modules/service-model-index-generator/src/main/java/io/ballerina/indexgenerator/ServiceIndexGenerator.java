@@ -179,8 +179,8 @@ class ServiceIndexGenerator {
                             .contains(serviceName)) {
                         ServiceType serviceType = new ServiceType(serviceName, getDescription(typeDefinitionSymbol),
                                 null);
-                        DatabaseManager.insertServiceType(packageId, serviceType);
-                        handleServiceType(objectTypeSymbol, semanticModel, packageId);
+                        int serviceTypeId = DatabaseManager.insertServiceType(packageId, serviceType);
+                        handleServiceType(objectTypeSymbol, semanticModel, serviceTypeId);
                     }
                 }
             }
@@ -191,9 +191,9 @@ class ServiceIndexGenerator {
         // insert hardcoded service types
         for (Map.Entry<String, ServiceType> entry : serviceTypes.entrySet()) {
             ServiceType serviceType = entry.getValue();
-            DatabaseManager.insertServiceType(packageId, serviceType);
+            int serviceTypeId =  DatabaseManager.insertServiceType(packageId, serviceType);
             for (ServiceTypeFunction function : serviceType.functions()) {
-                int functionId = DatabaseManager.insertServiceTypeFunction(packageId, function);
+                int functionId = DatabaseManager.insertServiceTypeFunction(serviceTypeId, function);
                 for (ServiceTypeFunctionParameter parameter : function.parameters()) {
                     DatabaseManager.insertServiceTypeFunctionParameter(functionId, parameter);
                 }
@@ -583,7 +583,7 @@ class ServiceIndexGenerator {
                               String absoluteResourcePathLabel, String absoluteResourcePathDescription,
                               String absoluteResourcePathDefaultValue, int optionalStringLiteral,
                               String stringLiteralLabel, String stringLiteralDescription,
-                              String stringLiteralDefaultValue, String listenerKind) {
+                              String stringLiteralDefaultValue, String listenerKind, String kind) {
     }
 
     record ServiceType(

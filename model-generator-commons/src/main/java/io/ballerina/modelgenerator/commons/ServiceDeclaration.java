@@ -36,6 +36,7 @@ package io.ballerina.modelgenerator.commons;
  * @param stringLiteralDescription The description of the string literal
  * @param stringLiteralDefaultValue The default value of the string literal
  * @param listenerKind The kind of the listener
+ * @param kind The kind of the service
  *
  * @since 2.0.0
  */
@@ -46,7 +47,7 @@ public record ServiceDeclaration(Package packageInfo, String displayName,
                                  String absoluteResourcePathLabel, String absoluteResourcePathDescription,
                                  String absoluteResourcePathDefaultValue, int optionalStringLiteral,
                                  String stringLiteralLabel, String stringLiteralDescription,
-                                 String stringLiteralDefaultValue, String listenerKind) {
+                                 String stringLiteralDefaultValue, String listenerKind, String kind) {
 
     public record Package(int packageId, String org, String name, String version) {
     }

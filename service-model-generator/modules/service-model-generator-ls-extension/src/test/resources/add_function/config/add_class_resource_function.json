@@ -146,7 +146,7 @@
             "character": 34
           }
         },
-        "newText": "\n\tresource function get author/[int id]() returns string|error? {\n\t\tdo {\n\t\t\tpanic error(\"Unimplemented function\");\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t\tpanic error(\"Unhandled error\");\n\t\t}\n\t}"
+        "newText": "\n\tresource function get author/[int id]() returns string|error? {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t\tpanic error(\"Unhandled error\");\n\t\t}\n\t}"
       }
     ]
   }
