@@ -154,7 +154,13 @@ public class DocumentContext {
         }
         // Check if the document exists
         PackageUtil.loadProject(workspaceManager(), inputFilePath);
-        Optional<Document> inputDoc = CommonUtils.getDocument(workspaceManager(), inputFilePath);
+        Optional<Document> inputDoc;
+        try {
+            inputDoc = workspaceManager.document(inputFilePath);
+        } catch (Throwable t) {
+            inputDoc = Optional.empty();
+        }
+
         if (inputDoc.isPresent()) {
             document = inputDoc.get();
             filePath = inputFilePath;

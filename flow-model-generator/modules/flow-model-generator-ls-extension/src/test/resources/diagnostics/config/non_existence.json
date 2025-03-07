@@ -4,8 +4,8 @@
   "context": {
     "expression": "\"1.4\"",
     "startLine": {
-      "line": 13,
-      "offset": 8
+      "line": 0,
+      "offset": 0
     },
     "offset": 0,
     "codedata": {
@@ -34,11 +34,11 @@
     {
       "range": {
         "start": {
-          "line": 3,
+          "line": 0,
           "character": 33
         },
         "end": {
-          "line": 3,
+          "line": 0,
           "character": 38
         }
       },

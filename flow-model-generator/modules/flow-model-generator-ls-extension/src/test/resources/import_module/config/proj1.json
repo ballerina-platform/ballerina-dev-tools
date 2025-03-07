@@ -3,5 +3,4 @@
     "filePath": "proj/source.bal",
     "importStatement": "import ballerina/log;\n",
     "expression": "log:p"
-  }
-  
+}
