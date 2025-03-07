@@ -10,7 +10,8 @@
       "description": "Wait for a set of futures to complete"
     },
     "codedata": {
-      "node": "WAIT"
+      "node": "WAIT",
+      "isNew": true
     },
     "returning": false,
     "properties": {

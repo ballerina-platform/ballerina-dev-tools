@@ -15,7 +15,8 @@
       "description": "Define a data mapper"
     },
     "codedata": {
-      "node": "DATA_MAPPER_DEFINITION"
+      "node": "DATA_MAPPER_DEFINITION",
+      "isNew": true
     },
     "returning": false,
     "properties": {

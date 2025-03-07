@@ -24,7 +24,8 @@
       "org": "ballerina",
       "module": "data.jsondata",
       "symbol": "toJson",
-      "version": "0.2.0"
+      "version": "0.2.0",
+      "isNew": true
     },
     "returning": false,
     "properties": {

@@ -28,6 +28,7 @@
       "object": "Client",
       "symbol": "query",
       "version": "2.1.0",
+      "isNew": true,
       "inferredReturnType": "stream<rowType, sql:Error?>"
     },
     "returning": false,

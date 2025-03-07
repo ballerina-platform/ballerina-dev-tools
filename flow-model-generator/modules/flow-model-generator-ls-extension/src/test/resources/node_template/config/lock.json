@@ -10,7 +10,8 @@
       "description": "Allow to access mutable states safely"
     },
     "codedata": {
-      "node": "LOCK"
+      "node": "LOCK",
+      "isNew": true
     },
     "returning": false,
     "branches": [

@@ -25,6 +25,7 @@
       "module": "io",
       "symbol": "fileReadCsv",
       "version": "1.6.1",
+      "isNew": true,
       "inferredReturnType": "returnType[]"
     },
     "returning": false,

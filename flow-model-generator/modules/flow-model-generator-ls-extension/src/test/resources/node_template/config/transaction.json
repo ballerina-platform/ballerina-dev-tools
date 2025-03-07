@@ -10,7 +10,8 @@
       "description": "Handle transaction."
     },
     "codedata": {
-      "node": "TRANSACTION"
+      "node": "TRANSACTION",
+      "isNew": true
     },
     "returning": false,
     "branches": [

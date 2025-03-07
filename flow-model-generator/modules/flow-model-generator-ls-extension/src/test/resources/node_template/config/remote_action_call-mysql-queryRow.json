@@ -30,6 +30,7 @@
       "object": "Client",
       "symbol": "queryRow",
       "version": "1.14.0",
+      "isNew": true,
       "inferredReturnType": "returnType"
     },
     "returning": false,

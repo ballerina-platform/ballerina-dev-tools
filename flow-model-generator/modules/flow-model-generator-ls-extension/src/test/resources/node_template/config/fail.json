@@ -10,7 +10,8 @@
       "description": "Fail the execution"
     },
     "codedata": {
-      "node": "FAIL"
+      "node": "FAIL",
+      "isNew": true
     },
     "returning": false,
     "properties": {
