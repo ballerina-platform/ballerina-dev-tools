@@ -39,6 +39,8 @@ public class AgentBuilder extends CallBuilder {
 
     private static final String AGENT_LABEL = "Agent";
     private static final String AGENT_FILE = "agents.bal";
+    public static final String PARAMS_TO_HIDE = "paramsToHide";
+    public static final String MODEL = "model";
 
     @Override
     protected NodeKind getFunctionNodeKind() {
@@ -70,5 +72,11 @@ public class AgentBuilder extends CallBuilder {
                         Property.SCOPE_KEY, Property.CHECK_ERROR_KEY));
 
         return sourceBuilder.textEdit(false, AGENT_FILE, true).build();
+    }
+
+    @Override
+    public void setConcreteTemplateData(TemplateContext context) {
+        super.setConcreteTemplateData(context);
+        metadata().addData(PARAMS_TO_HIDE, List.of(MODEL));
     }
 }
