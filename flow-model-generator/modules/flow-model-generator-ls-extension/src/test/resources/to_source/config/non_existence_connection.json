@@ -1,0 +1,119 @@
+{
+  "source": "new_connection7",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "38878",
+    "metadata": {
+      "label": "New Connection",
+      "description": "Create a new connection"
+    },
+    "codedata": {
+      "node": "NEW_CONNECTION",
+      "org": "ballerina",
+      "module": "http",
+      "object": "Client",
+      "symbol": "init",
+      "lineRange": {
+        "fileName": "new_connection7.bal",
+        "startLine": {
+          "line": 1,
+          "offset": 44
+        },
+        "endLine": {
+          "line": 1,
+          "offset": 44
+        }
+      }
+    },
+    "returning": false,
+    "properties": {
+      "scope": {
+        "metadata": {
+          "label": "Connection Scope",
+          "description": "Scope of the connection, Global or Local"
+        },
+        "valueType": "ENUM",
+        "value": "Global",
+        "optional": false,
+        "editable": true
+      },
+      "url": {
+        "metadata": {
+          "label": "url",
+          "description": "URL of the target service\n"
+        },
+        "valueType": "EXPRESSION",
+        "value": "\"http://localhost:8080\"",
+        "optional": false,
+        "editable": true,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "url"
+        }
+      },
+      "config": {
+        "metadata": {
+          "label": "config",
+          "description": "The configurations to be used when initializing the `client`\n"
+        },
+        "value": "{}",
+        "valueType": "EXPRESSION",
+        "optional": false,
+        "editable": true,
+        "codedata": {
+          "kind": "INCLUDED_RECORD",
+          "originalName": "config"
+        }
+      },
+      "variable": {
+        "metadata": {
+          "label": "Data variable",
+          "description": "Name of the variable"
+        },
+        "value": "localHttpCl",
+        "optional": false,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Data type",
+          "description": "Type of the variable"
+        },
+        "value": "http:Client",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 1
+  },
+  "output": {
+    "new_connection7/connections.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import ballerina/http;"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 1,
+            "character": 44
+          },
+          "end": {
+            "line": 1,
+            "character": 44
+          }
+        },
+        "newText": "\nfinal http:Client localHttpCl = check new (\"http://localhost:8080\", {});"
+      }
+    ]
+  }
+}

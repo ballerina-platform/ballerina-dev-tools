@@ -27,6 +27,7 @@ import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeParser;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
+import io.ballerina.flowmodelgenerator.core.utils.FileSystemUtils;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.ParameterData;
 import io.ballerina.projects.Document;
@@ -184,9 +185,8 @@ public class SourceBuilder {
             Property type = optionalType.get();
 
             // TODO: There can be cases where the return type and the value type both come from imported modules. We
-            //  have
-            //  to optimize how we handle the return type, as the current implementation does not allow the user to
-            //  assign the error to a variable and handle it.
+            //  have to optimize how we handle the return type, as the current implementation does not allow the user
+            //  to assign the error to a variable and handle it.
             // Add the import statements if exists in the return type
             if (type.codedata() != null && type.codedata().importStatements() != null &&
                     flowNode.getProperty(Property.CHECK_ERROR_KEY).map(property -> property.value().equals("false"))
@@ -221,7 +221,7 @@ public class SourceBuilder {
             return this;
         }
         // TODO: Check how we can only use this logic once compared to the textEdit(fileName) method
-        Document document = workspaceManager.document(resolvedPath).orElseThrow();
+        Document document = FileSystemUtils.getDocument(workspaceManager, resolvedPath);
         SyntaxTree syntaxTree = document.syntaxTree();
         LineRange lineRange = syntaxTree.rootNode().lineRange();
 
@@ -270,7 +270,7 @@ public class SourceBuilder {
         } catch (WorkspaceDocumentException | EventSyncException e) {
             throw new RuntimeException(e);
         }
-        SemanticModel semanticModel = workspaceManager.semanticModel(filePath).orElseThrow();
+        SemanticModel semanticModel = FileSystemUtils.getSemanticModel(workspaceManager, filePath);
         return semanticModel.moduleSymbols().stream()
                 .filter(symbol -> symbol.kind() == SymbolKind.TYPE_DEFINITION && symbol.getName().isPresent() &&
                         symbol.getName().get().equals(typeName))
