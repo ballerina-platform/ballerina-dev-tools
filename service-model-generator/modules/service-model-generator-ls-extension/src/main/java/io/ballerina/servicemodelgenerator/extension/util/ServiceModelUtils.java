@@ -223,7 +223,8 @@ public class ServiceModelUtils {
 
     public static void updateFunctionList(Service service) {
         int packageId = Integer.parseInt(service.getId());
-        String serviceTypeName = service.getServiceType().getValue();
+        String serviceTypeName = Objects.nonNull(service.getServiceType()) ? service.getServiceType().getValue()
+                : "Service";
         ServiceDatabaseManager.getInstance().getMatchingServiceTypeFunctions(packageId, serviceTypeName)
                 .forEach(function -> service.getFunctions().add(getFunction(function)));
     }

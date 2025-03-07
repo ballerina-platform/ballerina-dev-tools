@@ -215,8 +215,8 @@ public class ServiceModelAPITests {
     @Test
     public void testAddHttpService() throws ExecutionException, InterruptedException {
         Path filePath = resDir.resolve("sample2/main.bal");
-        ServiceModelRequest modelRequest = new ServiceModelRequest(filePath.toAbsolutePath().toString(), "ballerinax",
-                "ai.agent", null);
+        ServiceModelRequest modelRequest = new ServiceModelRequest(filePath.toAbsolutePath().toString(), "ballerina",
+                "http", null);
         CompletableFuture<?> modelResult = serviceEndpoint.request("serviceDesign/getServiceModel", modelRequest);
         ServiceModelResponse modelResponse = (ServiceModelResponse) modelResult.get();
         Service service = modelResponse.service();
