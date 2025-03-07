@@ -14,7 +14,7 @@
       "module": "github",
       "object": "Client",
       "symbol": "init",
-      "id": 1793
+      "isNew": true
     },
     "returning": false,
     "properties": {

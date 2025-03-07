@@ -14,7 +14,8 @@
     "module": "mod1",
     "object": "Client",
     "symbol": "init",
-    "isGenerated": "true"
+    "isGenerated": "true",
+    "isNew": true
   },
   "output": {
     "id": "31",
@@ -29,6 +30,7 @@
       "module": "mod1",
       "object": "Client",
       "symbol": "init",
+      "isNew": true,
       "isGenerated": true
     },
     "returning": false,
