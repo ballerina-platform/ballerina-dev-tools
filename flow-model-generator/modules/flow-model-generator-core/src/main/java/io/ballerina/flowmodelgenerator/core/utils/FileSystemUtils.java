@@ -43,7 +43,7 @@ public class FileSystemUtils {
         Document document;
         try {
             document = workspaceManager.document(filePath).orElseThrow();
-        } catch (ProjectException e) {
+        } catch (Throwable e) {
             // Create a new file as it does not exist
             try {
                 Files.createFile(filePath);

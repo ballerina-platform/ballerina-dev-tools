@@ -60,7 +60,6 @@ public class ParallelFlowBuilder extends NodeBuilder {
         Branch firstBranch = Branch.getDefaultWorkerBranch(names);
         names.add(firstBranch.label());
         this.branches = List.of(firstBranch, Branch.getDefaultWorkerBranch(names));
-        codedata().isNew();
     }
 
     protected List<String> generateWorkers(SourceBuilder sourceBuilder) {

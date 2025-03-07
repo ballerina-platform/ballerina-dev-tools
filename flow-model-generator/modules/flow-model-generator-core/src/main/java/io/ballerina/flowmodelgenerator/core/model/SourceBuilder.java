@@ -126,17 +126,6 @@ public class SourceBuilder {
         }
 
         Path resolvedPath = workspaceManager.projectRoot(filePath).resolve(fileName);
-        LineRange flowNodeLineRange = flowNode.codedata().lineRange();
-        if (flowNodeLineRange != null && allowEdits) {
-            LinePosition startLine = flowNodeLineRange.startLine();
-            LinePosition endLine = flowNodeLineRange.endLine();
-
-            if (startLine.line() != 0 || startLine.offset() != 0 || endLine.line() != 0 || endLine.offset() != 0) {
-                textEdit(isExpression, resolvedPath, CommonUtils.toRange(flowNodeLineRange));
-                acceptImport(resolvedPath);
-                return this;
-            }
-        }
 
         LinePosition linePosition;
         try {
