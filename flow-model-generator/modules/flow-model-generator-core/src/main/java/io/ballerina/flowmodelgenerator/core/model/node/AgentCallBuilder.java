@@ -21,6 +21,7 @@ package io.ballerina.flowmodelgenerator.core.model.node;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
+import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.flowmodelgenerator.core.utils.FlowNodeUtil;
 import io.ballerina.modelgenerator.commons.FunctionData;
@@ -29,6 +30,7 @@ import org.eclipse.lsp4j.TextEdit;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -62,16 +64,21 @@ public class AgentCallBuilder extends CallBuilder {
             sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
         }
 
-        String module = flowNode.codedata().module();
-        String methodCallPrefix = (module != null) ? module.substring(module.lastIndexOf('.') + 1) + "->" : "";
-        String methodCall = methodCallPrefix + flowNode.metadata().label();
+        Optional<Property> connection = flowNode.getProperty(Property.CONNECTION_KEY);
+        if (connection.isEmpty()) {
+            throw new IllegalStateException("Client must be defined for an action call node");
+        }
 
         return sourceBuilder.token()
-                .name(methodCall)
+                .name(connection.get().toSourceCode())
+                .keyword(SyntaxKind.RIGHT_ARROW_TOKEN)
+                .name(flowNode.metadata().label())
                 .stepOut()
-                .functionParameters(flowNode, Set.of("variable", "type", "view", "checkError"))
+                .functionParameters(flowNode,
+                        Set.of(Property.CONNECTION_KEY, Property.VARIABLE_KEY, Property.TYPE_KEY,
+                                Property.CHECK_ERROR_KEY))
                 .textEdit(false)
-                .acceptImport(sourceBuilder.filePath)
+                .acceptImportWithVariableType()
                 .build();
     }
 }
