@@ -921,7 +921,7 @@ class CodeAnalyzer extends NodeVisitor {
                         .label(unescapedParamName)
                         .description(paramResult.description())
                         .stepOut()
-                        .type(getPropertyTypeFromParamKind(paramResult.kind()))
+                        .type(getPropertyTypeFromParam(null, paramResult.kind()))
                         .typeConstraint(paramResult.type())
                         .typeMembers(paramResult.typeMembers(), selectedType)
                         .value(value)
