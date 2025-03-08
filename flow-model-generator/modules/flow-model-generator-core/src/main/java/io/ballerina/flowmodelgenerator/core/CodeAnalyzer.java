@@ -991,7 +991,6 @@ class CodeAnalyzer extends NodeVisitor {
                         .map(ParenthesizedArgList::arguments)
                         .orElse(null);
         checkForNewConnectionOrAgent(implicitNewExpressionNode, argumentNodes);
-        super.visit(implicitNewExpressionNode);
     }
 
     @Override
@@ -999,7 +998,6 @@ class CodeAnalyzer extends NodeVisitor {
         SeparatedNodeList<FunctionArgumentNode> argumentNodes =
                 explicitNewExpressionNode.parenthesizedArgList().arguments();
         checkForNewConnectionOrAgent(explicitNewExpressionNode, argumentNodes);
-        super.visit(explicitNewExpressionNode);
     }
 
     private void checkForNewConnectionOrAgent(NewExpressionNode newExpressionNode,
