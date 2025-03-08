@@ -121,4 +121,45 @@ class DatabaseManager {
         insertEntry(sql, new Object[]{parameterId, type, kind, packageIdentifier});
     }
 
+    public static void insertServiceDeclaration(int packageId,
+                                                ServiceIndexGenerator.ServiceDeclaration serviceDeclaration) {
+        String sql = "INSERT INTO ServiceDeclaration (package_id, display_name, optional_type_descriptor, " +
+                "type_descriptor_label, type_descriptor_description, type_descriptor_default_value, " +
+                "add_default_type_descriptor, " +
+                "optional_absolute_resource_path, absolute_resource_path_label, absolute_resource_path_description, " +
+                "absolute_resource_path_default_value, optional_string_literal, string_literal_label, " +
+                "string_literal_description, string_literal_default_value, listener_kind, kind) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        insertEntry(sql, new Object[]{packageId, serviceDeclaration.displayName(),
+                serviceDeclaration.optionalTypeDescriptor(), serviceDeclaration.typeDescriptorLabel(),
+                serviceDeclaration.typeDescriptorDescription(),
+                serviceDeclaration.typeDescriptorDefaultValue(), serviceDeclaration.addDefaultTypeDescriptor(),
+                serviceDeclaration.optionalAbsoluteResourcePath(), serviceDeclaration.absoluteResourcePathLabel(),
+                serviceDeclaration.absoluteResourcePathDescription(),
+                serviceDeclaration.absoluteResourcePathDefaultValue(),
+                serviceDeclaration.optionalStringLiteral(), serviceDeclaration.stringLiteralLabel(),
+                serviceDeclaration.stringLiteralDescription(), serviceDeclaration.stringLiteralDefaultValue(),
+                serviceDeclaration.listenerKind(), serviceDeclaration.kind()});
+    }
+
+    public static int insertServiceType(int packageId, ServiceIndexGenerator.ServiceType serviceType) {
+        String sql = "INSERT INTO ServiceType (name, description, package_id) VALUES (?, ?, ?)";
+        return insertEntry(sql, new Object[]{serviceType.name(), serviceType.description(), packageId});
+    }
+
+    public static int insertServiceTypeFunction(int serviceTypeId, ServiceIndexGenerator.ServiceTypeFunction func) {
+        String sql = "INSERT INTO ServiceTypeFunction (name, description, accessor, kind, return_type, " +
+                "return_type_editable, import_statements, enable, service_type_id) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        return insertEntry(sql, new Object[]{func.name(), func.description(), func.accessor(), func.kind(),
+                func.returnType(), func.returnTypeEditable(), func.importStatements(), func.enable(), serviceTypeId});
+    }
+
+    public static void insertServiceTypeFunctionParameter(int functionId,
+                                                          ServiceIndexGenerator.ServiceTypeFunctionParameter param) {
+        String sql = "INSERT INTO ServiceTypeFunctionParameter (name, label, description, kind, type, default_value, "
+                + "import_statements, function_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        insertEntry(sql, new Object[]{param.name(), param.label(), param.description(), param.kind(), param.type(),
+                param.defaultValue(), param.importStatements(), functionId});
+    }
 }

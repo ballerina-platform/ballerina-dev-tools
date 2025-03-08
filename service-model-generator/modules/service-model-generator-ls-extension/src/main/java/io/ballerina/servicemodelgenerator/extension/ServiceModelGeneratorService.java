@@ -24,6 +24,7 @@ import com.google.gson.stream.JsonReader;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ModuleSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
+import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.compiler.syntax.tree.ClassDefinitionNode;
 import io.ballerina.compiler.syntax.tree.ExplicitNewExpressionNode;
@@ -37,14 +38,15 @@ import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeList;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.ObjectFieldNode;
-import io.ballerina.compiler.syntax.tree.QualifiedNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.ServiceDeclarationNode;
-import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.compiler.syntax.tree.TypeDefinitionNode;
 import io.ballerina.compiler.syntax.tree.TypeDescriptorNode;
+import io.ballerina.modelgenerator.commons.CommonUtils;
+import io.ballerina.modelgenerator.commons.ServiceDatabaseManager;
+import io.ballerina.modelgenerator.commons.ServiceDeclaration;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.ModuleId;
@@ -88,6 +90,7 @@ import io.ballerina.servicemodelgenerator.extension.response.TriggerListResponse
 import io.ballerina.servicemodelgenerator.extension.response.TriggerResponse;
 import io.ballerina.servicemodelgenerator.extension.util.ListenerUtil;
 import io.ballerina.servicemodelgenerator.extension.util.ServiceClassUtil;
+import io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtils;
 import io.ballerina.servicemodelgenerator.extension.util.Utils;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
@@ -116,6 +119,10 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
+import static io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtils.getProtocol;
+import static io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtils.updateFunctionList;
+import static io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtils.updateGenericServiceModel;
+import static io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtils.updateListenerItems;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.expectsTriggerByName;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.filterTriggers;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.getFunction;
@@ -126,7 +133,7 @@ import static io.ballerina.servicemodelgenerator.extension.util.Utils.getPath;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.getServiceDeclarationNode;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.importExists;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.isHttpServiceContractType;
-import static io.ballerina.servicemodelgenerator.extension.util.Utils.populateProperties;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.populateRequiredFuncsDesignApproachAndServiceType;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateServiceContractModel;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateServiceModel;
 
@@ -141,7 +148,8 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
 
     private WorkspaceManager workspaceManager;
     private final Map<String, TriggerProperty> triggerProperties;
-    private static final Type propertyMapType = new TypeToken<Map<String, TriggerProperty>>() { }.getType();
+    private static final Type propertyMapType = new TypeToken<Map<String, TriggerProperty>>() {
+    }.getType();
 
     public ServiceModelGeneratorService() {
         InputStream newPropertiesStream = getClass().getClassLoader()
@@ -257,69 +265,26 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
     public CompletableFuture<ServiceModelResponse> getServiceModel(ServiceModelRequest request) {
         return CompletableFuture.supplyAsync(() -> {
             try {
-                Optional<Service> service = getServiceByName(request.moduleName());
+                Optional<Service> service = ServiceModelUtils.getEmptyServiceModel(request.moduleName());
                 if (service.isEmpty()) {
                     return new ServiceModelResponse();
                 }
                 Service serviceModel = service.get();
-                Value listener = serviceModel.getListener();
                 Path filePath = Path.of(request.filePath());
                 Project project = this.workspaceManager.loadProject(filePath);
                 Package currentPackage = project.currentPackage();
                 Module module = currentPackage.module(ModuleName.from(currentPackage.packageName()));
-                ModuleId moduleId = module.moduleId();
-                SemanticModel semanticModel = currentPackage.getCompilation().getSemanticModel(moduleId);
+                SemanticModel semanticModel = currentPackage.getCompilation().getSemanticModel(module.moduleId());
                 Optional<Document> document = this.workspaceManager.document(filePath);
                 if (document.isEmpty()) {
                     return new ServiceModelResponse();
                 }
-                SyntaxTree syntaxTree = document.get().syntaxTree();
-                ModulePartNode modulePartNode = syntaxTree.rootNode();
-                Set<String> listenersList = ListenerUtil.getCompatibleListeners(request.moduleName(), semanticModel,
-                        project);
-                if (Objects.nonNull(request.listenerName())) {
-                    listener.addValue(request.listenerName());
-                    removeAlreadyDefinedServiceTypes(serviceModel, request.listenerName(), modulePartNode);
-                }
-                if (!listenersList.isEmpty()) {
-                    if (request.moduleName().equals(ServiceModelGeneratorConstants.KAFKA)) {
-                        listener.setValueType(ServiceModelGeneratorConstants.SINGLE_SELECT_VALUE);
-                    } else {
-                        listener.setValueType(ServiceModelGeneratorConstants.MULTIPLE_SELECT_VALUE);
-                    }
-                    listener.setItems(listenersList.stream().toList());
-                }
+                Set<String> listenersList = ListenerUtil.getCompatibleListeners(
+                        request.moduleName(), semanticModel, project);
+                serviceModel.getListener().setItems(listenersList.stream().toList());
                 return new ServiceModelResponse(serviceModel);
             } catch (Throwable e) {
                 return new ServiceModelResponse(e);
-            }
-        });
-    }
-
-    private void removeAlreadyDefinedServiceTypes(Service serviceModel, String listenerName,
-                                                  ModulePartNode modulePartNode) {
-        Value serviceTypeValue = serviceModel.getServiceType();
-        if (Objects.isNull(serviceTypeValue) || Objects.isNull(serviceTypeValue.getItems())) {
-            return;
-        }
-        List<ServiceDeclarationNode> services = modulePartNode.members().stream()
-                .filter(member -> member.kind().equals(SyntaxKind.SERVICE_DECLARATION))
-                .map(member -> (ServiceDeclarationNode) member)
-                .toList();
-        services.forEach(service -> {
-            Optional<TypeDescriptorNode> serviceType = service.typeDescriptor();
-            if (serviceType.isEmpty() ||
-                    !serviceType.get().kind().equals(SyntaxKind.QUALIFIED_NAME_REFERENCE)) {
-                return;
-            }
-            String serviceTypeName = ((QualifiedNameReferenceNode) serviceType.get()).identifier().text().trim();
-            Optional<ExpressionNode> listenerExpression = getListenerExpression(service);
-            if (listenerExpression.isEmpty() ||
-                    !(listenerExpression.get() instanceof SimpleNameReferenceNode listener)) {
-                return;
-            }
-            if (listener.name().text().trim().equals(listenerName)) {
-                serviceTypeValue.getItems().remove(serviceTypeName);
             }
         });
     }
@@ -344,7 +309,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 ModulePartNode node = document.get().syntaxTree().rootNode();
                 LineRange lineRange = node.lineRange();
                 Service service = request.service();
-                populateProperties(service);
+                populateRequiredFuncsDesignApproachAndServiceType(service);
 
                 boolean isDefaultListenerCreationRequired =
                         ListenerUtil.checkForDefaultListenerExistence(service.getListener());
@@ -388,6 +353,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                     service.getProperties().put("returningServiceClass", Value.getTcpValue(serviceName));
                 }
 
+                updateFunctionList(service);
                 String serviceDeclaration = getServiceDeclarationNode(service);
                 edits.add(new TextEdit(Utils.toRange(lineRange.endLine()),
                         ServiceModelGeneratorConstants.LINE_SEPARATOR + serviceDeclaration));
@@ -473,9 +439,9 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 LineRange serviceEnd = serviceNode.closeBraceToken().lineRange();
                 List<String> statusCodeResponses = new ArrayList<>();
                 String functionDefinition = ServiceModelGeneratorConstants.LINE_SEPARATOR +
-                        "\t" + getFunction(request.function(), statusCodeResponses)
+                        "\t" + getFunction(request.function(), statusCodeResponses, Utils.FunctionBodyKind.DO_BLOCK)
                         .replace(ServiceModelGeneratorConstants.LINE_SEPARATOR,
-                        ServiceModelGeneratorConstants.LINE_SEPARATOR + "\t")
+                                ServiceModelGeneratorConstants.LINE_SEPARATOR + "\t")
                         + ServiceModelGeneratorConstants.LINE_SEPARATOR;
                 List<TextEdit> textEdits = new ArrayList<>();
                 textEdits.add(new TextEdit(Utils.toRange(serviceEnd.startLine()), functionDefinition));
@@ -528,59 +494,66 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 return new ServiceFromSourceResponse();
             }
             ServiceDeclarationNode serviceNode = (ServiceDeclarationNode) node;
-            Optional<String> serviceName = getServiceName(serviceNode, semanticModel);
-            if (serviceName.isEmpty()) {
+            ModuleAndServiceType moduleAndServiceType = deriveServiceType(serviceNode, semanticModel);
+            if (Objects.isNull(moduleAndServiceType.moduleName())) {
                 return new ServiceFromSourceResponse();
             }
-            Optional<Service> service = getServiceByName(serviceName.get());
+            String moduleName = moduleAndServiceType.moduleName();
+            if (moduleName.equals("http")) {
+                Optional<Service> service = ServiceModelUtils.getHttpService();
+                if (service.isEmpty()) {
+                    return new ServiceFromSourceResponse();
+                }
+                Service serviceModel = service.get();
+                serviceModel.setFunctions(new ArrayList<>());
+                Optional<TypeDescriptorNode> serviceTypeDesc = serviceNode.typeDescriptor();
+                if (serviceTypeDesc.isPresent() && isHttpServiceContractType(semanticModel, serviceTypeDesc.get())) {
+                    String serviceContractName = serviceTypeDesc.get().toString().trim();
+                    Path contractPath = project.sourceRoot().toAbsolutePath()
+                            .resolve(String.format("service_contract_%s.bal", serviceContractName));
+                    Optional<Document> contractDoc = this.workspaceManager.document(contractPath);
+                    if (contractDoc.isEmpty()) {
+                        updateServiceModel(serviceModel, serviceNode, semanticModel);
+                    } else {
+                        SyntaxTree contractSyntaxTree = contractDoc.get().syntaxTree();
+                        ModulePartNode contractModulePartNode = contractSyntaxTree.rootNode();
+                        Optional<TypeDefinitionNode> serviceContractType = contractModulePartNode.members().stream()
+                                .filter(member -> member.kind().equals(SyntaxKind.TYPE_DEFINITION))
+                                .map(member -> ((TypeDefinitionNode) member))
+                                .filter(member -> member.typeDescriptor().kind().equals(SyntaxKind.OBJECT_TYPE_DESC))
+                                .findFirst();
+                        if (serviceContractType.isEmpty()) {
+                            updateServiceModel(serviceModel, serviceNode, semanticModel);
+                        } else {
+                            updateServiceContractModel(serviceModel, serviceContractType.get(), serviceNode,
+                                    semanticModel);
+                        }
+                    }
+                } else {
+                    updateServiceModel(serviceModel, serviceNode, semanticModel);
+                }
+                updateListenerItems(moduleName, semanticModel, project, serviceModel);
+                return new ServiceFromSourceResponse(serviceModel);
+            }
+            String serviceType = serviceTypeWithoutPrefix(moduleAndServiceType);
+            Optional<Service> service = ServiceModelUtils.getServiceModelWithFunctions(moduleName, serviceType);
             if (service.isEmpty()) {
                 return new ServiceFromSourceResponse();
             }
             Service serviceModel = service.get();
-            Optional<TypeDescriptorNode> serviceTypeDesc = serviceNode.typeDescriptor();
-            if (serviceTypeDesc.isPresent() && isHttpServiceContractType(semanticModel, serviceTypeDesc.get())) {
-                String serviceContractName = serviceTypeDesc.get().toString().trim();
-                Path contractPath = project.sourceRoot().toAbsolutePath()
-                        .resolve(String.format("service_contract_%s.bal", serviceContractName));
-                Optional<Document> contractDoc = this.workspaceManager.document(contractPath);
-                if (contractDoc.isEmpty()) {
-                    updateServiceModel(serviceModel, serviceNode, semanticModel);
-                } else {
-                    SyntaxTree contractSyntaxTree = contractDoc.get().syntaxTree();
-                    ModulePartNode contractModulePartNode = contractSyntaxTree.rootNode();
-                    Optional<TypeDefinitionNode> serviceContractType = contractModulePartNode.members().stream()
-                            .filter(member -> member.kind().equals(SyntaxKind.TYPE_DEFINITION))
-                            .map(member -> ((TypeDefinitionNode) member))
-                            .filter(member -> member.typeDescriptor().kind().equals(SyntaxKind.OBJECT_TYPE_DESC))
-                            .findFirst();
-                    if (serviceContractType.isEmpty()) {
-                        updateServiceModel(serviceModel, serviceNode, semanticModel);
-                    } else {
-                        updateServiceContractModel(serviceModel, serviceContractType.get(), serviceNode,
-                                semanticModel);
-                    }
-                }
-            } else {
-                updateServiceModel(serviceModel, serviceNode, semanticModel);
-            }
-            Set<String> listeners = ListenerUtil.getCompatibleListeners(serviceName.get(), semanticModel, project);
-            List<String> allValues = serviceModel.getListener().getValues();
-            if (Objects.isNull(allValues) || allValues.isEmpty()) {
-                listeners.add(serviceModel.getListener().getValue());
-            } else {
-                listeners.addAll(allValues);
-            }
-            Value listener = serviceModel.getListener();
-            if (!listeners.isEmpty()) {
-                if (serviceName.get().equals(ServiceModelGeneratorConstants.KAFKA)) {
-                    listener.setValueType(ServiceModelGeneratorConstants.SINGLE_SELECT_VALUE);
-                } else {
-                    listener.setValueType(ServiceModelGeneratorConstants.MULTIPLE_SELECT_VALUE);
-                }
-                listener.setItems(listeners.stream().toList());
-            }
+            updateGenericServiceModel(serviceModel, serviceNode, semanticModel);
+            updateListenerItems(moduleName, semanticModel, project, serviceModel);
             return new ServiceFromSourceResponse(serviceModel);
         });
+    }
+
+    private static String serviceTypeWithoutPrefix(ModuleAndServiceType moduleAndServiceType) {
+        String[] serviceTypeNames = moduleAndServiceType.serviceType().split(":");
+        String serviceType = "Service";
+        if (serviceTypeNames.length > 1) {
+            serviceType = serviceTypeNames[1];
+        }
+        return serviceType;
     }
 
     /**
@@ -700,7 +673,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                     functionLineRange = members.get(members.size() - 1).lineRange();
                 }
                 String functionNode = ServiceModelGeneratorConstants.LINE_SEPARATOR + "\t"
-                        + getFunction(request.function(), new ArrayList<>())
+                        + getFunction(request.function(), new ArrayList<>(), Utils.FunctionBodyKind.DO_BLOCK)
                         .replace(ServiceModelGeneratorConstants.LINE_SEPARATOR,
                                 ServiceModelGeneratorConstants.LINE_SEPARATOR + "\t");
                 edits.add(new TextEdit(Utils.toRange(functionLineRange.endLine()), functionNode));
@@ -837,6 +810,20 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                         edits.add(basePathEdit);
                     }
                 }
+
+                Value stringLiteral = service.getStringLiteralProperty();
+                if (Objects.nonNull(stringLiteral) && stringLiteral.isEnabledWithValue()) {
+                    String stringLiteralValue = stringLiteral.getValue();
+                    NodeList<Node> nodes = serviceNode.absoluteResourcePath();
+                    if (!nodes.isEmpty()) {
+                        LinePosition startPos = nodes.get(0).lineRange().startLine();
+                        LinePosition endPos = nodes.get(nodes.size() - 1).lineRange().endLine();
+                        LineRange basePathLineRange = LineRange.from(lineRange.fileName(), startPos, endPos);
+                        TextEdit basePathEdit = new TextEdit(Utils.toRange(basePathLineRange), stringLiteralValue);
+                        edits.add(basePathEdit);
+                    }
+                }
+
                 Value listener = service.getListener();
                 boolean isDefaultListenerCreationRequired = false;
                 if (Objects.nonNull(listener) && listener.isEnabledWithValue()) {
@@ -1080,62 +1067,66 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
     }
 
 
-    public static Optional<String> getServiceName(ServiceDeclarationNode serviceNode, SemanticModel semanticModel) {
-        SeparatedNodeList<ExpressionNode> expressions = serviceNode.expressions();
-        if (expressions.isEmpty()) {
-            return Optional.empty();
-        }
+    public static ModuleAndServiceType deriveServiceType(ServiceDeclarationNode serviceNode,
+                                                         SemanticModel semanticModel) {
+        Optional<TypeDescriptorNode> serviceTypeDesc = serviceNode.typeDescriptor();
         Optional<ModuleSymbol> module = Optional.empty();
-        ExpressionNode expressionNode = expressions.get(0);
-        if (expressionNode instanceof ExplicitNewExpressionNode explicitNewExpressionNode) {
-            Optional<Symbol> symbol = semanticModel.symbol(explicitNewExpressionNode.typeDescriptor());
-            if (symbol.isEmpty()) {
-                return Optional.empty();
-            }
-            module = symbol.get().getModule();
-        } else if (expressionNode instanceof NameReferenceNode nameReferenceNode) {
-            Optional<Symbol> symbol = semanticModel.symbol(nameReferenceNode);
-            if (symbol.isPresent() && symbol.get() instanceof VariableSymbol variableSymbol) {
-                module = variableSymbol.typeDescriptor().getModule();
+        String serviceType = "Service";
+        if (serviceTypeDesc.isPresent()) {
+            TypeDescriptorNode typeDescriptorNode = serviceTypeDesc.get();
+            serviceType = typeDescriptorNode.toString().trim();
+            Optional<TypeSymbol> typeSymbol = semanticModel.typeOf(typeDescriptorNode);
+            if (typeSymbol.isPresent()) {
+                module = typeSymbol.get().getModule();
             }
         }
-        return module.isEmpty() ? Optional.empty() : module.get().getName();
+
+        if (module.isEmpty()) {
+            SeparatedNodeList<ExpressionNode> expressions = serviceNode.expressions();
+            if (expressions.isEmpty()) {
+                return new ModuleAndServiceType(null, serviceType);
+            }
+            ExpressionNode expressionNode = expressions.get(0);
+            if (expressionNode instanceof ExplicitNewExpressionNode explicitNewExpressionNode) {
+                Optional<Symbol> symbol = semanticModel.symbol(explicitNewExpressionNode.typeDescriptor());
+                if (symbol.isEmpty()) {
+                    return new ModuleAndServiceType(null, serviceType);
+                }
+                module = symbol.get().getModule();
+            } else if (expressionNode instanceof NameReferenceNode nameReferenceNode) {
+                Optional<Symbol> symbol = semanticModel.symbol(nameReferenceNode);
+                if (symbol.isPresent() && symbol.get() instanceof VariableSymbol variableSymbol) {
+                    module = variableSymbol.typeDescriptor().getModule();
+                }
+            }
+        }
+
+        if (module.isEmpty()) {
+            return new ModuleAndServiceType(null, serviceType);
+        }
+        return new ModuleAndServiceType(module.get().getName().orElse(null), serviceType);
+    }
+
+    public record ModuleAndServiceType(String moduleName, String serviceType) {
     }
 
     private Optional<TriggerBasicInfo> getTriggerBasicInfoByName(String name) {
-        if (triggerProperties.values().stream().noneMatch(trigger -> trigger.name().equals(name))) {
-            return Optional.empty();
-        }
-        InputStream resourceStream = getClass().getClassLoader()
-                .getResourceAsStream(String.format("listeners/%s.json", name));
-        if (resourceStream == null) {
-            return Optional.empty();
-        }
+        Optional<ServiceDeclaration> serviceDeclaration = ServiceDatabaseManager.getInstance()
+                .getServiceDeclaration(name);
 
-        try (JsonReader reader = new JsonReader(new InputStreamReader(resourceStream, StandardCharsets.UTF_8))) {
-            return Optional.of(new Gson().fromJson(reader, TriggerBasicInfo.class));
-        } catch (IOException e) {
+        if (serviceDeclaration.isEmpty()) {
             return Optional.empty();
         }
-    }
+        ServiceDeclaration serviceTemplate = serviceDeclaration.get();
+        ServiceDeclaration.Package pkg = serviceTemplate.packageInfo();
+        String protocol = getProtocol(name);
+        String label = serviceTemplate.displayName();
+        String icon = CommonUtils.generateIcon(pkg.org(), pkg.name(), pkg.version());
+        TriggerBasicInfo triggerBasicInfo = new TriggerBasicInfo(pkg.packageId(),
+                label, pkg.org(), pkg.name(), pkg.name(),
+                pkg.version(), serviceTemplate.kind(), label, "",
+                protocol, icon);
 
-    private Optional<Service> getServiceByName(String name) {
-        if (!name.equals(ServiceModelGeneratorConstants.HTTP) &&
-                !name.equals(ServiceModelGeneratorConstants.GRAPHQL) &&
-                !name.equals(ServiceModelGeneratorConstants.TCP) &&
-                triggerProperties.values().stream().noneMatch(trigger -> trigger.name().equals(name))) {
-            return Optional.empty();
-        }
-        InputStream resourceStream = getClass().getClassLoader()
-                .getResourceAsStream(String.format("services/%s.json", name));
-        if (resourceStream == null) {
-            return Optional.empty();
-        }
-
-        try (JsonReader reader = new JsonReader(new InputStreamReader(resourceStream, StandardCharsets.UTF_8))) {
-            return Optional.of(new Gson().fromJson(reader, Service.class));
-        } catch (IOException e) {
-            return Optional.empty();
-        }
+        return Optional.of(triggerBasicInfo);
     }
 }

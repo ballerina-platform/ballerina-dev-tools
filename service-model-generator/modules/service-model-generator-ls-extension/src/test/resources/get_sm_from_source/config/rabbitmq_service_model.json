@@ -10,13 +10,14 @@
     "offset": 0
   },
   "response": {
-    "id": "2",
+    "id": "8",
     "name": "RabbitMQ Service",
-    "type": "event",
-    "displayName": "RabbitMQ",
+    "type": "rabbitmq",
+    "displayName": "RabbitMQ Service",
+    "description": "Add the service documentation",
     "displayAnnotation": {
-      "label": "RabbitMQ",
-      "iconPath": "docs/icon.png"
+      "label": "RabbitMQ Service",
+      "iconPath": "https://bcentral-packageicons.azureedge.net/images/ballerinax_rabbitmq_3.1.0.png"
     },
     "moduleName": "rabbitmq",
     "orgName": "ballerinax",
@@ -31,7 +32,7 @@
           "description": "The Listeners to be bound with the service"
         },
         "enabled": true,
-        "editable": false,
+        "editable": true,
         "value": "rabbitmqListener",
         "values": [],
         "valueType": "MULTIPLE_SELECT",
@@ -51,45 +52,53 @@
         },
         "addNewButton": true
       },
-      "queueName": {
+      "serviceType": {
+        "metadata": {
+          "label": "Service Type",
+          "description": "The name of the service contract type"
+        },
+        "enabled": false,
+        "editable": true,
+        "value": "Service",
+        "valueType": "SINGLE_SELECT",
+        "valueTypeConstraint": "string",
+        "isType": false,
+        "placeholder": "Service",
+        "optional": false,
+        "advanced": false,
+        "items": [
+          "",
+          "Service"
+        ],
+        "codedata": {
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false,
+          "type": "SERVICE_TYPE"
+        },
+        "addNewButton": false
+      },
+      "stringLiteral": {
         "metadata": {
           "label": "Queue Name",
-          "description": "The RabbitMQ queue name"
+          "description": "The name of the queue"
         },
         "enabled": true,
         "editable": true,
         "value": "\"queueName\"",
+        "values": [],
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
         "isType": false,
-        "placeholder": "\"queueName\"",
+        "placeholder": "\"\"",
         "optional": false,
         "advanced": false,
         "codedata": {
           "inListenerInit": false,
           "isBasePath": false,
           "inDisplayAnnotation": false,
-          "type": "SERVICE_BASEPATH"
+          "type": "STRING_LITERAL"
         },
-        "addNewButton": false
-      },
-      "requiredFunctions": {
-        "metadata": {
-          "label": "Required Functions",
-          "description": "The required remote method to be implemented"
-        },
-        "enabled": true,
-        "editable": true,
-        "value": "onMessage",
-        "valueType": "SINGLE_SELECT",
-        "isType": false,
-        "placeholder": "onMessage",
-        "optional": false,
-        "advanced": false,
-        "items": [
-          "onMessage",
-          "onRequest"
-        ],
         "addNewButton": false
       }
     },
@@ -118,8 +127,8 @@
         "kind": "REMOTE",
         "name": {
           "metadata": {
-            "label": "name",
-            "description": "The name of the remote method"
+            "label": "onMessage",
+            "description": "The `onMessage` remote method will be triggered when a message is received in the specified queue"
           },
           "enabled": true,
           "editable": false,
@@ -127,9 +136,15 @@
           "valueType": "IDENTIFIER",
           "valueTypeConstraint": "string",
           "isType": false,
-          "placeholder": "",
+          "placeholder": "onMessage",
           "optional": false,
           "advanced": false,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "FUNCTION_NAME"
+          },
           "addNewButton": false
         },
         "parameters": [
@@ -141,97 +156,141 @@
             "kind": "REQUIRED",
             "type": {
               "metadata": {
-                "label": "type",
+                "label": "Type",
                 "description": "The type of the parameter"
               },
               "enabled": true,
               "editable": true,
               "value": "rabbitmq:AnydataMessage",
               "valueType": "TYPE",
-              "valueTypeConstraint": "anydata|rabbitmq:AnydataMessage",
+              "valueTypeConstraint": "string",
               "isType": true,
-              "placeholder": "",
-              "optional": false,
+              "placeholder": "rabbitmq:AnydataMessage",
+              "optional": true,
               "advanced": false,
               "addNewButton": false
             },
             "name": {
               "metadata": {
-                "label": "RabbitMQ message",
-                "description": "The RabbitMQ message"
+                "label": "message",
+                "description": "The message received from the RabbitMQ queue"
               },
               "enabled": true,
-              "editable": true,
+              "editable": false,
               "value": "message",
               "valueType": "IDENTIFIER",
               "valueTypeConstraint": "string",
               "isType": false,
-              "placeholder": "",
+              "placeholder": "message",
               "optional": false,
+              "advanced": false,
+              "codedata": {
+                "inListenerInit": false,
+                "isBasePath": false,
+                "inDisplayAnnotation": false,
+                "type": "PARAMETER_NAME"
+              },
+              "addNewButton": false
+            },
+            "defaultValue": {
+              "metadata": {
+                "label": "Default Value",
+                "description": "The default value of the parameter"
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "EXPRESSION",
+              "valueTypeConstraint": "string",
+              "isType": true,
+              "placeholder": "",
+              "optional": true,
               "advanced": false,
               "addNewButton": false
             },
             "enabled": true,
             "editable": true,
-            "optional": false,
+            "optional": true,
             "advanced": false
           },
           {
             "metadata": {
-              "label": "Caller",
+              "label": "caller",
               "description": "The RabbitMQ caller object to acknowledge the message"
             },
             "kind": "REQUIRED",
             "type": {
               "metadata": {
-                "label": "type",
+                "label": "Type",
                 "description": "The type of the parameter"
               },
               "enabled": true,
               "editable": true,
               "value": "rabbitmq:Caller",
               "valueType": "TYPE",
-              "valueTypeConstraint": "rabbitmq:Caller",
+              "valueTypeConstraint": "string",
               "isType": true,
-              "placeholder": "",
-              "optional": false,
+              "placeholder": "rabbitmq:Caller",
+              "optional": true,
               "advanced": false,
               "addNewButton": false
             },
             "name": {
               "metadata": {
                 "label": "caller",
-                "description": "The RabbitMQ caller object"
+                "description": "The RabbitMQ caller object to acknowledge the message"
+              },
+              "enabled": true,
+              "editable": false,
+              "value": "caller",
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "string",
+              "isType": false,
+              "placeholder": "caller",
+              "optional": false,
+              "advanced": false,
+              "codedata": {
+                "inListenerInit": false,
+                "isBasePath": false,
+                "inDisplayAnnotation": false,
+                "type": "PARAMETER_NAME"
+              },
+              "addNewButton": false
+            },
+            "defaultValue": {
+              "metadata": {
+                "label": "Default Value",
+                "description": "The default value of the parameter"
               },
               "enabled": true,
               "editable": true,
-              "value": "caller",
-              "valueType": "IDENTIFIER",
-              "valueTypeConstraint": "rabbitmq:Caller",
-              "isType": false,
+              "value": "",
+              "valueType": "EXPRESSION",
+              "valueTypeConstraint": "string",
+              "isType": true,
               "placeholder": "",
-              "optional": false,
+              "optional": true,
               "advanced": false,
               "addNewButton": false
             },
-            "enabled": false,
+            "enabled": true,
             "editable": true,
-            "optional": false,
+            "optional": true,
             "advanced": false
           }
         ],
         "returnType": {
           "metadata": {
-            "label": "returnType",
-            "description": "The return type of the remote method"
+            "label": "Return Type",
+            "description": "The return type of the function"
           },
           "enabled": true,
           "editable": true,
           "value": "error?",
           "valueType": "TYPE",
-          "valueTypeConstraint": "error?",
+          "valueTypeConstraint": "string",
           "isType": true,
-          "placeholder": "",
+          "placeholder": "error?",
           "optional": true,
           "advanced": false,
           "addNewButton": false
@@ -264,8 +323,8 @@
         "kind": "REMOTE",
         "name": {
           "metadata": {
-            "label": "name",
-            "description": "The name of the remote method"
+            "label": "onRequest",
+            "description": "The `onRequest` remote method will be triggered when a message is received in the specified queue and a response is expected"
           },
           "enabled": true,
           "editable": false,
@@ -273,9 +332,15 @@
           "valueType": "IDENTIFIER",
           "valueTypeConstraint": "string",
           "isType": false,
-          "placeholder": "",
+          "placeholder": "onRequest",
           "optional": false,
           "advanced": false,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "FUNCTION_NAME"
+          },
           "addNewButton": false
         },
         "parameters": [
@@ -287,98 +352,142 @@
             "kind": "REQUIRED",
             "type": {
               "metadata": {
-                "label": "type",
+                "label": "Type",
                 "description": "The type of the parameter"
               },
               "enabled": true,
               "editable": true,
               "value": "rabbitmq:AnydataMessage",
               "valueType": "TYPE",
-              "valueTypeConstraint": "anydata|rabbitmq:AnydataMessage",
+              "valueTypeConstraint": "string",
               "isType": true,
-              "placeholder": "",
-              "optional": false,
+              "placeholder": "rabbitmq:AnydataMessage",
+              "optional": true,
               "advanced": false,
               "addNewButton": false
             },
             "name": {
               "metadata": {
-                "label": "RabbitMQ message",
-                "description": "The RabbitMQ message"
+                "label": "message",
+                "description": "The message received from the RabbitMQ queue"
               },
               "enabled": true,
-              "editable": true,
+              "editable": false,
               "value": "message",
               "valueType": "IDENTIFIER",
               "valueTypeConstraint": "string",
               "isType": false,
-              "placeholder": "",
+              "placeholder": "message",
               "optional": false,
+              "advanced": false,
+              "codedata": {
+                "inListenerInit": false,
+                "isBasePath": false,
+                "inDisplayAnnotation": false,
+                "type": "PARAMETER_NAME"
+              },
+              "addNewButton": false
+            },
+            "defaultValue": {
+              "metadata": {
+                "label": "Default Value",
+                "description": "The default value of the parameter"
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "EXPRESSION",
+              "valueTypeConstraint": "string",
+              "isType": true,
+              "placeholder": "",
+              "optional": true,
               "advanced": false,
               "addNewButton": false
             },
             "enabled": true,
             "editable": true,
-            "optional": false,
+            "optional": true,
             "advanced": false
           },
           {
             "metadata": {
-              "label": "Caller",
+              "label": "caller",
               "description": "The RabbitMQ caller object to acknowledge the message"
             },
             "kind": "REQUIRED",
             "type": {
               "metadata": {
-                "label": "type",
+                "label": "Type",
                 "description": "The type of the parameter"
               },
               "enabled": true,
               "editable": true,
               "value": "rabbitmq:Caller",
               "valueType": "TYPE",
-              "valueTypeConstraint": "rabbitmq:Caller",
+              "valueTypeConstraint": "string",
               "isType": true,
-              "placeholder": "",
-              "optional": false,
+              "placeholder": "rabbitmq:Caller",
+              "optional": true,
               "advanced": false,
               "addNewButton": false
             },
             "name": {
               "metadata": {
                 "label": "caller",
-                "description": "The RabbitMQ caller object"
+                "description": "The RabbitMQ caller object to acknowledge the message"
+              },
+              "enabled": true,
+              "editable": false,
+              "value": "caller",
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "string",
+              "isType": false,
+              "placeholder": "caller",
+              "optional": false,
+              "advanced": false,
+              "codedata": {
+                "inListenerInit": false,
+                "isBasePath": false,
+                "inDisplayAnnotation": false,
+                "type": "PARAMETER_NAME"
+              },
+              "addNewButton": false
+            },
+            "defaultValue": {
+              "metadata": {
+                "label": "Default Value",
+                "description": "The default value of the parameter"
               },
               "enabled": true,
               "editable": true,
-              "value": "caller",
-              "valueType": "IDENTIFIER",
-              "valueTypeConstraint": "rabbitmq:Caller",
-              "isType": false,
+              "value": "",
+              "valueType": "EXPRESSION",
+              "valueTypeConstraint": "string",
+              "isType": true,
               "placeholder": "",
-              "optional": false,
+              "optional": true,
               "advanced": false,
               "addNewButton": false
             },
-            "enabled": false,
+            "enabled": true,
             "editable": true,
-            "optional": false,
+            "optional": true,
             "advanced": false
           }
         ],
         "returnType": {
           "metadata": {
-            "label": "returnType",
-            "description": "The return type of the remote method"
+            "label": "Return Type",
+            "description": "The return type of the function"
           },
           "enabled": true,
           "editable": true,
           "value": "anydata|error",
           "valueType": "TYPE",
-          "valueTypeConstraint": "anydata|error",
+          "valueTypeConstraint": "string",
           "isType": true,
-          "placeholder": "",
-          "optional": false,
+          "placeholder": "anydata|error",
+          "optional": true,
           "advanced": false,
           "addNewButton": false
         },
@@ -394,8 +503,8 @@
         "kind": "REMOTE",
         "name": {
           "metadata": {
-            "label": "name",
-            "description": "The name of the remote method"
+            "label": "onError",
+            "description": "The `onError` remote method will be triggered when an error occurs during the message processing"
           },
           "enabled": true,
           "editable": false,
@@ -403,9 +512,15 @@
           "valueType": "IDENTIFIER",
           "valueTypeConstraint": "string",
           "isType": false,
-          "placeholder": "",
+          "placeholder": "onError",
           "optional": false,
           "advanced": false,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "FUNCTION_NAME"
+          },
           "addNewButton": false
         },
         "parameters": [
@@ -417,103 +532,147 @@
             "kind": "REQUIRED",
             "type": {
               "metadata": {
-                "label": "",
-                "description": ""
+                "label": "Type",
+                "description": "The type of the parameter"
               },
               "enabled": true,
               "editable": true,
               "value": "rabbitmq:AnydataMessage",
               "valueType": "TYPE",
-              "valueTypeConstraint": "rabbitmq:AnydataMessage",
+              "valueTypeConstraint": "string",
               "isType": true,
-              "placeholder": "",
-              "optional": false,
+              "placeholder": "rabbitmq:AnydataMessage",
+              "optional": true,
               "advanced": false,
               "addNewButton": false
             },
             "name": {
               "metadata": {
-                "label": "",
-                "description": ""
+                "label": "message",
+                "description": "The message received from the RabbitMQ queue"
               },
               "enabled": true,
-              "editable": true,
+              "editable": false,
               "value": "message",
               "valueType": "IDENTIFIER",
               "valueTypeConstraint": "string",
               "isType": false,
-              "placeholder": "",
+              "placeholder": "message",
               "optional": false,
+              "advanced": false,
+              "codedata": {
+                "inListenerInit": false,
+                "isBasePath": false,
+                "inDisplayAnnotation": false,
+                "type": "PARAMETER_NAME"
+              },
+              "addNewButton": false
+            },
+            "defaultValue": {
+              "metadata": {
+                "label": "Default Value",
+                "description": "The default value of the parameter"
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "EXPRESSION",
+              "valueTypeConstraint": "string",
+              "isType": true,
+              "placeholder": "",
+              "optional": true,
               "advanced": false,
               "addNewButton": false
             },
             "enabled": true,
             "editable": true,
-            "optional": false,
+            "optional": true,
             "advanced": false
           },
           {
             "metadata": {
-              "label": "RabbitMQ Error",
+              "label": "rabbitmqError",
               "description": "The error occurred during the message processing"
             },
             "kind": "REQUIRED",
             "type": {
               "metadata": {
-                "label": "",
-                "description": ""
+                "label": "Type",
+                "description": "The type of the parameter"
               },
               "enabled": true,
               "editable": true,
               "value": "rabbitmq:Error",
               "valueType": "TYPE",
-              "valueTypeConstraint": "rabbitmq:Error",
+              "valueTypeConstraint": "string",
               "isType": true,
-              "placeholder": "",
-              "optional": false,
+              "placeholder": "rabbitmq:Error",
+              "optional": true,
               "advanced": false,
               "addNewButton": false
             },
             "name": {
               "metadata": {
-                "label": "",
-                "description": ""
+                "label": "rabbitmqError",
+                "description": "The error occurred during the message processing"
               },
               "enabled": true,
-              "editable": true,
+              "editable": false,
               "value": "rabbitmqError",
               "valueType": "IDENTIFIER",
               "valueTypeConstraint": "string",
               "isType": false,
-              "placeholder": "",
+              "placeholder": "rabbitmqError",
               "optional": false,
+              "advanced": false,
+              "codedata": {
+                "inListenerInit": false,
+                "isBasePath": false,
+                "inDisplayAnnotation": false,
+                "type": "PARAMETER_NAME"
+              },
+              "addNewButton": false
+            },
+            "defaultValue": {
+              "metadata": {
+                "label": "Default Value",
+                "description": "The default value of the parameter"
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "EXPRESSION",
+              "valueTypeConstraint": "string",
+              "isType": true,
+              "placeholder": "",
+              "optional": true,
               "advanced": false,
               "addNewButton": false
             },
             "enabled": true,
             "editable": true,
-            "optional": false,
+            "optional": true,
             "advanced": false
           }
         ],
         "returnType": {
           "metadata": {
-            "label": "returnType",
-            "description": "The return type of the remote method"
+            "label": "Return Type",
+            "description": "The return type of the function"
           },
           "enabled": true,
           "editable": true,
           "value": "error?",
           "valueType": "TYPE",
-          "valueTypeConstraint": "error?",
+          "valueTypeConstraint": "string",
           "isType": true,
-          "placeholder": "",
+          "placeholder": "error?",
           "optional": true,
           "advanced": false,
           "addNewButton": false
         },
         "enabled": false,
-        "optional": true,
+        "optional": false,
         "editable": true
       }
     ]

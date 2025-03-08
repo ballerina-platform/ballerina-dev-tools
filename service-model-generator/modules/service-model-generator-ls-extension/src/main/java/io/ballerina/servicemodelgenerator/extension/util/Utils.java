@@ -265,13 +265,13 @@ public final class Utils {
         return new Position(linePosition.line(), linePosition.offset());
     }
 
-    public static void populateProperties(Service service) {
+    public static void populateRequiredFuncsDesignApproachAndServiceType(Service service) {
         populateRequiredFunctions(service);
         populateServiceType(service);
         populateDesignApproach(service);
     }
 
-    private static void populateRequiredFunctions(Service service) {
+    public static void populateRequiredFunctions(Service service) {
         Value value = service.getProperty(ServiceModelGeneratorConstants.PROPERTY_REQUIRED_FUNCTIONS);
         if (Objects.nonNull(value) && value.isEnabledWithValue()) {
             String requiredFunction = value.getValue();
@@ -375,26 +375,6 @@ public final class Utils {
     public static Service getServiceModel(ServiceDeclarationNode serviceDeclarationNode, SemanticModel semanticModel,
                                           boolean isHttp, boolean isGraphQL) {
         Service serviceModel = Service.getNewService();
-        String basePath = getPath(serviceDeclarationNode.absoluteResourcePath());
-        if (!basePath.isEmpty()) {
-            Value basePathValue = new Value();
-            basePathValue.setValue(basePath);
-            basePathValue.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER);
-            basePathValue.setEnabled(true);
-            serviceModel.setBasePath(basePathValue);
-        }
-        Optional<TypeDescriptorNode> serviceTypeDesc = serviceDeclarationNode.typeDescriptor();
-        if (serviceTypeDesc.isPresent()) {
-            Value serviceType = new Value();
-            serviceType.setValue(serviceTypeDesc.get().toString().trim());
-            serviceType.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_TYPE);
-            serviceType.setEnabled(true);
-            if (isHttpServiceContractType(semanticModel, serviceTypeDesc.get())) {
-                serviceModel.setServiceContractTypeName(serviceType);
-            } else {
-                serviceModel.setServiceType(serviceType);
-            }
-        }
         List<Function> functionModels = new ArrayList<>();
         serviceDeclarationNode.members().forEach(member -> {
             if (member instanceof FunctionDefinitionNode functionDefinitionNode) {
@@ -767,16 +747,6 @@ public final class Utils {
         return parameterModel;
     }
 
-    public static void updateServiceContractModel(Service serviceModel, TypeDefinitionNode serviceTypeNode,
-                                                  ServiceDeclarationNode serviceDeclaration,
-                                                  SemanticModel semanticModel) {
-        serviceModel.setFunctions(new ArrayList<>());
-        Service commonSvcModel = getServiceModel(serviceTypeNode, serviceDeclaration, semanticModel, true);
-        updateServiceInfo(serviceModel, commonSvcModel);
-        serviceModel.setCodedata(new Codedata(serviceDeclaration.lineRange()));
-        populateListenerInfo(serviceModel, serviceDeclaration);
-    }
-
     public static Optional<String> getPath(TypeDefinitionNode serviceTypeNode) {
         Optional<MetadataNode> metadata = serviceTypeNode.metadata();
         if (metadata.isEmpty()) {
@@ -810,18 +780,49 @@ public final class Utils {
         return Optional.empty();
     }
 
+    public static void updateServiceContractModel(Service serviceModel, TypeDefinitionNode serviceTypeNode,
+                                                  ServiceDeclarationNode serviceDeclaration,
+                                                  SemanticModel semanticModel) {
+        Service commonSvcModel = getServiceModel(serviceTypeNode, serviceDeclaration, semanticModel, true);
+
+        if (Objects.nonNull(serviceModel.getServiceType()) && Objects.nonNull(commonSvcModel.getServiceType())) {
+            serviceModel.updateServiceType(commonSvcModel.getServiceType());
+        }
+        updateServiceInfo(serviceModel, commonSvcModel);
+        serviceModel.setCodedata(new Codedata(serviceDeclaration.lineRange()));
+        populateListenerInfo(serviceModel, serviceDeclaration);
+    }
+
     public static void updateServiceModel(Service serviceModel, ServiceDeclarationNode serviceNode,
                                           SemanticModel semanticModel) {
         String moduleName = serviceModel.getModuleName();
         boolean isHttp = moduleName.equals(ServiceModelGeneratorConstants.HTTP);
         boolean isGraphql = moduleName.equals(ServiceModelGeneratorConstants.GRAPHQL);
-        if (isHttp || isGraphql) {
-            serviceModel.setFunctions(new ArrayList<>());
-        }
         Service commonSvcModel = getServiceModel(serviceNode, semanticModel, isHttp, isGraphql);
         updateServiceInfo(serviceModel, commonSvcModel);
         serviceModel.setCodedata(new Codedata(serviceNode.lineRange()));
         populateListenerInfo(serviceModel, serviceNode);
+
+        // handle base path and string literal
+        String attachPoint = getPath(serviceNode.absoluteResourcePath());
+        if (!attachPoint.isEmpty()) {
+            boolean isStringLiteral = attachPoint.startsWith("\"") && attachPoint.endsWith("\"");
+            if (isStringLiteral) {
+                Value stringLiteralProperty = serviceModel.getStringLiteralProperty();
+                if (Objects.nonNull(stringLiteralProperty)) {
+                    stringLiteralProperty.setValue(attachPoint);
+                } else {
+                    serviceModel.setStringLiteral(ServiceModelUtils.getStringLiteralProperty(attachPoint));
+                }
+            } else {
+                Value basePathProperty = serviceModel.getBasePath();
+                if (Objects.nonNull(basePathProperty)) {
+                    basePathProperty.setValue(attachPoint);
+                } else {
+                    serviceModel.setBasePath(ServiceModelUtils.getBasePathProperty(attachPoint));
+                }
+            }
+        }
     }
 
     private static void updateServiceInfo(Service serviceModel, Service commonSvcModel) {
@@ -829,19 +830,10 @@ public final class Utils {
         if (Objects.nonNull(serviceContractTypeNameValue)) {
             enableContractFirstApproach(serviceModel);
         }
-        populateDesignApproach(serviceModel);
-        if (Objects.nonNull(serviceModel.getServiceType()) && Objects.nonNull(commonSvcModel.getServiceType())) {
-            serviceModel.updateServiceType(commonSvcModel.getServiceType());
-        }
-        populateProperties(serviceModel);
-        if (Objects.nonNull(commonSvcModel.getBasePath())) {
-            if (Objects.nonNull(commonSvcModel.getBasePath())) {
-                updateValue(serviceModel.getBasePath(), commonSvcModel.getBasePath());
-            } else {
-                serviceModel.setBasePath(commonSvcModel.getBasePath());
-            }
-        }
+        populateRequiredFuncsDesignApproachAndServiceType(serviceModel);
         updateValue(serviceModel.getServiceContractTypeNameValue(), commonSvcModel.getServiceContractTypeNameValue());
+
+        // mark the enabled functions as true if they present in the source
         serviceModel.getFunctions().forEach(functionModel -> {
             Optional<Function> function = commonSvcModel.getFunctions().stream()
                     .filter(newFunction -> isPresent(functionModel, newFunction)
@@ -852,6 +844,8 @@ public final class Utils {
                     () -> functionModel.setEnabled(false)
             );
         });
+
+        // functions contains in source but not enforced using the service contract type
         commonSvcModel.getFunctions().forEach(functionModel -> {
             if (serviceModel.getFunctions().stream()
                     .noneMatch(newFunction -> isPresent(functionModel, newFunction))) {
@@ -904,7 +898,7 @@ public final class Utils {
         }
     }
 
-    private static void updateFunctionInfo(Function functionModel, Function commonFunction) {
+    public static void updateFunctionInfo(Function functionModel, Function commonFunction) {
         functionModel.setEnabled(true);
         functionModel.setKind(commonFunction.getKind());
         functionModel.setCodedata(commonFunction.getCodedata());
@@ -918,7 +912,7 @@ public final class Utils {
         commonFunction.getParameters().forEach(functionModel::addParameter);
     }
 
-    private static void populateListenerInfo(Service serviceModel, ServiceDeclarationNode serviceNode) {
+    public static void populateListenerInfo(Service serviceModel, ServiceDeclarationNode serviceNode) {
         SeparatedNodeList<ExpressionNode> expressions = serviceNode.expressions();
         int size = expressions.size();
         if (size == 1) {
@@ -927,18 +921,6 @@ public final class Utils {
             for (int i = 0; i < size; i++) {
                 ExpressionNode expressionNode = expressions.get(i);
                 serviceModel.getListener().addValue(getListenerExprName(expressionNode));
-            }
-        }
-        NodeList<Node> paths = serviceNode.absoluteResourcePath();
-        if (!paths.isEmpty()) {
-            String path = getPath(paths);
-            if (serviceModel.getPackageName().equals("rabbitmq")) {
-                Value queueName = serviceModel.getProperty("queueName");
-                if (Objects.nonNull(queueName)) {
-                    queueName.setValue(path);
-                }
-            } else {
-                serviceModel.getBasePath().setValue(path);
             }
         }
     }
@@ -952,7 +934,7 @@ public final class Utils {
         return "";
     }
 
-    private static boolean isPresent(Function functionModel, Function newFunction) {
+    public static boolean isPresent(Function functionModel, Function newFunction) {
         return newFunction.getName().getValue().equals(functionModel.getName().getValue()) &&
                 (Objects.isNull(newFunction.getAccessor()) || Objects.isNull(functionModel.getAccessor()) ||
                         newFunction.getAccessor().getValue().equals(functionModel.getAccessor().getValue()));
@@ -1020,14 +1002,11 @@ public final class Utils {
         } else if (Objects.nonNull(service.getBasePath()) && service.getBasePath().isEnabledWithValue()) {
             builder.append(getValueString(service.getBasePath()));
             builder.append(ServiceModelGeneratorConstants.SPACE);
-        } else if (service.getModuleName().equals("rabbitmq")) {
-            Value queueName = service.getProperty("queueName");
-            if (Objects.nonNull(queueName) && queueName.isEnabledWithValue()) {
-                builder.append(queueName.getValue());
-                builder.append(ServiceModelGeneratorConstants.SPACE);
-            }
+        } else if (Objects.nonNull(service.getStringLiteralProperty()) &&
+                service.getStringLiteralProperty().isEnabledWithValue()) {
+            builder.append(getValueString(service.getStringLiteralProperty()));
+            builder.append(ServiceModelGeneratorConstants.SPACE);
         }
-
 
         builder.append(ServiceModelGeneratorConstants.ON).append(ServiceModelGeneratorConstants.SPACE);
         if (Objects.nonNull(service.getListener()) && service.getListener().isEnabledWithValue()) {
@@ -1043,9 +1022,11 @@ public final class Utils {
             String onConnectFunc = Utils.getTcpOnConnectTemplate().formatted(serviceClassName, serviceClassName);
             functions.add(onConnectFunc);
         } else {
+            boolean isAiAgent = service.getModuleName().equals("ai.agent");
+            FunctionBodyKind kind = isAiAgent ? FunctionBodyKind.EMPTY : FunctionBodyKind.DO_BLOCK;
             service.getFunctions().forEach(function -> {
                 if (function.isEnabled()) {
-                    String functionNode = "\t" + getFunction(function, new ArrayList<>())
+                    String functionNode = "\t" + getFunction(function, new ArrayList<>(), kind)
                             .replace(System.lineSeparator(), System.lineSeparator() + "\t");
                     functions.add(functionNode);
                 }
@@ -1081,7 +1062,7 @@ public final class Utils {
         return String.format("{%s}", String.join(", ", params));
     }
 
-    public static String getFunction(Function function, List<String> statusCodeResponses) {
+    public static String getFunction(Function function, List<String> statusCodeResponses, FunctionBodyKind kind) {
         StringBuilder builder = new StringBuilder();
         String functionQualifiers = getFunctionQualifiers(function);
         if (!functionQualifiers.isEmpty()) {
@@ -1107,20 +1088,40 @@ public final class Utils {
         builder.append(getFunctionSignature(function, statusCodeResponses));
         builder.append("{");
         builder.append(System.lineSeparator());
-        builder.append("\tdo {");
-        builder.append(System.lineSeparator());
-        builder.append("\t\tpanic error(\"Unimplemented function\");");
-        builder.append(System.lineSeparator());
-        builder.append("\t} on fail error err {");
-        builder.append(System.lineSeparator());
-        builder.append("\t\t// handle error");
-        builder.append(System.lineSeparator());
-        builder.append("\t\tpanic error(\"Unhandled error\");");
-        builder.append(System.lineSeparator());
-        builder.append("\t}");
-        builder.append(System.lineSeparator());
+        if (kind.equals(FunctionBodyKind.DO_BLOCK) || kind.equals(FunctionBodyKind.BLOCK_WITH_PANIC)) {
+            builder.append("\tdo {");
+            builder.append(System.lineSeparator());
+        }
+        if (kind.equals(FunctionBodyKind.BLOCK_WITH_PANIC)) {
+            builder.append("\t\tpanic error(\"Unimplemented function\");");
+            builder.append(System.lineSeparator());
+            builder.append("\t} on fail error err {");
+            builder.append(System.lineSeparator());
+            builder.append("\t\t// handle error");
+            builder.append(System.lineSeparator());
+            builder.append("\t\tpanic error(\"Unhandled error\");");
+            builder.append(System.lineSeparator());
+            builder.append("\t}");
+            builder.append(System.lineSeparator());
+        }
+        if (kind.equals(FunctionBodyKind.DO_BLOCK)) {
+            builder.append("\t} on fail error err {");
+            builder.append(System.lineSeparator());
+            builder.append("\t\t// handle error");
+            builder.append(System.lineSeparator());
+            builder.append("\t\tpanic error(\"Unhandled error\");");
+            builder.append(System.lineSeparator());
+            builder.append("\t}");
+            builder.append(System.lineSeparator());
+        }
         builder.append("}");
         return builder.toString();
+    }
+
+    public enum FunctionBodyKind {
+        EMPTY,
+        BLOCK_WITH_PANIC,
+        DO_BLOCK
     }
 
     public static String getFunctionSignature(Function function, List<String> statusCodeResponses) {

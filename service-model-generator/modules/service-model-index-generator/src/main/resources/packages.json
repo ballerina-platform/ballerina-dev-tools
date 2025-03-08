@@ -4,59 +4,665 @@
       "name": "http",
       "version": "2.12.2",
       "serviceTypeSkipList": ["Service", "ServiceContract", "RequestInterceptor", "ResponseInterceptor",
-        "RequestErrorInterceptor", "ResponseErrorInterceptor", "InterceptableService"]
+        "RequestErrorInterceptor", "ResponseErrorInterceptor", "InterceptableService"],
+      "serviceDeclaration": {
+        "displayName": "HTTP Service",
+        "optionalTypeDescriptor": 1,
+        "typeDescriptorLabel": "Http Service Type",
+        "typeDescriptorDescription": "The name of the service contract type",
+        "typeDescriptorDefaultValue": "Service",
+        "addDefaultTypeDescriptor": 0,
+        "optionalAbsoluteResourcePath": 0,
+        "absoluteResourcePathLabel": "Service Base Path",
+        "absoluteResourcePathDescription": "The base path of the service",
+        "absoluteResourcePathDefaultValue": "/",
+        "optionalStringLiteral": 1,
+        "stringLiteralLabel": "Service Base Path",
+        "stringLiteralDescription": "The base path of the service",
+        "stringLiteralDefaultValue": "\"/\"",
+        "listenerKind": "MULTIPLE_SELECT",
+        "kind": "http"
+      },
+      "serviceTypes": {
+        "Service": {
+          "name": "Service",
+          "description": "",
+          "functions": []
+        }
+      }
     },
     {
       "name": "graphql",
       "version": "1.15.0",
-      "serviceTypeSkipList": ["Interceptor", "Service"]
+      "serviceTypeSkipList": ["Interceptor", "Service"],
+      "serviceDeclaration": {
+        "displayName": "GraphQL Service",
+        "optionalTypeDescriptor": 1,
+        "typeDescriptorLabel": "GraphQL Service Type",
+        "typeDescriptorDescription": "The name of the service contract type",
+        "typeDescriptorDefaultValue": "Service",
+        "addDefaultTypeDescriptor": 0,
+        "optionalAbsoluteResourcePath": 0,
+        "absoluteResourcePathLabel": "Service Base Path",
+        "absoluteResourcePathDescription": "The base path of the service",
+        "absoluteResourcePathDefaultValue": "/graphql",
+        "optionalStringLiteral": 1,
+        "stringLiteralLabel": "Service Base Path",
+        "stringLiteralDescription": "The base path of the service",
+        "stringLiteralDefaultValue": "\"/graphql\"",
+        "listenerKind": "MULTIPLE_SELECT",
+        "kind": "graphql"
+      },
+      "serviceTypes": {
+        "Service": {
+          "name": "Service",
+          "description": "",
+          "functions": []
+        }
+      }
     },
     {
       "name": "tcp",
       "version": "1.12.1",
-      "serviceTypeSkipList": ["ConnectionService"]
+      "serviceTypeSkipList": ["ConnectionService"],
+      "serviceDeclaration": {
+        "displayName": "TCP Service",
+        "optionalTypeDescriptor": 1,
+        "typeDescriptorLabel": "TCP Service Type",
+        "typeDescriptorDescription": "The name of the service contract type",
+        "typeDescriptorDefaultValue": "Service",
+        "addDefaultTypeDescriptor": 0,
+        "optionalAbsoluteResourcePath": 1,
+        "absoluteResourcePathLabel": "Service Base Path",
+        "absoluteResourcePathDescription": "The base path of the service",
+        "absoluteResourcePathDefaultValue": "",
+        "optionalStringLiteral": 1,
+        "stringLiteralLabel": "Service Base Path",
+        "stringLiteralDescription": "The base path of the service",
+        "stringLiteralDefaultValue": "",
+        "listenerKind": "MULTIPLE_SELECT",
+        "kind": "tcp"
+      },
+      "serviceTypes": {
+        "Service": {
+          "name": "Service",
+          "description": "",
+          "functions": [
+            {
+              "name": "onConnect",
+              "description": "The `onConnect` remote method will be triggered when a message is received from a tcp client",
+              "accessor": "",
+              "kind": "REMOTE",
+              "returnType": "tcp:ConnectionService",
+              "returnTypeEditable": 1,
+              "enable": 0,
+              "parameters": [
+                {
+                  "name": "caller",
+                  "label": "Caller Object",
+                  "description": "The new client connection",
+                  "kind": "REQUIRED",
+                  "type": "tcp:Caller",
+                  "defaultValue": "",
+                  "importStatements": ""
+                }
+              ]
+            }
+          ]
+        }
+      }
     },
     {
       "name": "file",
       "version": "1.10.0",
-      "serviceTypeSkipList": ["Service"]
+      "serviceTypeSkipList": ["Service"],
+      "serviceDeclaration": {
+        "displayName": "Directory Service",
+        "optionalTypeDescriptor": 1,
+        "typeDescriptorLabel": "Service Type",
+        "typeDescriptorDescription": "The name of the service contract type",
+        "typeDescriptorDefaultValue": "Service",
+        "addDefaultTypeDescriptor": 0,
+        "optionalAbsoluteResourcePath": 1,
+        "absoluteResourcePathLabel": "Service Base Path",
+        "absoluteResourcePathDescription": "The base path of the service",
+        "absoluteResourcePathDefaultValue": "",
+        "optionalStringLiteral": 1,
+        "stringLiteralLabel": "Service Base Path",
+        "stringLiteralDescription": "The base path of the service",
+        "stringLiteralDefaultValue": "",
+        "listenerKind": "MULTIPLE_SELECT",
+        "kind": "file"
+      },
+      "serviceTypes": {
+        "Service": {
+          "name": "Service",
+          "description": "",
+          "functions": [
+            {
+              "name": "onCreate",
+              "description": "The `onCreate` remote method will be triggered when a file is created in the specified directory",
+              "accessor": "",
+              "kind": "REMOTE",
+              "returnType": "",
+              "returnTypeEditable": 0,
+              "enable": 0,
+              "parameters": [
+                {
+                  "name": "event",
+                  "label": "The File event",
+                  "description": "The File event",
+                  "kind": "REQUIRED",
+                  "type": "file:FileEvent",
+                  "defaultValue": "",
+                  "importStatements": ""
+                }
+              ]
+            },
+            {
+              "name": "onDelete",
+              "description": "The `onDelete` remote method will be triggered when a file is deleted in the specified directory",
+              "accessor": "",
+              "kind": "REMOTE",
+              "returnType": "",
+              "returnTypeEditable": 0,
+              "enable": 0,
+              "parameters": [
+                {
+                  "name": "event",
+                  "label": "The File event",
+                  "description": "The File event",
+                  "kind": "REQUIRED",
+                  "type": "file:FileEvent",
+                  "defaultValue": "",
+                  "importStatements": ""
+                }
+              ]
+            },
+            {
+              "name": "onModify",
+              "description": "The `onModify` remote method will be triggered when a file is modified in the specified directory",
+              "accessor": "",
+              "kind": "REMOTE",
+              "returnType": "",
+              "returnTypeEditable": 0,
+              "enable": 0,
+              "parameters": [
+                {
+                  "name": "event",
+                  "label": "The File event",
+                  "description": "The File event",
+                  "kind": "REQUIRED",
+                  "type": "file:FileEvent",
+                  "defaultValue": "",
+                  "importStatements": ""
+                }
+              ]
+            }
+
+          ]
+        }
+      }
     },
     {
       "name": "ftp",
       "version": "2.11.0",
-      "serviceTypeSkipList": ["Service"]
+      "serviceTypeSkipList": ["Service"],
+      "serviceDeclaration": {
+        "displayName": "FTP Service",
+        "optionalTypeDescriptor": 1,
+        "typeDescriptorLabel": "Service Type",
+        "typeDescriptorDescription": "The name of the service contract type",
+        "typeDescriptorDefaultValue": "Service",
+        "addDefaultTypeDescriptor": 0,
+        "optionalAbsoluteResourcePath": 1,
+        "absoluteResourcePathLabel": "Service Base Path",
+        "absoluteResourcePathDescription": "The base path of the service",
+        "absoluteResourcePathDefaultValue": "",
+        "optionalStringLiteral": 1,
+        "stringLiteralLabel": "Service Base Path",
+        "stringLiteralDescription": "The base path of the service",
+        "stringLiteralDefaultValue": "",
+        "listenerKind": "MULTIPLE_SELECT",
+        "kind": "file"
+      },
+      "serviceTypes": {
+        "Service": {
+          "name": "Service",
+          "description": "",
+          "functions": [
+            {
+              "name": "onFileChange",
+              "description": "The `onFileChange` remote method will be triggered when a file change event occurs",
+              "accessor": "",
+              "kind": "REMOTE",
+              "returnType": "error?",
+              "returnTypeEditable": 1,
+              "enable": 0,
+              "parameters": [
+                {
+                  "name": "event",
+                  "label": "The File watch event",
+                  "description": "The File watch event",
+                  "kind": "REQUIRED",
+                  "type": "ftp:WatchEvent & readonly|ftp:WatchEvent",
+                  "defaultValue": "",
+                  "importStatements": ""
+                },
+                {
+                  "name": "caller",
+                  "label": "Caller",
+                  "description": "The FTP caller object to execute file operations",
+                  "kind": "REQUIRED",
+                  "type": "ftp:Caller",
+                  "defaultValue": "",
+                  "importStatements": ""
+                }
+              ]
+            }
+          ]
+        }
+      }
     },
     {
       "name": "mqtt",
       "version": "1.3.0",
-      "serviceTypeSkipList": []
+      "serviceTypeSkipList": [],
+      "serviceDeclaration": {
+        "displayName": "MQTT Service",
+        "optionalTypeDescriptor": 1,
+        "typeDescriptorLabel": "Service Type",
+        "typeDescriptorDescription": "The name of the service contract type",
+        "typeDescriptorDefaultValue": "Service",
+        "addDefaultTypeDescriptor": 0,
+        "optionalAbsoluteResourcePath": 1,
+        "absoluteResourcePathLabel": "Service Base Path",
+        "absoluteResourcePathDescription": "The base path of the service",
+        "absoluteResourcePathDefaultValue": "",
+        "optionalStringLiteral": 1,
+        "stringLiteralLabel": "Service Base Path",
+        "stringLiteralDescription": "The base path of the service",
+        "stringLiteralDefaultValue": "",
+        "listenerKind": "MULTIPLE_SELECT",
+        "kind": "event"
+      },
+      "serviceTypes": {
+        "Service": {
+          "name": "Service",
+          "description": "",
+          "functions": [
+            {
+              "name": "onMessage",
+              "description": "The `onMessage` remote method will be triggered when a message is received from a subscribed topic.",
+              "accessor": "",
+              "kind": "REMOTE",
+              "returnType": "error?",
+              "returnTypeEditable": 1,
+              "enable": 0,
+              "parameters": [
+                {
+                  "name": "message",
+                  "label": "Messages",
+                  "description": "The messages received for the topic",
+                  "kind": "REQUIRED",
+                  "type": "mqtt:Message",
+                  "defaultValue": "",
+                  "importStatements": ""
+                }
+              ]
+            }
+
+          ]
+        }
+      }
     }
   ],
   "ballerinax": [
     {
       "name": "asb",
       "version": "3.9.0",
-      "serviceTypeSkipList": []
+      "serviceTypeSkipList": [],
+      "serviceDeclaration": {
+        "displayName": "Azure Service Bus Trigger Service",
+        "optionalTypeDescriptor": 1,
+        "typeDescriptorLabel": "Service Type",
+        "typeDescriptorDescription": "The name of the service contract type",
+        "typeDescriptorDefaultValue": "Service",
+        "addDefaultTypeDescriptor": 0,
+        "optionalAbsoluteResourcePath": 1,
+        "absoluteResourcePathLabel": "Service Base Path",
+        "absoluteResourcePathDescription": "The base path of the service",
+        "absoluteResourcePathDefaultValue": "",
+        "optionalStringLiteral": 1,
+        "stringLiteralLabel": "Service Base Path",
+        "stringLiteralDescription": "The base path of the service",
+        "stringLiteralDefaultValue": "",
+        "listenerKind": "MULTIPLE_SELECT",
+        "kind": "event"
+      },
+      "serviceTypes": {
+        "Service": {
+          "name": "Service",
+          "description": "",
+          "functions": [
+            {
+              "name": "onMessage",
+              "description": "Triggers when new message received for the azure service bus",
+              "accessor": "",
+              "kind": "REMOTE",
+              "returnType": "error?",
+              "returnTypeEditable": 1,
+              "enable": 0,
+              "parameters": [
+                {
+                  "name": "message",
+                  "label": "Messages",
+                  "description": "The received message",
+                  "kind": "REQUIRED",
+                  "type": "asb:Message",
+                  "defaultValue": "",
+                  "importStatements": ""
+                }
+              ]
+            },
+            {
+              "name": "onError",
+              "description": "Triggers when error occurred in the azure service bus",
+              "accessor": "",
+              "kind": "REMOTE",
+              "returnType": "error?",
+              "returnTypeEditable": 1,
+              "enable": 0,
+              "parameters": [
+                {
+                  "name": "asbErr",
+                  "label": "Messages",
+                  "description": "The messages received for the topic",
+                  "kind": "REQUIRED",
+                  "type": "asb:MessageRetrievalError",
+                  "defaultValue": "",
+                  "importStatements": ""
+                }
+              ]
+            }
+          ]
+
+        }
+      }
     },
     {
       "name": "rabbitmq",
       "version": "3.1.0",
-      "serviceTypeSkipList": []
+      "serviceTypeSkipList": [],
+      "serviceDeclaration": {
+        "displayName": "RabbitMQ Service",
+        "optionalTypeDescriptor": 1,
+        "typeDescriptorLabel": "Service Type",
+        "typeDescriptorDescription": "The name of the service contract type",
+        "typeDescriptorDefaultValue": "Service",
+        "addDefaultTypeDescriptor": 0,
+        "optionalAbsoluteResourcePath": 1,
+        "absoluteResourcePathLabel": "Service Base Path",
+        "absoluteResourcePathDescription": "The base path of the service",
+        "absoluteResourcePathDefaultValue": "",
+        "optionalStringLiteral": 0,
+        "stringLiteralLabel": "Queue Name",
+        "stringLiteralDescription": "The name of the queue",
+        "stringLiteralDefaultValue": "\"\"",
+        "listenerKind": "MULTIPLE_SELECT",
+        "kind": "event"
+      },
+      "serviceTypes": {
+        "Service": {
+          "name": "Service",
+          "description": "",
+          "functions": [
+            {
+              "name": "onMessage",
+              "description": "The `onMessage` remote method will be triggered when a message is received in the specified queue",
+              "accessor": "",
+              "kind": "REMOTE",
+              "returnType": "error?",
+              "returnTypeEditable": 1,
+              "enable": 0,
+              "parameters": [
+                {
+                  "name": "message",
+                  "label": "message",
+                  "description": "The message received from the RabbitMQ queue",
+                  "kind": "REQUIRED",
+                  "type": "rabbitmq:AnydataMessage",
+                  "defaultValue": "",
+                  "importStatements": ""
+                },
+                {
+                  "name": "caller",
+                  "label": "Caller",
+                  "description": "The RabbitMQ caller object to acknowledge the message",
+                  "kind": "REQUIRED",
+                  "type": "rabbitmq:Caller",
+                  "defaultValue": "",
+                  "importStatements": ""
+                }
+              ]
+            },
+            {
+              "name": "onRequest",
+              "description": "The `onRequest` remote method will be triggered when a message is received in the specified queue and a response is expected",
+              "accessor": "",
+              "kind": "REMOTE",
+              "returnType": "anydata|error",
+              "returnTypeEditable": 1,
+              "enable": 0,
+              "parameters": [
+                {
+                  "name": "message",
+                  "label": "message",
+                  "description": "The message received from the RabbitMQ queue",
+                  "kind": "REQUIRED",
+                  "type": "rabbitmq:AnydataMessage",
+                  "defaultValue": "",
+                  "importStatements": ""
+                },
+                {
+                  "name": "caller",
+                  "label": "Caller",
+                  "description": "The RabbitMQ caller object to acknowledge the message",
+                  "kind": "REQUIRED",
+                  "type": "rabbitmq:Caller",
+                  "defaultValue": "",
+                  "importStatements": ""
+                }
+              ]
+            },
+            {
+              "name": "onError",
+              "description": "The `onError` remote method will be triggered when an error occurs during the message processing",
+              "accessor": "",
+              "kind": "REMOTE",
+              "returnType": "error?",
+              "returnTypeEditable": 1,
+              "enable": 0,
+              "parameters": [
+                {
+                  "name": "message",
+                  "label": "message",
+                  "description": "The message received from the RabbitMQ queue",
+                  "kind": "REQUIRED",
+                  "type": "rabbitmq:AnydataMessage",
+                  "defaultValue": "",
+                  "importStatements": ""
+                },
+                {
+                  "name": "rabbitmqError",
+                  "label": "RabbitMQ Error",
+                  "description": "The error occurred during the message processing",
+                  "kind": "REQUIRED",
+                  "type": "rabbitmq:Error",
+                  "defaultValue": "",
+                  "importStatements": ""
+                }
+              ]
+            }
+          ]
+
+        }
+      }
     },
     {
       "name": "kafka",
       "version": "4.2.0",
-      "serviceTypeSkipList": []
+      "serviceTypeSkipList": [],
+      "serviceDeclaration": {
+        "displayName": "Kafka Service",
+        "optionalTypeDescriptor": 1,
+        "typeDescriptorLabel": "Service Type",
+        "typeDescriptorDescription": "The name of the service contract type",
+        "typeDescriptorDefaultValue": "Service",
+        "addDefaultTypeDescriptor": 0,
+        "optionalAbsoluteResourcePath": 1,
+        "absoluteResourcePathLabel": "Service Base Path",
+        "absoluteResourcePathDescription": "The base path of the service",
+        "absoluteResourcePathDefaultValue": "",
+        "optionalStringLiteral": 1,
+        "stringLiteralLabel": "Service Base Path",
+        "stringLiteralDescription": "The base path of the service",
+        "stringLiteralDefaultValue": "",
+        "listenerKind": "SINGLE_SELECT",
+        "kind": "event"
+      },
+      "serviceTypes": {
+        "Service": {
+          "name": "Service",
+          "description": "",
+          "functions": [
+            {
+              "name": "onConsumerRecord",
+              "description": "The `onConsumerRecord` remote method will be triggered when a message is received from Kafka topic(s)",
+              "accessor": "",
+              "kind": "REMOTE",
+              "returnType": "error?",
+              "returnTypeEditable": 1,
+              "enable": 0,
+              "parameters": [
+                {
+                  "name": "records",
+                  "label": "Consumer records",
+                  "description": "The records received for Kafka topic(s)",
+                  "kind": "REQUIRED",
+                  "type": "kafka:AnydataConsumerRecord[]",
+                  "defaultValue": "",
+                  "importStatements": ""
+                },
+                {
+                  "name": "caller",
+                  "label": "Caller",
+                  "description": "The Kafka caller object to commit the offsets",
+                  "kind": "REQUIRED",
+                  "type": "kafka:Caller",
+                  "defaultValue": "",
+                  "importStatements": ""
+                }
+              ]
+            },
+            {
+              "name": "onError",
+              "description": "The `onError` remote method will be triggered when an error occurs during the message processing",
+              "accessor": "",
+              "kind": "REMOTE",
+              "returnType": "error?",
+              "returnTypeEditable": 1,
+              "enable": 0,
+              "parameters": [
+                {
+                  "name": "kafkaError",
+                  "label": "Kafka Error",
+                  "description": "The error occurred during the message processing",
+                  "kind": "REQUIRED",
+                  "type": "kafka:Error",
+                  "defaultValue": "",
+                  "importStatements": ""
+                }
+              ]
+            }
+          ]
+        }
+      }
     },
     {
       "name": "salesforce",
       "version": "8.1.0",
-      "serviceTypeSkipList": []
+      "serviceTypeSkipList": [],
+      "serviceDeclaration": {
+        "displayName": "Salesforce Service",
+        "optionalTypeDescriptor": 1,
+        "typeDescriptorLabel": "Service Type",
+        "typeDescriptorDescription": "The name of the service contract type",
+        "typeDescriptorDefaultValue": "Service",
+        "addDefaultTypeDescriptor": 0,
+        "optionalAbsoluteResourcePath": 1,
+        "absoluteResourcePathLabel": "Service Base Path",
+        "absoluteResourcePathDescription": "The base path of the service",
+        "absoluteResourcePathDefaultValue": "",
+        "optionalStringLiteral": 1,
+        "stringLiteralLabel": "Service Base Path",
+        "stringLiteralDescription": "The base path of the service",
+        "stringLiteralDefaultValue": "",
+        "listenerKind": "MULTIPLE_SELECT",
+        "kind": "event"
+      },
+      "serviceTypes": {
+      }
     },
     {
       "name": "trigger.github",
       "version": "0.9.2",
-      "serviceTypeSkipList": []
+      "serviceTypeSkipList": [],
+      "serviceDeclaration": {
+        "displayName": "GitHub Trigger Service",
+        "optionalTypeDescriptor": 0,
+        "typeDescriptorLabel": "Event Channel",
+        "typeDescriptorDescription": "The event channel name",
+        "typeDescriptorDefaultValue": "",
+        "addDefaultTypeDescriptor": 0,
+        "optionalAbsoluteResourcePath": 1,
+        "absoluteResourcePathLabel": "Service Base Path",
+        "absoluteResourcePathDescription": "The base path of the service",
+        "absoluteResourcePathDefaultValue": "",
+        "optionalStringLiteral": 1,
+        "stringLiteralLabel": "Service Base Path",
+        "stringLiteralDescription": "The base path of the service",
+        "stringLiteralDefaultValue": "",
+        "listenerKind": "MULTIPLE_SELECT",
+        "kind": "event"
+      },
+      "serviceTypes": {
+      }
+    },
+    {
+      "name": "ai.agent",
+      "version": "0.7.10",
+      "serviceTypeSkipList": [],
+      "serviceDeclaration": {
+        "displayName": "AI Agent Service",
+        "optionalTypeDescriptor": 1,
+        "typeDescriptorLabel": "Agent Service Type",
+        "typeDescriptorDescription": "The service type descriptor",
+        "typeDescriptorDefaultValue": "",
+        "addDefaultTypeDescriptor": 0,
+        "optionalAbsoluteResourcePath": 1,
+        "absoluteResourcePathLabel": "Service Base Path",
+        "absoluteResourcePathDescription": "The base path of the service",
+        "absoluteResourcePathDefaultValue": "",
+        "optionalStringLiteral": 1,
+        "stringLiteralLabel": "Service Base Path",
+        "stringLiteralDescription": "The base path of the service",
+        "stringLiteralDefaultValue": "",
+        "listenerKind": "MULTIPLE_SELECT",
+        "kind": "event"
+      },
+      "serviceTypes": {
+      }
     }
   ]
 }

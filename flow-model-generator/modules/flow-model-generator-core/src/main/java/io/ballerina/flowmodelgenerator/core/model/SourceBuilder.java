@@ -614,6 +614,16 @@ public class SourceBuilder {
             return this;
         }
 
+        public TokenBuilder equal() {
+            sb.append(WHITE_SPACE).append(SyntaxKind.EQUAL_TOKEN.stringValue()).append(WHITE_SPACE);
+            return this;
+        }
+
+        public TokenBuilder semicolon() {
+            sb.append(SyntaxKind.SEMICOLON_TOKEN.stringValue()).append(System.lineSeparator());
+            return this;
+        }
+
         public TokenBuilder closeBrace() {
             sb.append(WHITE_SPACE)
                     .append(SyntaxKind.CLOSE_BRACE_TOKEN.stringValue())
@@ -638,6 +648,30 @@ public class SourceBuilder {
 
         public TokenBuilder skipFormatting() {
             this.skipFormatting = true;
+            return this;
+        }
+
+        public TokenBuilder descriptionDoc(String description) {
+            sb.append(SyntaxKind.HASH_TOKEN.stringValue())
+                    .append(WHITE_SPACE)
+                    .append(description);
+            if (!description.endsWith(System.lineSeparator())) {
+                sb.append(System.lineSeparator());
+            }
+            return this;
+        }
+
+        public TokenBuilder parameterDoc(String paramName, String description) {
+            sb.append(SyntaxKind.HASH_TOKEN.stringValue())
+                    .append(WHITE_SPACE)
+                    .append(SyntaxKind.PLUS_TOKEN.stringValue())
+                    .append(WHITE_SPACE)
+                    .append(paramName)
+                    .append(WHITE_SPACE)
+                    .append("-")
+                    .append(WHITE_SPACE)
+                    .append(description)
+                    .append(System.lineSeparator());
             return this;
         }
 

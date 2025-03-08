@@ -1,0 +1,95 @@
+{
+  "source": "agent_1/agents.bal",
+  "position": {
+    "line": 0,
+    "offset": 0
+  },
+  "description": "",
+  "codedata": {
+    "node": "AGENT_CALL",
+    "org": "ballerinax",
+    "module": "ai.agent",
+    "object": "Agent",
+    "symbol": "run",
+    "version": "0.7.9"
+  },
+  "output": {
+    "id": "31",
+    "metadata": {
+      "label": "run",
+      "description": "Executes the agent for a given user query.\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.7.9.png"
+    },
+    "codedata": {
+      "node": "AGENT_CALL",
+      "org": "ballerinax",
+      "module": "ai.agent",
+      "object": "Agent",
+      "symbol": "run",
+      "version": "0.7.9"
+    },
+    "returning": false,
+    "properties": {
+      "query": {
+        "metadata": {
+          "label": "query",
+          "description": "Natural language command for the agent."
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"\"",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "query"
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "type": {
+        "metadata": {
+          "label": "Variable Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "string",
+        "placeholder": "var",
+        "optional": false,
+        "editable": false,
+        "advanced": false,
+        "codedata": {}
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "stringResult",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "checkError": {
+        "metadata": {
+          "label": "Check Error",
+          "description": "Trigger error flow"
+        },
+        "valueType": "FLAG",
+        "value": true,
+        "optional": false,
+        "editable": true,
+        "advanced": true
+      }
+    },
+    "flags": 0
+  }
+}

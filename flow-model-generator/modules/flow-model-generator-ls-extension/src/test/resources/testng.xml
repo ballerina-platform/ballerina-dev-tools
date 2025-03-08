@@ -20,7 +20,7 @@ under the License.
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
 <suite name="flow-model-test-suite">
-    <test name="flow-model-test" parallel="false">
+    <test name="flow-model-test" parallel="none" >
         <classes>
             <class name="io.ballerina.flowmodelgenerator.extension.ModelGeneratorTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.SourceGeneratorTest"/>
@@ -65,6 +65,17 @@ under the License.
             <class name="io.ballerina.flowmodelgenerator.extension.typesmanager.CreateGraphqlClassTypeTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.typesmanager.RecordConfigTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.InitializerTest"/>
+
+<!--            <class name="io.ballerina.flowmodelgenerator.extension.agentsmanager.NodeTemplateTest"/>-->
+<!--            <class name="io.ballerina.flowmodelgenerator.extension.agentsmanager.SourceGeneratorTest"/>-->
+<!--            <class name="io.ballerina.flowmodelgenerator.extension.agentsmanager.GenToolsTest"/>-->
+<!--            <class name="io.ballerina.flowmodelgenerator.extension.agentsmanager.GetAllAgentsTest"/>-->
+<!--            <class name="io.ballerina.flowmodelgenerator.extension.agentsmanager.GetAllModelsTest"/>-->
+<!--            <class name="io.ballerina.flowmodelgenerator.extension.agentsmanager.GetModelsTest"/>-->
+<!--            <class name="io.ballerina.flowmodelgenerator.extension.agentsmanager.GetToolsTest"/>-->
+<!--            <class name="io.ballerina.flowmodelgenerator.extension.agentsmanager.GetConnectorActionsTest"/>-->
+<!--            <class name="io.ballerina.flowmodelgenerator.extension.agentsmanager.FlowNodeGeneratorTest"/>-->
+<!--            <class name="io.ballerina.flowmodelgenerator.extension.agentsmanager.AvailableNodesTest"/>-->
             <class name="io.ballerina.flowmodelgenerator.extension.typesmanager.UpdateRecordConfigTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.typesmanager.RecordValueGenTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.typesmanager.FindMatchingTypeTest"/>

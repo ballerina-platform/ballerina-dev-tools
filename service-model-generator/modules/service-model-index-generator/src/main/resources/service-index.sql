@@ -6,6 +6,10 @@ DROP TABLE IF EXISTS ParameterMemberType;
 DROP TABLE IF EXISTS Annotation;
 DROP TABLE IF EXISTS AnnotationField;
 DROP TABLE IF EXISTS AnnotationFieldMemberType;
+DROP TABLE IF EXISTS ServiceDeclaration;
+DROP TABLE IF EXISTS ServiceType;
+DROP TABLE IF EXISTS ServiceTypeFunction;
+DROP TABLE IF EXISTS ServiceTypeFunctionParameter;
 
 -- Create Package table
 CREATE TABLE Package (
@@ -14,6 +18,28 @@ CREATE TABLE Package (
     org TEXT NOT NULL,
     version TEXT,
     keywords TEXT
+);
+
+-- Create ServiceDeclaration table
+CREATE TABLE ServiceDeclaration (
+    package_id PRIMARY KEY,
+    display_name TEXT NOT NULL,
+    optional_type_descriptor INTEGER CHECK(optional_type_descriptor IN (0, 1)),
+    type_descriptor_label TEXT,
+    type_descriptor_description TEXT,
+    type_descriptor_default_value TEXT,
+    add_default_type_descriptor INTEGER CHECK(add_default_type_descriptor IN (0, 1)),
+    optional_absolute_resource_path INTEGER CHECK(optional_absolute_resource_path IN (0, 1)),
+    absolute_resource_path_label TEXT,
+    absolute_resource_path_description TEXT,
+    absolute_resource_path_default_value TEXT,
+    optional_string_literal INTEGER CHECK(optional_string_literal IN (0, 1)),
+    string_literal_label TEXT,
+    string_literal_description TEXT,
+    string_literal_default_value TEXT,
+    kind TEXT NOT NULL,
+    listener_kind TEXT CHECK(listener_kind IN ('MULTIPLE_SELECT', 'SINGLE_SELECT')),
+    FOREIGN KEY (package_id) REFERENCES Package(package_id) ON DELETE CASCADE
 );
 
 -- Create Function table
@@ -82,4 +108,42 @@ CREATE TABLE AnnotationFieldMemberType (
     annotation_field_id INTEGER,
     package TEXT, -- format of the package is org:name:version
     FOREIGN KEY (annotation_field_id) REFERENCES AnnotationField(annotation_field_id) ON DELETE CASCADE
+);
+
+-- Create ServiceDeclaration table
+CREATE TABLE ServiceType (
+    service_type_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    description TEXT,
+    package_id INTEGER,
+    FOREIGN KEY (package_id) REFERENCES Package(package_id) ON DELETE CASCADE
+);
+
+-- Create ServiceTypeFunction table
+CREATE TABLE ServiceTypeFunction (
+    function_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    description TEXT,
+    accessor TEXT CHECK(accessor IN ('get', 'post', 'put', 'delete', 'options', 'head', 'patch', '')),
+    kind TEXT CHECK(kind IN ('FUNCTION', 'REMOTE', 'RESOURCE')),
+    return_type JSON, -- JSON type for return type information
+    return_type_editable INTEGER CHECK(return_type_editable IN (0, 1)),
+    import_statements TEXT, -- Import statements for the return type
+    enable INT CHECK(enable IN (0, 1)),
+    service_type_id INTEGER,
+    FOREIGN KEY (service_type_id) REFERENCES ServiceType(service_type_id) ON DELETE CASCADE
+);
+
+-- Create ServiceTypeFunctionParameter table
+CREATE TABLE ServiceTypeFunctionParameter (
+    parameter_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    label TEXT NOT NULL,
+    description TEXT,
+    kind TEXT CHECK(kind IN ('REQUIRED', 'DEFAULTABLE', 'INCLUDED_RECORD', 'REST')),
+    type JSON, -- JSON type for parameter type information
+    default_value TEXT,
+    import_statements TEXT,
+    function_id INTEGER,
+    FOREIGN KEY (function_id) REFERENCES ServiceTypeFunction(function_id) ON DELETE CASCADE
 );
