@@ -63,7 +63,7 @@ public class AgentCallBuilder extends CallBuilder {
         }
 
         String module = flowNode.codedata().module();
-        String methodCallPrefix = (module != null) ? module.substring(module.lastIndexOf('.') + 1) + ":" : "";
+        String methodCallPrefix = (module != null) ? module.substring(module.lastIndexOf('.') + 1) + "->" : "";
         String methodCall = methodCallPrefix + flowNode.metadata().label();
 
         return sourceBuilder.token()
