@@ -19,6 +19,13 @@
 package io.ballerina.flowmodelgenerator.core.search;
 
 import com.google.gson.reflect.TypeToken;
+import io.ballerina.compiler.api.ModuleID;
+import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.ClassSymbol;
+import io.ballerina.compiler.api.symbols.ModuleSymbol;
+import io.ballerina.compiler.api.symbols.Qualifier;
+import io.ballerina.compiler.api.symbols.Symbol;
+import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.flowmodelgenerator.core.LocalIndexCentral;
 import io.ballerina.flowmodelgenerator.core.model.AvailableNode;
 import io.ballerina.flowmodelgenerator.core.model.Category;
@@ -30,13 +37,17 @@ import io.ballerina.flowmodelgenerator.core.model.node.NewConnectionBuilder;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.SearchResult;
 import io.ballerina.projects.Module;
+import io.ballerina.projects.PackageCompilation;
+import io.ballerina.projects.Project;
 import io.ballerina.tools.text.LineRange;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Handles the search command for connectors.
@@ -54,8 +65,8 @@ public class ConnectorSearchCommand extends SearchCommand {
     private static final Map<String, String> CONNECTOR_NAME_MAP =
             LocalIndexCentral.getInstance().readJsonResource(CONNECTOR_NAME_CORRECTION_JSON, CONNECTOR_NAME_MAP_TYPE);
 
-    public ConnectorSearchCommand(Module module, LineRange position, Map<String, String> queryMap) {
-        super(module, position, queryMap);
+    public ConnectorSearchCommand(Project project, LineRange position, Map<String, String> queryMap) {
+        super(project, position, queryMap);
     }
 
     @Override
@@ -65,6 +76,11 @@ public class ConnectorSearchCommand extends SearchCommand {
             Category.Builder categoryBuilder = rootBuilder.stepIn(entry.getKey(), null, null);
             entry.getValue().forEach(searchResult -> categoryBuilder.node(generateAvailableNode(searchResult)));
         }
+
+        List<SearchResult> localConnectors = getLocalConnectors();
+        Category.Builder categoryBuilder = rootBuilder.stepIn("Local", null, null);
+        localConnectors.forEach(connection -> categoryBuilder.node(generateAvailableNode(connection)));
+
         return rootBuilder.build().items();
     }
 
@@ -72,6 +88,10 @@ public class ConnectorSearchCommand extends SearchCommand {
     protected List<Item> search() {
         List<SearchResult> searchResults = dbManager.searchConnectors(query, limit, offset);
         searchResults.forEach(searchResult -> rootBuilder.node(generateAvailableNode(searchResult)));
+
+        List<SearchResult> localConnectors = getLocalConnectors();
+        localConnectors.forEach(connector -> rootBuilder.node(generateAvailableNode(connector)));
+
         return rootBuilder.build().items();
     }
 
@@ -119,5 +139,41 @@ public class ConnectorSearchCommand extends SearchCommand {
         String trimmedPackageName = rawPackageName.contains(".")
                 ? rawPackageName.substring(rawPackageName.lastIndexOf('.') + 1) : rawPackageName;
         return trimmedPackageName.substring(0, 1).toUpperCase(Locale.ROOT) + trimmedPackageName.substring(1);
+    }
+
+    private  List<SearchResult> getLocalConnectors() {
+        PackageCompilation compilation = project.currentPackage().getCompilation();
+        Iterable<Module> modules = project.currentPackage().modules();
+        List<SearchResult> localConnections = new ArrayList<>();
+        for (Module module : modules) {
+            if (module.isDefaultModule()) {
+                continue;
+            }
+            SemanticModel semanticModel = compilation.getSemanticModel(module.moduleId());
+            List<Symbol> symbols = semanticModel.moduleSymbols();
+            for (Symbol symbol : symbols) {
+                if (symbol.kind() != SymbolKind.CLASS) {
+                    continue;
+                }
+                ClassSymbol classSymbol = (ClassSymbol) symbol;
+                if (!classSymbol.qualifiers().contains(Qualifier.CLIENT)) {
+                    continue;
+                }
+                Optional<ModuleSymbol> optModule = symbol.getModule();
+                if (optModule.isEmpty()) {
+                    throw new IllegalStateException("Module cannot be found for the symbol: " + symbol.getName());
+                }
+                ModuleID id = optModule.get().id();
+                String doc = "";
+                if (classSymbol.documentation().isPresent()) {
+                    doc = classSymbol.documentation().get().description().orElse("");
+                }
+                SearchResult searchResult = SearchResult.from(id.orgName(),
+                        id.moduleName().substring(id.packageName().length() + 1), id.version(),
+                        classSymbol.getName().orElse("Client"), doc);
+                localConnections.add(searchResult);
+            }
+        }
+        return localConnections;
     }
 }

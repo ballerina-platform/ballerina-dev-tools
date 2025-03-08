@@ -97,6 +97,7 @@ public class NewConnectionBuilder extends CallBuilder {
                 .functionResultKind(FunctionData.Kind.CONNECTOR)
                 .userModuleInfo(moduleInfo);
 
+        // TODO: If we set the module info properly this logic can be removed.
         if (Boolean.TRUE.equals(codedata.isGenerated())) {
             Path projectPath = context.filePath().getParent();
             if (projectPath == null) {
