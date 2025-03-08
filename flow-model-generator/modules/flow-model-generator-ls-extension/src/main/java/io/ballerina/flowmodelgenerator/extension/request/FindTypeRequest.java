@@ -18,6 +18,7 @@
 
 package io.ballerina.flowmodelgenerator.extension.request;
 
+import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.PropertyTypeMemberInfo;
 
 import java.util.List;
@@ -32,4 +33,19 @@ import java.util.List;
  * @since 2.0.0
  */
 public record FindTypeRequest(String filePath, List<PropertyTypeMemberInfo> typeMembers, String expr) {
+
+    public record TypePackageInfo(String org, String module, String version) {
+
+        public static TypePackageInfo from(String packageInfo) {
+            if (packageInfo.isEmpty()) {
+                return new TypePackageInfo(null, null, null);
+            }
+            String[] parts = packageInfo.split(":");
+            return new TypePackageInfo(parts[0], parts[1], parts[2]);
+        }
+
+        public static TypePackageInfo from(Codedata codedata) {
+            return new TypePackageInfo(codedata.org(), codedata.module(), codedata.version());
+        }
+    }
 }

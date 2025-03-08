@@ -18,9 +18,11 @@
 
 package io.ballerina.flowmodelgenerator.core.type;
 
+import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.MappingConstructorExpressionNode;
 import io.ballerina.compiler.syntax.tree.MappingFieldNode;
+import io.ballerina.compiler.syntax.tree.NodeParser;
 import io.ballerina.compiler.syntax.tree.SpecificFieldNode;
 import org.ballerinalang.diagramutil.connector.models.connector.Type;
 import org.ballerinalang.diagramutil.connector.models.connector.types.RecordType;
@@ -37,9 +39,27 @@ import java.util.Objects;
  *
  * @since 2.0.0
  */
-public class RecordValueAnalyzer {
+public class TypeSymbolAnalyzerFromTypeModel {
 
-    public static void updateUnionTypeConfig(UnionType unionType,
+    public static Type analyze(TypeSymbol typeSymbol, String expr) {
+        // Rest of your existing type processing logic
+        ExpressionNode expressionNode = NodeParser.parseExpression(expr);
+        Type type = Type.fromSemanticSymbol(typeSymbol);
+
+        if (expressionNode instanceof MappingConstructorExpressionNode mapping) {
+            if (type instanceof RecordType recordType) {
+                TypeSymbolAnalyzerFromTypeModel.updateTypeConfig(recordType, mapping);
+            } else if (type instanceof UnionType unionType) {
+                TypeSymbolAnalyzerFromTypeModel.updateUnionTypeConfig(unionType, mapping);
+            }
+        } else {
+            throw new IllegalArgumentException("Invalid expression");
+        }
+
+        return type;
+    }
+
+    private static void updateUnionTypeConfig(UnionType unionType,
                                              MappingConstructorExpressionNode mappingConstructor) {
         List<Type> selectedTypes = new ArrayList<>();
         for (Type type : unionType.members) {
@@ -59,7 +79,7 @@ public class RecordValueAnalyzer {
         }
     }
 
-    public static void updateTypeConfig(RecordType recordType, MappingConstructorExpressionNode mappingConstructor) {
+    private static void updateTypeConfig(RecordType recordType, MappingConstructorExpressionNode mappingConstructor) {
         Map<String, Type> fieldMap = new HashMap<>();
         Map<String, String> requiredFields = new HashMap<>();
         recordType.fields.forEach(f -> {

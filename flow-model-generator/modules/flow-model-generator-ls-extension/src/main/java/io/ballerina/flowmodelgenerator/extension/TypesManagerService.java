@@ -25,14 +25,11 @@ import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
-import io.ballerina.compiler.syntax.tree.ExpressionNode;
-import io.ballerina.compiler.syntax.tree.MappingConstructorExpressionNode;
-import io.ballerina.compiler.syntax.tree.NodeParser;
 import io.ballerina.flowmodelgenerator.core.TypesManager;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.PropertyTypeMemberInfo;
 import io.ballerina.flowmodelgenerator.core.model.TypeData;
-import io.ballerina.flowmodelgenerator.core.type.RecordValueAnalyzer;
+import io.ballerina.flowmodelgenerator.core.type.TypeSymbolAnalyzerFromTypeModel;
 import io.ballerina.flowmodelgenerator.core.type.RecordValueGenerator;
 import io.ballerina.flowmodelgenerator.extension.request.FilePathRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FindTypeRequest;
@@ -50,8 +47,6 @@ import io.ballerina.modelgenerator.commons.PackageUtil;
 import io.ballerina.projects.Document;
 import org.ballerinalang.annotation.JavaSPIService;
 import org.ballerinalang.diagramutil.connector.models.connector.Type;
-import org.ballerinalang.diagramutil.connector.models.connector.types.RecordType;
-import org.ballerinalang.diagramutil.connector.models.connector.types.UnionType;
 import org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.jsonrpc.services.JsonRequest;
@@ -59,12 +54,9 @@ import org.eclipse.lsp4j.jsonrpc.services.JsonSegment;
 import org.eclipse.lsp4j.services.LanguageServer;
 
 import java.nio.file.Path;
-import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Stream;
 
 @JavaSPIService("org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService")
 @JsonSegment("typesManager")
@@ -230,54 +222,11 @@ public class TypesManagerService implements ExtendedLanguageServerService {
     }
 
     @JsonRequest
-    public CompletableFuture<RecordConfigResponse> updateRecordConfig(UpdatedRecordConfigRequest request) {
+    public CompletableFuture<RecordValueGenerateResponse> generateValue(RecordValueGenerateRequest request) {
         return CompletableFuture.supplyAsync(() -> {
-            RecordConfigResponse response = new RecordConfigResponse();
+            RecordValueGenerateResponse response = new RecordValueGenerateResponse();
             try {
-                Codedata codedata = request.codedata();
-                String orgName = codedata.org();
-                String packageName = codedata.module();
-                String versionName = codedata.version();
-                Path filePath = Path.of(request.filePath());
-
-                // Find the semantic model
-                Optional<SemanticModel> semanticModel = PackageUtil.getSemanticModelIfMatched(workspaceManager,
-                        filePath, orgName, packageName, versionName);
-                if (semanticModel.isEmpty()) {
-                    semanticModel = PackageUtil.getSemanticModel(orgName, packageName, versionName);
-                }
-                if (semanticModel.isEmpty()) {
-                    throw new IllegalArgumentException(
-                            String.format("Package '%s/%s:%s' not found", orgName, packageName, versionName));
-                }
-
-                // Get the type symbol
-                Optional<TypeSymbol> typeSymbol = semanticModel.get().moduleSymbols().parallelStream()
-                        .filter(symbol -> symbol.kind() == SymbolKind.TYPE_DEFINITION &&
-                                symbol.nameEquals(request.typeConstraint()))
-                        .map(symbol -> ((TypeDefinitionSymbol) symbol).typeDescriptor())
-                        .findFirst();
-
-                if (typeSymbol.isEmpty()) {
-                    throw new IllegalArgumentException(String.format("Type '%s' not found in package '%s/%s:%s'",
-                            request.typeConstraint(),
-                            orgName,
-                            packageName,
-                            versionName));
-                }
-
-                ExpressionNode expressionNode = NodeParser.parseExpression(request.expr());
-                Type type = Type.fromSemanticSymbol(typeSymbol.get());
-                if (expressionNode instanceof MappingConstructorExpressionNode mapping) {
-                    if (type instanceof RecordType recordType) {
-                        RecordValueAnalyzer.updateTypeConfig(recordType, mapping);
-                    } else if (type instanceof UnionType unionType) {
-                        RecordValueAnalyzer.updateUnionTypeConfig(unionType, mapping);
-                    }
-                } else {
-                    throw new IllegalArgumentException("Invalid expression");
-                }
-                response.setRecordConfig(type);
+                response.setRecordValue(RecordValueGenerator.generate(request.type().getAsJsonObject()));
             } catch (Throwable e) {
                 response.setError(e);
             }
@@ -286,46 +235,19 @@ public class TypesManagerService implements ExtendedLanguageServerService {
     }
 
     @JsonRequest
-    public CompletableFuture<RecordConfigResponse> findMatchingType(FindTypeRequest request) {
+    public CompletableFuture<RecordConfigResponse> updateRecordConfig(UpdatedRecordConfigRequest request) {
         return CompletableFuture.supplyAsync(() -> {
             RecordConfigResponse response = new RecordConfigResponse();
             try {
-                // Process each detail in parallel, find the first selected type
-                String filePath = request.filePath();
-                String expression = request.expr();
-
-                for (PropertyTypeMemberInfo memberInfo : request.typeMembers()) {
-                    try {
-                        TypePackageInfo info = from(memberInfo.packageInfo());
-                        Type type = getType(info, filePath, memberInfo.type(), expression);
-                        if (type != null && type.selected) {
-                            response.setRecordConfig(type);
-                            type.name = memberInfo.type();
-                            response.setTypeName(memberInfo.type());
-                            break;
-                        }
-                    } catch (Throwable e) {
-                    }
+                FindTypeRequest.TypePackageInfo info = FindTypeRequest.TypePackageInfo.from(request.codedata());
+                Optional<TypeSymbol> typeSymbol = findTypeSymbolFromSemanticModel(info, request.filePath(),
+                        request.typeConstraint());
+                if (typeSymbol.isEmpty()) {
+                    throw new IllegalArgumentException(String.format("Type '%s' not found in package '%s/%s:%s'",
+                            request.typeConstraint(), info.org(), info.module(), info.version()));
                 }
-
-                // Process each detail in parallel, find the first selected type
-//                Optional<PropertyTypeMemberInfo> selectedTypeMember = request.typeMembers().parallelStream()
-//                        .map(memberInfo -> {
-//                            try {
-//                                TypePackageInfo info = from(memberInfo.packageInfo());
-//                                Type type = getType(info, filePath, memberInfo.type(), expression);
-//                                if (type != null && type.selected) {
-//                                    response.setRecordConfig(type);
-//                                    response.setTypeName(memberInfo.type());
-//                                    return memberInfo;
-//                                }
-//                            } catch (Throwable e) {
-//                                // Log the error if necessary
-//                            }
-//                            return null;
-//                        })
-//                        .filter(Objects::nonNull)
-//                        .findFirst();
+                Type type  = TypeSymbolAnalyzerFromTypeModel.analyze(typeSymbol.get(), request.expr());
+                response.setRecordConfig(type);
             } catch (Throwable e) {
                 response.setError(e);
             }
@@ -334,12 +256,45 @@ public class TypesManagerService implements ExtendedLanguageServerService {
         });
     }
 
-    private TypePackageInfo from(String packageInfo) {
-        if (packageInfo.isEmpty()) {
-            return new TypePackageInfo(null, null, null);
-        }
-        String[] parts = packageInfo.split(":");
-        return new TypePackageInfo(parts[0], parts[1], parts[2]);
+    /**
+     * Find the matching type for the given expression from a list of {@link PropertyTypeMemberInfo}.
+     * If found a matching type for the expression, update the matching types value information.
+     *
+     * @param request {@link FindTypeRequest}
+     * @return {@link RecordConfigResponse}
+     */
+    @JsonRequest
+    public CompletableFuture<RecordConfigResponse> findMatchingType(FindTypeRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            RecordConfigResponse response = new RecordConfigResponse();
+            try {
+                String filePath = request.filePath();
+                String expression = request.expr();
+                for (PropertyTypeMemberInfo memberInfo : request.typeMembers()) {
+                    try {
+                        FindTypeRequest.TypePackageInfo info = FindTypeRequest.TypePackageInfo
+                                .from(memberInfo.packageInfo());
+                        Optional<TypeSymbol> typeSymbol = findTypeSymbolFromSemanticModel(info, filePath,
+                                memberInfo.type());
+                        if (typeSymbol.isEmpty()) {
+                            continue;
+                        }
+                        Type type  = TypeSymbolAnalyzerFromTypeModel.analyze(typeSymbol.get(), expression);
+                        if (type != null && type.selected) {
+                            response.setRecordConfig(type);
+                            type.name = memberInfo.type();
+                            response.setTypeName(memberInfo.type());
+                            break;
+                        }
+                    } catch (Throwable ignored) {
+                    }
+                }
+            } catch (Throwable e) {
+                response.setError(e);
+            }
+            semanticModelCache.clear();
+            return response;
+        });
     }
 
     private Optional<SemanticModel> getCachedSemanticModel(String org, String packageName, String version,
@@ -372,7 +327,8 @@ public class TypesManagerService implements ExtendedLanguageServerService {
         return model;
     }
 
-    private Type getType(TypePackageInfo packageInfo, String path, String typeConstraint, String expr) {
+    private Optional<TypeSymbol> findTypeSymbolFromSemanticModel(FindTypeRequest.TypePackageInfo packageInfo,
+                                                                 String path, String typeConstraint) {
         String orgName = packageInfo.org();
         String packageName = packageInfo.module();
         String versionName = packageInfo.version();
@@ -386,47 +342,9 @@ public class TypesManagerService implements ExtendedLanguageServerService {
             );
         }
 
-        // Existing type resolution logic
-        Optional<TypeSymbol> typeSymbol = semanticModel.get().moduleSymbols().parallelStream()
+        return semanticModel.get().moduleSymbols().parallelStream()
                 .filter(symbol -> symbol.kind() == SymbolKind.TYPE_DEFINITION && symbol.nameEquals(typeConstraint))
                 .map(symbol -> ((TypeDefinitionSymbol) symbol).typeDescriptor())
                 .findFirst();
-
-        if (typeSymbol.isEmpty()) {
-            throw new IllegalArgumentException(String.format("Type '%s' not found in package '%s/%s:%s'",
-                    typeConstraint, orgName, packageName, versionName));
-        }
-
-        // Rest of your existing type processing logic
-        ExpressionNode expressionNode = NodeParser.parseExpression(expr);
-        Type type = Type.fromSemanticSymbol(typeSymbol.get());
-
-        if (expressionNode instanceof MappingConstructorExpressionNode mapping) {
-            if (type instanceof RecordType recordType) {
-                RecordValueAnalyzer.updateTypeConfig(recordType, mapping);
-            } else if (type instanceof UnionType unionType) {
-                RecordValueAnalyzer.updateUnionTypeConfig(unionType, mapping);
-            }
-        } else {
-            throw new IllegalArgumentException("Invalid expression");
-        }
-
-        return type;
-    }
-
-    record TypePackageInfo(String org, String module, String version) {
-    }
-
-    @JsonRequest
-    public CompletableFuture<RecordValueGenerateResponse> generateValue(RecordValueGenerateRequest request) {
-        return CompletableFuture.supplyAsync(() -> {
-            RecordValueGenerateResponse response = new RecordValueGenerateResponse();
-            try {
-                response.setRecordValue(RecordValueGenerator.generate(request.type().getAsJsonObject()));
-            } catch (Throwable e) {
-                response.setError(e);
-            }
-            return response;
-        });
     }
 }

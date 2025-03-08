@@ -51,7 +51,7 @@ public class FindMatchingTypeTest extends AbstractLSTest {
         if (!response.equals(testConfig.output())) {
             TestConfig updateConfig = new TestConfig(testConfig.filePath(), testConfig.description(),
                     testConfig.typeMembers(), testConfig.expr(), response);
-            updateConfig(configJsonPath, updateConfig);
+//            updateConfig(configJsonPath, updateConfig);
             compareJsonElements(response, testConfig.output());
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
