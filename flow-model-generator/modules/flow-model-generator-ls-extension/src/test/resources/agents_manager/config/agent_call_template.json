@@ -11,6 +11,7 @@
     "module": "ai.agent",
     "object": "Agent",
     "symbol": "run",
+    "parentSymbol": "agentRun",
     "version": "0.7.9"
   },
   "output": {
@@ -30,6 +31,18 @@
     },
     "returning": false,
     "properties": {
+      "connection": {
+        "metadata": {
+          "label": "Connection",
+          "description": "Connection to use"
+        },
+        "valueType": "IDENTIFIER",
+        "valueTypeConstraint": "agent:Agent",
+        "value": "agentRun",
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      },
       "query": {
         "metadata": {
           "label": "query",
