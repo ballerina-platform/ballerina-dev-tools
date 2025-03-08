@@ -39,6 +39,7 @@ public class RecordValueGenerator {
             switch (typeName) {
                 case "record" -> generateRecordValue(json, builder);
                 case "union" -> generateUnionValue(json, builder);
+                case "enum" -> generateEnumValue(json, builder);
                 default -> {
                     if (json.has("value") && !json.get("value").getAsString().isEmpty()) {
                         builder.append(json.get("value").getAsString());
@@ -54,6 +55,29 @@ public class RecordValueGenerator {
             }
         }
         return builder.toString();
+    }
+
+    public static void generateEnumValue(JsonObject jsonObject, StringBuilder builder) {
+        if (jsonObject.has("members") && jsonObject.get("members").isJsonArray()) {
+            JsonElement members = jsonObject.get("members");
+            // iterate over each member until the array has a selected true value else get the default value
+            for (JsonElement member : members.getAsJsonArray()) {
+                JsonObject memberObj = member.getAsJsonObject();
+                if (memberObj.has("selected") && memberObj.get("selected").getAsBoolean()) {
+                    if (memberObj.has("value") && !memberObj.get("value").getAsString().isEmpty()) {
+                        builder.append(memberObj.get("value").getAsString());
+                    } else if (memberObj.has("defaultValue") &&
+                            !memberObj.get("defaultValue").getAsString().isEmpty()) {
+                        builder.append(memberObj.get("defaultValue").getAsString());
+                    } else {
+                        StringBuilder sb = new StringBuilder();
+                        generateDefaultValue(memberObj, sb);
+                        builder.append(sb);
+                    }
+                    break;
+                }
+            }
+        }
     }
 
     public static void generateUnionValue(JsonObject union, StringBuilder builder) {
@@ -158,7 +182,7 @@ public class RecordValueGenerator {
                 if (jsonObject.has("members") && jsonObject.get("members").isJsonArray()) {
                     JsonElement members = jsonObject.get("members");
                     if (!members.getAsJsonArray().isEmpty()) {
-                        builder.append(members.getAsJsonArray().get(0).getAsString());
+                        generateDefaultValue(members.getAsJsonArray().get(0).getAsJsonObject(), builder);
                     } else {
                         builder.append("\"\"");
                     }
