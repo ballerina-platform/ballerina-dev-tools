@@ -1,7 +1,7 @@
 {
   "description": "Sample flow model",
   "kind": "CONNECTOR",
-  "source": "empty.bal",
+  "source": "config1/main.bal",
   "queryMap": {
     "q": ""
   },
@@ -461,7 +461,24 @@
       "metadata": {
         "label": "Local"
       },
-      "items": []
+      "items": [
+        {
+          "metadata": {
+            "label": "Mod1 Client",
+            "description": "",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/oas_mod1_0.1.0.png"
+          },
+          "codedata": {
+            "node": "NEW_CONNECTION",
+            "org": "oas",
+            "module": "mod1",
+            "object": "Client",
+            "symbol": "init",
+            "version": "0.1.0"
+          },
+          "enabled": true
+        }
+      ]
     }
   ]
 }

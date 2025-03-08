@@ -24,7 +24,7 @@ import io.ballerina.flowmodelgenerator.core.model.Category;
 import io.ballerina.flowmodelgenerator.core.model.Item;
 import io.ballerina.modelgenerator.commons.SearchDatabaseManager;
 import io.ballerina.modelgenerator.commons.SearchResult;
-import io.ballerina.projects.Module;
+import io.ballerina.projects.Project;
 import io.ballerina.tools.text.LineRange;
 
 import java.util.List;
@@ -34,7 +34,7 @@ import java.util.Map;
  * Abstract base class for search command operations that handles different types of searches in a module context. This
  * class provides the foundation for specific search implementations for the search API.
  *
- * <p>Search commands can be created using the factory method {@link #from(Kind, Module, LineRange, Map)}
+ * <p>Search commands can be created using the factory method {@link #from(Kind, Project, LineRange, Map)}
  * which returns the appropriate implementation based on the specified kind. The class follows the command design
  * pattern allowing to execute various search strategies depending on the commands.</p>
  *
@@ -43,7 +43,7 @@ import java.util.Map;
 public abstract class SearchCommand {
 
     protected final Category.Builder rootBuilder;
-    protected final Module module;
+    protected final Project project;
     protected final LineRange position;
     protected final String query;
     protected final int limit;
@@ -57,7 +57,7 @@ public abstract class SearchCommand {
     private static final int DEFAULT_LIMIT = 20;
     private static final int DEFAULT_OFFSET = 0;
 
-    public static SearchCommand from(Kind kind, Module module, LineRange position, Map<String, String> queryMap) {
+    public static SearchCommand from(Kind kind, Project module, LineRange position, Map<String, String> queryMap) {
         return switch (kind) {
             case FUNCTION -> new FunctionSearchCommand(module, position, queryMap);
             case CONNECTOR -> new ConnectorSearchCommand(module, position, queryMap);
@@ -66,9 +66,9 @@ public abstract class SearchCommand {
         };
     }
 
-    public SearchCommand(Module module, LineRange position, Map<String, String> queryMap) {
+    public SearchCommand(Project project, LineRange position, Map<String, String> queryMap) {
         this.rootBuilder = new Category.Builder(null);
-        this.module = module;
+        this.project = project;
         this.position = position;
         this.dbManager = SearchDatabaseManager.getInstance();
         this.defaultViewHolder = DefaultViewHolder.getInstance();
