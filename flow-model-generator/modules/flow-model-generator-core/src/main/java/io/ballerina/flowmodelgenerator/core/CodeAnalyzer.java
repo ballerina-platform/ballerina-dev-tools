@@ -888,10 +888,53 @@ class CodeAnalyzer extends NodeVisitor {
                         .stepOut()
                         .addProperty(unescapedParamName, paramValue);
             }
-            for (Map.Entry<String, Node> entry : namedArgValueMap.entrySet()) {
-                LinkedHashMap<String, String> map = new LinkedHashMap<>();
-                map.put(entry.getKey(), entry.getValue().toSourceCode());
-                includedRecordRestArgs.add(map);
+
+            for (Map.Entry<String, Node> entry : namedArgValueMap.entrySet()) { // handle remaining named args
+                String escapedParamName = CommonUtil.escapeReservedKeyword(entry.getKey());
+                if (!funcParamMap.containsKey(escapedParamName)) {
+                    LinkedHashMap<String, String> map = new LinkedHashMap<>();
+                    map.put(entry.getKey(), entry.getValue().toSourceCode());
+                    includedRecordRestArgs.add(map);
+                    continue;
+                }
+                Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder =
+                        nodeBuilder.properties().custom();
+                ParameterData paramResult = funcParamMap.remove(escapedParamName);
+                String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
+                String value = null;
+                String selectedType = "";
+                Node paramValue = entry.getValue();
+                if (paramValue != null) {
+                    value = paramValue.toSourceCode();
+                    Optional<TypeSymbol> paramType = semanticModel.typeOf(paramValue);
+                    if (paramType.isPresent()) {
+                        if (paramType.get().getModule().isPresent()) {
+                            ModuleID id = paramType.get().getModule().get().id();
+                            selectedType = CommonUtils.getTypeSignature(paramType.get(), ModuleInfo.from(id));
+                        } else {
+                            selectedType = CommonUtils.getTypeSignature(paramType.get(), null);
+                        }
+                    }
+                }
+                customPropBuilder
+                        .metadata()
+                        .label(unescapedParamName)
+                        .description(paramResult.description())
+                        .stepOut()
+                        .type(getPropertyTypeFromParam(null, paramResult.kind()))
+                        .typeConstraint(paramResult.type())
+                        .typeMembers(paramResult.typeMembers(), selectedType)
+                        .value(value)
+                        .placeholder(paramResult.defaultValue())
+                        .editable()
+                        .defaultable(paramResult.optional())
+                        .codedata()
+                        .kind(paramResult.kind().name())
+                        .originalName(paramResult.name())
+                        .importStatements(paramResult.importStatements())
+                        .stepOut()
+                        .stepOut()
+                        .addProperty(unescapedParamName, paramValue);
             }
             ParameterData includedRecordRest = funcParamMap.get("Additional Values");
             if (includedRecordRest != null) {
