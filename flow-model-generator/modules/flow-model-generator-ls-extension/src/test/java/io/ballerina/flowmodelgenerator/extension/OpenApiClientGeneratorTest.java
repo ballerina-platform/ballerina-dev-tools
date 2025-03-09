@@ -119,7 +119,7 @@ public class OpenApiClientGeneratorTest extends AbstractLSTest {
             newMap.put(relativePath, entry.getValue());
         }
 
-//        deleteFolder(project.toFile());
+        deleteFolder(project.toFile());
         if (!nodeTemplate.equals(testConfig.output()) || assertFailure) {
             TestConfig updatedConfig =
                     new TestConfig(testConfig.contractFile(), testConfig.balToml(), testConfig.module(),

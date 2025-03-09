@@ -8,4 +8,4 @@ targetModule = "mod5"
 [[tool.openapi]]
 id = "mod1"
 targetModule = "mod1"
-filePath = "/Users/kavindu/GIT/ballerina-dev-tools/flow-model-generator/modules/flow-model-generator-ls-extension/src/test/resources/openapi_client_gen/contracts/petstore.yaml"
+filePath = "../petstore.yaml"
