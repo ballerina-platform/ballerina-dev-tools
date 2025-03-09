@@ -23,6 +23,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.AnnotationAttachmentSymbol;
+import io.ballerina.compiler.api.symbols.AnnotationSymbol;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
@@ -78,6 +80,7 @@ public class AgentsGenerator {
 
     public static final String MODEL_PARAM = "model";
     public static final String MODEL = "Model";
+    public static final String TOOL_ANNOTATION = "Tool";
     private final Gson gson;
     private final SemanticModel semanticModel;
     private static final String BALLERINAX = "ballerinax";
@@ -267,7 +270,8 @@ public class AgentsGenerator {
                 continue;
             }
 
-            FunctionTypeSymbol functionTypeSymbol = ((FunctionSymbol) moduleSymbol).typeDescriptor();
+            FunctionSymbol functionSymbol = (FunctionSymbol) moduleSymbol;
+            FunctionTypeSymbol functionTypeSymbol = functionSymbol.typeDescriptor();
             Optional<List<ParameterSymbol>> optParams = functionTypeSymbol.params();
             if (optParams.isPresent()) {
                 boolean isAnydataSubType = true;
@@ -287,7 +291,9 @@ public class AgentsGenerator {
                     continue;
                 }
             }
-            functionNames.add(moduleSymbol.getName().orElse(""));
+            if (isToolAnnotated(functionSymbol)) {
+                functionNames.add(moduleSymbol.getName().orElse(""));
+            }
         }
 
         return gson.toJsonTree(functionNames).getAsJsonArray();
@@ -559,6 +565,28 @@ public class AgentsGenerator {
             return gson.toJsonTree(sourceBuilder.build());
         }
         throw new IllegalStateException("Unsupported node kind to generate tool");
+    }
+
+    private boolean isToolAnnotated(FunctionSymbol functionSymbol) {
+        for (AnnotationAttachmentSymbol annotAttachment : functionSymbol.annotAttachments()) {
+            AnnotationSymbol annotationSymbol = annotAttachment.typeDescriptor();
+            Optional<ModuleSymbol> optModule = annotationSymbol.getModule();
+            if (optModule.isEmpty()) {
+                continue;
+            }
+            ModuleID id = optModule.get().id();
+            if (!(id.orgName().equals(BALLERINAX) && id.packageName().equals(AI_AGENT))) {
+                continue;
+            }
+            Optional<String> optName = annotationSymbol.getName();
+            if (optName.isEmpty()) {
+                continue;
+            }
+            if (optName.get().equals(TOOL_ANNOTATION)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public JsonArray getActions(JsonElement node, Path filePath, Project project, WorkspaceManager workspaceManager) {
