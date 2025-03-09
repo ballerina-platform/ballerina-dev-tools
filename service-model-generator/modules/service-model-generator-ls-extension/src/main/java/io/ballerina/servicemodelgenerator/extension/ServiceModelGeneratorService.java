@@ -343,8 +343,9 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                     edits.add(new TextEdit(Utils.toRange(listenerDeclaringLoc), listenerDeclarationStmt));
                 }
 
-                boolean isTcpService = Utils.isTcpService(service.getOrgName(), service.getPackageName());
-                if (isTcpService) {
+                Utils.FunctionAddContext context = Utils.getTriggerAddContext(service.getOrgName(),
+                        service.getPackageName());
+                if (context.equals(Utils.FunctionAddContext.TCP_SERVICE_ADD)) {
                     if (semanticModel == null) {
                         semanticModel = document.get().module().getCompilation().getSemanticModel();
                     }
@@ -354,11 +355,11 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 }
 
                 updateFunctionList(service);
-                String serviceDeclaration = getServiceDeclarationNode(service);
+                String serviceDeclaration = getServiceDeclarationNode(service, context);
                 edits.add(new TextEdit(Utils.toRange(lineRange.endLine()),
                         ServiceModelGeneratorConstants.LINE_SEPARATOR + serviceDeclaration));
 
-                if (isTcpService) {
+                if (context.equals(Utils.FunctionAddContext.TCP_SERVICE_ADD)) {
                     String serviceName = service.getProperties().get("returningServiceClass").getValue();
                     String serviceClass = ServiceClassUtil.getTcpConnectionServiceTemplate().formatted(serviceName);
                     edits.add(new TextEdit(Utils.toRange(lineRange.endLine()),
@@ -439,7 +440,8 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 LineRange serviceEnd = serviceNode.closeBraceToken().lineRange();
                 List<String> statusCodeResponses = new ArrayList<>();
                 String functionDefinition = ServiceModelGeneratorConstants.LINE_SEPARATOR +
-                        "\t" + getFunction(request.function(), statusCodeResponses, Utils.FunctionBodyKind.DO_BLOCK)
+                        "\t" + getFunction(request.function(), statusCodeResponses, Utils.FunctionBodyKind.DO_BLOCK,
+                        Utils.FunctionAddContext.RESOURCE_ADD)
                         .replace(ServiceModelGeneratorConstants.LINE_SEPARATOR,
                                 ServiceModelGeneratorConstants.LINE_SEPARATOR + "\t")
                         + ServiceModelGeneratorConstants.LINE_SEPARATOR;
@@ -673,7 +675,8 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                     functionLineRange = members.get(members.size() - 1).lineRange();
                 }
                 String functionNode = ServiceModelGeneratorConstants.LINE_SEPARATOR + "\t"
-                        + getFunction(request.function(), new ArrayList<>(), Utils.FunctionBodyKind.DO_BLOCK)
+                        + getFunction(request.function(), new ArrayList<>(), Utils.FunctionBodyKind.DO_BLOCK,
+                        Utils.FunctionAddContext.FUNCTION_ADD)
                         .replace(ServiceModelGeneratorConstants.LINE_SEPARATOR,
                                 ServiceModelGeneratorConstants.LINE_SEPARATOR + "\t");
                 edits.add(new TextEdit(Utils.toRange(functionLineRange.endLine()), functionNode));

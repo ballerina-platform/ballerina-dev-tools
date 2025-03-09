@@ -41,7 +41,7 @@ public class Value {
     private Codedata codedata;
     private List<Value> choices;
     private boolean addNewButton = false;
-    public List<PropertyTypeMemberInfo> typeMembers;
+    private List<PropertyTypeMemberInfo> typeMembers;
 
     public Value(MetaData metadata, String valueType, boolean editable) {
         this(metadata, false, editable, null, valueType,
@@ -249,6 +249,14 @@ public class Value {
 
     public boolean isAddNewButton() {
         return addNewButton;
+    }
+
+    public List<PropertyTypeMemberInfo> getTypeMembers() {
+        return typeMembers;
+    }
+
+    public void setTypeMembers(List<PropertyTypeMemberInfo> typeMembers) {
+        this.typeMembers = typeMembers;
     }
 
     @Override
