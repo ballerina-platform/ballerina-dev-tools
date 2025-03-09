@@ -429,13 +429,8 @@ public class AgentsGenerator {
             if (FlowNodeUtil.hasCheckKeyFlagSet(flowNode)) {
                 sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
             }
-            Optional<Property> connectionProperty = flowNode.getProperty(Property.CONNECTION_KEY);
-            String connection = connectionName;
-            if (connectionProperty.isPresent()) {
-                connection = connectionProperty.get().toSourceCode();
-            }
             sourceBuilder.token()
-                    .name(connection)
+                    .name(connectionName)
                     .keyword(SyntaxKind.RIGHT_ARROW_TOKEN)
                     .name(flowNode.metadata().label())
                     .stepOut()
