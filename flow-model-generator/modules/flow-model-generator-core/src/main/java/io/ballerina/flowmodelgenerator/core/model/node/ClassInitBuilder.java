@@ -38,6 +38,7 @@ import java.util.Set;
 public class ClassInitBuilder extends CallBuilder {
 
     private static final String CLASS_LABEL = "Class";
+    private static final String DEFAULT_MODEL_NAME = "model";
 
     @Override
     protected NodeKind getFunctionNodeKind() {
@@ -70,5 +71,21 @@ public class ClassInitBuilder extends CallBuilder {
                                 Property.CHECK_ERROR_KEY));
 
         return sourceBuilder.textEdit(false, "agents.bal").build();
+    }
+
+    @Override
+    public void setConcreteTemplateData(TemplateContext context) {
+        super.setConcreteTemplateData(context);
+        properties()
+                .custom()
+                .metadata()
+                .label("Name")
+                .description("Name of the variable")
+                .stepOut()
+                .value(DEFAULT_MODEL_NAME)
+                .type(Property.ValueType.IDENTIFIER)
+                .editable()
+                .stepOut()
+                .addProperty(Property.VARIABLE_KEY);
     }
 }

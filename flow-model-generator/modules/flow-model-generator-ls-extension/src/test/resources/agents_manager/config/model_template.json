@@ -95,11 +95,11 @@
       },
       "variable": {
         "metadata": {
-          "label": "Variable Name",
+          "label": "Name",
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "agentOpenaimodel",
+        "value": "model",
         "optional": false,
         "editable": true,
         "advanced": false
