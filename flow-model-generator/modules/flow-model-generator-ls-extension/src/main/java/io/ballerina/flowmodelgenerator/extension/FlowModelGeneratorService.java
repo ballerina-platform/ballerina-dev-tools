@@ -494,18 +494,9 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
         return CompletableFuture.supplyAsync(() -> {
             FlowModelAvailableNodesResponse response = new FlowModelAvailableNodesResponse();
             try {
-                // Load the module if the file path exists
-                Module module;
-                if (request.filePath() != null) {
-                    Path filePath = Path.of(request.filePath());
-                    this.workspaceManager.loadProject(filePath);
-                    module = workspaceManager.module(filePath).orElse(null);
-                } else {
-                    module = null;
-                }
-
+                Project project = this.workspaceManager.loadProject(Path.of(request.filePath()));
                 SearchCommand.Kind searchKind = SearchCommand.Kind.valueOf(request.searchKind());
-                SearchCommand command = SearchCommand.from(searchKind, module, request.position(), request.queryMap());
+                SearchCommand command = SearchCommand.from(searchKind, project, request.position(), request.queryMap());
                 response.setCategories(command.execute());
             } catch (Throwable e) {
                 response.setError(e);

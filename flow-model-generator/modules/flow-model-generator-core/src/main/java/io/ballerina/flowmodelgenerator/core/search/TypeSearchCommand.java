@@ -26,7 +26,8 @@ import io.ballerina.flowmodelgenerator.core.model.Metadata;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.SearchResult;
-import io.ballerina.projects.Module;
+import io.ballerina.projects.Package;
+import io.ballerina.projects.Project;
 import io.ballerina.tools.text.LineRange;
 
 import java.util.ArrayList;
@@ -57,12 +58,13 @@ class TypeSearchCommand extends SearchCommand {
 
     private final List<String> moduleNames;
 
-    public TypeSearchCommand(Module module, LineRange position, Map<String, String> queryMap) {
-        super(module, position, queryMap);
+    public TypeSearchCommand(Project project, LineRange position, Map<String, String> queryMap) {
+        super(project, position, queryMap);
 
-        // Obtain the imported module names
-        module.getCompilation();
-        moduleNames = module.moduleDependencies().stream()
+        // Obtain the imported project names
+        Package currentPackage = project.currentPackage();
+        currentPackage.getCompilation();
+        moduleNames = currentPackage.getDefaultModule().moduleDependencies().stream()
                 .map(moduleDependency -> moduleDependency.descriptor().name().packageName().value())
                 .toList();
     }

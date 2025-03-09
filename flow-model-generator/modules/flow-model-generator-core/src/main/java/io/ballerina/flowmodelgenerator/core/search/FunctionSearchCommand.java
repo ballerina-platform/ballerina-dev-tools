@@ -32,7 +32,8 @@ import io.ballerina.flowmodelgenerator.core.model.Metadata;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.SearchResult;
-import io.ballerina.projects.Module;
+import io.ballerina.projects.Package;
+import io.ballerina.projects.Project;
 import io.ballerina.tools.diagnostics.Location;
 import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.langserver.common.utils.PositionUtil;
@@ -72,12 +73,13 @@ class FunctionSearchCommand extends SearchCommand {
     private static final String FETCH_KEY = "functions";
     private final List<String> moduleNames;
 
-    public FunctionSearchCommand(Module module, LineRange position, Map<String, String> queryMap) {
-        super(module, position, queryMap);
+    public FunctionSearchCommand(Project project, LineRange position, Map<String, String> queryMap) {
+        super(project, position, queryMap);
 
         // Obtain the imported module names
-        module.getCompilation();
-        moduleNames = module.moduleDependencies().stream()
+        Package currentPackage = project.currentPackage();
+        currentPackage.getCompilation();
+        moduleNames = currentPackage.getDefaultModule().moduleDependencies().stream()
                 .map(moduleDependency -> moduleDependency.descriptor().name().packageName().value())
                 .toList();
         // TODO: Use this method when https://github.com/ballerina-platform/ballerina-lang/issues/43695 is fixed
@@ -117,7 +119,8 @@ class FunctionSearchCommand extends SearchCommand {
     }
 
     private void buildProjectNodes() {
-        List<Symbol> functionSymbols = module.getCompilation().getSemanticModel().moduleSymbols().stream()
+        List<Symbol> functionSymbols = project.currentPackage().getDefaultModule().getCompilation().
+                getSemanticModel().moduleSymbols().stream()
                 .filter(symbol -> symbol.kind().equals(SymbolKind.FUNCTION)).toList();
         Category.Builder projectBuilder = rootBuilder.stepIn(Category.Name.CURRENT_INTEGRATION);
 
