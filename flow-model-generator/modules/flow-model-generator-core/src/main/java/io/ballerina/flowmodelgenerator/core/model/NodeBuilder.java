@@ -280,7 +280,7 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
     }
 
     public record TemplateContext(WorkspaceManager workspaceManager, Path filePath, LinePosition position,
-                                  Codedata codedata) {
+                                  Codedata codedata, org.ballerinalang.langserver.LSClientLogger lsClientLogger) {
 
         public Set<String> getAllVisibleSymbolNames() {
             try {
