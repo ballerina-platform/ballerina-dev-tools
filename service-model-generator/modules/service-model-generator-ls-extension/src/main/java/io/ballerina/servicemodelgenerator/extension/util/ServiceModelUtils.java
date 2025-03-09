@@ -40,7 +40,6 @@ import io.ballerina.servicemodelgenerator.extension.model.Parameter;
 import io.ballerina.servicemodelgenerator.extension.model.PropertyTypeMemberInfo;
 import io.ballerina.servicemodelgenerator.extension.model.Service;
 import io.ballerina.servicemodelgenerator.extension.model.Value;
-import org.ballerinalang.model.tree.ServiceNode;
 
 import java.io.IOException;
 import java.io.InputStream;
