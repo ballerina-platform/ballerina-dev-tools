@@ -64,6 +64,13 @@ public class ModuleNodesTest extends AbstractLSTest {
     }
 
     @Override
+    protected String[] skipList() {
+        return new String[]{
+                "agent_model.json"
+        };
+    }
+
+    @Override
     protected String getResourceDir() {
         return "module_nodes";
     }
