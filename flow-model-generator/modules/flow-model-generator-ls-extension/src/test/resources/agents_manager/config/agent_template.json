@@ -33,7 +33,8 @@
       "module": "ai.agent",
       "object": "Agent",
       "symbol": "init",
-      "version": "0.7.9"
+      "version": "0.7.9",
+      "isNew": true
     },
     "returning": false,
     "properties": {
@@ -220,11 +221,11 @@
       },
       "variable": {
         "metadata": {
-          "label": "Variable Name",
+          "label": "Name",
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "agentAgent",
+        "value": "agent",
         "optional": false,
         "editable": true,
         "advanced": false

@@ -23,6 +23,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.AnnotationAttachmentSymbol;
+import io.ballerina.compiler.api.symbols.AnnotationSymbol;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
@@ -78,6 +80,7 @@ public class AgentsGenerator {
 
     public static final String MODEL_PARAM = "model";
     public static final String MODEL = "Model";
+    public static final String TOOL_ANNOTATION = "Tool";
     private final Gson gson;
     private final SemanticModel semanticModel;
     private static final String BALLERINAX = "ballerinax";
@@ -267,7 +270,8 @@ public class AgentsGenerator {
                 continue;
             }
 
-            FunctionTypeSymbol functionTypeSymbol = ((FunctionSymbol) moduleSymbol).typeDescriptor();
+            FunctionSymbol functionSymbol = (FunctionSymbol) moduleSymbol;
+            FunctionTypeSymbol functionTypeSymbol = functionSymbol.typeDescriptor();
             Optional<List<ParameterSymbol>> optParams = functionTypeSymbol.params();
             if (optParams.isPresent()) {
                 boolean isAnydataSubType = true;
@@ -287,7 +291,9 @@ public class AgentsGenerator {
                     continue;
                 }
             }
-            functionNames.add(moduleSymbol.getName().orElse(""));
+            if (isToolAnnotated(functionSymbol)) {
+                functionNames.add(moduleSymbol.getName().orElse(""));
+            }
         }
 
         return gson.toJsonTree(functionNames).getAsJsonArray();
@@ -299,9 +305,20 @@ public class AgentsGenerator {
         NodeKind nodeKind = flowNode.codedata().node();
         SourceBuilder sourceBuilder = new SourceBuilder(flowNode, workspaceManager, filePath);
         List<String> args = new ArrayList<>();
+        String path = flowNode.metadata().icon();
         if (nodeKind == NodeKind.FUNCTION_DEFINITION) {
-            sourceBuilder.token().name("@agent:Tool").name(System.lineSeparator());
-            sourceBuilder.token().keyword(SyntaxKind.FUNCTION_KEYWORD);
+            sourceBuilder.token()
+                    .name("@agent:Tool").
+                    name(System.lineSeparator());
+            sourceBuilder.token()
+                    .name("@display {")
+                    .name("label: \"\",")
+                    .name("iconPath: \"")
+                    .name(path == null ? "" : path)
+                    .name("\"}")
+                    .name(System.lineSeparator());
+
+            sourceBuilder.token().keyword(SyntaxKind.ISOLATED_KEYWORD).keyword(SyntaxKind.FUNCTION_KEYWORD);
             sourceBuilder.token().name(toolName).keyword(SyntaxKind.OPEN_PAREN_TOKEN);
             Optional<Property> parameters = flowNode.getProperty(Property.PARAMETERS_KEY);
             if (parameters.isPresent() && parameters.get().value() instanceof Map<?, ?> paramMap) {
@@ -384,11 +401,11 @@ public class AgentsGenerator {
                     .name("@display {")
                     .name("label: \"\",")
                     .name("iconPath: \"")
-                    .name(flowNode.metadata().icon())
+                    .name(path == null ? "" : path)
                     .name("\"}")
                     .name(System.lineSeparator());
 
-            sourceBuilder.token().keyword(SyntaxKind.FUNCTION_KEYWORD);
+            sourceBuilder.token().keyword(SyntaxKind.ISOLATED_KEYWORD).keyword(SyntaxKind.FUNCTION_KEYWORD);
             sourceBuilder.token().name(toolName).keyword(SyntaxKind.OPEN_PAREN_TOKEN);
             sourceBuilder.token().name(String.join(", ", paramList));
             sourceBuilder.token().keyword(SyntaxKind.CLOSE_PAREN_TOKEN);
@@ -467,11 +484,11 @@ public class AgentsGenerator {
                     .name("@display {")
                     .name("label: \"\",")
                     .name("iconPath: \"")
-                    .name(flowNode.metadata().icon())
+                    .name(path == null ? "" : path)
                     .name("\"}")
                     .name(System.lineSeparator());
 
-            sourceBuilder.token().keyword(SyntaxKind.FUNCTION_KEYWORD);
+            sourceBuilder.token().keyword(SyntaxKind.ISOLATED_KEYWORD).keyword(SyntaxKind.FUNCTION_KEYWORD);
             sourceBuilder.token().name(toolName).keyword(SyntaxKind.OPEN_PAREN_TOKEN);
             sourceBuilder.token().name(String.join(", ", paramList));
             sourceBuilder.token().keyword(SyntaxKind.CLOSE_PAREN_TOKEN);
@@ -548,6 +565,28 @@ public class AgentsGenerator {
             return gson.toJsonTree(sourceBuilder.build());
         }
         throw new IllegalStateException("Unsupported node kind to generate tool");
+    }
+
+    private boolean isToolAnnotated(FunctionSymbol functionSymbol) {
+        for (AnnotationAttachmentSymbol annotAttachment : functionSymbol.annotAttachments()) {
+            AnnotationSymbol annotationSymbol = annotAttachment.typeDescriptor();
+            Optional<ModuleSymbol> optModule = annotationSymbol.getModule();
+            if (optModule.isEmpty()) {
+                continue;
+            }
+            ModuleID id = optModule.get().id();
+            if (!(id.orgName().equals(BALLERINAX) && id.packageName().equals(AI_AGENT))) {
+                continue;
+            }
+            Optional<String> optName = annotationSymbol.getName();
+            if (optName.isEmpty()) {
+                continue;
+            }
+            if (optName.get().equals(TOOL_ANNOTATION)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public JsonArray getActions(JsonElement node, Path filePath, Project project, WorkspaceManager workspaceManager) {

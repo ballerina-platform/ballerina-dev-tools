@@ -43,6 +43,7 @@ public class AgentBuilder extends CallBuilder {
     public static final String MODEL = "model";
     public static final String TYPE = "type";
     public static final String TOOLS = "tools";
+    public static final String DEFAULT_AGENT_NAME = "agent";
 
     @Override
     protected NodeKind getFunctionNodeKind() {
@@ -79,6 +80,17 @@ public class AgentBuilder extends CallBuilder {
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
         super.setConcreteTemplateData(context);
+        properties()
+                .custom()
+                    .metadata()
+                        .label("Name")
+                        .description("Name of the variable")
+                        .stepOut()
+                    .value(DEFAULT_AGENT_NAME)
+                    .type(Property.ValueType.IDENTIFIER)
+                    .editable()
+                    .stepOut()
+                    .addProperty(Property.VARIABLE_KEY);
         metadata().addData(PARAMS_TO_HIDE, List.of(MODEL, TOOLS, TYPE));
     }
 }

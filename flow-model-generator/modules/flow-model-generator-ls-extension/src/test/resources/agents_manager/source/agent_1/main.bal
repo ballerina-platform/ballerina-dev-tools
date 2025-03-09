@@ -1,4 +1,5 @@
 import ballerina/http;
+import ballerinax/ai.agent;
 
 http:Client httpClient = check new ("http://localhost:9090");
 agent:ChatGptModel chatGptModelAgent = new ({}, {});
@@ -25,14 +26,17 @@ public function main() {
     }
 }
 
+@agent:Tool
 function fn(int x) returns int {
     return x + 1;
 }
 
+@agent:Tool
 function fn1(int x) returns int|error? {
     return x + 1;
 }
 
+@agent:Tool
 function fn2(int x, error? err) returns int? {
     return x + 1;
 }

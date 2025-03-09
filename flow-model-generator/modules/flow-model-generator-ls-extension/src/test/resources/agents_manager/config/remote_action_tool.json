@@ -28,6 +28,7 @@
           "offset": 97
         }
       },
+      "isNew": true,
       "sourceCode": "// action call - http get call\n                json response = check currencyClient->get(\"/latest?base=\" + 'from + \"&to=\" + to);"
     },
     "returning": false,
@@ -155,7 +156,7 @@
             "character": 0
           }
         },
-        "newText": "# The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n# + path - Request path\n# + headers - The entity headers\n# + targetType - HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding\n@agent:Tool\n@display {label: \"\",iconPath: \"https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.2.png\"}\nfunction toolFunc( string path, map<string|string[]>|() headers, json targetType) returns json| error { json response = check currencyClient-> get( \"/latest?base=\" + 'from + \"&to=\" + to) ;\nreturn response;\n}"
+        "newText": "# The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n# + path - Request path\n# + headers - The entity headers\n# + targetType - HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding\n@agent:Tool\n@display {label: \"\",iconPath: \"https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.2.png\"}\nisolated function toolFunc( string path, map<string|string[]>|() headers, json targetType) returns json| error { json response = check currencyClient-> get( \"/latest?base=\" + 'from + \"&to=\" + to) ;\nreturn response;\n}"
       }
     ]
   }

@@ -1478,7 +1478,7 @@ class CodeAnalyzer extends NodeVisitor {
             return false;
         }
         ModuleID id = optModule.get().id();
-        boolean isAIModule = id.packageName().equals(BALLERINAX) && id.orgName().equals(AI_AGENT);
+        boolean isAIModule = id.orgName().equals(BALLERINAX) && id.packageName().equals(AI_AGENT);
         if (!isAIModule) {
             return false;
         }

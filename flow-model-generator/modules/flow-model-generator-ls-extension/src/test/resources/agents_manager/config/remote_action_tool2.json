@@ -17,7 +17,8 @@
       "object": "Client",
       "symbol": "bitOpAnd",
       "version": "3.0.2",
-      "id": 1109
+      "id": 1109,
+      "isNew": true
     },
     "returning": false,
     "properties": {
@@ -144,7 +145,7 @@
             "character": 0
           }
         },
-        "newText": "# Perform bitwise AND between strings.\n# + destination - Result key of the operation\n# + keys - Input keys to perform AND between\n@agent:Tool\n@display {label: \"\",iconPath: \"https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png\"}\nfunction toolFunc( string destination, string[] keys) returns int| error { int intResult = check redisClient-> bitOpAnd( destination, keys) ;\nreturn intResult;\n}"
+        "newText": "# Perform bitwise AND between strings.\n# + destination - Result key of the operation\n# + keys - Input keys to perform AND between\n@agent:Tool\n@display {label: \"\",iconPath: \"https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png\"}\nisolated function toolFunc( string destination, string[] keys) returns int| error { int intResult = check redisClient-> bitOpAnd( destination, keys) ;\nreturn intResult;\n}"
       }
     ]
   }
