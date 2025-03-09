@@ -226,7 +226,8 @@ public class FunctionDataBuilder {
         }
 
         // Check if the package is pulled
-        if (PackageUtil.isModuleUnresolved(moduleInfo.org(), moduleInfo.packageName(), moduleInfo.version())) {
+        if (semanticModel == null && moduleInfo.isComplete() &&
+                PackageUtil.isModuleUnresolved(moduleInfo.org(), moduleInfo.packageName(), moduleInfo.version())) {
             notifyClient(MessageType.Info, PULLING_THE_MODULE_MESSAGE);
             if (semanticModel == null) {
                 deriveSemanticModel();

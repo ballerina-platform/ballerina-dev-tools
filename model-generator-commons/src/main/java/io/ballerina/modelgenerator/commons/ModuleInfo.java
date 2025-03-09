@@ -39,4 +39,8 @@ public record ModuleInfo(String org, String packageName, String moduleName, Stri
         return new ModuleInfo(moduleDescriptor.org().value(), moduleDescriptor.packageName().value(),
                 moduleDescriptor.name().toString(), moduleDescriptor.version().value().toString());
     }
+
+    public boolean isComplete() {
+        return org != null && packageName != null && moduleName != null && version != null;
+    }
 }
