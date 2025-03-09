@@ -24,6 +24,7 @@ import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.TypeBuilder;
 import io.ballerina.compiler.api.Types;
+import io.ballerina.compiler.api.symbols.AnnotationAttachPoint;
 import io.ballerina.compiler.api.symbols.ArrayTypeSymbol;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
 import io.ballerina.compiler.api.symbols.Documentable;
@@ -185,7 +186,6 @@ class ServiceIndexGenerator {
                 }
             }
 
-            // TODO: process the annotation attachments
         }
 
         // insert hardcoded service types
@@ -197,6 +197,21 @@ class ServiceIndexGenerator {
                 for (ServiceTypeFunctionParameter parameter : function.parameters()) {
                     DatabaseManager.insertServiceTypeFunctionParameter(functionId, parameter);
                 }
+            }
+        }
+
+        // hardcoded annotations
+        if (Objects.nonNull(packageMetadataInfo.annotations())) {
+            for (Map.Entry<String, Annotation> entry : packageMetadataInfo.annotations().entrySet()) {
+                Annotation annotation = entry.getValue();
+                String annotationName = entry.getKey();
+
+                String attachPoints = String.join(",", annotation.attachmentPoints());
+                String pkgInfo = "%s:%s:%s".formatted(descriptor.org().value(), descriptor.name().value(),
+                        descriptor.version().value().toString());
+
+                DatabaseManager.insertAnnotation(packageId, annotationName, attachPoints, annotation.displayName(),
+                        annotation.description(), annotation.typeConstrain(), pkgInfo);
             }
         }
     }
@@ -574,7 +589,7 @@ class ServiceIndexGenerator {
 
     private record PackageMetadataInfo(String name, String version, List<String> serviceTypeSkipList,
                                        ServiceDeclaration serviceDeclaration,
-                                       Map<String, ServiceType> serviceTypes) {
+                                       Map<String, ServiceType> serviceTypes, Map<String, Annotation> annotations) {
     }
 
     record ServiceDeclaration(int optionalTypeDescriptor, String displayName, String typeDescriptorLabel,
@@ -584,6 +599,9 @@ class ServiceIndexGenerator {
                               String absoluteResourcePathDefaultValue, int optionalStringLiteral,
                               String stringLiteralLabel, String stringLiteralDescription,
                               String stringLiteralDefaultValue, String listenerKind, String kind) {
+    }
+
+    record Annotation(List<String> attachmentPoints, String displayName, String description, String typeConstrain) {
     }
 
     record ServiceType(
