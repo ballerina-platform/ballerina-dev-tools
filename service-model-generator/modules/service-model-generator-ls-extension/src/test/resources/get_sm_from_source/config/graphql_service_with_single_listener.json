@@ -157,11 +157,12 @@
           "parameter": {
             "type": {
               "metadata": {
-                "label": "Argument Type",
-                "description": "The type of the argument"
+                "label": "Parameter Type",
+                "description": "The type of the parameter"
               },
               "enabled": false,
               "editable": true,
+              "valueType": "TYPE",
               "isType": false,
               "optional": false,
               "advanced": false,
@@ -169,11 +170,12 @@
             },
             "name": {
               "metadata": {
-                "label": "Argument Name",
-                "description": "The name of the argument"
+                "label": "Parameter Name",
+                "description": "The name of the parameter"
               },
               "enabled": false,
               "editable": true,
+              "valueType": "IDENTIFIER",
               "isType": false,
               "optional": false,
               "advanced": false,
@@ -182,7 +184,7 @@
             "defaultValue": {
               "metadata": {
                 "label": "Default Value",
-                "description": "The default value of the argument"
+                "description": "The default value of the parameter"
               },
               "enabled": false,
               "editable": true,
@@ -365,8 +367,8 @@
         },
         "returnType": {
           "metadata": {
-            "label": "Return Type",
-            "description": "The return type of the function"
+            "label": "Field Type",
+            "description": "The type of the field"
           },
           "enabled": true,
           "editable": true,
@@ -580,8 +582,8 @@
         },
         "returnType": {
           "metadata": {
-            "label": "Return Type",
-            "description": "The return type of the function"
+            "label": "Field Type",
+            "description": "The type of the field"
           },
           "enabled": true,
           "editable": true,
@@ -694,8 +696,8 @@
         },
         "returnType": {
           "metadata": {
-            "label": "Return Type",
-            "description": "The return type of the function"
+            "label": "Field Type",
+            "description": "The type of the field"
           },
           "enabled": true,
           "editable": true,
