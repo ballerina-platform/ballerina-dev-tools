@@ -805,8 +805,8 @@ public class CommonUtils {
         return annotAttachments.stream()
                 .anyMatch(annot ->
                         isNpModule(annot.typeDescriptor()) &&
-                                annot.getName().isPresent() &&
-                                annot.getName().get().equals(LLM_CALL));
+                                annot.typeDescriptor().getName().isPresent() &&
+                                annot.typeDescriptor().getName().get().equals(LLM_CALL));
     }
 
     public static String getClassType(String packageName, String clientName) {
