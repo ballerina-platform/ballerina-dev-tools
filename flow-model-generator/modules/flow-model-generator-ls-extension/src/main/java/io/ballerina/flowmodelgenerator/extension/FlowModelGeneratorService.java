@@ -73,6 +73,8 @@ import io.ballerina.tools.text.TextDocumentChange;
 import io.ballerina.tools.text.TextEdit;
 import io.ballerina.tools.text.TextRange;
 import org.ballerinalang.annotation.JavaSPIService;
+import org.ballerinalang.langserver.LSClientLogger;
+import org.ballerinalang.langserver.commons.LanguageServerContext;
 import org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.jsonrpc.services.JsonRequest;
@@ -95,10 +97,13 @@ import java.util.concurrent.CompletableFuture;
 public class FlowModelGeneratorService implements ExtendedLanguageServerService {
 
     private WorkspaceManager workspaceManager;
+    private LSClientLogger lsClientLogger;
 
     @Override
-    public void init(LanguageServer langServer, WorkspaceManager workspaceManager) {
+    public void init(LanguageServer langServer, WorkspaceManager workspaceManager,
+                     LanguageServerContext serverContext) {
         this.workspaceManager = workspaceManager;
+        this.lsClientLogger = LSClientLogger.getInstance(serverContext);
     }
 
     @Override
@@ -294,7 +299,7 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
         return CompletableFuture.supplyAsync(() -> {
             FlowModelNodeTemplateResponse response = new FlowModelNodeTemplateResponse();
             try {
-                NodeTemplateGenerator generator = new NodeTemplateGenerator();
+                NodeTemplateGenerator generator = new NodeTemplateGenerator(lsClientLogger);
                 Path filePath = Path.of(request.filePath());
                 JsonElement nodeTemplate =
                         generator.getNodeTemplate(workspaceManager, filePath, request.position(), request.id());

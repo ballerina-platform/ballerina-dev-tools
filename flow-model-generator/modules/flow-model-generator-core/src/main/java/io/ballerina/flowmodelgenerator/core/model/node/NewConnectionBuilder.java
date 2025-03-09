@@ -94,6 +94,7 @@ public class NewConnectionBuilder extends CallBuilder {
                 .name(codedata.symbol())
                 .moduleInfo(
                         new ModuleInfo(codedata.org(), codedata.module(), codedata.module(), codedata.version()))
+                .lsClientLogger(context.lsClientLogger())
                 .functionResultKind(FunctionData.Kind.CONNECTOR)
                 .userModuleInfo(moduleInfo);
 
