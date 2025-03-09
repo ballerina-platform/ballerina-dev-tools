@@ -66,6 +66,7 @@ public class ResourceActionCallBuilder extends CallBuilder {
         FunctionData functionData = new FunctionDataBuilder()
                 .name(codedata.symbol())
                 .moduleInfo(new ModuleInfo(codedata.org(), codedata.module(), codedata.module(), codedata.version()))
+                .lsClientLogger(context.lsClientLogger())
                 .parentSymbolType(codedata.object())
                 .resourcePath(codedata.resourcePath())
                 .functionResultKind(FunctionData.Kind.RESOURCE)
