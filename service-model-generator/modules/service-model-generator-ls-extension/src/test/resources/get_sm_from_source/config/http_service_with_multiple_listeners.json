@@ -46,7 +46,7 @@
         "items": [
           "httpListener",
           "githubListener",
-          "(+) Create and use the default HTTP listener",
+          "(+) Create and use the default HTTP listener (port: 8080)",
           "new http:Listener(port = 8080)"
         ],
         "codedata": {

@@ -63,7 +63,21 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "bootstrapServers"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "string",
+              "packageInfo": "",
+              "kind": "ARRAY_TYPE",
+              "selected": false
+            },
+            {
+              "type": "string",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "groupId": {
           "metadata": {
@@ -86,7 +100,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "groupId"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "string",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "topics": {
           "metadata": {
@@ -109,7 +131,21 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "topics"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "string",
+              "packageInfo": "",
+              "kind": "ARRAY_TYPE",
+              "selected": false
+            },
+            {
+              "type": "string",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "offsetReset": {
           "metadata": {
@@ -132,7 +168,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "offsetReset"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "OffsetResetMethod",
+              "packageInfo": "ballerinax:kafka:4.2.0",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "partitionAssignmentStrategy": {
           "metadata": {
@@ -155,7 +199,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "partitionAssignmentStrategy"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "string",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "metricsRecordingLevel": {
           "metadata": {
@@ -178,7 +230,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "metricsRecordingLevel"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "string",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "metricsReporterClasses": {
           "metadata": {
@@ -201,7 +261,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "metricsReporterClasses"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "string",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "clientId": {
           "metadata": {
@@ -224,7 +292,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "clientId"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "string",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "interceptorClasses": {
           "metadata": {
@@ -247,7 +323,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "interceptorClasses"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "string",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "isolationLevel": {
           "metadata": {
@@ -270,7 +354,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "isolationLevel"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "IsolationLevel",
+              "packageInfo": "ballerinax:kafka:4.2.0",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "schemaRegistryUrl": {
           "metadata": {
@@ -293,7 +385,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "schemaRegistryUrl"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "string",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "additionalProperties": {
           "metadata": {
@@ -316,7 +416,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "additionalProperties"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "map<string>",
+              "packageInfo": "",
+              "kind": "MAP_TYPE",
+              "selected": false
+            }
+          ]
         },
         "sessionTimeout": {
           "metadata": {
@@ -339,7 +447,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "sessionTimeout"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "decimal",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "heartBeatInterval": {
           "metadata": {
@@ -362,7 +478,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "heartBeatInterval"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "decimal",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "metadataMaxAge": {
           "metadata": {
@@ -385,7 +509,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "metadataMaxAge"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "decimal",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "autoCommitInterval": {
           "metadata": {
@@ -408,7 +540,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "autoCommitInterval"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "decimal",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "maxPartitionFetchBytes": {
           "metadata": {
@@ -431,7 +571,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "maxPartitionFetchBytes"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "int",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "sendBuffer": {
           "metadata": {
@@ -454,7 +602,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "sendBuffer"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "int",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "receiveBuffer": {
           "metadata": {
@@ -477,7 +633,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "receiveBuffer"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "int",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "fetchMinBytes": {
           "metadata": {
@@ -500,7 +664,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "fetchMinBytes"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "int",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "fetchMaxBytes": {
           "metadata": {
@@ -523,7 +695,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "fetchMaxBytes"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "int",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "fetchMaxWaitTime": {
           "metadata": {
@@ -546,7 +726,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "fetchMaxWaitTime"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "decimal",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "reconnectBackoffTimeMax": {
           "metadata": {
@@ -569,7 +757,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "reconnectBackoffTimeMax"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "decimal",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "retryBackoff": {
           "metadata": {
@@ -592,7 +788,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "retryBackoff"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "decimal",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "metricsSampleWindow": {
           "metadata": {
@@ -615,7 +819,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "metricsSampleWindow"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "decimal",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "metricsNumSamples": {
           "metadata": {
@@ -638,7 +850,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "metricsNumSamples"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "int",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "requestTimeout": {
           "metadata": {
@@ -661,7 +881,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "requestTimeout"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "decimal",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "connectionMaxIdleTime": {
           "metadata": {
@@ -684,7 +912,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "connectionMaxIdleTime"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "decimal",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "maxPollRecords": {
           "metadata": {
@@ -707,7 +943,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "maxPollRecords"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "int",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "maxPollInterval": {
           "metadata": {
@@ -730,7 +974,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "maxPollInterval"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "int",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "reconnectBackoffTime": {
           "metadata": {
@@ -753,7 +1005,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "reconnectBackoffTime"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "decimal",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "pollingTimeout": {
           "metadata": {
@@ -776,7 +1036,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "pollingTimeout"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "decimal",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "pollingInterval": {
           "metadata": {
@@ -799,7 +1067,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "pollingInterval"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "decimal",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "concurrentConsumers": {
           "metadata": {
@@ -822,7 +1098,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "concurrentConsumers"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "int",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "defaultApiTimeout": {
           "metadata": {
@@ -845,7 +1129,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "defaultApiTimeout"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "decimal",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "autoCommit": {
           "metadata": {
@@ -868,7 +1160,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "autoCommit"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "boolean",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "checkCRCS": {
           "metadata": {
@@ -891,7 +1191,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "checkCRCS"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "boolean",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "excludeInternalTopics": {
           "metadata": {
@@ -914,7 +1222,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "excludeInternalTopics"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "boolean",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "decoupleProcessing": {
           "metadata": {
@@ -937,7 +1253,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "decoupleProcessing"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "boolean",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "validation": {
           "metadata": {
@@ -960,7 +1284,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "validation"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "boolean",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "autoSeekOnValidationFailure": {
           "metadata": {
@@ -983,7 +1315,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "autoSeekOnValidationFailure"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "boolean",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "secureSocket": {
           "metadata": {
@@ -1006,7 +1346,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "secureSocket"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "SecureSocket",
+              "packageInfo": "ballerinax:kafka:4.2.0",
+              "kind": "RECORD_TYPE",
+              "selected": false
+            }
+          ]
         },
         "auth": {
           "metadata": {
@@ -1029,7 +1377,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "auth"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "AuthenticationConfiguration",
+              "packageInfo": "ballerinax:kafka:4.2.0",
+              "kind": "RECORD_TYPE",
+              "selected": false
+            }
+          ]
         },
         "securityProtocol": {
           "metadata": {
@@ -1052,7 +1408,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "securityProtocol"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "SecurityProtocol",
+              "packageInfo": "ballerinax:kafka:4.2.0",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         }
       }
     }

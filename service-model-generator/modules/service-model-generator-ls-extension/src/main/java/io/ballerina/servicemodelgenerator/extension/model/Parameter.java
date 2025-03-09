@@ -66,21 +66,6 @@ public class Parameter {
         this.httpParamType = parameter.httpParamType;
     }
 
-    public static Parameter getNewParameter(boolean isGraphQL) {
-        if (isGraphQL) {
-            return new Parameter(null, null,
-                    new Value(ServiceModelGeneratorConstants.ARGUMENT_TYPE_METADATA),
-                    new Value(ServiceModelGeneratorConstants.ARGUMENT_NAME_METADATA),
-                    new Value(ServiceModelGeneratorConstants.ARGUMENT_DEFAULT_VALUE_METADATA),
-                    false, false, false, false, null);
-        }
-        return new Parameter(null, null,
-                new Value(ServiceModelGeneratorConstants.PARAMETER_TYPE_METADATA),
-                new Value(ServiceModelGeneratorConstants.PARAMETER_NAME_METADATA),
-                new Value(ServiceModelGeneratorConstants.PARAMETER_DEFAULT_VALUE_METADATA),
-                false, false, false, false, null);
-    }
-
     public static Parameter getNewField() {
         return new Parameter(null, null,
                 new Value(ServiceModelGeneratorConstants.FIELD_TYPE_METADATA),
@@ -172,14 +157,15 @@ public class Parameter {
         this.httpParamType = httpParamType;
     }
 
-    public static Parameter parameterSchema(boolean isGraphQL) {
-        if (isGraphQL) {
-            return new Parameter(null, null,
-                    new Value(ServiceModelGeneratorConstants.ARGUMENT_TYPE_METADATA),
-                    new Value(ServiceModelGeneratorConstants.ARGUMENT_NAME_METADATA),
-                    new Value(ServiceModelGeneratorConstants.ARGUMENT_DEFAULT_VALUE_METADATA),
-                    false, false, false, false, null);
-        }
+    public static Parameter graphQLParamSchema() {
+        return new Parameter(null, null,
+                new Value(ServiceModelGeneratorConstants.ARGUMENT_TYPE_METADATA),
+                new Value(ServiceModelGeneratorConstants.ARGUMENT_NAME_METADATA),
+                new Value(ServiceModelGeneratorConstants.ARGUMENT_DEFAULT_VALUE_METADATA),
+                false, false, false, false, null);
+    }
+
+    public static Parameter functionParamSchema() {
         return new Parameter(null, null,
                 new Value(ServiceModelGeneratorConstants.PARAMETER_TYPE_METADATA,
                         ServiceModelGeneratorConstants.VALUE_TYPE_TYPE, true),
@@ -187,6 +173,13 @@ public class Parameter {
                         ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER, true),
                 new Value(ServiceModelGeneratorConstants.PARAMETER_DEFAULT_VALUE_METADATA),
                 false, false, false, false, null);
+    }
+
+    public static Parameter getNewParameter(boolean isGraphQL) {
+        if (isGraphQL) {
+            return graphQLParamSchema();
+        }
+        return functionParamSchema();
     }
 
     public static class Builder {

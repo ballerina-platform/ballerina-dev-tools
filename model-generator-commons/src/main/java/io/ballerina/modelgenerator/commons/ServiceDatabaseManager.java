@@ -286,29 +286,8 @@ public class ServiceDatabaseManager {
         }
     }
 
-    private int getServiceTypeId(int packageId, String serviceType) {
-        String sql = "SELECT service_type_id FROM ServiceType WHERE package_id = ? AND name = ?";
-        try (Connection conn = DriverManager.getConnection(dbPath);
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, packageId);
-            stmt.setString(2, serviceType);
-
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                return rs.getInt("service_type_id");
-            }
-            return -1;
-        } catch (SQLException e) {
-            Logger.getGlobal().severe("Error executing query: " + e.getMessage());
-            return -1;
-        }
-    }
-
     public List<ServiceTypeFunction> getMatchingServiceTypeFunctions(int packageId, String serviceType) {
-        int serviceTypeId = getServiceTypeId(packageId, serviceType);
-        if (serviceTypeId == -1) {
-            return List.of();
-        }
+
         String sql = "SELECT " +
                 "f.function_id, " +
                 "f.name, " +
@@ -320,11 +299,13 @@ public class ServiceDatabaseManager {
                 "f.import_statements, " +
                 "f.enable " +
                 "FROM ServiceTypeFunction f " +
-                "WHERE f.service_type_id = ?";
+                "JOIN ServiceType st ON f.service_type_id = st.service_type_id " +
+                "WHERE st.package_id = ? AND st.name = ?";
 
         try (Connection conn = DriverManager.getConnection(dbPath);
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, serviceTypeId);
+            stmt.setInt(1, packageId);
+            stmt.setString(2, serviceType);
 
             ResultSet rs = stmt.executeQuery();
             List<ServiceTypeFunction> functions = new ArrayList<>();

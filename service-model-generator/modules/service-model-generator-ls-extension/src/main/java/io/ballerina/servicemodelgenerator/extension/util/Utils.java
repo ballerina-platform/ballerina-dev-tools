@@ -91,6 +91,10 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static io.ballerina.servicemodelgenerator.extension.util.ServiceClassUtil.ServiceClassContext.GRAPHQL_DIAGRAM;
+import static io.ballerina.servicemodelgenerator.extension.util.ServiceClassUtil.ServiceClassContext.HTTP_DIAGRAM;
+import static io.ballerina.servicemodelgenerator.extension.util.ServiceClassUtil.ServiceClassContext.SERVICE_DIAGRAM;
+
 /**
  * Common utility functions used in the project.
  *
@@ -405,7 +409,9 @@ public final class Utils {
 
     public static Function getFunctionModel(MethodDeclarationNode functionDefinitionNode, SemanticModel semanticModel,
                                             boolean isHttp, boolean isGraphQL) {
-        Function functionModel = Function.getNewFunction();
+        boolean isInit = isInitFunction(functionDefinitionNode);
+        ServiceClassUtil.ServiceClassContext context = deriveContext(isGraphQL, isHttp, isInit);
+        Function functionModel = Function.getNewFunctionModel(context);
         functionModel.setEnabled(true);
         Value accessor = functionModel.getAccessor();
         Value functionName = functionModel.getName();
@@ -451,7 +457,9 @@ public final class Utils {
 
     public static Function getFunctionModel(FunctionDefinitionNode functionDefinitionNode,
                                             SemanticModel semanticModel, boolean isHttp, boolean isGraphQL) {
-        Function functionModel = Function.getNewFunction();
+        boolean isInit = isInitFunction(functionDefinitionNode);
+        ServiceClassUtil.ServiceClassContext context = deriveContext(isGraphQL, isHttp, isInit);
+        Function functionModel = Function.getNewFunctionModel(context);
         functionModel.setEnabled(true);
         Value accessor = functionModel.getAccessor();
         Value functionName = functionModel.getName();
@@ -460,8 +468,6 @@ public final class Utils {
         functionName.setEnabled(true);
         if (isGraphQL) {
             accessor.setEditable(false);
-            functionModel.setSchema(Map.of(ServiceModelGeneratorConstants.PARAMETER,
-                    Parameter.parameterSchema(true)));
         }
         for (Token qualifier : functionDefinitionNode.qualifierList()) {
             if (qualifier.text().trim().matches(ServiceModelGeneratorConstants.REMOTE)) {
@@ -510,6 +516,24 @@ public final class Utils {
         functionModel.setParameters(parameterModels);
         functionModel.setCodedata(new Codedata(functionDefinitionNode.lineRange()));
         return functionModel;
+    }
+
+    private static ServiceClassUtil.ServiceClassContext deriveContext(boolean isGraphQL, boolean isHttp,
+                                                                      boolean isInit) {
+        if (isGraphQL && !isInit) {
+            return GRAPHQL_DIAGRAM;
+        } else if (isHttp && isInit) {
+            return HTTP_DIAGRAM;
+        }
+        return SERVICE_DIAGRAM;
+    }
+
+    private static boolean isInitFunction(FunctionDefinitionNode functionDefinitionNode) {
+        return functionDefinitionNode.functionName().text().trim().equals(ServiceModelGeneratorConstants.INIT);
+    }
+
+    private static boolean isInitFunction(MethodDeclarationNode functionDefinitionNode) {
+        return functionDefinitionNode.methodName().text().trim().equals(ServiceModelGeneratorConstants.INIT);
     }
 
     private static void populateHttpResponses(MethodDeclarationNode functionDefinitionNode,
@@ -988,7 +1012,7 @@ public final class Utils {
         updateValue(target.getName(), source.getName());
     }
 
-    public static String getServiceDeclarationNode(Service service) {
+    public static String getServiceDeclarationNode(Service service, FunctionAddContext context) {
         StringBuilder builder = new StringBuilder();
         builder.append(ServiceModelGeneratorConstants.SERVICE).append(ServiceModelGeneratorConstants.SPACE);
         if (Objects.nonNull(service.getServiceType()) && service.getServiceType().isEnabledWithValue()) {
@@ -1026,7 +1050,7 @@ public final class Utils {
             FunctionBodyKind kind = isAiAgent ? FunctionBodyKind.EMPTY : FunctionBodyKind.DO_BLOCK;
             service.getFunctions().forEach(function -> {
                 if (function.isEnabled()) {
-                    String functionNode = "\t" + getFunction(function, new ArrayList<>(), kind)
+                    String functionNode = "\t" + getFunction(function, new ArrayList<>(), kind, context)
                             .replace(System.lineSeparator(), System.lineSeparator() + "\t");
                     functions.add(functionNode);
                 }
@@ -1062,7 +1086,17 @@ public final class Utils {
         return String.format("{%s}", String.join(", ", params));
     }
 
-    public static String getFunction(Function function, List<String> statusCodeResponses, FunctionBodyKind kind) {
+    public enum FunctionAddContext {
+        HTTP_SERVICE_ADD,
+        TCP_SERVICE_ADD,
+        GRAPHQL_SERVICE_ADD,
+        TRIGGER_ADD,
+        FUNCTION_ADD,
+        RESOURCE_ADD
+    }
+
+    public static String getFunction(Function function, List<String> statusCodeResponses,
+                                     FunctionBodyKind kind, FunctionAddContext context) {
         StringBuilder builder = new StringBuilder();
         String functionQualifiers = getFunctionQualifiers(function);
         if (!functionQualifiers.isEmpty()) {
@@ -1091,6 +1125,10 @@ public final class Utils {
         if (kind.equals(FunctionBodyKind.DO_BLOCK) || kind.equals(FunctionBodyKind.BLOCK_WITH_PANIC)) {
             builder.append("\tdo {");
             builder.append(System.lineSeparator());
+            if (context.equals(FunctionAddContext.HTTP_SERVICE_ADD)) {
+                builder.append("\t\treturn \"Hello, Greetings!\";");
+                builder.append(System.lineSeparator());
+            }
         }
         if (kind.equals(FunctionBodyKind.BLOCK_WITH_PANIC)) {
             builder.append("\t\tpanic error(\"Unimplemented function\");");
@@ -1294,6 +1332,19 @@ public final class Utils {
                 "            panic error(\"Unhandled error\", err);%n" +
                 "        }%n" +
                 "    }";
+    }
+
+    public static FunctionAddContext getTriggerAddContext(String org, String module) {
+        if (org.equals("ballerina")) {
+            if (module.equals("http")) {
+                return FunctionAddContext.HTTP_SERVICE_ADD;
+            } else if (module.equals("graphql")) {
+                return FunctionAddContext.GRAPHQL_SERVICE_ADD;
+            } else if (module.equals("tcp")) {
+                return FunctionAddContext.TCP_SERVICE_ADD;
+            }
+        }
+        return FunctionAddContext.TRIGGER_ADD;
     }
 
     public static String generateVariableIdentifier(SemanticModel semanticModel, Document document,

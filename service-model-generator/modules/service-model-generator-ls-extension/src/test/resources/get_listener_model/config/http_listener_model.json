@@ -63,7 +63,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "port"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "int",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "host": {
           "metadata": {
@@ -86,7 +94,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "host"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "string",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "http1Settings": {
           "metadata": {
@@ -109,7 +125,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "http1Settings"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "ListenerHttp1Settings",
+              "packageInfo": "ballerina:http:2.12.2",
+              "kind": "RECORD_TYPE",
+              "selected": false
+            }
+          ]
         },
         "secureSocket": {
           "metadata": {
@@ -132,7 +156,21 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "secureSocket"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "()",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            },
+            {
+              "type": "ListenerSecureSocket",
+              "packageInfo": "ballerina:http:2.12.2",
+              "kind": "RECORD_TYPE",
+              "selected": false
+            }
+          ]
         },
         "httpVersion": {
           "metadata": {
@@ -155,7 +193,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "httpVersion"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "HttpVersion",
+              "packageInfo": "ballerina:http:2.12.2",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "timeout": {
           "metadata": {
@@ -178,7 +224,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "timeout"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "decimal",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "server": {
           "metadata": {
@@ -201,7 +255,21 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "server"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "()",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            },
+            {
+              "type": "string",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "requestLimits": {
           "metadata": {
@@ -224,7 +292,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "requestLimits"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "RequestLimitConfigs",
+              "packageInfo": "ballerina:http:2.12.2",
+              "kind": "RECORD_TYPE",
+              "selected": false
+            }
+          ]
         },
         "gracefulStopTimeout": {
           "metadata": {
@@ -247,7 +323,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "gracefulStopTimeout"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "decimal",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "socketConfig": {
           "metadata": {
@@ -270,7 +354,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "socketConfig"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "ServerSocketConfig",
+              "packageInfo": "ballerina:http:2.12.2",
+              "kind": "RECORD_TYPE",
+              "selected": false
+            }
+          ]
         },
         "http2InitialWindowSize": {
           "metadata": {
@@ -293,7 +385,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "http2InitialWindowSize"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "int",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "minIdleTimeInStaleState": {
           "metadata": {
@@ -316,7 +416,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "minIdleTimeInStaleState"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "decimal",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "timeBetweenStaleEviction": {
           "metadata": {
@@ -339,7 +447,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "timeBetweenStaleEviction"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "decimal",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         }
       }
     }
