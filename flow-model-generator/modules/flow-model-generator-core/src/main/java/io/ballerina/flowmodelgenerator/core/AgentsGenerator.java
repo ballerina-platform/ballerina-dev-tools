@@ -299,9 +299,20 @@ public class AgentsGenerator {
         NodeKind nodeKind = flowNode.codedata().node();
         SourceBuilder sourceBuilder = new SourceBuilder(flowNode, workspaceManager, filePath);
         List<String> args = new ArrayList<>();
+        String path = flowNode.metadata().icon();
         if (nodeKind == NodeKind.FUNCTION_DEFINITION) {
-            sourceBuilder.token().name("@agent:Tool").name(System.lineSeparator());
-            sourceBuilder.token().keyword(SyntaxKind.FUNCTION_KEYWORD);
+            sourceBuilder.token()
+                    .name("@agent:Tool").
+                    name(System.lineSeparator());
+            sourceBuilder.token()
+                    .name("@display {")
+                    .name("label: \"\",")
+                    .name("iconPath: \"")
+                    .name(path == null ? "" : path)
+                    .name("\"}")
+                    .name(System.lineSeparator());
+
+            sourceBuilder.token().keyword(SyntaxKind.ISOLATED_KEYWORD).keyword(SyntaxKind.FUNCTION_KEYWORD);
             sourceBuilder.token().name(toolName).keyword(SyntaxKind.OPEN_PAREN_TOKEN);
             Optional<Property> parameters = flowNode.getProperty(Property.PARAMETERS_KEY);
             if (parameters.isPresent() && parameters.get().value() instanceof Map<?, ?> paramMap) {
@@ -384,11 +395,11 @@ public class AgentsGenerator {
                     .name("@display {")
                     .name("label: \"\",")
                     .name("iconPath: \"")
-                    .name(flowNode.metadata().icon())
+                    .name(path == null ? "" : path)
                     .name("\"}")
                     .name(System.lineSeparator());
 
-            sourceBuilder.token().keyword(SyntaxKind.FUNCTION_KEYWORD);
+            sourceBuilder.token().keyword(SyntaxKind.ISOLATED_KEYWORD).keyword(SyntaxKind.FUNCTION_KEYWORD);
             sourceBuilder.token().name(toolName).keyword(SyntaxKind.OPEN_PAREN_TOKEN);
             sourceBuilder.token().name(String.join(", ", paramList));
             sourceBuilder.token().keyword(SyntaxKind.CLOSE_PAREN_TOKEN);
@@ -467,11 +478,11 @@ public class AgentsGenerator {
                     .name("@display {")
                     .name("label: \"\",")
                     .name("iconPath: \"")
-                    .name(flowNode.metadata().icon())
+                    .name(path == null ? "" : path)
                     .name("\"}")
                     .name(System.lineSeparator());
 
-            sourceBuilder.token().keyword(SyntaxKind.FUNCTION_KEYWORD);
+            sourceBuilder.token().keyword(SyntaxKind.ISOLATED_KEYWORD).keyword(SyntaxKind.FUNCTION_KEYWORD);
             sourceBuilder.token().name(toolName).keyword(SyntaxKind.OPEN_PAREN_TOKEN);
             sourceBuilder.token().name(String.join(", ", paramList));
             sourceBuilder.token().keyword(SyntaxKind.CLOSE_PAREN_TOKEN);
