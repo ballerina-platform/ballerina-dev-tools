@@ -32,7 +32,8 @@ public class NodeTemplateGenerator {
         Codedata codedata = gson.fromJson(id, Codedata.class);
         FlowNode flowNode = NodeBuilder.getNodeFromKind(codedata.node())
                 .setConstData()
-                .setTemplateData(new NodeBuilder.TemplateContext(workspaceManager, filePath, position, codedata, lsClientLogger))
+                .setTemplateData(
+                        new NodeBuilder.TemplateContext(workspaceManager, filePath, position, codedata, lsClientLogger))
                 .build();
         return gson.toJsonTree(flowNode);
     }
