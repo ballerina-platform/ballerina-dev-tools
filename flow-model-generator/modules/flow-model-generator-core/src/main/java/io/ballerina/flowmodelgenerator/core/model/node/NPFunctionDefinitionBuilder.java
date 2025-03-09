@@ -72,7 +72,7 @@ public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
     public void setConcreteConstData() {
         metadata().label(LABEL).description(DESCRIPTION);
         codedata()
-                .node(NodeKind.FUNCTION_DEFINITION)
+                .node(NodeKind.NP_FUNCTION_DEFINITION)
                 .org(BALLERINAX_ORG)
                 .module(NP_PACKAGE);
     }
