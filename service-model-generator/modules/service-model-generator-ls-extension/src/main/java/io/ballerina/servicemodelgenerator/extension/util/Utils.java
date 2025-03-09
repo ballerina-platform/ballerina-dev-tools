@@ -91,6 +91,10 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static io.ballerina.servicemodelgenerator.extension.util.ServiceClassUtil.ServiceClassContext.GRAPHQL_DIAGRAM;
+import static io.ballerina.servicemodelgenerator.extension.util.ServiceClassUtil.ServiceClassContext.HTTP_DIAGRAM;
+import static io.ballerina.servicemodelgenerator.extension.util.ServiceClassUtil.ServiceClassContext.SERVICE_DIAGRAM;
+
 /**
  * Common utility functions used in the project.
  *
@@ -405,7 +409,9 @@ public final class Utils {
 
     public static Function getFunctionModel(MethodDeclarationNode functionDefinitionNode, SemanticModel semanticModel,
                                             boolean isHttp, boolean isGraphQL) {
-        Function functionModel = Function.getNewFunction();
+        boolean isInit = isInitFunction(functionDefinitionNode);
+        ServiceClassUtil.ServiceClassContext context = deriveContext(isGraphQL, isHttp, isInit);
+        Function functionModel = Function.getNewFunctionModel(context);
         functionModel.setEnabled(true);
         Value accessor = functionModel.getAccessor();
         Value functionName = functionModel.getName();
@@ -451,7 +457,9 @@ public final class Utils {
 
     public static Function getFunctionModel(FunctionDefinitionNode functionDefinitionNode,
                                             SemanticModel semanticModel, boolean isHttp, boolean isGraphQL) {
-        Function functionModel = Function.getNewFunction();
+        boolean isInit = isInitFunction(functionDefinitionNode);
+        ServiceClassUtil.ServiceClassContext context = deriveContext(isGraphQL, isHttp, isInit);
+        Function functionModel = Function.getNewFunctionModel(context);
         functionModel.setEnabled(true);
         Value accessor = functionModel.getAccessor();
         Value functionName = functionModel.getName();
@@ -460,8 +468,6 @@ public final class Utils {
         functionName.setEnabled(true);
         if (isGraphQL) {
             accessor.setEditable(false);
-            functionModel.setSchema(Map.of(ServiceModelGeneratorConstants.PARAMETER,
-                    Parameter.parameterSchema(true)));
         }
         for (Token qualifier : functionDefinitionNode.qualifierList()) {
             if (qualifier.text().trim().matches(ServiceModelGeneratorConstants.REMOTE)) {
@@ -510,6 +516,24 @@ public final class Utils {
         functionModel.setParameters(parameterModels);
         functionModel.setCodedata(new Codedata(functionDefinitionNode.lineRange()));
         return functionModel;
+    }
+
+    private static ServiceClassUtil.ServiceClassContext deriveContext(boolean isGraphQL, boolean isHttp,
+                                                                      boolean isInit) {
+        if (isGraphQL && !isInit) {
+            return GRAPHQL_DIAGRAM;
+        } else if (isHttp && isInit) {
+            return HTTP_DIAGRAM;
+        }
+        return SERVICE_DIAGRAM;
+    }
+
+    private static boolean isInitFunction(FunctionDefinitionNode functionDefinitionNode) {
+        return functionDefinitionNode.functionName().text().trim().equals(ServiceModelGeneratorConstants.INIT);
+    }
+
+    private static boolean isInitFunction(MethodDeclarationNode functionDefinitionNode) {
+        return functionDefinitionNode.methodName().text().trim().equals(ServiceModelGeneratorConstants.INIT);
     }
 
     private static void populateHttpResponses(MethodDeclarationNode functionDefinitionNode,
