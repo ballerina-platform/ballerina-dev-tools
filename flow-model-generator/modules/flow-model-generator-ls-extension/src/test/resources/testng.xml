@@ -69,7 +69,7 @@ under the License.
             <class name="io.ballerina.flowmodelgenerator.extension.typesmanager.RecordValueGenTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.typesmanager.FindMatchingTypeTest"/>
 
-<!--            <class name="io.ballerina.flowmodelgenerator.extension.agentsmanager.NodeTemplateTest"/>-->
+            <class name="io.ballerina.flowmodelgenerator.extension.agentsmanager.NodeTemplateTest"/>
 <!--            <class name="io.ballerina.flowmodelgenerator.extension.agentsmanager.SourceGeneratorTest"/>-->
 <!--            <class name="io.ballerina.flowmodelgenerator.extension.agentsmanager.GenToolsTest"/>-->
 <!--            <class name="io.ballerina.flowmodelgenerator.extension.agentsmanager.GetAllAgentsTest"/>-->

@@ -26,7 +26,8 @@
       "module": "ai.agent",
       "object": "OpenAiModel",
       "symbol": "init",
-      "version": "0.7.9"
+      "version": "0.7.9",
+      "isNew": true
     },
     "returning": false,
     "properties": {
