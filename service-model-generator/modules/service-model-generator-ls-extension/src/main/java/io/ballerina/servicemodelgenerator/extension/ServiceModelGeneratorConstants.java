@@ -33,6 +33,8 @@ public class ServiceModelGeneratorConstants {
     public static final String CLOSE_BRACE = "}";
     public static final String LINE_SEPARATOR = System.lineSeparator();
     public static final String IMPORT_STMT_TEMPLATE = "%nimport %s/%s;%n";
+    public static final String AT = "@";
+    public static final String COLON = ":";
 
     public static final String SINGLE_SELECT_VALUE = "SINGLE_SELECT";
     public static final String MULTIPLE_SELECT_VALUE = "MULTIPLE_SELECT";

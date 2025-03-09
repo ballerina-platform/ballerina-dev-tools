@@ -21,8 +21,10 @@ package io.ballerina.servicemodelgenerator.extension.util;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.AnnotationAttachPoint;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.ServiceDeclarationNode;
+import io.ballerina.modelgenerator.commons.AnnotationAttachment;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.ServiceDatabaseManager;
 import io.ballerina.modelgenerator.commons.ServiceDeclaration;
@@ -35,8 +37,10 @@ import io.ballerina.servicemodelgenerator.extension.model.Function;
 import io.ballerina.servicemodelgenerator.extension.model.FunctionReturnType;
 import io.ballerina.servicemodelgenerator.extension.model.MetaData;
 import io.ballerina.servicemodelgenerator.extension.model.Parameter;
+import io.ballerina.servicemodelgenerator.extension.model.PropertyTypeMemberInfo;
 import io.ballerina.servicemodelgenerator.extension.model.Service;
 import io.ballerina.servicemodelgenerator.extension.model.Value;
+import org.ballerinalang.model.tree.ServiceNode;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -55,6 +59,7 @@ import static io.ballerina.servicemodelgenerator.extension.util.Utils.getPath;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.getResourceFunctionModel;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.isPresent;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.populateListenerInfo;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateAnnotationAttachmentProperty;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateFunction;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateFunctionInfo;
 
@@ -92,13 +97,14 @@ public class ServiceModelUtils {
 
         boolean isGraphql = serviceModel.getModuleName().equals(ServiceModelGeneratorConstants.GRAPHQL);
         List<Function> functionsInSource = serviceNode.members().stream()
-                .filter(member -> member instanceof FunctionDefinitionNode functionDefinitionNode)
+                .filter(member -> member instanceof FunctionDefinitionNode)
                 .map(member -> getFunctionModel((FunctionDefinitionNode) member, semanticModel, false, isGraphql))
                 .toList();
 
         updateServiceInfoNew(serviceModel, functionsInSource);
         serviceModel.setCodedata(new Codedata(serviceNode.lineRange()));
         populateListenerInfo(serviceModel, serviceNode);
+        updateAnnotationAttachmentProperty(serviceNode, serviceModel);
     }
 
     private static void updateServiceInfoNew(Service serviceModel, List<Function> functionsInSource) {
@@ -196,6 +202,15 @@ public class ServiceModelUtils {
         // string literal
         if (serviceTemplate.optionalStringLiteral() == 0) {
             properties.put("stringLiteral", getStringLiteral(serviceTemplate));
+        }
+
+        List<AnnotationAttachment> annotationAttachments = ServiceDatabaseManager.getInstance()
+                .getAnnotationAttachments(pkg.packageId());
+        for (AnnotationAttachment annotationAttachment : annotationAttachments) {
+            if (annotationAttachment.attachmentPoints().contains(AnnotationAttachPoint.SERVICE)) {
+                String key = "annot" + annotationAttachment.annotName();
+                properties.put(key, getAnnotationAttachmentProperty(annotationAttachment));
+            }
         }
 
         return Optional.of(service);
@@ -440,6 +455,36 @@ public class ServiceModelUtils {
                 .setEditable(true)
                 .setType(false)
                 .setAddNewButton(false);
+
+        return valueBuilder.build();
+    }
+
+    private static Value getAnnotationAttachmentProperty(AnnotationAttachment attachment) {
+        String typeName = attachment.typeName();
+        String[] split = typeName.split(":");
+        if (split.length > 1) {
+            typeName = split[1];
+        }
+        PropertyTypeMemberInfo propertyTypeMemberInfo = new PropertyTypeMemberInfo(typeName, attachment.packageInfo(),
+                "RECORD_TYPE", true);
+        Codedata codedata = new Codedata("ANNOTATION_ATTACHMENT");
+        codedata.setOriginalName(attachment.annotName());
+
+        Value.ValueBuilder valueBuilder = new Value.ValueBuilder()
+                .setMetadata(new MetaData(attachment.displayName(), attachment.description()))
+                .setCodedata(codedata)
+                .setValue("")
+                .setValues(new ArrayList<>())
+                .setValueType("EXPRESSION")
+                .setValueTypeConstraint(attachment.typeName())
+                .setPlaceholder("{}")
+                .setOptional(true)
+                .setAdvanced(true)
+                .setEnabled(true)
+                .setEditable(true)
+                .setType(false)
+                .setAddNewButton(false)
+                .setMembers(List.of(propertyTypeMemberInfo));
 
         return valueBuilder.build();
     }

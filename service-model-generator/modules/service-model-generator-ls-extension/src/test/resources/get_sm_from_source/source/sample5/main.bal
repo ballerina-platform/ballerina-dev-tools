@@ -15,6 +15,9 @@ table<Profile> key(id) profiles = table [
         {id: 2, name: "Jesse Pinkman", age: 25}
     ];
 
+@graphql:ServiceConfig {
+    introspection: false
+}
 service /graphql on graphQLListener {
 
     private final readonly & string[] names = ["Walter White", "Jesse Pinkman", "Saul Goodman"];

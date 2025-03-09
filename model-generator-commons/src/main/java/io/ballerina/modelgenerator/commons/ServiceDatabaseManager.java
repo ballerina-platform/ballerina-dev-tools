@@ -18,6 +18,8 @@
 
 package io.ballerina.modelgenerator.commons;
 
+import io.ballerina.compiler.api.symbols.AnnotationAttachPoint;
+
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -28,6 +30,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Optional;
@@ -280,6 +283,43 @@ public class ServiceDatabaseManager {
                 serviceTypes.add(rs.getString("name"));
             }
             return serviceTypes;
+        } catch (SQLException e) {
+            Logger.getGlobal().severe("Error executing query: " + e.getMessage());
+            return List.of();
+        }
+    }
+
+    public List<AnnotationAttachment> getAnnotationAttachments(int packageId) {
+        String sql = "SELECT " +
+                "a.annotation_id, " +
+                "a.annot_name, " +
+                "a.attachment_points, " +
+                "a.display_name, " +
+                "a.description, " +
+                "a.type_constrain, " +
+                "a.package " +
+                "FROM Annotation a " +
+                "JOIN Package p ON a.package_id = p.package_id " +
+                "WHERE a.package_id = ?";
+
+        try (Connection conn = DriverManager.getConnection(dbPath);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, packageId);
+
+            ResultSet rs = stmt.executeQuery();
+            List<AnnotationAttachment> annotations = new ArrayList<>();
+            while (rs.next()) {
+                annotations.add(new AnnotationAttachment(
+                        rs.getString("annot_name"),
+                        Arrays.stream(rs.getString("attachment_points").split(","))
+                                .map(AnnotationAttachPoint::valueOf).toList(),
+                        rs.getString("display_name"),
+                        rs.getString("description"),
+                        rs.getString("type_constrain"),
+                        rs.getString("package")
+                ));
+            }
+            return annotations;
         } catch (SQLException e) {
             Logger.getGlobal().severe("Error executing query: " + e.getMessage());
             return List.of();
