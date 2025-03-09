@@ -26,6 +26,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import static io.ballerina.servicemodelgenerator.extension.util.ServiceClassUtil.ServiceClassContext.GRAPHQL_DIAGRAM;
+import static io.ballerina.servicemodelgenerator.extension.util.ServiceClassUtil.ServiceClassContext.SERVICE_DIAGRAM;
+import static io.ballerina.servicemodelgenerator.extension.util.ServiceClassUtil.ServiceClassContext.TYPE_DIAGRAM;
+
 public class Function {
     private MetaData metadata;
     private List<String> qualifiers;
@@ -61,7 +65,7 @@ public class Function {
         this.codedata = codedata;
     }
 
-    public static Function getNewFunction() {
+    private static Function getNewFunctionModel() {
         return new Function(new MetaData("", ""), new ArrayList<>(),
                 ServiceModelGeneratorConstants.KIND_DEFAULT,
                 new Value(ServiceModelGeneratorConstants.FUNCTION_ACCESSOR_METADATA),
@@ -71,15 +75,21 @@ public class Function {
     }
 
     public static Function getNewFunctionModel(ServiceClassUtil.ServiceClassContext context) {
-        if (context == ServiceClassUtil.ServiceClassContext.GRAPHQL_DIAGRAM) {
+        if (context == GRAPHQL_DIAGRAM) {
             return new Function(new MetaData("", ""), new ArrayList<>(),
                     ServiceModelGeneratorConstants.KIND_DEFAULT,
                     new Value(ServiceModelGeneratorConstants.FUNCTION_ACCESSOR_METADATA),
                     new Value(ServiceModelGeneratorConstants.FIELD_NAME_METADATA), new ArrayList<>(),
-                    null, new FunctionReturnType(ServiceModelGeneratorConstants.FIELD_TYPE_METADATA),
+                    Map.of(ServiceModelGeneratorConstants.PARAMETER, Parameter.graphQLParamSchema()),
+                    new FunctionReturnType(ServiceModelGeneratorConstants.FIELD_TYPE_METADATA),
                     false, false, false, null);
         }
-        return getNewFunction();
+        Function newFunction = getNewFunctionModel();
+        if (context == TYPE_DIAGRAM || context == SERVICE_DIAGRAM) {
+            newFunction.setSchema(Map.of(ServiceModelGeneratorConstants.PARAMETER, Parameter.functionParamSchema()));
+            return newFunction;
+        }
+        return newFunction;
     }
 
     public MetaData getMetadata() {

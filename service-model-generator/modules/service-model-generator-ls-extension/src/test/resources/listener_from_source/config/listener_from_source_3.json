@@ -79,7 +79,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "port"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "int",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
         },
         "config": {
           "metadata": {
@@ -102,7 +110,15 @@
             "type": "LISTENER_INIT_PARAM",
             "originalName": "config"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "ListenerConfiguration",
+              "packageInfo": "ballerina:http:2.12.2",
+              "kind": "RECORD_TYPE",
+              "selected": false
+            }
+          ]
         }
       },
       "codedata": {

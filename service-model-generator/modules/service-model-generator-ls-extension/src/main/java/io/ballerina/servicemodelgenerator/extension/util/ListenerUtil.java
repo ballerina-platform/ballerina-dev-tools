@@ -238,8 +238,7 @@ public class ListenerUtil {
             Codedata codedata = new Codedata("LISTENER_INIT_PARAM");
             codedata.setOriginalName(paramResult.name());
 
-            Value.ValueBuilder valueBuilder = new Value.ValueBuilder();
-            valueBuilder
+            Value.ValueBuilder valueBuilder = new Value.ValueBuilder()
                     .setMetadata(new MetaData(unescapedParamName, paramResult.description()))
                     .setCodedata(codedata)
                     .setValue("")
@@ -250,7 +249,8 @@ public class ListenerUtil {
                     .setType(false)
                     .setEnabled(true)
                     .setOptional(paramResult.optional())
-                    .setAdvanced(paramResult.optional());
+                    .setAdvanced(paramResult.optional())
+                    .setTypeMembers(paramResult.typeMembers());
 
             properties.put(unescapedParamName, valueBuilder.build());
         }

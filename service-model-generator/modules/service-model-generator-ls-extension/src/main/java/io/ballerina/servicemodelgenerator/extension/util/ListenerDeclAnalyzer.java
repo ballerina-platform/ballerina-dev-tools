@@ -110,8 +110,7 @@ public class ListenerDeclAnalyzer {
                 String unescapedParamName = removeLeadingSingleQuote(paramResult.name());
                 Codedata codedata = new Codedata("LISTENER_INIT_PARAM");
                 codedata.setOriginalName(paramResult.name());
-                Value.ValueBuilder valueBuilder = new Value.ValueBuilder();
-                valueBuilder
+                Value.ValueBuilder valueBuilder = new Value.ValueBuilder()
                         .setMetadata(new MetaData(unescapedParamName, paramResult.description()))
                         .setCodedata(codedata)
                         .setValue("")
@@ -122,7 +121,8 @@ public class ListenerDeclAnalyzer {
                         .setType(false)
                         .setEnabled(true)
                         .setOptional(paramResult.optional())
-                        .setAdvanced(paramResult.optional());
+                        .setAdvanced(paramResult.optional())
+                        .setTypeMembers(paramResult.typeMembers());
                 properties.put(unescapedParamName, valueBuilder.build());
             }
             return;
@@ -166,7 +166,8 @@ public class ListenerDeclAnalyzer {
                             .setType(false)
                             .setEnabled(true)
                             .setOptional(paramResult.optional())
-                            .setAdvanced(paramResult.optional());
+                            .setAdvanced(paramResult.optional())
+                            .setTypeMembers(paramResult.typeMembers());
                     properties.put(unescapedParamName, valueBuilder.build());
                 }
 
@@ -194,7 +195,8 @@ public class ListenerDeclAnalyzer {
                         .setType(false)
                         .setEnabled(true)
                         .setOptional(restParamResult.optional())
-                        .setAdvanced(restParamResult.optional());
+                        .setAdvanced(restParamResult.optional())
+                        .setTypeMembers(restParamResult.typeMembers());
 
                 properties.put(unescapedParamName, valueBuilder.build());
             }
@@ -247,7 +249,8 @@ public class ListenerDeclAnalyzer {
                                     .setType(false)
                                     .setEnabled(true)
                                     .setOptional(paramResult.optional())
-                                    .setAdvanced(paramResult.optional());
+                                    .setAdvanced(paramResult.optional())
+                                    .setTypeMembers(paramResult.typeMembers());
 
                             properties.put(unescapedParamName, valueBuilder.build());
                         } else {
@@ -275,7 +278,8 @@ public class ListenerDeclAnalyzer {
                                         .setType(false)
                                         .setEnabled(true)
                                         .setOptional(paramResult.optional())
-                                        .setAdvanced(paramResult.optional());
+                                        .setAdvanced(paramResult.optional())
+                                        .setTypeMembers(paramResult.typeMembers());
 
                                 properties.put(unescapedParamName, valueBuilder.build());
 
@@ -302,7 +306,8 @@ public class ListenerDeclAnalyzer {
                                     .setType(false)
                                     .setEnabled(true)
                                     .setOptional(paramResult.optional())
-                                    .setAdvanced(paramResult.optional());
+                                    .setAdvanced(paramResult.optional())
+                                    .setTypeMembers(paramResult.typeMembers());
 
                             properties.put(unescapedParamName, valueBuilder.build());
                             return;
@@ -332,7 +337,36 @@ public class ListenerDeclAnalyzer {
                         .setType(false)
                         .setEnabled(true)
                         .setOptional(paramResult.optional())
-                        .setAdvanced(paramResult.optional());
+                        .setAdvanced(paramResult.optional())
+                        .setTypeMembers(paramResult.typeMembers());
+                properties.put(unescapedParamName, valueBuilder.build());
+            }
+
+            for (Map.Entry<String, Node> entry : namedArgValueMap.entrySet()) { // handle remaining named args
+                String escapedParamName = CommonUtil.escapeReservedKeyword(entry.getKey());
+                if (!funcParamMap.containsKey(escapedParamName)) {
+                    continue;
+                }
+                ParameterData paramResult = funcParamMap.remove(escapedParamName);
+                String unescapedParamName = removeLeadingSingleQuote(paramResult.name());
+                Node paramValue = entry.getValue();
+                String value = paramValue != null ? paramValue.toSourceCode() : "";
+                Value.ValueBuilder valueBuilder = new Value.ValueBuilder();
+                Codedata codedata = new Codedata("LISTENER_INIT_PARAM");
+                codedata.setOriginalName(paramResult.name());
+                valueBuilder
+                        .setMetadata(new MetaData(unescapedParamName, paramResult.description()))
+                        .setCodedata(codedata)
+                        .setValue(value)
+                        .setValueType("EXPRESSION")
+                        .setPlaceholder(paramResult.defaultValue())
+                        .setValueTypeConstraint(paramResult.type())
+                        .setEditable(true)
+                        .setType(false)
+                        .setEnabled(true)
+                        .setOptional(paramResult.optional())
+                        .setAdvanced(paramResult.optional())
+                        .setTypeMembers(paramResult.typeMembers());
                 properties.put(unescapedParamName, valueBuilder.build());
             }
             addRemainingParamsToPropertyMap(funcParamMap);
@@ -362,7 +396,8 @@ public class ListenerDeclAnalyzer {
                     .setType(false)
                     .setEnabled(true)
                     .setOptional(paramResult.optional())
-                    .setAdvanced(paramResult.optional());
+                    .setAdvanced(paramResult.optional())
+                    .setTypeMembers(paramResult.typeMembers());
             properties.put(unescapedParamName, valueBuilder.build());
         }
     }

@@ -165,8 +165,6 @@ public class ServiceClassUtil {
         functionModel.setEnabled(true);
         functionModel.setEditable(true);
         functionModel.setCodedata(new Codedata(functionDef.lineRange()));
-        functionModel.setSchema(Map.of(ServiceModelGeneratorConstants.PARAMETER,
-                Parameter.parameterSchema(context == ServiceClassContext.GRAPHQL_DIAGRAM)));
         return functionModel;
     }
 
@@ -275,6 +273,8 @@ public class ServiceClassUtil {
 
     public enum ServiceClassContext {
         TYPE_DIAGRAM,
-        GRAPHQL_DIAGRAM
+        GRAPHQL_DIAGRAM,
+        SERVICE_DIAGRAM,
+        HTTP_DIAGRAM
     }
 }
