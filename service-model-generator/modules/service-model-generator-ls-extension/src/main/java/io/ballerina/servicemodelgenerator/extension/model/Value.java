@@ -18,6 +18,8 @@
 
 package io.ballerina.servicemodelgenerator.extension.model;
 
+import io.ballerina.modelgenerator.commons.ParameterMemberTypeData;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -39,6 +41,7 @@ public class Value {
     private Codedata codedata;
     private List<Value> choices;
     private boolean addNewButton = false;
+    public List<PropertyTypeMemberInfo> typeMembers;
 
     public Value(MetaData metadata, String valueType, boolean editable) {
         this(metadata, false, editable, null, valueType,
@@ -84,7 +87,8 @@ public class Value {
                  String valueType,
                  String valueTypeConstraint, boolean isType, String placeholder, boolean optional,
                  boolean advanced, Map<String, Value> properties, List<String> items, Codedata codedata,
-                 boolean addNewButton) {
+                 boolean addNewButton,
+                 List<PropertyTypeMemberInfo> typeMembers) {
         this.metadata = metadata;
         this.enabled = enabled;
         this.editable = editable;
@@ -100,6 +104,7 @@ public class Value {
         this.items = items;
         this.codedata = codedata;
         this.addNewButton = addNewButton;
+        this.typeMembers = typeMembers;
     }
 
     public MetaData getMetadata() {
@@ -290,6 +295,7 @@ public class Value {
         private List<String> items;
         private Codedata codedata;
         private boolean addNewButton = false;
+        private List<PropertyTypeMemberInfo> typeMembers;
 
         public ValueBuilder setMetadata(MetaData metadata) {
             this.metadata = metadata;
@@ -366,9 +372,15 @@ public class Value {
             return this;
         }
 
+        public ValueBuilder setTypeMembers(List<ParameterMemberTypeData> typeMembers) {
+            this.typeMembers = typeMembers.stream().map(memberType -> new PropertyTypeMemberInfo(memberType.type(),
+                    memberType.packageInfo(), memberType.kind(), false)).toList();
+            return this;
+        }
+
         public Value build() {
             return new Value(metadata, enabled, editable, value, values, valueType, valueTypeConstraint, isType,
-                    placeholder, optional, advanced, properties, items, codedata, addNewButton);
+                    placeholder, optional, advanced, properties, items, codedata, addNewButton, typeMembers);
         }
     }
 }
