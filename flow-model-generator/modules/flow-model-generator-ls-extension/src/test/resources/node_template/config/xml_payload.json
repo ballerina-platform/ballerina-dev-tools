@@ -9,7 +9,8 @@
       "label": "Assign XML"
     },
     "codedata": {
-      "node": "XML_PAYLOAD"
+      "node": "XML_PAYLOAD",
+      "isNew": true
     },
     "returning": false,
     "properties": {

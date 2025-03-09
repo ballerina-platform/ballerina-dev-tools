@@ -147,7 +147,7 @@ public class DataMapperDefinitionBuilder extends NodeBuilder {
                         .closeBrace()
                         .endOfStatement()
                         .stepOut()
-                    .textEdit(false, DATA_MAPPINGS_BAL, false);
+                    .textEdit(false, DATA_MAPPINGS_BAL);
         } else {
             sourceBuilder
                     .token().skipFormatting().stepOut()

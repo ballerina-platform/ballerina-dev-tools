@@ -69,6 +69,6 @@ public class ClassInitBuilder extends CallBuilder {
                         Set.of(Property.VARIABLE_KEY, Property.TYPE_KEY, Property.SCOPE_KEY,
                                 Property.CHECK_ERROR_KEY));
 
-        return sourceBuilder.textEdit(false, "agents.bal", true).build();
+        return sourceBuilder.textEdit(false, "agents.bal").build();
     }
 }

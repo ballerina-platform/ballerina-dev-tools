@@ -10,7 +10,8 @@
       "description": "Catch and handle errors"
     },
     "codedata": {
-      "node": "ERROR_HANDLER"
+      "node": "ERROR_HANDLER",
+      "isNew": true
     },
     "returning": false,
     "branches": [

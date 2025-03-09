@@ -10,7 +10,8 @@
       "description": "Switches the data flow based on the value of an expression."
     },
     "codedata": {
-      "node": "MATCH"
+      "node": "MATCH",
+      "isNew": true
     },
     "returning": false,
     "branches": [

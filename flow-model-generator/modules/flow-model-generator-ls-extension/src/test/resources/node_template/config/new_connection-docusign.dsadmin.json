@@ -20,7 +20,8 @@
       "module": "docusign.dsadmin",
       "object": "Client",
       "symbol": "init",
-      "version": "2.0.0"
+      "version": "2.0.0",
+      "isNew": true
     },
     "returning": false,
     "properties": {

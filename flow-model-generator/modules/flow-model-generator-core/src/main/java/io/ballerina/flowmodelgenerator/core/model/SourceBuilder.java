@@ -27,12 +27,12 @@ import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeParser;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
+import io.ballerina.flowmodelgenerator.core.utils.FileSystemUtils;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.ParameterData;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.ModuleDescriptor;
-import io.ballerina.projects.ProjectException;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.formatter.core.FormattingTreeModifier;
@@ -118,31 +118,22 @@ public class SourceBuilder {
         return this;
     }
 
-    public SourceBuilder textEdit(boolean isExpression, String fileName, boolean allowEdits) {
-        Path resolvedPath = workspaceManager.projectRoot(filePath).resolve(fileName);
-        LineRange flowNodeLineRange = flowNode.codedata().lineRange();
-        if (flowNodeLineRange != null && allowEdits) {
-            LinePosition startLine = flowNodeLineRange.startLine();
-            LinePosition endLine = flowNodeLineRange.endLine();
-
-            if (startLine.line() != 0 || startLine.offset() != 0 || endLine.line() != 0 || endLine.offset() != 0) {
-                textEdit(isExpression, resolvedPath, CommonUtils.toRange(flowNodeLineRange));
-                acceptImport(resolvedPath);
-                return this;
-            }
+    public SourceBuilder textEdit(boolean isExpression, String fileName) {
+        // If it is not new, use the existing file
+        if (flowNode.codedata().isNew() == null || !flowNode.codedata().isNew()) {
+            return textEdit(isExpression);
         }
+
+        Path resolvedPath = workspaceManager.projectRoot(filePath).resolve(fileName);
 
         LinePosition linePosition;
         try {
             // If the file exists, get the end line of the file
             workspaceManager.loadProject(filePath);
-            Document document = workspaceManager.document(resolvedPath).orElseThrow();
+            Document document = FileSystemUtils.getDocument(workspaceManager, resolvedPath);
             linePosition = document.syntaxTree().rootNode().lineRange().endLine();
         } catch (WorkspaceDocumentException | EventSyncException e) {
             throw new RuntimeException(e);
-        } catch (ProjectException e) {
-            // If the file does not exist, set the line range to (0,0)
-            linePosition = LinePosition.from(0, 0);
         }
 
         // Add the current source to the end of the file
@@ -184,9 +175,8 @@ public class SourceBuilder {
             Property type = optionalType.get();
 
             // TODO: There can be cases where the return type and the value type both come from imported modules. We
-            //  have
-            //  to optimize how we handle the return type, as the current implementation does not allow the user to
-            //  assign the error to a variable and handle it.
+            //  have to optimize how we handle the return type, as the current implementation does not allow the user
+            //  to assign the error to a variable and handle it.
             // Add the import statements if exists in the return type
             if (type.codedata() != null && type.codedata().importStatements() != null &&
                     flowNode.getProperty(Property.CHECK_ERROR_KEY).map(property -> property.value().equals("false"))
@@ -221,7 +211,7 @@ public class SourceBuilder {
             return this;
         }
         // TODO: Check how we can only use this logic once compared to the textEdit(fileName) method
-        Document document = workspaceManager.document(resolvedPath).orElseThrow();
+        Document document = FileSystemUtils.getDocument(workspaceManager, resolvedPath);
         SyntaxTree syntaxTree = document.syntaxTree();
         LineRange lineRange = syntaxTree.rootNode().lineRange();
 
@@ -270,7 +260,7 @@ public class SourceBuilder {
         } catch (WorkspaceDocumentException | EventSyncException e) {
             throw new RuntimeException(e);
         }
-        SemanticModel semanticModel = workspaceManager.semanticModel(filePath).orElseThrow();
+        SemanticModel semanticModel = FileSystemUtils.getSemanticModel(workspaceManager, filePath);
         return semanticModel.moduleSymbols().stream()
                 .filter(symbol -> symbol.kind() == SymbolKind.TYPE_DEFINITION && symbol.getName().isPresent() &&
                         symbol.getName().get().equals(typeName))

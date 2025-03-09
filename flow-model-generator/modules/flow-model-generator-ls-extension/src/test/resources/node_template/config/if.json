@@ -10,7 +10,8 @@
       "description": "Add conditional branch to the integration flow."
     },
     "codedata": {
-      "node": "IF"
+      "node": "IF",
+      "isNew": true
     },
     "returning": false,
     "branches": [

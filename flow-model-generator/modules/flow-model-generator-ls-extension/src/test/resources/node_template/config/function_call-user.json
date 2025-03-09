@@ -18,7 +18,8 @@
     },
     "codedata": {
       "node": "FUNCTION_CALL",
-      "symbol": "fn"
+      "symbol": "fn",
+      "isNew": true
     },
     "returning": false,
     "properties": {

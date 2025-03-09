@@ -24,7 +24,8 @@
       "org": "ballerina",
       "module": "time",
       "symbol": "utcFromCivil",
-      "version": "2.5.0"
+      "version": "2.5.0",
+      "isNew": true
     },
     "returning": false,
     "properties": {

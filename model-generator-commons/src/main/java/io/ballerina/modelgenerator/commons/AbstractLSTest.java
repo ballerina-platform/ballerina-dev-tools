@@ -181,6 +181,8 @@ public abstract class AbstractLSTest {
         String text;
         try (FileInputStream fis = new FileInputStream(sourcePath)) {
             text = new String(fis.readAllBytes(), StandardCharsets.UTF_8);
+        } catch (Throwable e) {
+            text = "";
         }
         textDocumentItem.setUri(CommonUtils.getExprUri(sourcePath));
         textDocumentItem.setText(text);

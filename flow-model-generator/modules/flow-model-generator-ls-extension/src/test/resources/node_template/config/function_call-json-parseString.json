@@ -25,6 +25,7 @@
       "module": "data.jsondata",
       "symbol": "parseString",
       "version": "0.2.0",
+      "isNew": true,
       "inferredReturnType": "t"
     },
     "returning": false,

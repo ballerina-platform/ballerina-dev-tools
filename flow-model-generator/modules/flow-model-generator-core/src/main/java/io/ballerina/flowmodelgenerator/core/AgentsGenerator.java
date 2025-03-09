@@ -351,7 +351,7 @@ public class AgentsGenerator {
                     .keyword(SyntaxKind.CLOSE_PAREN_TOKEN).endOfStatement();
             sourceBuilder.token()
                     .keyword(SyntaxKind.CLOSE_BRACE_TOKEN);
-            sourceBuilder.textEdit(false, AGENT_FILE, false);
+            sourceBuilder.textEdit(false, AGENT_FILE);
             return gson.toJsonTree(sourceBuilder.build());
         } else if (nodeKind == NodeKind.REMOTE_ACTION_CALL) {
             String description = flowNode.metadata().description();
@@ -433,7 +433,7 @@ public class AgentsGenerator {
             }
             sourceBuilder.token()
                     .keyword(SyntaxKind.CLOSE_BRACE_TOKEN);
-            sourceBuilder.textEdit(false, AGENT_FILE, false);
+            sourceBuilder.textEdit(false, AGENT_FILE);
             return gson.toJsonTree(sourceBuilder.build());
         } else if (nodeKind == NodeKind.RESOURCE_ACTION_CALL) {
             String description = flowNode.metadata().description();
@@ -544,7 +544,7 @@ public class AgentsGenerator {
             }
             sourceBuilder.token()
                     .keyword(SyntaxKind.CLOSE_BRACE_TOKEN);
-            sourceBuilder.textEdit(false, AGENT_FILE, false);
+            sourceBuilder.textEdit(false, AGENT_FILE);
             return gson.toJsonTree(sourceBuilder.build());
         }
         throw new IllegalStateException("Unsupported node kind to generate tool");

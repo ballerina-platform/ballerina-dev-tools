@@ -13,17 +13,7 @@
       "module": "http",
       "object": "Client",
       "symbol": "init",
-      "lineRange": {
-        "fileName": "new_connection.bal",
-        "startLine": {
-          "line": 7,
-          "offset": 4
-        },
-        "endLine": {
-          "line": 7,
-          "offset": 66
-        }
-      }
+      "isNew": true
     },
     "returning": false,
     "properties": {
@@ -106,12 +96,12 @@
       {
         "range": {
           "start": {
-            "line": 7,
-            "character": 4
+            "line": 0,
+            "character": 20
           },
           "end": {
-            "line": 7,
-            "character": 66
+            "line": 0,
+            "character": 20
           }
         },
         "newText": "final http:Client localHttpCl = check new (\"http://localhost:8080\", {});"
