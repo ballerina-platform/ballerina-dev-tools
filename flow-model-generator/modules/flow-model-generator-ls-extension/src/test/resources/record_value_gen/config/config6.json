@@ -1,0 +1,155 @@
+{
+  "filePath": "proj",
+  "type": {
+    "name": "ClientHttp1Settings",
+    "fields": [
+      {
+        "members": [
+          {
+            "typeName": "AUTO",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": true
+          },
+          {
+            "typeName": "ALWAYS",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "NEVER",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          }
+        ],
+        "name": "keepAlive",
+        "typeName": "union",
+        "optional": false,
+        "typeInfo": {
+          "name": "KeepAlive",
+          "orgName": "ballerina",
+          "moduleName": "http",
+          "version": "2.13.3"
+        },
+        "defaultable": true,
+        "isRestType": false,
+        "selected": true
+      },
+      {
+        "members": [
+          {
+            "typeName": "AUTO",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "ALWAYS",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "NEVER",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          }
+        ],
+        "name": "chunking",
+        "typeName": "union",
+        "optional": false,
+        "typeInfo": {
+          "name": "Chunking",
+          "orgName": "ballerina",
+          "moduleName": "http",
+          "version": "2.13.3"
+        },
+        "defaultable": true,
+        "isRestType": false,
+        "selected": false
+      },
+      {
+        "members": [
+          {
+            "fields": [
+              {
+                "name": "host",
+                "typeName": "string",
+                "optional": false,
+                "defaultable": true,
+                "isRestType": false,
+                "selected": false
+              },
+              {
+                "name": "port",
+                "typeName": "int",
+                "optional": false,
+                "defaultable": true,
+                "isRestType": false,
+                "selected": false
+              },
+              {
+                "name": "userName",
+                "typeName": "string",
+                "optional": false,
+                "defaultable": true,
+                "isRestType": false,
+                "selected": false
+              },
+              {
+                "name": "password",
+                "typeName": "string",
+                "optional": false,
+                "defaultable": true,
+                "isRestType": false,
+                "selected": false
+              }
+            ],
+            "hasRestType": false,
+            "name": "ProxyConfig",
+            "typeName": "record",
+            "optional": false,
+            "typeInfo": {
+              "name": "ProxyConfig",
+              "orgName": "ballerina",
+              "moduleName": "http",
+              "version": "2.13.3"
+            },
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "()",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          }
+        ],
+        "name": "proxy",
+        "typeName": "union",
+        "optional": false,
+        "defaultable": true,
+        "isRestType": false,
+        "selected": false
+      }
+    ],
+    "hasRestType": false,
+    "typeName": "record",
+    "optional": false,
+    "defaultable": false,
+    "isRestType": false,
+    "selected": true
+  },
+  "output": "{keepAlive: \"AUTO\"}"
+}

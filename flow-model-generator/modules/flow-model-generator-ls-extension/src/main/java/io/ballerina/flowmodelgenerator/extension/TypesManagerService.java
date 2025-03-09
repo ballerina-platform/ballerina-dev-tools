@@ -27,13 +27,20 @@ import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.flowmodelgenerator.core.TypesManager;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
+import io.ballerina.flowmodelgenerator.core.model.PropertyTypeMemberInfo;
 import io.ballerina.flowmodelgenerator.core.model.TypeData;
+import io.ballerina.flowmodelgenerator.core.type.RecordValueGenerator;
+import io.ballerina.flowmodelgenerator.core.type.TypeSymbolAnalyzerFromTypeModel;
 import io.ballerina.flowmodelgenerator.core.utils.FileSystemUtils;
 import io.ballerina.flowmodelgenerator.extension.request.FilePathRequest;
+import io.ballerina.flowmodelgenerator.extension.request.FindTypeRequest;
 import io.ballerina.flowmodelgenerator.extension.request.GetTypeRequest;
 import io.ballerina.flowmodelgenerator.extension.request.RecordConfigRequest;
+import io.ballerina.flowmodelgenerator.extension.request.RecordValueGenerateRequest;
 import io.ballerina.flowmodelgenerator.extension.request.TypeUpdateRequest;
+import io.ballerina.flowmodelgenerator.extension.request.UpdatedRecordConfigRequest;
 import io.ballerina.flowmodelgenerator.extension.response.RecordConfigResponse;
+import io.ballerina.flowmodelgenerator.extension.response.RecordValueGenerateResponse;
 import io.ballerina.flowmodelgenerator.extension.response.TypeListResponse;
 import io.ballerina.flowmodelgenerator.extension.response.TypeResponse;
 import io.ballerina.flowmodelgenerator.extension.response.TypeUpdateResponse;
@@ -50,12 +57,20 @@ import org.eclipse.lsp4j.services.LanguageServer;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ConcurrentHashMap;
 
 @JavaSPIService("org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService")
 @JsonSegment("typesManager")
 public class TypesManagerService implements ExtendedLanguageServerService {
 
     private WorkspaceManager workspaceManager;
+
+    // Cache key for SemanticModel
+    private record CacheKey(String org, String packageName, String version) {
+    }
+
+    // Cache for SemanticModel instances
+    private static final ConcurrentHashMap<CacheKey, SemanticModel> semanticModelCache = new ConcurrentHashMap<>();
 
     @Override
     public void init(LanguageServer langServer, WorkspaceManager workspaceManager) {
@@ -204,4 +219,130 @@ public class TypesManagerService implements ExtendedLanguageServerService {
         });
     }
 
+    @JsonRequest
+    public CompletableFuture<RecordValueGenerateResponse> generateValue(RecordValueGenerateRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            RecordValueGenerateResponse response = new RecordValueGenerateResponse();
+            try {
+                response.setRecordValue(RecordValueGenerator.generate(request.type().getAsJsonObject()));
+            } catch (Throwable e) {
+                response.setError(e);
+            }
+            return response;
+        });
+    }
+
+    @JsonRequest
+    public CompletableFuture<RecordConfigResponse> updateRecordConfig(UpdatedRecordConfigRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            RecordConfigResponse response = new RecordConfigResponse();
+            try {
+                FindTypeRequest.TypePackageInfo info = FindTypeRequest.TypePackageInfo.from(request.codedata());
+                Optional<TypeSymbol> typeSymbol = findTypeSymbolFromSemanticModel(info, request.filePath(),
+                        request.typeConstraint());
+                if (typeSymbol.isEmpty()) {
+                    throw new IllegalArgumentException(String.format("Type '%s' not found in package '%s/%s:%s'",
+                            request.typeConstraint(), info.org(), info.module(), info.version()));
+                }
+                Type type  = TypeSymbolAnalyzerFromTypeModel.analyze(typeSymbol.get(), request.expr());
+                response.setRecordConfig(type);
+            } catch (Throwable e) {
+                response.setError(e);
+            }
+            semanticModelCache.clear();
+            return response;
+        });
+    }
+
+    /**
+     * Find the matching type for the given expression from a list of {@link PropertyTypeMemberInfo}.
+     * If found a matching type for the expression, update the matching types value information.
+     *
+     * @param request {@link FindTypeRequest}
+     * @return {@link RecordConfigResponse}
+     */
+    @JsonRequest
+    public CompletableFuture<RecordConfigResponse> findMatchingType(FindTypeRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            RecordConfigResponse response = new RecordConfigResponse();
+            try {
+                String filePath = request.filePath();
+                String expression = request.expr();
+                for (PropertyTypeMemberInfo memberInfo : request.typeMembers()) {
+                    try {
+                        FindTypeRequest.TypePackageInfo info = FindTypeRequest.TypePackageInfo
+                                .from(memberInfo.packageInfo());
+                        Optional<TypeSymbol> typeSymbol = findTypeSymbolFromSemanticModel(info, filePath,
+                                memberInfo.type());
+                        if (typeSymbol.isEmpty()) {
+                            continue;
+                        }
+                        Type type  = TypeSymbolAnalyzerFromTypeModel.analyze(typeSymbol.get(), expression);
+                        if (type != null && type.selected) {
+                            response.setRecordConfig(type);
+                            type.name = memberInfo.type();
+                            response.setTypeName(memberInfo.type());
+                            break;
+                        }
+                    } catch (Throwable ignored) {
+                    }
+                }
+            } catch (Throwable e) {
+                response.setError(e);
+            }
+            semanticModelCache.clear();
+            return response;
+        });
+    }
+
+    private Optional<SemanticModel> getCachedSemanticModel(String org, String packageName, String version,
+                                                           Path filePath) {
+        // Check cache with filePath
+        CacheKey keyWithPath = new CacheKey(org, packageName, version);
+        SemanticModel cachedModel = semanticModelCache.get(keyWithPath);
+        if (cachedModel != null) {
+            return Optional.of(cachedModel);
+        }
+
+        // Try to load via filePath-specific method
+        Optional<SemanticModel> model = PackageUtil.getSemanticModelIfMatched(
+                workspaceManager, filePath, org, packageName, version
+        );
+        if (model.isPresent()) {
+            semanticModelCache.put(keyWithPath, model.get());
+            return model;
+        }
+
+        // Fallback to general package lookup
+        CacheKey keyWithoutPath = new CacheKey(org, packageName, version);
+        cachedModel = semanticModelCache.get(keyWithoutPath);
+        if (cachedModel != null) {
+            return Optional.of(cachedModel);
+        }
+
+        model = PackageUtil.getSemanticModel(org, packageName, version);
+        model.ifPresent(m -> semanticModelCache.put(keyWithoutPath, m));
+        return model;
+    }
+
+    private Optional<TypeSymbol> findTypeSymbolFromSemanticModel(FindTypeRequest.TypePackageInfo packageInfo,
+                                                                 String path, String typeConstraint) {
+        String orgName = packageInfo.org();
+        String packageName = packageInfo.module();
+        String versionName = packageInfo.version();
+        Path filePath = Path.of(path);
+
+        // Retrieve cached or load new semantic model
+        Optional<SemanticModel> semanticModel = getCachedSemanticModel(orgName, packageName, versionName, filePath);
+        if (semanticModel.isEmpty()) {
+            throw new IllegalArgumentException(
+                    String.format("Package '%s/%s:%s' not found", orgName, packageName, versionName)
+            );
+        }
+
+        return semanticModel.get().moduleSymbols().parallelStream()
+                .filter(symbol -> symbol.kind() == SymbolKind.TYPE_DEFINITION && symbol.nameEquals(typeConstraint))
+                .map(symbol -> ((TypeDefinitionSymbol) symbol).typeDescriptor())
+                .findFirst();
+    }
 }

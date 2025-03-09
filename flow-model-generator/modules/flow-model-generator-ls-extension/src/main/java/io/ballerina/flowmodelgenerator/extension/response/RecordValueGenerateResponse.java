@@ -18,31 +18,20 @@
 
 package io.ballerina.flowmodelgenerator.extension.response;
 
-import org.ballerinalang.diagramutil.connector.models.connector.Type;
-
 /**
- * Represents the response for the record config API.
+ * Represents the response for the record value generate API.
  *
  * @since 2.0.0
  */
-public class RecordConfigResponse extends AbstractFlowModelResponse {
+public class RecordValueGenerateResponse extends AbstractFlowModelResponse {
 
-    private Type recordConfig;
-    private String typeName;
+    private String recordValue;
 
-    public void setTypeName(String typeName) {
-        this.typeName = typeName;
+    public void setRecordValue(String recordValue) {
+        this.recordValue = recordValue;
     }
 
-    public String getTypeName() {
-        return typeName;
-    }
-
-    public void setRecordConfig(Type recordConfig) {
-        this.recordConfig = recordConfig;
-    }
-
-    public Type getRecordConfig() {
-        return recordConfig;
+    public String getRecordValue() {
+        return recordValue;
     }
 }
