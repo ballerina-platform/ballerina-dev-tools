@@ -99,7 +99,8 @@
           "endColumn": 2
         }
       ],
-      "automations": []
+      "automations": [],
+      "promptAsCode": []
     }
   ]
 }
