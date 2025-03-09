@@ -79,7 +79,7 @@ public class NewConnectionBuilder extends CallBuilder {
         }
         return switch (scope.get().value().toString()) {
             case Property.LOCAL_SCOPE -> sourceBuilder.textEdit(false).acceptImport().build();
-            case Property.GLOBAL_SCOPE -> sourceBuilder.textEdit(false, "connections.bal", true).build();
+            case Property.GLOBAL_SCOPE -> sourceBuilder.textEdit(false, "connections.bal").build();
             default -> throw new IllegalStateException("Invalid scope for the new connection node");
         };
     }

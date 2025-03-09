@@ -1,0 +1,6 @@
+{
+    "description": "",
+    "filePath": "proj",
+    "importStatement": "import ballerina/log;\n",
+    "expression": "log:p"
+}

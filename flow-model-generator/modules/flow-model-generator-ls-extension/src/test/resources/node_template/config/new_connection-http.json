@@ -25,7 +25,8 @@
       "module": "http",
       "object": "Client",
       "symbol": "init",
-      "version": "2.12.2"
+      "version": "2.12.2",
+      "isNew": true
     },
     "returning": false,
     "properties": {

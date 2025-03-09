@@ -1,0 +1,52 @@
+{
+  "description": "",
+  "filePath": "proj",
+  "context": {
+    "expression": "\"1.4\"",
+    "startLine": {
+      "line": 0,
+      "offset": 0
+    },
+    "offset": 0,
+    "codedata": {
+      "node": "NEW_CONNECTION",
+      "org": "ballerina",
+      "module": "http",
+      "object": "Client",
+      "symbol": "init",
+      "id": 589
+    },
+    "property": {
+      "metadata": {
+        "label": "httpVersion",
+        "description": ""
+      },
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "\"2.0\"|\"1.1\"|\"1.0\"",
+      "placeholder": "\"2.0\"",
+      "optional": true,
+      "editable": true,
+      "advanced": true,
+      "kind": "INCLUDED_FIELD"
+    }
+  },
+  "diagnostics": [
+    {
+      "range": {
+        "start": {
+          "line": 0,
+          "character": 33
+        },
+        "end": {
+          "line": 0,
+          "character": 38
+        }
+      },
+      "severity": "Error",
+      "code": {
+        "left": "BCE2066"
+      },
+      "message": "incompatible types: expected '\"2.0\"|\"1.1\"|\"1.0\"', found 'string'"
+    }
+  ]
+}

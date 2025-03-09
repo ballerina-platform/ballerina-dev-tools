@@ -26,7 +26,8 @@
       "module": "grpc",
       "object": "StreamingClient",
       "symbol": "init",
-      "version": "1.13.2"
+      "version": "1.13.2",
+      "isNew": true
     },
     "returning": false,
     "properties": {

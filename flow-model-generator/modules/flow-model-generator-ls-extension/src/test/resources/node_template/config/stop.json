@@ -10,7 +10,8 @@
       "description": "Stop the flow"
     },
     "codedata": {
-      "node": "STOP"
+      "node": "STOP",
+      "isNew": true
     },
     "returning": false,
     "flags": 0

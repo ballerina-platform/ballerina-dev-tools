@@ -26,7 +26,8 @@
       "org": "ballerinax",
       "module": "docusign.dsadmin",
       "object": "Client",
-      "symbol": "get"
+      "symbol": "get",
+      "isNew": true
     },
     "returning": false,
     "properties": {

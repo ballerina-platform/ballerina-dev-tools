@@ -21,7 +21,8 @@
     "codedata": {
       "node": "METHOD_CALL",
       "object": "Cart",
-      "symbol": "addItem"
+      "symbol": "addItem",
+      "isNew": true
     },
     "returning": false,
     "properties": {

@@ -162,6 +162,7 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
 
     public NodeBuilder setTemplateData(TemplateContext context) {
         setConcreteTemplateData(context);
+        codedata().isNew();
         return this;
     }
 

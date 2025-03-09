@@ -28,6 +28,7 @@
       "object": "Client",
       "symbol": "post",
       "version": "2.12.0",
+      "isNew": true,
       "inferredReturnType": "targetType"
     },
     "returning": false,

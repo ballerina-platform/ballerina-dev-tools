@@ -9,7 +9,8 @@
       "label": "Return"
     },
     "codedata": {
-      "node": "RETURN"
+      "node": "RETURN",
+      "isNew": true
     },
     "returning": false,
     "properties": {

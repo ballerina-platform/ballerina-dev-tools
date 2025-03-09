@@ -20,9 +20,7 @@ package io.ballerina.flowmodelgenerator.core.expressioneditor;
 
 import com.google.gson.JsonObject;
 import io.ballerina.compiler.syntax.tree.ImportDeclarationNode;
-import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.modelgenerator.commons.CommonUtils;
@@ -35,8 +33,6 @@ import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextDocumentChange;
 import io.ballerina.tools.text.TextEdit;
 import io.ballerina.tools.text.TextRange;
-import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
-import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManagerProxy;
 import org.eclipse.lsp4j.Position;
@@ -53,32 +49,24 @@ import java.util.Optional;
  */
 public class ExpressionEditorContext {
 
-    private final WorkspaceManagerProxy workspaceManagerProxy;
-    private final String fileUri;
     private final Info info;
-    private final Path filePath;
     private final DocumentContext documentContext;
     private final Property property;
 
     // State variables
     private int expressionOffset;
     private LineRange statementLineRange;
+    private LinePosition startLine;
 
     public ExpressionEditorContext(WorkspaceManagerProxy workspaceManagerProxy, String fileUri, Info info,
                                    Path filePath) {
-        this.workspaceManagerProxy = workspaceManagerProxy;
-        this.fileUri = fileUri;
         this.info = info;
-        this.filePath = filePath;
         this.documentContext = new DocumentContext(workspaceManagerProxy, fileUri, filePath);
         this.property = new Property(info.property(), info.codedata());
     }
 
     public ExpressionEditorContext(WorkspaceManagerProxy workspaceManagerProxy, String fileUri, Path filePath,
                                    Document document) {
-        this.workspaceManagerProxy = workspaceManagerProxy;
-        this.fileUri = fileUri;
-        this.filePath = filePath;
         this.info = null;
         this.documentContext = new DocumentContext(workspaceManagerProxy, fileUri, filePath, document);
         this.property = new Property(null, null);
@@ -108,6 +96,13 @@ public class ExpressionEditorContext {
         return info;
     }
 
+    public LinePosition startLine() {
+        if (startLine == null) {
+            startLine = CommonUtils.getPosition(info.startLine(), documentContext.document());
+        }
+        return startLine;
+    }
+
     // TODO: Check how we can use SourceBuilder in place of this method
     private Optional<TextEdit> getImport() {
         String org = property.org();
@@ -120,14 +115,9 @@ public class ExpressionEditorContext {
     }
 
     public Optional<TextEdit> getImport(String importStatement) {
-        try {
-            this.workspaceManagerProxy.get(fileUri).loadProject(filePath);
-        } catch (WorkspaceDocumentException | EventSyncException e) {
-            return Optional.empty();
-        }
-
         // Check if the import statement represents the current module
-        Optional<Module> currentModule = this.workspaceManagerProxy.get(fileUri).module(filePath);
+        documentContext.project();
+        Optional<Module> currentModule = documentContext.module();
         if (currentModule.isPresent()) {
             ModuleDescriptor descriptor = currentModule.get().descriptor();
             if (CommonUtils.getImportStatement(descriptor.org().toString(), descriptor.packageName().value(),
@@ -197,7 +187,7 @@ public class ExpressionEditorContext {
 
         // Get the text position of the start line
         TextDocument textDocument = documentContext.document().textDocument();
-        LinePosition cursorStartLine = info.startLine();
+        LinePosition cursorStartLine = startLine();
         int textPosition = textDocument.textPositionFrom(cursorStartLine);
 
         // Generate the statement and apply the text edits
@@ -210,14 +200,14 @@ public class ExpressionEditorContext {
         LinePosition startLine = LinePosition.from(cursorStartLine.line() + lineOffset, cursorStartLine.offset());
         LinePosition endLineRange = LinePosition.from(startLine.line(),
                 startLine.offset() + statement.length());
-        this.statementLineRange = LineRange.from(filePath.toString(), startLine, endLineRange);
+        this.statementLineRange = LineRange.from(documentContext.filePath().toString(), startLine, endLineRange);
         return statementLineRange;
     }
 
     public LineRange getExpressionLineRange() {
         LinePosition startLine = info().startLine();
         LinePosition endLine = LinePosition.from(startLine.line(), startLine.offset() + info().expression().length());
-        Path fileName = filePath.getFileName();
+        Path fileName = documentContext.filePath().getFileName();
         return LineRange.from(fileName == null ? "" : fileName.toString(), startLine, endLine);
     }
 
@@ -257,7 +247,7 @@ public class ExpressionEditorContext {
     }
 
     public String fileUri() {
-        return fileUri;
+        return documentContext.fileUri();
     }
 
     public TextDocument textDocument() {
@@ -265,11 +255,11 @@ public class ExpressionEditorContext {
     }
 
     public Path filePath() {
-        return filePath;
+        return documentContext.filePath();
     }
 
     public WorkspaceManager workspaceManager() {
-        return workspaceManagerProxy.get(fileUri);
+        return documentContext.workspaceManager();
     }
 
     public Property getProperty() {
@@ -405,57 +395,5 @@ public class ExpressionEditorContext {
      */
     public record Info(String expression, LinePosition startLine, int offset, JsonObject codedata,
                        JsonObject property) {
-    }
-
-    /**
-     * Encapsulates document and import related context with lazy loading capabilities.
-     *
-     * @since 2.0.0
-     */
-    private static class DocumentContext {
-
-        private final WorkspaceManagerProxy workspaceManagerProxy;
-        private final String fileUri;
-        private final Path filePath;
-
-        private Document document;
-        private List<ImportDeclarationNode> imports;
-
-        public DocumentContext(WorkspaceManagerProxy workspaceManagerProxy, String fileUri, Path filePath) {
-            this(workspaceManagerProxy, fileUri, filePath, null);
-        }
-
-        public DocumentContext(WorkspaceManagerProxy workspaceManagerProxy, String fileUri, Path filePath,
-                               Document document) {
-            this.workspaceManagerProxy = workspaceManagerProxy;
-            this.fileUri = fileUri;
-            this.filePath = filePath;
-            this.document = document;
-        }
-
-        public Document document() {
-            if (document == null) {
-                Optional<Document> optionalDocument = workspaceManagerProxy.get(fileUri).document(filePath);
-                if (optionalDocument.isEmpty()) {
-                    throw new IllegalStateException("Document not found for the given path: " + filePath);
-                }
-                document = optionalDocument.get();
-            }
-            return document;
-        }
-
-        public List<ImportDeclarationNode> imports() {
-            if (imports == null) {
-                if (document == null) {
-                    document();
-                }
-                SyntaxTree syntaxTree = document.syntaxTree();
-                imports = syntaxTree.rootNode().kind() == SyntaxKind.MODULE_PART
-                        ? ((ModulePartNode) syntaxTree.rootNode()).imports().stream().toList()
-                        : List.of();
-
-            }
-            return imports;
-        }
     }
 }

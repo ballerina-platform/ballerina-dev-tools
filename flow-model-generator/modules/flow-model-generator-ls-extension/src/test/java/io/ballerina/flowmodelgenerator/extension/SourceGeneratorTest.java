@@ -21,10 +21,12 @@ package io.ballerina.flowmodelgenerator.extension;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import io.ballerina.flowmodelgenerator.core.utils.FileSystemUtils;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelSourceGeneratorRequest;
 import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import org.eclipse.lsp4j.TextEdit;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -43,8 +45,7 @@ import java.util.Map;
  */
 public class SourceGeneratorTest extends AbstractLSTest {
 
-    private static final Type textEditListType = new TypeToken<Map<String, List<TextEdit>>>() {
-    }.getType();
+    private static final Type textEditListType = new TypeToken<Map<String, List<TextEdit>>>() { }.getType();
 
     @Override
     @Test(dataProvider = "data-provider")
@@ -90,6 +91,11 @@ public class SourceGeneratorTest extends AbstractLSTest {
         }
     }
 
+    @AfterClass
+    void cleanFiles() {
+        FileSystemUtils.deleteCreatedFiles();
+    }
+
     @Override
     protected String getResourceDir() {
         return "to_source";
@@ -110,7 +116,11 @@ public class SourceGeneratorTest extends AbstractLSTest {
         //TODO: The tests are failing in Windows: https://github.com/ballerina-platform/ballerina-lang/issues/42932
         return new String[]{
                 "resource_action_call-http-get6.json",
-                "resource_action_call-http-post5.json"
+                "resource_action_call-http-post5.json",
+                // The following nodes are deprecated
+                "data_mapper2.json",
+                "data_mapper-main.json",
+                "data_mapper-service.json",
         };
     }
 
