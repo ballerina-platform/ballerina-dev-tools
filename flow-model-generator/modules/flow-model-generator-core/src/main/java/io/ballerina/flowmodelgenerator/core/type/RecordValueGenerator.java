@@ -90,12 +90,10 @@ public class RecordValueGenerator {
                         if (memberObj.has("typeName")) {
                             String typeName = memberObj.get("typeName").getAsString();
                             switch (typeName) {
-                                case "record" -> {
-                                    generateRecordValue(memberObj, builder);
-                                }
-                                case "union" -> {
-                                    generateUnionValue(memberObj, builder);
-                                } default -> {
+                                case "record" -> generateRecordValue(memberObj, builder);
+                                case "union" -> generateUnionValue(memberObj, builder);
+                                case "enum" -> generateEnumValue(memberObj, builder);
+                                default -> {
                                     if (memberObj.has("value") &&
                                             !memberObj.get("value").getAsString().isEmpty()) {
                                         builder.append(memberObj.get("value").getAsString());
@@ -142,6 +140,11 @@ public class RecordValueGenerator {
                                 case "union" -> {
                                     StringBuilder sb = new StringBuilder();
                                     generateUnionValue(fieldObj, sb);
+                                    fieldValues.add(fieldObj.get("name").getAsString() + ": " + sb);
+                                }
+                                case "enum" -> {
+                                    StringBuilder sb = new StringBuilder();
+                                    generateEnumValue(fieldObj, sb);
                                     fieldValues.add(fieldObj.get("name").getAsString() + ": " + sb);
                                 }
                                 default -> {
@@ -195,8 +198,7 @@ public class RecordValueGenerator {
             case "table" -> builder.append("table []");
             default -> {
                 switch (typeName) {
-                    case "any", "anydata" -> builder.append("()");
-                    case "json" -> builder.append("{}");
+                    case "any", "anydata", "json" -> builder.append("()");
                     case "xml" -> builder.append("xml ``");
                     case "string" -> builder.append("\"\"");
                     case "string:Char" -> builder.append("\"a\"");
