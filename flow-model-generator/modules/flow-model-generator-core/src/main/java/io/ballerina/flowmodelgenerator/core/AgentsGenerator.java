@@ -227,8 +227,8 @@ public class AgentsGenerator {
         return gson.toJsonTree(functionNames).getAsJsonArray();
     }
 
-    public JsonElement genTool(JsonElement node, String toolName, String connectionName, Path filePath,
-                               WorkspaceManager workspaceManager) {
+    public JsonElement genTool(JsonElement node, String toolName, String connectionName, String description,
+                               Path filePath, WorkspaceManager workspaceManager) {
         FlowNode flowNode = gson.fromJson(node, FlowNode.class);
         NodeKind nodeKind = flowNode.codedata().node();
         SourceBuilder sourceBuilder = new SourceBuilder(flowNode, workspaceManager, filePath);
@@ -299,12 +299,7 @@ public class AgentsGenerator {
             sourceBuilder.textEdit(false, AGENT_FILE);
             return gson.toJsonTree(sourceBuilder.build());
         } else if (nodeKind == NodeKind.REMOTE_ACTION_CALL) {
-            String description = flowNode.metadata().description();
-            boolean hasDescription = description != null && !description.isEmpty();
-            if (hasDescription) {
-                sourceBuilder.token().descriptionDoc(description);
-            }
-
+            boolean hasDescription = genDescription(description, flowNode, sourceBuilder);
             Map<String, Property> properties = flowNode.properties();
             Set<String> keys = new LinkedHashSet<>(properties != null ? properties.keySet() : Set.of());
             keys.removeAll(Set.of(Property.VARIABLE_KEY, Property.TYPE_KEY, TARGET_TYPE, Property.CONNECTION_KEY,
@@ -385,12 +380,7 @@ public class AgentsGenerator {
             sourceBuilder.textEdit(false, AGENT_FILE);
             return gson.toJsonTree(sourceBuilder.build());
         } else if (nodeKind == NodeKind.RESOURCE_ACTION_CALL) {
-            String description = flowNode.metadata().description();
-            boolean hasDescription = description != null && !description.isEmpty();
-            if (hasDescription) {
-                sourceBuilder.token().descriptionDoc(description);
-            }
-
+            boolean hasDescription = genDescription(description, flowNode, sourceBuilder);
             Map<String, Property> properties = flowNode.properties();
             Set<String> keys = new LinkedHashSet<>(properties != null ? properties.keySet() : Set.of());
             Set<String> ignoredKeys = new HashSet<>(List.of(Property.CONNECTION_KEY, Property.VARIABLE_KEY,
@@ -523,6 +513,21 @@ public class AgentsGenerator {
             }
         }
         return false;
+    }
+
+    private boolean genDescription(String description, FlowNode flowNode, SourceBuilder sourceBuilder) {
+        String desc = "";
+        String flowNodeDesc = flowNode.metadata().description();
+        if (!description.isEmpty()) {
+            desc = description;
+        } else if (flowNodeDesc != null && !flowNodeDesc.isEmpty()) {
+            desc = flowNodeDesc;
+        }
+        boolean hasDescription = !desc.isEmpty();
+        if (hasDescription) {
+            sourceBuilder.token().descriptionDoc(desc);
+        }
+        return hasDescription;
     }
 
     public JsonArray getActions(JsonElement node, Path filePath, Project project, WorkspaceManager workspaceManager) {

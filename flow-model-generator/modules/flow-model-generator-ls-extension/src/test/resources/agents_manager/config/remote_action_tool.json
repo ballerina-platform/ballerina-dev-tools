@@ -3,6 +3,7 @@
   "name": "toolFunc",
   "connection": "currencyClient",
   "description": "Sample diagram node",
+  "toolDescription": "",
   "diagram": {
     "id": "65073",
     "metadata": {
