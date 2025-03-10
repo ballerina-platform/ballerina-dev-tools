@@ -4,8 +4,6 @@ DROP TABLE IF EXISTS Listener;
 DROP TABLE IF EXISTS Parameter;
 DROP TABLE IF EXISTS ParameterMemberType;
 DROP TABLE IF EXISTS Annotation;
-DROP TABLE IF EXISTS AnnotationField;
-DROP TABLE IF EXISTS AnnotationFieldMemberType;
 DROP TABLE IF EXISTS ServiceDeclaration;
 DROP TABLE IF EXISTS ServiceType;
 DROP TABLE IF EXISTS ServiceTypeFunction;
@@ -80,34 +78,14 @@ CREATE TABLE ParameterMemberType (
 -- Create Annotation table
 CREATE TABLE Annotation (
     annotation_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
+    annot_name TEXT NOT NULL,
     attachment_points TEXT NOT NULL,
-    package_id INTEGER,
-    FOREIGN KEY (package_id) REFERENCES Package(package_id) ON DELETE CASCADE
-);
-
--- Create Annotation Attachment table
-CREATE TABLE AnnotationField (
-    annotation_field_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
+    display_name TEXT,
     description TEXT,
-    kind TEXT CHECK(kind IN ('REQUIRED', 'DEFAULTABLE', 'INCLUDED_RECORD','INCLUDED_FIELD', 'INCLUDED_RECORD_REST')),
-    type JSON, -- JSON type for parameter type information
-    default_value TEXT,
-    optional INTEGER CHECK(optional IN (0, 1)),
-    import_statements TEXT,
-    annotation_id INTEGER,
-    FOREIGN KEY (annotation_id) REFERENCES Annotation(annotation_id) ON DELETE CASCADE
-);
-
--- Create Annotation Field Member Type table
-CREATE TABLE AnnotationFieldMemberType (
-    member_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    type JSON, -- JSON type for parameter type information
-    kind TEXT,
-    annotation_field_id INTEGER,
+    package_id INTEGER,
+    type_constrain TEXT, -- JSON type for parameter type information
     package TEXT, -- format of the package is org:name:version
-    FOREIGN KEY (annotation_field_id) REFERENCES AnnotationField(annotation_field_id) ON DELETE CASCADE
+    FOREIGN KEY (package_id) REFERENCES Package(package_id) ON DELETE CASCADE
 );
 
 -- Create ServiceDeclaration table

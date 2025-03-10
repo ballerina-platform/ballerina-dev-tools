@@ -2,11 +2,11 @@
   "filePath": "sample1/main.bal",
   "description": "Test the generation of service model for a service with a single listener",
   "start": {
-    "line": 7,
+    "line": 10,
     "offset": 0
   },
   "end": {
-    "line": 21,
+    "line": 24,
     "offset": 0
   },
   "response": {
@@ -73,6 +73,37 @@
           "type": "SERVICE_BASEPATH"
         },
         "addNewButton": false
+      },
+      "annotServiceConfig": {
+        "metadata": {
+          "label": "Service Configuration",
+          "description": "Configurations for the Http service"
+        },
+        "enabled": true,
+        "editable": true,
+        "value": "{\n    host: \"localhost\"\n}",
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "http:HttpServiceConfig",
+        "isType": false,
+        "placeholder": "{}",
+        "optional": true,
+        "advanced": true,
+        "codedata": {
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false,
+          "type": "ANNOTATION_ATTACHMENT",
+          "originalName": "ServiceConfig"
+        },
+        "addNewButton": false,
+        "typeMembers": [
+          {
+            "type": "HttpServiceConfig",
+            "packageInfo": "ballerina:http:2.12.2",
+            "kind": "RECORD_TYPE",
+            "selected": true
+          }
+        ]
       }
     },
     "codedata": {
@@ -83,7 +114,7 @@
           "offset": 0
         },
         "endLine": {
-          "line": 21,
+          "line": 24,
           "offset": 1
         }
       },
@@ -147,11 +178,11 @@
           "lineRange": {
             "fileName": "main.bal",
             "startLine": {
-              "line": 8,
+              "line": 11,
               "offset": 4
             },
             "endLine": {
-              "line": 13,
+              "line": 16,
               "offset": 5
             }
           },
@@ -862,11 +893,11 @@
           "lineRange": {
             "fileName": "main.bal",
             "startLine": {
-              "line": 15,
+              "line": 18,
               "offset": 4
             },
             "endLine": {
-              "line": 20,
+              "line": 23,
               "offset": 5
             }
           },

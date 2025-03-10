@@ -20,6 +20,7 @@ package io.ballerina.flowmodelgenerator.extension.response;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 /**
  * Represents the response for a type.
@@ -27,8 +28,8 @@ import com.google.gson.JsonElement;
  * @since 2.0.0
  */
 public class TypeResponse extends AbstractFlowModelResponse {
-    private JsonElement type;
-    private JsonArray refs;
+    private JsonElement type = new JsonObject();
+    private JsonArray refs = new JsonArray();
 
     public TypeResponse() {
     }

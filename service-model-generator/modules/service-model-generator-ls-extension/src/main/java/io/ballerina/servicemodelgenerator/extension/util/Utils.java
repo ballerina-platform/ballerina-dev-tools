@@ -524,6 +524,7 @@ public final class Utils {
         updateServiceInfo(serviceModel, commonSvcModel);
         serviceModel.setCodedata(new Codedata(serviceDeclaration.lineRange()));
         populateListenerInfo(serviceModel, serviceDeclaration);
+        updateAnnotationAttachmentProperty(serviceDeclaration, serviceModel);
     }
 
     public static void updateServiceModel(Service serviceModel, ServiceDeclarationNode serviceNode,
@@ -535,6 +536,7 @@ public final class Utils {
         updateServiceInfo(serviceModel, commonSvcModel);
         serviceModel.setCodedata(new Codedata(serviceNode.lineRange()));
         populateListenerInfo(serviceModel, serviceNode);
+        updateAnnotationAttachmentProperty(serviceNode, serviceModel);
 
         // handle base path and string literal
         String attachPoint = getPath(serviceNode.absoluteResourcePath());
@@ -658,6 +660,29 @@ public final class Utils {
         }
     }
 
+    public static void updateAnnotationAttachmentProperty(ServiceDeclarationNode serviceNode,
+                                                          Service service) {
+
+        Optional<MetadataNode> metadata = serviceNode.metadata();
+        if (metadata.isEmpty()) {
+            return;
+        }
+
+        metadata.get().annotations().forEach(annotationNode -> {
+            if (annotationNode.annotValue().isEmpty()) {
+                return;
+            }
+            String annotName = annotationNode.annotReference().toString().trim();
+            String[] split = annotName.split(":");
+            annotName = split[split.length - 1];
+            String propertyName = "annot" + annotName;
+            if (service.getProperties().containsKey(propertyName)) {
+                Value property = service.getProperties().get(propertyName);
+                property.setValue(annotationNode.annotValue().get().toSourceCode().trim());
+            }
+        });
+    }
+
     private static String getListenerExprName(ExpressionNode expressionNode) {
         if (expressionNode instanceof NameReferenceNode nameReferenceNode) {
             return nameReferenceNode.toSourceCode().trim();
@@ -723,6 +748,13 @@ public final class Utils {
 
     public static String getServiceDeclarationNode(Service service, FunctionAddContext context) {
         StringBuilder builder = new StringBuilder();
+        List<String> annots = getAnnotationEdits(service);
+
+        if (!annots.isEmpty()) {
+            builder.append(String.join(System.lineSeparator(), annots));
+            builder.append(System.lineSeparator());
+        }
+
         builder.append(ServiceModelGeneratorConstants.SERVICE).append(ServiceModelGeneratorConstants.SPACE);
         if (Objects.nonNull(service.getServiceType()) && service.getServiceType().isEnabledWithValue()) {
             builder.append(service.getServiceTypeName());
@@ -769,6 +801,21 @@ public final class Utils {
         builder.append(System.lineSeparator());
         builder.append(ServiceModelGeneratorConstants.CLOSE_BRACE);
         return builder.toString();
+    }
+
+    private static List<String> getAnnotationEdits(Service service) {
+        Map<String, Value> properties = service.getProperties();
+        List<String> annots = new ArrayList<>();
+        for (Map.Entry<String, Value> property : properties.entrySet()) {
+            Value value = property.getValue();
+            if (Objects.nonNull(value.getCodedata()) && Objects.nonNull(value.getCodedata().getType()) &&
+                    value.getCodedata().getType().equals("ANNOTATION_ATTACHMENT") && value.isEnabledWithValue()) {
+                String ref = service.getModuleName() + ":" + value.getCodedata().getOriginalName();
+                String annotTemplate = "@%s%s".formatted(ref, value.getValue());
+                annots.add(annotTemplate);
+            }
+        }
+        return annots;
     }
 
     public static String getValueString(Value value) {
