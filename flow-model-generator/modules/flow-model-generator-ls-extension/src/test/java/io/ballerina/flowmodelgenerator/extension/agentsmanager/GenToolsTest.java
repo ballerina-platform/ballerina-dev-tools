@@ -54,7 +54,8 @@ public class GenToolsTest extends AbstractLSTest {
                 {Path.of("function_tool.json")},
                 {Path.of("remote_action_tool.json")},
                 {Path.of("remote_action_tool2.json")},
-                {Path.of("remote_action_tool3.json")}
+                {Path.of("remote_action_tool3.json")},
+                {Path.of("remote_action_tool4.json")},
         };
     }
 
@@ -99,7 +100,7 @@ public class GenToolsTest extends AbstractLSTest {
             TestConfig updatedConfig =
                     new TestConfig(testConfig.source(), testConfig.name(), testConfig.connection(),
                             testConfig.description(), testConfig.diagram(), newMap);
-//            updateConfig(configJsonPath, updatedConfig);
+            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
     }
