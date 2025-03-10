@@ -386,6 +386,11 @@ public class Value {
             return this;
         }
 
+        public ValueBuilder setMembers(List<PropertyTypeMemberInfo> typeMembers) {
+            this.typeMembers = typeMembers;
+            return this;
+        }
+
         public Value build() {
             return new Value(metadata, enabled, editable, value, values, valueType, valueTypeConstraint, isType,
                     placeholder, optional, advanced, properties, items, codedata, addNewButton, typeMembers);

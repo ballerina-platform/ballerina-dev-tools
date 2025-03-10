@@ -104,6 +104,14 @@ public class DesignModelGeneratorTest extends AbstractLSTest {
     }
 
     @Override
+    protected String[] skipList() {
+        //TODO: Resolve once the compilation issue with Kafka is fixed
+        return new String[] {
+                "project_with_all_components.json"
+        };
+    }
+
+    @Override
     protected String getResourceDir() {
         return "get_design_model";
     }

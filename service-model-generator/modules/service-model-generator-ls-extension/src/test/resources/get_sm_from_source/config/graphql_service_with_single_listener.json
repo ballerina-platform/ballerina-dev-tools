@@ -2,11 +2,11 @@
   "filePath": "sample5/main.bal",
   "description": "Test the generation of service model for a service with a single listener",
   "start": {
-    "line": 17,
+    "line": 20,
     "offset": 0
   },
   "end": {
-    "line": 56,
+    "line": 59,
     "offset": 0
   },
   "response": {
@@ -100,6 +100,38 @@
           "type": "SERVICE_BASE_PATH"
         },
         "addNewButton": false
+      },
+      "annotServiceConfig": {
+        "metadata": {
+          "label": "Service Configuration",
+          "description": "Configurations for the Graphql service"
+        },
+        "enabled": true,
+        "editable": true,
+        "value": "{\n    introspection: false\n}",
+        "values": [],
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "graphql:GraphqlServiceConfig",
+        "isType": false,
+        "placeholder": "{}",
+        "optional": true,
+        "advanced": true,
+        "codedata": {
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false,
+          "type": "ANNOTATION_ATTACHMENT",
+          "originalName": "ServiceConfig"
+        },
+        "addNewButton": false,
+        "typeMembers": [
+          {
+            "type": "GraphqlServiceConfig",
+            "packageInfo": "ballerina:graphql:1.15.0",
+            "kind": "RECORD_TYPE",
+            "selected": true
+          }
+        ]
       }
     },
     "codedata": {
@@ -110,7 +142,7 @@
           "offset": 0
         },
         "endLine": {
-          "line": 56,
+          "line": 59,
           "offset": 1
         }
       },
@@ -220,11 +252,11 @@
           "lineRange": {
             "fileName": "main.bal",
             "startLine": {
-              "line": 21,
+              "line": 24,
               "offset": 4
             },
             "endLine": {
-              "line": 26,
+              "line": 29,
               "offset": 5
             }
           },
@@ -386,11 +418,11 @@
           "lineRange": {
             "fileName": "main.bal",
             "startLine": {
-              "line": 29,
+              "line": 32,
               "offset": 4
             },
             "endLine": {
-              "line": 31,
+              "line": 34,
               "offset": 5
             }
           },
@@ -601,11 +633,11 @@
           "lineRange": {
             "fileName": "main.bal",
             "startLine": {
-              "line": 34,
+              "line": 37,
               "offset": 4
             },
             "endLine": {
-              "line": 46,
+              "line": 49,
               "offset": 5
             }
           },
@@ -715,11 +747,11 @@
           "lineRange": {
             "fileName": "main.bal",
             "startLine": {
-              "line": 49,
+              "line": 52,
               "offset": 4
             },
             "endLine": {
-              "line": 55,
+              "line": 58,
               "offset": 5
             }
           },

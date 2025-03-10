@@ -5,6 +5,9 @@ import ballerinax/rabbitmq;
 listener http:Listener httpListener = new (port = 9090);
 listener http:Listener githubListener = new (port = 9091, httpVersion = "1.1");
 
+@http:ServiceConfig {
+    host: "localhost"
+}
 service /api/test on httpListener {
     function init() returns error? {
         do {

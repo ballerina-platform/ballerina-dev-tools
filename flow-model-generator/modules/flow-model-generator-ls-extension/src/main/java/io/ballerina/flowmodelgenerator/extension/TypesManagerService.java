@@ -35,10 +35,12 @@ import io.ballerina.flowmodelgenerator.core.utils.FileSystemUtils;
 import io.ballerina.flowmodelgenerator.extension.request.FilePathRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FindTypeRequest;
 import io.ballerina.flowmodelgenerator.extension.request.GetTypeRequest;
+import io.ballerina.flowmodelgenerator.extension.request.MultipleTypeUpdateRequest;
 import io.ballerina.flowmodelgenerator.extension.request.RecordConfigRequest;
 import io.ballerina.flowmodelgenerator.extension.request.RecordValueGenerateRequest;
 import io.ballerina.flowmodelgenerator.extension.request.TypeUpdateRequest;
 import io.ballerina.flowmodelgenerator.extension.request.UpdatedRecordConfigRequest;
+import io.ballerina.flowmodelgenerator.extension.response.MultipleTypeUpdateResponse;
 import io.ballerina.flowmodelgenerator.extension.response.RecordConfigResponse;
 import io.ballerina.flowmodelgenerator.extension.response.RecordValueGenerateResponse;
 import io.ballerina.flowmodelgenerator.extension.response.TypeListResponse;
@@ -55,6 +57,8 @@ import org.eclipse.lsp4j.jsonrpc.services.JsonSegment;
 import org.eclipse.lsp4j.services.LanguageServer;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
@@ -116,6 +120,9 @@ public class TypesManagerService implements ExtendedLanguageServerService {
                 }
                 TypesManager typesManager = new TypesManager(document.get());
                 JsonElement result = typesManager.getType(document.get(), request.linePosition());
+                if (result == null) {
+                    return response;
+                }
                 response.setType(result.getAsJsonObject().get("type").getAsJsonObject());
                 response.setRefs(result.getAsJsonObject().get("refs").getAsJsonArray());
             } catch (Throwable e) {
@@ -165,6 +172,27 @@ public class TypesManagerService implements ExtendedLanguageServerService {
                 TypesManager typesManager = new TypesManager(document);
                 response.setName(typeData.name());
                 response.setTextEdits(typesManager.updateType(filePath, typeData));
+            } catch (Throwable e) {
+                throw new RuntimeException(e);
+            }
+            return response;
+        });
+    }
+
+    @JsonRequest
+    public CompletableFuture<MultipleTypeUpdateResponse> updateTypes(MultipleTypeUpdateRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            MultipleTypeUpdateResponse response = new MultipleTypeUpdateResponse();
+            try {
+                Path filePath = Path.of(request.filePath());
+                FileSystemUtils.createFileIfNotExists(workspaceManager, filePath);
+                Document document = FileSystemUtils.getDocument(workspaceManager, filePath);
+                List<TypeData> typeDataList = new ArrayList<>();
+                for (JsonElement element : request.types()) {
+                    typeDataList.add((new Gson()).fromJson(element, TypeData.class));
+                }
+                TypesManager typesManager = new TypesManager(document);
+                response.setTextEdits(typesManager.createMultipleTypes(filePath, typeDataList));
             } catch (Throwable e) {
                 throw new RuntimeException(e);
             }

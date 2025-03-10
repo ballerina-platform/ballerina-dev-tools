@@ -18,35 +18,22 @@
 
 package io.ballerina.flowmodelgenerator.extension.response;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 
 /**
- * Represents the response for a type.
+ * Represents the response for updating multiple types.
  *
  * @since 2.0.0
  */
-public class TypeResponse extends AbstractFlowModelResponse {
-    private JsonElement type = new JsonObject();
-    private JsonArray refs = new JsonArray();
+public class MultipleTypeUpdateResponse extends AbstractFlowModelResponse {
 
-    public TypeResponse() {
+    private JsonElement textEdits;
+
+    public JsonElement textEdits() {
+        return textEdits;
     }
 
-    public JsonElement getType() {
-        return type;
-    }
-
-    public void setType(JsonElement type) {
-        this.type = type;
-    }
-
-    public JsonElement getRefs() {
-        return refs;
-    }
-
-    public void setRefs(JsonArray refs) {
-        this.refs = refs;
+    public void setTextEdits(JsonElement textEdits) {
+        this.textEdits = textEdits;
     }
 }

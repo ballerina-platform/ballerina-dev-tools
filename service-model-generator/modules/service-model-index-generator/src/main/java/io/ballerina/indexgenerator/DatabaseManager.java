@@ -162,4 +162,12 @@ class DatabaseManager {
         insertEntry(sql, new Object[]{param.name(), param.label(), param.description(), param.kind(), param.type(),
                 param.defaultValue(), param.importStatements(), functionId});
     }
+
+    public static void insertAnnotation(int packageId, String annotName, String attachmentPoints,
+                                        String displayName, String description, String typeConstrain, String pkg) {
+        String sql = "INSERT INTO Annotation (package_id, annot_name, attachment_points, display_name, description, " +
+                "type_constrain, package) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        insertEntry(sql, new Object[]{packageId, annotName, attachmentPoints, displayName, description, typeConstrain,
+                pkg});
+    }
 }

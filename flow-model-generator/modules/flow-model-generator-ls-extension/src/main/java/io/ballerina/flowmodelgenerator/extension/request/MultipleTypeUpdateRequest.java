@@ -16,37 +16,16 @@
  *  under the License.
  */
 
-package io.ballerina.flowmodelgenerator.extension.response;
+package io.ballerina.flowmodelgenerator.extension.request;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 
 /**
- * Represents the response for a type.
+ * Represents the request to update multiple types.
  *
+ * @param filePath path of the file
+ * @param types new data of the types
  * @since 2.0.0
  */
-public class TypeResponse extends AbstractFlowModelResponse {
-    private JsonElement type = new JsonObject();
-    private JsonArray refs = new JsonArray();
-
-    public TypeResponse() {
-    }
-
-    public JsonElement getType() {
-        return type;
-    }
-
-    public void setType(JsonElement type) {
-        this.type = type;
-    }
-
-    public JsonElement getRefs() {
-        return refs;
-    }
-
-    public void setRefs(JsonArray refs) {
-        this.refs = refs;
-    }
+public record MultipleTypeUpdateRequest(String filePath, JsonArray types) {
 }

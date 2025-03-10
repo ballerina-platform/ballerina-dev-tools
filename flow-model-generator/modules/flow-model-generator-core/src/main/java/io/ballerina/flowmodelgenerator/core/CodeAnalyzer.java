@@ -1044,7 +1044,7 @@ class CodeAnalyzer extends NodeVisitor {
     }
 
     private void checkForNewConnectionOrAgent(NewExpressionNode newExpressionNode,
-                                       SeparatedNodeList<FunctionArgumentNode> argumentNodes) {
+                                              SeparatedNodeList<FunctionArgumentNode> argumentNodes) {
         Optional<ClassSymbol> optClassSymbol = getClassSymbol(newExpressionNode);
         if (optClassSymbol.isEmpty()) {
             return;
@@ -1403,7 +1403,7 @@ class CodeAnalyzer extends NodeVisitor {
         final Queue<Node> positionalArgs = new LinkedList<>();
         calculateFunctionArgs(namedArgValueMap, positionalArgs, arguments);
 
-        Map<String, ParameterData> funcParamMap = new HashMap<>();
+        Map<String, ParameterData> funcParamMap = new LinkedHashMap<>();
         FunctionTypeSymbol functionTypeSymbol = functionSymbol.typeDescriptor();
         functionData.parameters().forEach((key, paramResult) -> {
             if (paramResult.kind() != ParameterData.Kind.PARAM_FOR_TYPE_INFER) {
