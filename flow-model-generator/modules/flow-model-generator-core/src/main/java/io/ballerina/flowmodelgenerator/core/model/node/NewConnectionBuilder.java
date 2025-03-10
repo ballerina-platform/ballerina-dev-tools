@@ -48,10 +48,18 @@ public class NewConnectionBuilder extends CallBuilder {
     private static final String NEW_CONNECTION_LABEL = "New Connection";
 
     public static final String INIT_SYMBOL = "init";
-    public static final String CLIENT_SYMBOL = "Client";
     public static final String CHECK_ERROR_DOC = "Terminate on error";
     public static final String CONNECTION_NAME_LABEL = "Connection Name";
     public static final String CONNECTION_TYPE_LABEL = "Connection Type";
+
+    private static final String CONNECTIONS_BAL = "connections.bal";
+    private static final String DRIVER_SUB_PACKAGE = ".driver";
+    private static final List<String> CONNECTION_DRIVERS = List.of(
+            "ballerinax/mysql",
+            "ballerinax/postgresql",
+            "ballerinax/oracledb",
+            "ballerinax/mssql"
+    );
 
     @Override
     public void setConcreteConstData() {
@@ -77,11 +85,30 @@ public class NewConnectionBuilder extends CallBuilder {
         if (scope.isEmpty()) {
             throw new IllegalStateException("Scope is not defined for the new connection node");
         }
-        return switch (scope.get().value().toString()) {
-            case Property.LOCAL_SCOPE -> sourceBuilder.textEdit(false).acceptImport().build();
-            case Property.GLOBAL_SCOPE -> sourceBuilder.textEdit(false, "connections.bal").build();
+        Codedata codedata = sourceBuilder.flowNode.codedata();
+        Path filePath = sourceBuilder.filePath;
+        switch (scope.get().value().toString()) {
+            case Property.LOCAL_SCOPE -> {
+                sourceBuilder.textEdit(false).acceptImport();
+                checkDriverImport(sourceBuilder, codedata, filePath);
+            }
+            case Property.GLOBAL_SCOPE -> {
+                sourceBuilder.textEdit(false, CONNECTIONS_BAL);
+                Path projectRoot = sourceBuilder.workspaceManager.projectRoot(filePath);
+                checkDriverImport(sourceBuilder, codedata, projectRoot.resolve(CONNECTIONS_BAL));
+            }
             default -> throw new IllegalStateException("Invalid scope for the new connection node");
-        };
+        }
+
+        return sourceBuilder.build();
+    }
+
+    private static void checkDriverImport(SourceBuilder sourceBuilder, Codedata codedata, Path filePath) {
+        // TODO: This information should be embedded to the package index.
+        // Check if the new connection requires a driver import
+        if (CONNECTION_DRIVERS.contains(codedata.getImportSignature())) {
+            sourceBuilder.acceptImport(filePath, codedata.org(), codedata.module() + DRIVER_SUB_PACKAGE, true);
+        }
     }
 
     @Override

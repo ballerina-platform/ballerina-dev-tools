@@ -201,6 +201,10 @@ public class SourceBuilder {
     }
 
     public SourceBuilder acceptImport(Path resolvedPath, String org, String module) {
+        return acceptImport(resolvedPath, org, module, false);
+    }
+
+    public SourceBuilder acceptImport(Path resolvedPath, String org, String module, boolean defaultNamespace) {
         if (org == null || module == null || org.equals(CommonUtil.BALLERINA_ORG_NAME) &&
                 CommonUtil.PRE_DECLARED_LANG_LIBS.contains(module)) {
             return this;
@@ -244,6 +248,9 @@ public class SourceBuilder {
                 importSignature = currentModuleName + "." + module;
             } else {
                 importSignature = CommonUtils.getImportStatement(org, module, module);
+            }
+            if (defaultNamespace) {
+                importSignature += " as _";
             }
             tokenBuilder
                     .keyword(SyntaxKind.IMPORT_KEYWORD)
