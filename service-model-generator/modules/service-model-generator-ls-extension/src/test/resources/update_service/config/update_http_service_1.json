@@ -1,0 +1,148 @@
+{
+  "filePath": "sample1/main.bal",
+  "description": "Update the name of the service class",
+  "service": {
+    "id": "0",
+    "name": "HTTP Service",
+    "type": "http",
+    "displayAnnotation": {
+      "label": "HTTP Service",
+      "iconPath": "http://localhost:8080/icons/http.png"
+    },
+    "moduleName": "http",
+    "orgName": "ballerina",
+    "version": "2.12.0",
+    "packageName": "http",
+    "listenerProtocol": "http",
+    "icon": "http://localhost:8080/icons/http.png",
+    "properties": {
+      "listener": {
+        "metadata": {
+          "label": "Listeners",
+          "description": "The Listeners to be bound with the service"
+        },
+        "enabled": true,
+        "editable": false,
+        "value": "httpListener",
+        "values": [],
+        "valueType": "MULTIPLE_SELECT",
+        "valueTypeConstraint": "http:Listener",
+        "isType": false,
+        "placeholder": "",
+        "optional": false,
+        "advanced": false,
+        "items": [
+          "httpListener",
+          "(+) Create and use the default HTTP listener (port: 8080)"
+        ],
+        "codedata": {
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false,
+          "type": "LISTENER"
+        },
+        "addNewButton": true
+      },
+      "basePath": {
+        "metadata": {
+          "label": "Service Base Path",
+          "description": "The base path for the service"
+        },
+        "enabled": true,
+        "editable": true,
+        "value": "/api/test",
+        "valueType": "IDENTIFIER",
+        "valueTypeConstraint": "string",
+        "isType": false,
+        "placeholder": "",
+        "optional": false,
+        "advanced": false,
+        "codedata": {
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false,
+          "type": "SERVICE_BASEPATH"
+        },
+        "addNewButton": false
+      },
+      "annotServiceConfig": {
+        "metadata": {
+          "label": "Service Configuration",
+          "description": "Configurations for the Http service"
+        },
+        "enabled": true,
+        "editable": true,
+        "value": "{\n    host: \"b7a.localhost\"\n}",
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "http:HttpServiceConfig",
+        "isType": false,
+        "placeholder": "{}",
+        "optional": true,
+        "advanced": true,
+        "codedata": {
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false,
+          "type": "ANNOTATION_ATTACHMENT",
+          "originalName": "ServiceConfig"
+        },
+        "addNewButton": false,
+        "typeMembers": [
+          {
+            "type": "HttpServiceConfig",
+            "packageInfo": "ballerina:http:2.12.2",
+            "kind": "RECORD_TYPE",
+            "selected": true
+          }
+        ]
+      }
+    },
+    "codedata": {
+      "lineRange": {
+        "fileName": "main.bal",
+        "startLine": {
+          "line": 4,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 9,
+          "offset": 1
+        }
+      },
+      "inListenerInit": false,
+      "isBasePath": false,
+      "inDisplayAnnotation": false
+    },
+    "functions": []
+  },
+  "output": {
+    "sample1/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 7,
+            "character": 21
+          },
+          "end": {
+            "line": 7,
+            "character": 33
+          }
+        },
+        "newText": "httpListener"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 4,
+            "character": 0
+          },
+          "end": {
+            "line": 6,
+            "character": 1
+          }
+        },
+        "newText": "@http:ServiceConfig{\n    host: \"b7a.localhost\"\n}"
+      }
+    ]
+  }
+}

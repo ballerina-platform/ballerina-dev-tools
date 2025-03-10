@@ -68,6 +68,7 @@ import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.langserver.common.utils.NameUtil;
 import org.eclipse.lsp4j.Position;
 import org.eclipse.lsp4j.Range;
+import org.eclipse.lsp4j.TextEdit;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -76,6 +77,7 @@ import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -652,7 +654,6 @@ public final class Utils {
 
     public static void updateAnnotationAttachmentProperty(ServiceDeclarationNode serviceNode,
                                                           Service service) {
-
         Optional<MetadataNode> metadata = serviceNode.metadata();
         if (metadata.isEmpty()) {
             return;
@@ -806,6 +807,46 @@ public final class Utils {
             }
         }
         return annots;
+    }
+
+    public static int addServiceAnnotationTextEdits(Service service, ServiceDeclarationNode serviceNode,
+                                                    List<TextEdit> edits) {
+        Token serviceKeyword = serviceNode.serviceKeyword();
+
+        List<String> annots = getAnnotationEdits(service);
+        String annotEdit = String.join(System.lineSeparator(), annots);
+        annotEdit += System.lineSeparator();
+
+        Optional<MetadataNode> metadata = serviceNode.metadata();
+        if (metadata.isEmpty()) { // metadata is empty and service model has annotations
+            if (!annotEdit.isEmpty()) {
+                edits.add(new TextEdit(toRange(serviceKeyword.lineRange().startLine()), annotEdit));
+            }
+            return annots.size();
+        }
+        NodeList<AnnotationNode> annotations = metadata.get().annotations();
+        if (annotations.isEmpty()) { // metadata is present but no annotations
+            if (!annotEdit.isEmpty()) {
+                edits.add(new TextEdit(toRange(metadata.get().lineRange()), annotEdit));
+            }
+            return annots.size();
+        }
+
+        // first annotation end line range
+        int size = annotations.size();
+        LinePosition firstAnnotationEndLinePos = annotations.get(0).lineRange().startLine();
+
+        // last annotation end line range
+        LinePosition lastAnnotationEndLinePos = annotations.get(size - 1).lineRange().endLine();
+
+        LineRange range = LineRange.from(serviceKeyword.lineRange().fileName(),
+                firstAnnotationEndLinePos, lastAnnotationEndLinePos);
+
+        if (!annotEdit.isEmpty()) {
+            edits.add(new TextEdit(toRange(range), annotEdit));
+        }
+
+        return annots.size();
     }
 
     public static String getValueString(Value value) {

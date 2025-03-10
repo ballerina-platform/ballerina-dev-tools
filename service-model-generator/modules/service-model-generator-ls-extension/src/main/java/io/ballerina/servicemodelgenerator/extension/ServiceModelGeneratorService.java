@@ -32,6 +32,7 @@ import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.ImportDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ListenerDeclarationNode;
+import io.ballerina.compiler.syntax.tree.MetadataNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.NameReferenceNode;
 import io.ballerina.compiler.syntax.tree.Node;
@@ -123,6 +124,7 @@ import static io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtil
 import static io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtils.updateFunctionList;
 import static io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtils.updateGenericServiceModel;
 import static io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtils.updateListenerItems;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.addServiceAnnotationTextEdits;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.expectsTriggerByName;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.filterTriggers;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.getFunction;
@@ -801,11 +803,15 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 }
 
                 ServiceDeclarationNode serviceNode = (ServiceDeclarationNode) node;
+
+                int newLineCount = addServiceAnnotationTextEdits(service, serviceNode, edits);
+
                 Value basePathValue = service.getBasePath();
                 if (Objects.nonNull(basePathValue) && basePathValue.isEnabledWithValue()) {
                     String basePath = basePathValue.getValue();
                     NodeList<Node> nodes = serviceNode.absoluteResourcePath();
-                    if (!nodes.isEmpty()) {
+                    String currentPath = getPath(nodes);
+                    if (!currentPath.equals(basePath) && !nodes.isEmpty()) {
                         LinePosition startPos = nodes.get(0).lineRange().startLine();
                         LinePosition endPos = nodes.get(nodes.size() - 1).lineRange().endLine();
                         LineRange basePathLineRange = LineRange.from(lineRange.fileName(), startPos, endPos);
@@ -818,7 +824,8 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 if (Objects.nonNull(stringLiteral) && stringLiteral.isEnabledWithValue()) {
                     String stringLiteralValue = stringLiteral.getValue();
                     NodeList<Node> nodes = serviceNode.absoluteResourcePath();
-                    if (!nodes.isEmpty()) {
+                    String currentPath = getPath(nodes);
+                    if (!currentPath.equals(stringLiteralValue) && !nodes.isEmpty()) {
                         LinePosition startPos = nodes.get(0).lineRange().startLine();
                         LinePosition endPos = nodes.get(nodes.size() - 1).lineRange().endLine();
                         LineRange basePathLineRange = LineRange.from(lineRange.fileName(), startPos, endPos);
