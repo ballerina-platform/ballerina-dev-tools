@@ -1,0 +1,402 @@
+{
+  "source": "new_connection7/main.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "31",
+    "metadata": {
+      "label": "New Connection",
+      "description": "The Ballerina interface to provide AMQP Channel related functionality.",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_rabbitmq_3.1.0.png"
+    },
+    "codedata": {
+      "node": "NEW_CONNECTION",
+      "org": "ballerinax",
+      "module": "rabbitmq",
+      "object": "Client",
+      "symbol": "init",
+      "version": "3.1.0",
+      "isNew": true,
+      "lineRange": {
+        "fileName": "test.bal",
+        "startLine": {
+          "line": 0,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 0,
+          "offset": 0
+        }
+      }
+    },
+    "returning": false,
+    "properties": {
+      "heartbeat": {
+        "metadata": {
+          "label": "heartbeat",
+          "description": ""
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "decimal",
+        "placeholder": "0.0d",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "heartbeat"
+        },
+        "typeMembers": [
+          {
+            "type": "decimal",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "auth": {
+        "metadata": {
+          "label": "auth",
+          "description": ""
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "rabbitmq:Credentials",
+        "placeholder": "{username: \"\", password: \"\"}",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "auth"
+        },
+        "typeMembers": [
+          {
+            "type": "Credentials",
+            "packageInfo": "ballerinax:rabbitmq:3.1.0",
+            "kind": "RECORD_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "handshakeTimeout": {
+        "metadata": {
+          "label": "handshakeTimeout",
+          "description": ""
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "decimal",
+        "placeholder": "0.0d",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "handshakeTimeout"
+        },
+        "typeMembers": [
+          {
+            "type": "decimal",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "virtualHost": {
+        "metadata": {
+          "label": "virtualHost",
+          "description": ""
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"\"",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "virtualHost"
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "password": {
+        "metadata": {
+          "label": "password",
+          "description": ""
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"\"",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "password"
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "host": {
+        "metadata": {
+          "label": "host",
+          "description": "The host used for establishing the connection"
+        },
+        "value": "\"localhost\"",
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"\"",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "host"
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "port": {
+        "metadata": {
+          "label": "port",
+          "description": "The port used for establishing the connection"
+        },
+        "value": "8080",
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "int",
+        "placeholder": "0",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "port"
+        },
+        "typeMembers": [
+          {
+            "type": "int",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "secureSocket": {
+        "metadata": {
+          "label": "secureSocket",
+          "description": ""
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "rabbitmq:SecureSocket",
+        "placeholder": "{cert: {path: \"\", password: \"\"}}",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "secureSocket"
+        },
+        "typeMembers": [
+          {
+            "type": "SecureSocket",
+            "packageInfo": "ballerinax:rabbitmq:3.1.0",
+            "kind": "RECORD_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "shutdownTimeout": {
+        "metadata": {
+          "label": "shutdownTimeout",
+          "description": ""
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "decimal",
+        "placeholder": "0.0d",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "shutdownTimeout"
+        },
+        "typeMembers": [
+          {
+            "type": "decimal",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "connectionTimeout": {
+        "metadata": {
+          "label": "connectionTimeout",
+          "description": ""
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "decimal",
+        "placeholder": "0.0d",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "connectionTimeout"
+        },
+        "typeMembers": [
+          {
+            "type": "decimal",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "validation": {
+        "metadata": {
+          "label": "validation",
+          "description": ""
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "boolean",
+        "placeholder": "true",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "validation"
+        },
+        "typeMembers": [
+          {
+            "type": "boolean",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "username": {
+        "metadata": {
+          "label": "username",
+          "description": ""
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"\"",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "username"
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "type": {
+        "metadata": {
+          "label": "Variable Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "rabbitmq:Client",
+        "placeholder": "var",
+        "optional": false,
+        "editable": false,
+        "advanced": false,
+        "codedata": {}
+      },
+      "variable": {
+        "metadata": {
+          "label": "Connection Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "rabbitmqClient",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "scope": {
+        "metadata": {
+          "label": "Connection Scope",
+          "description": "Scope of the connection, Global or Local"
+        },
+        "valueType": "ENUM",
+        "value": "Global",
+        "optional": false,
+        "editable": true,
+        "advanced": true
+      },
+      "checkError": {
+        "metadata": {
+          "label": "Check Error",
+          "description": "Terminate on error"
+        },
+        "valueType": "FLAG",
+        "value": true,
+        "optional": false,
+        "editable": false,
+        "advanced": true
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "new_connection7/connections.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import ballerinax/rabbitmq;"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "final rabbitmq:Client rabbitmqClient = check new (\"localhost\", 8080);"
+      }
+    ]
+  }
+}
