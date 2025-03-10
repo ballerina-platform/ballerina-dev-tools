@@ -38,7 +38,7 @@ import java.util.concurrent.CompletableFuture;
 @JsonSegment("designModelService")
 public class DesignModelGeneratorService implements ExtendedLanguageServerService {
 
-    private final BuildOptions options = BuildOptions.builder()
+    private static final BuildOptions OPTIONS = BuildOptions.builder()
             .setOffline(true)
             .setSticky(false)
             .build();
@@ -58,7 +58,7 @@ public class DesignModelGeneratorService implements ExtendedLanguageServerServic
                 // TODO: This is a temporary solution until we investigate why the workspace manager does not
                 //  properly perform the package resolution
                 // Ensure resolution and compilation are triggered
-                Project project = ProjectLoader.loadProject(projectPath, options);
+                Project project = ProjectLoader.loadProject(projectPath, OPTIONS);
                 Package currentPackage = project.currentPackage();
                 currentPackage.getResolution();
                 currentPackage.getCompilation();
