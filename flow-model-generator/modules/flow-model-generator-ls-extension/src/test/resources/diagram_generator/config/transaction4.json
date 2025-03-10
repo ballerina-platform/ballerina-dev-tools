@@ -109,8 +109,21 @@
                     "valueType": "IDENTIFIER",
                     "value": "_",
                     "optional": false,
-                    "editable": true,
-                    "advanced": false
+                    "editable": false,
+                    "advanced": false,
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "transaction.bal",
+                        "startLine": {
+                          "line": 30,
+                          "offset": 12
+                        },
+                        "endLine": {
+                          "line": 30,
+                          "offset": 13
+                        }
+                      }
+                    }
                   },
                   "type": {
                     "metadata": {
@@ -122,7 +135,8 @@
                     "placeholder": "var",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "codedata": {}
                   }
                 },
                 "flags": 1

@@ -20,7 +20,9 @@ package io.ballerina.modelgenerator.commons;
 
 import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.AnnotationAttachmentSymbol;
 import io.ballerina.compiler.api.symbols.ArrayTypeSymbol;
+import io.ballerina.compiler.api.symbols.ExternalFunctionSymbol;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.FutureTypeSymbol;
 import io.ballerina.compiler.api.symbols.IntersectionTypeSymbol;
@@ -56,6 +58,7 @@ import io.ballerina.tools.diagnostics.DiagnosticInfo;
 import io.ballerina.tools.diagnostics.Location;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
+import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextRange;
 import org.ballerinalang.langserver.common.utils.CommonUtil;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
@@ -69,6 +72,7 @@ import java.net.URI;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -86,7 +90,10 @@ public class CommonUtils {
     private static final Pattern FULLY_QUALIFIED_MODULE_ID_PATTERN =
             Pattern.compile("(\\w+)/([\\w.]+):([^:]+):(\\w+)[|]?");
     public static final String BALLERINA_ORG_NAME = "ballerina";
+    public static final String BALLERINAX_ORG_NAME = "ballerinax";
     public static final String VALUE_LANG_LIB = "lang.value";
+    private static final String LLM_CALL = "LlmCall";
+    private static final String CALL_LLM = "callLlm";
 
     /**
      * Removes the quotes from the given string.
@@ -619,6 +626,7 @@ public class CommonUtils {
             case STREAM -> {
                 StreamTypeSymbol streamTypeSymbol = (StreamTypeSymbol) typeSymbol;
                 analyzeTypeSymbolForImports(imports, streamTypeSymbol.typeParameter(), moduleInfo);
+                analyzeTypeSymbolForImports(imports, streamTypeSymbol.completionValueTypeParameter(), moduleInfo);
             }
             case FUTURE -> {
                 FutureTypeSymbol futureTypeSymbol = (FutureTypeSymbol) typeSymbol;
@@ -763,5 +771,63 @@ public class CommonUtils {
 
         ModuleID moduleId = module.get().id();
         return moduleId.orgName().equals(CommonUtils.BALLERINA_ORG_NAME) && moduleId.packageName().equals("http");
+    }
+
+    public static boolean isNpModule(Symbol symbol) {
+        Optional<ModuleSymbol> module = symbol.getModule();
+        if (module.isEmpty()) {
+            return false;
+        }
+
+        ModuleID moduleId = module.get().id();
+        return moduleId.orgName().equals(CommonUtils.BALLERINAX_ORG_NAME) && moduleId.packageName().equals("np");
+    }
+
+    /**
+     * Check whether the particular function symbol is a NP function.
+     *
+     * @param functionSymbol Function symbol to evalute
+     * @return true if the function is a NP function, false otherwise
+     */
+    public static boolean isNpFunction(FunctionSymbol functionSymbol) {
+        if (CommonUtils.isNpModule(functionSymbol) && functionSymbol.getName().isPresent() &&
+                functionSymbol.getName().get().equals(CALL_LLM)) {
+            // `np:callLlm` function
+            return true;
+        }
+
+        if (!functionSymbol.external()) {
+            return false;
+        }
+
+        List<AnnotationAttachmentSymbol> annotAttachments =
+                ((ExternalFunctionSymbol) functionSymbol).annotAttachmentsOnExternal();
+        return annotAttachments.stream()
+                .anyMatch(annot ->
+                        isNpModule(annot.typeDescriptor()) &&
+                                annot.typeDescriptor().nameEquals(LLM_CALL));
+    }
+
+    public static String getClassType(String packageName, String clientName) {
+        String importPrefix = packageName.substring(packageName.lastIndexOf('.') + 1);
+        return String.format("%s:%s", importPrefix, clientName);
+    }
+
+    /**
+     * Returns the specified position if not null, or the end of the document otherwise.
+     *
+     * @param position The line position to check; if not null, it is returned as is
+     * @param document The document to get the end position from if the position parameter is null
+     * @return The original position if not null, or the line position at the end of the document
+     */
+    public static LinePosition getPosition(LinePosition position, Document document) {
+        if (position != null) {
+            return position;
+        }
+
+        // Get the end of the document
+        TextDocument textDocument = document.textDocument();
+        int textPosition = textDocument.toCharArray().length;
+        return textDocument.linePositionFrom(textPosition);
     }
 }

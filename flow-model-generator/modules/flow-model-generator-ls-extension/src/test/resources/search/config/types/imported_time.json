@@ -1,0 +1,649 @@
+{
+  "description": "Sample flow model",
+  "kind": "TYPE",
+  "source": "proj/main.bal",
+  "queryMap": {
+    "q": "date",
+    "limit": "30"
+  },
+  "categories": [
+    {
+      "metadata": {
+        "label": "Imported Types",
+        "description": "Types imported from other integrations",
+        "keywords": [
+          "Imported",
+          "Type",
+          "Library"
+        ]
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "time",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "Date",
+                "description": "Date in proleptic Gregorian calendar.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.6.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerina",
+                "module": "time",
+                "symbol": "Date",
+                "version": "2.6.0"
+              },
+              "enabled": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "metadata": {
+        "label": "Available Types",
+        "description": "Types available in the library",
+        "keywords": [
+          "Available",
+          "Type",
+          "Library"
+        ]
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "gotowebinar",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "DateTimeRangeArr",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_gotowebinar_1.5.1.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "gotowebinar",
+                "symbol": "DateTimeRangeArr",
+                "version": "1.5.1"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "asana",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "DateVariableCompact",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_asana_2.0.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "asana",
+                "symbol": "DateVariableCompact",
+                "version": "2.0.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "DateVariableRequest",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_asana_2.0.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "asana",
+                "symbol": "DateVariableRequest",
+                "version": "2.0.0"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "worldtimeapi",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "DateTimeJsonResponse",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_worldtimeapi_1.5.1.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "worldtimeapi",
+                "symbol": "DateTimeJsonResponse",
+                "version": "1.5.1"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "optitune",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "DateParameter",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_optitune_1.5.1.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "optitune",
+                "symbol": "DateParameter",
+                "version": "1.5.1"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "adp.paystatements",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "DateType",
+                "description": "Date",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_adp.paystatements_1.5.1.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "adp.paystatements",
+                "symbol": "DateType",
+                "version": "1.5.1"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "stripe",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "arrival_date",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_stripe_2.0.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "stripe",
+                "symbol": "arrival_date",
+                "version": "2.0.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "due_date",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_stripe_2.0.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "stripe",
+                "symbol": "due_date",
+                "version": "2.0.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "date_of_birth",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_stripe_2.0.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "stripe",
+                "symbol": "date_of_birth",
+                "version": "2.0.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "date_of_birth_specs",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_stripe_2.0.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "stripe",
+                "symbol": "date_of_birth_specs",
+                "version": "2.0.0"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "amadeus.flightofferssearch",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "DateTimeRange",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_amadeus.flightofferssearch_1.3.1.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "amadeus.flightofferssearch",
+                "symbol": "DateTimeRange",
+                "version": "1.3.1"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "jira.servicemanagement",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "DateDTO",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_jira.servicemanagement_1.3.1.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "jira.servicemanagement",
+                "symbol": "DateDTO",
+                "version": "1.3.1"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "microsoft.outlook.calendar",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "DateTimeTimeZone",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_microsoft.outlook.calendar_2.4.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "microsoft.outlook.calendar",
+                "symbol": "DateTimeTimeZone",
+                "version": "2.4.0"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "health.fhir.r4",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "DateExtension",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.fhir.r4_5.2.1.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "health.fhir.r4",
+                "symbol": "DateExtension",
+                "version": "5.2.1"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "DateTimeExtension",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.fhir.r4_5.2.1.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "health.fhir.r4",
+                "symbol": "DateTimeExtension",
+                "version": "5.2.1"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "DateSearchParameter",
+                "description": "Date type search parameter information.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.fhir.r4_5.2.1.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "health.fhir.r4",
+                "symbol": "DateSearchParameter",
+                "version": "5.2.1"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "health.fhir.r4.aubase410",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "DateAccuracyIndicator",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.fhir.r4.aubase410_1.2.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "health.fhir.r4.aubase410",
+                "symbol": "DateAccuracyIndicator",
+                "version": "1.2.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "DateOfArrival",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.fhir.r4.aubase410_1.2.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "health.fhir.r4.aubase410",
+                "symbol": "DateOfArrival",
+                "version": "1.2.0"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "googleapis.people",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "Date",
+                "description": "Define a Date entity.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.people_2.4.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "googleapis.people",
+                "symbol": "Date",
+                "version": "2.4.0"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "whatsapp.business",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "DateTimeComponent",
+                "description": "Date/time by component.",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_whatsapp.business_1.5.1.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "whatsapp.business",
+                "symbol": "DateTimeComponent",
+                "version": "1.5.1"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "DateTimeUnixEpoch",
+                "description": "Date/time by Unix epoch.",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_whatsapp.business_1.5.1.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "whatsapp.business",
+                "symbol": "DateTimeUnixEpoch",
+                "version": "1.5.1"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "cloudmersive.validate",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "DateTimeNowResult",
+                "description": "Current date and time response",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_cloudmersive.validate_1.5.1.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "cloudmersive.validate",
+                "symbol": "DateTimeNowResult",
+                "version": "1.5.1"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "DateTimeStandardizedParseResponse",
+                "description": "Result of performing a date time parsing",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_cloudmersive.validate_1.5.1.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "cloudmersive.validate",
+                "symbol": "DateTimeStandardizedParseResponse",
+                "version": "1.5.1"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "postgresql",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "DateRange",
+                "description": "Represents the `Date Range` datatype in PostgreSQL.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_postgresql_1.14.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "postgresql",
+                "symbol": "DateRange",
+                "version": "1.14.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "DateRecordRange",
+                "description": "Represents the `Date (Record) Range` datatype in PostgreSQL.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_postgresql_1.14.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "postgresql",
+                "symbol": "DateRecordRange",
+                "version": "1.14.0"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "constraint",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "DateOption",
+                "description": "Represents the date option to be validated.",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_constraint_1.6.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerina",
+                "module": "constraint",
+                "symbol": "DateOption",
+                "version": "1.6.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "DateConstraints",
+                "description": "Represents the constraints associated with `Date` type.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_constraint_1.6.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerina",
+                "module": "constraint",
+                "symbol": "DateConstraints",
+                "version": "1.6.0"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "sql",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "DateOutParameter",
+                "description": "Represents Date Out Parameter in `sql:ParameterizedCallQuery`.",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_sql_1.15.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerina",
+                "module": "sql",
+                "symbol": "DateOutParameter",
+                "version": "1.15.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "DateTimeOutParameter",
+                "description": "Represents DateTime Out Parameter in `sql:ParameterizedCallQuery`.",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_sql_1.15.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerina",
+                "module": "sql",
+                "symbol": "DateTimeOutParameter",
+                "version": "1.15.0"
+              },
+              "enabled": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

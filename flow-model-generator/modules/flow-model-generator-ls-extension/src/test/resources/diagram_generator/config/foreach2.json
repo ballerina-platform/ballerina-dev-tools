@@ -77,8 +77,21 @@
             "valueType": "IDENTIFIER",
             "value": "intArr",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "foreach.bal",
+                "startLine": {
+                  "line": 1,
+                  "offset": 10
+                },
+                "endLine": {
+                  "line": 1,
+                  "offset": 16
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -90,7 +103,8 @@
             "placeholder": "var",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 0
@@ -198,8 +212,21 @@
             "valueType": "IDENTIFIER",
             "value": "item",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "foreach.bal",
+                "startLine": {
+                  "line": 2,
+                  "offset": 16
+                },
+                "endLine": {
+                  "line": 2,
+                  "offset": 20
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -211,7 +238,8 @@
             "placeholder": "var",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "codedata": {}
           },
           "collection": {
             "metadata": {

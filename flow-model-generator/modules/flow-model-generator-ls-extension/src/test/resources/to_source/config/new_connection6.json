@@ -13,17 +13,7 @@
       "module": "redis",
       "object": "Client",
       "symbol": "init",
-      "lineRange": {
-        "fileName": "new_connection.bal",
-        "startLine": {
-          "line": 12,
-          "offset": 0
-        },
-        "endLine": {
-          "line": 12,
-          "offset": 56
-        }
-      }
+      "isNew": true
     },
     "returning": false,
     "properties": {
@@ -88,15 +78,15 @@
       {
         "range": {
           "start": {
-            "line": 12,
-            "character": 0
+            "line": 6,
+            "character": 39
           },
           "end": {
-            "line": 12,
-            "character": 56
+            "line": 6,
+            "character": 39
           }
         },
-        "newText": "final redis:Client moduleRedisExCl = check new ();"
+        "newText": "\nfinal redis:Client moduleRedisExCl = check new ();"
       }
     ]
   }

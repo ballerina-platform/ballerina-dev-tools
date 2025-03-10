@@ -1,0 +1,75 @@
+{
+  "filePath": "proj",
+  "typeMembers": [
+    {
+      "type": "ClientSocketConfig",
+      "packageInfo": "ballerina:http:2.14.0",
+      "kind": "RECORD_TYPE",
+      "selected": false
+    }
+  ],
+  "expr": "{keepAlive: true}",
+  "output": {
+    "recordConfig": {
+      "fields": [
+        {
+          "name": "connectTimeOut",
+          "typeName": "decimal",
+          "optional": false,
+          "defaultable": true,
+          "isRestType": false,
+          "selected": false
+        },
+        {
+          "name": "receiveBufferSize",
+          "typeName": "int",
+          "optional": false,
+          "defaultable": true,
+          "isRestType": false,
+          "selected": false
+        },
+        {
+          "name": "sendBufferSize",
+          "typeName": "int",
+          "optional": false,
+          "defaultable": true,
+          "isRestType": false,
+          "selected": false
+        },
+        {
+          "name": "tcpNoDelay",
+          "typeName": "boolean",
+          "optional": false,
+          "defaultable": true,
+          "isRestType": false,
+          "selected": false
+        },
+        {
+          "name": "socketReuse",
+          "typeName": "boolean",
+          "optional": false,
+          "defaultable": true,
+          "isRestType": false,
+          "selected": false
+        },
+        {
+          "name": "keepAlive",
+          "typeName": "boolean",
+          "optional": false,
+          "defaultable": true,
+          "isRestType": false,
+          "value": "true",
+          "selected": true
+        }
+      ],
+      "hasRestType": false,
+      "name": "ClientSocketConfig",
+      "typeName": "record",
+      "optional": false,
+      "defaultable": false,
+      "isRestType": false,
+      "selected": true
+    },
+    "typeName": "ClientSocketConfig"
+  }
+}

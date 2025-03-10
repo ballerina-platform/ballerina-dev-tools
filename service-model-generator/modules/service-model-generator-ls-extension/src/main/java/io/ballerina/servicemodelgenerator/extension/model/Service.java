@@ -136,8 +136,16 @@ public class Service {
         return properties.get("basePath");
     }
 
-    public Value setBasePath(Value basePath) {
-        return properties.put("basePath", basePath);
+    public Value getStringLiteralProperty() {
+        return properties.get("stringLiteral");
+    }
+
+    public void setBasePath(Value basePath) {
+        properties.put("basePath", basePath);
+    }
+
+    public void setStringLiteral(Value basePath) {
+        properties.put("stringLiteral", basePath);
     }
 
     public Value getOpenAPISpec() {
@@ -224,6 +232,109 @@ public class Service {
             this.properties.putAll(properties);
         } else {
             this.properties = properties;
+        }
+    }
+
+    public static class ServiceModelBuilder {
+        private String id;
+        private String name;
+        private String type;
+        private String displayName;
+        private String description;
+        private DisplayAnnotation displayAnnotation;
+        private String moduleName;
+        private String orgName;
+        private String version;
+        private String packageName;
+        private String listenerProtocol;
+        private String icon;
+        private Map<String, Value> properties;
+        private Codedata codedata;
+        private List<Function> functions;
+
+        public ServiceModelBuilder() {
+            this.properties = new HashMap<>();
+            this.functions = new ArrayList<>();
+        }
+
+        public ServiceModelBuilder setId(String id) {
+            this.id = id;
+            return this;
+        }
+
+        public ServiceModelBuilder setName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public ServiceModelBuilder setType(String type) {
+            this.type = type;
+            return this;
+        }
+
+        public ServiceModelBuilder setDisplayName(String displayName) {
+            this.displayName = displayName;
+            return this;
+        }
+
+        public ServiceModelBuilder setDescription(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public ServiceModelBuilder setDisplayAnnotation(DisplayAnnotation displayAnnotation) {
+            this.displayAnnotation = displayAnnotation;
+            return this;
+        }
+
+        public ServiceModelBuilder setModuleName(String moduleName) {
+            this.moduleName = moduleName;
+            return this;
+        }
+
+        public ServiceModelBuilder setOrgName(String orgName) {
+            this.orgName = orgName;
+            return this;
+        }
+
+        public ServiceModelBuilder setVersion(String version) {
+            this.version = version;
+            return this;
+        }
+
+        public ServiceModelBuilder setPackageName(String packageName) {
+            this.packageName = packageName;
+            return this;
+        }
+
+        public ServiceModelBuilder setListenerProtocol(String listenerProtocol) {
+            this.listenerProtocol = listenerProtocol;
+            return this;
+        }
+
+        public ServiceModelBuilder setIcon(String icon) {
+            this.icon = icon;
+            return this;
+        }
+
+        public ServiceModelBuilder setProperties(Map<String, Value> properties) {
+            this.properties = properties;
+            return this;
+        }
+
+        public ServiceModelBuilder setCodedata(Codedata codedata) {
+            this.codedata = codedata;
+            return this;
+        }
+
+        public ServiceModelBuilder setFunctions(List<Function> functions) {
+            this.functions = functions;
+            return this;
+        }
+
+        public Service build() {
+            return new Service(id, name, type, displayName, description, displayAnnotation, moduleName, orgName,
+                    version, packageName, listenerProtocol, icon, properties, codedata, functions);
         }
     }
 }

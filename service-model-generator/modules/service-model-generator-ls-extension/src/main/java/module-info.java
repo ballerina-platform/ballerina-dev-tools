@@ -25,8 +25,11 @@ module io.ballerina.LSExtensions.TriggerService {
     requires io.ballerina.language.server.core;
     requires io.ballerina.formatter.core;
     requires io.swagger.v3.oas.models;
+    requires io.ballerina.model.generator.commons;
     requires io.ballerina.lang;
     requires com.google.gson;
     requires io.ballerina.parser;
     requires io.ballerina.tools.api;
+    requires java.logging;
+    requires org.xerial.sqlitejdbc;
 }

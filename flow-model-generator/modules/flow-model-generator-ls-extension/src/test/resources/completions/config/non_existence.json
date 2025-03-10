@@ -1,0 +1,67 @@
+{
+  "description": "",
+  "filePath": "proj",
+  "context": {
+    "expression": "{}",
+    "startLine": {
+      "line": 6,
+      "offset": 0
+    },
+    "offset": 1,
+    "codedata": {
+      "node": "NEW_CONNECTION",
+      "org": "ballerinax",
+      "module": "docusign.dsadmin",
+      "object": "Client",
+      "symbol": "init",
+      "id": 1569
+    },
+    "property": {
+      "metadata": {
+        "label": "auth",
+        "description": "Configurations related to client authentication"
+      },
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "http:BearerTokenConfig|dsadmin:OAuth2RefreshTokenGrantConfig",
+      "placeholder": "{token: \"\"}",
+      "optional": false,
+      "editable": true,
+      "advanced": false,
+      "codedata": {
+        "kind": "INCLUDED_FIELD",
+        "originalName": "auth",
+        "importStatements": "ballerina/http"
+      }
+    }
+  },
+  "completionContext": {
+    "triggerKind": "Invoked"
+  },
+  "completions": [
+    {
+      "label": "readonly",
+      "kind": "Keyword",
+      "detail": "Keyword",
+      "sortText": "U",
+      "filterText": "readonly",
+      "insertText": "readonly ",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "admission",
+      "kind": "Variable",
+      "detail": "Admission",
+      "sortText": "F",
+      "insertText": "admission",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "person",
+      "kind": "Variable",
+      "detail": "Person",
+      "sortText": "F",
+      "insertText": "person",
+      "insertTextFormat": "Snippet"
+    }
+  ]
+}

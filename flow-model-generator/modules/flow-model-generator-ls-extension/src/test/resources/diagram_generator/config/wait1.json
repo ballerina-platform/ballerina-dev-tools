@@ -77,8 +77,21 @@
             "valueType": "IDENTIFIER",
             "value": "futureResult",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "wait.bal",
+                "startLine": {
+                  "line": 24,
+                  "offset": 24
+                },
+                "endLine": {
+                  "line": 24,
+                  "offset": 36
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -90,7 +103,8 @@
             "placeholder": "var",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 0
@@ -186,8 +200,21 @@
             "valueType": "IDENTIFIER",
             "value": "result",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "wait.bal",
+                "startLine": {
+                  "line": 25,
+                  "offset": 22
+                },
+                "endLine": {
+                  "line": 25,
+                  "offset": 28
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -199,7 +226,8 @@
             "placeholder": "var",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 0

@@ -35,7 +35,7 @@
         "valueType": "IDENTIFIER",
         "value": "User",
         "optional": false,
-        "editable": true,
+        "editable": false,
         "advanced": false
       },
       "isPublic": {
@@ -289,7 +289,7 @@
           "valueType": "IDENTIFIER",
           "value": "UserAddress",
           "optional": false,
-          "editable": true,
+          "editable": false,
           "advanced": false
         },
         "isPublic": {
@@ -449,7 +449,7 @@
           "valueType": "IDENTIFIER",
           "value": "City",
           "optional": false,
-          "editable": true,
+          "editable": false,
           "advanced": false
         },
         "isPublic": {

@@ -10,7 +10,8 @@
       "description": "Assign a value to a variable"
     },
     "codedata": {
-      "node": "ASSIGN"
+      "node": "ASSIGN",
+      "isNew": true
     },
     "returning": false,
     "properties": {

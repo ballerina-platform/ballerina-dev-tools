@@ -163,4 +163,96 @@ public class Listener {
     public void setProperties(Map<String, Value> properties) {
         this.properties = properties;
     }
+
+    public static class ListenerBuilder {
+        private String id;
+        private String name;
+        private String type;
+        private String displayName;
+        private String description;
+        private DisplayAnnotation displayAnnotation;
+        private String moduleName;
+        private String orgName;
+        private String version;
+        private String packageName;
+        private String listenerProtocol;
+        private String icon;
+        private Map<String, Value> properties;
+        private Codedata codedata;
+
+        public ListenerBuilder setId(String id) {
+            this.id = id;
+            return this;
+        }
+
+        public ListenerBuilder setName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public ListenerBuilder setType(String type) {
+            this.type = type;
+            return this;
+        }
+
+        public ListenerBuilder setDisplayName(String displayName) {
+            this.displayName = displayName;
+            return this;
+        }
+
+        public ListenerBuilder setDescription(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public ListenerBuilder setDisplayAnnotation(DisplayAnnotation displayAnnotation) {
+            this.displayAnnotation = displayAnnotation;
+            return this;
+        }
+
+        public ListenerBuilder setModuleName(String moduleName) {
+            this.moduleName = moduleName;
+            return this;
+        }
+
+        public ListenerBuilder setOrgName(String orgName) {
+            this.orgName = orgName;
+            return this;
+        }
+
+        public ListenerBuilder setVersion(String version) {
+            this.version = version;
+            return this;
+        }
+
+        public ListenerBuilder setPackageName(String packageName) {
+            this.packageName = packageName;
+            return this;
+        }
+
+        public ListenerBuilder setListenerProtocol(String listenerProtocol) {
+            this.listenerProtocol = listenerProtocol;
+            return this;
+        }
+
+        public ListenerBuilder setIcon(String icon) {
+            this.icon = icon;
+            return this;
+        }
+
+        public ListenerBuilder setProperties(Map<String, Value> properties) {
+            this.properties = properties;
+            return this;
+        }
+
+        public ListenerBuilder setCodedata(Codedata codedata) {
+            this.codedata = codedata;
+            return this;
+        }
+
+        public Listener build() {
+            return new Listener(id, name, type, displayName, description, displayAnnotation, moduleName, orgName,
+                    version, packageName, listenerProtocol, icon, properties, codedata);
+        }
+    }
 }

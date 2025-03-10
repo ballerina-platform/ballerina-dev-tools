@@ -28,4 +28,6 @@ public class Constants {
     // Check keywords
     public static final String CHECK = "check";
     public static final String CHECKPANIC = "checkpanic";
+
+    public static final String MAIN_FUNCTION_NAME = "main";
 }

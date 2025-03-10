@@ -25,6 +25,8 @@ import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
+import org.eclipse.lsp4j.Position;
+import org.eclipse.lsp4j.Range;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
@@ -62,6 +64,21 @@ public class SourceGenerator {
         SourceBuilder sourceBuilder = new SourceBuilder(flowNode, workspaceManager, filePath);
         Map<Path, List<TextEdit>> textEdits =
                 NodeBuilder.getNodeFromKind(flowNode.codedata().node()).toSource(sourceBuilder);
+        addNewLine(textEdits);
         return gson.toJsonTree(textEdits);
+    }
+
+    // If text edit add new change, add new line to the text edit
+    private void addNewLine(Map<Path, List<TextEdit>> textEdits) {
+        for (Map.Entry<Path, List<TextEdit>> pathListEntry : textEdits.entrySet()) {
+            List<TextEdit> edits = pathListEntry.getValue();
+            for (TextEdit edit : edits) {
+                Range range = edit.getRange();
+                if (!range.getStart().equals(new Position(0, 0)) && range.getStart().equals(range.getEnd())) {
+                    edit.setNewText(System.lineSeparator() + edit.getNewText());
+                    break;
+                }
+            }
+        }
     }
 }

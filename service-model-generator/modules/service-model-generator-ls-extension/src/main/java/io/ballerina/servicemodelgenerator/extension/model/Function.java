@@ -19,11 +19,16 @@
 package io.ballerina.servicemodelgenerator.extension.model;
 
 import io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants;
+import io.ballerina.servicemodelgenerator.extension.util.ServiceClassUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+
+import static io.ballerina.servicemodelgenerator.extension.util.ServiceClassUtil.ServiceClassContext.GRAPHQL_DIAGRAM;
+import static io.ballerina.servicemodelgenerator.extension.util.ServiceClassUtil.ServiceClassContext.SERVICE_DIAGRAM;
+import static io.ballerina.servicemodelgenerator.extension.util.ServiceClassUtil.ServiceClassContext.TYPE_DIAGRAM;
 
 public class Function {
     private MetaData metadata;
@@ -60,12 +65,31 @@ public class Function {
         this.codedata = codedata;
     }
 
-    public static Function getNewFunction() {
+    private static Function getNewFunctionModel() {
         return new Function(new MetaData("", ""), new ArrayList<>(),
                 ServiceModelGeneratorConstants.KIND_DEFAULT,
                 new Value(ServiceModelGeneratorConstants.FUNCTION_ACCESSOR_METADATA),
                 new Value(ServiceModelGeneratorConstants.FUNCTION_NAME_METADATA), new ArrayList<>(),
-                null, new FunctionReturnType(), false, false, false, null);
+                null, new FunctionReturnType(ServiceModelGeneratorConstants.FUNCTION_RETURN_TYPE_METADATA),
+                false, false, false, null);
+    }
+
+    public static Function getNewFunctionModel(ServiceClassUtil.ServiceClassContext context) {
+        if (context == GRAPHQL_DIAGRAM) {
+            return new Function(new MetaData("", ""), new ArrayList<>(),
+                    ServiceModelGeneratorConstants.KIND_DEFAULT,
+                    new Value(ServiceModelGeneratorConstants.FUNCTION_ACCESSOR_METADATA),
+                    new Value(ServiceModelGeneratorConstants.FIELD_NAME_METADATA), new ArrayList<>(),
+                    Map.of(ServiceModelGeneratorConstants.PARAMETER, Parameter.graphQLParamSchema()),
+                    new FunctionReturnType(ServiceModelGeneratorConstants.FIELD_TYPE_METADATA),
+                    false, false, false, null);
+        }
+        Function newFunction = getNewFunctionModel();
+        if (context == TYPE_DIAGRAM || context == SERVICE_DIAGRAM) {
+            newFunction.setSchema(Map.of(ServiceModelGeneratorConstants.PARAMETER, Parameter.functionParamSchema()));
+            return newFunction;
+        }
+        return newFunction;
     }
 
     public MetaData getMetadata() {
@@ -170,5 +194,85 @@ public class Function {
 
     public void setSchema(Map<String, Parameter> schema) {
         this.schema = schema;
+    }
+
+    public static class FunctionBuilder {
+        private MetaData metadata;
+        private List<String> qualifiers;
+        private String kind;
+        private Value accessor;
+        private Value name;
+        private List<Parameter> parameters;
+        private Map<String, Parameter> schema;
+        private FunctionReturnType returnType;
+        private boolean enabled;
+        private boolean optional;
+        private boolean editable;
+        private Codedata codedata;
+
+        public FunctionBuilder setMetadata(MetaData metadata) {
+            this.metadata = metadata;
+            return this;
+        }
+
+        public FunctionBuilder setQualifiers(List<String> qualifiers) {
+            this.qualifiers = qualifiers;
+            return this;
+        }
+
+        public FunctionBuilder setKind(String kind) {
+            this.kind = kind;
+            return this;
+        }
+
+        public FunctionBuilder setAccessor(Value accessor) {
+            this.accessor = accessor;
+            return this;
+        }
+
+        public FunctionBuilder setName(Value name) {
+            this.name = name;
+            return this;
+        }
+
+        public FunctionBuilder setParameters(List<Parameter> parameters) {
+            this.parameters = parameters;
+            return this;
+        }
+
+        public FunctionBuilder setSchema(Map<String, Parameter> schema) {
+            this.schema = schema;
+            return this;
+        }
+
+        public FunctionBuilder setReturnType(FunctionReturnType returnType) {
+            this.returnType = returnType;
+            return this;
+        }
+
+        public FunctionBuilder setEnabled(boolean enabled) {
+            this.enabled = enabled;
+            return this;
+        }
+
+        public FunctionBuilder setOptional(boolean optional) {
+            this.optional = optional;
+            return this;
+        }
+
+        public FunctionBuilder setEditable(boolean editable) {
+            this.editable = editable;
+            return this;
+        }
+
+        public FunctionBuilder setCodedata(Codedata codedata) {
+            this.codedata = codedata;
+            return this;
+        }
+
+        public Function build() {
+            return new Function(metadata, qualifiers, kind, accessor, name, parameters, schema, returnType, enabled,
+                    optional, editable, codedata);
+        }
     }
 }

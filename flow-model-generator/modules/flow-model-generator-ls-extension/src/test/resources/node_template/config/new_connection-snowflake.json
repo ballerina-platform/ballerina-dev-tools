@@ -20,42 +20,11 @@
       "module": "snowflake",
       "object": "Client",
       "symbol": "init",
-      "id": 636
+      "version": "2.0.0",
+      "isNew": true
     },
     "returning": false,
     "properties": {
-      "account_identifier": {
-        "metadata": {
-          "label": "account_identifier",
-          "description": "The Snowflake account identifier"
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "string",
-        "placeholder": "\"\"",
-        "optional": false,
-        "editable": true,
-        "advanced": false,
-        "codedata": {
-          "kind": "REQUIRED",
-          "originalName": "account_identifier"
-        }
-      },
-      "user": {
-        "metadata": {
-          "label": "user",
-          "description": "The username of the Snowflake account"
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "string",
-        "placeholder": "\"\"",
-        "optional": false,
-        "editable": true,
-        "advanced": false,
-        "codedata": {
-          "kind": "REQUIRED",
-          "originalName": "user"
-        }
-      },
       "password": {
         "metadata": {
           "label": "password",
@@ -70,7 +39,39 @@
         "codedata": {
           "kind": "REQUIRED",
           "originalName": "password"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "account_identifier": {
+        "metadata": {
+          "label": "account_identifier",
+          "description": "The Snowflake account identifier"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"\"",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "account_identifier"
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
       },
       "options": {
         "metadata": {
@@ -86,7 +87,21 @@
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "options"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "()",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "Options",
+            "packageInfo": "ballerinax:snowflake:2.0.0",
+            "kind": "RECORD_TYPE",
+            "selected": false
+          }
+        ]
       },
       "connectionPool": {
         "metadata": {
@@ -103,7 +118,45 @@
           "kind": "DEFAULTABLE",
           "originalName": "connectionPool",
           "importStatements": "ballerina/sql"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "()",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "ConnectionPool",
+            "packageInfo": "ballerina:sql:1.13.0",
+            "kind": "RECORD_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "user": {
+        "metadata": {
+          "label": "user",
+          "description": "The username of the Snowflake account"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"\"",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "user"
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
       },
       "type": {
         "metadata": {
@@ -115,7 +168,10 @@
         "placeholder": "var",
         "optional": false,
         "editable": false,
-        "advanced": false
+        "advanced": false,
+        "codedata": {
+          "importStatements": "ballerina/sql"
+        }
       },
       "variable": {
         "metadata": {

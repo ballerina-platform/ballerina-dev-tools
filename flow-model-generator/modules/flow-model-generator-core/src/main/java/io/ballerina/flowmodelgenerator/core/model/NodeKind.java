@@ -40,6 +40,9 @@ public enum NodeKind {
     DATA_MAPPER,
     DATA_MAPPER_DEFINITION,
     FUNCTION_DEFINITION,
+    NP_FUNCTION_CALL,
+    NP_FUNCTION,
+    NP_FUNCTION_DEFINITION,
     COMMENT,
     MATCH,
     FUNCTION,
@@ -70,5 +73,9 @@ public enum NodeKind {
     INTERSECTION,
     SERVICE_DECLARATION,
     TABLE,
-    TUPLE
+    TUPLE,
+
+    AGENT,
+    AGENT_CALL,
+    CLASS_INIT
 }

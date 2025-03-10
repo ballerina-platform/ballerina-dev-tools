@@ -1,0 +1,16 @@
+{
+  "description": "",
+  "source": "data_mapper/main.bal",
+  "typeConstraint": "string",
+  "completions": [
+    {
+      "label": "string",
+      "labelDetails": {
+        "detail": "Primitive Types",
+        "description": "String"
+      },
+      "kind": "TypeParameter",
+      "insertText": "string"
+    }
+  ]
+}

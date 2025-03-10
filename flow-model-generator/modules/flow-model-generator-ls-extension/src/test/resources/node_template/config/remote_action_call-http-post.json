@@ -9,6 +9,7 @@
     "node": "REMOTE_ACTION_CALL",
     "org": "ballerina",
     "module": "http",
+    "version": "2.12.0",
     "object": "Client",
     "symbol": "post",
     "parentSymbol": "httpClient"
@@ -26,7 +27,9 @@
       "module": "http",
       "object": "Client",
       "symbol": "post",
-      "id": 565
+      "version": "2.12.0",
+      "isNew": true,
+      "inferredReturnType": "targetType"
     },
     "returning": false,
     "properties": {
@@ -42,6 +45,22 @@
         "editable": false,
         "advanced": false
       },
+      "targetType": {
+        "metadata": {
+          "label": "targetType",
+          "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
+        },
+        "valueType": "TYPE",
+        "valueTypeConstraint": "http:Response|anydata|stream<http:SseEvent, error?>",
+        "placeholder": "http:Response|anydata|stream<http:SseEvent, error?>",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "PARAM_FOR_TYPE_INFER",
+          "originalName": "targetType"
+        }
+      },
       "path": {
         "metadata": {
           "label": "path",
@@ -56,23 +75,15 @@
         "codedata": {
           "kind": "REQUIRED",
           "originalName": "path"
-        }
-      },
-      "message": {
-        "metadata": {
-          "label": "message",
-          "description": "An HTTP outbound request or any allowed payload"
         },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "http:RequestMessage",
-        "placeholder": "{}",
-        "optional": false,
-        "editable": true,
-        "advanced": false,
-        "codedata": {
-          "kind": "REQUIRED",
-          "originalName": "message"
-        }
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
       },
       "headers": {
         "metadata": {
@@ -88,7 +99,21 @@
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "headers"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "()",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "map<string|string[]>",
+            "packageInfo": "",
+            "kind": "MAP_TYPE",
+            "selected": false
+          }
+        ]
       },
       "mediaType": {
         "metadata": {
@@ -104,7 +129,45 @@
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "mediaType"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "()",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "message": {
+        "metadata": {
+          "label": "message",
+          "description": "An HTTP outbound request or any allowed payload"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "http:RequestMessage",
+        "placeholder": "{}",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "message"
+        },
+        "typeMembers": [
+          {
+            "type": "RequestMessage",
+            "packageInfo": "ballerina:http:2.12.2",
+            "kind": "OTHER",
+            "selected": false
+          }
+        ]
       },
       "type": {
         "metadata": {
@@ -112,11 +175,12 @@
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "json",
+        "value": "targetType",
         "placeholder": "var",
         "optional": false,
-        "editable": true,
-        "advanced": false
+        "editable": false,
+        "advanced": false,
+        "codedata": {}
       },
       "variable": {
         "metadata": {
@@ -124,7 +188,7 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "jsonResult",
+        "value": "var2",
         "optional": false,
         "editable": true,
         "advanced": false

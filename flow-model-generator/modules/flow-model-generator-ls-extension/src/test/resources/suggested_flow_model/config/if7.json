@@ -86,8 +86,21 @@
             "valueType": "IDENTIFIER",
             "value": "x",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "if.bal",
+                "startLine": {
+                  "line": 7,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 7,
+                  "offset": 9
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -99,7 +112,8 @@
             "placeholder": "var",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 0,
@@ -147,8 +161,21 @@
             "valueType": "IDENTIFIER",
             "value": "y",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "if.bal",
+                "startLine": {
+                  "line": 8,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 8,
+                  "offset": 9
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -160,7 +187,8 @@
             "placeholder": "var",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 0,
@@ -208,8 +236,21 @@
             "valueType": "IDENTIFIER",
             "value": "z",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "if.bal",
+                "startLine": {
+                  "line": 9,
+                  "offset": 7
+                },
+                "endLine": {
+                  "line": 9,
+                  "offset": 8
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -221,7 +262,8 @@
             "placeholder": "var",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 0,
@@ -346,7 +388,15 @@
                     "codedata": {
                       "kind": "REQUIRED",
                       "originalName": "val"
-                    }
+                    },
+                    "typeMembers": [
+                      {
+                        "type": "string",
+                        "packageInfo": "",
+                        "kind": "BASIC_TYPE",
+                        "selected": true
+                      }
+                    ]
                   }
                 },
                 "flags": 0,
@@ -540,7 +590,15 @@
                     "codedata": {
                       "kind": "REQUIRED",
                       "originalName": "val"
-                    }
+                    },
+                    "typeMembers": [
+                      {
+                        "type": "string",
+                        "packageInfo": "",
+                        "kind": "BASIC_TYPE",
+                        "selected": true
+                      }
+                    ]
                   }
                 },
                 "flags": 0
@@ -629,7 +687,15 @@
                     "codedata": {
                       "kind": "REQUIRED",
                       "originalName": "val"
-                    }
+                    },
+                    "typeMembers": [
+                      {
+                        "type": "string",
+                        "packageInfo": "",
+                        "kind": "BASIC_TYPE",
+                        "selected": true
+                      }
+                    ]
                   }
                 },
                 "flags": 0

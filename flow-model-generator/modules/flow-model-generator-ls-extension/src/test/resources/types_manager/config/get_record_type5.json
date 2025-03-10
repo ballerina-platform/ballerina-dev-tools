@@ -35,7 +35,7 @@
         "valueType": "IDENTIFIER",
         "value": "TimeSheet",
         "optional": false,
-        "editable": true,
+        "editable": false,
         "advanced": false
       },
       "isPublic": {
@@ -162,7 +162,7 @@
           "valueType": "IDENTIFIER",
           "value": "ballerina/time:Utc",
           "optional": false,
-          "editable": true,
+          "editable": false,
           "advanced": false
         },
         "isPublic": {

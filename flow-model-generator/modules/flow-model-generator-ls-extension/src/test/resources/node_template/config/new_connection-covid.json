@@ -25,26 +25,11 @@
       "module": "covid19",
       "object": "Client",
       "symbol": "init",
-      "id": 718
+      "version": "1.5.1",
+      "isNew": true
     },
     "returning": false,
     "properties": {
-      "config": {
-        "metadata": {
-          "label": "config",
-          "description": "The configurations to be used when initializing the `connector` "
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "covid19:ConnectionConfig",
-        "placeholder": "{}",
-        "optional": true,
-        "editable": true,
-        "advanced": true,
-        "codedata": {
-          "kind": "DEFAULTABLE",
-          "originalName": "config"
-        }
-      },
       "serviceUrl": {
         "metadata": {
           "label": "serviceUrl",
@@ -59,7 +44,39 @@
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "serviceUrl"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "config": {
+        "metadata": {
+          "label": "config",
+          "description": "The configurations to be used when initializing the `connector` "
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "covid19:ConnectionConfig",
+        "placeholder": "{}",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "config"
+        },
+        "typeMembers": [
+          {
+            "type": "ConnectionConfig",
+            "packageInfo": "ballerinax:covid19:1.5.1",
+            "kind": "RECORD_TYPE",
+            "selected": false
+          }
+        ]
       },
       "type": {
         "metadata": {
@@ -71,7 +88,8 @@
         "placeholder": "var",
         "optional": false,
         "editable": false,
-        "advanced": false
+        "advanced": false,
+        "codedata": {}
       },
       "variable": {
         "metadata": {

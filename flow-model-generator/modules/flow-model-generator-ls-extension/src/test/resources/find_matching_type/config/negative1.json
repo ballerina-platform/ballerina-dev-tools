@@ -1,0 +1,55 @@
+{
+  "filePath": "proj",
+  "typeMembers": [
+    {
+      "type": "CredentialsConfig",
+      "packageInfo": "ballerina:http:2.14.0",
+      "kind": "RECORD_TYPE",
+      "selected": false
+    },
+    {
+      "type": "BearerTokenConfig",
+      "packageInfo": "ballerina:http:2.14.0",
+      "kind": "RECORD_TYPE",
+      "selected": false
+    },
+    {
+      "type": "JwtIssuerConfig",
+      "packageInfo": "ballerina:http:2.14.0",
+      "kind": "RECORD_TYPE",
+      "selected": false
+    },
+    {
+      "type": "OAuth2ClientCredentialsGrantConfig",
+      "packageInfo": "ballerina:http:2.14.0",
+      "kind": "RECORD_TYPE",
+      "selected": false
+    },
+    {
+      "type": "OAuth2PasswordGrantConfig",
+      "packageInfo": "ballerina:http:2.14.0",
+      "kind": "RECORD_TYPE",
+      "selected": false
+    },
+    {
+      "type": "OAuth2RefreshTokenGrantConfig",
+      "packageInfo": "ballerina:http:2.14.0",
+      "kind": "RECORD_TYPE",
+      "selected": false
+    },
+    {
+      "type": "OAuth2JwtBearerGrantConfig",
+      "packageInfo": "ballerina:http:2.14.0",
+      "kind": "RECORD_TYPE",
+      "selected": false
+    },
+    {
+      "type": "()",
+      "packageInfo": "",
+      "kind": "BASIC_TYPE",
+      "selected": false
+    }
+  ],
+  "expr": "{tokenUrl: \"http://localhost:9090/token\", clientId: \"my-client-id\"}",
+  "output": {}
+}

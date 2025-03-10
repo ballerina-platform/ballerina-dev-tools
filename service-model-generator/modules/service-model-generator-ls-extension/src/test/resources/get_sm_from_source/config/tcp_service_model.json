@@ -1,0 +1,232 @@
+{
+  "filePath": "sample7/tcp.bal",
+  "description": "Test the generation of service model for a tcp service",
+  "start": {
+    "line": 4,
+    "offset": 0
+  },
+  "end": {
+    "line": 13,
+    "offset": 0
+  },
+  "response": {
+    "id": "3",
+    "name": "TCP Service",
+    "type": "tcp",
+    "displayName": "TCP Service",
+    "description": "Add the service documentation",
+    "displayAnnotation": {
+      "label": "TCP Service",
+      "iconPath": "https://bcentral-packageicons.azureedge.net/images/ballerina_tcp_1.12.1.png"
+    },
+    "moduleName": "tcp",
+    "orgName": "ballerina",
+    "version": "1.12.1",
+    "packageName": "tcp",
+    "listenerProtocol": "tcp",
+    "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_tcp_1.12.1.png",
+    "properties": {
+      "listener": {
+        "metadata": {
+          "label": "Listeners",
+          "description": "The Listeners to be bound with the service"
+        },
+        "enabled": true,
+        "editable": true,
+        "value": "tcpListener",
+        "values": [],
+        "valueType": "MULTIPLE_SELECT",
+        "valueTypeConstraint": "tcp:Listener",
+        "isType": false,
+        "placeholder": "",
+        "optional": false,
+        "advanced": false,
+        "items": [
+          "tcpListener"
+        ],
+        "codedata": {
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false,
+          "type": "LISTENER"
+        },
+        "addNewButton": true
+      },
+      "serviceType": {
+        "metadata": {
+          "label": "TCP Service Type",
+          "description": "The name of the service contract type"
+        },
+        "enabled": false,
+        "editable": true,
+        "value": "Service",
+        "valueType": "SINGLE_SELECT",
+        "valueTypeConstraint": "string",
+        "isType": false,
+        "placeholder": "Service",
+        "optional": false,
+        "advanced": false,
+        "items": [
+          "",
+          "Service"
+        ],
+        "codedata": {
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false,
+          "type": "SERVICE_TYPE"
+        },
+        "addNewButton": false
+      }
+    },
+    "codedata": {
+      "lineRange": {
+        "fileName": "tcp.bal",
+        "startLine": {
+          "line": 4,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 13,
+          "offset": 1
+        }
+      },
+      "inListenerInit": false,
+      "isBasePath": false,
+      "inDisplayAnnotation": false
+    },
+    "functions": [
+      {
+        "metadata": {
+          "label": "onConnect",
+          "description": "The `onConnect` remote method will be triggered when a message is received from a tcp client"
+        },
+        "kind": "REMOTE",
+        "name": {
+          "metadata": {
+            "label": "onConnect",
+            "description": "The `onConnect` remote method will be triggered when a message is received from a tcp client"
+          },
+          "enabled": true,
+          "editable": false,
+          "value": "onConnect",
+          "valueType": "IDENTIFIER",
+          "valueTypeConstraint": "string",
+          "isType": false,
+          "placeholder": "onConnect",
+          "optional": false,
+          "advanced": false,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "FUNCTION_NAME"
+          },
+          "addNewButton": false
+        },
+        "parameters": [
+          {
+            "metadata": {
+              "label": "caller",
+              "description": "The new client connection"
+            },
+            "kind": "REQUIRED",
+            "type": {
+              "metadata": {
+                "label": "Type",
+                "description": "The type of the parameter"
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "tcp:Caller",
+              "valueType": "TYPE",
+              "valueTypeConstraint": "string",
+              "isType": true,
+              "placeholder": "tcp:Caller",
+              "optional": true,
+              "advanced": false,
+              "addNewButton": false
+            },
+            "name": {
+              "metadata": {
+                "label": "caller",
+                "description": "The new client connection"
+              },
+              "enabled": true,
+              "editable": false,
+              "value": "caller",
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "string",
+              "isType": false,
+              "placeholder": "caller",
+              "optional": false,
+              "advanced": false,
+              "codedata": {
+                "inListenerInit": false,
+                "isBasePath": false,
+                "inDisplayAnnotation": false,
+                "type": "PARAMETER_NAME"
+              },
+              "addNewButton": false
+            },
+            "defaultValue": {
+              "metadata": {
+                "label": "Default Value",
+                "description": "The default value of the parameter"
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "EXPRESSION",
+              "valueTypeConstraint": "string",
+              "isType": true,
+              "placeholder": "",
+              "optional": true,
+              "advanced": false,
+              "addNewButton": false
+            },
+            "enabled": true,
+            "editable": true,
+            "optional": true,
+            "advanced": false
+          }
+        ],
+        "returnType": {
+          "metadata": {
+            "label": "Return Type",
+            "description": "The return type of the function"
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "tcp:ConnectionService",
+          "valueType": "TYPE",
+          "valueTypeConstraint": "string",
+          "isType": true,
+          "placeholder": "tcp:ConnectionService",
+          "optional": true,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "enabled": true,
+        "optional": false,
+        "editable": true,
+        "codedata": {
+          "lineRange": {
+            "fileName": "tcp.bal",
+            "startLine": {
+              "line": 5,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 12,
+              "offset": 5
+            }
+          },
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false
+        }
+      }
+    ]
+  }
+}

@@ -10,7 +10,8 @@
       "description": "Panic and stop the execution"
     },
     "codedata": {
-      "node": "PANIC"
+      "node": "PANIC",
+      "isNew": true
     },
     "returning": false,
     "properties": {

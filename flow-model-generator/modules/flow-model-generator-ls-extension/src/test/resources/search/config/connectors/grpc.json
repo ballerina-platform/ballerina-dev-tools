@@ -1,0 +1,58 @@
+{
+  "description": "Sample flow model",
+  "kind": "CONNECTOR",
+  "source": "empty.bal",
+  "queryMap": {
+    "q": "grpc"
+  },
+  "categories": [
+    {
+      "metadata": {
+        "label": "gRPC StreamingClient",
+        "description": "The base client used in the generated client code to provide the gRPC streaming client actions for\ninteracting  with the gRPC server.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.13.2.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerina",
+        "module": "grpc",
+        "object": "StreamingClient",
+        "symbol": "init",
+        "version": "1.13.2"
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "gRPC Client",
+        "description": "The base client used in the generated client code to provide the capability for initiating the contact and executing remote calls with a remote gRPC service.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.13.2.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerina",
+        "module": "grpc",
+        "object": "Client",
+        "symbol": "init",
+        "version": "1.13.2"
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "gRPC Caller",
+        "description": "The base client used in the generated client code to provide remote functions for interacting with the caller.\n",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.13.2.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerina",
+        "module": "grpc",
+        "object": "Caller",
+        "symbol": "init",
+        "version": "1.13.2"
+      },
+      "enabled": true
+    }
+  ]
+}

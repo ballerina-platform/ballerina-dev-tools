@@ -28,6 +28,15 @@ import org.ballerinalang.diagramutil.connector.models.connector.Type;
 public class RecordConfigResponse extends AbstractFlowModelResponse {
 
     private Type recordConfig;
+    private String typeName;
+
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
+    }
+
+    public String getTypeName() {
+        return typeName;
+    }
 
     public void setRecordConfig(Type recordConfig) {
         this.recordConfig = recordConfig;

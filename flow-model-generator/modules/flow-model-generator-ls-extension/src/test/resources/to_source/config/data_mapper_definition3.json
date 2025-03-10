@@ -8,7 +8,8 @@
       "description": "Define a data mapper"
     },
     "codedata": {
-      "node": "DATA_MAPPER_DEFINITION"
+      "node": "DATA_MAPPER_DEFINITION",
+      "isNew": true
     },
     "returning": false,
     "properties": {
@@ -133,7 +134,7 @@
             "character": 0
           }
         },
-        "newText": "function mapNames(Employee []employees) returns Summary=> {\ntotalSalary: 0, averageAge: () } ;"
+        "newText": "\nfunction mapNames(Employee []employees) returns Summary=> {\ntotalSalary: 0, averageAge: () } ;"
       }
     ]
   }

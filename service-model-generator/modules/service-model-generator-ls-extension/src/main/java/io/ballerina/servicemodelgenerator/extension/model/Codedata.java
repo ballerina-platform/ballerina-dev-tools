@@ -27,6 +27,19 @@ public class Codedata {
     private boolean inDisplayAnnotation;
     private String type;
     private String argType;
+    private String originalName;
+
+    public Codedata() {
+    }
+
+    public Codedata(String type) {
+        this.type = type;
+    }
+
+    public Codedata(String type, String argType) {
+        this.type = type;
+        this.argType = argType;
+    }
 
     public Codedata(LineRange lineRange) {
         this(lineRange, false, false, false);
@@ -85,5 +98,13 @@ public class Codedata {
 
     public void setArgType(String argType) {
         this.argType = argType;
+    }
+
+    public String getOriginalName() {
+        return originalName;
+    }
+
+    public void setOriginalName(String originalName) {
+        this.originalName = originalName;
     }
 }

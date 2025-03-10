@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS Parameter;
 DROP TABLE IF EXISTS Function;
 DROP TABLE IF EXISTS Connector;
 DROP TABLE IF EXISTS Package;
+DROP TABLE IF EXISTS ParameterMemberType;
 
 -- Create Package table
 CREATE TABLE Package (
@@ -24,7 +25,8 @@ CREATE TABLE Function (
     return_type JSON, -- JSON type for return type information
     resource_path TEXT NOT NULL,
     return_error INTEGER CHECK(return_error IN (0, 1)),
-    inferred_return_type INTEGER CHECK(return_error IN (0, 1)), -- Whether the return type is inferred 
+    inferred_return_type INTEGER CHECK(return_error IN (0, 1)), -- Whether the return type is inferred
+    import_statements TEXT, -- Import statements for the return type
     FOREIGN KEY (package_id) REFERENCES Package(package_id) ON DELETE CASCADE
 );
 
@@ -50,4 +52,14 @@ CREATE TABLE Parameter (
     import_statements TEXT,
     function_id INTEGER,
     FOREIGN KEY (function_id) REFERENCES Function(function_id) ON DELETE CASCADE
+);
+
+-- Create Parameter Member Type table
+CREATE TABLE ParameterMemberType (
+    member_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    type JSON, -- JSON type for parameter type information
+    kind TEXT,
+    parameter_id INTEGER,
+    package TEXT, -- format of the package is org:name:version
+    FOREIGN KEY (parameter_id) REFERENCES Parameter(parameter_id) ON DELETE CASCADE
 );

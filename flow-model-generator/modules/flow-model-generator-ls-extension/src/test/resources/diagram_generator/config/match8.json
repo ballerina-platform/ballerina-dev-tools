@@ -134,8 +134,21 @@
                     "valueType": "IDENTIFIER",
                     "value": "q",
                     "optional": false,
-                    "editable": true,
-                    "advanced": false
+                    "editable": false,
+                    "advanced": false,
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "match.bal",
+                        "startLine": {
+                          "line": 146,
+                          "offset": 16
+                        },
+                        "endLine": {
+                          "line": 146,
+                          "offset": 17
+                        }
+                      }
+                    }
                   },
                   "type": {
                     "metadata": {
@@ -147,7 +160,8 @@
                     "placeholder": "var",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "codedata": {}
                   }
                 },
                 "flags": 0

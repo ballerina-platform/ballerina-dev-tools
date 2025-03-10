@@ -28,6 +28,7 @@ import io.ballerina.projects.Project;
 import io.ballerina.projects.ProjectEnvironmentBuilder;
 import io.ballerina.projects.bala.BalaProject;
 import io.ballerina.projects.directory.BuildProject;
+import io.ballerina.projects.environment.PackageMetadataResponse;
 import io.ballerina.projects.environment.PackageResolver;
 import io.ballerina.projects.environment.ResolutionOptions;
 import io.ballerina.projects.environment.ResolutionRequest;
@@ -55,6 +56,7 @@ import java.util.Optional;
 public class PackageUtil {
 
     private static final String BALLERINA_HOME_PROPERTY = "ballerina.home";
+    private static final BuildProject SAMPLE_PROJECT = getSampleProject();
 
     public static BuildProject getSampleProject() {
         // Obtain the Ballerina distribution path
@@ -80,7 +82,7 @@ public class PackageUtil {
                     "org = \"wso2\"\n" +
                     "name = \"sample\"\n" +
                     "version = \"0.1.0\"\n" +
-                    "distribution = \"2201.11.0\"";
+                    "distribution = \"2201.12.0\"";
             Files.writeString(ballerinaTomlFile, tomlContent, StandardOpenOption.CREATE);
             return BuildProject.load(tempDir);
         } catch (IOException e) {
@@ -98,6 +100,11 @@ public class PackageUtil {
      */
     public static Optional<SemanticModel> getSemanticModel(String org, String name, String version) {
         return getModulePackage(getSampleProject(), org, name, version).map(
+                pkg -> pkg.getDefaultModule().getCompilation().getSemanticModel());
+    }
+
+    public static Optional<SemanticModel> getSemanticModel(String org, String name) {
+        return getModulePackage(getSampleProject(), org, name).map(
                 pkg -> pkg.getDefaultModule().getCompilation().getSemanticModel());
     }
 
@@ -130,6 +137,44 @@ public class PackageUtil {
         defaultBuilder.addCompilationCacheFactory(TempDirCompilationCache::from);
         BalaProject balaProject = BalaProject.loadProject(defaultBuilder, balaPath);
         return Optional.ofNullable(balaProject.currentPackage());
+    }
+
+    public static Optional<Package> getModulePackage(BuildProject buildProject, String org, String name) {
+        ResolutionRequest resolutionRequest = ResolutionRequest.from(
+                PackageDescriptor.from(PackageOrg.from(org), PackageName.from(name)));
+        PackageResolver packageResolver = buildProject.projectEnvironmentContext().getService(PackageResolver.class);
+        Collection<PackageMetadataResponse> packageMetadataResponses = packageResolver.resolvePackageMetadata(
+                Collections.singletonList(resolutionRequest),
+                ResolutionOptions.builder().setOffline(true).build());
+        Optional<PackageMetadataResponse> pkgMetadata = packageMetadataResponses.stream().findFirst();
+        if (pkgMetadata.isEmpty()) {
+            return Optional.empty();
+        }
+
+        Collection<ResolutionResponse> resolutionResponses = packageResolver.resolvePackages(
+                Collections.singletonList(ResolutionRequest.from(pkgMetadata.get().resolvedDescriptor())),
+                ResolutionOptions.builder().setOffline(false).build());
+        Optional<ResolutionResponse> resolutionResponse = resolutionResponses.stream().findFirst();
+        if (resolutionResponse.isEmpty()) {
+            return Optional.empty();
+        }
+
+        Path balaPath = resolutionResponse.get().resolvedPackage().project().sourceRoot();
+        ProjectEnvironmentBuilder defaultBuilder = ProjectEnvironmentBuilder.getDefaultBuilder();
+        defaultBuilder.addCompilationCacheFactory(TempDirCompilationCache::from);
+        BalaProject balaProject = BalaProject.loadProject(defaultBuilder, balaPath);
+        return Optional.ofNullable(balaProject.currentPackage());
+    }
+
+    public static boolean isModuleUnresolved(String org, String name, String version) {
+        ResolutionRequest resolutionRequest = ResolutionRequest.from(
+                PackageDescriptor.from(PackageOrg.from(org), PackageName.from(name), PackageVersion.from(version)));
+        PackageResolver packageResolver = SAMPLE_PROJECT.projectEnvironmentContext().getService(PackageResolver.class);
+        return packageResolver.resolvePackageMetadata(Collections.singletonList(resolutionRequest),
+                        ResolutionOptions.builder().setOffline(true).build()).stream()
+                .findFirst()
+                .map(response -> response.resolutionStatus() == ResolutionResponse.ResolutionStatus.UNRESOLVED)
+                .orElse(false);
     }
 
     private static Path getPath(Path path) {

@@ -1,0 +1,107 @@
+{
+  "description": "Sample flow model",
+  "kind": "FUNCTION",
+  "source": "empty.bal",
+  "position": {
+    "startLine": {
+      "line": 1,
+      "offset": 1
+    },
+    "endLine": {
+      "line": 1,
+      "offset": 1
+    }
+  },
+  "queryMap": {
+    "q": "json to xml",
+    "limit": "12",
+    "offset": "0"
+  },
+  "categories": [
+    {
+      "metadata": {
+        "label": "Current Integration",
+        "description": "Functions defined within the current integration",
+        "keywords": [
+          "Project",
+          "Local",
+          "Function"
+        ]
+      },
+      "items": []
+    },
+    {
+      "metadata": {
+        "label": "Imported Functions",
+        "description": "Functions imported from other integrations",
+        "keywords": [
+          "Imported",
+          "Function",
+          "Library"
+        ]
+      },
+      "items": []
+    },
+    {
+      "metadata": {
+        "label": "Available Functions",
+        "description": "Functions available in the library",
+        "keywords": [
+          "Available",
+          "Function",
+          "Library"
+        ]
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "data.xmldata",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "fromJson",
+                "description": "Converts a JSON object to an XML representation.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.xmldata_1.2.2.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "data.xmldata",
+                "symbol": "fromJson",
+                "version": "1.2.2"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "lang.value",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "toJson",
+                "description": "Converts a value of type `anydata` to `json`.\n\nThis does a deep copy of parameter `v` converting values that do\nnot belong to json into values that do.\nA value of type `xml` is converted into a string as if\nby the `toString` function.\nA value of type `table` is converted into a list of\nmappings one for each row.\nThe inherent type of arrays in the return value will be\n`json[]` and of mappings will be `map<json>`.\nA new copy is made of all structural values, including\nimmutable values.\nThis panics if parameter `v` has cycles.\n\n```ballerina\nanydata student = {name: \"Jo\", age: 11};\nstudent.toJson() ⇒ {\"name\":\"Jo\",\"age\":11}\nanydata[] array = [];\narray.push(array);\narray.toJson() ⇒ panic\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.value_0.0.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "lang.value",
+                "symbol": "toJson",
+                "version": "0.0.0"
+              },
+              "enabled": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

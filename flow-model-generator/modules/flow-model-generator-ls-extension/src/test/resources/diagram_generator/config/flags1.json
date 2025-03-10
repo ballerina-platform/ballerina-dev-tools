@@ -226,8 +226,21 @@
             "valueType": "IDENTIFIER",
             "value": "_",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "flags.bal",
+                "startLine": {
+                  "line": 7,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 7,
+                  "offset": 13
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -238,8 +251,9 @@
             "value": "boolean",
             "placeholder": "var",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 1
@@ -311,8 +325,21 @@
             "valueType": "IDENTIFIER",
             "value": "_",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "flags.bal",
+                "startLine": {
+                  "line": 8,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 8,
+                  "offset": 13
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -323,8 +350,9 @@
             "value": "boolean",
             "placeholder": "var",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 2
@@ -396,8 +424,21 @@
             "valueType": "IDENTIFIER",
             "value": "_",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "flags.bal",
+                "startLine": {
+                  "line": 9,
+                  "offset": 14
+                },
+                "endLine": {
+                  "line": 9,
+                  "offset": 15
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -408,8 +449,9 @@
             "value": "boolean",
             "placeholder": "var",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 5
@@ -481,8 +523,21 @@
             "valueType": "IDENTIFIER",
             "value": "_",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "flags.bal",
+                "startLine": {
+                  "line": 10,
+                  "offset": 14
+                },
+                "endLine": {
+                  "line": 10,
+                  "offset": 15
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -493,8 +548,9 @@
             "value": "boolean",
             "placeholder": "var",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 6

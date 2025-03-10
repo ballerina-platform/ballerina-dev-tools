@@ -1,0 +1,135 @@
+{
+  "source": "data_mapper/main.bal",
+  "position": {
+    "line": 14,
+    "offset": 0
+  },
+  "description": "Sample diagram node",
+  "codedata": {
+    "node": "FUNCTION_CALL",
+    "org": "ballerina",
+    "module": "io",
+    "symbol": "fileReadCsv",
+    "version": "1.6.1"
+  },
+  "output": {
+    "id": "31",
+    "metadata": {
+      "label": "fileReadCsv",
+      "description": "Read file content as a CSV.\nWhen the expected data type is record[], the first entry of the csv file should contain matching headers.\n```ballerina\nstring[][]|io:Error content = io:fileReadCsv(\"./resources/myfile.csv\");\nrecord{}[]|io:Error content = io:fileReadCsv(\"./resources/myfile.csv\");\n```",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.1.png"
+    },
+    "codedata": {
+      "node": "FUNCTION_CALL",
+      "org": "ballerina",
+      "module": "io",
+      "symbol": "fileReadCsv",
+      "version": "1.6.1",
+      "isNew": true,
+      "inferredReturnType": "returnType[]"
+    },
+    "returning": false,
+    "properties": {
+      "returnType": {
+        "metadata": {
+          "label": "returnType",
+          "description": "The type of the return value (string[] or a Ballerina record)"
+        },
+        "valueType": "TYPE",
+        "valueTypeConstraint": "string[]|map<anydata>",
+        "placeholder": "string[]|map<anydata>",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "PARAM_FOR_TYPE_INFER",
+          "originalName": "returnType"
+        }
+      },
+      "path": {
+        "metadata": {
+          "label": "path",
+          "description": "The CSV file path"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"\"",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "path"
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "skipHeaders": {
+        "metadata": {
+          "label": "skipHeaders",
+          "description": "Number of headers, which should be skipped prior to reading records"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "int",
+        "placeholder": "0",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "skipHeaders"
+        },
+        "typeMembers": [
+          {
+            "type": "int",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "type": {
+        "metadata": {
+          "label": "Variable Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "returnType[]",
+        "placeholder": "var",
+        "optional": false,
+        "editable": false,
+        "advanced": false,
+        "codedata": {}
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "returnType",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "checkError": {
+        "metadata": {
+          "label": "Check Error",
+          "description": "Trigger error flow"
+        },
+        "valueType": "FLAG",
+        "value": true,
+        "optional": false,
+        "editable": true,
+        "advanced": true
+      }
+    },
+    "flags": 0
+  }
+}

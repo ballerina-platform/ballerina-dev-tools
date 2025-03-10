@@ -8,7 +8,8 @@
       "description": "Define a function"
     },
     "codedata": {
-      "node": "FUNCTION_DEFINITION"
+      "node": "FUNCTION_DEFINITION",
+      "isNew": true
     },
     "returning": false,
     "properties": {
@@ -96,7 +97,7 @@
             "character": 1
           }
         },
-        "newText": "function fn() {\n}"
+        "newText": "\nfunction fn() {\n}"
       }
     ]
   }

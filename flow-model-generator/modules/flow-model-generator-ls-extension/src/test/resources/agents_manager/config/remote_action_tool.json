@@ -1,0 +1,163 @@
+{
+  "source": "agent_1/agents.bal",
+  "name": "toolFunc",
+  "connection": "currencyClient",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "65073",
+    "metadata": {
+      "label": "get",
+      "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.2.png"
+    },
+    "codedata": {
+      "node": "REMOTE_ACTION_CALL",
+      "org": "ballerina",
+      "module": "http",
+      "object": "Client",
+      "symbol": "get",
+      "version": "2.13.2",
+      "lineRange": {
+        "fileName": "main.bal",
+        "startLine": {
+          "line": 33,
+          "offset": 16
+        },
+        "endLine": {
+          "line": 33,
+          "offset": 97
+        }
+      },
+      "isNew": true,
+      "sourceCode": "// action call - http get call\n                json response = check currencyClient->get(\"/latest?base=\" + 'from + \"&to=\" + to);"
+    },
+    "returning": false,
+    "properties": {
+      "connection": {
+        "metadata": {
+          "label": "Connection",
+          "description": "Connection to use"
+        },
+        "valueType": "EXPRESSION",
+        "value": "currencyClient",
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      },
+      "path": {
+        "metadata": {
+          "label": "path",
+          "description": "Request path"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "value": "\"/latest?base=\" + 'from + \"&to=\" + to",
+        "placeholder": "\"\"",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "path"
+        }
+      },
+      "headers": {
+        "metadata": {
+          "label": "headers",
+          "description": "The entity headers"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "map<string|string[]>|()",
+        "placeholder": "()",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "headers"
+        }
+      },
+      "targetType": {
+        "metadata": {
+          "label": "targetType",
+          "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "json",
+        "placeholder": "json",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "PARAM_FOR_TYPE_INFER",
+          "originalName": "targetType"
+        }
+      },
+      "checkError": {
+        "metadata": {
+          "label": "Check Error",
+          "description": "Trigger error flow"
+        },
+        "valueType": "FLAG",
+        "value": true,
+        "optional": false,
+        "editable": true,
+        "advanced": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "response",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "type": {
+        "metadata": {
+          "label": "Variable Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "json",
+        "placeholder": "var",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      }
+    },
+    "flags": 1
+  },
+  "output": {
+    "agent_1/agents.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import ballerina/http;"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "# The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n# + path - Request path\n# + headers - The entity headers\n@agent:Tool\n@display {label: \"\",iconPath: \"https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.2.png\"}\nisolated function toolFunc( string path, map<string|string[]>|() headers) returns json| error { json response = check currencyClient-> get( \"/latest?base=\" + 'from + \"&to=\" + to) ;\nreturn response;\n}"
+      }
+    ]
+  }
+}

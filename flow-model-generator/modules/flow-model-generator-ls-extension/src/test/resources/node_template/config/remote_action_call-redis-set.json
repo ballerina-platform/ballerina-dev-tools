@@ -10,6 +10,7 @@
     "org": "ballerinax",
     "module": "redis",
     "object": "Client",
+    "version": "3.0.2",
     "symbol": "set",
     "parentSymbol": "redisCl"
   },
@@ -26,7 +27,8 @@
       "module": "redis",
       "object": "Client",
       "symbol": "set",
-      "id": 1453
+      "version": "3.0.2",
+      "isNew": true
     },
     "returning": false,
     "properties": {
@@ -42,22 +44,6 @@
         "editable": false,
         "advanced": false
       },
-      "key": {
-        "metadata": {
-          "label": "key",
-          "description": "Key referring to a value"
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "string",
-        "placeholder": "\"\"",
-        "optional": false,
-        "editable": true,
-        "advanced": false,
-        "codedata": {
-          "kind": "REQUIRED",
-          "originalName": "key"
-        }
-      },
       "value": {
         "metadata": {
           "label": "value",
@@ -72,7 +58,39 @@
         "codedata": {
           "kind": "REQUIRED",
           "originalName": "value"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "key": {
+        "metadata": {
+          "label": "key",
+          "description": "Key referring to a value"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"\"",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "key"
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
       },
       "type": {
         "metadata": {
@@ -84,7 +102,8 @@
         "placeholder": "var",
         "optional": false,
         "editable": false,
-        "advanced": false
+        "advanced": false,
+        "codedata": {}
       },
       "variable": {
         "metadata": {

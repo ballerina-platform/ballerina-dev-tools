@@ -27,7 +27,9 @@
       "module": "http",
       "object": "Client",
       "symbol": "get",
-      "id": 575
+      "version": "2.12.0",
+      "isNew": true,
+      "inferredReturnType": "targetType"
     },
     "returning": false,
     "properties": {
@@ -43,6 +45,22 @@
         "editable": false,
         "advanced": false
       },
+      "targetType": {
+        "metadata": {
+          "label": "targetType",
+          "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
+        },
+        "valueType": "TYPE",
+        "valueTypeConstraint": "http:Response|anydata|stream<http:SseEvent, error?>",
+        "placeholder": "http:Response|anydata|stream<http:SseEvent, error?>",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "PARAM_FOR_TYPE_INFER",
+          "originalName": "targetType"
+        }
+      },
       "path": {
         "metadata": {
           "label": "path",
@@ -57,7 +75,15 @@
         "codedata": {
           "kind": "REQUIRED",
           "originalName": "path"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
       },
       "headers": {
         "metadata": {
@@ -73,7 +99,21 @@
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "headers"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "()",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "map<string|string[]>",
+            "packageInfo": "",
+            "kind": "MAP_TYPE",
+            "selected": false
+          }
+        ]
       },
       "type": {
         "metadata": {
@@ -81,11 +121,12 @@
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "json",
+        "value": "targetType",
         "placeholder": "var",
         "optional": false,
-        "editable": true,
-        "advanced": false
+        "editable": false,
+        "advanced": false,
+        "codedata": {}
       },
       "variable": {
         "metadata": {
@@ -93,7 +134,7 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "jsonResult",
+        "value": "var2",
         "optional": false,
         "editable": true,
         "advanced": false

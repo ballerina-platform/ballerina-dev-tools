@@ -152,8 +152,21 @@
                             "valueType": "IDENTIFIER",
                             "value": "res",
                             "optional": false,
-                            "editable": true,
-                            "advanced": false
+                            "editable": false,
+                            "advanced": false,
+                            "codedata": {
+                              "lineRange": {
+                                "fileName": "transaction.bal",
+                                "startLine": {
+                                  "line": 22,
+                                  "offset": 16
+                                },
+                                "endLine": {
+                                  "line": 22,
+                                  "offset": 19
+                                }
+                              }
+                            }
                           },
                           "type": {
                             "metadata": {
@@ -165,7 +178,8 @@
                             "placeholder": "var",
                             "optional": false,
                             "editable": true,
-                            "advanced": false
+                            "advanced": false,
+                            "codedata": {}
                           }
                         },
                         "flags": 1
@@ -206,8 +220,21 @@
                     "valueType": "IDENTIFIER",
                     "value": "res",
                     "optional": false,
-                    "editable": true,
-                    "advanced": false
+                    "editable": false,
+                    "advanced": false,
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "transaction.bal",
+                        "startLine": {
+                          "line": 24,
+                          "offset": 12
+                        },
+                        "endLine": {
+                          "line": 24,
+                          "offset": 15
+                        }
+                      }
+                    }
                   },
                   "type": {
                     "metadata": {
@@ -219,7 +246,8 @@
                     "placeholder": "var",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "codedata": {}
                   }
                 },
                 "flags": 1

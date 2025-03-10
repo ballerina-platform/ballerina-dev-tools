@@ -26,13 +26,16 @@ import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.CheckExpressionNode;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.FunctionArgumentNode;
+import io.ballerina.compiler.syntax.tree.IdentifierToken;
 import io.ballerina.compiler.syntax.tree.NamedArgumentNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeList;
 import io.ballerina.compiler.syntax.tree.PositionalArgumentNode;
 import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.compiler.syntax.tree.Token;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
+import io.ballerina.flowmodelgenerator.core.Constants;
 import io.ballerina.flowmodelgenerator.core.DiagnosticHandler;
 import io.ballerina.flowmodelgenerator.core.model.node.DataMapperBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.ExpressionBuilder;
@@ -100,20 +103,31 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
 
     public FormBuilder<T> data(Node node, boolean implicit, Set<String> names) {
         return data(node, implicit ? Property.IMPLICIT_VARIABLE_LABEL : Property.VARIABLE_NAME, Property.VARIABLE_DOC,
-                NameUtil.generateTypeName("var", names));
+                NameUtil.generateTypeName("var", names), false);
     }
 
-    public FormBuilder<T> data(Node node, String label, String doc, String templateName) {
+    public FormBuilder<T> data(Node node, boolean implicit, Set<String> names, boolean assignment) {
+        return data(node, implicit ? Property.IMPLICIT_VARIABLE_LABEL : Property.VARIABLE_NAME, Property.VARIABLE_DOC,
+                NameUtil.generateTypeName("var", names), assignment);
+    }
+
+    public FormBuilder<T> data(Node node, String label, String doc, String templateName, boolean assignment) {
         propertyBuilder
                 .metadata()
                     .label(label)
                     .description(doc)
                     .stepOut()
                 .value(node == null ? templateName : CommonUtils.getVariableName(node))
-                .type(Property.ValueType.IDENTIFIER)
-                .editable();
-        addProperty(Property.VARIABLE_KEY, node);
+                .type(Property.ValueType.IDENTIFIER);
 
+        if (node != null && !assignment) {
+            propertyBuilder.codedata()
+                    .lineRange(node.lineRange());
+        } else {
+            propertyBuilder.editable();
+        }
+
+        addProperty(Property.VARIABLE_KEY, node);
         return this;
     }
 
@@ -158,15 +172,23 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
         return type(typeName, label, editable, node == null ? null : node.lineRange());
     }
 
-    public FormBuilder<T> type(String typeName, boolean editable) {
-        return type(typeName, Property.TYPE_LABEL, editable, null);
+    public FormBuilder<T> type(String typeName, boolean editable, String importStatements) {
+        return type(typeName, Property.TYPE_LABEL, editable, null, importStatements);
     }
 
     public FormBuilder<T> type(String typeName, String label, boolean editable, LineRange lineRange) {
+        return type(typeName, label, editable, lineRange, null);
+    }
+
+    public FormBuilder<T> type(String typeName, String label, boolean editable, LineRange lineRange,
+                               String importStatements) {
         propertyBuilder
                 .metadata()
                     .label(label)
                     .description(Property.TYPE_DOC)
+                    .stepOut()
+                .codedata()
+                    .importStatements(importStatements)
                     .stepOut()
                 .placeholder("var")
                 .value(typeName)
@@ -210,7 +232,7 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
     public FormBuilder<T> dataVariable(TypedBindingPatternNode node, String variableLabel, String typeDoc,
                                        boolean editable, Set<String> names) {
         data(node == null ? null : node.bindingPattern(), variableLabel, Property.VARIABLE_DOC,
-                NameUtil.generateTypeName("var", names));
+                NameUtil.generateTypeName("var", names), false);
 
         String typeName = node == null ? "" : CommonUtils.getTypeSymbol(semanticModel, node)
                 .map(typeSymbol -> CommonUtils.getTypeSignature(semanticModel, typeSymbol, true, moduleInfo))
@@ -686,20 +708,22 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
         return this;
     }
 
-    public FormBuilder<T> functionName(String functionName, boolean editable) {
-        return functionName(functionName, editable, FunctionDefinitionBuilder.FUNCTION_NAME_LABEL,
-                FunctionDefinitionBuilder.FUNCTION_NAME_DOC);
-    }
+    public FormBuilder<T> functionName(IdentifierToken identifierToken) {
+        String functionName = identifierToken.text() == null ? "" : identifierToken.text();
 
-    public FormBuilder<T> functionName(String functionName, boolean editable, String label, String description) {
         propertyBuilder
                 .metadata()
-                    .label(label)
-                    .description(description)
+                    .label(FunctionDefinitionBuilder.FUNCTION_NAME_LABEL)
+                    .description(FunctionDefinitionBuilder.FUNCTION_NAME_DOC)
                     .stepOut()
                 .type(Property.ValueType.IDENTIFIER)
-                .value(functionName == null ? "" : functionName)
-                .editable(editable);
+                .value(functionName);
+
+        if (!functionName.equals(Constants.MAIN_FUNCTION_NAME)) {
+            propertyBuilder.codedata()
+                    .lineRange(identifierToken.lineRange());
+        }
+
         addProperty(Property.FUNCTION_NAME_KEY);
         return this;
     }
@@ -950,6 +974,10 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
     }
 
     public FormBuilder<T> parameter(String type, String name) {
+        return parameter(type, name, null);
+    }
+
+    public FormBuilder<T> parameter(String type, String name, Token token) {
         nestedProperty();
 
         // Build the parameter type property
@@ -971,8 +999,15 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
                     .description(Property.VARIABLE_DOC)
                     .stepOut()
                 .type(Property.ValueType.IDENTIFIER)
-                .value(name)
-                .editable();
+                .value(name);
+
+        if (token == null) {
+            propertyBuilder.editable();
+        } else {
+            propertyBuilder.codedata()
+                    .lineRange(token.lineRange());
+        }
+
         addProperty(Property.VARIABLE_KEY);
 
         return endNestedProperty(Property.ValueType.FIXED_PROPERTY, name, Property.PARAMETER_LABEL,

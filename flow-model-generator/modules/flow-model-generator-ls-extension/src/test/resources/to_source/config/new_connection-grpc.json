@@ -1,0 +1,100 @@
+{
+  "source": "new_connection6/main.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "31",
+    "metadata": {
+      "label": "New Connection",
+      "description": "The base client used in the generated client code to provide the gRPC streaming client actions for\ninteracting  with the gRPC server.",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.13.2.png"
+    },
+    "codedata": {
+      "node": "NEW_CONNECTION",
+      "org": "ballerina",
+      "module": "grpc",
+      "object": "StreamingClient",
+      "symbol": "init",
+      "id": 0,
+      "isNew": true
+    },
+    "returning": false,
+    "properties": {
+      "type": {
+        "metadata": {
+          "label": "Variable Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "grpc:StreamingClient",
+        "placeholder": "var",
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      },
+      "variable": {
+        "metadata": {
+          "label": "Connection Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "grpcStreamingClient",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "scope": {
+        "metadata": {
+          "label": "Connection Scope",
+          "description": "Scope of the connection, Global or Local"
+        },
+        "valueType": "ENUM",
+        "value": "Global",
+        "optional": false,
+        "editable": true,
+        "advanced": true
+      },
+      "checkError": {
+        "metadata": {
+          "label": "Check Error",
+          "description": "Terminate on error"
+        },
+        "valueType": "FLAG",
+        "value": true,
+        "optional": false,
+        "editable": false,
+        "advanced": true
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "new_connection6/connections.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import ballerina/grpc;"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 6,
+            "character": 39
+          },
+          "end": {
+            "line": 6,
+            "character": 39
+          }
+        },
+        "newText": "\nfinal grpc:StreamingClient grpcStreamingClient = check new ();"
+      }
+    ]
+  }
+}

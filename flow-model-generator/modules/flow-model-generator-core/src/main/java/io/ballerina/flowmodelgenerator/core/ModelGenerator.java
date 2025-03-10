@@ -24,9 +24,11 @@ import com.google.gson.JsonElement;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ClassFieldSymbol;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
+import io.ballerina.compiler.api.symbols.ObjectTypeSymbol;
 import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
+import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
@@ -166,8 +168,7 @@ public class ModelGenerator {
         }
         try {
             TypeSymbol typeDescriptorSymbol = ((TypeReferenceTypeSymbol) typeSymbol).typeDescriptor();
-            if (typeDescriptorSymbol.kind() != SymbolKind.CLASS ||
-                    !((ClassSymbol) typeDescriptorSymbol).qualifiers().contains(Qualifier.CLIENT)) {
+            if (!isClassOrObject(typeDescriptorSymbol)) {
                 return Optional.empty();
             }
             Location location = symbol.getLocation().orElseThrow();
@@ -190,5 +191,17 @@ public class ModelGenerator {
         statementNode.accept(codeAnalyzer);
         List<FlowNode> connections = codeAnalyzer.getFlowNodes();
         return connections.stream().findFirst();
+    }
+
+    private boolean isClassOrObject(TypeSymbol typeSymbol) {
+        if (typeSymbol.kind() == SymbolKind.CLASS) {
+            if (((ClassSymbol) typeSymbol).qualifiers().contains(Qualifier.CLIENT)) {
+                return true;
+            }
+        }
+        if (typeSymbol.typeKind() == TypeDescKind.OBJECT) {
+            return ((ObjectTypeSymbol) typeSymbol).qualifiers().contains(Qualifier.CLIENT);
+        }
+        return false;
     }
 }

@@ -42,6 +42,7 @@ public record Category(Metadata metadata, List<Item> items) implements Item {
         FLOW("Flow", "Flow control nodes", List.of("Core", "Control", "Flow")),
         STATEMENT("Statement", "Fundamental executable units in a program", null),
         CONNECTIONS("Connections", "The connections used in the flow", null),
+        AGENTS("Agents", "The agents used in the flow", null),
         BRANCH("Branch", "Branching nodes", null),
         FLOWS("Flows", "Flows that invoke local or utility functions",
                 List.of("Function", "Call", "Utility", "Local")),
@@ -57,7 +58,10 @@ public record Category(Metadata metadata, List<Item> items) implements Item {
                 List.of("Imported", "Function", "Library")),
         AVAILABLE_FUNCTIONS("Available Functions", "Functions available in the library",
                 List.of("Available", "Function", "Library")),
-        ;
+        IMPORTED_TYPES("Imported Types", "Types imported from other integrations",
+                List.of("Imported", "Type", "Library")),
+        AVAILABLE_TYPES("Available Types", "Types available in the library",
+                List.of("Available", "Type", "Library"));
 
         final String name;
         final String description;
@@ -102,13 +106,13 @@ public record Category(Metadata metadata, List<Item> items) implements Item {
             return builder;
         }
 
-        public Builder stepIn(String name, String description, String icon) {
+        public Builder stepIn(String name, String description, List<String> keywords) {
             Builder builder = this.childBuilders.get(name);
             if (builder == null) {
                 builder = new Builder(this).metadata()
                         .label(name)
                         .description(description)
-                        .icon(icon)
+                        .keywords(keywords)
                         .stepOut();
                 this.childBuilders.put(name, builder);
             }

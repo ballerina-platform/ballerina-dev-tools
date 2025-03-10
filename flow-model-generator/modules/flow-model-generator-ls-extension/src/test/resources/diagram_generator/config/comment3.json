@@ -77,8 +77,21 @@
             "valueType": "IDENTIFIER",
             "value": "i",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "comment.bal",
+                "startLine": {
+                  "line": 17,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 17,
+                  "offset": 9
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -90,7 +103,8 @@
             "placeholder": "var",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 0

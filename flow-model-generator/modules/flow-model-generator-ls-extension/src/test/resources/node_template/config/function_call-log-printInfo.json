@@ -16,14 +16,16 @@
     "id": "31",
     "metadata": {
       "label": "printInfo",
-      "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n"
+      "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
     },
     "codedata": {
       "node": "FUNCTION_CALL",
       "org": "ballerina",
       "module": "log",
       "symbol": "printInfo",
-      "version": "2.10.0"
+      "version": "2.10.0",
+      "isNew": true
     },
     "returning": false,
     "properties": {
@@ -41,7 +43,15 @@
         "codedata": {
           "kind": "REQUIRED",
           "originalName": "msg"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
       },
       "error": {
         "metadata": {
@@ -57,23 +67,21 @@
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "'error"
-        }
-      },
-      "stackTrace": {
-        "metadata": {
-          "label": "stackTrace",
-          "description": "The error stack trace to be logged"
         },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "error:StackFrame[]|()",
-        "placeholder": "()",
-        "optional": true,
-        "editable": true,
-        "advanced": true,
-        "codedata": {
-          "kind": "DEFAULTABLE",
-          "originalName": "stackTrace"
-        }
+        "typeMembers": [
+          {
+            "type": "()",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "error",
+            "packageInfo": "ballerina:lang.annotations:0.0.0",
+            "kind": "ERROR_TYPE",
+            "selected": false
+          }
+        ]
       },
       "additionalValues": {
         "metadata": {
@@ -89,7 +97,38 @@
         "codedata": {
           "kind": "INCLUDED_RECORD_REST",
           "originalName": "Additional Values"
-        }
+        },
+        "typeMembers": []
+      },
+      "stackTrace": {
+        "metadata": {
+          "label": "stackTrace",
+          "description": "The error stack trace to be logged"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "error:StackFrame[]|()",
+        "placeholder": "()",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "stackTrace"
+        },
+        "typeMembers": [
+          {
+            "type": "()",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "error:StackFrame",
+            "packageInfo": "ballerina:lang.error:0.0.0",
+            "kind": "ARRAY_TYPE",
+            "selected": false
+          }
+        ]
       }
     },
     "flags": 0

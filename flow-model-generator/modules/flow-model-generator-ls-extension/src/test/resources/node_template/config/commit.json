@@ -10,7 +10,8 @@
       "description": "Commit transaction"
     },
     "codedata": {
-      "node": "COMMIT"
+      "node": "COMMIT",
+      "isNew": true
     },
     "returning": false,
     "flags": 0

@@ -16,14 +16,16 @@
     "id": "31",
     "metadata": {
       "label": "toJson",
-      "description": "Converts a value of type `anydata` to `json`.\n"
+      "description": "Converts a value of type `anydata` to `json`.\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.jsondata_0.2.0.png"
     },
     "codedata": {
       "node": "FUNCTION_CALL",
       "org": "ballerina",
       "module": "data.jsondata",
       "symbol": "toJson",
-      "version": "0.2.0"
+      "version": "0.2.0",
+      "isNew": true
     },
     "returning": false,
     "properties": {
@@ -41,7 +43,15 @@
         "codedata": {
           "kind": "REQUIRED",
           "originalName": "v"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "anydata",
+            "packageInfo": "",
+            "kind": "OTHER",
+            "selected": false
+          }
+        ]
       },
       "type": {
         "metadata": {
@@ -53,7 +63,8 @@
         "placeholder": "var",
         "optional": false,
         "editable": false,
-        "advanced": false
+        "advanced": false,
+        "codedata": {}
       },
       "variable": {
         "metadata": {

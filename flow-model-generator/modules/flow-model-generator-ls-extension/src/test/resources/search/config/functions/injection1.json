@@ -1,0 +1,83 @@
+{
+  "description": "Sample flow model",
+  "kind": "FUNCTION",
+  "source": "empty.bal",
+  "position": {
+    "startLine": {
+      "line": 1,
+      "offset": 1
+    },
+    "endLine": {
+      "line": 1,
+      "offset": 1
+    }
+  },
+  "queryMap": {
+    "q": "UNION SELECT NULL,@@version;--",
+    "limit": "12",
+    "offset": "0"
+  },
+  "categories": [
+    {
+      "metadata": {
+        "label": "Current Integration",
+        "description": "Functions defined within the current integration",
+        "keywords": [
+          "Project",
+          "Local",
+          "Function"
+        ]
+      },
+      "items": []
+    },
+    {
+      "metadata": {
+        "label": "Imported Functions",
+        "description": "Functions imported from other integrations",
+        "keywords": [
+          "Imported",
+          "Function",
+          "Library"
+        ]
+      },
+      "items": []
+    },
+    {
+      "metadata": {
+        "label": "Available Functions",
+        "description": "Functions available in the library",
+        "keywords": [
+          "Available",
+          "Function",
+          "Library"
+        ]
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "jballerina.java",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "toString",
+                "description": "Returns a Ballerina `string` representation of the Java object referred by the `handle`.\nIf the `handle` refers to Java null, then this function returns a `nil` value.\n```ballerina\nstring? version = java:toString(versionProperty);\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_jballerina.java_0.0.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "jballerina.java",
+                "symbol": "toString",
+                "version": "0.0.0"
+              },
+              "enabled": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

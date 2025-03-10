@@ -23,9 +23,12 @@ import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ModuleSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.flowmodelgenerator.core.DiagnosticHandler;
+import io.ballerina.flowmodelgenerator.core.model.node.AgentBuilder;
+import io.ballerina.flowmodelgenerator.core.model.node.AgentCallBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.AssignBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.BinaryBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.BreakBuilder;
+import io.ballerina.flowmodelgenerator.core.model.node.ClassInitBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.CommentBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.CommitBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.ConfigVariableBuilder;
@@ -46,6 +49,8 @@ import io.ballerina.flowmodelgenerator.core.model.node.JsonPayloadBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.LockBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.MatchBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.MethodCall;
+import io.ballerina.flowmodelgenerator.core.model.node.NPFunctionCall;
+import io.ballerina.flowmodelgenerator.core.model.node.NPFunctionDefinitionBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.NewConnectionBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.PanicBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.ParallelFlowBuilder;
@@ -96,7 +101,6 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
     protected int flags;
     protected boolean returning;
     protected SemanticModel semanticModel;
-    protected FlowNode cachedFlowNode;
     protected ModuleInfo moduleInfo;
 
     private static final Map<NodeKind, Supplier<? extends NodeBuilder>> CONSTRUCTOR_MAP = new HashMap<>() {{
@@ -124,6 +128,8 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
         put(NodeKind.BINARY_DATA, BinaryBuilder::new);
         put(NodeKind.STOP, StopBuilder::new);
         put(NodeKind.FUNCTION_CALL, FunctionCall::new);
+        put(NodeKind.NP_FUNCTION_CALL, NPFunctionCall::new);
+        put(NodeKind.NP_FUNCTION_DEFINITION, NPFunctionDefinitionBuilder::new);
         put(NodeKind.METHOD_CALL, MethodCall::new);
         put(NodeKind.FOREACH, ForeachBuilder::new);
         put(NodeKind.DATA_MAPPER, DataMapperBuilder::new);
@@ -138,6 +144,9 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
         put(NodeKind.FORK, ForkBuilder::new);
         put(NodeKind.PARALLEL_FLOW, ParallelFlowBuilder::new);
         put(NodeKind.WAIT, WaitBuilder::new);
+        put(NodeKind.AGENT, AgentBuilder::new);
+        put(NodeKind.AGENT_CALL, AgentCallBuilder::new);
+        put(NodeKind.CLASS_INIT, ClassInitBuilder::new);
     }};
 
     public static NodeBuilder getNodeFromKind(NodeKind kind) {
@@ -153,6 +162,7 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
 
     public NodeBuilder setTemplateData(TemplateContext context) {
         setConcreteTemplateData(context);
+        codedata().isNew();
         return this;
     }
 
@@ -250,11 +260,6 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
     public FlowNode build() {
         this.setConstData();
 
-        // Check if there is a pre-built node
-        if (cachedFlowNode != null) {
-            return cachedFlowNode;
-        }
-
         Codedata codedata = codedataBuilder == null ? null : codedataBuilder.build();
         return new FlowNode(
                 String.valueOf(Objects.hash(codedata != null ? codedata.lineRange() : null)),
@@ -275,7 +280,7 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
     }
 
     public record TemplateContext(WorkspaceManager workspaceManager, Path filePath, LinePosition position,
-                                  Codedata codedata) {
+                                  Codedata codedata, org.ballerinalang.langserver.LSClientLogger lsClientLogger) {
 
         public Set<String> getAllVisibleSymbolNames() {
             try {

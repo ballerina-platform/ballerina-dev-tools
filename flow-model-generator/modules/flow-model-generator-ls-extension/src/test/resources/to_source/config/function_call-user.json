@@ -46,7 +46,7 @@
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "",
+        "value": "var",
         "placeholder": "var",
         "optional": false,
         "editable": true,

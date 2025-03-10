@@ -85,8 +85,21 @@
                 "valueType": "IDENTIFIER",
                 "value": "WA",
                 "optional": false,
-                "editable": true,
-                "advanced": false
+                "editable": false,
+                "advanced": false,
+                "codedata": {
+                  "lineRange": {
+                    "fileName": "wait.bal",
+                    "startLine": {
+                      "line": 92,
+                      "offset": 11
+                    },
+                    "endLine": {
+                      "line": 92,
+                      "offset": 13
+                    }
+                  }
+                }
               },
               "type": {
                 "metadata": {
@@ -168,8 +181,21 @@
                 "valueType": "IDENTIFIER",
                 "value": "WB",
                 "optional": false,
-                "editable": true,
-                "advanced": false
+                "editable": false,
+                "advanced": false,
+                "codedata": {
+                  "lineRange": {
+                    "fileName": "wait.bal",
+                    "startLine": {
+                      "line": 96,
+                      "offset": 11
+                    },
+                    "endLine": {
+                      "line": 96,
+                      "offset": 13
+                    }
+                  }
+                }
               },
               "type": {
                 "metadata": {
@@ -251,8 +277,21 @@
                 "valueType": "IDENTIFIER",
                 "value": "WC",
                 "optional": false,
-                "editable": true,
-                "advanced": false
+                "editable": false,
+                "advanced": false,
+                "codedata": {
+                  "lineRange": {
+                    "fileName": "wait.bal",
+                    "startLine": {
+                      "line": 100,
+                      "offset": 11
+                    },
+                    "endLine": {
+                      "line": 100,
+                      "offset": 13
+                    }
+                  }
+                }
               },
               "type": {
                 "metadata": {
@@ -474,8 +513,21 @@
             "valueType": "IDENTIFIER",
             "value": "mapResult",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "wait.bal",
+                "startLine": {
+                  "line": 104,
+                  "offset": 22
+                },
+                "endLine": {
+                  "line": 104,
+                  "offset": 31
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -487,7 +539,8 @@
             "placeholder": "var",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 0

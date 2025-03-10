@@ -77,8 +77,21 @@
             "valueType": "IDENTIFIER",
             "value": "results",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "fork.bal",
+                "startLine": {
+                  "line": 44,
+                  "offset": 13
+                },
+                "endLine": {
+                  "line": 44,
+                  "offset": 20
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -90,7 +103,8 @@
             "placeholder": "var",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 0
@@ -146,8 +160,21 @@
                 "valueType": "IDENTIFIER",
                 "value": "WA",
                 "optional": false,
-                "editable": true,
-                "advanced": false
+                "editable": false,
+                "advanced": false,
+                "codedata": {
+                  "lineRange": {
+                    "fileName": "fork.bal",
+                    "startLine": {
+                      "line": 47,
+                      "offset": 15
+                    },
+                    "endLine": {
+                      "line": 47,
+                      "offset": 17
+                    }
+                  }
+                }
               },
               "type": {
                 "metadata": {
@@ -205,7 +232,15 @@
                     "codedata": {
                       "kind": "REQUIRED",
                       "originalName": "seconds"
-                    }
+                    },
+                    "typeMembers": [
+                      {
+                        "type": "decimal",
+                        "packageInfo": "",
+                        "kind": "BASIC_TYPE",
+                        "selected": true
+                      }
+                    ]
                   }
                 },
                 "flags": 0
@@ -238,17 +273,6 @@
                 },
                 "returning": false,
                 "properties": {
-                  "connection": {
-                    "metadata": {
-                      "label": "Connection",
-                      "description": "Connection to use"
-                    },
-                    "valueType": "EXPRESSION",
-                    "value": "            results",
-                    "optional": false,
-                    "editable": false,
-                    "advanced": false
-                  },
                   "arr": {
                     "metadata": {
                       "label": "arr",
@@ -264,7 +288,15 @@
                     "codedata": {
                       "kind": "REQUIRED",
                       "originalName": "arr"
-                    }
+                    },
+                    "typeMembers": [
+                      {
+                        "type": "array:Type",
+                        "packageInfo": "ballerina:lang.array:0.0.0",
+                        "kind": "ARRAY_TYPE",
+                        "selected": false
+                      }
+                    ]
                   },
                   "vals": {
                     "metadata": {
@@ -281,7 +313,26 @@
                     "codedata": {
                       "kind": "REST_PARAMETER",
                       "originalName": "vals"
-                    }
+                    },
+                    "typeMembers": [
+                      {
+                        "type": "array:Type",
+                        "packageInfo": "ballerina:lang.array:0.0.0",
+                        "kind": "ARRAY_TYPE",
+                        "selected": false
+                      }
+                    ]
+                  },
+                  "connection": {
+                    "metadata": {
+                      "label": "Connection",
+                      "description": "Connection to use"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "            results",
+                    "optional": false,
+                    "editable": false,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -316,8 +367,21 @@
                 "valueType": "IDENTIFIER",
                 "value": "WB",
                 "optional": false,
-                "editable": true,
-                "advanced": false
+                "editable": false,
+                "advanced": false,
+                "codedata": {
+                  "lineRange": {
+                    "fileName": "fork.bal",
+                    "startLine": {
+                      "line": 52,
+                      "offset": 15
+                    },
+                    "endLine": {
+                      "line": 52,
+                      "offset": 17
+                    }
+                  }
+                }
               },
               "type": {
                 "metadata": {
@@ -375,7 +439,15 @@
                     "codedata": {
                       "kind": "REQUIRED",
                       "originalName": "seconds"
-                    }
+                    },
+                    "typeMembers": [
+                      {
+                        "type": "decimal",
+                        "packageInfo": "",
+                        "kind": "BASIC_TYPE",
+                        "selected": true
+                      }
+                    ]
                   }
                 },
                 "flags": 0
@@ -408,17 +480,6 @@
                 },
                 "returning": false,
                 "properties": {
-                  "connection": {
-                    "metadata": {
-                      "label": "Connection",
-                      "description": "Connection to use"
-                    },
-                    "valueType": "EXPRESSION",
-                    "value": "            results",
-                    "optional": false,
-                    "editable": false,
-                    "advanced": false
-                  },
                   "arr": {
                     "metadata": {
                       "label": "arr",
@@ -434,7 +495,15 @@
                     "codedata": {
                       "kind": "REQUIRED",
                       "originalName": "arr"
-                    }
+                    },
+                    "typeMembers": [
+                      {
+                        "type": "array:Type",
+                        "packageInfo": "ballerina:lang.array:0.0.0",
+                        "kind": "ARRAY_TYPE",
+                        "selected": false
+                      }
+                    ]
                   },
                   "vals": {
                     "metadata": {
@@ -451,7 +520,26 @@
                     "codedata": {
                       "kind": "REST_PARAMETER",
                       "originalName": "vals"
-                    }
+                    },
+                    "typeMembers": [
+                      {
+                        "type": "array:Type",
+                        "packageInfo": "ballerina:lang.array:0.0.0",
+                        "kind": "ARRAY_TYPE",
+                        "selected": false
+                      }
+                    ]
+                  },
+                  "connection": {
+                    "metadata": {
+                      "label": "Connection",
+                      "description": "Connection to use"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "            results",
+                    "optional": false,
+                    "editable": false,
+                    "advanced": false
                   }
                 },
                 "flags": 0

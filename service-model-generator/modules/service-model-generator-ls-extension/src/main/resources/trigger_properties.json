@@ -20,16 +20,6 @@
       "event"
     ]
   },
-  "3": {
-    "name": "trigger.github",
-    "orgName": "ballerinax",
-    "packageName": "trigger.github",
-    "keywords": [
-      "event",
-      "github",
-      "trigger"
-    ]
-  },
   "6": {
     "name": "ftp",
     "orgName": "ballerina",
@@ -50,6 +40,45 @@
       "file",
       "directory",
       "service",
+      "event"
+    ]
+  },
+  "11": {
+    "name": "salesforce",
+    "orgName": "ballerinax",
+    "packageName": "salesforce",
+    "keywords": [
+      "salesforce",
+      "event"
+    ]
+  },
+  "12": {
+    "name": "trigger.github",
+    "orgName": "ballerinax",
+    "packageName": "trigger.github",
+    "keywords": [
+      "github",
+      "event"
+    ]
+  },
+  "13": {
+    "name": "mqtt",
+    "orgName": "ballerina",
+    "packageName": "mqtt",
+    "keywords": [
+      "mqtt",
+      "event"
+    ]
+  },
+  "14": {
+    "name": "asb",
+    "orgName": "ballerinax",
+    "packageName": "asb",
+    "keywords": [
+      "azure",
+      "service bus",
+      "asb",
+      "azure service bus",
       "event"
     ]
   }

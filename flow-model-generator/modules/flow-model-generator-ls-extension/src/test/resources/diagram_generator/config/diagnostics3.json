@@ -198,8 +198,21 @@
                     "valueType": "IDENTIFIER",
                     "value": "s",
                     "optional": false,
-                    "editable": true,
-                    "advanced": false
+                    "editable": false,
+                    "advanced": false,
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "diagnostics3.bal",
+                        "startLine": {
+                          "line": 6,
+                          "offset": 15
+                        },
+                        "endLine": {
+                          "line": 6,
+                          "offset": 16
+                        }
+                      }
+                    }
                   },
                   "type": {
                     "metadata": {
@@ -211,7 +224,8 @@
                     "placeholder": "var",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "codedata": {}
                   }
                 },
                 "flags": 0

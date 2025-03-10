@@ -250,8 +250,21 @@
                     "valueType": "IDENTIFIER",
                     "value": "a",
                     "optional": false,
-                    "editable": true,
-                    "advanced": false
+                    "editable": false,
+                    "advanced": false,
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "service.bal",
+                        "startLine": {
+                          "line": 10,
+                          "offset": 9
+                        },
+                        "endLine": {
+                          "line": 10,
+                          "offset": 10
+                        }
+                      }
+                    }
                   },
                   "type": {
                     "metadata": {
@@ -263,7 +276,8 @@
                     "placeholder": "var",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "codedata": {}
                   }
                 },
                 "flags": 0,

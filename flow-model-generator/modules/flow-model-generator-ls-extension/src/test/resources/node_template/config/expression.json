@@ -10,7 +10,8 @@
       "description": "Represents a custom Ballerina expression"
     },
     "codedata": {
-      "node": "EXPRESSION"
+      "node": "EXPRESSION",
+      "isNew": true
     },
     "returning": false,
     "properties": {

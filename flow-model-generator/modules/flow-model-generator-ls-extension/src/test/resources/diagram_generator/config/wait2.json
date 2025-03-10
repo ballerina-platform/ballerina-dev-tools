@@ -77,8 +77,21 @@
             "valueType": "IDENTIFIER",
             "value": "futureResult",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "wait.bal",
+                "startLine": {
+                  "line": 30,
+                  "offset": 25
+                },
+                "endLine": {
+                  "line": 30,
+                  "offset": 37
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -90,7 +103,8 @@
             "placeholder": "var",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 0
@@ -186,8 +200,21 @@
             "valueType": "IDENTIFIER",
             "value": "result",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "wait.bal",
+                "startLine": {
+                  "line": 31,
+                  "offset": 11
+                },
+                "endLine": {
+                  "line": 31,
+                  "offset": 17
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -199,7 +226,8 @@
             "placeholder": "var",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 1
@@ -209,14 +237,14 @@
         "metadata": {
           "label": "println",
           "description": "Prints `any`, `error` or string templates(such as `The respective int value is ${val}`) value(s) to the STDOUT\nfollowed by a new line.\n```ballerina\nio:println(\"Start processing the CSV file from \", srcFileName);\n```\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.7.0.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.8.0.png"
         },
         "codedata": {
           "node": "FUNCTION_CALL",
           "org": "ballerina",
           "module": "io",
           "symbol": "println",
-          "version": "1.7.0",
+          "version": "1.8.0",
           "lineRange": {
             "fileName": "wait.bal",
             "startLine": {
@@ -249,7 +277,15 @@
             "codedata": {
               "kind": "REST_PARAMETER",
               "originalName": "values"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "Printable",
+                "packageInfo": "ballerina:io:1.6.1",
+                "kind": "ARRAY_TYPE",
+                "selected": false
+              }
+            ]
           }
         },
         "flags": 0

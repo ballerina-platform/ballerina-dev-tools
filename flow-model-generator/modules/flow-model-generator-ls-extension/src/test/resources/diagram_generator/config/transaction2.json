@@ -77,8 +77,21 @@
             "valueType": "IDENTIFIER",
             "value": "x",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "transaction.bal",
+                "startLine": {
+                  "line": 7,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 7,
+                  "offset": 9
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -90,7 +103,8 @@
             "placeholder": "var",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 0
@@ -169,8 +183,21 @@
                     "valueType": "IDENTIFIER",
                     "value": "res",
                     "optional": false,
-                    "editable": true,
-                    "advanced": false
+                    "editable": false,
+                    "advanced": false,
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "transaction.bal",
+                        "startLine": {
+                          "line": 10,
+                          "offset": 12
+                        },
+                        "endLine": {
+                          "line": 10,
+                          "offset": 15
+                        }
+                      }
+                    }
                   },
                   "type": {
                     "metadata": {
@@ -182,7 +209,8 @@
                     "placeholder": "var",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "codedata": {}
                   }
                 },
                 "flags": 1
@@ -266,8 +294,21 @@
                     "valueType": "IDENTIFIER",
                     "value": "res",
                     "optional": false,
-                    "editable": true,
-                    "advanced": false
+                    "editable": false,
+                    "advanced": false,
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "transaction.bal",
+                        "startLine": {
+                          "line": 14,
+                          "offset": 12
+                        },
+                        "endLine": {
+                          "line": 14,
+                          "offset": 15
+                        }
+                      }
+                    }
                   },
                   "type": {
                     "metadata": {
@@ -279,7 +320,8 @@
                     "placeholder": "var",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "codedata": {}
                   }
                 },
                 "flags": 1

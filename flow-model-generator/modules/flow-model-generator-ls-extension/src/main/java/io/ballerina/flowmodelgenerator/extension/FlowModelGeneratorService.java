@@ -24,12 +24,10 @@ import com.google.gson.JsonObject;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.flowmodelgenerator.core.AvailableNodesGenerator;
-import io.ballerina.flowmodelgenerator.core.ConnectorGenerator;
 import io.ballerina.flowmodelgenerator.core.CopilotContextGenerator;
 import io.ballerina.flowmodelgenerator.core.DeleteNodeHandler;
 import io.ballerina.flowmodelgenerator.core.EnclosedNodeFinder;
 import io.ballerina.flowmodelgenerator.core.ErrorHandlerGenerator;
-import io.ballerina.flowmodelgenerator.core.FunctionGenerator;
 import io.ballerina.flowmodelgenerator.core.ModelGenerator;
 import io.ballerina.flowmodelgenerator.core.ModuleNodeAnalyzer;
 import io.ballerina.flowmodelgenerator.core.NodeTemplateGenerator;
@@ -37,27 +35,26 @@ import io.ballerina.flowmodelgenerator.core.OpenApiServiceGenerator;
 import io.ballerina.flowmodelgenerator.core.SourceGenerator;
 import io.ballerina.flowmodelgenerator.core.SuggestedComponentService;
 import io.ballerina.flowmodelgenerator.core.SuggestedModelGenerator;
+import io.ballerina.flowmodelgenerator.core.search.SearchCommand;
 import io.ballerina.flowmodelgenerator.extension.request.ComponentDeleteRequest;
 import io.ballerina.flowmodelgenerator.extension.request.CopilotContextRequest;
 import io.ballerina.flowmodelgenerator.extension.request.EnclosedFuncDefRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FilePathRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelAvailableNodesRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelGeneratorRequest;
-import io.ballerina.flowmodelgenerator.extension.request.FlowModelGetConnectorsRequest;
-import io.ballerina.flowmodelgenerator.extension.request.FlowModelGetFunctionsRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelNodeTemplateRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelSourceGeneratorRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelSuggestedGenerationRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FlowNodeDeleteRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FunctionDefinitionRequest;
 import io.ballerina.flowmodelgenerator.extension.request.OpenAPIServiceGenerationRequest;
+import io.ballerina.flowmodelgenerator.extension.request.SearchRequest;
 import io.ballerina.flowmodelgenerator.extension.request.SuggestedComponentRequest;
 import io.ballerina.flowmodelgenerator.extension.response.ComponentDeleteResponse;
 import io.ballerina.flowmodelgenerator.extension.response.CopilotContextResponse;
 import io.ballerina.flowmodelgenerator.extension.response.EnclosedFuncDefResponse;
 import io.ballerina.flowmodelgenerator.extension.response.FlowModelAvailableNodesResponse;
 import io.ballerina.flowmodelgenerator.extension.response.FlowModelGeneratorResponse;
-import io.ballerina.flowmodelgenerator.extension.response.FlowModelGetConnectorsResponse;
 import io.ballerina.flowmodelgenerator.extension.response.FlowModelNodeTemplateResponse;
 import io.ballerina.flowmodelgenerator.extension.response.FlowModelSourceGeneratorResponse;
 import io.ballerina.flowmodelgenerator.extension.response.FlowNodeDeleteResponse;
@@ -76,6 +73,8 @@ import io.ballerina.tools.text.TextDocumentChange;
 import io.ballerina.tools.text.TextEdit;
 import io.ballerina.tools.text.TextRange;
 import org.ballerinalang.annotation.JavaSPIService;
+import org.ballerinalang.langserver.LSClientLogger;
+import org.ballerinalang.langserver.commons.LanguageServerContext;
 import org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.jsonrpc.services.JsonRequest;
@@ -98,10 +97,13 @@ import java.util.concurrent.CompletableFuture;
 public class FlowModelGeneratorService implements ExtendedLanguageServerService {
 
     private WorkspaceManager workspaceManager;
+    private LSClientLogger lsClientLogger;
 
     @Override
-    public void init(LanguageServer langServer, WorkspaceManager workspaceManager) {
+    public void init(LanguageServer langServer, WorkspaceManager workspaceManager,
+                     LanguageServerContext serverContext) {
         this.workspaceManager = workspaceManager;
+        this.lsClientLogger = LSClientLogger.getInstance(serverContext);
     }
 
     @Override
@@ -297,7 +299,7 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
         return CompletableFuture.supplyAsync(() -> {
             FlowModelNodeTemplateResponse response = new FlowModelNodeTemplateResponse();
             try {
-                NodeTemplateGenerator generator = new NodeTemplateGenerator();
+                NodeTemplateGenerator generator = new NodeTemplateGenerator(lsClientLogger);
                 Path filePath = Path.of(request.filePath());
                 JsonElement nodeTemplate =
                         generator.getNodeTemplate(workspaceManager, filePath, request.position(), request.id());
@@ -325,41 +327,6 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
                 // Generate the flow design model
                 ModelGenerator modelGenerator = new ModelGenerator(project, semanticModel, filePath);
                 response.setFlowDesignModel(modelGenerator.getModuleNodes());
-            } catch (Throwable e) {
-                response.setError(e);
-            }
-            return response;
-        });
-    }
-
-    @JsonRequest
-    public CompletableFuture<FlowModelGetConnectorsResponse> getConnectors(FlowModelGetConnectorsRequest request) {
-        return CompletableFuture.supplyAsync(() -> {
-            FlowModelGetConnectorsResponse response = new FlowModelGetConnectorsResponse();
-            try {
-                ConnectorGenerator connectorGenerator = new ConnectorGenerator();
-                response.setCategories(connectorGenerator.getConnectors(request.queryMap()));
-            } catch (Throwable e) {
-                response.setError(e);
-            }
-            return response;
-        });
-    }
-
-    @JsonRequest
-    public CompletableFuture<FlowModelAvailableNodesResponse> getFunctions(FlowModelGetFunctionsRequest request) {
-        return CompletableFuture.supplyAsync(() -> {
-            FlowModelAvailableNodesResponse response = new FlowModelAvailableNodesResponse();
-            try {
-                Path filePath = Path.of(request.filePath());
-                this.workspaceManager.loadProject(filePath);
-                Optional<Document> document = this.workspaceManager.document(filePath);
-                Optional<Module> module = workspaceManager.module(filePath);
-                if (module.isEmpty() || document.isEmpty()) {
-                    return response;
-                }
-                FunctionGenerator connectorGenerator = new FunctionGenerator(module.get());
-                response.setCategories(connectorGenerator.getFunctions(request.queryMap(), request.position()));
             } catch (Throwable e) {
                 response.setError(e);
             }
@@ -483,7 +450,8 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
                 if (document.isEmpty()) {
                     return response;
                 }
-                EnclosedNodeFinder enclosedNodeFinder = new EnclosedNodeFinder(document.get(), request.position());
+                EnclosedNodeFinder enclosedNodeFinder =
+                        new EnclosedNodeFinder(document.get(), request.position(), request.findClass());
                 LineRange enclosedRange = enclosedNodeFinder.findEnclosedNode();
                 response.setFilePath(project.sourceRoot().resolve(enclosedRange.fileName()).toString());
                 response.setStartLine(enclosedRange.startLine());
@@ -519,6 +487,22 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
                 ModulePartNode rootNode = document.syntaxTree().rootNode();
                 Optional<JsonElement> function = moduleNodeAnalyzer.findFunction(rootNode, request.functionName());
                 function.ifPresent(response::setFunctionDefinition);
+            } catch (Throwable e) {
+                response.setError(e);
+            }
+            return response;
+        });
+    }
+
+    @JsonRequest
+    public CompletableFuture<FlowModelAvailableNodesResponse> search(SearchRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            FlowModelAvailableNodesResponse response = new FlowModelAvailableNodesResponse();
+            try {
+                Project project = this.workspaceManager.loadProject(Path.of(request.filePath()));
+                SearchCommand.Kind searchKind = SearchCommand.Kind.valueOf(request.searchKind());
+                SearchCommand command = SearchCommand.from(searchKind, project, request.position(), request.queryMap());
+                response.setCategories(command.execute());
             } catch (Throwable e) {
                 response.setError(e);
             }

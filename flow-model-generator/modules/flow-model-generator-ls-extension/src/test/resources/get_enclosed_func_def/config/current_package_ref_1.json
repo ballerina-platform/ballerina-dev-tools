@@ -5,6 +5,7 @@
     "line": 3,
     "offset": 8
   },
+  "findClass": false,
   "response": {
     "filePath" : "proj_1/functions.bal",
     "startLine" : {

@@ -13,17 +13,7 @@
       "module": "http",
       "object": "Client",
       "symbol": "init",
-      "lineRange": {
-        "fileName": "new_connection.bal",
-        "startLine": {
-          "line": 0,
-          "offset": 0
-        },
-        "endLine": {
-          "line": 0,
-          "offset": 0
-        }
-      }
+      "isNew": true
     },
     "returning": false,
     "properties": {
@@ -101,7 +91,7 @@
             "character": 63
           }
         },
-        "newText": "final http:Client moduleHttpExCl = check new (\"http://localhost:9090\", {});"
+        "newText": "\nfinal http:Client moduleHttpExCl = check new (\"http://localhost:9090\", {});"
       }
     ]
   }

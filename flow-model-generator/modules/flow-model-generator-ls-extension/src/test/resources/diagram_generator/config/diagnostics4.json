@@ -80,8 +80,21 @@
             "valueType": "IDENTIFIER",
             "value": "var1",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "main.bal",
+                "startLine": {
+                  "line": 4,
+                  "offset": 11
+                },
+                "endLine": {
+                  "line": 4,
+                  "offset": 15
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -93,7 +106,8 @@
             "placeholder": "var",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 0
@@ -160,7 +174,15 @@
             "codedata": {
               "kind": "REQUIRED",
               "originalName": "src"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "Source",
+                "packageInfo": "nipunaf:new_connection1:0.1.0",
+                "kind": "RECORD_TYPE",
+                "selected": true
+              }
+            ]
           },
           "variable": {
             "metadata": {
@@ -170,7 +192,7 @@
             "valueType": "IDENTIFIER",
             "value": "var1",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false,
             "diagnostics": {
               "hasDiagnostics": true,
@@ -180,6 +202,19 @@
                   "message": "redeclared symbol 'var1'"
                 }
               ]
+            },
+            "codedata": {
+              "lineRange": {
+                "fileName": "main.bal",
+                "startLine": {
+                  "line": 6,
+                  "offset": 11
+                },
+                "endLine": {
+                  "line": 6,
+                  "offset": 15
+                }
+              }
             }
           },
           "type": {
@@ -191,8 +226,9 @@
             "value": "Target",
             "placeholder": "var",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {}
           }
         },
         "diagnostics": {
@@ -271,7 +307,15 @@
             "codedata": {
               "kind": "REQUIRED",
               "originalName": "src"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "Source",
+                "packageInfo": "nipunaf:new_connection1:0.1.0",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              }
+            ]
           },
           "variable": {
             "metadata": {
@@ -281,8 +325,21 @@
             "valueType": "IDENTIFIER",
             "value": "var2",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "main.bal",
+                "startLine": {
+                  "line": 7,
+                  "offset": 11
+                },
+                "endLine": {
+                  "line": 7,
+                  "offset": 15
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -293,8 +350,9 @@
             "value": "Target",
             "placeholder": "var",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {}
           }
         },
         "diagnostics": {
@@ -364,7 +422,15 @@
             "codedata": {
               "kind": "REQUIRED",
               "originalName": "i"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "int",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": true
+              }
+            ]
           },
           "variable": {
             "metadata": {
@@ -374,7 +440,7 @@
             "valueType": "IDENTIFIER",
             "value": "var1",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false,
             "diagnostics": {
               "hasDiagnostics": true,
@@ -384,6 +450,19 @@
                   "message": "redeclared symbol 'var1'"
                 }
               ]
+            },
+            "codedata": {
+              "lineRange": {
+                "fileName": "main.bal",
+                "startLine": {
+                  "line": 8,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 8,
+                  "offset": 12
+                }
+              }
             }
           },
           "type": {
@@ -395,8 +474,9 @@
             "value": "int",
             "placeholder": "var",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {}
           }
         },
         "diagnostics": {
@@ -409,14 +489,14 @@
         "metadata": {
           "label": "prettify",
           "description": "Prettifies a `json` value to print it.\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.jsondata_1.0.0.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.jsondata_1.1.0.png"
         },
         "codedata": {
           "node": "FUNCTION_CALL",
           "org": "ballerina",
           "module": "data.jsondata",
           "symbol": "prettify",
-          "version": "1.0.0",
+          "version": "1.1.0",
           "lineRange": {
             "fileName": "main.bal",
             "startLine": {
@@ -447,7 +527,15 @@
             "codedata": {
               "kind": "REQUIRED",
               "originalName": "value"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "json",
+                "packageInfo": "",
+                "kind": "OTHER",
+                "selected": false
+              }
+            ]
           },
           "indentation": {
             "metadata": {
@@ -463,7 +551,15 @@
             "codedata": {
               "kind": "DEFAULTABLE",
               "originalName": "indentation"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "int",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
           },
           "variable": {
             "metadata": {
@@ -473,7 +569,7 @@
             "valueType": "IDENTIFIER",
             "value": "var1",
             "optional": false,
-            "editable": true,
+            "editable": false,
             "advanced": false,
             "diagnostics": {
               "hasDiagnostics": true,
@@ -483,6 +579,19 @@
                   "message": "redeclared symbol 'var1'"
                 }
               ]
+            },
+            "codedata": {
+              "lineRange": {
+                "fileName": "main.bal",
+                "startLine": {
+                  "line": 9,
+                  "offset": 11
+                },
+                "endLine": {
+                  "line": 9,
+                  "offset": 15
+                }
+              }
             }
           },
           "type": {
@@ -494,8 +603,9 @@
             "value": "string",
             "placeholder": "var",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {}
           }
         },
         "diagnostics": {

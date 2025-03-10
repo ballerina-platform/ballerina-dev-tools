@@ -10,6 +10,7 @@
     "org": "ballerinax",
     "module": "covid19",
     "object": "Client",
+    "version": "1.5.1",
     "symbol": "getStatusByCountry",
     "parentSymbol": "covid19Client"
   },
@@ -26,7 +27,8 @@
       "module": "covid19",
       "object": "Client",
       "symbol": "getStatusByCountry",
-      "id": 725
+      "version": "1.5.1",
+      "isNew": true
     },
     "returning": false,
     "properties": {
@@ -42,22 +44,6 @@
         "editable": false,
         "advanced": false
       },
-      "country": {
-        "metadata": {
-          "label": "country",
-          "description": "A country name, iso2, iso3, or country ID code "
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "string",
-        "placeholder": "\"\"",
-        "optional": false,
-        "editable": true,
-        "advanced": false,
-        "codedata": {
-          "kind": "REQUIRED",
-          "originalName": "country"
-        }
-      },
       "yesterday": {
         "metadata": {
           "label": "yesterday",
@@ -72,7 +58,45 @@
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "yesterday"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "()",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "country": {
+        "metadata": {
+          "label": "country",
+          "description": "A country name, iso2, iso3, or country ID code "
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"\"",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "country"
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
       },
       "twoDaysAgo": {
         "metadata": {
@@ -88,23 +112,21 @@
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "twoDaysAgo"
-        }
-      },
-      "strict": {
-        "metadata": {
-          "label": "strict",
-          "description": "Setting to false gives you the ability to fuzzy search countries (i.e. Oman vs. rOMANia) "
         },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "string",
-        "placeholder": "\"true\"",
-        "optional": true,
-        "editable": true,
-        "advanced": true,
-        "codedata": {
-          "kind": "DEFAULTABLE",
-          "originalName": "strict"
-        }
+        "typeMembers": [
+          {
+            "type": "()",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
       },
       "allowNull": {
         "metadata": {
@@ -120,7 +142,45 @@
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "allowNull"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "()",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "strict": {
+        "metadata": {
+          "label": "strict",
+          "description": "Setting to false gives you the ability to fuzzy search countries (i.e. Oman vs. rOMANia) "
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"true\"",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "strict"
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
       },
       "type": {
         "metadata": {
@@ -132,7 +192,8 @@
         "placeholder": "var",
         "optional": false,
         "editable": false,
-        "advanced": false
+        "advanced": false,
+        "codedata": {}
       },
       "variable": {
         "metadata": {

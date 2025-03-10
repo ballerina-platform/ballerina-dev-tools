@@ -10,7 +10,8 @@
       "description": "Iterate over a block of code."
     },
     "codedata": {
-      "node": "FOREACH"
+      "node": "FOREACH",
+      "isNew": true
     },
     "returning": false,
     "branches": [
@@ -92,7 +93,8 @@
         "placeholder": "var",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "codedata": {}
       },
       "collection": {
         "metadata": {

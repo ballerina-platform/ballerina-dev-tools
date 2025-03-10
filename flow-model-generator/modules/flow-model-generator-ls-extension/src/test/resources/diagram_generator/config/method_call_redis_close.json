@@ -63,17 +63,6 @@
         },
         "returning": false,
         "properties": {
-          "connection": {
-            "metadata": {
-              "label": "Connection",
-              "description": "Connection to use"
-            },
-            "valueType": "EXPRESSION",
-            "value": "redisClient",
-            "optional": false,
-            "editable": false,
-            "advanced": false
-          },
           "checkError": {
             "metadata": {
               "label": "Check Error",
@@ -84,6 +73,17 @@
             "optional": false,
             "editable": true,
             "advanced": true
+          },
+          "connection": {
+            "metadata": {
+              "label": "Connection",
+              "description": "Connection to use"
+            },
+            "valueType": "EXPRESSION",
+            "value": "redisClient",
+            "optional": false,
+            "editable": false,
+            "advanced": false
           }
         },
         "flags": 1
@@ -103,7 +103,6 @@
           "module": "redis",
           "object": "Client",
           "symbol": "init",
-          "version": "3.0.2",
           "lineRange": {
             "fileName": "method_call_redis.bal",
             "startLine": {
@@ -119,43 +118,29 @@
         },
         "returning": false,
         "properties": {
-          "scope": {
+          "secureSocket": {
             "metadata": {
-              "label": "Connection Scope",
-              "description": "Scope of the connection, Global or Local"
-            },
-            "valueType": "ENUM",
-            "value": "Global",
-            "optional": false,
-            "editable": true,
-            "advanced": true
-          },
-          "checkError": {
-            "metadata": {
-              "label": "Check Error",
-              "description": "Terminate on error"
-            },
-            "valueType": "FLAG",
-            "value": true,
-            "optional": false,
-            "editable": false,
-            "advanced": true
-          },
-          "connection": {
-            "metadata": {
-              "label": "connection",
+              "label": "secureSocket",
               "description": ""
             },
             "valueType": "EXPRESSION",
-            "valueTypeConstraint": "redis:ConnectionUri|redis:ConnectionParams",
-            "placeholder": "\"redis://localhost:6379\"",
+            "valueTypeConstraint": "redis:SecureSocket",
+            "placeholder": "{}",
             "optional": true,
             "editable": true,
             "advanced": true,
             "codedata": {
               "kind": "INCLUDED_FIELD",
-              "originalName": "connection"
-            }
+              "originalName": "secureSocket"
+            },
+            "typeMembers": [
+              {
+                "type": "SecureSocket",
+                "packageInfo": "ballerinax:redis:3.0.2",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              }
+            ]
           },
           "connectionPooling": {
             "metadata": {
@@ -171,7 +156,45 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "connectionPooling"
-            }
+            },
+            "typeMembers": [
+              {
+                "type": "boolean",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
+          },
+          "connection": {
+            "metadata": {
+              "label": "connection",
+              "description": ""
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "redis:ConnectionUri|redis:ConnectionParams",
+            "placeholder": "\"\"",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "connection"
+            },
+            "typeMembers": [
+              {
+                "type": "ConnectionUri",
+                "packageInfo": "ballerinax:redis:3.0.2",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              },
+              {
+                "type": "ConnectionParams",
+                "packageInfo": "ballerinax:redis:3.0.2",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              }
+            ]
           },
           "isClusterConnection": {
             "metadata": {
@@ -187,23 +210,37 @@
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "isClusterConnection"
-            }
-          },
-          "secureSocket": {
-            "metadata": {
-              "label": "secureSocket",
-              "description": ""
             },
-            "valueType": "EXPRESSION",
-            "valueTypeConstraint": "redis:SecureSocket",
-            "placeholder": "{}",
-            "optional": true,
+            "typeMembers": [
+              {
+                "type": "boolean",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Terminate on error"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": false,
+            "advanced": true
+          },
+          "scope": {
+            "metadata": {
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
+            },
+            "valueType": "ENUM",
+            "value": "Global",
+            "optional": false,
             "editable": true,
-            "advanced": true,
-            "codedata": {
-              "kind": "INCLUDED_FIELD",
-              "originalName": "secureSocket"
-            }
+            "advanced": true
           },
           "variable": {
             "metadata": {
@@ -213,8 +250,21 @@
             "valueType": "IDENTIFIER",
             "value": "redisClient",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "method_call_redis.bal",
+                "startLine": {
+                  "line": 2,
+                  "offset": 19
+                },
+                "endLine": {
+                  "line": 2,
+                  "offset": 30
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -226,7 +276,8 @@
             "placeholder": "var",
             "optional": false,
             "editable": false,
-            "advanced": false
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 1

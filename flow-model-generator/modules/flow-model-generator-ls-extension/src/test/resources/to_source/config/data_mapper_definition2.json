@@ -8,7 +8,8 @@
       "description": "Define a data mapper"
     },
     "codedata": {
-      "node": "DATA_MAPPER_DEFINITION"
+      "node": "DATA_MAPPER_DEFINITION",
+      "isNew": true
     },
     "returning": false,
     "properties": {
@@ -203,7 +204,7 @@
             "character": 0
           }
         },
-        "newText": "function createEmployee(string name, int age, decimal salary) returns Employee => {\n    empId: \"\",\n    name: \"\",\n    location: {city: \"\", country: \"\"},\n    email: \"\"\n};"
+        "newText": "\nfunction createEmployee(string name, int age, decimal salary) returns Employee => {\n    empId: \"\",\n    name: \"\",\n    location: {city: \"\", country: \"\"},\n    email: \"\"\n};"
       }
     ]
   }

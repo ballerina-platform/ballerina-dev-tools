@@ -77,8 +77,21 @@
             "valueType": "IDENTIFIER",
             "value": "newData",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "new_data.bal",
+                "startLine": {
+                  "line": 28,
+                  "offset": 9
+                },
+                "endLine": {
+                  "line": 28,
+                  "offset": 16
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -90,7 +103,8 @@
             "placeholder": "var",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 0

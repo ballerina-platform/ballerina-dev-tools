@@ -10,7 +10,8 @@
       "description": "Execute a function or a method invocation in a new strand"
     },
     "codedata": {
-      "node": "START"
+      "node": "START",
+      "isNew": true
     },
     "returning": false,
     "properties": {
@@ -35,7 +36,8 @@
         "placeholder": "var",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "codedata": {}
       },
       "expression": {
         "metadata": {

@@ -10,7 +10,8 @@
       "description": "Assign Binary"
     },
     "codedata": {
-      "node": "BINARY_DATA"
+      "node": "BINARY_DATA",
+      "isNew": true
     },
     "returning": false,
     "properties": {

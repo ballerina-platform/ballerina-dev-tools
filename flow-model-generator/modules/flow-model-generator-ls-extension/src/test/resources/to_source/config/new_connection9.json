@@ -99,7 +99,7 @@
             "character": 0
           }
         },
-        "newText": "import ballerina/http;"
+        "newText": "\nimport ballerina/http;"
       },
       {
         "range": {

@@ -23,6 +23,7 @@ import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.flowmodelgenerator.core.TypesGenerator;
 import io.ballerina.flowmodelgenerator.core.VisibleVariableTypesGenerator;
 import io.ballerina.flowmodelgenerator.core.expressioneditor.Debouncer;
+import io.ballerina.flowmodelgenerator.core.expressioneditor.DocumentContext;
 import io.ballerina.flowmodelgenerator.core.expressioneditor.ExpressionEditorContext;
 import io.ballerina.flowmodelgenerator.core.expressioneditor.services.CompletionRequest;
 import io.ballerina.flowmodelgenerator.core.expressioneditor.services.DiagnosticsRequest;
@@ -31,6 +32,7 @@ import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorCompletionRequest;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorDiagnosticsRequest;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorSignatureRequest;
+import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorTypesRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FunctionCallTemplateRequest;
 import io.ballerina.flowmodelgenerator.extension.request.ImportModuleRequest;
 import io.ballerina.flowmodelgenerator.extension.request.VisibleVariableTypeRequest;
@@ -39,7 +41,6 @@ import io.ballerina.flowmodelgenerator.extension.response.SuccessResponse;
 import io.ballerina.flowmodelgenerator.extension.response.VisibleVariableTypesResponse;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.projects.Document;
-import io.ballerina.projects.Project;
 import io.ballerina.tools.text.TextEdit;
 import org.ballerinalang.annotation.JavaSPIService;
 import org.ballerinalang.langserver.commons.LanguageServerContext;
@@ -84,14 +85,15 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
             try {
                 Path filePath = Path.of(request.filePath());
                 this.workspaceManagerProxy.get().loadProject(filePath);
-                Optional<SemanticModel> semanticModel = this.workspaceManagerProxy.get().semanticModel(filePath);
-                Optional<Document> document = this.workspaceManagerProxy.get().document(filePath);
-                if (semanticModel.isEmpty() || document.isEmpty()) {
+                DocumentContext documentContext = new DocumentContext(workspaceManagerProxy, filePath);
+                Optional<SemanticModel> semanticModel = documentContext.semanticModel();
+                Document document = documentContext.document();
+                if (semanticModel.isEmpty()) {
                     return response;
                 }
 
                 VisibleVariableTypesGenerator visibleVariableTypesGenerator = new VisibleVariableTypesGenerator(
-                        semanticModel.get(), document.get(), request.position());
+                        semanticModel.get(), document, CommonUtils.getPosition(request.position(), document));
                 JsonArray visibleVariableTypes = visibleVariableTypesGenerator.getVisibleVariableTypes();
                 response.setCategories(visibleVariableTypes);
             } catch (Throwable e) {
@@ -102,14 +104,13 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
     }
 
     @JsonRequest
-    public CompletableFuture<Either<List<CompletionItem>, CompletionList>> types(VisibleVariableTypeRequest request) {
+    public CompletableFuture<Either<List<CompletionItem>, CompletionList>> types(ExpressionEditorTypesRequest request) {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 Path filePath = Path.of(request.filePath());
-                Project project = this.workspaceManagerProxy.get().loadProject(filePath);
-                SemanticModel semanticModel = this.workspaceManagerProxy.get().semanticModel(filePath).orElseGet(
-                        () -> project.currentPackage().getDefaultModule().getCompilation().getSemanticModel());
-                return TypesGenerator.getInstance().getTypes(semanticModel);
+                DocumentContext documentContext = new DocumentContext(workspaceManagerProxy, filePath);
+                return TypesGenerator.getInstance()
+                        .getTypes(documentContext.semanticModel().orElseThrow(), request.typeConstraint());
             } catch (Throwable e) {
                 return Either.forRight(new CompletionList());
             }
@@ -146,8 +147,7 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
     }
 
     @JsonRequest
-    public CompletableFuture<DiagnosticsRequest.Diagnostics> diagnostics(
-            ExpressionEditorDiagnosticsRequest request) {
+    public CompletableFuture<DiagnosticsRequest.Diagnostics> diagnostics(ExpressionEditorDiagnosticsRequest request) {
         String fileUri = CommonUtils.getExprUri(request.filePath());
         return Debouncer.getInstance().debounce(DiagnosticsRequest.from(
                 new ExpressionEditorContext(
@@ -166,35 +166,26 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                 Codedata codedata = request.codedata();
                 String template;
                 switch (request.kind()) {
-                    case CURRENT:
-                        template = codedata.symbol();
-                        break;
-                    case IMPORTED:
-                        template = codedata.getModulePrefix() + ":" + codedata.symbol();
-                        break;
-                    case AVAILABLE:
+                    case CURRENT -> template = codedata.symbol();
+                    case IMPORTED -> template = codedata.getModulePrefix() + ":" + codedata.symbol();
+                    case AVAILABLE -> {
                         String fileUri = CommonUtils.getExprUri(request.filePath());
-                        Optional<Document> document =
-                                workspaceManagerProxy.get(fileUri).document(Path.of(request.filePath()));
-
-                        if (document.isPresent()) {
-                            String importStatement = codedata.getImportSignature();
-                            Document doc = document.get();
-                            ExpressionEditorContext expressionEditorContext = new ExpressionEditorContext(
-                                    workspaceManagerProxy,
-                                    fileUri,
-                                    Path.of(request.filePath()),
-                                    doc);
-                            Optional<TextEdit> importTextEdit = expressionEditorContext.getImport(importStatement);
-                            importTextEdit.ifPresent(
-                                    textEdit -> expressionEditorContext.applyTextEdits(List.of(textEdit)));
-                        }
+                        String importStatement = codedata.getImportSignature();
+                        ExpressionEditorContext expressionEditorContext = new ExpressionEditorContext(
+                                workspaceManagerProxy,
+                                fileUri,
+                                Path.of(request.filePath()),
+                                null);
+                        Optional<TextEdit> importTextEdit = expressionEditorContext.getImport(importStatement);
+                        importTextEdit.ifPresent(
+                                textEdit -> expressionEditorContext.applyTextEdits(List.of(textEdit)));
                         template = codedata.getModulePrefix() + ":" + codedata.symbol();
-                        break;
-                    default:
+                    }
+                    default -> {
                         response.setError(new IllegalArgumentException("Invalid kind: " + request.kind() +
                                 ". Expected kinds are: CURRENT, IMPORTED, AVAILABLE."));
                         return response;
+                    }
                 }
                 response.setTemplate(template + "(${1})");
             } catch (Exception e) {
@@ -210,21 +201,17 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
             SuccessResponse response = new SuccessResponse();
             try {
                 String fileUri = CommonUtils.getExprUri(request.filePath());
-                Optional<Document> document = workspaceManagerProxy.get(fileUri).document(Path.of(request.filePath()));
-                if (document.isPresent()) {
-                    ExpressionEditorContext expressionEditorContext = new ExpressionEditorContext(
-                            workspaceManagerProxy,
-                            fileUri,
-                            Path.of(request.filePath()),
-                            document.get());
-                    String importStatement = request.importStatement()
-                            .replaceFirst("^import\\s+", "")
-                            .replaceAll(";\\n$", "");
-                    Optional<TextEdit> importTextEdit = expressionEditorContext
-                            .getImport(importStatement);
-                    importTextEdit.ifPresent(textEdit -> expressionEditorContext.applyTextEdits(List.of(textEdit)));
-                    response.setSuccess(true);
-                }
+                ExpressionEditorContext expressionEditorContext = new ExpressionEditorContext(
+                        workspaceManagerProxy,
+                        fileUri,
+                        Path.of(request.filePath()),
+                        null);
+                String importStatement = request.importStatement()
+                        .replaceFirst("^import\\s+", "")
+                        .replaceAll(";\\n$", "");
+                Optional<TextEdit> importTextEdit = expressionEditorContext.getImport(importStatement);
+                importTextEdit.ifPresent(textEdit -> expressionEditorContext.applyTextEdits(List.of(textEdit)));
+                response.setSuccess(true);
             } catch (Exception e) {
                 response.setError(e);
                 response.setSuccess(false);

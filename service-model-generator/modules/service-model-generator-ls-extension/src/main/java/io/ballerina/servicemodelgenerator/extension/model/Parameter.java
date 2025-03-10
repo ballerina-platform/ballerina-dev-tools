@@ -66,14 +66,6 @@ public class Parameter {
         this.httpParamType = parameter.httpParamType;
     }
 
-    public static Parameter getNewParameter() {
-        return new Parameter(null, null,
-                new Value(ServiceModelGeneratorConstants.PARAMETER_TYPE_METADATA),
-                new Value(ServiceModelGeneratorConstants.PARAMETER_NAME_METADATA),
-                new Value(ServiceModelGeneratorConstants.PARAMETER_DEFAULT_VALUE_METADATA),
-                false, false, false, false, null);
-    }
-
     public static Parameter getNewField() {
         return new Parameter(null, null,
                 new Value(ServiceModelGeneratorConstants.FIELD_TYPE_METADATA),
@@ -165,11 +157,96 @@ public class Parameter {
         this.httpParamType = httpParamType;
     }
 
-    public static Parameter parameterSchema() {
+    public static Parameter graphQLParamSchema() {
         return new Parameter(null, null,
-                new Value(ServiceModelGeneratorConstants.PARAMETER_TYPE_METADATA),
-                new Value(ServiceModelGeneratorConstants.PARAMETER_NAME_METADATA),
+                new Value(ServiceModelGeneratorConstants.ARGUMENT_TYPE_METADATA),
+                new Value(ServiceModelGeneratorConstants.ARGUMENT_NAME_METADATA),
+                new Value(ServiceModelGeneratorConstants.ARGUMENT_DEFAULT_VALUE_METADATA),
+                false, false, false, false, null);
+    }
+
+    public static Parameter functionParamSchema() {
+        return new Parameter(null, null,
+                new Value(ServiceModelGeneratorConstants.PARAMETER_TYPE_METADATA,
+                        ServiceModelGeneratorConstants.VALUE_TYPE_TYPE, true),
+                new Value(ServiceModelGeneratorConstants.PARAMETER_NAME_METADATA,
+                        ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER, true),
                 new Value(ServiceModelGeneratorConstants.PARAMETER_DEFAULT_VALUE_METADATA),
                 false, false, false, false, null);
+    }
+
+    public static Parameter getNewParameter(boolean isGraphQL) {
+        if (isGraphQL) {
+            return graphQLParamSchema();
+        }
+        return functionParamSchema();
+    }
+
+    public static class Builder {
+        private MetaData metadata;
+        private String kind;
+        private Value type;
+        private Value name;
+        private Value defaultValue;
+        private boolean enabled;
+        private boolean editable;
+        private boolean optional;
+        private boolean advanced;
+        private String httpParamType;
+
+        public Builder metadata(MetaData metadata) {
+            this.metadata = metadata;
+            return this;
+        }
+
+        public Builder kind(String kind) {
+            this.kind = kind;
+            return this;
+        }
+
+        public Builder type(Value type) {
+            this.type = type;
+            return this;
+        }
+
+        public Builder name(Value name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder defaultValue(Value defaultValue) {
+            this.defaultValue = defaultValue;
+            return this;
+        }
+
+        public Builder enabled(boolean enabled) {
+            this.enabled = enabled;
+            return this;
+        }
+
+        public Builder editable(boolean editable) {
+            this.editable = editable;
+            return this;
+        }
+
+        public Builder optional(boolean optional) {
+            this.optional = optional;
+            return this;
+        }
+
+        public Builder advanced(boolean advanced) {
+            this.advanced = advanced;
+            return this;
+        }
+
+        public Builder httpParamType(String httpParamType) {
+            this.httpParamType = httpParamType;
+            return this;
+        }
+
+        public Parameter build() {
+            return new Parameter(metadata, kind, type, name, defaultValue, enabled, editable, optional, advanced,
+                    httpParamType);
+        }
     }
 }

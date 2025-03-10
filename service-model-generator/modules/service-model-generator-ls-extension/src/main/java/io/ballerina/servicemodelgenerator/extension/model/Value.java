@@ -18,6 +18,8 @@
 
 package io.ballerina.servicemodelgenerator.extension.model;
 
+import io.ballerina.modelgenerator.commons.ParameterMemberTypeData;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -39,6 +41,13 @@ public class Value {
     private Codedata codedata;
     private List<Value> choices;
     private boolean addNewButton = false;
+    private List<PropertyTypeMemberInfo> typeMembers;
+
+    public Value(MetaData metadata, String valueType, boolean editable) {
+        this(metadata, false, editable, null, valueType,
+                null, false, null, false, false,
+                null, null, null);
+    }
 
     public Value(MetaData metadata) {
         this(metadata, false, true, null, null,
@@ -74,6 +83,30 @@ public class Value {
         this.codedata = codedata;
     }
 
+    public Value(MetaData metadata, boolean enabled, boolean editable, String value, List<String> values,
+                 String valueType,
+                 String valueTypeConstraint, boolean isType, String placeholder, boolean optional,
+                 boolean advanced, Map<String, Value> properties, List<String> items, Codedata codedata,
+                 boolean addNewButton,
+                 List<PropertyTypeMemberInfo> typeMembers) {
+        this.metadata = metadata;
+        this.enabled = enabled;
+        this.editable = editable;
+        this.value = value;
+        this.values = values;
+        this.valueType = valueType;
+        this.valueTypeConstraint = valueTypeConstraint;
+        this.isType = isType;
+        this.placeholder = placeholder;
+        this.optional = optional;
+        this.advanced = advanced;
+        this.properties = properties;
+        this.items = items;
+        this.codedata = codedata;
+        this.addNewButton = addNewButton;
+        this.typeMembers = typeMembers;
+    }
+
     public MetaData getMetadata() {
         return metadata;
     }
@@ -87,8 +120,7 @@ public class Value {
     }
 
     public boolean isEnabledWithValue() {
-        return enabled && ((value != null && !value.isEmpty()) || (placeholder != null && !placeholder.isEmpty())
-                || (values != null && !values.isEmpty()));
+        return enabled && ((value != null && !value.isEmpty()) || (values != null && !values.isEmpty()));
     }
 
     public void setEnabled(boolean enabled) {
@@ -223,6 +255,14 @@ public class Value {
         return addNewButton;
     }
 
+    public List<PropertyTypeMemberInfo> getTypeMembers() {
+        return typeMembers;
+    }
+
+    public void setTypeMembers(List<PropertyTypeMemberInfo> typeMembers) {
+        this.typeMembers = typeMembers;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(metadata, enabled, editable, value, values, valueType, valueTypeConstraint, isType,
@@ -243,5 +283,116 @@ public class Value {
                 && advanced == v.advanced && Objects.equals(properties, v.properties)
                 && Objects.equals(items, v.items) && Objects.equals(codedata, v.codedata)
                 && Objects.equals(choices, v.choices) && addNewButton == v.addNewButton;
+    }
+
+    public static Value getTcpValue(String value) {
+        return new Value(null, true, true, value,
+                null, null, false, null, false, false,
+                null, null, null);
+    }
+
+    public static class ValueBuilder {
+        private MetaData metadata;
+        private boolean enabled;
+        private boolean editable;
+        private String value;
+        private List<String> values;
+        private String valueType;
+        private String valueTypeConstraint;
+        private boolean isType;
+        private String placeholder;
+        private boolean optional;
+        private boolean advanced;
+        private Map<String, Value> properties;
+        private List<String> items;
+        private Codedata codedata;
+        private boolean addNewButton = false;
+        private List<PropertyTypeMemberInfo> typeMembers;
+
+        public ValueBuilder setMetadata(MetaData metadata) {
+            this.metadata = metadata;
+            return this;
+        }
+
+        public ValueBuilder setEnabled(boolean enabled) {
+            this.enabled = enabled;
+            return this;
+        }
+
+        public ValueBuilder setEditable(boolean editable) {
+            this.editable = editable;
+            return this;
+        }
+
+        public ValueBuilder setValue(String value) {
+            this.value = value;
+            return this;
+        }
+
+        public ValueBuilder setValueType(String valueType) {
+            this.valueType = valueType;
+            return this;
+        }
+
+        public ValueBuilder setValueTypeConstraint(String valueTypeConstraint) {
+            this.valueTypeConstraint = valueTypeConstraint;
+            return this;
+        }
+
+        public ValueBuilder setType(boolean isType) {
+            this.isType = isType;
+            return this;
+        }
+
+        public ValueBuilder setPlaceholder(String placeholder) {
+            this.placeholder = placeholder;
+            return this;
+        }
+
+        public ValueBuilder setOptional(boolean optional) {
+            this.optional = optional;
+            return this;
+        }
+
+        public ValueBuilder setAdvanced(boolean advanced) {
+            this.advanced = advanced;
+            return this;
+        }
+
+        public ValueBuilder setProperties(Map<String, Value> properties) {
+            this.properties = properties;
+            return this;
+        }
+
+        public ValueBuilder setItems(List<String> items) {
+            this.items = items;
+            return this;
+        }
+
+        public ValueBuilder setCodedata(Codedata codedata) {
+            this.codedata = codedata;
+            return this;
+        }
+
+        public ValueBuilder setValues(List<String> values) {
+            this.values = values;
+            return this;
+        }
+
+        public ValueBuilder setAddNewButton(boolean addNewButton) {
+            this.addNewButton = addNewButton;
+            return this;
+        }
+
+        public ValueBuilder setTypeMembers(List<ParameterMemberTypeData> typeMembers) {
+            this.typeMembers = typeMembers.stream().map(memberType -> new PropertyTypeMemberInfo(memberType.type(),
+                    memberType.packageInfo(), memberType.kind(), false)).toList();
+            return this;
+        }
+
+        public Value build() {
+            return new Value(metadata, enabled, editable, value, values, valueType, valueTypeConstraint, isType,
+                    placeholder, optional, advanced, properties, items, codedata, addNewButton, typeMembers);
+        }
     }
 }

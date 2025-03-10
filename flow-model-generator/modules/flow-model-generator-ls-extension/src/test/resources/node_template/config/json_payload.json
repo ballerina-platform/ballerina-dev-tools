@@ -9,7 +9,8 @@
       "label": "Assign JSON"
     },
     "codedata": {
-      "node": "JSON_PAYLOAD"
+      "node": "JSON_PAYLOAD",
+      "isNew": true
     },
     "returning": false,
     "properties": {

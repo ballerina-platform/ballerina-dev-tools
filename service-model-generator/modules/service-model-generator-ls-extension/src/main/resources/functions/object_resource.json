@@ -30,8 +30,8 @@
   },
   "name": {
     "metadata": {
-      "label": "Function Name",
-      "description": "The name of the function"
+      "label": "Resource Path",
+      "description": "The resource path"
     },
     "enabled": true,
     "editable": true,
@@ -41,8 +41,7 @@
     "isType": false,
     "placeholder": "",
     "optional": false,
-    "advanced": false,
-    "addNewButton": false
+    "advanced": false
   },
   "parameters": [],
   "schema": {
@@ -96,12 +95,11 @@
     },
     "enabled": true,
     "editable": true,
-    "value": "",
-    "valueType": "TYPE",
     "isType": false,
-    "optional": true,
+    "optional": false,
     "advanced": false,
-    "addNewButton": false
+    "addNewButton": false,
+    "valueType": "TYPE"
   },
   "enabled": true,
   "optional": false,

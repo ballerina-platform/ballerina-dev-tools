@@ -55,6 +55,7 @@
     "typeName": "int",
     "optional": false,
     "defaultable": false,
-    "isRestType": false
+    "isRestType": false,
+    "selected": false
   }
 }

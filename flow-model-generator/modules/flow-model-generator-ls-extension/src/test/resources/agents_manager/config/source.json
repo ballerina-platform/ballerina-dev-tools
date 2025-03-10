@@ -1,0 +1,268 @@
+{
+  "source": "agent_1/agents.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "31",
+    "metadata": {
+      "label": "Agent",
+      "description": "Represents an agent.",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.7.9.png"
+    },
+    "codedata": {
+      "node": "AGENT",
+      "org": "ballerinax",
+      "module": "ai.agent",
+      "object": "Agent",
+      "symbol": "init",
+      "version": "0.7.9",
+      "id": 0
+    },
+    "returning": false,
+    "properties": {
+      "systemPrompt": {
+        "metadata": {
+          "label": "systemPrompt",
+          "description": "The system prompt assigned to the agent."
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "agent:SystemPrompt",
+        "placeholder": "{role: \"\", instructions: \"\"}",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "systemPrompt"
+        },
+        "typeMembers": [
+          {
+            "type": "agent:SystemPrompt",
+            "packageInfo": "ballerinax:ai.agent:0.7.9",
+            "kind": "RECORD_TYPE",
+            "selected": false
+          }
+        ],
+        "value": ""
+      },
+      "agentType": {
+        "metadata": {
+          "label": "agentType",
+          "description": "Type of the agent"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "agent:AgentType",
+        "placeholder": "\"FUNCTION_CALL_AGENT\"",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "agentType"
+        },
+        "typeMembers": [
+          {
+            "type": "agent:AgentType",
+            "packageInfo": "ballerinax:ai.agent:0.7.9",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ],
+        "value": ""
+      },
+      "memory": {
+        "metadata": {
+          "label": "memory",
+          "description": "The memory used by the agent to store and manage conversation history."
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "agent:Memory",
+        "placeholder": "object {}",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "memory"
+        },
+        "typeMembers": [
+          {
+            "type": "agent:Memory",
+            "packageInfo": "ballerinax:ai.agent:0.7.9",
+            "kind": "OBJECT_TYPE",
+            "selected": false
+          }
+        ],
+        "value": ""
+      },
+      "maxIter": {
+        "metadata": {
+          "label": "maxIter",
+          "description": "The maximum number of iterations the agent performs to complete the task."
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "int",
+        "placeholder": "0",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "maxIter"
+        },
+        "typeMembers": [
+          {
+            "type": "int",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ],
+        "value": ""
+      },
+      "model": {
+        "metadata": {
+          "label": "model",
+          "description": "The model used by the agent."
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "agent:Model",
+        "placeholder": "object {}",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "model"
+        },
+        "typeMembers": [
+          {
+            "type": "agent:Model",
+            "packageInfo": "ballerinax:ai.agent:0.7.9",
+            "kind": "OBJECT_TYPE",
+            "selected": false
+          }
+        ],
+        "value": "agentOpenaimodel"
+      },
+      "tools": {
+        "metadata": {
+          "label": "tools",
+          "description": "The tools available for the agent."
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "(agent:BaseToolKit|agent:ToolConfig|agent:FunctionTool)[]",
+        "placeholder": "[]",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "tools"
+        },
+        "typeMembers": [
+          {
+            "type": "agent:BaseToolKit|agent:ToolConfig|agent:FunctionTool",
+            "packageInfo": "",
+            "kind": "ARRAY_TYPE",
+            "selected": false
+          }
+        ],
+        "value": [
+          "sum",
+          "average"
+        ]
+      },
+      "verbose": {
+        "metadata": {
+          "label": "verbose",
+          "description": "Specifies whether verbose logging is enabled."
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "boolean",
+        "placeholder": "false",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "verbose"
+        },
+        "typeMembers": [
+          {
+            "type": "boolean",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ],
+        "value": ""
+      },
+      "type": {
+        "metadata": {
+          "label": "Variable Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "agent:Agent",
+        "placeholder": "var",
+        "optional": false,
+        "editable": false,
+        "advanced": false,
+        "codedata": {}
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "agentAgent",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "checkError": {
+        "metadata": {
+          "label": "Check Error",
+          "description": "Trigger error flow"
+        },
+        "valueType": "FLAG",
+        "value": true,
+        "optional": false,
+        "editable": true,
+        "advanced": true
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "agent_1/agents.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import ballerinax/ai.agent;"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "final agent:Agent agentAgent = check new (systemPrompt = {role: \"\", instructions: \"\"}, model = agentOpenaimodel, tools = [sum, average]);"
+      }
+    ]
+  }
+}

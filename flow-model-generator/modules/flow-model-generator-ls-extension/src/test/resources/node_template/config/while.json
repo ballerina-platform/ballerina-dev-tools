@@ -10,7 +10,8 @@
       "description": "Loop over a block of code."
     },
     "codedata": {
-      "node": "WHILE"
+      "node": "WHILE",
+      "isNew": true
     },
     "returning": false,
     "properties": {

@@ -12,16 +12,17 @@
     "node": "NEW_CONNECTION",
     "org": "",
     "module": "mod2",
-    "object": "",
+    "object": "Client",
     "symbol": "init",
-    "isGenerated": true
+    "isGenerated": true,
+    "isNew": true
   },
   "output": {
     "id": "31",
     "metadata": {
       "label": "New Connection",
-      "description": "Gets invoked to initialize the `connector`.\n",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/_mod2_.png"
+      "description": "",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/_mod2_null.png"
     },
     "codedata": {
       "node": "NEW_CONNECTION",
@@ -29,44 +30,59 @@
       "module": "mod2",
       "object": "Client",
       "symbol": "init",
-      "id": -1,
+      "isNew": true,
       "isGenerated": true
     },
     "returning": false,
     "properties": {
+      "serviceUrl": {
+        "metadata": {
+          "label": "serviceUrl",
+          "description": "URL of the target service "
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"\"",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "serviceUrl"
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
       "config": {
         "metadata": {
           "label": "config",
-          "description": ""
+          "description": "The configurations to be used when initializing the `connector` "
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "mod2:ConnectionConfig",
         "placeholder": "{}",
-        "optional": false,
+        "optional": true,
         "editable": true,
-        "advanced": false,
+        "advanced": true,
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "config",
-          "importStatements": ""
-        }
-      },
-      "serviceUrl": {
-        "metadata": {
-          "label": "serviceUrl",
-          "description": ""
+          "importStatements": "oas/client2.client2.mod2"
         },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "string",
-        "placeholder": "\"http://localhost:9090/v1\"",
-        "optional": false,
-        "editable": true,
-        "advanced": false,
-        "codedata": {
-          "kind": "DEFAULTABLE",
-          "originalName": "serviceUrl",
-          "importStatements": ""
-        }
+        "typeMembers": [
+          {
+            "type": "mod2:ConnectionConfig",
+            "packageInfo": "oas:client2.mod2:0.1.0",
+            "kind": "RECORD_TYPE",
+            "selected": false
+          }
+        ]
       },
       "type": {
         "metadata": {
@@ -78,7 +94,8 @@
         "placeholder": "var",
         "optional": false,
         "editable": false,
-        "advanced": false
+        "advanced": false,
+        "codedata": {}
       },
       "variable": {
         "metadata": {

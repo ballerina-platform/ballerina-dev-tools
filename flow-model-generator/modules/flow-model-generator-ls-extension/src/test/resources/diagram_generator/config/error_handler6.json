@@ -120,8 +120,21 @@
                     "valueType": "IDENTIFIER",
                     "value": "e",
                     "optional": false,
-                    "editable": true,
-                    "advanced": false
+                    "editable": false,
+                    "advanced": false,
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "fail.bal",
+                        "startLine": {
+                          "line": 22,
+                          "offset": 23
+                        },
+                        "endLine": {
+                          "line": 22,
+                          "offset": 24
+                        }
+                      }
+                    }
                   },
                   "type": {
                     "metadata": {
@@ -133,7 +146,8 @@
                     "placeholder": "var",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "codedata": {}
                   }
                 },
                 "flags": 0

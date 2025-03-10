@@ -3,162 +3,36 @@
   "filePath": "source.bal",
   "context": {
     "expression": "self.classVar > local +  21",
-    "branch": "self.classVar > l",
-    "property": "condition",
+    "property": {
+      "metadata": {
+        "label": "Condition",
+        "description": "Boolean Condition"
+      },
+      "valueType": "EXPRESSION",
+      "value": "(moduleVar > 11) ",
+      "optional": false,
+      "editable": true
+    },
+    "codedata": {
+      "node": "IF",
+      "lineRange": {
+        "fileName": "test.bal",
+        "startLine": {
+          "line": 13,
+          "offset": 8
+        },
+        "endLine": {
+          "line": 17,
+          "offset": 9
+        }
+      },
+      "sourceCode": "if (moduleVar > 11) {\n            int i = 32;\n        } else if self.classVar > l {\n\n        }"
+    },
     "startLine": {
       "line": 13,
       "offset": 8
     },
-    "offset": 22,
-    "node": {
-      "id": "45021",
-      "metadata": {
-        "label": "If",
-        "description": "Add conditional branch to the integration flow."
-      },
-      "codedata": {
-        "node": "IF",
-        "lineRange": {
-          "fileName": "test.bal",
-          "startLine": {
-            "line": 13,
-            "offset": 8
-          },
-          "endLine": {
-            "line": 17,
-            "offset": 9
-          }
-        },
-        "sourceCode": "if (moduleVar > 11) {\n            int i = 32;\n        } else if self.classVar > l {\n\n        }"
-      },
-      "returning": false,
-      "branches": [
-        {
-          "label": "Then",
-          "kind": "BLOCK",
-          "codedata": {
-            "node": "CONDITIONAL",
-            "lineRange": {
-              "fileName": "test.bal",
-              "startLine": {
-                "line": 13,
-                "offset": 28
-              },
-              "endLine": {
-                "line": 15,
-                "offset": 9
-              }
-            },
-            "sourceCode": "{\n            int i = 32;\n        }"
-          },
-          "repeatable": "ONE_OR_MORE",
-          "properties": {
-            "condition": {
-              "metadata": {
-                "label": "Condition",
-                "description": "Boolean Condition"
-              },
-              "valueType": "EXPRESSION",
-              "value": "(moduleVar > 11) ",
-              "optional": false,
-              "editable": true
-            }
-          },
-          "children": [
-            {
-              "id": "46027",
-              "metadata": {
-                "label": "New Variable",
-                "description": "New variable 'i' with type 'int'"
-              },
-              "codedata": {
-                "node": "NEW_DATA",
-                "lineRange": {
-                  "fileName": "test.bal",
-                  "startLine": {
-                    "line": 14,
-                    "offset": 12
-                  },
-                  "endLine": {
-                    "line": 14,
-                    "offset": 23
-                  }
-                },
-                "sourceCode": "int i = 32;"
-              },
-              "returning": false,
-              "properties": {
-                "expression": {
-                  "metadata": {
-                    "label": "Expression",
-                    "description": "Expression"
-                  },
-                  "valueType": "EXPRESSION",
-                  "value": "32",
-                  "optional": false,
-                  "editable": true
-                },
-                "variable": {
-                  "metadata": {
-                    "label": "Data variable",
-                    "description": "Name of the variable"
-                  },
-                  "valueType": "IDENTIFIER",
-                  "value": "i",
-                  "optional": false,
-                  "editable": true
-                },
-                "type": {
-                  "metadata": {
-                    "label": "Data type",
-                    "description": "Type of the variable"
-                  },
-                  "valueType": "TYPE",
-                  "value": "int",
-                  "optional": false,
-                  "editable": true
-                }
-              },
-              "flags": 0
-            }
-          ]
-        },
-        {
-          "label": "self.classVar > l",
-          "kind": "BLOCK",
-          "codedata": {
-            "node": "CONDITIONAL",
-            "lineRange": {
-              "fileName": "test.bal",
-              "startLine": {
-                "line": 15,
-                "offset": 36
-              },
-              "endLine": {
-                "line": 17,
-                "offset": 9
-              }
-            },
-            "sourceCode": "{\n\n        }"
-          },
-          "repeatable": "ONE_OR_MORE",
-          "properties": {
-            "condition": {
-              "metadata": {
-                "label": "Condition",
-                "description": "Boolean Condition"
-              },
-              "valueType": "EXPRESSION",
-              "value": "self.classVar > l ",
-              "optional": false,
-              "editable": true
-            }
-          },
-          "children": []
-        }
-      ],
-      "flags": 0
-    }
+    "offset": 22
   },
   "completionContext": {
     "triggerKind": "Invoked"

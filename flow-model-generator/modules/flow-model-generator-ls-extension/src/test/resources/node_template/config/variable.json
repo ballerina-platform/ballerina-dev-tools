@@ -15,7 +15,8 @@
       "description": "New variable with type"
     },
     "codedata": {
-      "node": "VARIABLE"
+      "node": "VARIABLE",
+      "isNew": true
     },
     "returning": false,
     "properties": {
@@ -40,7 +41,8 @@
         "placeholder": "var",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "codedata": {}
       },
       "expression": {
         "metadata": {

@@ -54,8 +54,21 @@
             "valueType": "IDENTIFIER",
             "value": "b1",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "binary_data.bal",
+                "startLine": {
+                  "line": 1,
+                  "offset": 11
+                },
+                "endLine": {
+                  "line": 1,
+                  "offset": 13
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -67,7 +80,8 @@
             "placeholder": "var",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 0
@@ -114,8 +128,21 @@
             "valueType": "IDENTIFIER",
             "value": "b2",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "binary_data.bal",
+                "startLine": {
+                  "line": 2,
+                  "offset": 11
+                },
+                "endLine": {
+                  "line": 2,
+                  "offset": 13
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -127,7 +154,8 @@
             "placeholder": "var",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 0
@@ -174,8 +202,21 @@
             "valueType": "IDENTIFIER",
             "value": "b3",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "binary_data.bal",
+                "startLine": {
+                  "line": 3,
+                  "offset": 18
+                },
+                "endLine": {
+                  "line": 3,
+                  "offset": 20
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -187,7 +228,8 @@
             "placeholder": "var",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 0
@@ -234,8 +276,21 @@
             "valueType": "IDENTIFIER",
             "value": "b4",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "binary_data.bal",
+                "startLine": {
+                  "line": 4,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 4,
+                  "offset": 14
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -247,7 +302,8 @@
             "placeholder": "var",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 0
@@ -294,8 +350,21 @@
             "valueType": "IDENTIFIER",
             "value": "b5",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "binary_data.bal",
+                "startLine": {
+                  "line": 5,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 5,
+                  "offset": 10
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -307,7 +376,8 @@
             "placeholder": "var",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 0

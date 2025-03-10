@@ -18,15 +18,10 @@
 
 package io.ballerina.flowmodelgenerator.core.expressioneditor;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import io.ballerina.compiler.syntax.tree.ImportDeclarationNode;
-import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.compiler.syntax.tree.SyntaxTree;
-import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
-import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.projects.Document;
@@ -38,8 +33,6 @@ import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextDocumentChange;
 import io.ballerina.tools.text.TextEdit;
 import io.ballerina.tools.text.TextRange;
-import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
-import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManagerProxy;
 import org.eclipse.lsp4j.Position;
@@ -56,64 +49,32 @@ import java.util.Optional;
  */
 public class ExpressionEditorContext {
 
-    private static final Gson gson = new Gson();
-    private final WorkspaceManagerProxy workspaceManagerProxy;
-    private final String fileUri;
     private final Info info;
-    private final FlowNode flowNode;
-    private final Path filePath;
     private final DocumentContext documentContext;
+    private final Property property;
 
     // State variables
     private int expressionOffset;
     private LineRange statementLineRange;
-    private Property property;
-    private boolean propertyInitialized;
+    private LinePosition startLine;
 
     public ExpressionEditorContext(WorkspaceManagerProxy workspaceManagerProxy, String fileUri, Info info,
                                    Path filePath) {
-        this.workspaceManagerProxy = workspaceManagerProxy;
-        this.fileUri = fileUri;
         this.info = info;
-        this.filePath = filePath;
-        this.flowNode = gson.fromJson(info.node(), FlowNode.class);
-        this.propertyInitialized = false;
         this.documentContext = new DocumentContext(workspaceManagerProxy, fileUri, filePath);
+        this.property = new Property(info.property(), info.codedata());
     }
 
     public ExpressionEditorContext(WorkspaceManagerProxy workspaceManagerProxy, String fileUri, Path filePath,
                                    Document document) {
-        this.workspaceManagerProxy = workspaceManagerProxy;
-        this.fileUri = fileUri;
-        this.filePath = filePath;
         this.info = null;
-        this.flowNode = null;
-        this.propertyInitialized = false;
         this.documentContext = new DocumentContext(workspaceManagerProxy, fileUri, filePath, document);
-    }
-
-    public Property getProperty() {
-        if (propertyInitialized) {
-            return property;
-        }
-        if (info.property() == null || info.property().isEmpty()) {
-            this.property = null;
-        } else if (info.branch() == null || info.branch().isEmpty()) {
-            this.property = flowNode.getProperty(info.property()).orElse(null);
-        } else {
-            this.property = flowNode.getBranch(info.branch())
-                    .flatMap(branch -> branch.getProperty(info.property()))
-                    .orElse(null);
-        }
-        propertyInitialized = true;
-        return property;
+        this.property = new Property(null, null);
     }
 
     public boolean isNodeKind(List<NodeKind> nodeKinds) {
-        if (flowNode == null || flowNode.codedata() == null) {
-            return false;
-        }
-        return nodeKinds.contains(flowNode.codedata().node());
+        NodeKind nodeKind = property.nodeKind();
+        return nodeKind != null && nodeKinds.contains(nodeKind);
     }
 
     public LinePosition getStartLine() {
@@ -135,10 +96,17 @@ public class ExpressionEditorContext {
         return info;
     }
 
+    public LinePosition startLine() {
+        if (startLine == null) {
+            startLine = CommonUtils.getPosition(info.startLine(), documentContext.document());
+        }
+        return startLine;
+    }
+
     // TODO: Check how we can use SourceBuilder in place of this method
     private Optional<TextEdit> getImport() {
-        String org = flowNode.codedata().org();
-        String module = flowNode.codedata().module();
+        String org = property.org();
+        String module = property.module();
 
         if (org == null || module == null || CommonUtils.isPredefinedLangLib(org, module)) {
             return Optional.empty();
@@ -147,14 +115,9 @@ public class ExpressionEditorContext {
     }
 
     public Optional<TextEdit> getImport(String importStatement) {
-        try {
-            this.workspaceManagerProxy.get(fileUri).loadProject(filePath);
-        } catch (WorkspaceDocumentException | EventSyncException e) {
-            return Optional.empty();
-        }
-
         // Check if the import statement represents the current module
-        Optional<Module> currentModule = this.workspaceManagerProxy.get(fileUri).module(filePath);
+        documentContext.project();
+        Optional<Module> currentModule = documentContext.module();
         if (currentModule.isPresent()) {
             ModuleDescriptor descriptor = currentModule.get().descriptor();
             if (CommonUtils.getImportStatement(descriptor.org().toString(), descriptor.packageName().value(),
@@ -176,7 +139,7 @@ public class ExpressionEditorContext {
                     .name(importStatement)
                     .endOfStatement()
                     .build(false);
-            TextEdit textEdit = TextEdit.from(TextRange.from(0, 0), stmt);
+            TextEdit textEdit = TextEdit.from(TextRange.from(0, 0), stmt + System.lineSeparator());
             return Optional.of(textEdit);
         }
         return Optional.empty();
@@ -190,8 +153,8 @@ public class ExpressionEditorContext {
      */
     public LineRange generateStatement() {
         String prefix = "var __reserved__ = ";
-        Property property = getProperty();
         List<TextEdit> textEdits = new ArrayList<>();
+        int lineOffset = 0;
 
         if (property != null) {
             // Append the type if exists
@@ -200,11 +163,13 @@ public class ExpressionEditorContext {
             }
 
             // Add the import statements of the dependent types
-            if (property.codedata() != null) {
-                String importStatements = property.codedata().importStatements();
-                if (importStatements != null && !importStatements.isEmpty()) {
-                    for (String importStmt : importStatements.split(",")) {
-                        getImport(importStmt).ifPresent(textEdits::add);
+            String importStatements = property.importStatements();
+            if (importStatements != null && !importStatements.isEmpty()) {
+                for (String importStmt : importStatements.split(",")) {
+                    Optional<TextEdit> textEdit = getImport(importStmt);
+                    if (textEdit.isPresent()) {
+                        textEdits.add(textEdit.get());
+                        lineOffset++;
                     }
                 }
             }
@@ -213,12 +178,17 @@ public class ExpressionEditorContext {
         // Add the import statement for the node type
         if (isNodeKind(List.of(NodeKind.NEW_CONNECTION, NodeKind.FUNCTION_CALL, NodeKind.REMOTE_ACTION_CALL,
                 NodeKind.RESOURCE_ACTION_CALL))) {
-            getImport().ifPresent(textEdits::add);
+            Optional<TextEdit> textEdit = getImport();
+            if (textEdit.isPresent()) {
+                textEdits.add(textEdit.get());
+                lineOffset++;
+            }
         }
 
         // Get the text position of the start line
         TextDocument textDocument = documentContext.document().textDocument();
-        int textPosition = textDocument.textPositionFrom(info.startLine());
+        LinePosition cursorStartLine = startLine();
+        int textPosition = textDocument.textPositionFrom(cursorStartLine);
 
         // Generate the statement and apply the text edits
         String statement = String.format("%s%s;%n", prefix, info.expression());
@@ -227,17 +197,17 @@ public class ExpressionEditorContext {
         applyTextEdits(textEdits);
 
         // Return the line range of the generated statement
-        LinePosition startLine = info.startLine();
+        LinePosition startLine = LinePosition.from(cursorStartLine.line() + lineOffset, cursorStartLine.offset());
         LinePosition endLineRange = LinePosition.from(startLine.line(),
                 startLine.offset() + statement.length());
-        this.statementLineRange = LineRange.from(filePath.toString(), startLine, endLineRange);
+        this.statementLineRange = LineRange.from(documentContext.filePath().toString(), startLine, endLineRange);
         return statementLineRange;
     }
 
     public LineRange getExpressionLineRange() {
         LinePosition startLine = info().startLine();
         LinePosition endLine = LinePosition.from(startLine.line(), startLine.offset() + info().expression().length());
-        Path fileName = filePath.getFileName();
+        Path fileName = documentContext.filePath().getFileName();
         return LineRange.from(fileName == null ? "" : fileName.toString(), startLine, endLine);
     }
 
@@ -277,7 +247,7 @@ public class ExpressionEditorContext {
     }
 
     public String fileUri() {
-        return fileUri;
+        return documentContext.fileUri();
     }
 
     public TextDocument textDocument() {
@@ -285,11 +255,133 @@ public class ExpressionEditorContext {
     }
 
     public Path filePath() {
-        return filePath;
+        return documentContext.filePath();
     }
 
     public WorkspaceManager workspaceManager() {
-        return workspaceManagerProxy.get(fileUri);
+        return documentContext.workspaceManager();
+    }
+
+    public Property getProperty() {
+        return property;
+    }
+
+    /**
+     * Represents a property with associated code data in the expression editor context.
+     *
+     * <p>
+     * This is a temporary abstraction of the {@link io.ballerina.flowmodelgenerator.core.model.Property} and
+     * {@link io.ballerina.flowmodelgenerator.core.model.Codedata} until the source code is properly refactored to use
+     * these structures. The class provides the minimum public methods required to build the context and follows the CoR
+     * pattern to support fallback mechanisms for property derivation.
+     * </p>
+     * <p>
+     * The property encapsulates various attributes such as value, value type, type constraints, import statements,
+     * organization, module, and node kind. These values are lazily initialized when first accessed through the getter
+     * methods.
+     * </p>
+     *
+     * @since 2.0.0
+     */
+    public static class Property {
+
+        private final JsonObject property;
+        private final JsonObject codedata;
+        private boolean initialized;
+
+        // Property values
+        private String value;
+        private String valueType;
+        private String typeConstraint;
+
+        // Codedata values
+        private String importStatements;
+        private String org;
+        private String module;
+        private NodeKind nodeKind;
+
+        private static final String VALUE_KEY = "value";
+        private static final String VALUE_TYPE_KEY = "valueType";
+        private static final String TYPE_CONSTRAINT_KEY = "valueTypeConstraint";
+        private static final String CODEDATA_KEY = "codedata";
+        private static final String IMPORT_STATEMENTS_KEY = "importStatements";
+        private static final String ORG_KEY = "org";
+        private static final String MODULE_KEY = "module";
+        private static final String NODE_KEY = "node";
+
+        public Property(JsonObject property, JsonObject codedata) {
+            this.property = property;
+            this.codedata = codedata;
+            this.initialized = false;
+        }
+
+        private void initialize() {
+            if (initialized) {
+                return;
+            }
+            if (property == null) {
+                value = "";
+                typeConstraint = "any";
+            } else {
+                value = property.has(VALUE_KEY) ? property.get(VALUE_KEY).getAsString() : "";
+                valueType = property.has(VALUE_TYPE_KEY) ? property.get(VALUE_TYPE_KEY).getAsString() : "";
+                typeConstraint =
+                        property.has(TYPE_CONSTRAINT_KEY) ? property.get(TYPE_CONSTRAINT_KEY).getAsString() : "any";
+                JsonObject propertyCodedata =
+                        property.has(CODEDATA_KEY) ? property.getAsJsonObject(CODEDATA_KEY) : null;
+                if (propertyCodedata != null) {
+                    importStatements = propertyCodedata.has(IMPORT_STATEMENTS_KEY)
+                            ? propertyCodedata.get(IMPORT_STATEMENTS_KEY).getAsString() : "";
+                }
+            }
+
+            if (codedata == null) {
+                importStatements = "";
+                org = "";
+                module = "";
+                nodeKind = null;
+            } else {
+                org = codedata.has(ORG_KEY) ? codedata.get(ORG_KEY).getAsString() : "";
+                module = codedata.has(MODULE_KEY) ? codedata.get(MODULE_KEY).getAsString() : "";
+                nodeKind = codedata.has(NODE_KEY) ? NodeKind.valueOf(codedata.get(NODE_KEY).getAsString()) : null;
+            }
+            initialized = true;
+        }
+
+        public String value() {
+            initialize();
+            return value;
+        }
+
+        public String valueType() {
+            initialize();
+            return valueType;
+        }
+
+        public String valueTypeConstraint() {
+            initialize();
+            return typeConstraint;
+        }
+
+        public String importStatements() {
+            initialize();
+            return importStatements;
+        }
+
+        public String org() {
+            initialize();
+            return org;
+        }
+
+        public String module() {
+            initialize();
+            return module;
+        }
+
+        public NodeKind nodeKind() {
+            initialize();
+            return nodeKind;
+        }
     }
 
     /**
@@ -298,63 +390,10 @@ public class ExpressionEditorContext {
      * @param expression The modified expression
      * @param startLine  The start line of the node
      * @param offset     The offset of cursor compared to the start of the expression
-     * @param node       The node which contains the expression
-     * @param branch     The branch of the expression if exists
+     * @param codedata   The codedata of the expression
      * @param property   The property of the expression
      */
-    public record Info(String expression, LinePosition startLine, int offset, JsonObject node,
-                       String branch, String property) {
-    }
-
-    /**
-     * Encapsulates document and import related context with lazy loading capabilities.
-     *
-     * @since 2.0.0
-     */
-    private static class DocumentContext {
-
-        private final WorkspaceManagerProxy workspaceManagerProxy;
-        private final String fileUri;
-        private final Path filePath;
-
-        private Document document;
-        private List<ImportDeclarationNode> imports;
-
-        public DocumentContext(WorkspaceManagerProxy workspaceManagerProxy, String fileUri, Path filePath) {
-            this(workspaceManagerProxy, fileUri, filePath, null);
-        }
-
-        public DocumentContext(WorkspaceManagerProxy workspaceManagerProxy, String fileUri, Path filePath,
-                               Document document) {
-            this.workspaceManagerProxy = workspaceManagerProxy;
-            this.fileUri = fileUri;
-            this.filePath = filePath;
-            this.document = document;
-        }
-
-        public Document document() {
-            if (document == null) {
-                Optional<Document> optionalDocument = workspaceManagerProxy.get(fileUri).document(filePath);
-                if (optionalDocument.isEmpty()) {
-                    throw new IllegalStateException("Document not found for the given path: " + filePath);
-                }
-                document = optionalDocument.get();
-            }
-            return document;
-        }
-
-        public List<ImportDeclarationNode> imports() {
-            if (imports == null) {
-                if (document == null) {
-                    document();
-                }
-                SyntaxTree syntaxTree = document.syntaxTree();
-                imports = syntaxTree.rootNode().kind() == SyntaxKind.MODULE_PART
-                        ? ((ModulePartNode) syntaxTree.rootNode()).imports().stream().toList()
-                        : List.of();
-
-            }
-            return imports;
-        }
+    public record Info(String expression, LinePosition startLine, int offset, JsonObject codedata,
+                       JsonObject property) {
     }
 }

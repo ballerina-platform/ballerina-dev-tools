@@ -1,0 +1,380 @@
+{
+  "description": "Sample flow model",
+  "kind": "TYPE",
+  "source": "empty.bal",
+  "queryMap": {
+    "q": "health"
+  },
+  "categories": [
+    {
+      "metadata": {
+        "label": "Imported Types",
+        "description": "Types imported from other integrations",
+        "keywords": [
+          "Imported",
+          "Type",
+          "Library"
+        ]
+      },
+      "items": []
+    },
+    {
+      "metadata": {
+        "label": "Available Types",
+        "description": "Types available in the library",
+        "keywords": [
+          "Available",
+          "Type",
+          "Library"
+        ]
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "plaid",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "HealthIncident",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_plaid_1.5.1.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "plaid",
+                "symbol": "HealthIncident",
+                "version": "1.5.1"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "azure.textanalytics",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "HealthcareAssertion",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure.textanalytics_1.5.1.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "azure.textanalytics",
+                "symbol": "HealthcareAssertion",
+                "version": "1.5.1"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "HealthcareLinkingProperties",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure.textanalytics_1.5.1.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "azure.textanalytics",
+                "symbol": "HealthcareLinkingProperties",
+                "version": "1.5.1"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "HealthcareEntityLink",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure.textanalytics_1.5.1.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "azure.textanalytics",
+                "symbol": "HealthcareEntityLink",
+                "version": "1.5.1"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "HealthcareEntity",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure.textanalytics_1.5.1.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "azure.textanalytics",
+                "symbol": "HealthcareEntity",
+                "version": "1.5.1"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "HealthcareTaskResult",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure.textanalytics_1.5.1.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "azure.textanalytics",
+                "symbol": "HealthcareTaskResult",
+                "version": "1.5.1"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "HealthcareResult",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure.textanalytics_1.5.1.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "azure.textanalytics",
+                "symbol": "HealthcareResult",
+                "version": "1.5.1"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "HealthcareRelationEntity",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure.textanalytics_1.5.1.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "azure.textanalytics",
+                "symbol": "HealthcareRelationEntity",
+                "version": "1.5.1"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "HealthcareJobState",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure.textanalytics_1.5.1.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "azure.textanalytics",
+                "symbol": "HealthcareJobState",
+                "version": "1.5.1"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "health.fhir.r4.international401",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "HealthcareServiceAvailableTimeDaysOfWeek",
+                "description": "HealthcareServiceAvailableTimeDaysOfWeek enum",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.fhir.r4.international401_2.2.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "health.fhir.r4.international401",
+                "symbol": "HealthcareServiceAvailableTimeDaysOfWeek",
+                "version": "2.2.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "HealthcareService",
+                "description": "FHIR HealthcareService resource record.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.fhir.r4.international401_2.2.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "health.fhir.r4.international401",
+                "symbol": "HealthcareService",
+                "version": "2.2.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "HealthcareServiceEligibility",
+                "description": "FHIR HealthcareServiceEligibility datatype record.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.fhir.r4.international401_2.2.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "health.fhir.r4.international401",
+                "symbol": "HealthcareServiceEligibility",
+                "version": "2.2.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "HealthcareServiceNotAvailable",
+                "description": "FHIR HealthcareServiceNotAvailable datatype record.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.fhir.r4.international401_2.2.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "health.fhir.r4.international401",
+                "symbol": "HealthcareServiceNotAvailable",
+                "version": "2.2.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "HealthcareServiceAvailableTime",
+                "description": "FHIR HealthcareServiceAvailableTime datatype record.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.fhir.r4.international401_2.2.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "health.fhir.r4.international401",
+                "symbol": "HealthcareServiceAvailableTime",
+                "version": "2.2.0"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "health.fhir.templates.international401.healthcareservice",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "HealthcareService",
+                "description": "Generic type to wrap all implemented profiles.\nAdd required profile types here.\npublic type HealthcareService r4:HealthcareService|<other_HealthcareService_Profile>;",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.fhir.templates.international401.healthcareservice_2.0.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "health.fhir.templates.international401.healthcareservice",
+                "symbol": "HealthcareService",
+                "version": "2.0.0"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "health.hl7v23",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "ST",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.hl7v23_3.1.1.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "health.hl7v23",
+                "symbol": "ST",
+                "version": "3.1.1"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "ID",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.hl7v23_3.1.1.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "health.hl7v23",
+                "symbol": "ID",
+                "version": "3.1.1"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "IS",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.hl7v23_3.1.1.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "health.hl7v23",
+                "symbol": "IS",
+                "version": "3.1.1"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "SI",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.hl7v23_3.1.1.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "health.hl7v23",
+                "symbol": "SI",
+                "version": "3.1.1"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "DTM",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.hl7v23_3.1.1.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "health.hl7v23",
+                "symbol": "DTM",
+                "version": "3.1.1"
+              },
+              "enabled": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

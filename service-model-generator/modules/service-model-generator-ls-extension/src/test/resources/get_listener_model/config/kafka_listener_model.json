@@ -1,0 +1,1424 @@
+{
+  "description": "Test getting kafka listener model",
+  "orgName": "ballerina",
+  "pkgName": "kafka",
+  "moduleName": "kafka",
+  "response": {
+    "listener": {
+      "id": "9",
+      "name": "Kafka Listener",
+      "type": "kafka",
+      "displayName": "Kafka",
+      "description": "Represents a Kafka consumer endpoint.\n",
+      "displayAnnotation": {
+        "label": "Kafka",
+        "iconPath": "https://bcentral-packageicons.azureedge.net/images/ballerinax_kafka_4.2.0.png"
+      },
+      "moduleName": "kafka",
+      "orgName": "ballerinax",
+      "version": "4.2.0",
+      "packageName": "kafka",
+      "listenerProtocol": "kafka",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_kafka_4.2.0.png",
+      "properties": {
+        "name": {
+          "metadata": {
+            "label": "Name",
+            "description": "The name of the listener"
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "IDENTIFIER",
+          "valueTypeConstraint": "string",
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_VAR_NAME"
+          },
+          "addNewButton": false
+        },
+        "bootstrapServers": {
+          "metadata": {
+            "label": "bootstrapServers",
+            "description": "List of remote server endpoints of Kafka brokers"
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "string|string[]",
+          "isType": false,
+          "placeholder": "\"\"",
+          "optional": false,
+          "advanced": false,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "bootstrapServers"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "string",
+              "packageInfo": "",
+              "kind": "ARRAY_TYPE",
+              "selected": false
+            },
+            {
+              "type": "string",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "groupId": {
+          "metadata": {
+            "label": "groupId",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "string",
+          "isType": false,
+          "placeholder": "\"\"",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "groupId"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "string",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "topics": {
+          "metadata": {
+            "label": "topics",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "string|string[]",
+          "isType": false,
+          "placeholder": "\"\"",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "topics"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "string",
+              "packageInfo": "",
+              "kind": "ARRAY_TYPE",
+              "selected": false
+            },
+            {
+              "type": "string",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "offsetReset": {
+          "metadata": {
+            "label": "offsetReset",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "kafka:OffsetResetMethod",
+          "isType": false,
+          "placeholder": "\"earliest\"",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "offsetReset"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "OffsetResetMethod",
+              "packageInfo": "ballerinax:kafka:4.2.0",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "partitionAssignmentStrategy": {
+          "metadata": {
+            "label": "partitionAssignmentStrategy",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "string",
+          "isType": false,
+          "placeholder": "\"\"",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "partitionAssignmentStrategy"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "string",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "metricsRecordingLevel": {
+          "metadata": {
+            "label": "metricsRecordingLevel",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "string",
+          "isType": false,
+          "placeholder": "\"\"",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "metricsRecordingLevel"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "string",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "metricsReporterClasses": {
+          "metadata": {
+            "label": "metricsReporterClasses",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "string",
+          "isType": false,
+          "placeholder": "\"\"",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "metricsReporterClasses"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "string",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "clientId": {
+          "metadata": {
+            "label": "clientId",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "string",
+          "isType": false,
+          "placeholder": "\"\"",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "clientId"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "string",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "interceptorClasses": {
+          "metadata": {
+            "label": "interceptorClasses",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "string",
+          "isType": false,
+          "placeholder": "\"\"",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "interceptorClasses"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "string",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "isolationLevel": {
+          "metadata": {
+            "label": "isolationLevel",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "kafka:IsolationLevel",
+          "isType": false,
+          "placeholder": "\"read_committed\"",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "isolationLevel"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "IsolationLevel",
+              "packageInfo": "ballerinax:kafka:4.2.0",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "schemaRegistryUrl": {
+          "metadata": {
+            "label": "schemaRegistryUrl",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "string",
+          "isType": false,
+          "placeholder": "\"\"",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "schemaRegistryUrl"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "string",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "additionalProperties": {
+          "metadata": {
+            "label": "additionalProperties",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "map<string>",
+          "isType": false,
+          "placeholder": "{}",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "additionalProperties"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "map<string>",
+              "packageInfo": "",
+              "kind": "MAP_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "sessionTimeout": {
+          "metadata": {
+            "label": "sessionTimeout",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "decimal",
+          "isType": false,
+          "placeholder": "0.0d",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "sessionTimeout"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "decimal",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "heartBeatInterval": {
+          "metadata": {
+            "label": "heartBeatInterval",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "decimal",
+          "isType": false,
+          "placeholder": "0.0d",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "heartBeatInterval"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "decimal",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "metadataMaxAge": {
+          "metadata": {
+            "label": "metadataMaxAge",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "decimal",
+          "isType": false,
+          "placeholder": "0.0d",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "metadataMaxAge"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "decimal",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "autoCommitInterval": {
+          "metadata": {
+            "label": "autoCommitInterval",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "decimal",
+          "isType": false,
+          "placeholder": "0.0d",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "autoCommitInterval"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "decimal",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "maxPartitionFetchBytes": {
+          "metadata": {
+            "label": "maxPartitionFetchBytes",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "int",
+          "isType": false,
+          "placeholder": "0",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "maxPartitionFetchBytes"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "int",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "sendBuffer": {
+          "metadata": {
+            "label": "sendBuffer",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "int",
+          "isType": false,
+          "placeholder": "0",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "sendBuffer"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "int",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "receiveBuffer": {
+          "metadata": {
+            "label": "receiveBuffer",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "int",
+          "isType": false,
+          "placeholder": "0",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "receiveBuffer"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "int",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "fetchMinBytes": {
+          "metadata": {
+            "label": "fetchMinBytes",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "int",
+          "isType": false,
+          "placeholder": "0",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "fetchMinBytes"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "int",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "fetchMaxBytes": {
+          "metadata": {
+            "label": "fetchMaxBytes",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "int",
+          "isType": false,
+          "placeholder": "0",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "fetchMaxBytes"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "int",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "fetchMaxWaitTime": {
+          "metadata": {
+            "label": "fetchMaxWaitTime",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "decimal",
+          "isType": false,
+          "placeholder": "0.0d",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "fetchMaxWaitTime"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "decimal",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "reconnectBackoffTimeMax": {
+          "metadata": {
+            "label": "reconnectBackoffTimeMax",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "decimal",
+          "isType": false,
+          "placeholder": "0.0d",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "reconnectBackoffTimeMax"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "decimal",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "retryBackoff": {
+          "metadata": {
+            "label": "retryBackoff",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "decimal",
+          "isType": false,
+          "placeholder": "0.0d",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "retryBackoff"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "decimal",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "metricsSampleWindow": {
+          "metadata": {
+            "label": "metricsSampleWindow",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "decimal",
+          "isType": false,
+          "placeholder": "0.0d",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "metricsSampleWindow"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "decimal",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "metricsNumSamples": {
+          "metadata": {
+            "label": "metricsNumSamples",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "int",
+          "isType": false,
+          "placeholder": "0",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "metricsNumSamples"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "int",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "requestTimeout": {
+          "metadata": {
+            "label": "requestTimeout",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "decimal",
+          "isType": false,
+          "placeholder": "0.0d",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "requestTimeout"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "decimal",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "connectionMaxIdleTime": {
+          "metadata": {
+            "label": "connectionMaxIdleTime",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "decimal",
+          "isType": false,
+          "placeholder": "0.0d",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "connectionMaxIdleTime"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "decimal",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "maxPollRecords": {
+          "metadata": {
+            "label": "maxPollRecords",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "int",
+          "isType": false,
+          "placeholder": "0",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "maxPollRecords"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "int",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "maxPollInterval": {
+          "metadata": {
+            "label": "maxPollInterval",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "int",
+          "isType": false,
+          "placeholder": "0",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "maxPollInterval"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "int",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "reconnectBackoffTime": {
+          "metadata": {
+            "label": "reconnectBackoffTime",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "decimal",
+          "isType": false,
+          "placeholder": "0.0d",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "reconnectBackoffTime"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "decimal",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "pollingTimeout": {
+          "metadata": {
+            "label": "pollingTimeout",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "decimal",
+          "isType": false,
+          "placeholder": "0.0d",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "pollingTimeout"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "decimal",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "pollingInterval": {
+          "metadata": {
+            "label": "pollingInterval",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "decimal",
+          "isType": false,
+          "placeholder": "0.0d",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "pollingInterval"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "decimal",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "concurrentConsumers": {
+          "metadata": {
+            "label": "concurrentConsumers",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "int",
+          "isType": false,
+          "placeholder": "0",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "concurrentConsumers"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "int",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "defaultApiTimeout": {
+          "metadata": {
+            "label": "defaultApiTimeout",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "decimal",
+          "isType": false,
+          "placeholder": "0.0d",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "defaultApiTimeout"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "decimal",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "autoCommit": {
+          "metadata": {
+            "label": "autoCommit",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "boolean",
+          "isType": false,
+          "placeholder": "true",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "autoCommit"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "boolean",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "checkCRCS": {
+          "metadata": {
+            "label": "checkCRCS",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "boolean",
+          "isType": false,
+          "placeholder": "true",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "checkCRCS"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "boolean",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "excludeInternalTopics": {
+          "metadata": {
+            "label": "excludeInternalTopics",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "boolean",
+          "isType": false,
+          "placeholder": "true",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "excludeInternalTopics"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "boolean",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "decoupleProcessing": {
+          "metadata": {
+            "label": "decoupleProcessing",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "boolean",
+          "isType": false,
+          "placeholder": "false",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "decoupleProcessing"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "boolean",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "validation": {
+          "metadata": {
+            "label": "validation",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "boolean",
+          "isType": false,
+          "placeholder": "true",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "validation"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "boolean",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "autoSeekOnValidationFailure": {
+          "metadata": {
+            "label": "autoSeekOnValidationFailure",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "boolean",
+          "isType": false,
+          "placeholder": "true",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "autoSeekOnValidationFailure"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "boolean",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "secureSocket": {
+          "metadata": {
+            "label": "secureSocket",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "kafka:SecureSocket",
+          "isType": false,
+          "placeholder": "{cert: {path: \"\", password: \"\"}}",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "secureSocket"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "SecureSocket",
+              "packageInfo": "ballerinax:kafka:4.2.0",
+              "kind": "RECORD_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "auth": {
+          "metadata": {
+            "label": "auth",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "kafka:AuthenticationConfiguration",
+          "isType": false,
+          "placeholder": "{username: \"\", password: \"\"}",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "auth"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "AuthenticationConfiguration",
+              "packageInfo": "ballerinax:kafka:4.2.0",
+              "kind": "RECORD_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "securityProtocol": {
+          "metadata": {
+            "label": "securityProtocol",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "kafka:SecurityProtocol",
+          "isType": false,
+          "placeholder": "kafka:PROTOCOL_PLAINTEXT",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "securityProtocol"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "SecurityProtocol",
+              "packageInfo": "ballerinax:kafka:4.2.0",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        }
+      }
+    }
+  }
+}

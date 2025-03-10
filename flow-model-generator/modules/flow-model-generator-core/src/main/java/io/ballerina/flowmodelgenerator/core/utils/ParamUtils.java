@@ -19,32 +19,19 @@
 package io.ballerina.flowmodelgenerator.core.utils;
 
 import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.api.symbols.ArrayTypeSymbol;
 import io.ballerina.compiler.api.symbols.Documentation;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
-import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
-import io.ballerina.compiler.api.symbols.IntersectionTypeSymbol;
-import io.ballerina.compiler.api.symbols.ParameterKind;
-import io.ballerina.compiler.api.symbols.ParameterSymbol;
 import io.ballerina.compiler.api.symbols.PathParameterSymbol;
-import io.ballerina.compiler.api.symbols.RecordFieldSymbol;
-import io.ballerina.compiler.api.symbols.RecordTypeSymbol;
 import io.ballerina.compiler.api.symbols.ResourceMethodSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
-import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
-import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.compiler.api.symbols.resourcepath.PathSegmentList;
 import io.ballerina.compiler.api.symbols.resourcepath.ResourcePath;
-import io.ballerina.flowmodelgenerator.core.db.model.Parameter;
-import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
 import io.ballerina.modelgenerator.commons.CommonUtils;
-import io.ballerina.modelgenerator.commons.ModuleInfo;
-import org.ballerinalang.langserver.common.utils.CommonUtil;
+import io.ballerina.modelgenerator.commons.DefaultValueGeneratorUtil;
+import io.ballerina.modelgenerator.commons.ParameterData;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -73,7 +60,7 @@ public class ParamUtils {
         StringBuilder pathBuilder = new StringBuilder();
         ResourceMethodSymbol resourceMethodSymbol = (ResourceMethodSymbol) functionSymbol;
         ResourcePath resourcePath = resourceMethodSymbol.resourcePath();
-        List<ParameterResult> pathParams = new ArrayList<>();
+        List<ParameterData> pathParams = new ArrayList<>();
         switch (resourcePath.kind()) {
             case PATH_SEGMENT_LIST -> {
                 PathSegmentList pathSegmentList = (PathSegmentList) resourcePath;
@@ -87,15 +74,16 @@ public class ParamUtils {
                         String paramName = pathParameterSymbol.getName().orElse("");
                         String paramDescription = documentationMap.get(paramName);
                         pathBuilder.append("[").append(paramName).append("]");
-                        pathParams.add(ParameterResult.from(paramName, type, Parameter.Kind.PATH_PARAM, defaultValue,
+                        pathParams.add(ParameterData.from(paramName, type, ParameterData.Kind.PATH_PARAM, defaultValue,
                                 paramDescription, false));
                     } else {
                         pathBuilder.append(pathSegment.getName().orElse(""));
                     }
                 }
                 ((PathSegmentList) resourcePath).pathRestParameter().ifPresent(pathRestParameter -> {
-                    pathParams.add(ParameterResult.from(REST_RESOURCE_PATH_LABEL, "string",
-                            Parameter.Kind.PATH_REST_PARAM, REST_PARAM_PATH, REST_RESOURCE_PATH_LABEL, false));
+                    pathParams.add(ParameterData.from(REST_RESOURCE_PATH_LABEL, "string",
+                            ParameterData.Kind.PATH_REST_PARAM, REST_PARAM_PATH, REST_RESOURCE_PATH_LABEL,
+                            false));
                 });
             }
             case PATH_REST_PARAM -> {
@@ -106,7 +94,7 @@ public class ParamUtils {
         return new ResourcePathTemplate(pathBuilder.toString(), pathParams);
     }
 
-    public record ResourcePathTemplate(String resourcePathTemplate, List<ParameterResult> pathParams) {
+    public record ResourcePathTemplate(String resourcePathTemplate, List<ParameterData> pathParams) {
     }
 
     /**
@@ -120,147 +108,6 @@ public class ParamUtils {
             return input.substring(1);
         }
         return input;
-    }
-
-    public static LinkedHashMap<String, ParameterResult> buildFunctionParamResultMap(FunctionSymbol functionSymbol,
-                                                                                     SemanticModel semanticModel) {
-        ParamForTypeInfer paramForTypeInfer = null;
-        FunctionTypeSymbol functionTypeSymbol = functionSymbol.typeDescriptor();
-        if (functionSymbol.external()) {
-            List<String> paramNameList = new ArrayList<>();
-            functionTypeSymbol.params().ifPresent(paramList -> paramList
-                    .stream()
-                    .filter(paramSym -> paramSym.paramKind() == ParameterKind.DEFAULTABLE)
-                    .forEach(paramSymbol -> paramNameList.add(paramSymbol.getName().orElse(""))));
-
-            Map<String, TypeSymbol> returnTypeMap =
-                    allMembers(functionTypeSymbol.returnTypeDescriptor().orElse(null));
-            for (String paramName : paramNameList) {
-                if (returnTypeMap.containsKey(paramName)) {
-                    String defaultValue = DefaultValueGeneratorUtil
-                            .getDefaultValueForType(returnTypeMap.get(paramName));
-                    paramForTypeInfer = new ParamForTypeInfer(paramName, defaultValue, "json");
-                    break;
-                }
-            }
-        }
-        final ParamForTypeInfer finalParamForTypeInfer = paramForTypeInfer;
-        Map<String, String> documentationMap =
-                functionSymbol.documentation().map(Documentation::parameterMap).orElse(Map.of());
-        LinkedHashMap<String, ParameterResult> funcParamMap = new LinkedHashMap<>();
-        functionTypeSymbol.params().ifPresent(paramList -> paramList.forEach(paramSymbol ->
-                buildFunctionParamMap(paramSymbol, documentationMap, semanticModel, funcParamMap,
-                        finalParamForTypeInfer)));
-        functionTypeSymbol.restParam().ifPresent(paramSymbol ->
-                buildFunctionParamMap(paramSymbol, documentationMap, semanticModel, funcParamMap, null));
-        return funcParamMap;
-    }
-
-    private static Map<String, TypeSymbol> allMembers(TypeSymbol typeSymbol) {
-        Map<String, TypeSymbol> members = new HashMap<>();
-        if (typeSymbol == null) {
-            return members;
-        } else if (typeSymbol.typeKind() == TypeDescKind.UNION) {
-            UnionTypeSymbol unionTypeSymbol = (UnionTypeSymbol) typeSymbol;
-            unionTypeSymbol.memberTypeDescriptors()
-                    .forEach(memberType -> members.put(memberType.getName().orElse(""), memberType));
-        } else if (typeSymbol.typeKind() == TypeDescKind.INTERSECTION) {
-            IntersectionTypeSymbol intersectionTypeSymbol = (IntersectionTypeSymbol) typeSymbol;
-            intersectionTypeSymbol.memberTypeDescriptors()
-                    .forEach(memberType -> members.put(memberType.getName().orElse(""), memberType));
-        } else {
-            members.put(typeSymbol.getName().orElse(""), typeSymbol);
-        }
-        return members;
-    }
-
-    private static void buildIncludedRecordParams(RecordTypeSymbol recordTypeSymbol,
-                                                  SemanticModel semanticModel, ModuleInfo moduleInfo,
-                                                  LinkedHashMap<String, ParameterResult> funcParamMap) {
-        recordTypeSymbol.typeInclusions().forEach(includedType ->
-                buildIncludedRecordParams((RecordTypeSymbol) CommonUtils.getRawType(includedType),
-                        semanticModel, moduleInfo, funcParamMap));
-
-        for (Map.Entry<String, RecordFieldSymbol> entry : recordTypeSymbol.fieldDescriptors().entrySet()) {
-            RecordFieldSymbol recordFieldSymbol = entry.getValue();
-            TypeSymbol recordFieldTypeDescriptor = recordFieldSymbol.typeDescriptor();
-            TypeSymbol fieldType = CommonUtil.getRawType(recordFieldTypeDescriptor);
-            if (fieldType.typeKind() == TypeDescKind.NEVER) {
-                continue;
-            }
-            String paramName = entry.getKey();
-            String defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(fieldType);
-            String paramDescription = entry.getValue().documentation()
-                    .flatMap(Documentation::description).orElse("");
-            String paramType = CommonUtils.getTypeSignature(semanticModel, recordFieldTypeDescriptor, true, moduleInfo);
-            boolean optional = recordFieldSymbol.isOptional() || recordFieldSymbol.hasDefaultValue();
-            funcParamMap.put(paramName, new ParameterResult(0, paramName, paramType,
-                    Parameter.Kind.INCLUDED_FIELD, defaultValue, paramDescription, optional,
-                    CommonUtils.getImportStatements(recordFieldTypeDescriptor, moduleInfo).orElse(null)));
-        }
-        recordTypeSymbol.restTypeDescriptor().ifPresent(typeSymbol -> {
-            String paramType = CommonUtils.getTypeSignature(semanticModel, typeSymbol, true, moduleInfo);
-            String defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(typeSymbol);
-            funcParamMap.put(Parameter.Kind.INCLUDED_RECORD_REST.name(), new ParameterResult(0,
-                    "Additional Values", paramType,
-                    Parameter.Kind.INCLUDED_RECORD_REST, defaultValue, "Capture key value pairs", true,
-                    CommonUtils.getImportStatements(typeSymbol, moduleInfo).orElse(null)));
-        });
-    }
-
-    private static void buildFunctionParamMap(ParameterSymbol paramSymbol,
-                                              Map<String, String> documentationMap,
-                                              SemanticModel semanticModel,
-                                              LinkedHashMap<String, ParameterResult> funcParamMap,
-                                              ParamForTypeInfer paramForTypeInfer) {
-        String paramName = paramSymbol.getName().orElse("");
-        String paramDescription = documentationMap.get(paramName);
-        ParameterKind parameterKind = paramSymbol.paramKind();
-        String paramType;
-        boolean optional = true;
-        String defaultValue;
-        Parameter.Kind kind;
-        ModuleInfo moduleInfo = ModuleInfo.from(paramSymbol.getModule().get().id());
-        TypeSymbol paramTypeDescriptor = paramSymbol.typeDescriptor();
-        String importStatements = CommonUtils.getImportStatements(
-                paramTypeDescriptor, moduleInfo).orElse(null);
-        if (parameterKind == ParameterKind.REST) {
-            defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(
-                    ((ArrayTypeSymbol) paramTypeDescriptor).memberTypeDescriptor());
-            paramType = CommonUtils.getTypeSignature(semanticModel,
-                    ((ArrayTypeSymbol) paramTypeDescriptor).memberTypeDescriptor(),
-                    true, moduleInfo);
-            kind = Parameter.Kind.REST_PARAMETER;
-        } else if (parameterKind == ParameterKind.INCLUDED_RECORD) {
-            paramType = CommonUtils.getTypeSignature(semanticModel, paramTypeDescriptor, true,
-                    moduleInfo);
-            defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(paramTypeDescriptor);
-            kind = Parameter.Kind.INCLUDED_RECORD;
-            buildIncludedRecordParams((RecordTypeSymbol) CommonUtils.getRawType(paramTypeDescriptor),
-                    semanticModel, moduleInfo, funcParamMap);
-        } else if (parameterKind == ParameterKind.REQUIRED) {
-            paramType = CommonUtils.getTypeSignature(semanticModel, paramTypeDescriptor, true, moduleInfo);
-            defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(paramTypeDescriptor);
-            optional = false;
-            kind = Parameter.Kind.REQUIRED;
-        } else {
-            if (paramForTypeInfer != null) {
-                if (paramForTypeInfer.paramName().equals(paramName)) {
-                    defaultValue = paramForTypeInfer.type();
-                    paramType = paramForTypeInfer.type();
-                    funcParamMap.put(paramName,
-                            new ParameterResult(0, paramName, paramType, Parameter.Kind.PARAM_FOR_TYPE_INFER,
-                                    defaultValue, paramDescription, true, importStatements));
-                    return;
-                }
-            }
-            defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(paramTypeDescriptor);
-            paramType = CommonUtils.getTypeSignature(semanticModel, paramTypeDescriptor, true,
-                    moduleInfo);
-            kind = Parameter.Kind.DEFAULTABLE;
-        }
-        funcParamMap.put(paramName, new ParameterResult(0, paramName, paramType, kind,
-                defaultValue, paramDescription, optional, importStatements));
     }
 
     public record ParamForTypeInfer(String paramName, String defaultValue, String type) {

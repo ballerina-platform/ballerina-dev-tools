@@ -39,13 +39,15 @@ public class ServiceModelGeneratorConstants {
 
     public static final String HTTP_DEFAULT_LISTENER_STMT = LINE_SEPARATOR +
             "listener http:Listener %s = http:getDefaultListener();" + LINE_SEPARATOR;
-    public static final String HTTP_DEFAULT_LISTENER_ITEM_LABEL = "(+) Create and use the default HTTP listener";
+    public static final String HTTP_DEFAULT_LISTENER_ITEM_LABEL = "(+) Create and use the default HTTP listener" +
+            " (port: 8080)";
     public static final String HTTP_DEFAULT_LISTENER_VAR_NAME = "httpDefaultListener";
     public static final String HTTP_DEFAULT_LISTENER_EXPR = "http:getDefaultListener()";
 
     public static final String KAFKA = "kafka";
     public static final String HTTP = "http";
     public static final String GRAPHQL = "graphql";
+    public static final String TCP = "tcp";
 
     public static final String PROPERTY_REQUIRED_FUNCTIONS = "requiredFunctions";
     public static final String PROPERTY_DESIGN_APPROACH = "designApproach";
@@ -81,6 +83,17 @@ public class ServiceModelGeneratorConstants {
 
     public static final String TYPE_HTTP_SERVICE_CONFIG = "http:ServiceConfig";
 
+
+    public static final MetaData SERCVICE_CLASS_NAME_METADATA = new MetaData("Class Name",
+            "The name of the class definition");
+    public static final MetaData GRAPHQL_CLASS_NAME_METADATA = new MetaData("Object Name",
+            "The name of the object");
+    public static final MetaData ARGUMENT_TYPE_METADATA = new MetaData("Argument Type",
+            "The type of the argument");
+    public static final MetaData ARGUMENT_NAME_METADATA = new MetaData("Argument Name",
+            "The name of the argument");
+    public static final MetaData ARGUMENT_DEFAULT_VALUE_METADATA = new MetaData("Default Value",
+            "The default value of the argument");
     public static final MetaData PARAMETER_TYPE_METADATA = new MetaData("Parameter Type",
             "The type of the parameter");
     public static final MetaData PARAMETER_NAME_METADATA = new MetaData("Parameter Name",

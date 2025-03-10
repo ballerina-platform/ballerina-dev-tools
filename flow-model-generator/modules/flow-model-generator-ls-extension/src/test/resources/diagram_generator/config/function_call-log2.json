@@ -118,14 +118,14 @@
                 "metadata": {
                   "label": "printError",
                   "description": "Prints error logs.\n```ballerina\nerror e = error(\"error occurred\");\nlog:printError(\"error log with cause\", 'error = e, id = 845315);\n```\n",
-                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.11.0.png"
+                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.12.0.png"
                 },
                 "codedata": {
                   "node": "FUNCTION_CALL",
                   "org": "ballerina",
                   "module": "log",
                   "symbol": "printError",
-                  "version": "2.11.0",
+                  "version": "2.12.0",
                   "lineRange": {
                     "fileName": "log_source.bal",
                     "startLine": {
@@ -156,7 +156,15 @@
                     "codedata": {
                       "kind": "REQUIRED",
                       "originalName": "msg"
-                    }
+                    },
+                    "typeMembers": [
+                      {
+                        "type": "string",
+                        "packageInfo": "",
+                        "kind": "BASIC_TYPE",
+                        "selected": true
+                      }
+                    ]
                   },
                   "error": {
                     "metadata": {
@@ -173,7 +181,21 @@
                     "codedata": {
                       "kind": "DEFAULTABLE",
                       "originalName": "'error"
-                    }
+                    },
+                    "typeMembers": [
+                      {
+                        "type": "()",
+                        "packageInfo": "",
+                        "kind": "BASIC_TYPE",
+                        "selected": false
+                      },
+                      {
+                        "type": "error",
+                        "packageInfo": "ballerina:lang.annotations:0.0.0",
+                        "kind": "ERROR_TYPE",
+                        "selected": true
+                      }
+                    ]
                   },
                   "stackTrace": {
                     "metadata": {
@@ -189,7 +211,21 @@
                     "codedata": {
                       "kind": "DEFAULTABLE",
                       "originalName": "stackTrace"
-                    }
+                    },
+                    "typeMembers": [
+                      {
+                        "type": "()",
+                        "packageInfo": "",
+                        "kind": "BASIC_TYPE",
+                        "selected": false
+                      },
+                      {
+                        "type": "error:StackFrame",
+                        "packageInfo": "ballerina:lang.error:0.0.0",
+                        "kind": "ARRAY_TYPE",
+                        "selected": false
+                      }
+                    ]
                   },
                   "additionalValues": {
                     "metadata": {
@@ -213,7 +249,8 @@
                     "codedata": {
                       "kind": "INCLUDED_RECORD_REST",
                       "originalName": "Additional Values"
-                    }
+                    },
+                    "typeMembers": []
                   }
                 },
                 "flags": 0

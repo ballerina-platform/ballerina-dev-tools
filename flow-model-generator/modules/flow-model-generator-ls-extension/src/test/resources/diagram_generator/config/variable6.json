@@ -77,8 +77,21 @@
             "valueType": "IDENTIFIER",
             "value": "newData1",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "new_data.bal",
+                "startLine": {
+                  "line": 32,
+                  "offset": 9
+                },
+                "endLine": {
+                  "line": 32,
+                  "offset": 17
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -90,7 +103,8 @@
             "placeholder": "var",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 0
@@ -137,8 +151,21 @@
             "valueType": "IDENTIFIER",
             "value": "newData2",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "new_data.bal",
+                "startLine": {
+                  "line": 33,
+                  "offset": 15
+                },
+                "endLine": {
+                  "line": 33,
+                  "offset": 23
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -150,7 +177,8 @@
             "placeholder": "var",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 0
@@ -197,8 +225,21 @@
             "valueType": "IDENTIFIER",
             "value": "newData3",
             "optional": false,
-            "editable": true,
-            "advanced": false
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "new_data.bal",
+                "startLine": {
+                  "line": 34,
+                  "offset": 15
+                },
+                "endLine": {
+                  "line": 34,
+                  "offset": 23
+                }
+              }
+            }
           },
           "type": {
             "metadata": {
@@ -210,7 +251,8 @@
             "placeholder": "var",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "codedata": {}
           }
         },
         "flags": 0

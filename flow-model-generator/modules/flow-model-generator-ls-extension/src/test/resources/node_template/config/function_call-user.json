@@ -12,11 +12,14 @@
   "output": {
     "id": "31",
     "metadata": {
-      "label": "fn"
+      "label": "fn",
+      "description": "",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/null_null_null.png"
     },
     "codedata": {
       "node": "FUNCTION_CALL",
-      "symbol": "fn"
+      "symbol": "fn",
+      "isNew": true
     },
     "returning": false,
     "properties": {
@@ -33,7 +36,15 @@
         "codedata": {
           "kind": "REQUIRED",
           "originalName": "x"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "int",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
       },
       "type": {
         "metadata": {
@@ -45,7 +56,8 @@
         "placeholder": "var",
         "optional": false,
         "editable": false,
-        "advanced": false
+        "advanced": false,
+        "codedata": {}
       },
       "variable": {
         "metadata": {

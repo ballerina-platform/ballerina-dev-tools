@@ -8,132 +8,30 @@
       "offset": 0
     },
     "offset": 0,
-    "node": {
-      "id": "31",
-      "metadata": {
-        "label": "get",
-        "description": "Returns the list of groups in an account.\n",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_docusign.dsadmin_2.0.0.png"
-      },
-      "codedata": {
-        "node": "RESOURCE_ACTION_CALL",
-        "org": "ballerinax",
-        "module": "docusign.dsadmin",
-        "object": "Client",
-        "symbol": "get",
-        "id": 1577
-      },
-      "returning": false,
-      "properties": {
-        "connection": {
-          "metadata": {
-            "label": "Connection",
-            "description": "Connection to use"
-          },
-          "valueType": "IDENTIFIER",
-          "valueTypeConstraint": "docusign.dsadmin:Client",
-          "value": "dsAdminClient",
-          "optional": false,
-          "editable": false,
-          "advanced": false
-        },
-        "resourcePath": {
-          "metadata": {
-            "label": "Resource Path",
-            "description": "Resource Path"
-          },
-          "valueType": "EXPRESSION",
-          "value": "/v2/organizations/[\"\"]/accounts/[\"\"]/groups",
-          "optional": false,
-          "editable": true,
-          "advanced": false
-        },
-        "start": {
-          "metadata": {
-            "label": "start",
-            "description": "Index of first item to include in the response. The default value is 0."
-          },
-          "valueType": "EXPRESSION",
-          "valueTypeConstraint": "lang.int:Signed32|()",
-          "placeholder": "()",
-          "optional": true,
-          "editable": true,
-          "advanced": true,
-          "codedata": {
-            "kind": "DEFAULTABLE",
-            "originalName": "'start"
-          }
-        },
-        "take": {
-          "metadata": {
-            "label": "take",
-            "description": "Page size of the response. The default value is 20."
-          },
-          "valueType": "EXPRESSION",
-          "valueTypeConstraint": "lang.int:Signed32|()",
-          "placeholder": "()",
-          "optional": true,
-          "editable": true,
-          "advanced": true,
-          "codedata": {
-            "kind": "DEFAULTABLE",
-            "originalName": "take"
-          }
-        },
-        "end": {
-          "metadata": {
-            "label": "end",
-            "description": "Index of the last item to include in the response. Ignored if `take` parameter is specified."
-          },
-          "valueType": "EXPRESSION",
-          "valueTypeConstraint": "lang.int:Signed32|()",
-          "placeholder": "()",
-          "optional": true,
-          "editable": true,
-          "advanced": true,
-          "codedata": {
-            "kind": "DEFAULTABLE",
-            "originalName": "end"
-          }
-        },
-        "type": {
-          "metadata": {
-            "label": "Variable Type",
-            "description": "Type of the variable"
-          },
-          "valueType": "TYPE",
-          "value": "docusign.dsadmin:MemberGroupsResponse",
-          "placeholder": "var",
-          "optional": false,
-          "editable": false,
-          "advanced": false
-        },
-        "variable": {
-          "metadata": {
-            "label": "Variable Name",
-            "description": "Name of the variable"
-          },
-          "valueType": "IDENTIFIER",
-          "value": "docusignDsadminMembergroupsresponse",
-          "optional": false,
-          "editable": true,
-          "advanced": false
-        },
-        "checkError": {
-          "metadata": {
-            "label": "Check Error",
-            "description": "Trigger error flow"
-          },
-          "valueType": "FLAG",
-          "value": true,
-          "optional": false,
-          "editable": true,
-          "advanced": true
-        }
-      },
-      "flags": 0
+    "codedata": {
+      "node": "RESOURCE_ACTION_CALL",
+      "org": "ballerinax",
+      "module": "docusign.dsadmin",
+      "object": "Client",
+      "symbol": "get",
+      "id": 1577
     },
-    "property": "take"
+    "property": {
+      "metadata": {
+        "label": "take",
+        "description": "Page size of the response. The default value is 20."
+      },
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "lang.int:Signed32|()",
+      "placeholder": "()",
+      "optional": true,
+      "editable": true,
+      "advanced": true,
+      "codedata": {
+        "kind": "DEFAULTABLE",
+        "originalName": "take"
+      }
+    }
   },
   "completionContext": {
     "triggerKind": "Invoked"

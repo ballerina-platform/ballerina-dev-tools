@@ -10,7 +10,8 @@
       "description": "Retry block."
     },
     "codedata": {
-      "node": "RETRY"
+      "node": "RETRY",
+      "isNew": true
     },
     "returning": false,
     "branches": [

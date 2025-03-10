@@ -7,26 +7,32 @@
   "description": "Local method call template",
   "codedata": {
     "node": "METHOD_CALL",
+    "object": "Cart",
     "symbol": "addItem",
     "parentSymbol": "cart"
   },
   "output": {
     "id": "31",
     "metadata": {
-      "label": "addItem"
+      "label": "addItem",
+      "description": "",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/null_null_null.png"
     },
     "codedata": {
       "node": "METHOD_CALL",
-      "symbol": "addItem"
+      "object": "Cart",
+      "symbol": "addItem",
+      "isNew": true
     },
     "returning": false,
     "properties": {
       "connection": {
         "metadata": {
           "label": "Connection",
-          "description": "connection"
+          "description": "Connection to use"
         },
         "valueType": "IDENTIFIER",
+        "valueTypeConstraint": "Cart",
         "value": "cart",
         "optional": false,
         "editable": false,
@@ -45,7 +51,15 @@
         "codedata": {
           "kind": "REQUIRED",
           "originalName": "item"
-        }
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
       },
       "type": {
         "metadata": {
@@ -57,7 +71,8 @@
         "placeholder": "var",
         "optional": false,
         "editable": false,
-        "advanced": false
+        "advanced": false,
+        "codedata": {}
       },
       "variable": {
         "metadata": {

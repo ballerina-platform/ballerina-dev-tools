@@ -12,16 +12,17 @@
     "node": "NEW_CONNECTION",
     "org": "",
     "module": "mod1",
-    "object": "",
+    "object": "Client",
     "symbol": "init",
-    "isGenerated": true
+    "isGenerated": true,
+    "isNew": true
   },
   "output": {
     "id": "31",
     "metadata": {
       "label": "New Connection",
-      "description": "Gets invoked to initialize the `connector`.\n",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/_mod1_.png"
+      "description": "This is a sample Pet Store Server based on the OpenAPI 3.0 specification.  You can find out more about\nSwagger at [https://swagger.io](https://swagger.io). In the third iteration of the pet store, we've switched to the design first approach!\nYou can now help us improve the API whether it's by making changes to the definition itself or to the code.\nThat way, with time, we can improve the API in general, and expose some of the new features in OAS3.\n\n_If you're looking for the Swagger 2.0/OAS 2.0 version of Petstore, then click [here](https://editor.swagger.io/?url=https://petstore.swagger.io/v2/swagger.yaml). Alternatively, you can load via the `Edit > Load Petstore OAS 2.0` menu option!_\n\nSome useful links:\n- [The Pet Store repository](https://github.com/swagger-api/swagger-petstore)\n- [The source API definition for the Pet Store](https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml)",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/_mod1_null.png"
     },
     "codedata": {
       "node": "NEW_CONNECTION",
@@ -29,44 +30,59 @@
       "module": "mod1",
       "object": "Client",
       "symbol": "init",
-      "id": -1,
+      "isNew": true,
       "isGenerated": true
     },
     "returning": false,
     "properties": {
+      "serviceUrl": {
+        "metadata": {
+          "label": "serviceUrl",
+          "description": "URL of the target service "
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"\"",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "serviceUrl"
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
       "config": {
         "metadata": {
           "label": "config",
-          "description": ""
+          "description": "The configurations to be used when initializing the `connector` "
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "mod1:ConnectionConfig",
-        "placeholder": "",
+        "placeholder": "{auth: {token: \"\"}}",
         "optional": false,
         "editable": true,
         "advanced": false,
         "codedata": {
           "kind": "REQUIRED",
           "originalName": "config",
-          "importStatements": ""
-        }
-      },
-      "serviceUrl": {
-        "metadata": {
-          "label": "serviceUrl",
-          "description": ""
+          "importStatements": "oas/client1.client1.mod1"
         },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "string",
-        "placeholder": "\"https://petstore3.swagger.io/api/v3\"",
-        "optional": false,
-        "editable": true,
-        "advanced": false,
-        "codedata": {
-          "kind": "DEFAULTABLE",
-          "originalName": "serviceUrl",
-          "importStatements": ""
-        }
+        "typeMembers": [
+          {
+            "type": "mod1:ConnectionConfig",
+            "packageInfo": "oas:client1.mod1:0.1.0",
+            "kind": "RECORD_TYPE",
+            "selected": false
+          }
+        ]
       },
       "type": {
         "metadata": {
@@ -78,7 +94,8 @@
         "placeholder": "var",
         "optional": false,
         "editable": false,
-        "advanced": false
+        "advanced": false,
+        "codedata": {}
       },
       "variable": {
         "metadata": {
@@ -142,7 +159,7 @@
             "character": 0
           }
         },
-        "newText": "final mod1:Client mod1Client = check new ();"
+        "newText": "final mod1:Client mod1Client = check new ({auth: {token: \"\"}});"
       }
     ]
   }

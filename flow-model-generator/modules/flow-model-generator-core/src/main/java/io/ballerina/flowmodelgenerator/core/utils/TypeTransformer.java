@@ -97,7 +97,7 @@ public class TypeTransformer {
                     .lineRange(serviceDeclarationSymbol.getLocation().get().lineRange())
                     .stepOut()
                 .properties()
-                    .name(attachPoint, false, true, false)
+                    .name(attachPoint, false, false, false)
                     .qualifiers(qualifiers, true, true, true)
                     .isArray("false", true, true, true)
                     .arraySize("", false, false, false);
@@ -134,6 +134,7 @@ public class TypeTransformer {
                     .lineRange(classSymbol.getLocation().get().lineRange())
                     .stepOut()
                 .properties()
+                    .name(typeName, false, false, false)
                     .qualifiers(qualifiers.stream().map(Qualifier::getValue).toList(), true, true, true)
                     .isArray("false", true, true, true)
                     .arraySize("", false, false, false)
@@ -208,13 +209,13 @@ public class TypeTransformer {
                     .lineRange(typeDef.getLocation().get().lineRange())
                     .stepOut()
                 .properties()
-                    .name(typeName, false, true, false)
+                    .name(typeName, false, false, false)
                     .isPublic(typeDef.qualifiers().contains(Qualifier.PUBLIC), true, true, false);
 
         if (typeDef.documentation().isPresent()) {
             String doc = getDocumentString(typeDef);
             typeDataBuilder
-                    .metadata().description(getDocumentString(typeDef)).stepOut()
+                    .metadata().description(doc).stepOut()
                     .properties().description(doc, false, true, false);
         }
 
@@ -235,13 +236,14 @@ public class TypeTransformer {
                     .lineRange(enumSymbol.getLocation().get().lineRange())
                     .stepOut()
                 .properties()
+                    .name(typeName, false, false, false)
                     .isArray("false", true, true, true)
                     .arraySize("", false, false, false);
 
         if (enumSymbol.documentation().isPresent()) {
             String doc = getDocumentString(enumSymbol);
             typeDataBuilder
-                    .metadata().description(getDocumentString(enumSymbol)).stepOut()
+                    .metadata().description(doc).stepOut()
                     .properties().description(doc, false, true, false);
         }
 
@@ -293,8 +295,7 @@ public class TypeTransformer {
             Member restMember = memberBuilder
                     .kind(Member.MemberKind.FIELD)
                     .type(transformedRestType)
-                    .refs(transformedRestType instanceof String ?
-                            TypeUtils.getTypeRefIds(restTypeSymbol.get(), moduleInfo) : List.of())
+                    .refs(getTypeRefs(transformedRestType, restTypeSymbol.get()))
                     .build();
             typeDataBuilder.restMember(restMember);
         }
@@ -308,8 +309,7 @@ public class TypeTransformer {
                     .name(fieldName)
                     .kind(Member.MemberKind.FIELD)
                     .type(transformedFieldType)
-                    .refs(transformedFieldType instanceof String ?
-                            TypeUtils.getTypeRefIds(fieldSymbol.typeDescriptor(), moduleInfo) : List.of())
+                    .refs(getTypeRefs(transformedFieldType, fieldSymbol.typeDescriptor()))
                     .docs(getDocumentString(fieldSymbol))
                     .defaultValue(getDefaultValueOfField(typeDataBuilder.name(), fieldName).orElse(null))
                     .build();
@@ -382,8 +382,7 @@ public class TypeTransformer {
                 .name("rowType")
                 .kind(Member.MemberKind.TYPE)
                 .type(transformedRowType)
-                .refs(transformedRowType instanceof String ?
-                        TypeUtils.getTypeRefIds(rowTypeSymbol, moduleInfo) : List.of())
+                .refs(getTypeRefs(transformedRowType, rowTypeSymbol))
                 .build();
         memberTypes.add(rowTypeMember);
 
@@ -394,8 +393,7 @@ public class TypeTransformer {
                     .name("keyConstraintType")
                     .kind(Member.MemberKind.TYPE)
                     .type(transformedKeyConstraintType)
-                    .refs(transformedKeyConstraintType instanceof String ?
-                            TypeUtils.getTypeRefIds(typeSymbol, moduleInfo) : List.of())
+                    .refs(getTypeRefs(transformedRowType, typeSymbol))
                     .build();
             memberTypes.add(keyConstraintTypeMember);
         });
@@ -545,6 +543,8 @@ public class TypeTransformer {
 
         List<Qualifier> functionQuals = functionSymbol.qualifiers();
 
+        functionBuilder.kind(Function.FunctionKind.FUNCTION);
+
         // qualifiers
         List<String> qualifiers = new ArrayList<>();
         functionQuals.forEach(q -> {
@@ -558,25 +558,21 @@ public class TypeTransformer {
         functionBuilder.qualifiers(qualifiers);
 
         functionBuilder
-                .kind(Function.FunctionKind.FUNCTION)
                 .docs(getDocumentString(functionSymbol))
                 .name(functionSymbol.getName().orElse(""))
                 .properties()
-                .isPrivate(functionQuals.contains(Qualifier.PRIVATE), true, true, false)
-                .isPublic(functionQuals.contains(Qualifier.PUBLIC), true, true, false)
-                .isIsolated(functionQuals.contains(Qualifier.ISOLATED), true, true, false);
+                    .isPrivate(functionQuals.contains(Qualifier.PRIVATE), true, true, false)
+                    .isPublic(functionQuals.contains(Qualifier.PUBLIC), true, true, false)
+                    .isIsolated(functionQuals.contains(Qualifier.ISOLATED), true, true, false);
 
         FunctionTypeSymbol functionTypeSymbol = functionSymbol.typeDescriptor();
 
         // return type
         functionTypeSymbol.returnTypeDescriptor().ifPresent(returnType -> {
-            Object transformed = transform(functionTypeSymbol.returnTypeDescriptor().get(),
-                    new TypeData.TypeDataBuilder());
+            Object transformed = transform(returnType, new TypeData.TypeDataBuilder());
             functionBuilder
                     .returnType(transformed)
-                    .refs(transformed instanceof String
-                            ? TypeUtils.getTypeRefIds(functionTypeSymbol.returnTypeDescriptor().get(), moduleInfo)
-                            : List.of());
+                    .refs(getTypeRefs(transformed, returnType));
         });
 
         // params
@@ -587,8 +583,7 @@ public class TypeTransformer {
                         .name(param.getName().orElse(null))
                         .kind(Member.MemberKind.FIELD)
                         .type(transformedParamType)
-                        .refs(transformedParamType instanceof String ?
-                                TypeUtils.getTypeRefIds(param.typeDescriptor(), moduleInfo) : List.of())
+                        .refs(getTypeRefs(transformedParamType, param.typeDescriptor()))
                         .build();
             }).toList();
             functionBuilder.parameters(parameters);
@@ -601,8 +596,7 @@ public class TypeTransformer {
                     .name(restParam.getName().get())
                     .kind(Member.MemberKind.FIELD)
                     .type(transformedRestParamType)
-                    .refs(transformedRestParamType instanceof String ?
-                            TypeUtils.getTypeRefIds(restParam.typeDescriptor(), moduleInfo) : List.of())
+                    .refs(getTypeRefs(transformedRestParamType, restParam.typeDescriptor()))
                     .build();
             functionBuilder.restParameter(restParameter);
         });
@@ -625,8 +619,7 @@ public class TypeTransformer {
                 .name(fieldName)
                 .kind(Member.MemberKind.FIELD)
                 .type(transformedAttributeType)
-                .refs(transformedAttributeType instanceof String ?
-                        TypeUtils.getTypeRefIds(fieldSymbol.typeDescriptor(), moduleInfo) : List.of())
+                .refs(getTypeRefs(transformedAttributeType, fieldSymbol.typeDescriptor()))
                 .docs(getDocumentString(fieldSymbol))
                 .build();
     }
@@ -639,8 +632,7 @@ public class TypeTransformer {
                 .name(typeName)
                 .kind(Member.MemberKind.TYPE)
                 .type(transformedMemberType)
-                .refs(transformedMemberType instanceof String ?
-                        TypeUtils.getTypeRefIds(memberTypeDesc, moduleInfo) : List.of())
+                .refs(getTypeRefs(transformedMemberType, memberTypeDesc))
                 .build();
     }
 
@@ -662,5 +654,9 @@ public class TypeTransformer {
                     recTypeModuleId.orgName(), recTypeModuleId.packageName(), symbol.getName().get());
         }
         return typeName;
+    }
+
+    private List<String> getTypeRefs(Object type, TypeSymbol typeDescriptor) {
+        return type instanceof String ? TypeUtils.getTypeRefIds(typeDescriptor, moduleInfo) : List.of();
     }
 }

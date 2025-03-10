@@ -1,0 +1,469 @@
+{
+  "description": "Test getting graphql listener model",
+  "orgName": "ballerina",
+  "pkgName": "graphql",
+  "moduleName": "graphql",
+  "response": {
+    "listener": {
+      "id": "2",
+      "name": "Graphql Listener",
+      "type": "graphql",
+      "displayName": "Graphql",
+      "description": "Represents a Graphql listener endpoint.",
+      "displayAnnotation": {
+        "label": "Graphql",
+        "iconPath": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.15.0.png"
+      },
+      "moduleName": "graphql",
+      "orgName": "ballerina",
+      "version": "1.15.0",
+      "packageName": "graphql",
+      "listenerProtocol": "graphql",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.15.0.png",
+      "properties": {
+        "name": {
+          "metadata": {
+            "label": "Name",
+            "description": "The name of the listener"
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "IDENTIFIER",
+          "valueTypeConstraint": "string",
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_VAR_NAME"
+          },
+          "addNewButton": false
+        },
+        "listenTo": {
+          "metadata": {
+            "label": "listenTo",
+            "description": "An `http:Listener` or a port number to listen to the GraphQL service endpoint"
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "int|http:Listener",
+          "isType": false,
+          "placeholder": "0",
+          "optional": false,
+          "advanced": false,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "listenTo"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "Listener",
+              "packageInfo": "ballerina:http:2.13.0",
+              "kind": "OBJECT_TYPE",
+              "selected": false
+            },
+            {
+              "type": "int",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "host": {
+          "metadata": {
+            "label": "host",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "string",
+          "isType": false,
+          "placeholder": "\"\"",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "host"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "string",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "http1Settings": {
+          "metadata": {
+            "label": "http1Settings",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "http:ListenerHttp1Settings",
+          "isType": false,
+          "placeholder": "{}",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "http1Settings"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "ListenerHttp1Settings",
+              "packageInfo": "ballerina:http:2.13.0",
+              "kind": "RECORD_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "secureSocket": {
+          "metadata": {
+            "label": "secureSocket",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "http:ListenerSecureSocket|()",
+          "isType": false,
+          "placeholder": "()",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "secureSocket"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "()",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            },
+            {
+              "type": "ListenerSecureSocket",
+              "packageInfo": "ballerina:http:2.13.0",
+              "kind": "RECORD_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "httpVersion": {
+          "metadata": {
+            "label": "httpVersion",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "http:HttpVersion",
+          "isType": false,
+          "placeholder": "\"2.0\"",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "httpVersion"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "HttpVersion",
+              "packageInfo": "ballerina:http:2.13.0",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "timeout": {
+          "metadata": {
+            "label": "timeout",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "decimal",
+          "isType": false,
+          "placeholder": "0.0d",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "timeout"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "decimal",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "server": {
+          "metadata": {
+            "label": "server",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "string|()",
+          "isType": false,
+          "placeholder": "()",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "server"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "()",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            },
+            {
+              "type": "string",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "requestLimits": {
+          "metadata": {
+            "label": "requestLimits",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "http:RequestLimitConfigs",
+          "isType": false,
+          "placeholder": "{}",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "requestLimits"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "RequestLimitConfigs",
+              "packageInfo": "ballerina:http:2.13.0",
+              "kind": "RECORD_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "gracefulStopTimeout": {
+          "metadata": {
+            "label": "gracefulStopTimeout",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "decimal",
+          "isType": false,
+          "placeholder": "0.0d",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "gracefulStopTimeout"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "decimal",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "socketConfig": {
+          "metadata": {
+            "label": "socketConfig",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "http:ServerSocketConfig",
+          "isType": false,
+          "placeholder": "{}",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "socketConfig"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "ServerSocketConfig",
+              "packageInfo": "ballerina:http:2.13.0",
+              "kind": "RECORD_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "http2InitialWindowSize": {
+          "metadata": {
+            "label": "http2InitialWindowSize",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "int",
+          "isType": false,
+          "placeholder": "0",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "http2InitialWindowSize"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "int",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "minIdleTimeInStaleState": {
+          "metadata": {
+            "label": "minIdleTimeInStaleState",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "decimal",
+          "isType": false,
+          "placeholder": "0.0d",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "minIdleTimeInStaleState"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "decimal",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "timeBetweenStaleEviction": {
+          "metadata": {
+            "label": "timeBetweenStaleEviction",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "decimal",
+          "isType": false,
+          "placeholder": "0.0d",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "timeBetweenStaleEviction"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "decimal",
+              "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        }
+      }
+    }
+  }
+}
