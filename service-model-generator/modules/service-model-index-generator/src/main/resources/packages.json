@@ -29,6 +29,20 @@
           "description": "",
           "functions": []
         }
+      },
+      "annotations": {
+        "ServiceConfig": {
+          "attachmentPoints": ["SERVICE"],
+          "displayName": "Service Configuration",
+          "description": "Configurations for the HTTP service",
+          "typeConstrain": "http:HttpServiceConfig"
+        },
+        "ResourceConfig": {
+          "attachmentPoints": ["OBJECT_METHOD"],
+          "displayName": "Resource Configuration",
+          "description": "Configurations for the HTTP resource",
+          "typeConstrain": "http:HttpResourceConfig"
+        }
       }
     },
     {
@@ -58,6 +72,20 @@
           "name": "Service",
           "description": "",
           "functions": []
+        }
+      },
+      "annotations": {
+        "ServiceConfig": {
+          "attachmentPoints": ["SERVICE"],
+          "displayName": "Service Configuration",
+          "description": "Configurations for the Graphql service",
+          "typeConstrain": "graphql:GraphqlServiceConfig"
+        },
+        "ResourceConfig": {
+          "attachmentPoints": ["OBJECT_METHOD"],
+          "displayName": "Resource Configuration",
+          "description": "Configurations for the Grapqhl field",
+          "typeConstrain": "graphql:GraphqlResourceConfig"
         }
       }
     },
