@@ -37,12 +37,36 @@
           "label": "Connection",
           "description": "Connection to use"
         },
-        "valueType": "IDENTIFIER",
+        "valueType": "EXPRESSION",
         "valueTypeConstraint": "covid19:Client",
         "value": "covid19Client",
         "optional": false,
         "editable": false,
         "advanced": false
+      },
+      "country": {
+        "metadata": {
+          "label": "country",
+          "description": "A country name, iso2, iso3, or country ID code "
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"\"",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "country"
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
       },
       "yesterday": {
         "metadata": {
@@ -66,30 +90,6 @@
             "kind": "BASIC_TYPE",
             "selected": false
           },
-          {
-            "type": "string",
-            "packageInfo": "",
-            "kind": "BASIC_TYPE",
-            "selected": false
-          }
-        ]
-      },
-      "country": {
-        "metadata": {
-          "label": "country",
-          "description": "A country name, iso2, iso3, or country ID code "
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "string",
-        "placeholder": "\"\"",
-        "optional": false,
-        "editable": true,
-        "advanced": false,
-        "codedata": {
-          "kind": "REQUIRED",
-          "originalName": "country"
-        },
-        "typeMembers": [
           {
             "type": "string",
             "packageInfo": "",
@@ -128,6 +128,30 @@
           }
         ]
       },
+      "strict": {
+        "metadata": {
+          "label": "strict",
+          "description": "Setting to false gives you the ability to fuzzy search countries (i.e. Oman vs. rOMANia) "
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"true\"",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "strict"
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
       "allowNull": {
         "metadata": {
           "label": "allowNull",
@@ -150,30 +174,6 @@
             "kind": "BASIC_TYPE",
             "selected": false
           },
-          {
-            "type": "string",
-            "packageInfo": "",
-            "kind": "BASIC_TYPE",
-            "selected": false
-          }
-        ]
-      },
-      "strict": {
-        "metadata": {
-          "label": "strict",
-          "description": "Setting to false gives you the ability to fuzzy search countries (i.e. Oman vs. rOMANia) "
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "string",
-        "placeholder": "\"true\"",
-        "optional": true,
-        "editable": true,
-        "advanced": true,
-        "codedata": {
-          "kind": "DEFAULTABLE",
-          "originalName": "strict"
-        },
-        "typeMembers": [
           {
             "type": "string",
             "packageInfo": "",

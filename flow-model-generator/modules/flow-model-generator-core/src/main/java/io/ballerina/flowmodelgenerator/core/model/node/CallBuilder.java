@@ -107,7 +107,7 @@ public abstract class CallBuilder extends NodeBuilder {
                     .typeConstraint(isLocalFunction ? codedata.object() :
                             CommonUtils.getClassType(codedata.module(), codedata.object()))
                     .value(codedata.parentSymbol())
-                    .type(Property.ValueType.IDENTIFIER)
+                    .type(Property.ValueType.EXPRESSION)
                     .stepOut()
                     .addProperty(Property.CONNECTION_KEY);
         }
@@ -221,7 +221,7 @@ public abstract class CallBuilder extends NodeBuilder {
                     .stepOut()
                 .typeConstraint(CommonUtils.getClassType(codedata.module(), codedata.object()))
                 .value(codedata.parentSymbol())
-                .type(Property.ValueType.IDENTIFIER)
+                .type(Property.ValueType.EXPRESSION)
                 .stepOut()
                 .addProperty(Property.CONNECTION_KEY);
     }

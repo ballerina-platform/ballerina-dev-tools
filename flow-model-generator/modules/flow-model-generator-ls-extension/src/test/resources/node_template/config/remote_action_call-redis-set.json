@@ -37,36 +37,12 @@
           "label": "Connection",
           "description": "Connection to use"
         },
-        "valueType": "IDENTIFIER",
+        "valueType": "EXPRESSION",
         "valueTypeConstraint": "redis:Client",
         "value": "redisCl",
         "optional": false,
         "editable": false,
         "advanced": false
-      },
-      "value": {
-        "metadata": {
-          "label": "value",
-          "description": "Values"
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "string",
-        "placeholder": "\"\"",
-        "optional": false,
-        "editable": true,
-        "advanced": false,
-        "codedata": {
-          "kind": "REQUIRED",
-          "originalName": "value"
-        },
-        "typeMembers": [
-          {
-            "type": "string",
-            "packageInfo": "",
-            "kind": "BASIC_TYPE",
-            "selected": false
-          }
-        ]
       },
       "key": {
         "metadata": {
@@ -82,6 +58,30 @@
         "codedata": {
           "kind": "REQUIRED",
           "originalName": "key"
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "value": {
+        "metadata": {
+          "label": "value",
+          "description": "Values"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"\"",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "value"
         },
         "typeMembers": [
           {

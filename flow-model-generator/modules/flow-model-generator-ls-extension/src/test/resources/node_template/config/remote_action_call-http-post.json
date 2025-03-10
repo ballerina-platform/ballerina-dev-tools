@@ -38,7 +38,7 @@
           "label": "Connection",
           "description": "Connection to use"
         },
-        "valueType": "IDENTIFIER",
+        "valueType": "EXPRESSION",
         "valueTypeConstraint": "http:Client",
         "value": "httpClient",
         "optional": false,
@@ -81,6 +81,30 @@
             "type": "string",
             "packageInfo": "",
             "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "message": {
+        "metadata": {
+          "label": "message",
+          "description": "An HTTP outbound request or any allowed payload"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "http:RequestMessage",
+        "placeholder": "{}",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "message"
+        },
+        "typeMembers": [
+          {
+            "type": "RequestMessage",
+            "packageInfo": "ballerina:http:2.12.2",
+            "kind": "OTHER",
             "selected": false
           }
         ]
@@ -141,30 +165,6 @@
             "type": "string",
             "packageInfo": "",
             "kind": "BASIC_TYPE",
-            "selected": false
-          }
-        ]
-      },
-      "message": {
-        "metadata": {
-          "label": "message",
-          "description": "An HTTP outbound request or any allowed payload"
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "http:RequestMessage",
-        "placeholder": "{}",
-        "optional": false,
-        "editable": true,
-        "advanced": false,
-        "codedata": {
-          "kind": "REQUIRED",
-          "originalName": "message"
-        },
-        "typeMembers": [
-          {
-            "type": "RequestMessage",
-            "packageInfo": "ballerina:http:2.12.2",
-            "kind": "OTHER",
             "selected": false
           }
         ]
