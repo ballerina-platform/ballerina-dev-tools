@@ -94,9 +94,29 @@ subprojects {
         tasks.register('localSync') {
             doLast {
                 def version = ballerinaLangVersion.contains('-') ? ballerinaLangVersion.split('-')[0] : ballerinaLangVersion
+                def buildLibsDir = file('build/libs')
+                def destinationPath = "${System.getProperty('user.home')}/.ballerina/ballerina-home/distributions/ballerina-${version}/${pathParam}"
+
+                if (buildLibsDir.exists() && buildLibsDir.listFiles()) {
+                    def jarFiles = buildLibsDir.listFiles().findAll { it.name.endsWith('.jar') }
+                    if (jarFiles) {
+                        // Get module name from the built jar (removing version part)
+                        def jarName = jarFiles[0].name
+                        def moduleJarName = jarName.contains('-') ? jarName.substring(0, jarName.lastIndexOf('-')) : jarName.replace('.jar', '')
+                        
+                        def jarsToRemove = fileTree(destinationPath).matching {
+                            include "${moduleJarName}*.jar"
+                        }
+                        if (!jarsToRemove.isEmpty()) {
+                            jarsToRemove.each { jar ->
+                                println "Removing existing jar: ${jar}"
+                                jar.delete()
+                            }
+                        }
+                    }
+                }
                 copy {
                     from fileTree(dir: 'build/libs', include: '*.jar')
-                    def destinationPath = file("${System.getProperty('user.home')}/.ballerina/ballerina-home/distributions/ballerina-${version}/${pathParam}")
                     println "Updating ${destinationPath}"
                     into destinationPath
                 }
