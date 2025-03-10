@@ -541,21 +541,11 @@ public final class Utils {
         // handle base path and string literal
         String attachPoint = getPath(serviceNode.absoluteResourcePath());
         if (!attachPoint.isEmpty()) {
-            boolean isStringLiteral = attachPoint.startsWith("\"") && attachPoint.endsWith("\"");
-            if (isStringLiteral) {
-                Value stringLiteralProperty = serviceModel.getStringLiteralProperty();
-                if (Objects.nonNull(stringLiteralProperty)) {
-                    stringLiteralProperty.setValue(attachPoint);
-                } else {
-                    serviceModel.setStringLiteral(ServiceModelUtils.getStringLiteralProperty(attachPoint));
-                }
+            Value basePathProperty = serviceModel.getBasePath();
+            if (Objects.nonNull(basePathProperty)) {
+                basePathProperty.setValue(attachPoint);
             } else {
-                Value basePathProperty = serviceModel.getBasePath();
-                if (Objects.nonNull(basePathProperty)) {
-                    basePathProperty.setValue(attachPoint);
-                } else {
-                    serviceModel.setBasePath(ServiceModelUtils.getBasePathProperty(attachPoint));
-                }
+                serviceModel.setBasePath(ServiceModelUtils.getBasePathProperty(attachPoint));
             }
         }
     }
