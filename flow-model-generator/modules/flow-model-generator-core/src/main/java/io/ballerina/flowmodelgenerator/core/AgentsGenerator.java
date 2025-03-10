@@ -78,9 +78,9 @@ import java.util.Set;
  */
 public class AgentsGenerator {
 
-    public static final String MODEL_PARAM = "model";
     public static final String MODEL = "Model";
     public static final String TOOL_ANNOTATION = "Tool";
+    public static final String TARGET_TYPE = "targetType";
     private final Gson gson;
     private final SemanticModel semanticModel;
     private static final String BALLERINAX = "ballerinax";
@@ -379,7 +379,7 @@ public class AgentsGenerator {
 
             Map<String, Property> properties = flowNode.properties();
             Set<String> keys = new LinkedHashSet<>(properties != null ? properties.keySet() : Set.of());
-            keys.removeAll(Set.of(Property.VARIABLE_KEY, Property.TYPE_KEY, Property.CONNECTION_KEY,
+            keys.removeAll(Set.of(Property.VARIABLE_KEY, Property.TYPE_KEY, TARGET_TYPE, Property.CONNECTION_KEY,
                     Property.CHECK_ERROR_KEY));
             List<String> paramList = new ArrayList<>();
             for (String key : keys) {
@@ -410,11 +410,20 @@ public class AgentsGenerator {
             sourceBuilder.token().name(String.join(", ", paramList));
             sourceBuilder.token().keyword(SyntaxKind.CLOSE_PAREN_TOKEN);
 
-            Optional<Property> returnType = flowNode.getProperty(Property.TYPE_KEY);
-            if (returnType.isPresent() && !returnType.get().value().toString().isEmpty()) {
+            Optional<Property> optReturnType = flowNode.getProperty(Property.TYPE_KEY);
+            String returnType = "";
+            if (optReturnType.isPresent()) {
+                if (flowNode.getProperty(TARGET_TYPE).isPresent()) {
+                    returnType = "json";
+                } else {
+                    returnType = optReturnType.get().value().toString();
+                }
+            }
+
+            if (!returnType.isEmpty()) {
                 sourceBuilder.token()
                         .keyword(SyntaxKind.RETURNS_KEYWORD)
-                        .name(returnType.get().value().toString());
+                        .name(returnType);
                 if (FlowNodeUtil.hasCheckKeyFlagSet(flowNode)) {
                     sourceBuilder.token().keyword(SyntaxKind.PIPE_TOKEN).keyword(SyntaxKind.ERROR_KEYWORD);
                 }
@@ -422,27 +431,22 @@ public class AgentsGenerator {
 
             sourceBuilder.token().keyword(SyntaxKind.OPEN_BRACE_TOKEN);
 
-            if (returnType.isPresent() && !returnType.get().value().toString().isEmpty()) {
-                sourceBuilder.token().expressionWithType(returnType.get(),
+            if (!returnType.isEmpty()) {
+                sourceBuilder.token().expressionWithType(returnType,
                         flowNode.getProperty(Property.VARIABLE_KEY).orElseThrow()).keyword(SyntaxKind.EQUAL_TOKEN);
             }
             if (FlowNodeUtil.hasCheckKeyFlagSet(flowNode)) {
                 sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
             }
-            Optional<Property> connectionProperty = flowNode.getProperty(Property.CONNECTION_KEY);
-            String connection = connectionName;
-            if (connectionProperty.isPresent()) {
-                connection = connectionProperty.get().toSourceCode();
-            }
             sourceBuilder.token()
-                    .name(connection)
+                    .name(connectionName)
                     .keyword(SyntaxKind.RIGHT_ARROW_TOKEN)
                     .name(flowNode.metadata().label())
                     .stepOut()
                     .functionParameters(flowNode, Set.of(Property.VARIABLE_KEY, Property.TYPE_KEY,
                             Property.CONNECTION_KEY, Property.CHECK_ERROR_KEY));
 
-            if (returnType.isPresent() && !returnType.get().value().toString().isEmpty()) {
+            if (!returnType.isEmpty()) {
                 sourceBuilder.token()
                         .keyword(SyntaxKind.RETURN_KEYWORD)
                         .name(flowNode.getProperty(Property.VARIABLE_KEY).get().value().toString())
@@ -462,7 +466,7 @@ public class AgentsGenerator {
             Map<String, Property> properties = flowNode.properties();
             Set<String> keys = new LinkedHashSet<>(properties != null ? properties.keySet() : Set.of());
             Set<String> ignoredKeys = new HashSet<>(List.of(Property.CONNECTION_KEY, Property.VARIABLE_KEY,
-                    Property.TYPE_KEY, "targetType", Property.RESOURCE_PATH_KEY, Property.CHECK_ERROR_KEY));
+                    Property.TYPE_KEY, TARGET_TYPE, Property.RESOURCE_PATH_KEY, Property.CHECK_ERROR_KEY));
             keys.removeAll(ignoredKeys);
             List<String> paramList = new ArrayList<>();
             for (String key : keys) {
@@ -493,11 +497,20 @@ public class AgentsGenerator {
             sourceBuilder.token().name(String.join(", ", paramList));
             sourceBuilder.token().keyword(SyntaxKind.CLOSE_PAREN_TOKEN);
 
-            Optional<Property> returnType = flowNode.getProperty(Property.TYPE_KEY);
-            if (returnType.isPresent() && !returnType.get().value().toString().isEmpty()) {
+            Optional<Property> optReturnType = flowNode.getProperty(Property.TYPE_KEY);
+            String returnType = "";
+            if (optReturnType.isPresent()) {
+                if (flowNode.getProperty(TARGET_TYPE).isPresent()) {
+                    returnType = "json";
+                } else {
+                    returnType = optReturnType.get().value().toString();
+                }
+            }
+
+            if (!returnType.isEmpty()) {
                 sourceBuilder.token()
                         .keyword(SyntaxKind.RETURNS_KEYWORD)
-                        .name(returnType.get().value().toString());
+                        .name(returnType);
                 if (FlowNodeUtil.hasCheckKeyFlagSet(flowNode)) {
                     sourceBuilder.token().keyword(SyntaxKind.PIPE_TOKEN).keyword(SyntaxKind.ERROR_KEYWORD);
                 }
@@ -505,8 +518,8 @@ public class AgentsGenerator {
 
             sourceBuilder.token().keyword(SyntaxKind.OPEN_BRACE_TOKEN);
 
-            if (returnType.isPresent() && !returnType.get().value().toString().isEmpty()) {
-                sourceBuilder.token().expressionWithType(returnType.get(),
+            if (!returnType.isEmpty()) {
+                sourceBuilder.token().expressionWithType(returnType,
                         flowNode.getProperty(Property.VARIABLE_KEY).orElseThrow()).keyword(SyntaxKind.EQUAL_TOKEN);
             }
             if (FlowNodeUtil.hasCheckKeyFlagSet(flowNode)) {
@@ -553,7 +566,7 @@ public class AgentsGenerator {
                     .stepOut()
                     .functionParameters(flowNode, ignoredKeys);
 
-            if (returnType.isPresent() && !returnType.get().value().toString().isEmpty()) {
+            if (!returnType.isEmpty()) {
                 sourceBuilder.token()
                         .keyword(SyntaxKind.RETURN_KEYWORD)
                         .name(flowNode.getProperty(Property.VARIABLE_KEY).get().value().toString())

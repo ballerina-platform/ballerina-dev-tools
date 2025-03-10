@@ -56,6 +56,7 @@ import java.util.Optional;
 public class PackageUtil {
 
     private static final String BALLERINA_HOME_PROPERTY = "ballerina.home";
+    private static final BuildProject SAMPLE_PROJECT = getSampleProject();
 
     public static BuildProject getSampleProject() {
         // Obtain the Ballerina distribution path
@@ -120,7 +121,7 @@ public class PackageUtil {
     public static Optional<Package> getModulePackage(BuildProject buildProject, String org, String name,
                                                      String version) {
         ResolutionRequest resolutionRequest = ResolutionRequest.from(
-                    PackageDescriptor.from(PackageOrg.from(org), PackageName.from(name), PackageVersion.from(version)));
+                PackageDescriptor.from(PackageOrg.from(org), PackageName.from(name), PackageVersion.from(version)));
 
         Collection<ResolutionResponse> resolutionResponses =
                 buildProject.projectEnvironmentContext().getService(PackageResolver.class)
@@ -151,8 +152,8 @@ public class PackageUtil {
         }
 
         Collection<ResolutionResponse> resolutionResponses = packageResolver.resolvePackages(
-                        Collections.singletonList(ResolutionRequest.from(pkgMetadata.get().resolvedDescriptor())),
-                        ResolutionOptions.builder().setOffline(false).build());
+                Collections.singletonList(ResolutionRequest.from(pkgMetadata.get().resolvedDescriptor())),
+                ResolutionOptions.builder().setOffline(false).build());
         Optional<ResolutionResponse> resolutionResponse = resolutionResponses.stream().findFirst();
         if (resolutionResponse.isEmpty()) {
             return Optional.empty();
@@ -163,6 +164,17 @@ public class PackageUtil {
         defaultBuilder.addCompilationCacheFactory(TempDirCompilationCache::from);
         BalaProject balaProject = BalaProject.loadProject(defaultBuilder, balaPath);
         return Optional.ofNullable(balaProject.currentPackage());
+    }
+
+    public static boolean isModuleUnresolved(String org, String name, String version) {
+        ResolutionRequest resolutionRequest = ResolutionRequest.from(
+                PackageDescriptor.from(PackageOrg.from(org), PackageName.from(name), PackageVersion.from(version)));
+        PackageResolver packageResolver = SAMPLE_PROJECT.projectEnvironmentContext().getService(PackageResolver.class);
+        return packageResolver.resolvePackageMetadata(Collections.singletonList(resolutionRequest),
+                        ResolutionOptions.builder().setOffline(true).build()).stream()
+                .findFirst()
+                .map(response -> response.resolutionStatus() == ResolutionResponse.ResolutionStatus.UNRESOLVED)
+                .orElse(false);
     }
 
     private static Path getPath(Path path) {

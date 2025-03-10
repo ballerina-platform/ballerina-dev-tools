@@ -66,7 +66,9 @@ import io.ballerina.projects.Project;
 import io.ballerina.tools.diagnostics.Location;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.TextRange;
+import org.ballerinalang.langserver.LSClientLogger;
 import org.ballerinalang.langserver.common.utils.CommonUtil;
+import org.eclipse.lsp4j.MessageType;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -100,10 +102,16 @@ public class FunctionDataBuilder {
     private String resourcePath;
     private ObjectTypeSymbol parentSymbol;
     private String parentSymbolType;
+    private LSClientLogger lsClientLogger;
 
     public static final String REST_RESOURCE_PATH = "/path/to/subdirectory";
     public static final String REST_PARAM_PATH = "/path/to/resource";
     public static final String REST_RESOURCE_PATH_LABEL = "Remaining Resource Path";
+
+    // Package resolution messages
+    private static final String PULLING_THE_MODULE_MESSAGE = "Pulling the module '%s' from the central";
+    private static final String MODULE_PULLING_FAILED_MESSAGE = "Failed to pull the module: %s";
+    private static final String MODULE_PULLING_SUCCESS_MESSAGE = "Successfully pulled the module: %s";
 
     public FunctionDataBuilder semanticModel(SemanticModel semanticModel) {
         this.semanticModel = semanticModel;
@@ -183,6 +191,11 @@ public class FunctionDataBuilder {
         return this;
     }
 
+    public FunctionDataBuilder lsClientLogger(LSClientLogger lsClientLogger) {
+        this.lsClientLogger = lsClientLogger;
+        return this;
+    }
+
     private void setParentSymbol(Stream<Symbol> symbolStream, String parentSymbolName) {
         this.parentSymbol = symbolStream
                 .filter(symbol -> symbol.kind() == SymbolKind.VARIABLE && symbol.nameEquals(parentSymbolName))
@@ -210,6 +223,20 @@ public class FunctionDataBuilder {
         // Defaulting the function result kind to FUNCTION if not provided
         if (functionKind == null) {
             functionKind = FunctionData.Kind.FUNCTION;
+        }
+
+        // Check if the package is pulled
+        if (semanticModel == null && moduleInfo.isComplete() &&
+                PackageUtil.isModuleUnresolved(moduleInfo.org(), moduleInfo.packageName(), moduleInfo.version())) {
+            notifyClient(MessageType.Info, PULLING_THE_MODULE_MESSAGE);
+            if (semanticModel == null) {
+                deriveSemanticModel();
+            }
+            if (semanticModel == null) {
+                notifyClient(MessageType.Error, MODULE_PULLING_FAILED_MESSAGE);
+            } else {
+                notifyClient(MessageType.Info, MODULE_PULLING_SUCCESS_MESSAGE);
+            }
         }
 
         // Check if the function is in the index
@@ -830,6 +857,14 @@ public class FunctionDataBuilder {
 
     private String getDescription(Documentable documentable) {
         return documentable.documentation().flatMap(Documentation::description).orElse("");
+    }
+
+    private void notifyClient(MessageType messageType, String message) {
+        if (lsClientLogger != null) {
+            String signature =
+                    String.format("%s/%s:%s", moduleInfo.org(), moduleInfo.packageName(), moduleInfo.version());
+            lsClientLogger.notifyClient(messageType, String.format(message, signature));
+        }
     }
 
     private record ParamForTypeInfer(String paramName, String defaultValue, String type) {
