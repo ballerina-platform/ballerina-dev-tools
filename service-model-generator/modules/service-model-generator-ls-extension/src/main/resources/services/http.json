@@ -594,7 +594,7 @@
               "value": "",
               "valueType": "TYPE",
               "isType": false,
-              "optional": false,
+              "optional": true,
               "advanced": false,
               "addNewButton": false
             },
@@ -608,7 +608,7 @@
               "value": "",
               "valueType": "IDENTIFIER",
               "isType": false,
-              "optional": false,
+              "optional": true,
               "advanced": false,
               "addNewButton": false
             },
@@ -636,7 +636,7 @@
               "value": "",
               "valueType": "EXPRESSION_SET",
               "isType": false,
-              "optional": false,
+              "optional": true,
               "advanced": false,
               "addNewButton": false
             }
