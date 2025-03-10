@@ -525,32 +525,58 @@
             "body": {
               "metadata": {
                 "label": "Body",
-                "description": "The response body"
-              },
-              "enabled": true,
-              "editable": false,
-              "value": "",
-              "valueType": "TYPE",
-              "valueTypeConstraint": "anydata",
-              "isType": true,
-              "placeholder": "Greeting",
-              "optional": true,
-              "advanced": false
-            },
-            "createStatusCodeResponse": {
-              "metadata": {
-                "label": "Create Status Code Response Type",
-                "description": "Create a new status code response type"
+                "description": "Response Body"
               },
               "enabled": true,
               "editable": true,
               "value": "",
-              "valueType": "BOOLEAN",
-              "valueTypeConstraint": "boolean",
+              "valueType": "TYPE",
               "isType": false,
-              "placeholder": "false",
               "optional": false,
-              "advanced": false
+              "advanced": false,
+              "addNewButton": false
+            },
+            "name": {
+              "metadata": {
+                "label": "Name of the response",
+                "description": "Create a new response type"
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "IDENTIFIER",
+              "isType": false,
+              "optional": false,
+              "advanced": false,
+              "addNewButton": false
+            },
+            "type": {
+              "metadata": {
+                "label": "Response Type",
+                "description": "Select a response type"
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "TYPE",
+              "isType": false,
+              "optional": false,
+              "advanced": false,
+              "addNewButton": false
+            },
+            "headers": {
+              "metadata": {
+                "label": "Header types",
+                "description": "Response header types"
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "EXPRESSION_SET",
+              "isType": false,
+              "optional": false,
+              "advanced": false,
+              "addNewButton": false
             }
           }
         }
