@@ -22,6 +22,8 @@ import io.ballerina.designmodelgenerator.core.DesignModelGenerator;
 import io.ballerina.designmodelgenerator.core.model.DesignModel;
 import io.ballerina.designmodelgenerator.extension.request.GetDesignModelRequest;
 import io.ballerina.designmodelgenerator.extension.response.GetDesignModelResponse;
+import io.ballerina.projects.BuildOptions;
+import io.ballerina.projects.Package;
 import io.ballerina.projects.Project;
 import io.ballerina.projects.directory.ProjectLoader;
 import org.ballerinalang.annotation.JavaSPIService;
@@ -35,6 +37,11 @@ import java.util.concurrent.CompletableFuture;
 @JavaSPIService("org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService")
 @JsonSegment("designModelService")
 public class DesignModelGeneratorService implements ExtendedLanguageServerService {
+
+    private final BuildOptions options = BuildOptions.builder()
+            .setOffline(true)
+            .setSticky(false)
+            .build();
 
     @Override
     public Class<?> getRemoteInterface() {
@@ -51,11 +58,12 @@ public class DesignModelGeneratorService implements ExtendedLanguageServerServic
                 // TODO: This is a temporary solution until we investigate why the workspace manager does not
                 //  properly perform the package resolution
                 // Ensure resolution and compilation are triggered
-                Project project = ProjectLoader.loadProject(projectPath);
-                project.currentPackage().getResolution();
-                project.currentPackage().getCompilation();
+                Project project = ProjectLoader.loadProject(projectPath, options);
+                Package currentPackage = project.currentPackage();
+                currentPackage.getResolution();
+                currentPackage.getCompilation();
 
-                DesignModelGenerator designModelGenerator = new DesignModelGenerator(project.currentPackage());
+                DesignModelGenerator designModelGenerator = new DesignModelGenerator(currentPackage);
                 DesignModel designModel = designModelGenerator.generate();
                 response.setDesignModel(designModel);
             } catch (Throwable e) {
