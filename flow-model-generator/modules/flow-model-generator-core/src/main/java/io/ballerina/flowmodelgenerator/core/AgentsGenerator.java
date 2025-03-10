@@ -87,7 +87,6 @@ public class AgentsGenerator {
     private static final String AI_AGENT = "ai.agent";
     private static final String INIT = "init";
     private static final String AGENT_FILE = "agents.bal";
-    public static final String BASE_AGENT = "BaseAgent";
     public static final String AGENT = "Agent";
     private static final String BALLERINA_ORG = "ballerina";
     private static final String HTTP_MODULE = "http";
@@ -102,30 +101,6 @@ public class AgentsGenerator {
     public AgentsGenerator(SemanticModel semanticModel) {
         this.gson = new Gson();
         this.semanticModel = semanticModel;
-    }
-
-    public JsonArray getAllAgents() {
-        List<Codedata> agents = new ArrayList<>();
-        ModuleSymbol agentModule = getAgentModule();
-        Optional<ModuleSymbol> optModule = agentModule.getModule();
-        if (optModule.isEmpty()) {
-            throw new IllegalStateException("Agent module id not found");
-        }
-        ModuleID id = optModule.get().id();
-        for (ClassSymbol classSymbol : agentModule.classes()) {
-            if (classSymbol.qualifiers().contains(Qualifier.CLIENT) && classSymbol.getName().orElse("").equals(AGENT)) {
-                agents.add(new Codedata.Builder<>(null).node(NodeKind.AGENT)
-                        .org(id.orgName())
-                        .module(id.packageName())
-                        .version(id.version())
-                        .object(classSymbol.getName().orElse(AGENT))
-                        .symbol(INIT)
-                        .build());
-
-            }
-        }
-
-        return gson.toJsonTree(agents).getAsJsonArray();
     }
 
     public JsonArray getAllAgents(SemanticModel agentSymbol) {
@@ -152,53 +127,6 @@ public class AgentsGenerator {
             }
         }
         return gson.toJsonTree(agents).getAsJsonArray();
-    }
-
-    private ModuleSymbol getAgentModule() {
-        assert semanticModel != null;
-        for (Symbol symbol : semanticModel.moduleSymbols()) {
-            if (symbol.kind() == SymbolKind.MODULE) {
-                ModuleSymbol modSymbol = (ModuleSymbol) symbol;
-                if (modSymbol.id().orgName().equals(BALLERINAX) && modSymbol.id().packageName().equals(AI_AGENT)) {
-                    return modSymbol;
-                }
-            }
-        }
-        throw new IllegalStateException("Agent module not found");
-    }
-
-    public JsonArray getAllModels() {
-        ModuleSymbol agentModule = getAgentModule();
-        List<ClassSymbol> modelSymbols = new ArrayList<>();
-        for (ClassSymbol classSymbol : agentModule.classes()) {
-            if (!classSymbol.qualifiers().contains(Qualifier.CLIENT)) {
-                continue;
-            }
-            List<TypeSymbol> inclusionsTypes = classSymbol.typeInclusions();
-            for (TypeSymbol typeSymbol : inclusionsTypes) {
-                if (typeSymbol.getName().isPresent() && typeSymbol.getName().get().equals(MODEL)) {
-                    modelSymbols.add(classSymbol);
-                    break;
-                }
-            }
-        }
-
-        Optional<ModuleSymbol> optModule = agentModule.getModule();
-        if (optModule.isEmpty()) {
-            throw new IllegalStateException("Agent module id not found");
-        }
-        ModuleID id = optModule.get().id();
-        List<Codedata> models = new ArrayList<>();
-        for (ClassSymbol model : modelSymbols) {
-            models.add(new Codedata.Builder<>(null).node(NodeKind.CLASS_INIT)
-                    .org(id.orgName())
-                    .module(id.packageName())
-                    .version(id.version())
-                    .object(model.getName().orElse(MODEL))
-                    .symbol(INIT)
-                    .build());
-        }
-        return gson.toJsonTree(models).getAsJsonArray();
     }
 
     public JsonArray getAllModels(SemanticModel agentSymbol) {
@@ -552,13 +480,8 @@ public class AgentsGenerator {
                 }
             }
 
-            Optional<Property> connection = flowNode.getProperty(Property.CONNECTION_KEY);
-            if (connection.isEmpty()) {
-                throw new IllegalStateException("Client must be defined for an action call node");
-            }
-
             sourceBuilder.token()
-                    .name(connection.get().toSourceCode())
+                    .name(connectionName)
                     .keyword(SyntaxKind.RIGHT_ARROW_TOKEN)
                     .resourcePath(resourcePath)
                     .keyword(SyntaxKind.DOT_TOKEN)
