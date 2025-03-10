@@ -570,7 +570,7 @@
             "character": 0
           }
         },
-        "newText": "\n\tresource function get response() returns  {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t}\n\t}\n"
+        "newText": "\n\tresource function get response() {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t\tpanic error(\"Unhandled error\");\n\t\t}\n\t}\n"
       }
     ]
   }

@@ -76,7 +76,6 @@ import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -903,12 +902,14 @@ public final class Utils {
                 builder.append(getValueString(returnType));
             } else if (returnType.isEnabled() && Objects.nonNull(returnType.getResponses()) &&
                     !returnType.getResponses().isEmpty()) {
-                builder.append(" returns ");
                 List<String> responses = returnType.getResponses().stream()
                         .filter(HttpResponse::isEnabled)
                         .map(response -> HttpUtil.getStatusCodeResponse(response, statusCodeResponses))
                         .toList();
-                builder.append(String.join("|", responses));
+                if (!responses.isEmpty()) {
+                    builder.append(" returns ");
+                    builder.append(String.join("|", responses));
+                }
             }
         }
         builder.append(" ");
