@@ -9,7 +9,7 @@
     "node": "CLASS_INIT",
     "org": "ballerinax",
     "module": "ai.agent",
-    "version": "0.7.9",
+    "version": "0.7.12",
     "object": "OpenAiModel",
     "symbol": "init"
   },
@@ -17,8 +17,8 @@
     "id": "31",
     "metadata": {
       "label": "Class",
-      "description": "",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.7.9.png"
+      "description": "OpenAiModel is a client class that provides an interface for interacting with OpenAI language models.",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.7.12.png"
     },
     "codedata": {
       "node": "CLASS_INIT",
@@ -26,56 +26,504 @@
       "module": "ai.agent",
       "object": "OpenAiModel",
       "symbol": "init",
-      "version": "0.7.9",
+      "version": "0.7.12",
       "isNew": true
     },
     "returning": false,
     "properties": {
-      "modelConfig": {
+      "apiKey": {
         "metadata": {
-          "label": "modelConfig",
-          "description": "Model Configuration for OpenAI chat client"
+          "label": "apiKey",
+          "description": "The authentication API key for OpenAI chat  "
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "agent:ChatModelConfig",
-        "placeholder": "{}",
-        "optional": true,
-        "editable": true,
-        "advanced": true,
-        "codedata": {
-          "kind": "DEFAULTABLE",
-          "originalName": "modelConfig"
-        },
-        "typeMembers": [
-          {
-            "type": "agent:ChatModelConfig",
-            "packageInfo": "ballerinax:ai.agent:0.7.9",
-            "kind": "RECORD_TYPE",
-            "selected": false
-          }
-        ]
-      },
-      "connectionConfig": {
-        "metadata": {
-          "label": "connectionConfig",
-          "description": "Connection Configuration for OpenAI chat client"
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "chat:ConnectionConfig",
-        "placeholder": "{auth: {token: \"\"}}",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"\"",
         "optional": false,
         "editable": true,
         "advanced": false,
         "codedata": {
           "kind": "REQUIRED",
-          "originalName": "connectionConfig",
-          "importStatements": "ballerinax/openai.chat"
+          "originalName": "apiKey"
         },
         "typeMembers": [
           {
-            "type": "chat:ConnectionConfig",
-            "packageInfo": "ballerinax:openai.chat:3.0.0",
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "modelType": {
+        "metadata": {
+          "label": "modelType",
+          "description": "The OpenAI model name as constant from OPEN_AI_MODEL_NAMES enum"
+        },
+        "valueType": "SINGLE_SELECT",
+        "valueTypeConstraint": [
+          "O3_MINI",
+          "O3_MINI_2025_01_31",
+          "O1",
+          "O1_2024_12_17",
+          "GPT_4O",
+          "GPT_4O_2024_11_20",
+          "GPT_4O_2024_08_06",
+          "GPT_4O_2024_05_13",
+          "GPT_4O_MINI",
+          "GPT_4O_MINI_2024_07_18",
+          "GPT_4_TURBO",
+          "GPT_4_TURBO_2024_04_09",
+          "GPT_4_0125_PREVIEW",
+          "GPT_4_TURBO_PREVIEW",
+          "GPT_4_1106_PREVIEW",
+          "GPT_4_VISION_PREVIEW",
+          "GPT_4",
+          "GPT_4_0314",
+          "GPT_4_0613",
+          "GPT_4_32K",
+          "GPT_4_32K_0314",
+          "GPT_4_32K_0613",
+          "GPT_3_5_TURBO",
+          "GPT_3_5_TURBO_16K",
+          "GPT_3_5_TURBO_0301",
+          "GPT_3_5_TURBO_0613",
+          "GPT_3_5_TURBO_1106",
+          "GPT_3_5_TURBO_0125",
+          "GPT_3_5_TURBO_16K_0613"
+        ],
+        "placeholder": "\"gpt-3.5-turbo-16k-0613\"",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "modelType"
+        },
+        "typeMembers": [
+          {
+            "type": "type:OPEN_AI_MODEL_NAMES",
+            "packageInfo": "ballerinax:ai.agent:0.7.12",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "serviceUrl": {
+        "metadata": {
+          "label": "serviceUrl",
+          "description": "The base URL for the OpenAI service endpoint  "
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"\"",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "serviceUrl"
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "maxToken": {
+        "metadata": {
+          "label": "maxToken",
+          "description": "The maximum number of tokens to generate in the response  "
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "int",
+        "placeholder": "0",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "maxToken"
+        },
+        "typeMembers": [
+          {
+            "type": "int",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "temperature": {
+        "metadata": {
+          "label": "temperature",
+          "description": "The temperature for controlling randomness in the model's output  "
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "decimal",
+        "placeholder": "0.0d",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "temperature"
+        },
+        "typeMembers": [
+          {
+            "type": "decimal",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "httpVersion": {
+        "metadata": {
+          "label": "httpVersion",
+          "description": "The HTTP version understood by the client"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "http:HttpVersion",
+        "placeholder": "\"2.0\"",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "httpVersion",
+          "importStatements": "ballerina/http"
+        },
+        "typeMembers": [
+          {
+            "type": "HttpVersion",
+            "packageInfo": "ballerina:http:2.14.0",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "http1Settings": {
+        "metadata": {
+          "label": "http1Settings",
+          "description": "Configurations related to HTTP/1.x protocol"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "http:ClientHttp1Settings",
+        "placeholder": "{}",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "http1Settings",
+          "importStatements": "ballerina/http"
+        },
+        "typeMembers": [
+          {
+            "type": "ClientHttp1Settings",
+            "packageInfo": "ballerina:http:2.14.0",
             "kind": "RECORD_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "http2Settings": {
+        "metadata": {
+          "label": "http2Settings",
+          "description": "Configurations related to HTTP/2 protocol"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "http:ClientHttp2Settings",
+        "placeholder": "{}",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "http2Settings",
+          "importStatements": "ballerina/http"
+        },
+        "typeMembers": [
+          {
+            "type": "ClientHttp2Settings",
+            "packageInfo": "ballerina:http:2.14.0",
+            "kind": "RECORD_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "timeout": {
+        "metadata": {
+          "label": "timeout",
+          "description": "The maximum time to wait (in seconds) for a response before closing the connection"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "decimal",
+        "placeholder": "0.0d",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "timeout"
+        },
+        "typeMembers": [
+          {
+            "type": "decimal",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "forwarded": {
+        "metadata": {
+          "label": "forwarded",
+          "description": "The choice of setting `forwarded`/`x-forwarded` header"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"\"",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "forwarded"
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "poolConfig": {
+        "metadata": {
+          "label": "poolConfig",
+          "description": "Configurations associated with request pooling"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "http:PoolConfiguration",
+        "placeholder": "{}",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "poolConfig",
+          "importStatements": "ballerina/http"
+        },
+        "typeMembers": [
+          {
+            "type": "PoolConfiguration",
+            "packageInfo": "ballerina:http:2.14.0",
+            "kind": "RECORD_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "cache": {
+        "metadata": {
+          "label": "cache",
+          "description": "HTTP caching related configurations"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "http:CacheConfig",
+        "placeholder": "{}",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "cache",
+          "importStatements": "ballerina/http"
+        },
+        "typeMembers": [
+          {
+            "type": "CacheConfig",
+            "packageInfo": "ballerina:http:2.14.0",
+            "kind": "RECORD_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "compression": {
+        "metadata": {
+          "label": "compression",
+          "description": "Specifies the way of handling compression (`accept-encoding`) header"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "http:Compression",
+        "placeholder": "\"AUTO\"",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "compression",
+          "importStatements": "ballerina/http"
+        },
+        "typeMembers": [
+          {
+            "type": "Compression",
+            "packageInfo": "ballerina:http:2.14.0",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "circuitBreaker": {
+        "metadata": {
+          "label": "circuitBreaker",
+          "description": "Configurations associated with the behaviour of the Circuit Breaker"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "http:CircuitBreakerConfig",
+        "placeholder": "{}",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "circuitBreaker",
+          "importStatements": "ballerina/http"
+        },
+        "typeMembers": [
+          {
+            "type": "CircuitBreakerConfig",
+            "packageInfo": "ballerina:http:2.14.0",
+            "kind": "RECORD_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "retryConfig": {
+        "metadata": {
+          "label": "retryConfig",
+          "description": "Configurations associated with retrying"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "http:RetryConfig",
+        "placeholder": "{}",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "retryConfig",
+          "importStatements": "ballerina/http"
+        },
+        "typeMembers": [
+          {
+            "type": "RetryConfig",
+            "packageInfo": "ballerina:http:2.14.0",
+            "kind": "RECORD_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "responseLimits": {
+        "metadata": {
+          "label": "responseLimits",
+          "description": "Configurations associated with inbound response size limits"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "http:ResponseLimitConfigs",
+        "placeholder": "{}",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "responseLimits",
+          "importStatements": "ballerina/http"
+        },
+        "typeMembers": [
+          {
+            "type": "ResponseLimitConfigs",
+            "packageInfo": "ballerina:http:2.14.0",
+            "kind": "RECORD_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "secureSocket": {
+        "metadata": {
+          "label": "secureSocket",
+          "description": "SSL/TLS-related options"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "http:ClientSecureSocket",
+        "placeholder": "{}",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "secureSocket",
+          "importStatements": "ballerina/http"
+        },
+        "typeMembers": [
+          {
+            "type": "ClientSecureSocket",
+            "packageInfo": "ballerina:http:2.14.0",
+            "kind": "RECORD_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "proxy": {
+        "metadata": {
+          "label": "proxy",
+          "description": "Proxy server related options"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "http:ProxyConfig",
+        "placeholder": "{}",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "proxy",
+          "importStatements": "ballerina/http"
+        },
+        "typeMembers": [
+          {
+            "type": "ProxyConfig",
+            "packageInfo": "ballerina:http:2.14.0",
+            "kind": "RECORD_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "validation": {
+        "metadata": {
+          "label": "validation",
+          "description": "Enables the inbound payload validation functionality which provided by the constraint package. Enabled by default"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "boolean",
+        "placeholder": "false",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "validation"
+        },
+        "typeMembers": [
+          {
+            "type": "boolean",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
             "selected": false
           }
         ]
