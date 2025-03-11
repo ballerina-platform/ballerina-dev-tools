@@ -283,7 +283,7 @@
       "label": "Return type",
       "description": "Return type of the function"
     },
-    "enabled": false,
+    "enabled": true,
     "editable": true,
     "value": "",
     "valueType": "TYPE",

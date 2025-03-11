@@ -32,7 +32,6 @@ import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.ImportDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ListenerDeclarationNode;
-import io.ballerina.compiler.syntax.tree.MetadataNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.NameReferenceNode;
 import io.ballerina.compiler.syntax.tree.Node;
@@ -439,7 +438,6 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                     return new CommonSourceResponse();
                 }
                 ServiceDeclarationNode serviceNode = (ServiceDeclarationNode) node;
-                LineRange serviceEnd = serviceNode.closeBraceToken().lineRange();
                 List<String> statusCodeResponses = new ArrayList<>();
                 String functionDefinition = ServiceModelGeneratorConstants.LINE_SEPARATOR +
                         "\t" + getFunction(request.function(), statusCodeResponses, Utils.FunctionBodyKind.DO_BLOCK,
@@ -447,7 +445,9 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                         .replace(ServiceModelGeneratorConstants.LINE_SEPARATOR,
                                 ServiceModelGeneratorConstants.LINE_SEPARATOR + "\t")
                         + ServiceModelGeneratorConstants.LINE_SEPARATOR;
+
                 List<TextEdit> textEdits = new ArrayList<>();
+                LineRange serviceEnd = serviceNode.closeBraceToken().lineRange();
                 textEdits.add(new TextEdit(Utils.toRange(serviceEnd.startLine()), functionDefinition));
                 String statusCodeResEdits = statusCodeResponses.stream()
                         .collect(Collectors.joining(ServiceModelGeneratorConstants.LINE_SEPARATOR

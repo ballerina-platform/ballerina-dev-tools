@@ -436,7 +436,8 @@
           },
           "enabled": false,
           "editable": true,
-          "advanced": true
+          "advanced": true,
+          "isHttpResponseType": false
         },
         {
           "statusCode": {
@@ -511,7 +512,8 @@
           },
           "enabled": true,
           "editable": false,
-          "advanced": false
+          "advanced": false,
+          "isHttpResponseType": false
         },
         {
           "statusCode": {
@@ -586,7 +588,8 @@
           },
           "enabled": true,
           "editable": false,
-          "advanced": false
+          "advanced": false,
+          "isHttpResponseType": false
         },
         {
           "statusCode": {
@@ -661,7 +664,8 @@
           },
           "enabled": true,
           "editable": false,
-          "advanced": false
+          "advanced": false,
+          "isHttpResponseType": false
         },
         {
           "statusCode": {
@@ -736,7 +740,8 @@
           },
           "enabled": true,
           "editable": true,
-          "advanced": false
+          "advanced": false,
+          "isHttpResponseType": false
         }
       ],
       "schema": {
@@ -819,7 +824,8 @@
           },
           "enabled": true,
           "editable": false,
-          "advanced": false
+          "advanced": false,
+          "isHttpResponseType": false
         }
       },
       "metadata": {
@@ -883,7 +889,7 @@
             "character": 1
           }
         },
-        "newText": "\npublic type CustomHttpOk record {|\n\t*http:Ok;\tstring body;\npublic type CustomHttpOk record {|\n\t*http:Ok;\tstring body;\n|};"
+        "newText": "\npublic type CustomHttpOk record {|\n\t*http:Ok;\tstring body;\n|};"
       }
     ]
   }

@@ -488,7 +488,7 @@
             },
             "enabled": true,
             "editable": true,
-            "value": "int",
+            "value": "",
             "valueType": "TYPE",
             "isType": false,
             "optional": false,

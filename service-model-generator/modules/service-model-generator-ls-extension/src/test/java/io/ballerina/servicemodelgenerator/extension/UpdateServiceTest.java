@@ -22,8 +22,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import io.ballerina.servicemodelgenerator.extension.model.Service;
-import io.ballerina.servicemodelgenerator.extension.model.ServiceClass;
-import io.ballerina.servicemodelgenerator.extension.request.ServiceClassSourceRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ServiceModifierRequest;
 import org.eclipse.lsp4j.TextEdit;
 import org.testng.Assert;
@@ -86,7 +84,7 @@ public class UpdateServiceTest extends AbstractLSTest {
         if (assertFailure) {
             TestConfig updatedConfig =
                     new TestConfig(testConfig.filePath(), testConfig.description(), testConfig.service(), newMap);
-            updateConfig(configJsonPath, updatedConfig);
+//            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
     }

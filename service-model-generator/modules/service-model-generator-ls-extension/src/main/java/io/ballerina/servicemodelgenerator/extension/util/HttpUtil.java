@@ -185,21 +185,6 @@ public final class HttpUtil {
     private HttpUtil() {
     }
 
-    public static String getStatusCodeResponse(HttpResponse response, List<String> statusCodeResponses) {
-        Value name = response.getName();
-        if (Objects.nonNull(name) && name.isEnabledWithValue()) {
-            String statusCode = response.getStatusCode().getValue();
-            String statusCodeRes = HTTP_CODES_DES.get(statusCode);
-            if (Objects.isNull(statusCodeRes)) {
-                return response.getName().getValue();
-            }
-            statusCodeResponses.add(getNewResponseTypeStr(statusCodeRes, name.getValue(), response.getBody(),
-                    response.getHeaders()));
-            return response.getName().getValue();
-        }
-        return response.getType().getValue();
-    }
-
     public static void populateHttpResponses(FunctionReturnType returnType, SemanticModel semanticModel,
                                              ResourceMethodSymbol resource) {
         Optional<TypeSymbol> returnTypeSymbol = resource.typeDescriptor().returnTypeDescriptor();
@@ -365,6 +350,24 @@ public final class HttpUtil {
         };
     }
 
+    public static String getStatusCodeResponse(HttpResponse response, List<String> statusCodeResponses) {
+        Value name = response.getName();
+        if (Objects.nonNull(name) && name.isEnabledWithValue()) {
+            String statusCode = response.getStatusCode().getValue();
+            String statusCodeRes = HTTP_CODES_DES.get(statusCode);
+            if (Objects.isNull(statusCodeRes)) {
+                return response.getName().getValue();
+            }
+            statusCodeResponses.add(getNewResponseTypeStr(statusCodeRes, name.getValue(), response.getBody(),
+                    response.getHeaders()));
+            return response.getName().getValue();
+        }
+        if (response.getType().isEnabledWithValue()) {
+            return response.getType().getValue();
+        }
+        return response.getBody().getValue();
+    }
+
     private static String getNewResponseTypeStr(String statusCodeTypeName, String name, Value body, Value headers) {
         String template = "public type %s record {|%n\t*http:%s;".formatted(name, statusCodeTypeName);
         if (Objects.nonNull(body) && body.isEnabledWithValue()) {
@@ -373,7 +376,7 @@ public final class HttpUtil {
         if (Objects.nonNull(headers) && headers.isEnabledWithValue()) {
             template += "\tmap<%s> headers;%n".formatted(String.join("|", headers.getValues()));
         }
-        template += template + "|};";
+        template += "|};";
         return template;
     }
 }

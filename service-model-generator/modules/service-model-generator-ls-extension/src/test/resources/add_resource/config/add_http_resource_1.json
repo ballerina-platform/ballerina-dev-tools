@@ -434,9 +434,10 @@
             "advanced": false,
             "addNewButton": false
           },
-          "enabled": false,
+          "enabled": true,
           "editable": true,
-          "advanced": true
+          "advanced": true,
+          "isHttpResponseType": false
         }
       ],
       "schema": {
@@ -519,7 +520,8 @@
           },
           "enabled": true,
           "editable": false,
-          "advanced": false
+          "advanced": false,
+          "isHttpResponseType": false
         }
       },
       "metadata": {
@@ -570,7 +572,7 @@
             "character": 0
           }
         },
-        "newText": "\n\tresource function get response(http:Request request, http:Caller caller, http:Headers headers) {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t\tpanic error(\"Unhandled error\");\n\t\t}\n\t}\n"
+        "newText": "\n\tresource function get response(http:Request request, http:Caller caller, http:Headers headers) returns http:Response {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t\tpanic error(\"Unhandled error\");\n\t\t}\n\t}\n"
       }
     ]
   }

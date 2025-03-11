@@ -436,7 +436,8 @@
           },
           "enabled": false,
           "editable": true,
-          "advanced": true
+          "advanced": true,
+          "isHttpResponseType": false
         },
         {
           "statusCode": {
@@ -511,7 +512,8 @@
           },
           "enabled": true,
           "editable": false,
-          "advanced": false
+          "advanced": false,
+          "isHttpResponseType": false
         }
       ],
       "schema": {
@@ -594,7 +596,8 @@
           },
           "enabled": true,
           "editable": false,
-          "advanced": false
+          "advanced": false,
+          "isHttpResponseType": false
         }
       },
       "metadata": {
@@ -658,7 +661,7 @@
             "character": 1
           }
         },
-        "newText": "\npublic type MyCustomHttpOK record {|\n\t*http:Ok;public type MyCustomHttpOK record {|\n\t*http:Ok;|};"
+        "newText": "\npublic type MyCustomHttpOK record {|\n\t*http:Ok;|};"
       }
     ]
   }
