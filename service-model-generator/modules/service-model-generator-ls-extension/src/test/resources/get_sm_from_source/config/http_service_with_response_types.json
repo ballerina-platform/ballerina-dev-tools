@@ -541,7 +541,8 @@
               },
               "enabled": true,
               "editable": true,
-              "advanced": true
+              "advanced": true,
+              "isHttpResponseType": true
             }
           ],
           "schema": {
@@ -632,7 +633,8 @@
               },
               "enabled": true,
               "editable": false,
-              "advanced": false
+              "advanced": false,
+              "isHttpResponseType": false
             }
           },
           "metadata": {
@@ -1089,7 +1091,8 @@
               },
               "enabled": false,
               "editable": true,
-              "advanced": true
+              "advanced": true,
+              "isHttpResponseType": true
             },
             {
               "statusCode": {
@@ -1164,7 +1167,8 @@
               },
               "enabled": true,
               "editable": true,
-              "advanced": false
+              "advanced": false,
+              "isHttpResponseType": false
             }
           ],
           "schema": {
@@ -1255,7 +1259,8 @@
               },
               "enabled": true,
               "editable": false,
-              "advanced": false
+              "advanced": false,
+              "isHttpResponseType": false
             }
           },
           "metadata": {
@@ -1712,7 +1717,8 @@
               },
               "enabled": false,
               "editable": true,
-              "advanced": true
+              "advanced": true,
+              "isHttpResponseType": true
             },
             {
               "statusCode": {
@@ -1787,7 +1793,8 @@
               },
               "enabled": true,
               "editable": false,
-              "advanced": false
+              "advanced": false,
+              "isHttpResponseType": false
             }
           ],
           "schema": {
@@ -1878,7 +1885,8 @@
               },
               "enabled": true,
               "editable": false,
-              "advanced": false
+              "advanced": false,
+              "isHttpResponseType": false
             }
           },
           "metadata": {
@@ -2335,7 +2343,8 @@
               },
               "enabled": false,
               "editable": true,
-              "advanced": true
+              "advanced": true,
+              "isHttpResponseType": true
             },
             {
               "statusCode": {
@@ -2410,7 +2419,8 @@
               },
               "enabled": true,
               "editable": false,
-              "advanced": false
+              "advanced": false,
+              "isHttpResponseType": false
             }
           ],
           "schema": {
@@ -2501,7 +2511,8 @@
               },
               "enabled": true,
               "editable": false,
-              "advanced": false
+              "advanced": false,
+              "isHttpResponseType": false
             }
           },
           "metadata": {
@@ -2958,7 +2969,8 @@
               },
               "enabled": false,
               "editable": true,
-              "advanced": true
+              "advanced": true,
+              "isHttpResponseType": true
             },
             {
               "statusCode": {
@@ -3033,7 +3045,8 @@
               },
               "enabled": true,
               "editable": false,
-              "advanced": false
+              "advanced": false,
+              "isHttpResponseType": false
             }
           ],
           "schema": {
@@ -3124,7 +3137,8 @@
               },
               "enabled": true,
               "editable": false,
-              "advanced": false
+              "advanced": false,
+              "isHttpResponseType": false
             }
           },
           "metadata": {
@@ -3581,7 +3595,8 @@
               },
               "enabled": true,
               "editable": true,
-              "advanced": true
+              "advanced": true,
+              "isHttpResponseType": true
             },
             {
               "statusCode": {
@@ -3656,7 +3671,8 @@
               },
               "enabled": true,
               "editable": false,
-              "advanced": false
+              "advanced": false,
+              "isHttpResponseType": false
             },
             {
               "statusCode": {
@@ -3731,7 +3747,8 @@
               },
               "enabled": true,
               "editable": false,
-              "advanced": false
+              "advanced": false,
+              "isHttpResponseType": false
             },
             {
               "statusCode": {
@@ -3806,7 +3823,8 @@
               },
               "enabled": true,
               "editable": false,
-              "advanced": false
+              "advanced": false,
+              "isHttpResponseType": false
             },
             {
               "statusCode": {
@@ -3881,7 +3899,8 @@
               },
               "enabled": true,
               "editable": true,
-              "advanced": false
+              "advanced": false,
+              "isHttpResponseType": false
             }
           ],
           "schema": {
@@ -3972,7 +3991,8 @@
               },
               "enabled": true,
               "editable": false,
-              "advanced": false
+              "advanced": false,
+              "isHttpResponseType": false
             }
           },
           "metadata": {

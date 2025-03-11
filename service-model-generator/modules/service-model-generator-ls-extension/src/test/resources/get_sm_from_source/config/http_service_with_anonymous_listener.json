@@ -715,7 +715,8 @@
               },
               "enabled": false,
               "editable": true,
-              "advanced": true
+              "advanced": true,
+              "isHttpResponseType": true
             },
             {
               "statusCode": {
@@ -790,7 +791,8 @@
               },
               "enabled": true,
               "editable": false,
-              "advanced": false
+              "advanced": false,
+              "isHttpResponseType": false
             }
           ],
           "schema": {
@@ -881,7 +883,8 @@
               },
               "enabled": true,
               "editable": false,
-              "advanced": false
+              "advanced": false,
+              "isHttpResponseType": false
             }
           },
           "metadata": {
