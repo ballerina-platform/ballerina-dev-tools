@@ -67,7 +67,8 @@
             "value": "[]",
             "optional": true,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           },
           "variable": {
             "metadata": {
@@ -79,6 +80,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "lineRange": {
                 "fileName": "fork.bal",
@@ -104,6 +106,7 @@
             "optional": false,
             "editable": true,
             "advanced": false,
+            "hidden": false,
             "codedata": {}
           }
         },
@@ -162,6 +165,7 @@
                 "optional": false,
                 "editable": false,
                 "advanced": false,
+                "hidden": false,
                 "codedata": {
                   "lineRange": {
                     "fileName": "fork.bal",
@@ -185,7 +189,8 @@
                 "value": "",
                 "optional": true,
                 "editable": true,
-                "advanced": false
+                "advanced": false,
+                "hidden": false
               }
             },
             "children": [
@@ -229,6 +234,7 @@
                     "optional": false,
                     "editable": true,
                     "advanced": false,
+                    "hidden": false,
                     "codedata": {
                       "kind": "REQUIRED",
                       "originalName": "seconds"
@@ -285,6 +291,7 @@
                     "optional": false,
                     "editable": true,
                     "advanced": false,
+                    "hidden": false,
                     "codedata": {
                       "kind": "REQUIRED",
                       "originalName": "arr"
@@ -310,6 +317,7 @@
                     "optional": true,
                     "editable": true,
                     "advanced": true,
+                    "hidden": false,
                     "codedata": {
                       "kind": "REST_PARAMETER",
                       "originalName": "vals"
@@ -332,7 +340,8 @@
                     "value": "            results",
                     "optional": false,
                     "editable": false,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   }
                 },
                 "flags": 0
@@ -369,6 +378,7 @@
                 "optional": false,
                 "editable": false,
                 "advanced": false,
+                "hidden": false,
                 "codedata": {
                   "lineRange": {
                     "fileName": "fork.bal",
@@ -392,7 +402,8 @@
                 "value": "",
                 "optional": true,
                 "editable": true,
-                "advanced": false
+                "advanced": false,
+                "hidden": false
               }
             },
             "children": [
@@ -428,7 +439,8 @@
                     "value": false,
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   },
                   "futures": {
                     "metadata": {
@@ -454,6 +466,7 @@
                             "optional": false,
                             "editable": true,
                             "advanced": false,
+                            "hidden": false,
                             "codedata": {
                               "dependentProperty": "waitAll"
                             }
@@ -467,17 +480,20 @@
                             "value": "First",
                             "optional": false,
                             "editable": true,
-                            "advanced": false
+                            "advanced": false,
+                            "hidden": false
                           }
                         },
                         "optional": false,
                         "editable": false,
-                        "advanced": false
+                        "advanced": false,
+                        "hidden": false
                       }
                     },
                     "optional": false,
                     "editable": false,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   }
                 },
                 "flags": 0
@@ -522,6 +538,7 @@
                     "optional": false,
                     "editable": true,
                     "advanced": false,
+                    "hidden": false,
                     "codedata": {
                       "kind": "REQUIRED",
                       "originalName": "arr"
@@ -547,6 +564,7 @@
                     "optional": true,
                     "editable": true,
                     "advanced": true,
+                    "hidden": false,
                     "codedata": {
                       "kind": "REST_PARAMETER",
                       "originalName": "vals"
@@ -569,7 +587,8 @@
                     "value": "            results",
                     "optional": false,
                     "editable": false,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   }
                 },
                 "flags": 0
@@ -606,6 +625,7 @@
                 "optional": false,
                 "editable": false,
                 "advanced": false,
+                "hidden": false,
                 "codedata": {
                   "lineRange": {
                     "fileName": "fork.bal",
@@ -629,7 +649,8 @@
                 "value": "",
                 "optional": true,
                 "editable": true,
-                "advanced": false
+                "advanced": false,
+                "hidden": false
               }
             },
             "children": [
@@ -665,7 +686,8 @@
                     "value": false,
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   },
                   "futures": {
                     "metadata": {
@@ -691,6 +713,7 @@
                             "optional": false,
                             "editable": true,
                             "advanced": false,
+                            "hidden": false,
                             "codedata": {
                               "dependentProperty": "waitAll"
                             }
@@ -704,17 +727,20 @@
                             "value": "Second",
                             "optional": false,
                             "editable": true,
-                            "advanced": false
+                            "advanced": false,
+                            "hidden": false
                           }
                         },
                         "optional": false,
                         "editable": false,
-                        "advanced": false
+                        "advanced": false,
+                        "hidden": false
                       }
                     },
                     "optional": false,
                     "editable": false,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   }
                 },
                 "flags": 0
@@ -759,6 +785,7 @@
                     "optional": false,
                     "editable": true,
                     "advanced": false,
+                    "hidden": false,
                     "codedata": {
                       "kind": "REQUIRED",
                       "originalName": "arr"
@@ -784,6 +811,7 @@
                     "optional": true,
                     "editable": true,
                     "advanced": true,
+                    "hidden": false,
                     "codedata": {
                       "kind": "REST_PARAMETER",
                       "originalName": "vals"
@@ -806,7 +834,8 @@
                     "value": "            results",
                     "optional": false,
                     "editable": false,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   }
                 },
                 "flags": 0
@@ -848,7 +877,8 @@
             "value": false,
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           },
           "futures": {
             "metadata": {
@@ -874,6 +904,7 @@
                     "optional": false,
                     "editable": true,
                     "advanced": false,
+                    "hidden": false,
                     "codedata": {
                       "dependentProperty": "waitAll"
                     }
@@ -887,17 +918,20 @@
                     "value": "Third",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   }
                 },
                 "optional": false,
                 "editable": false,
-                "advanced": false
+                "advanced": false,
+                "hidden": false
               }
             },
             "optional": false,
             "editable": false,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           }
         },
         "flags": 0
@@ -934,7 +968,8 @@
             "value": "results",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           }
         },
         "flags": 0

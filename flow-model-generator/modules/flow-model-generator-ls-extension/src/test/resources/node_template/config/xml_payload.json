@@ -23,7 +23,8 @@
         "value": "var1",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       },
       "type": {
         "metadata": {
@@ -34,7 +35,8 @@
         "value": "xml",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       },
       "expression": {
         "metadata": {
@@ -45,7 +47,8 @@
         "value": "xml `<dummy>Dummy XML value</dummy>`",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       }
     },
     "flags": 0
