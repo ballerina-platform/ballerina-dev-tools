@@ -360,7 +360,7 @@ class CodeAnalyzer extends NodeVisitor {
                     throw new IllegalStateException("Model argument not found for the new expression: " +
                             newExpressionNode);
                 }
-                Map<String, String> toolUrls = new HashMap<>();
+                List<IconData> toolUrls = new ArrayList<>();
                 ListConstructorExpressionNode listConstructorExpressionNode = (ListConstructorExpressionNode) toolsArg;
                 for (Node node : listConstructorExpressionNode.expressions()) {
                     if (node.kind() != SyntaxKind.SIMPLE_NAME_REFERENCE) {
@@ -370,11 +370,11 @@ class CodeAnalyzer extends NodeVisitor {
                     String toolName = simpleNameReferenceNode.name().text();
                     String icon = getIcon(toolName);
                     if (!icon.isEmpty()) {
-                        toolUrls.put(toolName, icon);
+                        toolUrls.add(new IconData(toolName, icon));
                     }
                 }
-                String modelUrl = getModelIconUrl(modelArg);
-                if (!modelUrl.isEmpty()) {
+                IconData modelUrl = getModelIconUrl(modelArg);
+                if (modelUrl != null) {
                     nodeBuilder.metadata().addData("model", modelUrl);
                 }
                 if (!toolUrls.isEmpty()) {
@@ -1399,18 +1399,6 @@ class CodeAnalyzer extends NodeVisitor {
                 .description(functionData.description())
                 .stepOut()
                 .codedata().symbol(functionName);
-
-        if (isAgentCall(symbol.get())) {
-            SeparatedNodeList<FunctionArgumentNode> arguments = functionCallExpressionNode.arguments();
-            String modelUrl = getModelIconUrl(arguments.get(0));
-            List<String> toolUrls = getToolIconUrls(arguments.get(arguments.size() - 1));
-            if (!modelUrl.isEmpty()) {
-                nodeBuilder.metadata().addData("model", modelUrl);
-            }
-            if (!toolUrls.isEmpty()) {
-                nodeBuilder.metadata().addData("tools", toolUrls);
-            }
-        }
     }
 
     private void processFunctionSymbol(NonTerminalNode callNode, SeparatedNodeList<FunctionArgumentNode> arguments,
@@ -1507,60 +1495,21 @@ class CodeAnalyzer extends NodeVisitor {
         return false;
     }
 
-    private String getModelIconUrl(ExpressionNode expressionNode) {
+    private IconData getModelIconUrl(ExpressionNode expressionNode) {
         if (expressionNode.kind() != SyntaxKind.SIMPLE_NAME_REFERENCE) {
-            return "";
+            return null;
         }
         Optional<Symbol> optSymbol = semanticModel.symbol(expressionNode);
         if (optSymbol.isEmpty()) {
-            return "";
+            return null;
         }
         Optional<ModuleSymbol> optModule = optSymbol.get().getModule();
         if (optModule.isEmpty()) {
-            return "";
+            return null;
         }
         ModuleID id = optModule.get().id();
-        return CommonUtils.generateIcon(id.moduleName(), id.packageName(), id.version());
-    }
-
-    private String getModelIconUrl(FunctionArgumentNode firstArgNode) {
-        if (firstArgNode.kind() == SyntaxKind.POSITIONAL_ARG) {
-            Node firstArg = ((PositionalArgumentNode) firstArgNode).expression();
-            if (firstArg.kind() == SyntaxKind.SIMPLE_NAME_REFERENCE) {
-                Optional<Symbol> optArg = semanticModel.symbol(firstArg);
-                if (optArg.isPresent()) {
-                    Optional<ModuleSymbol> optModule = optArg.get().getModule();
-                    if (optModule.isPresent()) {
-                        ModuleID id = optModule.get().id();
-                        return CommonUtils.generateIcon(id.moduleName(), id.packageName(), id.version());
-                    }
-                }
-            }
-        }
-        return "";
-    }
-
-    private List<String> getToolIconUrls(FunctionArgumentNode lastArgNode) {
-        List<String> toolUrls = new ArrayList<>();
-        if (lastArgNode.kind() == SyntaxKind.POSITIONAL_ARG) {
-            Node lastArg = ((PositionalArgumentNode) lastArgNode).expression();
-            if (lastArg.kind() == SyntaxKind.LIST_CONSTRUCTOR) {
-                ListConstructorExpressionNode listConstructor = (ListConstructorExpressionNode) lastArg;
-                for (Node expression : listConstructor.expressions()) {
-                    if (expression.kind() == SyntaxKind.SIMPLE_NAME_REFERENCE) {
-                        Optional<Symbol> optArg = semanticModel.symbol(expression);
-                        if (optArg.isPresent()) {
-                            Optional<ModuleSymbol> optModule = optArg.get().getModule();
-                            if (optModule.isPresent()) {
-                                ModuleID id = optModule.get().id();
-                                toolUrls.add(CommonUtils.generateIcon(id.moduleName(), id.packageName(), id.version()));
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return toolUrls;
+        return new IconData(optSymbol.get().getName().orElseThrow(),
+                CommonUtils.generateIcon(id.moduleName(), id.packageName(), id.version()));
     }
 
     private static String getIdentifierName(NameReferenceNode nameReferenceNode) {
@@ -2076,6 +2025,10 @@ class CodeAnalyzer extends NodeVisitor {
     }
 
     private record CommentMetadata(String comment, LineRange position) {
+
+    }
+
+    private record IconData(String name, String path) {
 
     }
 }

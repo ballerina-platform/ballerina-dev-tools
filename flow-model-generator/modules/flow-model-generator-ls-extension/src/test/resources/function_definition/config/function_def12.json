@@ -27,14 +27,15 @@
     "properties": {
       "functionName": {
         "metadata": {
-          "label": "Function Name",
+          "label": "Name",
           "description": "Name of the function"
         },
         "valueType": "IDENTIFIER",
         "value": "main",
         "optional": false,
         "editable": false,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       },
       "type": {
         "metadata": {
@@ -45,7 +46,8 @@
         "value": "",
         "optional": true,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       },
       "parameters": {
         "metadata": {
@@ -70,7 +72,8 @@
               "value": "",
               "optional": false,
               "editable": true,
-              "advanced": false
+              "advanced": false,
+              "hidden": false
             },
             "variable": {
               "metadata": {
@@ -81,12 +84,14 @@
               "value": "",
               "optional": false,
               "editable": true,
-              "advanced": false
+              "advanced": false,
+              "hidden": false
             }
           },
           "optional": false,
           "editable": false,
-          "advanced": false
+          "advanced": false,
+          "hidden": false
         },
         "value": {
           "name": {
@@ -106,7 +111,8 @@
                 "value": "string",
                 "optional": false,
                 "editable": true,
-                "advanced": false
+                "advanced": false,
+                "hidden": false
               },
               "variable": {
                 "metadata": {
@@ -118,6 +124,7 @@
                 "optional": false,
                 "editable": false,
                 "advanced": false,
+                "hidden": false,
                 "codedata": {
                   "lineRange": {
                     "fileName": "main.bal",
@@ -135,12 +142,14 @@
             },
             "optional": false,
             "editable": false,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           }
         },
         "optional": true,
         "editable": false,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       }
     },
     "flags": 0

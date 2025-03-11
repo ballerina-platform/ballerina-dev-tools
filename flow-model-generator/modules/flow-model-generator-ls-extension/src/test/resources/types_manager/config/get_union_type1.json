@@ -36,7 +36,8 @@
         "value": "Misc",
         "optional": false,
         "editable": false,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       },
       "isPublic": {
         "metadata": {
@@ -47,7 +48,8 @@
         "value": "false",
         "optional": true,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       },
       "description": {
         "metadata": {
@@ -58,7 +60,8 @@
         "value": "",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       },
       "isArray": {
         "metadata": {
@@ -69,7 +72,8 @@
         "value": "false",
         "optional": true,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "hidden": false
       },
       "arraySize": {
         "metadata": {
@@ -80,7 +84,8 @@
         "value": "",
         "optional": false,
         "editable": false,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       }
     },
     "members": [
@@ -142,7 +147,8 @@
           "value": "Names",
           "optional": false,
           "editable": false,
-          "advanced": false
+          "advanced": false,
+          "hidden": false
         },
         "isPublic": {
           "metadata": {
@@ -153,7 +159,8 @@
           "value": "false",
           "optional": true,
           "editable": true,
-          "advanced": false
+          "advanced": false,
+          "hidden": false
         },
         "description": {
           "metadata": {
@@ -164,7 +171,8 @@
           "value": "",
           "optional": false,
           "editable": true,
-          "advanced": false
+          "advanced": false,
+          "hidden": false
         },
         "isArray": {
           "metadata": {
@@ -175,7 +183,8 @@
           "value": "true",
           "optional": true,
           "editable": true,
-          "advanced": true
+          "advanced": true,
+          "hidden": false
         },
         "arraySize": {
           "metadata": {
@@ -186,7 +195,8 @@
           "value": "",
           "optional": false,
           "editable": false,
-          "advanced": false
+          "advanced": false,
+          "hidden": false
         }
       },
       "members": [
@@ -229,7 +239,8 @@
           "value": "Address",
           "optional": false,
           "editable": false,
-          "advanced": false
+          "advanced": false,
+          "hidden": false
         },
         "isPublic": {
           "metadata": {
@@ -240,7 +251,8 @@
           "value": "false",
           "optional": true,
           "editable": true,
-          "advanced": false
+          "advanced": false,
+          "hidden": false
         },
         "description": {
           "metadata": {
@@ -251,7 +263,8 @@
           "value": "",
           "optional": false,
           "editable": true,
-          "advanced": false
+          "advanced": false,
+          "hidden": false
         },
         "isArray": {
           "metadata": {
@@ -262,7 +275,8 @@
           "value": "false",
           "optional": true,
           "editable": true,
-          "advanced": true
+          "advanced": true,
+          "hidden": false
         },
         "arraySize": {
           "metadata": {
@@ -273,7 +287,8 @@
           "value": "",
           "optional": true,
           "editable": true,
-          "advanced": true
+          "advanced": true,
+          "hidden": false
         }
       },
       "members": [
@@ -346,7 +361,8 @@
           "value": "ballerina/time:Utc",
           "optional": false,
           "editable": false,
-          "advanced": false
+          "advanced": false,
+          "hidden": false
         },
         "isPublic": {
           "metadata": {
@@ -357,7 +373,8 @@
           "value": "true",
           "optional": true,
           "editable": true,
-          "advanced": false
+          "advanced": false,
+          "hidden": false
         },
         "description": {
           "metadata": {
@@ -368,7 +385,8 @@
           "value": "Point on UTC time-scale.\nThis is represented by a tuple of length 2.\nThe tuple is an ordered type and so the values can be\ncompared using the Ballerina <, <=, >, >= operators.\nThe first member of the tuple is int representing an integral number of\nseconds from the epoch.\nEpoch is the traditional UNIX epoch of `1970-01-01T00:00:00Z`.\nThe second member of the tuple is a decimal giving the fraction of\na second.\nFor times before the epoch, n is negative and f is\nnon-negative. In other words, the UTC time represented\nis on or after the second specified by n.\nLeap seconds are handled as follows. The first member\nof the tuple ignores leap seconds: it assumes that every day\nhas 86400 seconds. The second member of the tuple is >= 0.\nand is < 1 except during positive leaps seconds in which it\nis >= 1 and < 2. So given a tuple [n,f] after the epoch,\nn / 86400 gives the day number, and (n % 86400) + f gives the\ntime in seconds since midnight UTC (for which the limit is\n86401 on day with a positive leap second).",
           "optional": false,
           "editable": true,
-          "advanced": false
+          "advanced": false,
+          "hidden": false
         },
         "isArray": {
           "metadata": {
@@ -379,7 +397,8 @@
           "value": "false",
           "optional": true,
           "editable": true,
-          "advanced": true
+          "advanced": true,
+          "hidden": false
         },
         "arraySize": {
           "metadata": {
@@ -390,7 +409,8 @@
           "value": "",
           "optional": false,
           "editable": false,
-          "advanced": false
+          "advanced": false,
+          "hidden": false
         }
       },
       "members": [
@@ -418,7 +438,8 @@
                 "value": "false",
                 "optional": true,
                 "editable": true,
-                "advanced": true
+                "advanced": true,
+                "hidden": false
               },
               "arraySize": {
                 "metadata": {
@@ -429,7 +450,8 @@
                 "value": "",
                 "optional": false,
                 "editable": false,
-                "advanced": false
+                "advanced": false,
+                "hidden": false
               }
             },
             "members": [
@@ -482,7 +504,8 @@
           "value": "Employees",
           "optional": false,
           "editable": false,
-          "advanced": false
+          "advanced": false,
+          "hidden": false
         },
         "isPublic": {
           "metadata": {
@@ -493,7 +516,8 @@
           "value": "false",
           "optional": true,
           "editable": true,
-          "advanced": false
+          "advanced": false,
+          "hidden": false
         },
         "description": {
           "metadata": {
@@ -504,7 +528,8 @@
           "value": "",
           "optional": false,
           "editable": true,
-          "advanced": false
+          "advanced": false,
+          "hidden": false
         },
         "isArray": {
           "metadata": {
@@ -515,7 +540,8 @@
           "value": "true",
           "optional": true,
           "editable": true,
-          "advanced": true
+          "advanced": true,
+          "hidden": false
         },
         "arraySize": {
           "metadata": {
@@ -526,7 +552,8 @@
           "value": "",
           "optional": false,
           "editable": false,
-          "advanced": false
+          "advanced": false,
+          "hidden": false
         }
       },
       "members": [
@@ -548,7 +575,8 @@
                 "value": "false",
                 "optional": true,
                 "editable": true,
-                "advanced": true
+                "advanced": true,
+                "hidden": false
               },
               "arraySize": {
                 "metadata": {
@@ -559,7 +587,8 @@
                 "value": "",
                 "optional": true,
                 "editable": true,
-                "advanced": true
+                "advanced": true,
+                "hidden": false
               }
             },
             "members": [
@@ -624,7 +653,8 @@
           "value": "Person",
           "optional": false,
           "editable": false,
-          "advanced": false
+          "advanced": false,
+          "hidden": false
         },
         "isPublic": {
           "metadata": {
@@ -635,7 +665,8 @@
           "value": "false",
           "optional": true,
           "editable": true,
-          "advanced": false
+          "advanced": false,
+          "hidden": false
         },
         "description": {
           "metadata": {
@@ -646,7 +677,8 @@
           "value": "Person record\nUsed to represent person object",
           "optional": false,
           "editable": true,
-          "advanced": false
+          "advanced": false,
+          "hidden": false
         },
         "isArray": {
           "metadata": {
@@ -657,7 +689,8 @@
           "value": "false",
           "optional": true,
           "editable": true,
-          "advanced": true
+          "advanced": true,
+          "hidden": false
         },
         "arraySize": {
           "metadata": {
@@ -668,7 +701,8 @@
           "value": "",
           "optional": true,
           "editable": true,
-          "advanced": true
+          "advanced": true,
+          "hidden": false
         }
       },
       "members": [
@@ -706,7 +740,8 @@
                 "value": "true",
                 "optional": true,
                 "editable": true,
-                "advanced": true
+                "advanced": true,
+                "hidden": false
               },
               "arraySize": {
                 "metadata": {
@@ -717,7 +752,8 @@
                 "value": "",
                 "optional": false,
                 "editable": false,
-                "advanced": false
+                "advanced": false,
+                "hidden": false
               }
             },
             "members": [

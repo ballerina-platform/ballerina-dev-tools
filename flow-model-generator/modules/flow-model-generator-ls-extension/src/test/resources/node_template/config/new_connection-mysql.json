@@ -43,6 +43,7 @@
         "optional": true,
         "editable": true,
         "advanced": true,
+        "hidden": false,
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "host"
@@ -67,6 +68,7 @@
         "optional": true,
         "editable": true,
         "advanced": true,
+        "hidden": false,
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "user"
@@ -97,6 +99,7 @@
         "optional": true,
         "editable": true,
         "advanced": true,
+        "hidden": false,
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "password"
@@ -127,6 +130,7 @@
         "optional": true,
         "editable": true,
         "advanced": true,
+        "hidden": false,
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "database"
@@ -157,6 +161,7 @@
         "optional": true,
         "editable": true,
         "advanced": true,
+        "hidden": false,
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "port"
@@ -181,6 +186,7 @@
         "optional": true,
         "editable": true,
         "advanced": true,
+        "hidden": false,
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "options"
@@ -211,6 +217,7 @@
         "optional": true,
         "editable": true,
         "advanced": true,
+        "hidden": false,
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "connectionPool",
@@ -242,6 +249,7 @@
         "optional": false,
         "editable": false,
         "advanced": false,
+        "hidden": false,
         "codedata": {
           "importStatements": "ballerina/sql"
         }
@@ -255,7 +263,8 @@
         "value": "mysqlClient",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       },
       "scope": {
         "metadata": {
@@ -266,7 +275,8 @@
         "value": "Global",
         "optional": false,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "hidden": false
       },
       "checkError": {
         "metadata": {
@@ -277,7 +287,8 @@
         "value": true,
         "optional": false,
         "editable": false,
-        "advanced": true
+        "advanced": true,
+        "hidden": false
       }
     },
     "flags": 0

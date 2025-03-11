@@ -67,7 +67,8 @@
             "value": "",
             "optional": true,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           },
           "variable": {
             "metadata": {
@@ -79,6 +80,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "lineRange": {
                 "fileName": "while.bal",
@@ -104,6 +106,7 @@
             "optional": false,
             "editable": true,
             "advanced": false,
+            "hidden": false,
             "codedata": {}
           }
         },
@@ -141,7 +144,8 @@
             "value": "0",
             "optional": true,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           },
           "variable": {
             "metadata": {
@@ -153,6 +157,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "lineRange": {
                 "fileName": "while.bal",
@@ -178,6 +183,7 @@
             "optional": false,
             "editable": true,
             "advanced": false,
+            "hidden": false,
             "codedata": {}
           }
         },
@@ -265,7 +271,8 @@
                     "value": "foodClient",
                     "optional": false,
                     "editable": false,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   },
                   "targetType": {
                     "metadata": {
@@ -279,6 +286,7 @@
                     "optional": false,
                     "editable": true,
                     "advanced": false,
+                    "hidden": false,
                     "codedata": {
                       "kind": "PARAM_FOR_TYPE_INFER",
                       "originalName": "targetType"
@@ -296,6 +304,7 @@
                     "optional": false,
                     "editable": true,
                     "advanced": false,
+                    "hidden": false,
                     "codedata": {
                       "kind": "REQUIRED",
                       "originalName": "path"
@@ -320,6 +329,7 @@
                     "optional": true,
                     "editable": true,
                     "advanced": true,
+                    "hidden": false,
                     "codedata": {
                       "kind": "DEFAULTABLE",
                       "originalName": "headers"
@@ -349,6 +359,7 @@
                     "optional": false,
                     "editable": false,
                     "advanced": false,
+                    "hidden": false,
                     "codedata": {
                       "lineRange": {
                         "fileName": "while.bal",
@@ -374,6 +385,7 @@
                     "optional": false,
                     "editable": false,
                     "advanced": false,
+                    "hidden": false,
                     "codedata": {}
                   }
                 },
@@ -432,7 +444,8 @@
                         "placeholder": "true",
                         "optional": false,
                         "editable": true,
-                        "advanced": false
+                        "advanced": false,
+                        "hidden": false
                       }
                     },
                     "children": [
@@ -468,7 +481,8 @@
                             "value": "\"Response received from food service: \" + response.toString()",
                             "optional": false,
                             "editable": true,
-                            "advanced": false
+                            "advanced": false,
+                            "hidden": false
                           },
                           "variable": {
                             "metadata": {
@@ -479,7 +493,8 @@
                             "value": "msg",
                             "optional": false,
                             "editable": true,
-                            "advanced": false
+                            "advanced": false,
+                            "hidden": false
                           }
                         },
                         "flags": 0
@@ -538,7 +553,8 @@
                             "value": "\"Error occurred while invoking food service: \" + response.message()",
                             "optional": false,
                             "editable": true,
-                            "advanced": false
+                            "advanced": false,
+                            "hidden": false
                           },
                           "variable": {
                             "metadata": {
@@ -549,7 +565,8 @@
                             "value": "msg",
                             "optional": false,
                             "editable": true,
-                            "advanced": false
+                            "advanced": false,
+                            "hidden": false
                           }
                         },
                         "flags": 0
@@ -615,7 +632,8 @@
                     "value": "i += 1;",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   }
                 },
                 "flags": 0
@@ -634,7 +652,8 @@
             "placeholder": "true",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           }
         },
         "flags": 0
@@ -681,6 +700,7 @@
             "optional": false,
             "editable": true,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "kind": "REQUIRED",
               "originalName": "url"
@@ -705,6 +725,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "httpVersion"
@@ -729,6 +750,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "http1Settings"
@@ -753,6 +775,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "http2Settings"
@@ -777,6 +800,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "timeout"
@@ -801,6 +825,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "forwarded"
@@ -825,6 +850,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "followRedirects"
@@ -855,6 +881,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "poolConfig"
@@ -885,6 +912,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "cache"
@@ -909,6 +937,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "compression"
@@ -933,6 +962,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "auth"
@@ -999,6 +1029,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "circuitBreaker"
@@ -1029,6 +1060,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "retryConfig"
@@ -1059,6 +1091,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "cookieConfig"
@@ -1089,6 +1122,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "responseLimits"
@@ -1113,6 +1147,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "proxy"
@@ -1143,6 +1178,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "validation"
@@ -1167,6 +1203,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "socketConfig"
@@ -1191,6 +1228,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "laxDataBinding"
@@ -1215,6 +1253,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "secureSocket"
@@ -1243,7 +1282,8 @@
             "value": true,
             "optional": false,
             "editable": false,
-            "advanced": true
+            "advanced": true,
+            "hidden": false
           },
           "scope": {
             "metadata": {
@@ -1254,7 +1294,8 @@
             "value": "Global",
             "optional": false,
             "editable": true,
-            "advanced": true
+            "advanced": true,
+            "hidden": false
           },
           "variable": {
             "metadata": {
@@ -1266,6 +1307,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "lineRange": {
                 "fileName": "while.bal",
@@ -1291,6 +1333,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {}
           }
         },

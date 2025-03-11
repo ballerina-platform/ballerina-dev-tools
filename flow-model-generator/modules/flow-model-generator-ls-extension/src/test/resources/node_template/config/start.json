@@ -24,7 +24,8 @@
         "value": "var1",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       },
       "type": {
         "metadata": {
@@ -37,6 +38,7 @@
         "optional": false,
         "editable": true,
         "advanced": false,
+        "hidden": false,
         "codedata": {}
       },
       "expression": {
@@ -48,7 +50,8 @@
         "value": "",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       }
     },
     "flags": 0

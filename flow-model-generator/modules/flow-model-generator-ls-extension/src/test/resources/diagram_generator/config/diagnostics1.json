@@ -84,7 +84,8 @@
             },
             "optional": false,
             "editable": false,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           }
         },
         "diagnostics": {
@@ -131,6 +132,7 @@
             "optional": true,
             "editable": true,
             "advanced": false,
+            "hidden": false,
             "diagnostics": {
               "hasDiagnostics": true,
               "diagnostics": [
@@ -151,6 +153,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "lineRange": {
                 "fileName": "diagnostics1.bal",
@@ -176,6 +179,7 @@
             "optional": false,
             "editable": true,
             "advanced": false,
+            "hidden": false,
             "codedata": {}
           }
         },
@@ -216,7 +220,8 @@
             "value": "\"12\"",
             "optional": true,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           },
           "variable": {
             "metadata": {
@@ -228,6 +233,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "lineRange": {
                 "fileName": "diagnostics1.bal",
@@ -253,6 +259,7 @@
             "optional": false,
             "editable": true,
             "advanced": false,
+            "hidden": false,
             "codedata": {}
           }
         },
@@ -304,7 +311,8 @@
             },
             "optional": false,
             "editable": false,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           },
           "s": {
             "metadata": {
@@ -317,6 +325,7 @@
             "optional": false,
             "editable": true,
             "advanced": false,
+            "hidden": false,
             "diagnostics": {
               "hasDiagnostics": true,
               "diagnostics": [
@@ -350,6 +359,7 @@
             "optional": false,
             "editable": true,
             "advanced": false,
+            "hidden": false,
             "diagnostics": {
               "hasDiagnostics": true,
               "diagnostics": [
@@ -383,6 +393,7 @@
             "optional": false,
             "editable": true,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "kind": "REQUIRED",
               "originalName": "b"
@@ -407,6 +418,7 @@
             "optional": false,
             "editable": true,
             "advanced": false,
+            "hidden": false,
             "diagnostics": {
               "hasDiagnostics": true,
               "diagnostics": [
@@ -467,7 +479,8 @@
             "value": "12",
             "optional": true,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           },
           "variable": {
             "metadata": {
@@ -479,6 +492,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "lineRange": {
                 "fileName": "diagnostics1.bal",
@@ -504,6 +518,7 @@
             "optional": false,
             "editable": true,
             "advanced": false,
+            "hidden": false,
             "codedata": {}
           }
         },
@@ -542,6 +557,7 @@
             "optional": true,
             "editable": true,
             "advanced": false,
+            "hidden": false,
             "diagnostics": {
               "hasDiagnostics": true,
               "diagnostics": [
@@ -562,6 +578,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "lineRange": {
                 "fileName": "diagnostics1.bal",
@@ -587,6 +604,7 @@
             "optional": false,
             "editable": true,
             "advanced": false,
+            "hidden": false,
             "codedata": {}
           }
         },
@@ -628,6 +646,7 @@
             "optional": true,
             "editable": true,
             "advanced": false,
+            "hidden": false,
             "diagnostics": {
               "hasDiagnostics": true,
               "diagnostics": [
@@ -648,6 +667,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "lineRange": {
                 "fileName": "diagnostics1.bal",
@@ -673,6 +693,7 @@
             "optional": false,
             "editable": true,
             "advanced": false,
+            "hidden": false,
             "codedata": {}
           }
         },
@@ -735,6 +756,7 @@
                 "optional": false,
                 "editable": true,
                 "advanced": false,
+                "hidden": false,
                 "diagnostics": {
                   "hasDiagnostics": true,
                   "diagnostics": [
@@ -801,6 +823,7 @@
                         "optional": false,
                         "editable": true,
                         "advanced": false,
+                        "hidden": false,
                         "diagnostics": {
                           "hasDiagnostics": true,
                           "diagnostics": [
@@ -853,6 +876,7 @@
                 "optional": false,
                 "editable": true,
                 "advanced": false,
+                "hidden": false,
                 "diagnostics": {
                   "hasDiagnostics": true,
                   "diagnostics": [
@@ -905,6 +929,7 @@
             "optional": true,
             "editable": true,
             "advanced": false,
+            "hidden": false,
             "diagnostics": {
               "hasDiagnostics": true,
               "diagnostics": [
@@ -925,6 +950,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "lineRange": {
                 "fileName": "diagnostics1.bal",
@@ -950,6 +976,7 @@
             "optional": false,
             "editable": true,
             "advanced": false,
+            "hidden": false,
             "codedata": {}
           }
         },
@@ -991,6 +1018,7 @@
             "optional": false,
             "editable": true,
             "advanced": false,
+            "hidden": false,
             "diagnostics": {
               "hasDiagnostics": true,
               "diagnostics": [
@@ -1039,7 +1067,8 @@
             "value": "\"h\"",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           },
           "variable": {
             "metadata": {
@@ -1051,6 +1080,7 @@
             "optional": false,
             "editable": true,
             "advanced": false,
+            "hidden": false,
             "diagnostics": {
               "hasDiagnostics": true,
               "diagnostics": [
@@ -1099,7 +1129,8 @@
             "value": "12",
             "optional": true,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           },
           "variable": {
             "metadata": {
@@ -1111,6 +1142,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "diagnostics": {
               "hasDiagnostics": true,
               "diagnostics": [
@@ -1145,6 +1177,7 @@
             "optional": false,
             "editable": true,
             "advanced": false,
+            "hidden": false,
             "codedata": {}
           }
         },
@@ -1185,7 +1218,8 @@
             "value": "4",
             "optional": true,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           },
           "variable": {
             "metadata": {
@@ -1197,6 +1231,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "lineRange": {
                 "fileName": "diagnostics1.bal",
@@ -1222,6 +1257,7 @@
             "optional": false,
             "editable": true,
             "advanced": false,
+            "hidden": false,
             "diagnostics": {
               "hasDiagnostics": true,
               "diagnostics": [

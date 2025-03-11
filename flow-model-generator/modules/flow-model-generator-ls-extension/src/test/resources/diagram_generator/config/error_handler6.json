@@ -110,7 +110,8 @@
                     "value": "error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\")",
                     "optional": true,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   },
                   "variable": {
                     "metadata": {
@@ -122,6 +123,7 @@
                     "optional": false,
                     "editable": false,
                     "advanced": false,
+                    "hidden": false,
                     "codedata": {
                       "lineRange": {
                         "fileName": "fail.bal",
@@ -147,6 +149,7 @@
                     "optional": false,
                     "editable": true,
                     "advanced": false,
+                    "hidden": false,
                     "codedata": {}
                   }
                 },
@@ -185,7 +188,8 @@
                     "value": "e",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   }
                 },
                 "flags": 0
@@ -221,7 +225,8 @@
                 "value": "false",
                 "optional": false,
                 "editable": true,
-                "advanced": false
+                "advanced": false,
+                "hidden": false
               },
               "errorVariable": {
                 "metadata": {
@@ -233,7 +238,8 @@
                 "placeholder": "err",
                 "optional": false,
                 "editable": true,
-                "advanced": false
+                "advanced": false,
+                "hidden": false
               },
               "errorType": {
                 "metadata": {
@@ -245,7 +251,8 @@
                 "placeholder": "error",
                 "optional": false,
                 "editable": true,
-                "advanced": false
+                "advanced": false,
+                "hidden": false
               }
             },
             "children": [
@@ -281,7 +288,8 @@
                     "value": "e",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   }
                 },
                 "flags": 0

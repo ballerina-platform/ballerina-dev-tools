@@ -32,7 +32,8 @@
             "value": [],
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           }
         },
         "children": []
@@ -54,7 +55,8 @@
             "value": "true",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           },
           "errorVariable": {
             "metadata": {
@@ -66,7 +68,8 @@
             "placeholder": "err",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           },
           "errorType": {
             "metadata": {
@@ -78,7 +81,8 @@
             "placeholder": "error",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           }
         },
         "children": []
@@ -95,7 +99,8 @@
         "placeholder": "true",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       }
     },
     "flags": 0
