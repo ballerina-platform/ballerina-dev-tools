@@ -156,6 +156,8 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
     public static final String CONNECTION_KEY = "connection";
     public static final String CONNECTION_LABEL = "Connection";
     public static final String CONNECTION_DOC = "Connection to use";
+    public static final String METHOD_EXPRESSION_LABEL = "Object";
+    public static final String METHOD_EXPRESSION_DOC = "The object which you want to call the method on";
 
     public static final String RESOURCE_PATH_KEY = "resourcePath";
     public static final String RESOURCE_PATH_LABEL = "Resource Path";

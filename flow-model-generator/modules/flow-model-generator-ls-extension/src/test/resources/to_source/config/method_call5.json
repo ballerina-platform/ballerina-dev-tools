@@ -2,7 +2,7 @@
   "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "31",
+    "id": "36858",
     "metadata": {
       "label": "close",
       "description": "Close the connection.\n",
@@ -12,36 +12,23 @@
       "node": "METHOD_CALL",
       "org": "ballerinax",
       "module": "redis",
-      "object": "Client",
       "symbol": "close",
       "version": "3.0.2",
-      "isNew": true,
       "lineRange": {
-        "fileName": "test.bal",
+        "fileName": "method_call_redis.bal",
         "startLine": {
-          "line": 0,
-          "offset": 0
+          "line": 5,
+          "offset": 4
         },
         "endLine": {
-          "line": 0,
-          "offset": 0
+          "line": 5,
+          "offset": 30
         }
-      }
+      },
+      "sourceCode": "check redisClient.close();"
     },
     "returning": false,
     "properties": {
-      "connection": {
-        "metadata": {
-          "label": "Connection",
-          "description": "Connection to use"
-        },
-        "valueType": "IDENTIFIER",
-        "valueTypeConstraint": "redis:Client",
-        "value": "rc",
-        "optional": false,
-        "editable": false,
-        "advanced": false
-      },
       "checkError": {
         "metadata": {
           "label": "Check Error",
@@ -52,9 +39,20 @@
         "optional": false,
         "editable": true,
         "advanced": true
+      },
+      "connection": {
+        "metadata": {
+          "label": "Connection",
+          "description": "Connection to use"
+        },
+        "valueType": "EXPRESSION",
+        "value": "redisClient",
+        "optional": false,
+        "editable": false,
+        "advanced": false
       }
     },
-    "flags": 0
+    "flags": 1
   },
   "output": {
     "empty.bal": [
@@ -74,15 +72,15 @@
       {
         "range": {
           "start": {
-            "line": 0,
-            "character": 0
+            "line": 5,
+            "character": 4
           },
           "end": {
-            "line": 0,
-            "character": 0
+            "line": 5,
+            "character": 30
           }
         },
-        "newText": "check rc.close();"
+        "newText": "check redisClient.close();"
       }
     ]
   }

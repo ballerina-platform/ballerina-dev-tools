@@ -27,6 +27,7 @@ import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
 import io.ballerina.compiler.api.symbols.MethodSymbol;
 import io.ballerina.compiler.api.symbols.ModuleSymbol;
 import io.ballerina.compiler.api.symbols.ParameterSymbol;
+import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
@@ -303,7 +304,7 @@ class CodeAnalyzer extends NodeVisitor {
                     .object(classSymbol.get().getName().orElse(""))
                     .symbol(functionName)
                     .stepOut()
-                .properties().callExpression(expressionNode, Property.CONNECTION_KEY);
+                .properties().callConnection(expressionNode, Property.CONNECTION_KEY);
         processFunctionSymbol(remoteMethodCallActionNode, remoteMethodCallActionNode.arguments(), functionSymbol,
                 functionData);
 
@@ -470,7 +471,7 @@ class CodeAnalyzer extends NodeVisitor {
                     .resourcePath(resourcePathTemplate.resourcePathTemplate())
                     .stepOut()
                 .properties()
-                .callExpression(expressionNode, Property.CONNECTION_KEY)
+                .callConnection(expressionNode, Property.CONNECTION_KEY)
                 .data(this.typedBindingPatternNode, false, new HashSet<>());
         processFunctionSymbol(clientResourceAccessActionNode, argumentNodes, functionSymbol, functionData);
     }
@@ -1054,8 +1055,11 @@ class CodeAnalyzer extends NodeVisitor {
             startNode(NodeKind.AGENT, newExpressionNode);
         } else if (isAIModel(classSymbol)) {
             startNode(NodeKind.CLASS_INIT, newExpressionNode);
-        } else {
+        } else if (classSymbol.qualifiers().contains(Qualifier.CLIENT)) {
             startNode(NodeKind.NEW_CONNECTION, newExpressionNode);
+        } else {
+            handleExpressionNode(newExpressionNode);
+            return;
         }
 
         Optional<MethodSymbol> optMethodSymbol = classSymbol.initMethod();
@@ -1297,6 +1301,18 @@ class CodeAnalyzer extends NodeVisitor {
             return;
         }
 
+        // Consider lang lib methods as a variable node with an expression
+        if (CommonUtils.isValueLangLibFunction(functionSymbol)) {
+            return;
+        }
+
+        Optional<ClassSymbol> classSymbol = getClassSymbol(methodCallExpressionNode.expression());
+        if (classSymbol.isEmpty()) {
+            handleExpressionNode(methodCallExpressionNode);
+            return;
+        }
+
+
         ExpressionNode expressionNode = methodCallExpressionNode.expression();
         NameReferenceNode nameReferenceNode = methodCallExpressionNode.methodName();
         String functionName = getIdentifierName(nameReferenceNode);
@@ -1317,11 +1333,6 @@ class CodeAnalyzer extends NodeVisitor {
                         .userModuleInfo(moduleInfo);
         FunctionData functionData = functionDataBuilder.build();
 
-        if (!CommonUtils.isValueLangLibFunction(functionSymbol)) {
-            processFunctionSymbol(methodCallExpressionNode, methodCallExpressionNode.arguments(), functionSymbol,
-                    functionData);
-        }
-
         nodeBuilder
                 .symbolInfo(functionSymbol)
                     .metadata()
@@ -1330,9 +1341,14 @@ class CodeAnalyzer extends NodeVisitor {
                     .stepOut()
                 .codedata()
                     .symbol(functionName)
-                    .stepOut()
-                .properties()
-                .callExpression(expressionNode, Property.CONNECTION_KEY);
+                    .object(classSymbol.get().getName().orElse(""));
+        if (classSymbol.get().qualifiers().contains(Qualifier.CLIENT)) {
+            nodeBuilder.properties().callConnection(expressionNode, Property.CONNECTION_KEY);
+        } else {
+            nodeBuilder.properties().callExpression(expressionNode, Property.CONNECTION_KEY);
+        }
+        processFunctionSymbol(methodCallExpressionNode, methodCallExpressionNode.arguments(), functionSymbol,
+                functionData);
     }
 
     @Override

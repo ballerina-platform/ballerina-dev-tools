@@ -248,16 +248,11 @@
               {
                 "id": "101595",
                 "metadata": {
-                  "label": "push",
-                  "description": "Adds values to the end of an array.\n\n```ballerina\nint[] numbers = [2];\nnumbers.push(4, 6);\nnumbers ⇒ [2,4,6]\nint[] moreNumbers = [8, 10, 12, 14];\nnumbers.push(...moreNumbers);\nnumbers ⇒ [2,4,6,8,10,12,14]\n```\n",
-                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.array_0.0.0.png"
+                  "label": "Custom Expression",
+                  "description": "Represents a custom Ballerina expression"
                 },
                 "codedata": {
-                  "node": "METHOD_CALL",
-                  "org": "ballerina",
-                  "module": "lang.array",
-                  "symbol": "push",
-                  "version": "0.0.0",
+                  "node": "EXPRESSION",
                   "lineRange": {
                     "fileName": "fork.bal",
                     "startLine": {
@@ -273,65 +268,15 @@
                 },
                 "returning": false,
                 "properties": {
-                  "arr": {
+                  "statement": {
                     "metadata": {
-                      "label": "arr",
-                      "description": "the array"
+                      "label": "Statement",
+                      "description": "Ballerina statement"
                     },
                     "valueType": "EXPRESSION",
-                    "valueTypeConstraint": "array:Type[]",
-                    "value": "\"First done\"",
-                    "placeholder": "[]",
+                    "value": "results.push(\"First done\");",
                     "optional": false,
                     "editable": true,
-                    "advanced": false,
-                    "codedata": {
-                      "kind": "REQUIRED",
-                      "originalName": "arr"
-                    },
-                    "typeMembers": [
-                      {
-                        "type": "array:Type",
-                        "packageInfo": "ballerina:lang.array:0.0.0",
-                        "kind": "ARRAY_TYPE",
-                        "selected": false
-                      }
-                    ]
-                  },
-                  "vals": {
-                    "metadata": {
-                      "label": "vals",
-                      "description": "values to add to the end of the array"
-                    },
-                    "valueType": "EXPRESSION_SET",
-                    "valueTypeConstraint": "array:Type",
-                    "value": [],
-                    "placeholder": "()",
-                    "optional": true,
-                    "editable": true,
-                    "advanced": true,
-                    "codedata": {
-                      "kind": "REST_PARAMETER",
-                      "originalName": "vals"
-                    },
-                    "typeMembers": [
-                      {
-                        "type": "array:Type",
-                        "packageInfo": "ballerina:lang.array:0.0.0",
-                        "kind": "ARRAY_TYPE",
-                        "selected": false
-                      }
-                    ]
-                  },
-                  "connection": {
-                    "metadata": {
-                      "label": "Connection",
-                      "description": "Connection to use"
-                    },
-                    "valueType": "EXPRESSION",
-                    "value": "            results",
-                    "optional": false,
-                    "editable": false,
                     "advanced": false
                   }
                 },
@@ -485,16 +430,11 @@
               {
                 "id": "106563",
                 "metadata": {
-                  "label": "push",
-                  "description": "Adds values to the end of an array.\n\n```ballerina\nint[] numbers = [2];\nnumbers.push(4, 6);\nnumbers ⇒ [2,4,6]\nint[] moreNumbers = [8, 10, 12, 14];\nnumbers.push(...moreNumbers);\nnumbers ⇒ [2,4,6,8,10,12,14]\n```\n",
-                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.array_0.0.0.png"
+                  "label": "Custom Expression",
+                  "description": "Represents a custom Ballerina expression"
                 },
                 "codedata": {
-                  "node": "METHOD_CALL",
-                  "org": "ballerina",
-                  "module": "lang.array",
-                  "symbol": "push",
-                  "version": "0.0.0",
+                  "node": "EXPRESSION",
                   "lineRange": {
                     "fileName": "fork.bal",
                     "startLine": {
@@ -510,65 +450,15 @@
                 },
                 "returning": false,
                 "properties": {
-                  "arr": {
+                  "statement": {
                     "metadata": {
-                      "label": "arr",
-                      "description": "the array"
+                      "label": "Statement",
+                      "description": "Ballerina statement"
                     },
                     "valueType": "EXPRESSION",
-                    "valueTypeConstraint": "array:Type[]",
-                    "value": "\"Second after First\"",
-                    "placeholder": "[]",
+                    "value": "results.push(\"Second after First\");",
                     "optional": false,
                     "editable": true,
-                    "advanced": false,
-                    "codedata": {
-                      "kind": "REQUIRED",
-                      "originalName": "arr"
-                    },
-                    "typeMembers": [
-                      {
-                        "type": "array:Type",
-                        "packageInfo": "ballerina:lang.array:0.0.0",
-                        "kind": "ARRAY_TYPE",
-                        "selected": false
-                      }
-                    ]
-                  },
-                  "vals": {
-                    "metadata": {
-                      "label": "vals",
-                      "description": "values to add to the end of the array"
-                    },
-                    "valueType": "EXPRESSION_SET",
-                    "valueTypeConstraint": "array:Type",
-                    "value": [],
-                    "placeholder": "()",
-                    "optional": true,
-                    "editable": true,
-                    "advanced": true,
-                    "codedata": {
-                      "kind": "REST_PARAMETER",
-                      "originalName": "vals"
-                    },
-                    "typeMembers": [
-                      {
-                        "type": "array:Type",
-                        "packageInfo": "ballerina:lang.array:0.0.0",
-                        "kind": "ARRAY_TYPE",
-                        "selected": false
-                      }
-                    ]
-                  },
-                  "connection": {
-                    "metadata": {
-                      "label": "Connection",
-                      "description": "Connection to use"
-                    },
-                    "valueType": "EXPRESSION",
-                    "value": "            results",
-                    "optional": false,
-                    "editable": false,
                     "advanced": false
                   }
                 },
@@ -722,16 +612,11 @@
               {
                 "id": "111523",
                 "metadata": {
-                  "label": "push",
-                  "description": "Adds values to the end of an array.\n\n```ballerina\nint[] numbers = [2];\nnumbers.push(4, 6);\nnumbers ⇒ [2,4,6]\nint[] moreNumbers = [8, 10, 12, 14];\nnumbers.push(...moreNumbers);\nnumbers ⇒ [2,4,6,8,10,12,14]\n```\n",
-                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.array_0.0.0.png"
+                  "label": "Custom Expression",
+                  "description": "Represents a custom Ballerina expression"
                 },
                 "codedata": {
-                  "node": "METHOD_CALL",
-                  "org": "ballerina",
-                  "module": "lang.array",
-                  "symbol": "push",
-                  "version": "0.0.0",
+                  "node": "EXPRESSION",
                   "lineRange": {
                     "fileName": "fork.bal",
                     "startLine": {
@@ -747,65 +632,15 @@
                 },
                 "returning": false,
                 "properties": {
-                  "arr": {
+                  "statement": {
                     "metadata": {
-                      "label": "arr",
-                      "description": "the array"
+                      "label": "Statement",
+                      "description": "Ballerina statement"
                     },
                     "valueType": "EXPRESSION",
-                    "valueTypeConstraint": "array:Type[]",
-                    "value": "\"Third after Second\"",
-                    "placeholder": "[]",
+                    "value": "results.push(\"Third after Second\");",
                     "optional": false,
                     "editable": true,
-                    "advanced": false,
-                    "codedata": {
-                      "kind": "REQUIRED",
-                      "originalName": "arr"
-                    },
-                    "typeMembers": [
-                      {
-                        "type": "array:Type",
-                        "packageInfo": "ballerina:lang.array:0.0.0",
-                        "kind": "ARRAY_TYPE",
-                        "selected": false
-                      }
-                    ]
-                  },
-                  "vals": {
-                    "metadata": {
-                      "label": "vals",
-                      "description": "values to add to the end of the array"
-                    },
-                    "valueType": "EXPRESSION_SET",
-                    "valueTypeConstraint": "array:Type",
-                    "value": [],
-                    "placeholder": "()",
-                    "optional": true,
-                    "editable": true,
-                    "advanced": true,
-                    "codedata": {
-                      "kind": "REST_PARAMETER",
-                      "originalName": "vals"
-                    },
-                    "typeMembers": [
-                      {
-                        "type": "array:Type",
-                        "packageInfo": "ballerina:lang.array:0.0.0",
-                        "kind": "ARRAY_TYPE",
-                        "selected": false
-                      }
-                    ]
-                  },
-                  "connection": {
-                    "metadata": {
-                      "label": "Connection",
-                      "description": "Connection to use"
-                    },
-                    "valueType": "EXPRESSION",
-                    "value": "            results",
-                    "optional": false,
-                    "editable": false,
                     "advanced": false
                   }
                 },
