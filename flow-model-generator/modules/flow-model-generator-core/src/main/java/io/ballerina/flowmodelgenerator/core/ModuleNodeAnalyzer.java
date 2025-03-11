@@ -214,6 +214,7 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
                 .typeConstraint(NPFunctionDefinitionBuilder.PROMPT_TYPE)
                 .value(npPromptDefaultValue.get())
                 .editable()
+                .hidden()
                 .type(Property.ValueType.RAW_TEMPLATE)
                 .stepOut()
                 .addProperty(NPFunctionDefinitionBuilder.PROMPT);

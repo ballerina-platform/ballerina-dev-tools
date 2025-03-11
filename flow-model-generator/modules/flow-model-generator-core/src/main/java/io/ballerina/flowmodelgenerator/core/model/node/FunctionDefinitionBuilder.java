@@ -44,7 +44,7 @@ public class FunctionDefinitionBuilder extends NodeBuilder {
     public static final String LABEL = "Function Definition";
     public static final String DESCRIPTION = "Define a function";
 
-    public static final String FUNCTION_NAME_LABEL = "Function Name";
+    public static final String FUNCTION_NAME_LABEL = "Name";
     public static final String FUNCTION_NAME_DOC = "Name of the function";
 
     public static final String PARAMETERS_LABEL = "Parameters";
