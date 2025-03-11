@@ -452,7 +452,7 @@
             "description": "The status code"
           },
           "enabled": true,
-          "editable": false,
+          "editable": true,
           "value": "",
           "valueType": "SINGLE_SELECT",
           "valueTypeConstraint": "http:StatusCode",

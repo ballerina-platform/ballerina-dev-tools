@@ -30,7 +30,7 @@
       },
       "enabled": true,
       "editable": true,
-      "value": "get",
+      "value": "GET",
       "valueType": "IDENTIFIER",
       "valueTypeConstraint": "http:Method",
       "isType": false,
