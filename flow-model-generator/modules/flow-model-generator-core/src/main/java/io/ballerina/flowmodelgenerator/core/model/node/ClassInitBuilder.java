@@ -38,39 +38,38 @@ import java.util.Set;
  * @since 2.0.0
  */
 public class ClassInitBuilder extends CallBuilder {
-
     private static final String CLASS_LABEL = "Class";
     private static final String DEFAULT_MODEL_NAME = "model";
-    private static final List<String> MODEL_TYPES = List.of(
-            "O3_MINI",
-            "O3_MINI_2025_01_31",
-            "O1",
-            "O1_2024_12_17",
-            "GPT_4O",
-            "GPT_4O_2024_11_20",
-            "GPT_4O_2024_08_06",
-            "GPT_4O_2024_05_13",
-            "GPT_4O_MINI",
-            "GPT_4O_MINI_2024_07_18",
-            "GPT_4_TURBO",
-            "GPT_4_TURBO_2024_04_09",
-            "GPT_4_0125_PREVIEW",
-            "GPT_4_TURBO_PREVIEW",
-            "GPT_4_1106_PREVIEW",
-            "GPT_4_VISION_PREVIEW",
-            "GPT_4",
-            "GPT_4_0314",
-            "GPT_4_0613",
-            "GPT_4_32K",
-            "GPT_4_32K_0314",
-            "GPT_4_32K_0613",
-            "GPT_3_5_TURBO",
-            "GPT_3_5_TURBO_16K",
-            "GPT_3_5_TURBO_0301",
-            "GPT_3_5_TURBO_0613",
-            "GPT_3_5_TURBO_1106",
-            "GPT_3_5_TURBO_0125",
-            "GPT_3_5_TURBO_16K_0613"
+    private static final List<String> OPEN_AI_MODEL_TYPES = List.of(
+            "agent:O3_MINI",
+            "agent:O3_MINI_2025_01_31",
+            "agent:O1",
+            "agent:O1_2024_12_17",
+            "agent:GPT_4O",
+            "agent:GPT_4O_2024_11_20",
+            "agent:GPT_4O_2024_08_06",
+            "agent:GPT_4O_2024_05_13",
+            "agent:GPT_4O_MINI",
+            "agent:GPT_4O_MINI_2024_07_18",
+            "agent:GPT_4_TURBO",
+            "agent:GPT_4_TURBO_2024_04_09",
+            "agent:GPT_4_0125_PREVIEW",
+            "agent:GPT_4_TURBO_PREVIEW",
+            "agent:GPT_4_1106_PREVIEW",
+            "agent:GPT_4_VISION_PREVIEW",
+            "agent:GPT_4",
+            "agent:GPT_4_0314",
+            "agent:GPT_4_0613",
+            "agent:GPT_4_32K",
+            "agent:GPT_4_32K_0314",
+            "agent:GPT_4_32K_0613",
+            "agent:GPT_3_5_TURBO",
+            "agent:GPT_3_5_TURBO_16K",
+            "agent:GPT_3_5_TURBO_0301",
+            "agent:GPT_3_5_TURBO_0613",
+            "agent:GPT_3_5_TURBO_1106",
+            "agent:GPT_3_5_TURBO_0125",
+            "agent:GPT_3_5_TURBO_16K_0613"
     );
     public static final String MODEL_TYPE = "modelType";
     public static final String REQUIRED = "REQUIRED";
@@ -136,7 +135,7 @@ public class ClassInitBuilder extends CallBuilder {
                     .description("The OpenAI model name as constant from OPEN_AI_MODEL_NAMES enum")
                     .stepOut()
                     .type(Property.ValueType.SINGLE_SELECT)
-                    .typeConstraint(MODEL_TYPES)
+                    .typeConstraint(OPEN_AI_MODEL_TYPES)
                     .placeholder("\"gpt-3.5-turbo-16k-0613\"")
                     .editable()
                     .codedata()
