@@ -1325,6 +1325,8 @@ class CodeAnalyzer extends NodeVisitor {
                         .semanticModel(semanticModel)
                         .userModuleInfo(moduleInfo);
         FunctionData functionData = functionDataBuilder.build();
+        processFunctionSymbol(methodCallExpressionNode, methodCallExpressionNode.arguments(), functionSymbol,
+                functionData);
 
         nodeBuilder
                 .symbolInfo(functionSymbol)

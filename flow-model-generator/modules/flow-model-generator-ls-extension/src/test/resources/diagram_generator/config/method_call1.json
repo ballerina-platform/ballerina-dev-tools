@@ -231,6 +231,30 @@
             "editable": false,
             "advanced": false
           },
+          "value": {
+            "metadata": {
+              "label": "value"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "int",
+            "value": "5",
+            "placeholder": "0",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "codedata": {
+              "kind": "REQUIRED",
+              "originalName": "value"
+            },
+            "typeMembers": [
+              {
+                "type": "int",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": true
+              }
+            ]
+          },
           "connection": {
             "metadata": {
               "label": "Class",
@@ -329,6 +353,30 @@
             "optional": false,
             "editable": false,
             "advanced": false
+          },
+          "value": {
+            "metadata": {
+              "label": "value"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "int",
+            "value": "2",
+            "placeholder": "0",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "codedata": {
+              "kind": "REQUIRED",
+              "originalName": "value"
+            },
+            "typeMembers": [
+              {
+                "type": "int",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": true
+              }
+            ]
           },
           "connection": {
             "metadata": {
