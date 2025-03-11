@@ -283,7 +283,7 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
     private boolean isNpFunctionProperty(ParameterNode parameterNode) {
         List<String> npFunctionProperties = List.of(NPFunctionDefinitionBuilder.PROMPT,
                 NPFunctionDefinitionBuilder.MODEL);
-        List<String> npFunctionPropertyTypes = List.of(NPFunctionDefinitionBuilder.PROMPT_TYPE, "Model");
+        List<String> npFunctionPropertyTypes = List.of("Prompt", "Model");
 
         Optional<Token> paramName;
         if (parameterNode.kind() == SyntaxKind.REQUIRED_PARAM) {
