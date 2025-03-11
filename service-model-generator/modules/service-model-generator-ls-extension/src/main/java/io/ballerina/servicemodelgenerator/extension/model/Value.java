@@ -29,7 +29,7 @@ public class Value {
     private boolean enabled;
     private boolean editable;
     private String value;
-    private List<String> values;
+    private List<Object> values;
     private String valueType;
     private String valueTypeConstraint;
     private boolean isType;
@@ -83,7 +83,7 @@ public class Value {
         this.codedata = codedata;
     }
 
-    public Value(MetaData metadata, boolean enabled, boolean editable, String value, List<String> values,
+    public Value(MetaData metadata, boolean enabled, boolean editable, String value, List<Object> values,
                  String valueType,
                  String valueTypeConstraint, boolean isType, String placeholder, boolean optional,
                  boolean advanced, Map<String, Value> properties, List<String> items, Codedata codedata,
@@ -136,22 +136,25 @@ public class Value {
     }
 
     public String getValue() {
-        List<String> values = this.values;
+        List<Object> values = this.values;
         if (Objects.nonNull(values) && !values.isEmpty()) {
-            return String.join(", ", values);
+            return String.join(", ", values.stream().map(Object::toString).toList());
         }
         return value;
     }
 
     public List<String> getValues() {
-        return values;
+        if (Objects.nonNull(values)) {
+            return values.stream().map(Object::toString).toList();
+        }
+        return null;
     }
 
     public void setValue(String value) {
         this.value = value;
     }
 
-    public void setValues(List<String> values) {
+    public void setValues(List<Object> values) {
         this.values = values;
     }
 
@@ -296,7 +299,7 @@ public class Value {
         private boolean enabled;
         private boolean editable;
         private String value;
-        private List<String> values;
+        private List<Object> values;
         private String valueType;
         private String valueTypeConstraint;
         private boolean isType;
@@ -374,7 +377,7 @@ public class Value {
             return this;
         }
 
-        public ValueBuilder setValues(List<String> values) {
+        public ValueBuilder setValues(List<Object> values) {
             this.values = values;
             return this;
         }
