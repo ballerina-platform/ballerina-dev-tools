@@ -80,6 +80,7 @@ under the License.
 <!--            <class name="io.ballerina.flowmodelgenerator.extension.agentsmanager.GetConnectorActionsTest"/>-->
 <!--            <class name="io.ballerina.flowmodelgenerator.extension.agentsmanager.FlowNodeGeneratorTest"/>-->
 <!--            <class name="io.ballerina.flowmodelgenerator.extension.agentsmanager.AvailableNodesTest"/>-->
+<!--            <class name="io.ballerina.flowmodelgenerator.extension.agentsmanager.SearchTest"/>-->
         </classes>
     </test>
 </suite>

@@ -19,11 +19,7 @@
 package io.ballerina.flowmodelgenerator.core.search;
 
 import io.ballerina.compiler.api.ModuleID;
-import io.ballerina.compiler.api.symbols.Documentation;
-import io.ballerina.compiler.api.symbols.FunctionSymbol;
-import io.ballerina.compiler.api.symbols.ModuleSymbol;
-import io.ballerina.compiler.api.symbols.Symbol;
-import io.ballerina.compiler.api.symbols.SymbolKind;
+import io.ballerina.compiler.api.symbols.*;
 import io.ballerina.flowmodelgenerator.core.model.AvailableNode;
 import io.ballerina.flowmodelgenerator.core.model.Category;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
@@ -65,6 +61,9 @@ import java.util.Optional;
  */
 class FunctionSearchCommand extends SearchCommand {
 
+    public static final String TOOL_ANNOTATION = "Tool";
+    private static final String BALLERINAX = "ballerinax";
+    private static final String AI_AGENT = "ai.agent";
     private static final Map<String, List<String>> POPULAR_BALLERINA_FUNCTIONS = Map.of(
             "log", List.of("printInfo", "printDebug", "printError", "printWarn"),
             "time", List.of("utcNow", "utcFromString"),
@@ -123,8 +122,10 @@ class FunctionSearchCommand extends SearchCommand {
                 getSemanticModel().moduleSymbols().stream()
                 .filter(symbol -> symbol.kind().equals(SymbolKind.FUNCTION)).toList();
         Category.Builder projectBuilder = rootBuilder.stepIn(Category.Name.CURRENT_INTEGRATION);
+        Category.Builder agentToolsBuilder = rootBuilder.stepIn(Category.Name.AGENT_TOOLS);
 
         List<Item> availableNodes = new ArrayList<>();
+        List<Item> availableTools = new ArrayList<>();
         for (Symbol symbol : functionSymbols) {
             FunctionSymbol functionSymbol = (FunctionSymbol) symbol;
             boolean isDataMappedFunction = false;
@@ -144,12 +145,14 @@ class FunctionSearchCommand extends SearchCommand {
                 continue;
             }
 
+            boolean agentTool = isAgentTool(functionSymbol);
             Metadata metadata = new Metadata.Builder<>(null)
                     .label(symbol.getName().get())
                     .description(functionSymbol.documentation()
                             .flatMap(Documentation::description)
                             .orElse(null))
                     .addData("isDataMappedFunction", isDataMappedFunction)
+                    .addData("isAgentTool", agentTool)
                     .build();
 
             Codedata.Builder<Object> codedata = new Codedata.Builder<>(null)
@@ -162,9 +165,14 @@ class FunctionSearchCommand extends SearchCommand {
                 id.moduleName();
             }
 
-            availableNodes.add(new AvailableNode(metadata, codedata.build(), true));
+            if (agentTool) {
+                availableTools.add(new AvailableNode(metadata, codedata.build(), true));
+            } else {
+                availableNodes.add(new AvailableNode(metadata, codedata.build(), true));
+            }
         }
         projectBuilder.items(availableNodes);
+        agentToolsBuilder.items(availableTools);
     }
 
     private void buildLibraryNodes(List<SearchResult> functionSearchList) {
@@ -197,5 +205,27 @@ class FunctionSearchCommand extends SearchCommand {
                         .node(new AvailableNode(metadata, codedata, true));
             }
         }
+    }
+
+    private boolean isAgentTool(FunctionSymbol functionSymbol) {
+        for (AnnotationAttachmentSymbol annotAttachment : functionSymbol.annotAttachments()) {
+            AnnotationSymbol annotationSymbol = annotAttachment.typeDescriptor();
+            Optional<ModuleSymbol> optModule = annotationSymbol.getModule();
+            if (optModule.isEmpty()) {
+                continue;
+            }
+            ModuleID id = optModule.get().id();
+            if (!(id.orgName().equals(BALLERINAX) && id.packageName().equals(AI_AGENT))) {
+                continue;
+            }
+            Optional<String> optName = annotationSymbol.getName();
+            if (optName.isEmpty()) {
+                continue;
+            }
+            if (optName.get().equals(TOOL_ANNOTATION)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
