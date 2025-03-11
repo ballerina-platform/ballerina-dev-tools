@@ -74,7 +74,8 @@
             "value": "mysqlClient",
             "optional": false,
             "editable": false,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           },
           "returnType": {
             "metadata": {
@@ -88,6 +89,7 @@
             "optional": false,
             "editable": true,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "kind": "PARAM_FOR_TYPE_INFER",
               "originalName": "returnType"
@@ -105,6 +107,7 @@
             "optional": false,
             "editable": true,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "kind": "REQUIRED",
               "originalName": "sqlQuery",
@@ -128,7 +131,8 @@
             "value": true,
             "optional": false,
             "editable": true,
-            "advanced": true
+            "advanced": true,
+            "hidden": false
           },
           "variable": {
             "metadata": {
@@ -140,6 +144,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "lineRange": {
                 "fileName": "mysql.bal",
@@ -165,6 +170,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {}
           }
         },
@@ -211,6 +217,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "DEFAULTABLE",
               "originalName": "host"
@@ -235,6 +242,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "DEFAULTABLE",
               "originalName": "user"
@@ -265,6 +273,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "DEFAULTABLE",
               "originalName": "password"
@@ -295,6 +304,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "DEFAULTABLE",
               "originalName": "database"
@@ -325,6 +335,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "DEFAULTABLE",
               "originalName": "port"
@@ -349,6 +360,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "DEFAULTABLE",
               "originalName": "options"
@@ -379,6 +391,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "DEFAULTABLE",
               "originalName": "connectionPool",
@@ -408,7 +421,8 @@
             "value": true,
             "optional": false,
             "editable": false,
-            "advanced": true
+            "advanced": true,
+            "hidden": false
           },
           "scope": {
             "metadata": {
@@ -419,7 +433,8 @@
             "value": "Global",
             "optional": false,
             "editable": true,
-            "advanced": true
+            "advanced": true,
+            "hidden": false
           },
           "variable": {
             "metadata": {
@@ -431,6 +446,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "lineRange": {
                 "fileName": "mysql.bal",
@@ -456,6 +472,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {}
           }
         },

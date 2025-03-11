@@ -110,7 +110,8 @@
                     "value": "0",
                     "optional": true,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   },
                   "variable": {
                     "metadata": {
@@ -122,6 +123,7 @@
                     "optional": false,
                     "editable": false,
                     "advanced": false,
+                    "hidden": false,
                     "codedata": {
                       "lineRange": {
                         "fileName": "lock.bal",
@@ -147,6 +149,7 @@
                     "optional": false,
                     "editable": true,
                     "advanced": false,
+                    "hidden": false,
                     "codedata": {}
                   }
                 },

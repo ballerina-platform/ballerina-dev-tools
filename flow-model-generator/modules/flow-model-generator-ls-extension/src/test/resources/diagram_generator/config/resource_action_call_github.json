@@ -52,6 +52,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "originalName": "/app\\-manifests/[code]/conversions"
             }
@@ -66,6 +67,7 @@
             "optional": false,
             "editable": true,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "kind": "PATH_PARAM",
               "originalName": "code"
@@ -81,7 +83,8 @@
             "value": "githubClient",
             "optional": false,
             "editable": false,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           },
           "variable": {
             "metadata": {
@@ -93,6 +96,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "lineRange": {
                 "fileName": "github_resource_call.bal",
@@ -116,7 +120,8 @@
             "value": true,
             "optional": false,
             "editable": true,
-            "advanced": true
+            "advanced": true,
+            "hidden": false
           },
           "type": {
             "metadata": {
@@ -129,6 +134,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {}
           }
         },
@@ -174,6 +180,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "originalName": "/notifications/threads/[thread_id]/subscription"
             }
@@ -189,6 +196,7 @@
             "optional": false,
             "editable": true,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "kind": "PATH_PARAM",
               "originalName": "thread_id"
@@ -204,7 +212,8 @@
             "value": "githubClient",
             "optional": false,
             "editable": false,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           },
           "variable": {
             "metadata": {
@@ -216,6 +225,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "lineRange": {
                 "fileName": "github_resource_call.bal",
@@ -239,7 +249,8 @@
             "value": true,
             "optional": false,
             "editable": true,
-            "advanced": true
+            "advanced": true,
+            "hidden": false
           },
           "type": {
             "metadata": {
@@ -252,6 +263,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {}
           }
         },
@@ -299,6 +311,7 @@
             "optional": false,
             "editable": true,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "kind": "REQUIRED",
               "originalName": "config"
@@ -323,6 +336,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "DEFAULTABLE",
               "originalName": "serviceUrl"
@@ -345,7 +359,8 @@
             "value": true,
             "optional": false,
             "editable": false,
-            "advanced": true
+            "advanced": true,
+            "hidden": false
           },
           "scope": {
             "metadata": {
@@ -356,7 +371,8 @@
             "value": "Global",
             "optional": false,
             "editable": true,
-            "advanced": true
+            "advanced": true,
+            "hidden": false
           },
           "variable": {
             "metadata": {
@@ -368,6 +384,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "lineRange": {
                 "fileName": "github_resource_call.bal",
@@ -393,6 +410,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {}
           }
         },

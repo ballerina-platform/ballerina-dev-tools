@@ -76,7 +76,8 @@
             "value": "10",
             "optional": true,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           },
           "variable": {
             "metadata": {
@@ -88,6 +89,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "lineRange": {
                 "fileName": "if.bal",
@@ -113,6 +115,7 @@
             "optional": false,
             "editable": true,
             "advanced": false,
+            "hidden": false,
             "codedata": {}
           }
         },
@@ -151,7 +154,8 @@
             "value": "20",
             "optional": true,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           },
           "variable": {
             "metadata": {
@@ -163,6 +167,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "lineRange": {
                 "fileName": "if.bal",
@@ -188,6 +193,7 @@
             "optional": false,
             "editable": true,
             "advanced": false,
+            "hidden": false,
             "codedata": {}
           }
         },
@@ -226,7 +232,8 @@
             "value": "x + y",
             "optional": true,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           },
           "variable": {
             "metadata": {
@@ -238,6 +245,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "lineRange": {
                 "fileName": "if.bal",
@@ -263,6 +271,7 @@
             "optional": false,
             "editable": true,
             "advanced": false,
+            "hidden": false,
             "codedata": {}
           }
         },
@@ -322,7 +331,8 @@
                 "placeholder": "true",
                 "optional": false,
                 "editable": true,
-                "advanced": false
+                "advanced": false,
+                "hidden": false
               }
             },
             "children": [
@@ -372,7 +382,8 @@
                     },
                     "optional": false,
                     "editable": false,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   },
                   "val": {
                     "metadata": {
@@ -385,6 +396,7 @@
                     "optional": false,
                     "editable": true,
                     "advanced": false,
+                    "hidden": false,
                     "codedata": {
                       "kind": "REQUIRED",
                       "originalName": "val"
@@ -485,7 +497,8 @@
                 "placeholder": "true",
                 "optional": false,
                 "editable": true,
-                "advanced": false
+                "advanced": false,
+                "hidden": false
               }
             },
             "children": [
@@ -535,7 +548,8 @@
                     },
                     "optional": false,
                     "editable": false,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   },
                   "val": {
                     "metadata": {
@@ -548,6 +562,7 @@
                     "optional": false,
                     "editable": true,
                     "advanced": false,
+                    "hidden": false,
                     "codedata": {
                       "kind": "REQUIRED",
                       "originalName": "val"
@@ -632,7 +647,8 @@
                     },
                     "optional": false,
                     "editable": false,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   },
                   "val": {
                     "metadata": {
@@ -645,6 +661,7 @@
                     "optional": false,
                     "editable": true,
                     "advanced": false,
+                    "hidden": false,
                     "codedata": {
                       "kind": "REQUIRED",
                       "originalName": "val"

@@ -33,6 +33,7 @@
         "optional": false,
         "editable": true,
         "advanced": false,
+        "hidden": false,
         "codedata": {
           "kind": "REQUIRED",
           "originalName": "x"
@@ -57,6 +58,7 @@
         "optional": false,
         "editable": false,
         "advanced": false,
+        "hidden": false,
         "codedata": {}
       },
       "variable": {
@@ -68,7 +70,8 @@
         "value": "intResult",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       }
     },
     "flags": 0

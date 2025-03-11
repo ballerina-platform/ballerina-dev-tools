@@ -94,12 +94,14 @@
                     "value": "var obj",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   }
                 ],
                 "optional": false,
                 "editable": true,
-                "advanced": false
+                "advanced": false,
+                "hidden": false
               },
               "guard": {
                 "metadata": {
@@ -110,7 +112,8 @@
                 "value": "obj is record {|int quantity; string 'type;|} ",
                 "optional": false,
                 "editable": true,
-                "advanced": false
+                "advanced": false,
+                "hidden": false
               }
             },
             "children": [
@@ -146,7 +149,8 @@
                     "value": "obj.quantity",
                     "optional": true,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   },
                   "variable": {
                     "metadata": {
@@ -158,6 +162,7 @@
                     "optional": false,
                     "editable": false,
                     "advanced": false,
+                    "hidden": false,
                     "codedata": {
                       "lineRange": {
                         "fileName": "match.bal",
@@ -183,6 +188,7 @@
                     "optional": false,
                     "editable": true,
                     "advanced": false,
+                    "hidden": false,
                     "codedata": {}
                   }
                 },
@@ -220,7 +226,8 @@
                     "value": "obj.'type",
                     "optional": true,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   },
                   "variable": {
                     "metadata": {
@@ -232,6 +239,7 @@
                     "optional": false,
                     "editable": false,
                     "advanced": false,
+                    "hidden": false,
                     "codedata": {
                       "lineRange": {
                         "fileName": "match.bal",
@@ -257,6 +265,7 @@
                     "optional": false,
                     "editable": true,
                     "advanced": false,
+                    "hidden": false,
                     "codedata": {}
                   }
                 },
@@ -294,7 +303,8 @@
                     "value": "string `Order for ${quantity} ${'type} cherries placed`",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   }
                 },
                 "flags": 0
@@ -337,12 +347,14 @@
                     "value": "_",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   }
                 ],
                 "optional": false,
                 "editable": true,
-                "advanced": false
+                "advanced": false,
+                "hidden": false
               }
             },
             "children": [
@@ -378,7 +390,8 @@
                     "value": "error(\"Invalid data format\")",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   }
                 },
                 "flags": 0
@@ -414,7 +427,8 @@
                 "value": "false",
                 "optional": false,
                 "editable": true,
-                "advanced": false
+                "advanced": false,
+                "hidden": false
               },
               "errorVariable": {
                 "metadata": {
@@ -426,7 +440,8 @@
                 "placeholder": "err",
                 "optional": false,
                 "editable": true,
-                "advanced": false
+                "advanced": false,
+                "hidden": false
               },
               "errorType": {
                 "metadata": {
@@ -438,7 +453,8 @@
                 "placeholder": "error",
                 "optional": false,
                 "editable": true,
-                "advanced": false
+                "advanced": false,
+                "hidden": false
               }
             },
             "children": [
@@ -495,7 +511,8 @@
                         "placeholder": "true",
                         "optional": false,
                         "editable": true,
-                        "advanced": false
+                        "advanced": false,
+                        "hidden": false
                       }
                     },
                     "children": [
@@ -531,7 +548,8 @@
                             "value": "error(\"Data processing failed\", e)",
                             "optional": false,
                             "editable": true,
-                            "advanced": false
+                            "advanced": false,
+                            "hidden": false
                           }
                         },
                         "flags": 0
@@ -555,7 +573,8 @@
             "placeholder": "true",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           }
         },
         "flags": 0

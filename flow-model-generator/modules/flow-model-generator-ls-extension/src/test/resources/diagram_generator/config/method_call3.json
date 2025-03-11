@@ -73,7 +73,8 @@
             "value": "redisClient",
             "optional": false,
             "editable": false,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           },
           "checkError": {
             "metadata": {
@@ -84,7 +85,8 @@
             "value": true,
             "optional": false,
             "editable": true,
-            "advanced": true
+            "advanced": true,
+            "hidden": false
           }
         },
         "flags": 1
@@ -130,6 +132,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "connection"
@@ -160,6 +163,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "connectionPooling"
@@ -184,6 +188,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "isClusterConnection"
@@ -208,6 +213,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "secureSocket"
@@ -230,7 +236,8 @@
             "value": true,
             "optional": false,
             "editable": false,
-            "advanced": true
+            "advanced": true,
+            "hidden": false
           },
           "scope": {
             "metadata": {
@@ -241,7 +248,8 @@
             "value": "Global",
             "optional": false,
             "editable": true,
-            "advanced": true
+            "advanced": true,
+            "hidden": false
           },
           "variable": {
             "metadata": {
@@ -253,6 +261,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "lineRange": {
                 "fileName": "method_call_redis.bal",
@@ -278,6 +287,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {}
           }
         },

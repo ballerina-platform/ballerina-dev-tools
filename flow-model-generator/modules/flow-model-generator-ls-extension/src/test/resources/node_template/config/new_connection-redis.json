@@ -41,6 +41,7 @@
         "optional": true,
         "editable": true,
         "advanced": true,
+        "hidden": false,
         "codedata": {
           "kind": "INCLUDED_FIELD",
           "originalName": "secureSocket"
@@ -65,6 +66,7 @@
         "optional": true,
         "editable": true,
         "advanced": true,
+        "hidden": false,
         "codedata": {
           "kind": "INCLUDED_FIELD",
           "originalName": "connectionPooling"
@@ -89,6 +91,7 @@
         "optional": true,
         "editable": true,
         "advanced": true,
+        "hidden": false,
         "codedata": {
           "kind": "INCLUDED_FIELD",
           "originalName": "connection"
@@ -119,6 +122,7 @@
         "optional": true,
         "editable": true,
         "advanced": true,
+        "hidden": false,
         "codedata": {
           "kind": "INCLUDED_FIELD",
           "originalName": "isClusterConnection"
@@ -143,6 +147,7 @@
         "optional": false,
         "editable": false,
         "advanced": false,
+        "hidden": false,
         "codedata": {}
       },
       "variable": {
@@ -154,7 +159,8 @@
         "value": "redisClient",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       },
       "scope": {
         "metadata": {
@@ -165,7 +171,8 @@
         "value": "Global",
         "optional": false,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "hidden": false
       },
       "checkError": {
         "metadata": {
@@ -176,7 +183,8 @@
         "value": true,
         "optional": false,
         "editable": false,
-        "advanced": true
+        "advanced": true,
+        "hidden": false
       }
     },
     "flags": 0

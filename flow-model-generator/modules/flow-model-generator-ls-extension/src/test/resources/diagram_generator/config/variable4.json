@@ -67,7 +67,8 @@
             "value": "\"create xml\"",
             "optional": true,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           },
           "variable": {
             "metadata": {
@@ -79,6 +80,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "lineRange": {
                 "fileName": "new_data.bal",
@@ -104,6 +106,7 @@
             "optional": false,
             "editable": true,
             "advanced": false,
+            "hidden": false,
             "codedata": {}
           }
         },
@@ -141,7 +144,8 @@
             "value": "xml `<p>${content}</p>`",
             "optional": true,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           },
           "variable": {
             "metadata": {
@@ -153,6 +157,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "lineRange": {
                 "fileName": "new_data.bal",
@@ -178,6 +183,7 @@
             "optional": false,
             "editable": true,
             "advanced": false,
+            "hidden": false,
             "codedata": {}
           }
         },
@@ -215,7 +221,8 @@
             "value": "xml `<book>The Lost World</book>`",
             "optional": true,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           },
           "variable": {
             "metadata": {
@@ -227,6 +234,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "lineRange": {
                 "fileName": "new_data.bal",
@@ -252,6 +260,7 @@
             "optional": false,
             "editable": true,
             "advanced": false,
+            "hidden": false,
             "codedata": {}
           }
         },

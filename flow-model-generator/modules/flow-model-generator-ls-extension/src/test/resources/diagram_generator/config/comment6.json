@@ -67,7 +67,8 @@
             "value": "0",
             "optional": true,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           },
           "variable": {
             "metadata": {
@@ -79,6 +80,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "lineRange": {
                 "fileName": "comment.bal",
@@ -104,6 +106,7 @@
             "optional": false,
             "editable": true,
             "advanced": false,
+            "hidden": false,
             "codedata": {}
           }
         },
@@ -141,7 +144,8 @@
             "value": "This is a while block",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           }
         },
         "flags": 0
@@ -221,7 +225,8 @@
                     "value": "update `x`",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   }
                 },
                 "flags": 0
@@ -258,7 +263,8 @@
                     "value": "x + 1",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   },
                   "variable": {
                     "metadata": {
@@ -269,7 +275,8 @@
                     "value": "x",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   }
                 },
                 "flags": 0
@@ -306,7 +313,8 @@
                     "value": "Generate new node",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   }
                 },
                 "flags": 0
@@ -325,7 +333,8 @@
             "placeholder": "true",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           }
         },
         "flags": 0

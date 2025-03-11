@@ -67,7 +67,8 @@
             "value": "fetchExample()",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           },
           "variable": {
             "metadata": {
@@ -79,6 +80,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "lineRange": {
                 "fileName": "wait.bal",
@@ -104,6 +106,7 @@
             "optional": false,
             "editable": true,
             "advanced": false,
+            "hidden": false,
             "codedata": {}
           }
         },
@@ -141,7 +144,8 @@
             "value": "fetchExample(1)",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           },
           "variable": {
             "metadata": {
@@ -153,6 +157,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "lineRange": {
                 "fileName": "wait.bal",
@@ -178,6 +183,7 @@
             "optional": false,
             "editable": true,
             "advanced": false,
+            "hidden": false,
             "codedata": {}
           }
         },
@@ -215,7 +221,8 @@
             "value": "mockFetch(\"http://error.com\", 1)",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           },
           "variable": {
             "metadata": {
@@ -227,6 +234,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "lineRange": {
                 "fileName": "wait.bal",
@@ -252,6 +260,7 @@
             "optional": false,
             "editable": true,
             "advanced": false,
+            "hidden": false,
             "codedata": {}
           }
         },
@@ -289,7 +298,8 @@
             "value": "[futureResult, futureResult1, futureResult2]",
             "optional": true,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           },
           "variable": {
             "metadata": {
@@ -301,6 +311,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "lineRange": {
                 "fileName": "wait.bal",
@@ -326,6 +337,7 @@
             "optional": false,
             "editable": true,
             "advanced": false,
+            "hidden": false,
             "codedata": {}
           }
         },
@@ -363,7 +375,8 @@
             "value": false,
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           },
           "futures": {
             "metadata": {
@@ -389,6 +402,7 @@
                     "optional": false,
                     "editable": true,
                     "advanced": false,
+                    "hidden": false,
                     "codedata": {
                       "dependentProperty": "waitAll"
                     }
@@ -402,12 +416,14 @@
                     "value": "futures[0] ",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   }
                 },
                 "optional": false,
                 "editable": false,
-                "advanced": false
+                "advanced": false,
+                "hidden": false
               },
               "future2": {
                 "metadata": {
@@ -426,6 +442,7 @@
                     "optional": false,
                     "editable": true,
                     "advanced": false,
+                    "hidden": false,
                     "codedata": {
                       "dependentProperty": "waitAll"
                     }
@@ -439,17 +456,20 @@
                     "value": "futures[2]",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   }
                 },
                 "optional": false,
                 "editable": false,
-                "advanced": false
+                "advanced": false,
+                "hidden": false
               }
             },
             "optional": false,
             "editable": false,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           },
           "variable": {
             "metadata": {
@@ -461,6 +481,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "lineRange": {
                 "fileName": "wait.bal",
@@ -486,6 +507,7 @@
             "optional": false,
             "editable": true,
             "advanced": false,
+            "hidden": false,
             "codedata": {}
           }
         },
@@ -523,7 +545,8 @@
             "value": true,
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           },
           "futures": {
             "metadata": {
@@ -549,6 +572,7 @@
                     "optional": false,
                     "editable": true,
                     "advanced": false,
+                    "hidden": false,
                     "codedata": {
                       "dependentProperty": "waitAll"
                     }
@@ -562,12 +586,14 @@
                     "value": "futures[0]",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   }
                 },
                 "optional": false,
                 "editable": false,
-                "advanced": false
+                "advanced": false,
+                "hidden": false
               },
               "future2": {
                 "metadata": {
@@ -586,6 +612,7 @@
                     "optional": false,
                     "editable": true,
                     "advanced": false,
+                    "hidden": false,
                     "codedata": {
                       "dependentProperty": "waitAll"
                     }
@@ -599,17 +626,20 @@
                     "value": "futures[2]",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   }
                 },
                 "optional": false,
                 "editable": false,
-                "advanced": false
+                "advanced": false,
+                "hidden": false
               }
             },
             "optional": false,
             "editable": false,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           },
           "variable": {
             "metadata": {
@@ -621,6 +651,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "lineRange": {
                 "fileName": "wait.bal",
@@ -646,6 +677,7 @@
             "optional": false,
             "editable": true,
             "advanced": false,
+            "hidden": false,
             "codedata": {}
           }
         },
@@ -683,7 +715,8 @@
             "value": "[val1, mapResult]",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           }
         },
         "flags": 0

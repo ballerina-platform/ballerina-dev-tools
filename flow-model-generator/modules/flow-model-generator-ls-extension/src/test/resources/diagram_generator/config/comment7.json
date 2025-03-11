@@ -110,7 +110,8 @@
                     "value": "i + 1",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   },
                   "variable": {
                     "metadata": {
@@ -121,7 +122,8 @@
                     "value": "_",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   }
                 },
                 "flags": 0
@@ -157,7 +159,8 @@
                 "value": "false",
                 "optional": false,
                 "editable": true,
-                "advanced": false
+                "advanced": false,
+                "hidden": false
               },
               "errorVariable": {
                 "metadata": {
@@ -169,7 +172,8 @@
                 "placeholder": "err",
                 "optional": false,
                 "editable": true,
-                "advanced": false
+                "advanced": false,
+                "hidden": false
               },
               "errorType": {
                 "metadata": {
@@ -181,7 +185,8 @@
                 "placeholder": "error",
                 "optional": false,
                 "editable": true,
-                "advanced": false
+                "advanced": false,
+                "hidden": false
               }
             },
             "children": [
@@ -217,7 +222,8 @@
                     "value": "This is a comment in on fail",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   }
                 },
                 "flags": 0
@@ -254,7 +260,8 @@
                     "value": "e",
                     "optional": true,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   },
                   "variable": {
                     "metadata": {
@@ -266,6 +273,7 @@
                     "optional": false,
                     "editable": false,
                     "advanced": false,
+                    "hidden": false,
                     "codedata": {
                       "lineRange": {
                         "fileName": "comment.bal",
@@ -291,6 +299,7 @@
                     "optional": false,
                     "editable": true,
                     "advanced": false,
+                    "hidden": false,
                     "codedata": {}
                   }
                 },
@@ -328,7 +337,8 @@
                     "value": "Panic with error `err`",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   }
                 },
                 "flags": 0
@@ -347,7 +357,8 @@
             "placeholder": "true",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           }
         },
         "flags": 0

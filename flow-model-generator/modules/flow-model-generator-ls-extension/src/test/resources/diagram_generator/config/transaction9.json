@@ -131,7 +131,8 @@
                         "placeholder": "true",
                         "optional": false,
                         "editable": true,
-                        "advanced": false
+                        "advanced": false,
+                        "hidden": false
                       }
                     },
                     "children": [
@@ -213,7 +214,8 @@
                             "value": "error(\"Rollback the transaction\")",
                             "optional": false,
                             "editable": true,
-                            "advanced": false
+                            "advanced": false,
+                            "hidden": false
                           }
                         },
                         "flags": 0

@@ -42,7 +42,8 @@
         "value": "covid19Client",
         "optional": false,
         "editable": false,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       },
       "country": {
         "metadata": {
@@ -55,6 +56,7 @@
         "optional": false,
         "editable": true,
         "advanced": false,
+        "hidden": false,
         "codedata": {
           "kind": "REQUIRED",
           "originalName": "country"
@@ -79,6 +81,7 @@
         "optional": true,
         "editable": true,
         "advanced": true,
+        "hidden": false,
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "yesterday"
@@ -109,6 +112,7 @@
         "optional": true,
         "editable": true,
         "advanced": true,
+        "hidden": false,
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "twoDaysAgo"
@@ -139,6 +143,7 @@
         "optional": true,
         "editable": true,
         "advanced": true,
+        "hidden": false,
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "strict"
@@ -163,6 +168,7 @@
         "optional": true,
         "editable": true,
         "advanced": true,
+        "hidden": false,
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "allowNull"
@@ -193,6 +199,7 @@
         "optional": false,
         "editable": false,
         "advanced": false,
+        "hidden": false,
         "codedata": {}
       },
       "variable": {
@@ -204,7 +211,8 @@
         "value": "covid19Covidcountry",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       },
       "checkError": {
         "metadata": {
@@ -215,7 +223,8 @@
         "value": true,
         "optional": false,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "hidden": false
       }
     },
     "flags": 0

@@ -45,7 +45,8 @@
         "value": "mysqlClient",
         "optional": false,
         "editable": false,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       },
       "rowType": {
         "metadata": {
@@ -58,6 +59,7 @@
         "optional": false,
         "editable": true,
         "advanced": false,
+        "hidden": false,
         "codedata": {
           "kind": "PARAM_FOR_TYPE_INFER",
           "originalName": "rowType"
@@ -74,6 +76,7 @@
         "optional": false,
         "editable": true,
         "advanced": false,
+        "hidden": false,
         "codedata": {
           "kind": "REQUIRED",
           "originalName": "sqlQuery",
@@ -99,6 +102,7 @@
         "optional": false,
         "editable": false,
         "advanced": false,
+        "hidden": false,
         "codedata": {
           "importStatements": "ballerina/sql"
         }
@@ -112,7 +116,8 @@
         "value": "streamRowtypeSqlError",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       }
     },
     "flags": 0

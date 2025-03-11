@@ -42,29 +42,32 @@ import static io.ballerina.modelgenerator.commons.ParameterData.Kind.REQUIRED;
  * @since 2.0.0
  */
 public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
-    public static final String LABEL = "Prompt as a code";
-    public static final String DESCRIPTION = "Define a prompt as a code";
+    public static final String LABEL = "Natural Function";
+    public static final String DESCRIPTION = "Define a natural function";
+    public static final String NATURAL_FUNCTION_PREFIX = "naturalFunction";
 
-    public static final String PROMPT_AS_A_CODE_NAME_DESCRIPTION = "Name for the Prompt as a code";
-    public static final String PROMPT_AS_A_CODE_NAME_LABEL = "Name";
+    public static final String NATURAL_FUNCTION_NAME_DESCRIPTION = "Name of the natural function";
+    public static final String NATURAL_FUNCTION_NAME_LABEL = "Name";
 
     public static final String PARAMETERS_LABEL = "Parameters";
-    public static final String PARAMETERS_DOC = "Prompt parameters";
+    public static final String PARAMETERS_DOC = "Function parameters";
 
-    private static final String PROMPT = "prompt";
-    private static final String PROMPT_LABEL = "Prompt";
-    private static final String PROMPT_DESCRIPTION = "Prompt for the function";
-    private static final String PROMPT_TYPE = "np:Prompt";
+    public static final String PROMPT = "prompt";
+    public static final String PROMPT_LABEL = "Prompt";
+    public static final String PROMPT_DESCRIPTION = "Prompt for the function";
+    public static final String PROMPT_TYPE = "np:Prompt";
 
-    private static final String MODEL = "model";
-    private static final String MODEL_LABEL = "Model";
-    private static final String MODEL_DESCRIPTION = "Model to be used";
-    private static final String MODEL_TYPE = "np:Model";
+    public static final String MODEL = "model";
+    public static final String MODEL_LABEL = "Model";
+    public static final String MODEL_DESCRIPTION = "Model to be used";
+    public static final String MODEL_TYPE = "np:Model";
 
     private static final String FUNCTIONS_BAL = "functions.bal";
 
     private static final String BALLERINAX_ORG = "ballerinax";
     private static final String NP_PACKAGE = "np";
+
+    private static final String NP_NATURAL_FUNCTION_BODY = "@np:NaturalFunction external";
 
     private static final Gson gson = new Gson();
 
@@ -80,10 +83,10 @@ public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
         properties()
-                .functionNameTemplate("promptAsCode",
+                .functionNameTemplate(NATURAL_FUNCTION_PREFIX,
                         context.getAllVisibleSymbolNames(),
-                        PROMPT_AS_A_CODE_NAME_LABEL,
-                        PROMPT_AS_A_CODE_NAME_DESCRIPTION)
+                        NATURAL_FUNCTION_NAME_LABEL,
+                        NATURAL_FUNCTION_NAME_DESCRIPTION)
                 .returnType(null)
                 .nestedProperty()
                 .endNestedProperty(Property.ValueType.REPEATABLE_PROPERTY, Property.PARAMETERS_KEY, PARAMETERS_LABEL,
@@ -101,6 +104,7 @@ public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
                     .placeholder("")
                     .typeConstraint(PROMPT_TYPE)
                     .editable()
+                    .hidden()
                     .type(Property.ValueType.RAW_TEMPLATE)
                     .stepOut()
                     .addProperty(PROMPT);
@@ -169,9 +173,15 @@ public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
         // Write the return type
         Optional<Property> returnType = sourceBuilder.flowNode.getProperty(Property.TYPE_KEY);
         if (returnType.isPresent() && !returnType.get().value().toString().isEmpty()) {
-            sourceBuilder.token()
-                    .keyword(SyntaxKind.RETURNS_KEYWORD)
-                    .name(returnType.get().value() + "|error");
+            if (returnType.get().value().toString().contains("error")) {
+                sourceBuilder.token()
+                        .keyword(SyntaxKind.RETURNS_KEYWORD)
+                        .name(returnType.get().value().toString());
+            } else {
+                sourceBuilder.token()
+                        .keyword(SyntaxKind.RETURNS_KEYWORD)
+                        .name(returnType.get().value() + "|error");
+            }
         } else {
             sourceBuilder.token().keyword(SyntaxKind.RETURNS_KEYWORD).name("error");
         }
@@ -183,7 +193,7 @@ public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
             sourceBuilder
                     .token()
                         .equal()
-                        .name("@np:LlmCall external")
+                        .name(NP_NATURAL_FUNCTION_BODY)
                         .semicolon()
                         .skipFormatting()
                         .stepOut()
