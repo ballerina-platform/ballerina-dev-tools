@@ -423,7 +423,7 @@
               "enabled": false,
               "editable": true,
               "value": "",
-              "valueType": "STRING",
+              "valueType": "EXPRESSION",
               "valueTypeConstraint": "string",
               "isType": false,
               "placeholder": "",

@@ -804,7 +804,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
 
                 ServiceDeclarationNode serviceNode = (ServiceDeclarationNode) node;
 
-                int newLineCount = addServiceAnnotationTextEdits(service, serviceNode, edits);
+                addServiceAnnotationTextEdits(service, serviceNode, edits);
 
                 Value basePathValue = service.getBasePath();
                 if (Objects.nonNull(basePathValue) && basePathValue.isEnabledWithValue()) {

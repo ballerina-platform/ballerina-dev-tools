@@ -18,12 +18,17 @@
 
 package io.ballerina.servicemodelgenerator.extension.model;
 
+/**
+ * Represents a HTTP response.
+ *
+ * @since 2.0.0
+ */
 public class HttpResponse {
-    private Value statusCode = null;
-    private Value body = null;
-    private Value name = null;
-    private Value type = null;
-    private Value headers = null;
+    private Value statusCode;
+    private Value body;
+    private Value name;
+    private Value type;
+    private Value headers;
     private boolean enabled = true;
     private boolean editable = false;
     private boolean advanced = false;
