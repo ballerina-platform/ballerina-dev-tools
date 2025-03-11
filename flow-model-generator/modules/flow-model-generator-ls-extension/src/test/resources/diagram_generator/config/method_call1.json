@@ -1,0 +1,548 @@
+{
+  "start": {
+    "line": 26,
+    "offset": 0
+  },
+  "end": {
+    "line": 35,
+    "offset": 1
+  },
+  "source": "method_call.bal",
+  "description": "",
+  "diagram": {
+    "fileName": "method_call.bal",
+    "nodes": [
+      {
+        "id": "58746",
+        "metadata": {
+          "label": "Start"
+        },
+        "codedata": {
+          "node": "EVENT_START",
+          "lineRange": {
+            "fileName": "method_call.bal",
+            "startLine": {
+              "line": 26,
+              "offset": 30
+            },
+            "endLine": {
+              "line": 35,
+              "offset": 1
+            }
+          },
+          "sourceCode": "public function userMethods() {\n    // Create an instance of Calculator class\n    Calculator calc = new Calculator(10);\n\n    // Method call examples\n    int result1 = calc.add(5);\n    int result2 = calc.multiply(2);\n    string total = calc.getTotal();\n    calc.clear();\n}"
+        },
+        "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "58573",
+        "metadata": {
+          "label": "Comment",
+          "description": "Create an instance of Calculator class"
+        },
+        "codedata": {
+          "node": "COMMENT",
+          "lineRange": {
+            "fileName": "method_call.bal",
+            "startLine": {
+              "line": 27,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 27,
+              "offset": 45
+            }
+          },
+          "sourceCode": "Create an instance of Calculator class"
+        },
+        "returning": false,
+        "properties": {
+          "comment": {
+            "metadata": {
+              "label": "Comment",
+              "description": "Comment to describe the flow"
+            },
+            "valueType": "STRING",
+            "value": "Create an instance of Calculator class",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "59685",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION",
+          "lineRange": {
+            "fileName": "method_call.bal",
+            "startLine": {
+              "line": 28,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 28,
+              "offset": 41
+            }
+          },
+          "sourceCode": "// Create an instance of Calculator class\n    Calculator calc = new Calculator(10);"
+        },
+        "returning": false,
+        "properties": {
+          "statement": {
+            "metadata": {
+              "label": "Statement",
+              "description": "Ballerina statement"
+            },
+            "valueType": "EXPRESSION",
+            "value": "new Calculator(10)",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "calc",
+            "optional": false,
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "method_call.bal",
+                "startLine": {
+                  "line": 28,
+                  "offset": 15
+                },
+                "endLine": {
+                  "line": 28,
+                  "offset": 19
+                }
+              }
+            }
+          },
+          "type": {
+            "metadata": {
+              "label": "Variable Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "Calculator",
+            "placeholder": "var",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "codedata": {}
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "60570",
+        "metadata": {
+          "label": "Comment",
+          "description": "Method call examples"
+        },
+        "codedata": {
+          "node": "COMMENT",
+          "lineRange": {
+            "fileName": "method_call.bal",
+            "startLine": {
+              "line": 29,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 30,
+              "offset": 27
+            }
+          },
+          "sourceCode": "Method call examples"
+        },
+        "returning": false,
+        "properties": {
+          "comment": {
+            "metadata": {
+              "label": "Comment",
+              "description": "Comment to describe the flow"
+            },
+            "valueType": "STRING",
+            "value": "Method call examples",
+            "optional": false,
+            "editable": true,
+            "advanced": false
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "62650",
+        "metadata": {
+          "label": "add",
+          "description": ""
+        },
+        "codedata": {
+          "node": "METHOD_CALL",
+          "org": "$anon",
+          "module": ".",
+          "symbol": "add",
+          "version": "0.0.0",
+          "lineRange": {
+            "fileName": "method_call.bal",
+            "startLine": {
+              "line": 31,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 31,
+              "offset": 30
+            }
+          },
+          "sourceCode": "// Method call examples\n    int result1 = calc.add(5);"
+        },
+        "returning": false,
+        "properties": {
+          "view": {
+            "metadata": {
+              "label": "View",
+              "description": "Function definition location"
+            },
+            "valueType": "VIEW",
+            "value": {
+              "fileName": "method_call.bal",
+              "startLine": {
+                "line": 7,
+                "offset": 4
+              },
+              "endLine": {
+                "line": 10,
+                "offset": 5
+              }
+            },
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          },
+          "connection": {
+            "metadata": {
+              "label": "Class",
+              "description": "Class of the method"
+            },
+            "valueType": "EXPRESSION",
+            "value": "calc",
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "result1",
+            "optional": false,
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "method_call.bal",
+                "startLine": {
+                  "line": 31,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 31,
+                  "offset": 15
+                }
+              }
+            }
+          },
+          "type": {
+            "metadata": {
+              "label": "Variable Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "int",
+            "placeholder": "var",
+            "optional": false,
+            "editable": false,
+            "advanced": false,
+            "codedata": {}
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "63647",
+        "metadata": {
+          "label": "multiply",
+          "description": ""
+        },
+        "codedata": {
+          "node": "METHOD_CALL",
+          "org": "$anon",
+          "module": ".",
+          "symbol": "multiply",
+          "version": "0.0.0",
+          "lineRange": {
+            "fileName": "method_call.bal",
+            "startLine": {
+              "line": 32,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 32,
+              "offset": 35
+            }
+          },
+          "sourceCode": "int result2 = calc.multiply(2);"
+        },
+        "returning": false,
+        "properties": {
+          "view": {
+            "metadata": {
+              "label": "View",
+              "description": "Function definition location"
+            },
+            "valueType": "VIEW",
+            "value": {
+              "fileName": "method_call.bal",
+              "startLine": {
+                "line": 12,
+                "offset": 4
+              },
+              "endLine": {
+                "line": 15,
+                "offset": 5
+              }
+            },
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          },
+          "connection": {
+            "metadata": {
+              "label": "Class",
+              "description": "Class of the method"
+            },
+            "valueType": "EXPRESSION",
+            "value": "calc",
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "result2",
+            "optional": false,
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "method_call.bal",
+                "startLine": {
+                  "line": 32,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 32,
+                  "offset": 15
+                }
+              }
+            }
+          },
+          "type": {
+            "metadata": {
+              "label": "Variable Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "int",
+            "placeholder": "var",
+            "optional": false,
+            "editable": false,
+            "advanced": false,
+            "codedata": {}
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "64639",
+        "metadata": {
+          "label": "getTotal",
+          "description": ""
+        },
+        "codedata": {
+          "node": "METHOD_CALL",
+          "org": "$anon",
+          "module": ".",
+          "symbol": "getTotal",
+          "version": "0.0.0",
+          "lineRange": {
+            "fileName": "method_call.bal",
+            "startLine": {
+              "line": 33,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 33,
+              "offset": 35
+            }
+          },
+          "sourceCode": "string total = calc.getTotal();"
+        },
+        "returning": false,
+        "properties": {
+          "view": {
+            "metadata": {
+              "label": "View",
+              "description": "Function definition location"
+            },
+            "valueType": "VIEW",
+            "value": {
+              "fileName": "method_call.bal",
+              "startLine": {
+                "line": 17,
+                "offset": 4
+              },
+              "endLine": {
+                "line": 19,
+                "offset": 5
+              }
+            },
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          },
+          "connection": {
+            "metadata": {
+              "label": "Class",
+              "description": "Class of the method"
+            },
+            "valueType": "EXPRESSION",
+            "value": "calc",
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "total",
+            "optional": false,
+            "editable": false,
+            "advanced": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "method_call.bal",
+                "startLine": {
+                  "line": 33,
+                  "offset": 11
+                },
+                "endLine": {
+                  "line": 33,
+                  "offset": 16
+                }
+              }
+            }
+          },
+          "type": {
+            "metadata": {
+              "label": "Variable Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "string",
+            "placeholder": "var",
+            "optional": false,
+            "editable": false,
+            "advanced": false,
+            "codedata": {}
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "65613",
+        "metadata": {
+          "label": "clear",
+          "description": ""
+        },
+        "codedata": {
+          "node": "METHOD_CALL",
+          "org": "$anon",
+          "module": ".",
+          "symbol": "clear",
+          "version": "0.0.0",
+          "lineRange": {
+            "fileName": "method_call.bal",
+            "startLine": {
+              "line": 34,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 34,
+              "offset": 17
+            }
+          },
+          "sourceCode": "calc.clear();"
+        },
+        "returning": false,
+        "properties": {
+          "view": {
+            "metadata": {
+              "label": "View",
+              "description": "Function definition location"
+            },
+            "valueType": "VIEW",
+            "value": {
+              "fileName": "method_call.bal",
+              "startLine": {
+                "line": 21,
+                "offset": 4
+              },
+              "endLine": {
+                "line": 23,
+                "offset": 5
+              }
+            },
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          },
+          "connection": {
+            "metadata": {
+              "label": "Class",
+              "description": "Class of the method"
+            },
+            "valueType": "EXPRESSION",
+            "value": "    calc",
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          }
+        },
+        "flags": 0
+      }
+    ],
+    "connections": []
+  }
+}

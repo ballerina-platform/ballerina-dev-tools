@@ -91,7 +91,7 @@ public class CommonUtils {
             Pattern.compile("(\\w+)/([\\w.]+):([^:]+):(\\w+)[|]?");
     public static final String BALLERINA_ORG_NAME = "ballerina";
     public static final String BALLERINAX_ORG_NAME = "ballerinax";
-    public static final String VALUE_LANG_LIB = "lang.value";
+    public static final String LANG_LIB_PREFIX = "lang.";
     private static final String LLM_CALL = "LlmCall";
     private static final String CALL_LLM = "callLlm";
 
@@ -754,7 +754,7 @@ public class CommonUtils {
             return false;
         }
         ModuleID id = module.get().id();
-        return id.orgName().equals(BALLERINA_ORG_NAME) && id.packageName().equals(VALUE_LANG_LIB);
+        return id.orgName().equals(BALLERINA_ORG_NAME) && id.packageName().startsWith(LANG_LIB_PREFIX);
     }
 
     /**
