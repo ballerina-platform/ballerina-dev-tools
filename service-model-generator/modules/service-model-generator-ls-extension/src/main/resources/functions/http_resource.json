@@ -14,7 +14,7 @@
     },
     "enabled": true,
     "editable": true,
-    "value": "",
+    "value": "GET",
     "valueType": "SINGLE_SELECT",
     "valueTypeConstraint": "http:Method",
     "isType": false,
