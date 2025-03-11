@@ -1,0 +1,83 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "65613",
+    "metadata": {
+      "label": "clear",
+      "description": ""
+    },
+    "codedata": {
+      "node": "METHOD_CALL",
+      "org": "$anon",
+      "module": ".",
+      "symbol": "clear",
+      "version": "0.0.0",
+      "lineRange": {
+        "fileName": "method_call.bal",
+        "startLine": {
+          "line": 34,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 34,
+          "offset": 17
+        }
+      },
+      "sourceCode": "calc.clear();"
+    },
+    "returning": false,
+    "properties": {
+      "view": {
+        "metadata": {
+          "label": "View",
+          "description": "Function definition location"
+        },
+        "valueType": "VIEW",
+        "value": {
+          "fileName": "method_call.bal",
+          "startLine": {
+            "line": 21,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 23,
+            "offset": 5
+          }
+        },
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      },
+      "connection": {
+        "metadata": {
+          "label": "Class",
+          "description": "Class of the method"
+        },
+        "valueType": "EXPRESSION",
+        "value": "    calc",
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 34,
+            "character": 4
+          },
+          "end": {
+            "line": 34,
+            "character": 17
+          }
+        },
+        "newText": "calc.clear();"
+      }
+    ]
+  }
+}
