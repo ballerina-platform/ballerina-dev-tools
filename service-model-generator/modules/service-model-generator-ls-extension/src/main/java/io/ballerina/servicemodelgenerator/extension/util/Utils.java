@@ -580,6 +580,8 @@ public final class Utils {
                         functionModel.getKind().equals(ServiceModelGeneratorConstants.KIND_RESOURCE)) {
                     getResourceFunctionModel().ifPresentOrElse(
                             resourceFunction -> {
+                                // remove the default json response from the resource function
+                                resourceFunction.getReturnType().getResponses().remove(1);
                                 updateFunctionInfo(resourceFunction, functionModel);
                                 serviceModel.addFunction(resourceFunction);
                             },

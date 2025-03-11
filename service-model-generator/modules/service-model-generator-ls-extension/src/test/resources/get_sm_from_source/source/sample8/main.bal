@@ -28,6 +28,10 @@ service /api on httpListener {
         return new http:Response();
 
     }
+
+    resource function get noReturn() {
+        return;
+    }
 }
 
 type HttpOk record {|

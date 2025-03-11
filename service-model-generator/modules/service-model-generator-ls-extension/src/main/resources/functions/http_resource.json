@@ -302,7 +302,7 @@
           "enabled": true,
           "editable": true,
           "value": "200",
-          "valueType": "EXPRESSION",
+          "valueType": "SINGLE_SELECT",
           "isType": false,
           "optional": false,
           "advanced": false,

@@ -259,7 +259,7 @@
               },
               "enabled": true,
               "editable": false,
-              "value": "",
+              "value": "http:Request",
               "valueType": "TYPE",
               "valueTypeConstraint": "http:Request",
               "isType": true,
@@ -302,7 +302,7 @@
               },
               "enabled": true,
               "editable": false,
-              "value": "",
+              "value": "http:Caller",
               "valueType": "TYPE",
               "valueTypeConstraint": "http:Caller",
               "isType": true,
@@ -322,7 +322,7 @@
               "valueType": "IDENTIFIER",
               "valueTypeConstraint": "string",
               "isType": false,
-              "placeholder": "request",
+              "placeholder": "caller",
               "optional": false,
               "advanced": false,
               "addNewButton": false
@@ -345,7 +345,7 @@
               },
               "enabled": true,
               "editable": false,
-              "value": "",
+              "value": "http:Headers",
               "valueType": "TYPE",
               "valueTypeConstraint": "http:Headers",
               "isType": true,
@@ -365,7 +365,7 @@
               "valueType": "IDENTIFIER",
               "valueTypeConstraint": "string",
               "isType": false,
-              "placeholder": "request",
+              "placeholder": "headers",
               "optional": false,
               "advanced": false,
               "addNewButton": false
@@ -553,7 +553,7 @@
                 "enabled": true,
                 "editable": true,
                 "value": "200",
-                "valueType": "EXPRESSION",
+                "valueType": "SINGLE_SELECT",
                 "isType": false,
                 "optional": false,
                 "advanced": false,
@@ -619,82 +619,6 @@
               "editable": true,
               "advanced": true,
               "isHttpResponseType": true
-            },
-            {
-              "statusCode": {
-                "metadata": {
-                  "label": "",
-                  "description": ""
-                },
-                "enabled": true,
-                "editable": true,
-                "value": "200",
-                "valueType": "EXPRESSION",
-                "isType": false,
-                "optional": false,
-                "advanced": false,
-                "addNewButton": false
-              },
-              "body": {
-                "metadata": {
-                  "label": "",
-                  "description": ""
-                },
-                "enabled": true,
-                "editable": true,
-                "value": "json",
-                "valueType": "TYPE",
-                "isType": false,
-                "optional": false,
-                "advanced": false,
-                "addNewButton": false
-              },
-              "name": {
-                "metadata": {
-                  "label": "",
-                  "description": ""
-                },
-                "enabled": true,
-                "editable": true,
-                "value": "",
-                "valueType": "IDENTIFIER",
-                "isType": false,
-                "optional": false,
-                "advanced": false,
-                "addNewButton": false
-              },
-              "type": {
-                "metadata": {
-                  "label": "",
-                  "description": ""
-                },
-                "enabled": true,
-                "editable": true,
-                "value": "json",
-                "valueType": "TYPE",
-                "isType": false,
-                "optional": false,
-                "advanced": false,
-                "addNewButton": false
-              },
-              "headers": {
-                "metadata": {
-                  "label": "",
-                  "description": ""
-                },
-                "enabled": true,
-                "editable": true,
-                "value": "",
-                "valueType": "EXPRESSION_SET",
-                "isType": false,
-                "optional": false,
-                "advanced": false,
-                "addNewButton": false
-              },
-              "enabled": true,
-              "editable": true,
-              "advanced": true,
-              "isHttpResponseType": false
             }
           ],
           "schema": {

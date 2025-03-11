@@ -45,13 +45,13 @@ public class HttpResponse {
     }
 
     public HttpResponse(String statusCode, String body, String name) {
-        this.statusCode = new Value(statusCode, "EXPRESSION", true);
+        this.statusCode = new Value(statusCode, "SINGLE_SELECT", true);
         this.body = new Value(body, "EXPRESSION", true);
         this.name = new Value(name, "EXPRESSION", true);
     }
 
     public HttpResponse(String statusCode, String type) {
-        this.statusCode = new Value(statusCode, "EXPRESSION", true);
+        this.statusCode = new Value(statusCode, "SINGLE_SELECT", true);
         this.body = new Value(type, "TYPE", true);
         this.name = new Value("", "IDENTIFIER", true);
         this.type = new Value(type, "TYPE", true);
@@ -59,7 +59,7 @@ public class HttpResponse {
     }
 
     public HttpResponse(String statusCode, String type, boolean editable) {
-        this.statusCode = new Value(statusCode, "EXPRESSION", true);
+        this.statusCode = new Value(statusCode, "SINGLE_SELECT", true);
         this.body = new Value("", "TYPE", true);
         this.name = new Value("", "IDENTIFIER", true);
         this.type = new Value(type, "TYPE", true);
@@ -68,7 +68,7 @@ public class HttpResponse {
     }
 
     public static HttpResponse getAnonResponse(String code, String typeStr) {
-        Value statusCode = new Value(code, "EXPRESSION", true);
+        Value statusCode = new Value(code, "SINGLE_SELECT", true);
         Value body = new Value("", "EXPRESSION", true);
         Value name = new Value("", "EXPRESSION", true);
         Value type = new Value(typeStr, "EXPRESSION", true);
