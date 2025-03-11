@@ -250,7 +250,7 @@ public final class HttpUtil {
         HttpResponse normalResponse = new HttpResponse(String.valueOf(defaultStatusCode), "http:Response");
         normalResponse.setAdvanced(true);
         normalResponse.setEditable(true);
-        normalResponse.setEnabled(!hasHttpResponse.get());
+        normalResponse.setEnabled(hasHttpResponse.get());
         responses.add(normalResponse);
 
         statusCodeResponses.stream()
