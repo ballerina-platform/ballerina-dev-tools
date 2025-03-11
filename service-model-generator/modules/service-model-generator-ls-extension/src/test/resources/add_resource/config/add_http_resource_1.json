@@ -78,7 +78,7 @@
           },
           "enabled": true,
           "editable": false,
-          "value": "",
+          "value": "http:Request",
           "valueType": "TYPE",
           "valueTypeConstraint": "http:Request",
           "isType": true,
@@ -94,7 +94,7 @@
           },
           "enabled": true,
           "editable": true,
-          "value": "",
+          "value": "request",
           "valueType": "IDENTIFIER",
           "valueTypeConstraint": "string",
           "isType": false,
@@ -103,7 +103,7 @@
           "advanced": false,
           "addNewButton": false
         },
-        "enabled": false,
+        "enabled": true,
         "editable": true,
         "optional": true,
         "advanced": true
@@ -121,7 +121,7 @@
           },
           "enabled": true,
           "editable": false,
-          "value": "",
+          "value": "http:Caller",
           "valueType": "TYPE",
           "valueTypeConstraint": "http:Caller",
           "isType": true,
@@ -137,7 +137,7 @@
           },
           "enabled": true,
           "editable": true,
-          "value": "",
+          "value": "caller",
           "valueType": "IDENTIFIER",
           "valueTypeConstraint": "string",
           "isType": false,
@@ -146,7 +146,7 @@
           "advanced": false,
           "addNewButton": false
         },
-        "enabled": false,
+        "enabled": true,
         "editable": true,
         "optional": true,
         "advanced": true
@@ -164,7 +164,7 @@
           },
           "enabled": true,
           "editable": false,
-          "value": "",
+          "value": "http:Headers",
           "valueType": "TYPE",
           "valueTypeConstraint": "http:Headers",
           "isType": true,
@@ -180,7 +180,7 @@
           },
           "enabled": true,
           "editable": true,
-          "value": "",
+          "value": "headers",
           "valueType": "IDENTIFIER",
           "valueTypeConstraint": "string",
           "isType": false,
@@ -189,7 +189,7 @@
           "advanced": false,
           "addNewButton": false
         },
-        "enabled": false,
+        "enabled": true,
         "editable": true,
         "optional": true,
         "advanced": true
@@ -570,7 +570,7 @@
             "character": 0
           }
         },
-        "newText": "\n\tresource function get response() {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t\tpanic error(\"Unhandled error\");\n\t\t}\n\t}\n"
+        "newText": "\n\tresource function get response(http:Request request, http:Caller caller, http:Headers headers) {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t\tpanic error(\"Unhandled error\");\n\t\t}\n\t}\n"
       }
     ]
   }
