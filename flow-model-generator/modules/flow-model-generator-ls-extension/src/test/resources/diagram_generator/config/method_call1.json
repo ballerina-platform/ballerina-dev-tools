@@ -193,6 +193,7 @@
           "node": "METHOD_CALL",
           "org": "$anon",
           "module": ".",
+          "object": "Calculator",
           "symbol": "add",
           "version": "0.0.0",
           "lineRange": {
@@ -231,6 +232,17 @@
             "editable": false,
             "advanced": false
           },
+          "connection": {
+            "metadata": {
+              "label": "Object",
+              "description": "The object which you want to call the method on"
+            },
+            "valueType": "EXPRESSION",
+            "value": "calc",
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          },
           "value": {
             "metadata": {
               "label": "value"
@@ -254,17 +266,6 @@
                 "selected": true
               }
             ]
-          },
-          "connection": {
-            "metadata": {
-              "label": "Class",
-              "description": "Class of the method"
-            },
-            "valueType": "EXPRESSION",
-            "value": "calc",
-            "optional": false,
-            "editable": false,
-            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -316,6 +317,7 @@
           "node": "METHOD_CALL",
           "org": "$anon",
           "module": ".",
+          "object": "Calculator",
           "symbol": "multiply",
           "version": "0.0.0",
           "lineRange": {
@@ -354,6 +356,17 @@
             "editable": false,
             "advanced": false
           },
+          "connection": {
+            "metadata": {
+              "label": "Object",
+              "description": "The object which you want to call the method on"
+            },
+            "valueType": "EXPRESSION",
+            "value": "calc",
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          },
           "value": {
             "metadata": {
               "label": "value"
@@ -377,17 +390,6 @@
                 "selected": true
               }
             ]
-          },
-          "connection": {
-            "metadata": {
-              "label": "Class",
-              "description": "Class of the method"
-            },
-            "valueType": "EXPRESSION",
-            "value": "calc",
-            "optional": false,
-            "editable": false,
-            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -439,6 +441,7 @@
           "node": "METHOD_CALL",
           "org": "$anon",
           "module": ".",
+          "object": "Calculator",
           "symbol": "getTotal",
           "version": "0.0.0",
           "lineRange": {
@@ -479,8 +482,8 @@
           },
           "connection": {
             "metadata": {
-              "label": "Class",
-              "description": "Class of the method"
+              "label": "Object",
+              "description": "The object which you want to call the method on"
             },
             "valueType": "EXPRESSION",
             "value": "calc",
@@ -538,6 +541,7 @@
           "node": "METHOD_CALL",
           "org": "$anon",
           "module": ".",
+          "object": "Calculator",
           "symbol": "clear",
           "version": "0.0.0",
           "lineRange": {
@@ -578,8 +582,8 @@
           },
           "connection": {
             "metadata": {
-              "label": "Class",
-              "description": "Class of the method"
+              "label": "Object",
+              "description": "The object which you want to call the method on"
             },
             "valueType": "EXPRESSION",
             "value": "    calc",

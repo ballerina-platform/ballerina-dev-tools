@@ -1306,6 +1306,13 @@ class CodeAnalyzer extends NodeVisitor {
             return;
         }
 
+        Optional<ClassSymbol> classSymbol = getClassSymbol(methodCallExpressionNode.expression());
+        if (classSymbol.isEmpty()) {
+            handleExpressionNode(methodCallExpressionNode);
+            return;
+        }
+
+
         ExpressionNode expressionNode = methodCallExpressionNode.expression();
         NameReferenceNode nameReferenceNode = methodCallExpressionNode.methodName();
         String functionName = getIdentifierName(nameReferenceNode);
@@ -1325,8 +1332,6 @@ class CodeAnalyzer extends NodeVisitor {
                         .semanticModel(semanticModel)
                         .userModuleInfo(moduleInfo);
         FunctionData functionData = functionDataBuilder.build();
-        processFunctionSymbol(methodCallExpressionNode, methodCallExpressionNode.arguments(), functionSymbol,
-                functionData);
 
         nodeBuilder
                 .symbolInfo(functionSymbol)
@@ -1336,20 +1341,14 @@ class CodeAnalyzer extends NodeVisitor {
                     .stepOut()
                 .codedata()
                     .symbol(functionName)
-                    .stepOut()
-                .properties()
-                    .callConnection(expressionNode, Property.CONNECTION_KEY);
-
-        try {
-            TypeSymbol typeSymbol = semanticModel.typeOf(expressionNode).orElseThrow();
-            ClassSymbol classSymbol = (ClassSymbol) ((TypeReferenceTypeSymbol) typeSymbol).typeDescriptor();
-            if (classSymbol.qualifiers().contains(Qualifier.CLIENT)) {
-                nodeBuilder.properties().callConnection(expressionNode, Property.CONNECTION_KEY);
-                return;
-            }
-        } catch (Throwable ignore) {
+                    .object(classSymbol.get().getName().orElse(""));
+        if (classSymbol.get().qualifiers().contains(Qualifier.CLIENT)) {
+            nodeBuilder.properties().callConnection(expressionNode, Property.CONNECTION_KEY);
+        } else {
+            nodeBuilder.properties().callExpression(expressionNode, Property.CONNECTION_KEY);
         }
-        nodeBuilder.properties().callExpression(expressionNode, Property.CONNECTION_KEY);
+        processFunctionSymbol(methodCallExpressionNode, methodCallExpressionNode.arguments(), functionSymbol,
+                functionData);
     }
 
     @Override

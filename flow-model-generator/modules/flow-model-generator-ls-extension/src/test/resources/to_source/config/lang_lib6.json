@@ -2,7 +2,7 @@
   "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "78591",
+    "id": "82494",
     "metadata": {
       "label": "Variable",
       "description": "Assign a value to a variable"
@@ -12,15 +12,15 @@
       "lineRange": {
         "fileName": "method_call.bal",
         "startLine": {
-          "line": 47,
+          "line": 51,
           "offset": 4
         },
         "endLine": {
-          "line": 50,
-          "offset": 6
+          "line": 51,
+          "offset": 34
         }
       },
-      "sourceCode": "map<string> fruits = {\n        \"a\": \"apple\",\n        \"b\": \"banana\"\n    };"
+      "sourceCode": "string[] keys = fruits.keys();"
     },
     "returning": false,
     "properties": {
@@ -30,7 +30,7 @@
           "description": "Initialize with value"
         },
         "valueType": "EXPRESSION",
-        "value": "{\n        \"a\": \"apple\",\n        \"b\": \"banana\"\n    }",
+        "value": "fruits.keys()",
         "optional": true,
         "editable": true,
         "advanced": false
@@ -41,7 +41,7 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "fruits",
+        "value": "keys",
         "optional": false,
         "editable": false,
         "advanced": false,
@@ -49,12 +49,12 @@
           "lineRange": {
             "fileName": "method_call.bal",
             "startLine": {
-              "line": 47,
-              "offset": 16
+              "line": 51,
+              "offset": 13
             },
             "endLine": {
-              "line": 47,
-              "offset": 22
+              "line": 51,
+              "offset": 17
             }
           }
         }
@@ -65,7 +65,7 @@
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "map<string>",
+        "value": "string[]",
         "placeholder": "var",
         "optional": false,
         "editable": true,
@@ -80,15 +80,15 @@
       {
         "range": {
           "start": {
-            "line": 47,
+            "line": 51,
             "character": 4
           },
           "end": {
-            "line": 50,
-            "character": 6
+            "line": 51,
+            "character": 34
           }
         },
-        "newText": "map<string> fruits = {\n    \"a\": \"apple\",\n    \"b\": \"banana\"\n};"
+        "newText": "string[] keys = fruits.keys();"
       }
     ]
   }
