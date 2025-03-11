@@ -46,6 +46,7 @@
           "node": "METHOD_CALL",
           "org": "ballerinax",
           "module": "redis",
+          "object": "Client",
           "symbol": "close",
           "version": "3.0.2",
           "lineRange": {
@@ -63,18 +64,6 @@
         },
         "returning": false,
         "properties": {
-          "checkError": {
-            "metadata": {
-              "label": "Check Error",
-              "description": "Trigger error flow"
-            },
-            "valueType": "FLAG",
-            "value": true,
-            "optional": false,
-            "editable": true,
-            "advanced": true,
-            "hidden": false
-          },
           "connection": {
             "metadata": {
               "label": "Connection",
@@ -84,8 +73,18 @@
             "value": "redisClient",
             "optional": false,
             "editable": false,
-            "advanced": false,
-            "hidden": false
+            "advanced": false
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Trigger error flow"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": true
           }
         },
         "flags": 1
@@ -131,7 +130,6 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "connection"
@@ -162,7 +160,6 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "connectionPooling"
@@ -187,7 +184,6 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "isClusterConnection"
@@ -212,7 +208,6 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "secureSocket"
@@ -235,8 +230,7 @@
             "value": true,
             "optional": false,
             "editable": false,
-            "advanced": true,
-            "hidden": false
+            "advanced": true
           },
           "scope": {
             "metadata": {
@@ -247,8 +241,7 @@
             "value": "Global",
             "optional": false,
             "editable": true,
-            "advanced": true,
-            "hidden": false
+            "advanced": true
           },
           "variable": {
             "metadata": {
@@ -260,7 +253,6 @@
             "optional": false,
             "editable": false,
             "advanced": false,
-            "hidden": false,
             "codedata": {
               "lineRange": {
                 "fileName": "method_call_redis.bal",
@@ -286,7 +278,6 @@
             "optional": false,
             "editable": false,
             "advanced": false,
-            "hidden": false,
             "codedata": {}
           }
         },

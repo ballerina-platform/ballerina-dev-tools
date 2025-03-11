@@ -67,8 +67,7 @@
             "value": "",
             "optional": true,
             "editable": true,
-            "advanced": false,
-            "hidden": false
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -80,7 +79,6 @@
             "optional": false,
             "editable": false,
             "advanced": false,
-            "hidden": false,
             "codedata": {
               "lineRange": {
                 "fileName": "while.bal",
@@ -106,7 +104,6 @@
             "optional": false,
             "editable": true,
             "advanced": false,
-            "hidden": false,
             "codedata": {}
           }
         },
@@ -144,8 +141,7 @@
             "value": "0",
             "optional": true,
             "editable": true,
-            "advanced": false,
-            "hidden": false
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -157,7 +153,6 @@
             "optional": false,
             "editable": false,
             "advanced": false,
-            "hidden": false,
             "codedata": {
               "lineRange": {
                 "fileName": "while.bal",
@@ -183,7 +178,6 @@
             "optional": false,
             "editable": true,
             "advanced": false,
-            "hidden": false,
             "codedata": {}
           }
         },
@@ -271,8 +265,7 @@
                     "value": "foodClient",
                     "optional": false,
                     "editable": false,
-                    "advanced": false,
-                    "hidden": false
+                    "advanced": false
                   },
                   "targetType": {
                     "metadata": {
@@ -286,7 +279,6 @@
                     "optional": false,
                     "editable": true,
                     "advanced": false,
-                    "hidden": false,
                     "codedata": {
                       "kind": "PARAM_FOR_TYPE_INFER",
                       "originalName": "targetType"
@@ -304,7 +296,6 @@
                     "optional": false,
                     "editable": true,
                     "advanced": false,
-                    "hidden": false,
                     "codedata": {
                       "kind": "REQUIRED",
                       "originalName": "path"
@@ -329,7 +320,6 @@
                     "optional": true,
                     "editable": true,
                     "advanced": true,
-                    "hidden": false,
                     "codedata": {
                       "kind": "DEFAULTABLE",
                       "originalName": "headers"
@@ -358,8 +348,7 @@
                     "value": true,
                     "optional": false,
                     "editable": true,
-                    "advanced": true,
-                    "hidden": false
+                    "advanced": true
                   },
                   "variable": {
                     "metadata": {
@@ -371,7 +360,6 @@
                     "optional": false,
                     "editable": false,
                     "advanced": false,
-                    "hidden": false,
                     "codedata": {
                       "lineRange": {
                         "fileName": "while.bal",
@@ -397,7 +385,6 @@
                     "optional": false,
                     "editable": false,
                     "advanced": false,
-                    "hidden": false,
                     "codedata": {}
                   }
                 },
@@ -406,16 +393,11 @@
               {
                 "id": "60964",
                 "metadata": {
-                  "label": "toString",
-                  "description": "Performs a direct conversion of a value to a string.\n\nThe conversion is direct in the sense that when applied to a value that is already\na string it leaves the value unchanged.\n\nThe details of the conversion are specified by the ToString abstract operation\ndefined in the Ballerina Language Specification, using the direct style.\n\n```ballerina\ndecimal value = 12.12d;\nvalue.toString() ⇒ 12.12\nanydata[] data = [1, \"Sam\", 12.3f, 12.12d, {value: 12}];\ndata.toString() ⇒ [1,\"Sam\",12.3,12.12,{\"value\":12}]\n```\n",
-                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.value_0.0.0.png"
+                  "label": "Assign",
+                  "description": "Assign a value to a variable"
                 },
                 "codedata": {
-                  "node": "METHOD_CALL",
-                  "org": "ballerina",
-                  "module": "lang.value",
-                  "symbol": "toString",
-                  "version": "0.0.0",
+                  "node": "ASSIGN",
                   "lineRange": {
                     "fileName": "while.bal",
                     "startLine": {
@@ -431,17 +413,27 @@
                 },
                 "returning": false,
                 "properties": {
-                  "connection": {
+                  "expression": {
                     "metadata": {
-                      "label": "Connection",
-                      "description": "Connection to use"
+                      "label": "Expression",
+                      "description": "Assign value"
                     },
                     "valueType": "EXPRESSION",
-                    "value": "response",
+                    "value": "\"Response received from food service: \" + response.toString()",
                     "optional": false,
-                    "editable": false,
-                    "advanced": false,
-                    "hidden": false
+                    "editable": true,
+                    "advanced": false
+                  },
+                  "variable": {
+                    "metadata": {
+                      "label": "Name",
+                      "description": "Name of the variable"
+                    },
+                    "valueType": "IDENTIFIER",
+                    "value": "msg",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -478,8 +470,7 @@
                     "value": "i += 1;",
                     "optional": false,
                     "editable": true,
-                    "advanced": false,
-                    "hidden": false
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -538,8 +529,7 @@
                     "value": "\"Error occurred while invoking food service\"",
                     "optional": false,
                     "editable": true,
-                    "advanced": false,
-                    "hidden": false
+                    "advanced": false
                   },
                   "variable": {
                     "metadata": {
@@ -550,8 +540,7 @@
                     "value": "msg",
                     "optional": false,
                     "editable": true,
-                    "advanced": false,
-                    "hidden": false
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -570,8 +559,7 @@
             "placeholder": "true",
             "optional": false,
             "editable": true,
-            "advanced": false,
-            "hidden": false
+            "advanced": false
           }
         },
         "flags": 0
@@ -618,7 +606,6 @@
             "optional": false,
             "editable": true,
             "advanced": false,
-            "hidden": false,
             "codedata": {
               "kind": "REQUIRED",
               "originalName": "url"
@@ -643,7 +630,6 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "httpVersion"
@@ -668,7 +654,6 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "http1Settings"
@@ -693,7 +678,6 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "http2Settings"
@@ -718,7 +702,6 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "timeout"
@@ -743,7 +726,6 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "forwarded"
@@ -768,7 +750,6 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "followRedirects"
@@ -799,7 +780,6 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "poolConfig"
@@ -830,7 +810,6 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "cache"
@@ -855,7 +834,6 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "compression"
@@ -880,7 +858,6 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "auth"
@@ -947,7 +924,6 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "circuitBreaker"
@@ -978,7 +954,6 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "retryConfig"
@@ -1009,7 +984,6 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "cookieConfig"
@@ -1040,7 +1014,6 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "responseLimits"
@@ -1065,7 +1038,6 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "proxy"
@@ -1096,7 +1068,6 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "validation"
@@ -1121,7 +1092,6 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "socketConfig"
@@ -1146,7 +1116,6 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "laxDataBinding"
@@ -1171,7 +1140,6 @@
             "optional": true,
             "editable": true,
             "advanced": true,
-            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "secureSocket"
@@ -1200,8 +1168,7 @@
             "value": true,
             "optional": false,
             "editable": false,
-            "advanced": true,
-            "hidden": false
+            "advanced": true
           },
           "scope": {
             "metadata": {
@@ -1212,8 +1179,7 @@
             "value": "Global",
             "optional": false,
             "editable": true,
-            "advanced": true,
-            "hidden": false
+            "advanced": true
           },
           "variable": {
             "metadata": {
@@ -1225,7 +1191,6 @@
             "optional": false,
             "editable": false,
             "advanced": false,
-            "hidden": false,
             "codedata": {
               "lineRange": {
                 "fileName": "while.bal",
@@ -1251,7 +1216,6 @@
             "optional": false,
             "editable": false,
             "advanced": false,
-            "hidden": false,
             "codedata": {}
           }
         },

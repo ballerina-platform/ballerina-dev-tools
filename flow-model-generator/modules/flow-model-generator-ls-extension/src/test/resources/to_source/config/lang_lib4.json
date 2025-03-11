@@ -1,0 +1,95 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "75555",
+    "metadata": {
+      "label": "Variable",
+      "description": "Assign a value to a variable"
+    },
+    "codedata": {
+      "node": "VARIABLE",
+      "lineRange": {
+        "fileName": "method_call.bal",
+        "startLine": {
+          "line": 44,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 44,
+          "offset": 39
+        }
+      },
+      "sourceCode": "string upper = text.toUpperAscii();"
+    },
+    "returning": false,
+    "properties": {
+      "expression": {
+        "metadata": {
+          "label": "Expression",
+          "description": "Initialize with value"
+        },
+        "valueType": "EXPRESSION",
+        "value": "text.toUpperAscii()",
+        "optional": true,
+        "editable": true,
+        "advanced": false
+      },
+      "variable": {
+        "metadata": {
+          "label": "Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "upper",
+        "optional": false,
+        "editable": false,
+        "advanced": false,
+        "codedata": {
+          "lineRange": {
+            "fileName": "method_call.bal",
+            "startLine": {
+              "line": 44,
+              "offset": 11
+            },
+            "endLine": {
+              "line": 44,
+              "offset": 16
+            }
+          }
+        }
+      },
+      "type": {
+        "metadata": {
+          "label": "Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "string",
+        "placeholder": "var",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {}
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 44,
+            "character": 4
+          },
+          "end": {
+            "line": 44,
+            "character": 39
+          }
+        },
+        "newText": "string upper = text.toUpperAscii();"
+      }
+    ]
+  }
+}
