@@ -53,7 +53,7 @@ class NPFunctionSearchCommand extends SearchCommand {
     private static final String NP_PACKAGE_NAME = "np";
     private static final String CALL_LLM_FUNCTION_NAME = "callLlm";
 
-    private static final String FETCH_KEY = "np_functions";
+    private static final String BUILT_IN_FUNCTIONS = "Built-in Functions";
     private final List<String> moduleNames;
 
     public NPFunctionSearchCommand(Project project, LineRange position, Map<String, String> queryMap) {
@@ -74,13 +74,28 @@ class NPFunctionSearchCommand extends SearchCommand {
 
     @Override
     protected List<Item> defaultView() {
+        getCallLlmNode();
         buildProjectNodes();
-        List<SearchResult> searchResults = new ArrayList<>();
-        if (!moduleNames.isEmpty()) {
-            searchResults.addAll(dbManager.searchFunctionsByPackages(moduleNames, List.of(), limit, offset));
-        }
-        buildLibraryNodes(searchResults);
         return rootBuilder.build().items();
+    }
+
+    private void getCallLlmNode() {
+        Metadata metadata = new Metadata.Builder<>(null)
+                .label("Call LLM")
+                .description("AI Call\n```ballerina\nnp:callLlm(\"prompt message\", id = 845315)\n```\n\n")
+                .icon("https://gist.github.com/user-attachments/assets/903c5c16-7d67-4af8-8113-ce7c59ccdaab")
+                .build();
+
+        Codedata codedata = new Codedata.Builder<>(null)
+                .node(NodeKind.NP_FUNCTION_CALL)
+                .org(BALLERINAX_ORG_NAME)
+                .module(NP_PACKAGE_NAME)
+                .symbol(CALL_LLM_FUNCTION_NAME)
+                .version("0.1.0")
+                .build();
+
+        Category.Builder builder = rootBuilder.stepIn(BUILT_IN_FUNCTIONS, null, null);
+        builder.node(new AvailableNode(metadata, codedata, true));
     }
 
     @Override
@@ -91,9 +106,7 @@ class NPFunctionSearchCommand extends SearchCommand {
 
     @Override
     protected Map<String, List<SearchResult>> fetchPopularItems() {
-        SearchResult searchResult = SearchResult.from(BALLERINAX_ORG_NAME, NP_PACKAGE_NAME, "0.1.0",
-                CALL_LLM_FUNCTION_NAME, "Call LLM with a prompt");
-        return Map.of(FETCH_KEY, List.of(searchResult));
+        return Map.of();
     }
 
     private void buildProjectNodes() {
@@ -129,37 +142,5 @@ class NPFunctionSearchCommand extends SearchCommand {
             availableNodes.add(new AvailableNode(metadata, codedata.build(), true));
         }
         projectBuilder.items(availableNodes);
-    }
-
-    private void buildLibraryNodes(List<SearchResult> functionSearchList) {
-        // Set the categories based on the available flags
-        Category.Builder importedFnBuilder = rootBuilder.stepIn(Category.Name.IMPORTED_FUNCTIONS);
-        Category.Builder availableFnBuilder = rootBuilder.stepIn(Category.Name.AVAILABLE_FUNCTIONS);
-
-        // Add the library functions
-        for (SearchResult searchResult : functionSearchList) {
-            SearchResult.Package packageInfo = searchResult.packageInfo();
-
-            // Add the function to the respective category
-            String icon = CommonUtils.generateIcon(packageInfo.org(), packageInfo.name(), packageInfo.version());
-            Metadata metadata = new Metadata.Builder<>(null)
-                    .label(searchResult.name())
-                    .description(searchResult.description())
-                    .icon(icon)
-                    .build();
-            Codedata codedata = new Codedata.Builder<>(null)
-                    .node(NodeKind.FUNCTION_CALL)
-                    .org(packageInfo.org())
-                    .module(packageInfo.name())
-                    .symbol(searchResult.name())
-                    .version(packageInfo.version())
-                    .build();
-            Category.Builder builder =
-                    moduleNames.contains(packageInfo.name()) ? importedFnBuilder : availableFnBuilder;
-            if (builder != null) {
-                builder.stepIn(packageInfo.name(), "", List.of())
-                        .node(new AvailableNode(metadata, codedata, true));
-            }
-        }
     }
 }
