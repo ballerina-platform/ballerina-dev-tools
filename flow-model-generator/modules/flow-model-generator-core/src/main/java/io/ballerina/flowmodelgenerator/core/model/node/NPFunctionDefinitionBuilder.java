@@ -51,15 +51,15 @@ public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
     public static final String PARAMETERS_LABEL = "Parameters";
     public static final String PARAMETERS_DOC = "Prompt parameters";
 
-    private static final String PROMPT = "prompt";
-    private static final String PROMPT_LABEL = "Prompt";
-    private static final String PROMPT_DESCRIPTION = "Prompt for the function";
-    private static final String PROMPT_TYPE = "np:Prompt";
+    public static final String PROMPT = "prompt";
+    public static final String PROMPT_LABEL = "Prompt";
+    public static final String PROMPT_DESCRIPTION = "Prompt for the function";
+    public static final String PROMPT_TYPE = "np:Prompt";
 
-    private static final String MODEL = "model";
-    private static final String MODEL_LABEL = "Model";
-    private static final String MODEL_DESCRIPTION = "Model to be used";
-    private static final String MODEL_TYPE = "np:Model";
+    public static final String MODEL = "model";
+    public static final String MODEL_LABEL = "Model";
+    public static final String MODEL_DESCRIPTION = "Model to be used";
+    public static final String MODEL_TYPE = "np:Model";
 
     private static final String FUNCTIONS_BAL = "functions.bal";
 
@@ -169,9 +169,15 @@ public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
         // Write the return type
         Optional<Property> returnType = sourceBuilder.flowNode.getProperty(Property.TYPE_KEY);
         if (returnType.isPresent() && !returnType.get().value().toString().isEmpty()) {
-            sourceBuilder.token()
-                    .keyword(SyntaxKind.RETURNS_KEYWORD)
-                    .name(returnType.get().value() + "|error");
+            if (returnType.get().value().toString().contains("error")) {
+                sourceBuilder.token()
+                        .keyword(SyntaxKind.RETURNS_KEYWORD)
+                        .name(returnType.get().value().toString());
+            } else {
+                sourceBuilder.token()
+                        .keyword(SyntaxKind.RETURNS_KEYWORD)
+                        .name(returnType.get().value() + "|error");
+            }
         } else {
             sourceBuilder.token().keyword(SyntaxKind.RETURNS_KEYWORD).name("error");
         }

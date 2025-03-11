@@ -476,14 +476,15 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
                 Path documentPath = project.kind() == ProjectKind.SINGLE_FILE_PROJECT ? projectPath :
                         projectPath.resolve(request.fileName());
                 Optional<Document> optDocument = this.workspaceManager.document(documentPath);
-                if (optDocument.isEmpty()) {
+                Optional<SemanticModel> optSemanticModel = this.workspaceManager.semanticModel(documentPath);
+                if (optDocument.isEmpty() || optSemanticModel.isEmpty()) {
                     return response;
                 }
                 Document document = optDocument.get();
 
                 // Analyze the module part nodes to find the respective function definition
                 ModuleNodeAnalyzer moduleNodeAnalyzer =
-                        new ModuleNodeAnalyzer(ModuleInfo.from(document.module().descriptor()));
+                        new ModuleNodeAnalyzer(ModuleInfo.from(document.module().descriptor()), optSemanticModel.get());
                 ModulePartNode rootNode = document.syntaxTree().rootNode();
                 Optional<JsonElement> function = moduleNodeAnalyzer.findFunction(rootNode, request.functionName());
                 function.ifPresent(response::setFunctionDefinition);
