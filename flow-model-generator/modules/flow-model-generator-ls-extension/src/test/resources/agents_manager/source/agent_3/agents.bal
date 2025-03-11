@@ -70,14 +70,14 @@ configurable string apiVersion = "2023-08-01-preview";
 configurable string serviceUrl = "https://bal-rnd.openai.azure.com/openai";
 configurable string apiKey = ?;
 
-agent:AzureOpenAiModel model = check new ({auth: {apiKey}}, serviceUrl, deploymentId, apiVersion);
+agent:AzureOpenAiModel myModel = check new ({auth: {apiKey}}, serviceUrl, deploymentId, apiVersion);
 
 isolated function getChatAssistantMessage(string content) returns agent:ChatAssistantMessage {
     return {role: agent:ASSISTANT, content};
 }
 
 // final MockLlm model = new;
-final agent:Agent agent = check new (model = model,
+final agent:Agent agent = check new (model = myModel,
     systemPrompt = {role: "Math tutor", instructions: "Help the students with their questions."},
     tools = [set, sum, mutiply], agentType = agent:REACT_AGENT
 );
