@@ -27,6 +27,7 @@ public class HttpResponse {
     private boolean enabled = true;
     private boolean editable = false;
     private boolean advanced = false;
+    private boolean isHttpResponseType = false;
 
     public HttpResponse() {
     }
@@ -133,5 +134,13 @@ public class HttpResponse {
 
     public boolean isEditable() {
         return editable;
+    }
+
+    public boolean isHttpResponseType() {
+        return isHttpResponseType;
+    }
+
+    public void setHttpResponseType(boolean httpResponseType) {
+        isHttpResponseType = httpResponseType;
     }
 }

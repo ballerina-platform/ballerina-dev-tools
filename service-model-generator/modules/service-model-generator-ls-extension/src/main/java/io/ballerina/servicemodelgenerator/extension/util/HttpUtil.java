@@ -251,6 +251,8 @@ public final class HttpUtil {
         normalResponse.setAdvanced(true);
         normalResponse.setEditable(true);
         normalResponse.setEnabled(hasHttpResponse.get());
+        normalResponse.setHttpResponseType(true);
+
         responses.add(normalResponse);
 
         statusCodeResponses.stream()

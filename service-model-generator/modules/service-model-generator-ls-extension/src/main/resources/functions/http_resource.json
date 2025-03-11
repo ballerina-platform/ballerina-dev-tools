@@ -366,7 +366,8 @@
         },
         "enabled": false,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "isHttpResponseType": true
       },
       {
         "statusCode": {
@@ -527,7 +528,8 @@
           "isType": false,
           "optional": true,
           "advanced": false,
-          "addNewButton": false
+          "addNewButton": false,
+          "isHttpResponseType": true
         }
       }
     }
