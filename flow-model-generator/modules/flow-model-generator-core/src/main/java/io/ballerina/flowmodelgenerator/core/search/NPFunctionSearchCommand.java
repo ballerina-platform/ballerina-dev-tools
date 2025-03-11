@@ -32,7 +32,6 @@ import io.ballerina.flowmodelgenerator.core.model.Metadata;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.SearchResult;
-import io.ballerina.projects.Package;
 import io.ballerina.projects.Project;
 import io.ballerina.tools.text.LineRange;
 
@@ -49,53 +48,17 @@ import java.util.Optional;
  */
 class NPFunctionSearchCommand extends SearchCommand {
 
-    private static final String BALLERINAX_ORG_NAME = "ballerinax";
-    private static final String NP_PACKAGE_NAME = "np";
-    private static final String CALL_LLM_FUNCTION_NAME = "callLlm";
-
-    private static final String BUILT_IN_FUNCTIONS = "Built-in Functions";
-    private final List<String> moduleNames;
+    private static final String NP_FUNCTION_ICON =
+            "https://gist.github.com/user-attachments/assets/903c5c16-7d67-4af8-8113-ce7c59ccdaab";
 
     public NPFunctionSearchCommand(Project project, LineRange position, Map<String, String> queryMap) {
         super(project, position, queryMap);
-
-        // Obtain the imported module names
-        Package currentPackage = project.currentPackage();
-        currentPackage.getCompilation();
-        moduleNames = currentPackage.getDefaultModule().moduleDependencies().stream()
-                .map(moduleDependency -> moduleDependency.descriptor().name().packageName().value())
-                .toList();
-        // TODO: Use this method when https://github.com/ballerina-platform/ballerina-lang/issues/43695 is fixed
-        // List<String> moduleNames = semanticModel.moduleSymbols().stream()
-        // .filter(symbol -> symbol.kind().equals(SymbolKind.MODULE))
-        // .flatMap(symbol -> symbol.getName().stream())
-        // .toList();
     }
 
     @Override
     protected List<Item> defaultView() {
-        getCallLlmNode();
         buildProjectNodes();
         return rootBuilder.build().items();
-    }
-
-    private void getCallLlmNode() {
-        Metadata metadata = new Metadata.Builder<>(null)
-                .label("Call LLM")
-                .description("AI Call\n```ballerina\nnp:callLlm(\"prompt message\", id = 845315)\n```\n\n")
-                .icon("https://gist.github.com/user-attachments/assets/903c5c16-7d67-4af8-8113-ce7c59ccdaab")
-                .build();
-
-        Codedata codedata = new Codedata.Builder<>(null)
-                .node(NodeKind.NP_FUNCTION_CALL)
-                .org(BALLERINAX_ORG_NAME)
-                .module(NP_PACKAGE_NAME)
-                .symbol(CALL_LLM_FUNCTION_NAME)
-                .version("0.1.0")
-                .build();
-
-        Category.Builder builder = rootBuilder.stepIn(BUILT_IN_FUNCTIONS, null, null);
-        builder.node(new AvailableNode(metadata, codedata, true));
     }
 
     @Override
@@ -124,14 +87,17 @@ class NPFunctionSearchCommand extends SearchCommand {
 
             Metadata metadata = new Metadata.Builder<>(null)
                     .label(symbol.getName().get())
+                    .icon(NP_FUNCTION_ICON)
                     .description(functionSymbol.documentation()
                             .flatMap(Documentation::description)
                             .orElse(null))
                     .build();
 
-            Codedata.Builder<Object> codedata = new Codedata.Builder<>(null)
+            Codedata codedata = new Codedata.Builder<>(null)
                     .node(NodeKind.NP_FUNCTION_CALL)
-                    .symbol(symbol.getName().get());
+                    .symbol(symbol.getName().get())
+                    .build();
+
             Optional<ModuleSymbol> moduleSymbol = functionSymbol.getModule();
             if (moduleSymbol.isPresent()) {
                 ModuleID id = moduleSymbol.get().id();
@@ -139,7 +105,7 @@ class NPFunctionSearchCommand extends SearchCommand {
                 id.moduleName();
             }
 
-            availableNodes.add(new AvailableNode(metadata, codedata.build(), true));
+            availableNodes.add(new AvailableNode(metadata, codedata, true));
         }
         projectBuilder.items(availableNodes);
     }
