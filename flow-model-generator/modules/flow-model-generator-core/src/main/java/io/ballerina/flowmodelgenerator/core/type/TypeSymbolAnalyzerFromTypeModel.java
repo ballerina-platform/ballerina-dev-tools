@@ -106,9 +106,14 @@ public class TypeSymbolAnalyzerFromTypeModel {
             ExpressionNode expr;
             if (specificFieldNode.valueExpr().isPresent()) {
                 expr = specificFieldNode.valueExpr().get();
-                if (expr instanceof MappingConstructorExpressionNode mapping && matchingType instanceof RecordType rt) {
-                    updateTypeConfig(rt, mapping);
-                } else {
+                if (expr instanceof MappingConstructorExpressionNode mapping) {
+                    if (matchingType instanceof RecordType rt) {
+                        updateTypeConfig(rt, mapping);
+                    } else if (matchingType instanceof UnionType ut) {
+                        updateUnionTypeConfig(ut, mapping);
+                    }
+                }
+                else {
                     matchingType.value = expr.toSourceCode();
                     matchingType.selected = true;
                 }
