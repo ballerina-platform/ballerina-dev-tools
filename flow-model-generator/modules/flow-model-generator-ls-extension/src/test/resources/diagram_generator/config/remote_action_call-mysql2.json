@@ -40,7 +40,7 @@
         "metadata": {
           "label": "queryRow",
           "description": "Executes the query, which is expected to return at most one row of the result.\nIf the query does not return any results, `sql:NoRowsError` is returned.\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mysql_1.14.0.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mysql_1.13.1.png"
         },
         "codedata": {
           "node": "REMOTE_ACTION_CALL",
@@ -48,7 +48,7 @@
           "module": "mysql",
           "object": "Client",
           "symbol": "queryRow",
-          "version": "1.14.0",
+          "version": "1.13.1",
           "lineRange": {
             "fileName": "mysql.bal",
             "startLine": {
@@ -183,7 +183,7 @@
         "metadata": {
           "label": "New Connection",
           "description": "Represents a MySQL database client.",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mysql_1.14.0.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mysql_1.13.1.png"
         },
         "codedata": {
           "node": "NEW_CONNECTION",
@@ -368,7 +368,7 @@
             "typeMembers": [
               {
                 "type": "Options",
-                "packageInfo": "ballerinax:mysql:1.14.0",
+                "packageInfo": "ballerinax:mysql:1.13.1",
                 "kind": "RECORD_TYPE",
                 "selected": false
               },
@@ -400,7 +400,7 @@
             "typeMembers": [
               {
                 "type": "ConnectionPool",
-                "packageInfo": "ballerina:sql:1.15.0",
+                "packageInfo": "ballerina:sql:1.14.0",
                 "kind": "RECORD_TYPE",
                 "selected": false
               },
