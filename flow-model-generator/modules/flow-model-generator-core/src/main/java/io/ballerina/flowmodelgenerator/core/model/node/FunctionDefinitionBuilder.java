@@ -20,12 +20,14 @@ package io.ballerina.flowmodelgenerator.core.model.node;
 
 import com.google.gson.Gson;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.compiler.syntax.tree.Token;
 import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.tools.text.LineRange;
+import org.ballerinalang.model.types.TypeKind;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
@@ -66,12 +68,25 @@ public class FunctionDefinitionBuilder extends NodeBuilder {
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
-        properties()
-                .functionNameTemplate("function", context.getAllVisibleSymbolNames())
-                .returnType(null)
-                .nestedProperty()
+        properties().functionNameTemplate("function", context.getAllVisibleSymbolNames());
+        setProperties(this, null);
+        endNestedProperties(this);
+    }
+
+    public static void setProperties(NodeBuilder nodeBuilder, String returnType) {
+        nodeBuilder.properties()
+                .returnType(returnType, null, true)
+                .nestedProperty();
+    }
+
+    public static void setProperty(FormBuilder<?> formBuilder, String type, String name, Token token) {
+        formBuilder.parameter(type, name, token, Property.ValueType.TYPE, null);
+    }
+
+    public static void endNestedProperties(NodeBuilder nodeBuilder) {
+        nodeBuilder.properties()
                 .endNestedProperty(Property.ValueType.REPEATABLE_PROPERTY, Property.PARAMETERS_KEY, PARAMETERS_LABEL,
-                        PARAMETERS_DOC, getParameterSchema(), true);
+                        PARAMETERS_DOC, getParameterSchema(), true, false);
     }
 
     @Override
@@ -139,7 +154,7 @@ public class FunctionDefinitionBuilder extends NodeBuilder {
 
         private static Property initParameterSchema() {
             FormBuilder<?> formBuilder = new FormBuilder<>(null, null, null, null);
-            formBuilder.parameter("", "");
+            setProperty(formBuilder, "", "", null);
             Map<String, Property> nodeProperties = formBuilder.build();
             return nodeProperties.get("");
         }

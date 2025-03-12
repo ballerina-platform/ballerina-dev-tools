@@ -81,7 +81,6 @@
                 "description": "Type of the variable"
               },
               "valueType": "TYPE",
-              "valueTypeConstraint": "anydata",
               "value": "",
               "optional": false,
               "editable": true,
@@ -120,7 +119,6 @@
                   "description": "Type of the variable"
                 },
                 "valueType": "TYPE",
-                "valueTypeConstraint": "anydata",
                 "value": "int",
                 "optional": false,
                 "editable": true,
@@ -171,7 +169,6 @@
                   "description": "Type of the variable"
                 },
                 "valueType": "TYPE",
-                "valueTypeConstraint": "anydata",
                 "value": "string",
                 "optional": false,
                 "editable": true,
@@ -222,7 +219,6 @@
                   "description": "Type of the variable"
                 },
                 "valueType": "TYPE",
-                "valueTypeConstraint": "anydata",
                 "value": "boolean",
                 "optional": false,
                 "editable": true,
@@ -273,7 +269,6 @@
                   "description": "Type of the variable"
                 },
                 "valueType": "TYPE",
-                "valueTypeConstraint": "anydata",
                 "value": "int...",
                 "optional": false,
                 "editable": true,

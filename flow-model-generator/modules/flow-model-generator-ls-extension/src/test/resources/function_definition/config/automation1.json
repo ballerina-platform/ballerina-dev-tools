@@ -1,0 +1,144 @@
+{
+  "filePath": "function_def",
+  "fileName": "main.bal",
+  "functionName": "main",
+  "description": "",
+  "output": {
+    "id": "33979",
+    "metadata": {
+      "label": "Automation",
+      "description": "Define an automation"
+    },
+    "codedata": {
+      "node": "AUTOMATION",
+      "lineRange": {
+        "fileName": "main.bal",
+        "startLine": {
+          "line": 2,
+          "offset": 7
+        },
+        "endLine": {
+          "line": 2,
+          "offset": 34
+        }
+      }
+    },
+    "returning": false,
+    "properties": {
+      "name": {
+        "metadata": {
+          "label": "Parameter",
+          "description": "Function parameter"
+        },
+        "valueType": "FIXED_PROPERTY",
+        "value": {
+          "type": {
+            "metadata": {
+              "label": "Variable Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "SINGLE_SELECT",
+            "valueTypeConstraint": [
+              "STRING",
+              "INT",
+              "FLOAT",
+              "DECIMAL",
+              "BYTE"
+            ],
+            "value": "string",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "hidden": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "name",
+            "optional": false,
+            "editable": false,
+            "advanced": false,
+            "hidden": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "main.bal",
+                "startLine": {
+                  "line": 2,
+                  "offset": 28
+                },
+                "endLine": {
+                  "line": 2,
+                  "offset": 32
+                }
+              }
+            }
+          }
+        },
+        "optional": false,
+        "editable": false,
+        "advanced": false,
+        "hidden": false
+      },
+      "parameters": {
+        "metadata": {
+          "label": "Parameters",
+          "description": "Automation parameters"
+        },
+        "valueType": "REPEATABLE_PROPERTY",
+        "valueTypeConstraint": {
+          "metadata": {
+            "label": "Parameter",
+            "description": "Function parameter"
+          },
+          "valueType": "FIXED_PROPERTY",
+          "value": {
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "SINGLE_SELECT",
+              "valueTypeConstraint": [
+                "STRING",
+                "INT",
+                "FLOAT",
+                "DECIMAL",
+                "BYTE"
+              ],
+              "value": "",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "variable": {
+              "metadata": {
+                "label": "Variable Name",
+                "description": "Name of the variable"
+              },
+              "valueType": "IDENTIFIER",
+              "value": "",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            }
+          },
+          "optional": false,
+          "editable": false,
+          "advanced": false,
+          "hidden": false
+        },
+        "value": {},
+        "optional": true,
+        "editable": false,
+        "advanced": true,
+        "hidden": false
+      }
+    },
+    "flags": 0
+  }
+}

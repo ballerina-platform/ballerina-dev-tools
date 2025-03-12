@@ -81,7 +81,6 @@
                 "description": "Type of the variable"
               },
               "valueType": "TYPE",
-              "valueTypeConstraint": "anydata",
               "value": "",
               "optional": false,
               "editable": true,

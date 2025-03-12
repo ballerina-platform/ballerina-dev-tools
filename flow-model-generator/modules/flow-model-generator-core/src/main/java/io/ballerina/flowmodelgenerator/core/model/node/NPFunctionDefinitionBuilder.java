@@ -21,6 +21,7 @@ package io.ballerina.flowmodelgenerator.core.model.node;
 import com.google.gson.Gson;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
+import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
@@ -37,11 +38,12 @@ import static io.ballerina.modelgenerator.commons.ParameterData.Kind.DEFAULTABLE
 import static io.ballerina.modelgenerator.commons.ParameterData.Kind.REQUIRED;
 
 /**
-* Represents the properties of a Natural programming function definition node.
+ * Represents the properties of a Natural programming function definition node.
  *
  * @since 2.0.0
  */
 public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
+
     public static final String LABEL = "Natural Function";
     public static final String DESCRIPTION = "Define a natural function";
     public static final String NATURAL_FUNCTION_PREFIX = "naturalFunction";
@@ -82,50 +84,59 @@ public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
-        properties()
-                .functionNameTemplate(NATURAL_FUNCTION_PREFIX,
-                        context.getAllVisibleSymbolNames(),
-                        NATURAL_FUNCTION_NAME_LABEL,
-                        NATURAL_FUNCTION_NAME_DESCRIPTION)
-                .returnType(null)
-                .nestedProperty()
-                .endNestedProperty(Property.ValueType.REPEATABLE_PROPERTY, Property.PARAMETERS_KEY, PARAMETERS_LABEL,
-                        PARAMETERS_DOC, getParameterSchema(), true);
-
+        properties().functionNameTemplate(NATURAL_FUNCTION_PREFIX,
+                context.getAllVisibleSymbolNames(),
+                NATURAL_FUNCTION_NAME_LABEL,
+                NATURAL_FUNCTION_NAME_DESCRIPTION);
+        setProperties(this, null);
+        endNestedProperties(this);
         // prompt
         properties().custom()
-                    .metadata()
-                        .label(PROMPT_LABEL)
-                        .description(PROMPT_DESCRIPTION)
-                        .stepOut()
-                    .codedata()
-                        .kind(REQUIRED.name())
-                        .stepOut()
-                    .placeholder("")
-                    .typeConstraint(PROMPT_TYPE)
-                    .editable()
-                    .hidden()
-                    .type(Property.ValueType.RAW_TEMPLATE)
+                .metadata()
+                    .label(PROMPT_LABEL)
+                    .description(PROMPT_DESCRIPTION)
                     .stepOut()
-                    .addProperty(PROMPT);
+                .codedata()
+                    .kind(REQUIRED.name())
+                    .stepOut()
+                .placeholder("")
+                .typeConstraint(PROMPT_TYPE)
+                .editable()
+                .hidden()
+                .type(Property.ValueType.RAW_TEMPLATE)
+                .stepOut()
+                .addProperty(PROMPT);
 
         // model
         properties().custom()
-                    .metadata()
-                        .label(MODEL_LABEL)
-                        .description(MODEL_DESCRIPTION)
-                        .stepOut()
-                    .codedata()
-                        .kind(DEFAULTABLE.name())
-                        .stepOut()
-                    .placeholder("")
-                    .typeConstraint(MODEL_TYPE)
-                    .editable()
-                    .optional(true)
-                    .advanced(true)
-                    .type(Property.ValueType.EXPRESSION)
+                .metadata()
+                    .label(MODEL_LABEL)
+                    .description(MODEL_DESCRIPTION)
                     .stepOut()
-                    .addProperty(MODEL);
+                .codedata()
+                    .kind(DEFAULTABLE.name())
+                    .stepOut()
+                .placeholder("")
+                .typeConstraint(MODEL_TYPE)
+                .editable()
+                .optional(true)
+                .advanced(true)
+                .type(Property.ValueType.EXPRESSION)
+                .stepOut()
+                .addProperty(MODEL);
+    }
+
+    public static void setProperties(NodeBuilder nodeBuilder, String returnType) {
+        nodeBuilder.properties()
+                .returnType(returnType, null, true)
+                .nestedProperty();
+    }
+
+    public static void endNestedProperties(NodeBuilder nodeBuilder) {
+        nodeBuilder.properties()
+                .nestedProperty()
+                .endNestedProperty(Property.ValueType.REPEATABLE_PROPERTY, Property.PARAMETERS_KEY, PARAMETERS_LABEL,
+                        PARAMETERS_DOC, getParameterSchema(), true, false);
     }
 
     @Override

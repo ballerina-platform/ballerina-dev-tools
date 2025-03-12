@@ -16,7 +16,7 @@
  *  under the License.
  */
 
-package io.ballerina.flowmodelgenerator.core;
+package io.ballerina.flowmodelgenerator.core.analyzers.function;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -41,6 +41,7 @@ import io.ballerina.compiler.syntax.tree.Token;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
+import io.ballerina.flowmodelgenerator.core.model.node.AutomationBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.DataMapperDefinitionBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.FunctionDefinitionBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.NPFunctionDefinitionBuilder;
@@ -92,28 +93,18 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
     public void visit(FunctionDefinitionNode functionDefinitionNode) {
         boolean isNpFunction = isNpFunction(functionDefinitionNode);
 
-        // Build the metadata based on the function body kind
-        FunctionMetadata metadata = functionDefinitionNode.functionBody().kind() == SyntaxKind.EXPRESSION_FUNCTION_BODY
-                ? new FunctionMetadata(
-                    NodeKind.DATA_MAPPER_DEFINITION,
-                    DataMapperDefinitionBuilder.PARAMETERS_LABEL,
-                    DataMapperDefinitionBuilder.PARAMETERS_DOC,
-                    false,
-                    DataMapperDefinitionBuilder.RECORD_TYPE)
-                : isNpFunction
-                    ? new FunctionMetadata(
-                        NodeKind.NP_FUNCTION_DEFINITION,
-                        NPFunctionDefinitionBuilder.PARAMETERS_LABEL,
-                        NPFunctionDefinitionBuilder.PARAMETERS_DOC,
-                        true,
-                        null)
-                    : new FunctionMetadata(
-                        NodeKind.FUNCTION_DEFINITION,
-                        FunctionDefinitionBuilder.PARAMETERS_LABEL,
-                        FunctionDefinitionBuilder.PARAMETERS_DOC,
-                        true,
-                        null);
-        NodeBuilder nodeBuilder = NodeBuilder.getNodeFromKind(metadata.nodeKind)
+        NodeKind nodeKind;
+        if (functionDefinitionNode.functionBody().kind() == SyntaxKind.EXPRESSION_FUNCTION_BODY) {
+            nodeKind = NodeKind.DATA_MAPPER_DEFINITION;
+        } else if (functionDefinitionNode.functionName().text().equals(AutomationBuilder.MAIN_FUNCTION_NAME)) {
+            nodeKind = NodeKind.AUTOMATION;
+        } else if (isNpFunction) {
+            nodeKind = NodeKind.NP_FUNCTION_DEFINITION;
+        } else {
+            nodeKind = NodeKind.FUNCTION_DEFINITION;
+        }
+
+        NodeBuilder nodeBuilder = NodeBuilder.getNodeFromKind(nodeKind)
                 .defaultModuleName(this.moduleInfo);
 
         // Set the line range of the function definition node
@@ -124,15 +115,18 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
                 functionDefinitionNode.functionBody().lineRange().startLine()));
 
         // Set the function name, return type and nested properties
-        nodeBuilder.properties()
-                .functionName(functionDefinitionNode.functionName())
-                .returnType(
-                        functionDefinitionNode.functionSignature().returnTypeDesc()
-                                .map(type -> type.type().toSourceCode().strip())
-                                .orElse(""),
-                        metadata.returnTypeConstraint,
-                        metadata.returnTypeConstraint == null)
-                .nestedProperty();
+        String returnType = functionDefinitionNode.functionSignature().returnTypeDesc()
+                .map(type -> type.type().toSourceCode().strip())
+                .orElse("");
+        if (nodeKind != NodeKind.AUTOMATION) {
+            nodeBuilder.properties().functionName(functionDefinitionNode.functionName());
+        }
+        switch (nodeKind) {
+            case FUNCTION_DEFINITION -> FunctionDefinitionBuilder.setProperties(nodeBuilder, returnType);
+            case DATA_MAPPER_DEFINITION -> DataMapperDefinitionBuilder.setProperties(nodeBuilder, returnType);
+            case AUTOMATION -> AutomationBuilder.setProperties(nodeBuilder, !returnType.isEmpty());
+            case NP_FUNCTION_DEFINITION -> NPFunctionDefinitionBuilder.setProperties(nodeBuilder, returnType);
+        }
 
         // Set the function parameters
         for (ParameterNode parameter : functionDefinitionNode.functionSignature().parameters()) {
@@ -162,19 +156,26 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
                     continue;
                 }
             }
-            nodeBuilder.properties().parameter(paramType, paramName.map(Token::text).orElse(""),
-                    paramName.orElse(null));
+            String paramNameText = paramName.map(Token::text).orElse("");
+            Token paramToken = paramName.orElse(null);
+            switch (nodeKind) {
+                case AUTOMATION -> AutomationBuilder.setProperty(nodeBuilder.properties(), paramType,
+                        paramNameText, paramToken);
+                case DATA_MAPPER_DEFINITION -> DataMapperDefinitionBuilder.setProperty(nodeBuilder.properties(), paramType,
+                        paramNameText, paramToken);
+                default -> FunctionDefinitionBuilder.setProperty(nodeBuilder.properties(), paramType,
+                        paramNameText, paramToken);
+            }
         }
-        nodeBuilder.properties().endNestedProperty(
-                Property.ValueType.REPEATABLE_PROPERTY,
-                Property.PARAMETERS_KEY,
-                metadata.parametersLabel,
-                metadata.parametersDoc,
-                FunctionDefinitionBuilder.getParameterSchema(),
-                metadata.optionalParameters);
 
-        if (isNpFunction) {
-            processNpFunctionDefinitionProperties(functionDefinitionNode, nodeBuilder);
+        switch (nodeKind) {
+            case FUNCTION_DEFINITION -> FunctionDefinitionBuilder.endNestedProperties(nodeBuilder);
+            case DATA_MAPPER_DEFINITION -> DataMapperDefinitionBuilder.endNestedProperties(nodeBuilder);
+            case AUTOMATION -> AutomationBuilder.endNestedProperties(nodeBuilder);
+            case NP_FUNCTION_DEFINITION -> {
+                NPFunctionDefinitionBuilder.endNestedProperties(nodeBuilder);
+                processNpFunctionDefinitionProperties(functionDefinitionNode, nodeBuilder);
+            }
         }
 
         // Build the definition node
@@ -248,15 +249,8 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
         return this.node;
     }
 
-    private record FunctionMetadata(
-            NodeKind nodeKind,
-            String parametersLabel,
-            String parametersDoc,
-            boolean optionalParameters,
-            String returnTypeConstraint) {
-    }
-
     // Utils
+
     /**
      * Check whether the given function is a prompt as code function.
      *
@@ -274,10 +268,9 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
         return CommonUtils.isNpFunction(((ExternalFunctionSymbol) funcSymbol.get()));
     }
 
-
     /**
-     * Check whether a particular function parameter is a NP function property.
-     * e.g. np:Prompt and np:Model are NP function properties.
+     * Check whether a particular function parameter is a NP function property. e.g. np:Prompt and np:Model are NP
+     * function properties.
      *
      * @return true if the function parameter is a NP function property else false
      */

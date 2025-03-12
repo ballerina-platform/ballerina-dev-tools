@@ -40,6 +40,7 @@ public enum NodeKind {
     DATA_MAPPER,
     DATA_MAPPER_DEFINITION,
     FUNCTION_DEFINITION,
+    AUTOMATION,
     NP_FUNCTION_CALL,
     NP_FUNCTION,
     NP_FUNCTION_DEFINITION,
@@ -77,5 +78,5 @@ public enum NodeKind {
 
     AGENT,
     AGENT_CALL,
-    CLASS_INIT
+    CLASS_INIT,
 }
