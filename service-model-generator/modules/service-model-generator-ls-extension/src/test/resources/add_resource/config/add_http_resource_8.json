@@ -55,7 +55,7 @@
       },
       "enabled": true,
       "editable": false,
-      "value": "intResult",
+      "value": "customHttpOK",
       "valueType": "IDENTIFIER",
       "valueTypeConstraint": "string",
       "isType": false,
@@ -447,7 +447,7 @@
             },
             "enabled": true,
             "editable": true,
-            "value": "200",
+            "value": "202",
             "valueType": "EXPRESSION",
             "isType": false,
             "optional": false,
@@ -461,8 +461,8 @@
             },
             "enabled": true,
             "editable": true,
-            "value": "int",
-            "valueType": "TYPE",
+            "value": "",
+            "valueType": "EXPRESSION",
             "isType": false,
             "optional": false,
             "advanced": false,
@@ -476,7 +476,7 @@
             "enabled": true,
             "editable": true,
             "value": "",
-            "valueType": "IDENTIFIER",
+            "valueType": "EXPRESSION",
             "isType": false,
             "optional": false,
             "advanced": false,
@@ -490,7 +490,7 @@
             "enabled": true,
             "editable": true,
             "value": "",
-            "valueType": "TYPE",
+            "valueType": "EXPRESSION",
             "isType": false,
             "optional": false,
             "advanced": false,
@@ -503,7 +503,7 @@
             },
             "enabled": true,
             "editable": true,
-            "value": "",
+            "values": [],
             "valueType": "EXPRESSION_SET",
             "isType": false,
             "optional": false,
@@ -511,7 +511,7 @@
             "addNewButton": false
           },
           "enabled": true,
-          "editable": true,
+          "editable": false,
           "advanced": false,
           "isHttpResponseType": false
         }
@@ -622,11 +622,11 @@
       "lineRange": {
         "fileName": "main.bal",
         "startLine": {
-          "line": 10,
+          "line": 22,
           "offset": 4
         },
         "endLine": {
-          "line": 12,
+          "line": 24,
           "offset": 5
         }
       },
@@ -648,7 +648,7 @@
             "character": 0
           }
         },
-        "newText": "\n\tresource function get intResult() returns int {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t\tpanic error(\"Unhandled error\");\n\t\t}\n\t}\n"
+        "newText": "\n\tresource function get customHttpOK() returns http:Accepted {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t\tpanic error(\"Unhandled error\");\n\t\t}\n\t}\n"
       }
     ]
   }

@@ -989,6 +989,7 @@ public final class Utils {
                 List<String> responses = returnType.getResponses().stream()
                         .filter(HttpResponse::isEnabled)
                         .map(response -> HttpUtil.getStatusCodeResponse(response, statusCodeResponses))
+                        .filter(Objects::nonNull)
                         .toList();
                 if (!responses.isEmpty()) {
                     builder.append(" returns ");

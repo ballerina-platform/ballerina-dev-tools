@@ -365,7 +365,17 @@ public final class HttpUtil {
         if (response.getType().isEnabledWithValue()) {
             return response.getType().getValue();
         }
-        return response.getBody().getValue();
+        if (Objects.nonNull(response.getBody()) && response.getBody().isEnabledWithValue()) {
+            return response.getBody().getValue();
+        }
+        Value statusCode = response.getStatusCode();
+        if (Objects.nonNull(statusCode) && statusCode.isEnabledWithValue()) {
+            String statusCodeRes = HTTP_CODES_DES.get(statusCode.getValue().trim());
+            if (Objects.nonNull(statusCodeRes)) {
+                return "http:" + statusCodeRes;
+            }
+        }
+        return null;
     }
 
     private static String getNewResponseTypeStr(String statusCodeTypeName, String name, Value body, Value headers) {
