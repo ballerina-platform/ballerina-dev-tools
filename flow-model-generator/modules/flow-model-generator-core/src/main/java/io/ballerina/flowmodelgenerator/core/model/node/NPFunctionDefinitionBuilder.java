@@ -88,8 +88,8 @@ public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
                 context.getAllVisibleSymbolNames(),
                 NATURAL_FUNCTION_NAME_LABEL,
                 NATURAL_FUNCTION_NAME_DESCRIPTION);
-        setProperties(this, null);
-        endNestedProperties(this);
+        setMandatoryProperties(this, null);
+        endOptionalProperties(this);
         // prompt
         properties().custom()
                 .metadata()
@@ -126,15 +126,14 @@ public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
                 .addProperty(MODEL);
     }
 
-    public static void setProperties(NodeBuilder nodeBuilder, String returnType) {
+    public static void setMandatoryProperties(NodeBuilder nodeBuilder, String returnType) {
         nodeBuilder.properties()
                 .returnType(returnType, null, true)
                 .nestedProperty();
     }
 
-    public static void endNestedProperties(NodeBuilder nodeBuilder) {
+    public static void endOptionalProperties(NodeBuilder nodeBuilder) {
         nodeBuilder.properties()
-                .nestedProperty()
                 .endNestedProperty(Property.ValueType.REPEATABLE_PROPERTY, Property.PARAMETERS_KEY, PARAMETERS_LABEL,
                         PARAMETERS_DOC, getParameterSchema(), true, false);
     }

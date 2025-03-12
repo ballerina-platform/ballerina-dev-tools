@@ -121,11 +121,12 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
         if (nodeKind != NodeKind.AUTOMATION) {
             nodeBuilder.properties().functionName(functionDefinitionNode.functionName());
         }
+        // TODO: Check how we can do this using FunctionDefinitionBuilder as the super class
         switch (nodeKind) {
-            case FUNCTION_DEFINITION -> FunctionDefinitionBuilder.setProperties(nodeBuilder, returnType);
-            case DATA_MAPPER_DEFINITION -> DataMapperDefinitionBuilder.setProperties(nodeBuilder, returnType);
-            case AUTOMATION -> AutomationBuilder.setProperties(nodeBuilder);
-            case NP_FUNCTION_DEFINITION -> NPFunctionDefinitionBuilder.setProperties(nodeBuilder, returnType);
+            case FUNCTION_DEFINITION -> FunctionDefinitionBuilder.setMandatoryProperties(nodeBuilder, returnType);
+            case DATA_MAPPER_DEFINITION -> DataMapperDefinitionBuilder.setMandatoryProperties(nodeBuilder, returnType);
+            case AUTOMATION -> AutomationBuilder.sendMandatoryProperties(nodeBuilder);
+            case NP_FUNCTION_DEFINITION -> NPFunctionDefinitionBuilder.setMandatoryProperties(nodeBuilder, returnType);
         }
 
         // Set the function parameters
@@ -169,11 +170,11 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
         }
 
         switch (nodeKind) {
-            case FUNCTION_DEFINITION -> FunctionDefinitionBuilder.endNestedProperties(nodeBuilder);
-            case DATA_MAPPER_DEFINITION -> DataMapperDefinitionBuilder.endNestedProperties(nodeBuilder);
-            case AUTOMATION -> AutomationBuilder.endNestedProperties(nodeBuilder, !returnType.isEmpty());
+            case FUNCTION_DEFINITION -> FunctionDefinitionBuilder.setOptionalProperties(nodeBuilder);
+            case DATA_MAPPER_DEFINITION -> DataMapperDefinitionBuilder.setOptionalProperties(nodeBuilder);
+            case AUTOMATION -> AutomationBuilder.setOptionalProperties(nodeBuilder, !returnType.isEmpty());
             case NP_FUNCTION_DEFINITION -> {
-                NPFunctionDefinitionBuilder.endNestedProperties(nodeBuilder);
+                NPFunctionDefinitionBuilder.endOptionalProperties(nodeBuilder);
                 processNpFunctionDefinitionProperties(functionDefinitionNode, nodeBuilder);
             }
         }

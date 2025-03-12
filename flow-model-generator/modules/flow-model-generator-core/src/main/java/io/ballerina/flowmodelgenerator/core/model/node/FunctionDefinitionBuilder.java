@@ -27,7 +27,6 @@ import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.tools.text.LineRange;
-import org.ballerinalang.model.types.TypeKind;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
@@ -69,11 +68,11 @@ public class FunctionDefinitionBuilder extends NodeBuilder {
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
         properties().functionNameTemplate("function", context.getAllVisibleSymbolNames());
-        setProperties(this, null);
-        endNestedProperties(this);
+        setMandatoryProperties(this, null);
+        setOptionalProperties(this);
     }
 
-    public static void setProperties(NodeBuilder nodeBuilder, String returnType) {
+    public static void setMandatoryProperties(NodeBuilder nodeBuilder, String returnType) {
         nodeBuilder.properties()
                 .returnType(returnType, null, true)
                 .nestedProperty();
@@ -83,7 +82,7 @@ public class FunctionDefinitionBuilder extends NodeBuilder {
         formBuilder.parameter(type, name, token, Property.ValueType.TYPE, null);
     }
 
-    public static void endNestedProperties(NodeBuilder nodeBuilder) {
+    public static void setOptionalProperties(NodeBuilder nodeBuilder) {
         nodeBuilder.properties()
                 .endNestedProperty(Property.ValueType.REPEATABLE_PROPERTY, Property.PARAMETERS_KEY, PARAMETERS_LABEL,
                         PARAMETERS_DOC, getParameterSchema(), true, false);

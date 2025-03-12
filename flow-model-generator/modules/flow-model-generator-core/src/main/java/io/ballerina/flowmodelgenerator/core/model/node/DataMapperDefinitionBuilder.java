@@ -76,11 +76,11 @@ public class DataMapperDefinitionBuilder extends NodeBuilder {
     public void setConcreteTemplateData(TemplateContext context) {
         properties().functionNameTemplate("transform", context.getAllVisibleSymbolNames(), DATA_MAPPER_NAME_LABEL,
                 DATA_MAPPER_NAME_DOC);
-        setProperties(this, null);
-        endNestedProperties(this);
+        setMandatoryProperties(this, null);
+        setOptionalProperties(this);
     }
 
-    public static void setProperties(NodeBuilder nodeBuilder, String returnType) {
+    public static void setMandatoryProperties(NodeBuilder nodeBuilder, String returnType) {
         nodeBuilder.properties()
                 .returnType(returnType, RECORD_TYPE, false)
                 .nestedProperty();
@@ -90,7 +90,7 @@ public class DataMapperDefinitionBuilder extends NodeBuilder {
         formBuilder.parameter(type, name, token, Property.ValueType.TYPE, TypeKind.ANYDATA.typeName());
     }
 
-    public static void endNestedProperties(NodeBuilder nodeBuilder) {
+    public static void setOptionalProperties(NodeBuilder nodeBuilder) {
         nodeBuilder.properties()
                 .endNestedProperty(Property.ValueType.REPEATABLE_PROPERTY, Property.PARAMETERS_KEY, PARAMETERS_LABEL,
                         PARAMETERS_DOC, getParameterSchema(), false, false);
