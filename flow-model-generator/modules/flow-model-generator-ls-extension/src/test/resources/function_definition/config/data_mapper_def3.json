@@ -136,7 +136,7 @@
                 "valueType": "IDENTIFIER",
                 "value": "employees",
                 "optional": false,
-                "editable": false,
+                "editable": true,
                 "advanced": false,
                 "hidden": false,
                 "codedata": {

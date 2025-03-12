@@ -136,7 +136,7 @@
                 "valueType": "IDENTIFIER",
                 "value": "person",
                 "optional": false,
-                "editable": false,
+                "editable": true,
                 "advanced": false,
                 "hidden": false,
                 "codedata": {
@@ -187,7 +187,7 @@
                 "valueType": "IDENTIFIER",
                 "value": "admission",
                 "optional": false,
-                "editable": false,
+                "editable": true,
                 "advanced": false,
                 "hidden": false,
                 "codedata": {
