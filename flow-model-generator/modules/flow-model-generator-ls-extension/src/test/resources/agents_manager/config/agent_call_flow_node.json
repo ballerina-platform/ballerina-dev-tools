@@ -19,6 +19,10 @@
           "description": "Executes the agent for a given user query.\n",
           "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.7.13.png",
           "data": {
+            "agent": {
+              "instructions": "\"Help the students with their questions.\"",
+              "role": "\"Math tutor\""
+            },
             "model": {
               "name": "myModel",
               "path": "https://bcentral-packageicons.azureedge.net/images/agent_agent_0.1.0.png",
