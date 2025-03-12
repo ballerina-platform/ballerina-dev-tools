@@ -217,7 +217,7 @@
         "value": false,
         "optional": false,
         "editable": true,
-        "advanced": false,
+        "advanced": true,
         "hidden": false
       }
     },

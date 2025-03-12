@@ -37,7 +37,7 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * Represents the properties of an automation node.
+ * Represents the properties of an automation form.
  *
  * @since 2.0.0
  */
@@ -64,7 +64,6 @@ public class AutomationBuilder extends FunctionDefinitionBuilder {
             TypeKind.DECIMAL.typeName(),
             TypeKind.BYTE.typeName()
     );
-
     private static final Gson gson = new Gson();
 
     public static Property getParameterSchema() {
@@ -79,11 +78,11 @@ public class AutomationBuilder extends FunctionDefinitionBuilder {
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
-        setProperties(this);
-        endNestedProperties(this, true);
+        sendMandatoryProperties(this);
+        setOptionalProperties(this, true);
     }
 
-    public static void setProperties(NodeBuilder nodeBuilder) {
+    public static void sendMandatoryProperties(NodeBuilder nodeBuilder) {
         nodeBuilder.properties().custom()
                 .metadata()
                     .label(FUNCTION_NAME_LABEL)
@@ -101,7 +100,7 @@ public class AutomationBuilder extends FunctionDefinitionBuilder {
         formBuilder.parameter(type, name, token, Property.ValueType.SINGLE_SELECT, TYPE_CONSTRAINT);
     }
 
-    public static void endNestedProperties(NodeBuilder nodeBuilder, boolean returnError) {
+    public static void setOptionalProperties(NodeBuilder nodeBuilder, boolean returnError) {
         nodeBuilder.properties()
                 .endNestedProperty(Property.ValueType.REPEATABLE_PROPERTY, Property.PARAMETERS_KEY, PARAMETERS_LABEL,
                         PARAMETERS_DOC, getParameterSchema(), true, false);
@@ -113,6 +112,7 @@ public class AutomationBuilder extends FunctionDefinitionBuilder {
                 .value(returnError)
                 .editable(true)
                 .type(Property.ValueType.FLAG)
+                .advanced(true)
                 .stepOut()
                 .addProperty(RETURN_ERROR_KEY);
     }
