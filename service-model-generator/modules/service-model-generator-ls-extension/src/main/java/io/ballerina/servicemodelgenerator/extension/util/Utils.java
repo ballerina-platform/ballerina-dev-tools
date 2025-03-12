@@ -912,7 +912,7 @@ public final class Utils {
             builder.append(" ");
         }
         builder.append(getValueString(function.getName()));
-        builder.append(getFunctionSignature(function, statusCodeResponses));
+        builder.append(getFunctionSignature(function, statusCodeResponses, true));
         builder.append("{");
         builder.append(System.lineSeparator());
         if (kind.equals(FunctionBodyKind.DO_BLOCK) || kind.equals(FunctionBodyKind.BLOCK_WITH_PANIC)) {
@@ -955,7 +955,7 @@ public final class Utils {
         DO_BLOCK
     }
 
-    public static String getFunctionSignature(Function function, List<String> statusCodeResponses) {
+    public static String getFunctionSignature(Function function, List<String> statusCodeResponses, boolean isAdd) {
         StringBuilder builder = new StringBuilder();
         builder.append("(");
         List<String> params = new ArrayList<>();
@@ -986,7 +986,7 @@ public final class Utils {
             if (returnType.isEnabledWithValue()) {
                 builder.append(" returns ");
                 String returnTypeStr = getValueString(returnType);
-                if (!returnTypeStr.contains("error")) {
+                if (isAdd && !returnTypeStr.contains("error")) {
                     returnTypeStr = "error|" + returnTypeStr;
                 }
                 builder.append(returnTypeStr);
@@ -998,7 +998,7 @@ public final class Utils {
                         .filter(Objects::nonNull)
                         .toList());
                 if (!responses.isEmpty()) {
-                    if (!statusCodeResponses.contains("error")) {
+                    if (isAdd && !statusCodeResponses.contains("error")) {
                         responses.addFirst("error");
                     }
                     builder.append(" returns ");

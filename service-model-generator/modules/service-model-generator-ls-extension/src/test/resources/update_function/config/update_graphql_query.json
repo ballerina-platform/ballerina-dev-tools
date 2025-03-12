@@ -141,7 +141,7 @@
             "character": 62
           }
         },
-        "newText": "(string id) returns error|string|int "
+        "newText": "(string id) returns string|int "
       }
     ]
   }

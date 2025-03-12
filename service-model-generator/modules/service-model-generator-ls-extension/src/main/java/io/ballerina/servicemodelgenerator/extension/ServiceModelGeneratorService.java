@@ -750,7 +750,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
 
                 LineRange signatureRange = functionDefinitionNode.functionSignature().lineRange();
                 List<String> statusCodeResponses = new ArrayList<>();
-                String functionSignature = getFunctionSignature(function, statusCodeResponses);
+                String functionSignature = getFunctionSignature(function, statusCodeResponses, false);
                 edits.add(new TextEdit(Utils.toRange(signatureRange), functionSignature));
                 String statusCodeResEdits = statusCodeResponses.stream()
                         .collect(Collectors.joining(ServiceModelGeneratorConstants.LINE_SEPARATOR

@@ -692,7 +692,7 @@
             "character": 85
           }
         },
-        "newText": "() returns error|json|http:InternalServerError "
+        "newText": "() returns json|http:InternalServerError "
       }
     ]
   }
