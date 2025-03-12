@@ -265,7 +265,8 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
      * @return {@link AddOrGetDefaultListenerResponse} of the add or get default listener response
      */
     @JsonRequest
-    public CompletableFuture<AddOrGetDefaultListenerResponse> addOrGetDefaultListener(ListenerDiscoveryRequest request) {
+    public CompletableFuture<AddOrGetDefaultListenerResponse> addOrGetDefaultListener(
+            ListenerDiscoveryRequest request) {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 AddOrGetDefaultListenerResponse response = new AddOrGetDefaultListenerResponse();
