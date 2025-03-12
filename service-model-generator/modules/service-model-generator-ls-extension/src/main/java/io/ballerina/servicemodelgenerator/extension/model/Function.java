@@ -22,7 +22,6 @@ import io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstan
 import io.ballerina.servicemodelgenerator.extension.util.ServiceClassUtil;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -195,34 +194,6 @@ public class Function {
 
     public void setSchema(Map<String, Parameter> schema) {
         this.schema = schema;
-    }
-
-    public static class RequiredParamSorter implements Comparator<Parameter> {
-
-        @Override
-        public int compare(Parameter param1, Parameter param2) {
-            Value param1DefaultValue = param1.getDefaultValue();
-            Value param2DefaultValue = param2.getDefaultValue();
-            if (param1DefaultValue == null && param2DefaultValue == null) {
-                return 0;
-            } else if (param1DefaultValue == null) {
-                return -1;
-            } else if (param2DefaultValue == null) {
-                return 1;
-            }
-
-            boolean isEnabled1 = param1DefaultValue.isEnabledWithValue();
-            boolean isEnabled2 = param2DefaultValue.isEnabledWithValue();
-
-            if (isEnabled1 == isEnabled2) {
-                return 0; // Both have the same enabled state, consider them equal
-            } else if (isEnabled1) {
-                return 1;  // true comes after false
-            } else {
-                return -1; // false comes before true
-            }
-        }
-
     }
 
     public static class FunctionBuilder {

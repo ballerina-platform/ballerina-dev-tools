@@ -960,7 +960,7 @@ public final class Utils {
         builder.append("(");
         List<String> params = new ArrayList<>();
         // sort params list where required params come first
-        function.getParameters().sort(new Function.RequiredParamSorter());
+        function.getParameters().sort(new Parameter.RequiredParamSorter());
         function.getParameters().forEach(param -> {
             if (param.isEnabled()) {
                 String paramDef;
