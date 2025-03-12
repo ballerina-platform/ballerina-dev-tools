@@ -77,7 +77,6 @@ import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -941,7 +940,7 @@ public final class Utils {
             builder.append(System.lineSeparator());
             builder.append("\t\t// handle error");
             builder.append(System.lineSeparator());
-            builder.append("\t\tpanic error(\"Unhandled error\");");
+            builder.append("\t\treturn error(\"Not implemented\", err);");
             builder.append(System.lineSeparator());
             builder.append("\t}");
             builder.append(System.lineSeparator());
@@ -986,15 +985,22 @@ public final class Utils {
         if (Objects.nonNull(returnType)) {
             if (returnType.isEnabledWithValue()) {
                 builder.append(" returns ");
-                builder.append(getValueString(returnType));
+                String returnTypeStr = getValueString(returnType);
+                if (!returnTypeStr.contains("error")) {
+                    returnTypeStr = "error|" + returnTypeStr;
+                }
+                builder.append(returnTypeStr);
             } else if (returnType.isEnabled() && Objects.nonNull(returnType.getResponses()) &&
                     !returnType.getResponses().isEmpty()) {
-                List<String> responses = returnType.getResponses().stream()
+                List<String> responses = new ArrayList<>(returnType.getResponses().stream()
                         .filter(HttpResponse::isEnabled)
                         .map(response -> HttpUtil.getStatusCodeResponse(response, statusCodeResponses))
                         .filter(Objects::nonNull)
-                        .toList();
+                        .toList());
                 if (!responses.isEmpty()) {
+                    if (!statusCodeResponses.contains("error")) {
+                        responses.addFirst("error");
+                    }
                     builder.append(" returns ");
                     builder.append(String.join("|", responses));
                 }
