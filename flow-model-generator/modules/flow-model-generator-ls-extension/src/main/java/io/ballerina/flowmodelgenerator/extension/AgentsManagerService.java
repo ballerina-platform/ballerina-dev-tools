@@ -20,17 +20,8 @@ package io.ballerina.flowmodelgenerator.extension;
 
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.flowmodelgenerator.core.AgentsGenerator;
-import io.ballerina.flowmodelgenerator.extension.request.GenToolRequest;
-import io.ballerina.flowmodelgenerator.extension.request.GetAllAgentsRequest;
-import io.ballerina.flowmodelgenerator.extension.request.GetAllModelsRequest;
-import io.ballerina.flowmodelgenerator.extension.request.GetConnectorActionsRequest;
-import io.ballerina.flowmodelgenerator.extension.request.GetModelsRequest;
-import io.ballerina.flowmodelgenerator.extension.request.GetToolsRequest;
-import io.ballerina.flowmodelgenerator.extension.response.GenToolResponse;
-import io.ballerina.flowmodelgenerator.extension.response.GetAgentsResponse;
-import io.ballerina.flowmodelgenerator.extension.response.GetConnectorActionsResponse;
-import io.ballerina.flowmodelgenerator.extension.response.GetModelsResponse;
-import io.ballerina.flowmodelgenerator.extension.response.GetToolsResponse;
+import io.ballerina.flowmodelgenerator.extension.request.*;
+import io.ballerina.flowmodelgenerator.extension.response.*;
 import io.ballerina.modelgenerator.commons.PackageUtil;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Project;
@@ -180,6 +171,28 @@ public class AgentsManagerService implements ExtendedLanguageServerService {
                 AgentsGenerator agentsGenerator = new AgentsGenerator();
                 response.setActions(agentsGenerator.getActions(request.flowNode(), filePath, project,
                         this.workspaceManager));
+            } catch (Throwable e) {
+                throw new RuntimeException(e);
+            }
+            return response;
+        });
+    }
+
+    @JsonRequest
+    public CompletableFuture<EditToolResponse> editTool(EditToolRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            EditToolResponse response = new EditToolResponse();
+            try {
+                Path projectPath = Path.of(request.projectPath());
+                Path filePath = projectPath.resolve("agents.bal");
+                this.workspaceManager.loadProject(filePath);
+                Optional<SemanticModel> semanticModel = this.workspaceManager.semanticModel(filePath);
+                if (semanticModel.isEmpty()) {
+                    return response;
+                }
+
+                AgentsGenerator agentsGenerator = new AgentsGenerator(semanticModel.get());
+                response.setTextEdits(agentsGenerator.editTool(request.toolName(), request.description(), projectPath));
             } catch (Throwable e) {
                 throw new RuntimeException(e);
             }

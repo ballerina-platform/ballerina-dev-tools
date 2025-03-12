@@ -54,6 +54,7 @@ import io.ballerina.modelgenerator.commons.FunctionDataBuilder;
 import io.ballerina.modelgenerator.commons.ParameterData;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Project;
+import io.ballerina.tools.diagnostics.Location;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextDocumentChange;
@@ -63,13 +64,7 @@ import org.eclipse.lsp4j.Position;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 /**
  * This class is responsible for managing agents.
@@ -709,5 +704,34 @@ public class AgentsGenerator {
             methods.add(item);
         }
         return gson.toJsonTree(methods).getAsJsonArray();
+    }
+
+    public JsonElement editTool(String toolName, String description, Path projectPath) {
+        Map<Path, List<TextEdit>> textEditsMap = new HashMap<>();
+        List<TextEdit> textEdits = new ArrayList<>();
+        for (Symbol symbol : semanticModel.moduleSymbols()) {
+            if (symbol.kind() != SymbolKind.FUNCTION) {
+                continue;
+            }
+            FunctionSymbol functionSymbol = (FunctionSymbol) symbol;
+            if (!functionSymbol.getName().orElseThrow().equals(toolName)) {
+                continue;
+            }
+
+            for (AnnotationAttachmentSymbol annotAttachment : functionSymbol.annotAttachments()) {
+                AnnotationSymbol annotationSymbol = annotAttachment.typeDescriptor();
+                if (!annotationSymbol.getName().orElseThrow().equals("Tool")) {
+                    continue;
+                }
+                Location location = annotAttachment.getLocation().orElseThrow();
+                textEdits.add(new TextEdit(CommonUtils.toRange(location.lineRange()),
+                        "@agent:Tool {description: \"" + description + "\"}" + System.lineSeparator()));
+                break;
+            }
+            textEditsMap.put(projectPath.resolve(functionSymbol.getLocation().orElseThrow().lineRange().fileName()),
+                    textEdits);
+            break;
+        }
+        return gson.toJsonTree(textEditsMap);
     }
 }
