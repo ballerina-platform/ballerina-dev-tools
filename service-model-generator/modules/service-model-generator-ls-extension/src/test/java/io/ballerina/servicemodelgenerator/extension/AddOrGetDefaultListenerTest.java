@@ -62,7 +62,8 @@ public class AddOrGetDefaultListenerTest extends AbstractLSTest {
 
         // check if the jsonMap has textEdits
         if (jsonMap.has("textEdits")) {
-            Map<String, List<TextEdit>> actualTextEdits = gson.fromJson(jsonMap, TEXT_EDIT_LIST_TYPE);
+            JsonObject textEditsJson = jsonMap.getAsJsonObject("textEdits");
+            Map<String, List<TextEdit>> actualTextEdits = gson.fromJson(textEditsJson, TEXT_EDIT_LIST_TYPE);
 
             boolean assertFailure = false;
 
@@ -91,7 +92,7 @@ public class AddOrGetDefaultListenerTest extends AbstractLSTest {
                 TestConfig updatedConfig =
                         new TestConfig(testConfig.filePath(), testConfig.description(), null,
                                 newMap);
-                updateConfig(configJsonPath, updatedConfig);
+//                updateConfig(configJsonPath, updatedConfig);
                 Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
             }
         } else {
@@ -100,7 +101,7 @@ public class AddOrGetDefaultListenerTest extends AbstractLSTest {
                 TestConfig updatedConfig =
                         new TestConfig(testConfig.filePath(), testConfig.description(), defaultListenerRef,
                                 null);
-                updateConfig(configJsonPath, updatedConfig);
+//                updateConfig(configJsonPath, updatedConfig);
                 Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
             }
         }

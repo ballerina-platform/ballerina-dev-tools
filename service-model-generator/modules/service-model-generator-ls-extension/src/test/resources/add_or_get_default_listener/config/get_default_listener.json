@@ -1,7 +1,5 @@
 {
-  "filePath": "sample1/main.bal",
+  "filePath": "sample2/main.bal",
   "description": "Test adding a rabbitmq service",
-  "defaultListenerRef": null,
-  "textEdits": {
-  }
+  "defaultListenerRef": "defaultListener"
 }
