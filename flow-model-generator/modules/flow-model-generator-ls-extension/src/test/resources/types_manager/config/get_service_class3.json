@@ -36,7 +36,8 @@
         "value": "/graphql",
         "optional": false,
         "editable": false,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       },
       "qualifiers": {
         "metadata": {
@@ -47,7 +48,8 @@
         "value": [],
         "optional": true,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "hidden": false
       },
       "isArray": {
         "metadata": {
@@ -58,7 +60,8 @@
         "value": "false",
         "optional": true,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "hidden": false
       },
       "arraySize": {
         "metadata": {
@@ -69,7 +72,8 @@
         "value": "",
         "optional": false,
         "editable": false,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       }
     },
     "members": [],
@@ -98,7 +102,8 @@
             "value": "false",
             "optional": true,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           },
           "isPublic": {
             "metadata": {
@@ -109,7 +114,8 @@
             "value": "false",
             "optional": true,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           },
           "isIsolated": {
             "metadata": {
@@ -120,7 +126,8 @@
             "value": "true",
             "optional": true,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           }
         }
       },
@@ -148,7 +155,8 @@
             "value": "false",
             "optional": true,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           },
           "isPublic": {
             "metadata": {
@@ -159,7 +167,8 @@
             "value": "false",
             "optional": true,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           },
           "isIsolated": {
             "metadata": {
@@ -170,7 +179,8 @@
             "value": "true",
             "optional": true,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           }
         }
       },
@@ -206,7 +216,8 @@
             "value": "false",
             "optional": true,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           },
           "isPublic": {
             "metadata": {
@@ -217,7 +228,8 @@
             "value": "false",
             "optional": true,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           },
           "isIsolated": {
             "metadata": {
@@ -228,7 +240,8 @@
             "value": "true",
             "optional": true,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           }
         }
       }
@@ -266,7 +279,8 @@
           "value": "UserName",
           "optional": false,
           "editable": false,
-          "advanced": false
+          "advanced": false,
+          "hidden": false
         },
         "isPublic": {
           "metadata": {
@@ -277,7 +291,8 @@
           "value": "false",
           "optional": true,
           "editable": true,
-          "advanced": false
+          "advanced": false,
+          "hidden": false
         },
         "description": {
           "metadata": {
@@ -288,7 +303,8 @@
           "value": "",
           "optional": false,
           "editable": true,
-          "advanced": false
+          "advanced": false,
+          "hidden": false
         },
         "isArray": {
           "metadata": {
@@ -299,7 +315,8 @@
           "value": "false",
           "optional": true,
           "editable": true,
-          "advanced": true
+          "advanced": true,
+          "hidden": false
         },
         "arraySize": {
           "metadata": {
@@ -310,7 +327,8 @@
           "value": "",
           "optional": true,
           "editable": true,
-          "advanced": true
+          "advanced": true,
+          "hidden": false
         }
       },
       "members": [
@@ -355,7 +373,8 @@
           "value": "Address",
           "optional": false,
           "editable": false,
-          "advanced": false
+          "advanced": false,
+          "hidden": false
         },
         "isPublic": {
           "metadata": {
@@ -366,7 +385,8 @@
           "value": "true",
           "optional": true,
           "editable": true,
-          "advanced": false
+          "advanced": false,
+          "hidden": false
         },
         "description": {
           "metadata": {
@@ -377,7 +397,8 @@
           "value": "",
           "optional": false,
           "editable": true,
-          "advanced": false
+          "advanced": false,
+          "hidden": false
         },
         "isArray": {
           "metadata": {
@@ -388,7 +409,8 @@
           "value": "false",
           "optional": true,
           "editable": true,
-          "advanced": true
+          "advanced": true,
+          "hidden": false
         },
         "arraySize": {
           "metadata": {
@@ -399,7 +421,8 @@
           "value": "",
           "optional": true,
           "editable": true,
-          "advanced": true
+          "advanced": true,
+          "hidden": false
         }
       },
       "members": [
@@ -458,7 +481,8 @@
           "value": "UserProfile",
           "optional": false,
           "editable": false,
-          "advanced": false
+          "advanced": false,
+          "hidden": false
         },
         "qualifiers": {
           "metadata": {
@@ -472,7 +496,8 @@
           ],
           "optional": true,
           "editable": true,
-          "advanced": true
+          "advanced": true,
+          "hidden": false
         },
         "isArray": {
           "metadata": {
@@ -483,7 +508,8 @@
           "value": "false",
           "optional": true,
           "editable": true,
-          "advanced": true
+          "advanced": true,
+          "hidden": false
         },
         "arraySize": {
           "metadata": {
@@ -494,7 +520,8 @@
           "value": "",
           "optional": false,
           "editable": false,
-          "advanced": false
+          "advanced": false,
+          "hidden": false
         },
         "isPublic": {
           "metadata": {
@@ -505,7 +532,8 @@
           "value": "false",
           "optional": true,
           "editable": true,
-          "advanced": false
+          "advanced": false,
+          "hidden": false
         },
         "isDistinct": {
           "metadata": {
@@ -516,7 +544,8 @@
           "value": "false",
           "optional": true,
           "editable": true,
-          "advanced": false
+          "advanced": false,
+          "hidden": false
         },
         "isIsolated": {
           "metadata": {
@@ -527,7 +556,8 @@
           "value": "true",
           "optional": true,
           "editable": true,
-          "advanced": false
+          "advanced": false,
+          "hidden": false
         },
         "isReadOnly": {
           "metadata": {
@@ -538,7 +568,8 @@
           "value": "false",
           "optional": true,
           "editable": true,
-          "advanced": false
+          "advanced": false,
+          "hidden": false
         },
         "networkQualifier": {
           "metadata": {
@@ -553,7 +584,8 @@
           "value": "service",
           "optional": true,
           "editable": true,
-          "advanced": false
+          "advanced": false,
+          "hidden": false
         }
       },
       "members": [
@@ -596,7 +628,8 @@
               "value": "false",
               "optional": true,
               "editable": true,
-              "advanced": false
+              "advanced": false,
+              "hidden": false
             },
             "isPublic": {
               "metadata": {
@@ -607,7 +640,8 @@
               "value": "false",
               "optional": true,
               "editable": true,
-              "advanced": false
+              "advanced": false,
+              "hidden": false
             },
             "isIsolated": {
               "metadata": {
@@ -618,7 +652,8 @@
               "value": "true",
               "optional": true,
               "editable": true,
-              "advanced": false
+              "advanced": false,
+              "hidden": false
             }
           }
         },
@@ -644,7 +679,8 @@
               "value": "false",
               "optional": true,
               "editable": true,
-              "advanced": false
+              "advanced": false,
+              "hidden": false
             },
             "isPublic": {
               "metadata": {
@@ -655,7 +691,8 @@
               "value": "false",
               "optional": true,
               "editable": true,
-              "advanced": false
+              "advanced": false,
+              "hidden": false
             },
             "isIsolated": {
               "metadata": {
@@ -666,7 +703,8 @@
               "value": "true",
               "optional": true,
               "editable": true,
-              "advanced": false
+              "advanced": false,
+              "hidden": false
             }
           }
         },
@@ -692,7 +730,8 @@
               "value": "false",
               "optional": true,
               "editable": true,
-              "advanced": false
+              "advanced": false,
+              "hidden": false
             },
             "isPublic": {
               "metadata": {
@@ -703,7 +742,8 @@
               "value": "false",
               "optional": true,
               "editable": true,
-              "advanced": false
+              "advanced": false,
+              "hidden": false
             },
             "isIsolated": {
               "metadata": {
@@ -714,7 +754,8 @@
               "value": "true",
               "optional": true,
               "editable": true,
-              "advanced": false
+              "advanced": false,
+              "hidden": false
             }
           }
         }
@@ -751,7 +792,8 @@
           "value": "AbstractProfile",
           "optional": false,
           "editable": false,
-          "advanced": false
+          "advanced": false,
+          "hidden": false
         },
         "isPublic": {
           "metadata": {
@@ -762,7 +804,8 @@
           "value": "true",
           "optional": true,
           "editable": true,
-          "advanced": false
+          "advanced": false,
+          "hidden": false
         },
         "description": {
           "metadata": {
@@ -773,7 +816,8 @@
           "value": "",
           "optional": false,
           "editable": true,
-          "advanced": false
+          "advanced": false,
+          "hidden": false
         },
         "isArray": {
           "metadata": {
@@ -784,7 +828,8 @@
           "value": "false",
           "optional": true,
           "editable": true,
-          "advanced": true
+          "advanced": true,
+          "hidden": false
         },
         "arraySize": {
           "metadata": {
@@ -795,7 +840,8 @@
           "value": "",
           "optional": true,
           "editable": true,
-          "advanced": true
+          "advanced": true,
+          "hidden": false
         }
       },
       "members": [

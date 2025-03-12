@@ -48,6 +48,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Handles the search command for connectors.
@@ -57,13 +58,18 @@ import java.util.Optional;
 public class ConnectorSearchCommand extends SearchCommand {
 
     private static final String CONNECTORS_LANDING_JSON = "connectors_landing.json";
+    private static final String AGENT_SUPPORT_CONNECTORS_JSON = "agent_support_connectors.json";
     private static final Type CONNECTION_CATEGORY_LIST_TYPE = new TypeToken<Map<String, List<String>>>() { }.getType();
+    private static final Type AGENT_SUPPORT_CONNECTORS_LIST_TYPE = new TypeToken<Set<String>>() { }.getType();
 
     // TODO: Remove this once the name is retrieved from the library module
     private static final String CONNECTOR_NAME_CORRECTION_JSON = "connector_name_correction.json";
     private static final Type CONNECTOR_NAME_MAP_TYPE = new TypeToken<Map<String, String>>() { }.getType();
     private static final Map<String, String> CONNECTOR_NAME_MAP =
             LocalIndexCentral.getInstance().readJsonResource(CONNECTOR_NAME_CORRECTION_JSON, CONNECTOR_NAME_MAP_TYPE);
+    private static final Set<String> AGENT_SUPPORT_CONNECTORS = LocalIndexCentral.getInstance()
+            .readJsonResource(AGENT_SUPPORT_CONNECTORS_JSON, AGENT_SUPPORT_CONNECTORS_LIST_TYPE);
+    public static final String IS_AGENT_SUPPORT = "isAgentSupport";
 
     public ConnectorSearchCommand(Project project, LineRange position, Map<String, String> queryMap) {
         super(project, position, queryMap);
@@ -116,6 +122,7 @@ public class ConnectorSearchCommand extends SearchCommand {
                 .icon(CommonUtils.generateIcon(packageInfo.org(),
                         packageInfo.name(),
                         packageInfo.version()))
+                .addData(IS_AGENT_SUPPORT, AGENT_SUPPORT_CONNECTORS.contains(packageInfo.name()))
                 .build();
         Codedata codedata = new Codedata.Builder<>(null)
                 .node(NodeKind.NEW_CONNECTION)

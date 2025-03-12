@@ -73,7 +73,8 @@
             "value": "12",
             "optional": true,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           },
           "variable": {
             "metadata": {
@@ -85,6 +86,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "lineRange": {
                 "fileName": "if.bal",
@@ -110,6 +112,7 @@
             "optional": false,
             "editable": true,
             "advanced": false,
+            "hidden": false,
             "codedata": {}
           }
         },
@@ -169,7 +172,8 @@
                 "placeholder": "true",
                 "optional": false,
                 "editable": true,
-                "advanced": false
+                "advanced": false,
+                "hidden": false
               }
             },
             "children": [
@@ -205,7 +209,8 @@
                     "value": "i + 3",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   },
                   "variable": {
                     "metadata": {
@@ -216,7 +221,8 @@
                     "value": "i",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   }
                 },
                 "flags": 0,
@@ -231,16 +237,11 @@
       {
         "id": "36858",
         "metadata": {
-          "label": "toString",
-          "description": "Performs a direct conversion of a value to a string.\n\nThe conversion is direct in the sense that when applied to a value that is already\na string it leaves the value unchanged.\n\nThe details of the conversion are specified by the ToString abstract operation\ndefined in the Ballerina Language Specification, using the direct style.\n\n```ballerina\ndecimal value = 12.12d;\nvalue.toString() ⇒ 12.12\nanydata[] data = [1, \"Sam\", 12.3f, 12.12d, {value: 12}];\ndata.toString() ⇒ [1,\"Sam\",12.3,12.12,{\"value\":12}]\n```\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.value_0.0.0.png"
+          "label": "Variable",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "METHOD_CALL",
-          "org": "ballerina",
-          "module": "lang.value",
-          "symbol": "toString",
-          "version": "0.0.0",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "if.bal",
             "startLine": {
@@ -256,20 +257,21 @@
         },
         "returning": false,
         "properties": {
-          "connection": {
+          "expression": {
             "metadata": {
-              "label": "Connection",
-              "description": "Connection to use"
+              "label": "Expression",
+              "description": "Initialize with value"
             },
             "valueType": "EXPRESSION",
-            "value": "i",
-            "optional": false,
-            "editable": false,
-            "advanced": false
+            "value": "i.toString()",
+            "optional": true,
+            "editable": true,
+            "advanced": false,
+            "hidden": false
           },
           "variable": {
             "metadata": {
-              "label": "Variable Name",
+              "label": "Name",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -277,6 +279,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "lineRange": {
                 "fileName": "if.bal",
@@ -293,15 +296,16 @@
           },
           "type": {
             "metadata": {
-              "label": "Variable Type",
+              "label": "Type",
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
             "value": "string",
             "placeholder": "var",
             "optional": false,
-            "editable": false,
+            "editable": true,
             "advanced": false,
+            "hidden": false,
             "codedata": {}
           }
         },

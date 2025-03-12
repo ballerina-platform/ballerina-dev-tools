@@ -24,7 +24,8 @@
         "value": "var1",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       },
       "type": {
         "metadata": {
@@ -37,6 +38,7 @@
         "optional": false,
         "editable": true,
         "advanced": false,
+        "hidden": false,
         "codedata": {}
       },
       "waitAll": {
@@ -48,7 +50,8 @@
         "value": false,
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       },
       "futures": {
         "metadata": {
@@ -74,6 +77,7 @@
                 "optional": false,
                 "editable": true,
                 "advanced": false,
+                "hidden": false,
                 "codedata": {
                   "dependentProperty": "waitAll"
                 }
@@ -87,17 +91,20 @@
                 "value": "",
                 "optional": false,
                 "editable": true,
-                "advanced": false
+                "advanced": false,
+                "hidden": false
               }
             },
             "optional": false,
             "editable": false,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           }
         },
         "optional": false,
         "editable": false,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       }
     },
     "flags": 0

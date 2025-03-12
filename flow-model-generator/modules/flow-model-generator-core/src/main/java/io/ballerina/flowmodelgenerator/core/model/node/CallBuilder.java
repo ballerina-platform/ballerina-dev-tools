@@ -38,7 +38,7 @@ import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 
 import java.nio.file.Path;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -107,7 +107,7 @@ public abstract class CallBuilder extends NodeBuilder {
                     .typeConstraint(isLocalFunction ? codedata.object() :
                             CommonUtils.getClassType(codedata.module(), codedata.object()))
                     .value(codedata.parentSymbol())
-                    .type(Property.ValueType.IDENTIFIER)
+                    .type(Property.ValueType.EXPRESSION)
                     .stepOut()
                     .addProperty(Property.CONNECTION_KEY);
         }
@@ -147,7 +147,7 @@ public abstract class CallBuilder extends NodeBuilder {
         boolean hasOnlyRestParams = function.parameters().size() == 1;
 
         // Build the inferred type property at the top if exists
-        Map<String, ParameterData> paramMap = new HashMap<>();
+        Map<String, ParameterData> paramMap = new LinkedHashMap<>();
         function.parameters().forEach((key, paramData) -> {
             if (paramData.kind() != ParameterData.Kind.PARAM_FOR_TYPE_INFER) {
                 paramMap.put(key, paramData);
@@ -221,7 +221,7 @@ public abstract class CallBuilder extends NodeBuilder {
                     .stepOut()
                 .typeConstraint(CommonUtils.getClassType(codedata.module(), codedata.object()))
                 .value(codedata.parentSymbol())
-                .type(Property.ValueType.IDENTIFIER)
+                .type(Property.ValueType.EXPRESSION)
                 .stepOut()
                 .addProperty(Property.CONNECTION_KEY);
     }

@@ -100,7 +100,7 @@
         }
       ],
       "automations": [],
-      "promptAsCode": []
+      "naturalFunctions": []
     }
   ]
 }

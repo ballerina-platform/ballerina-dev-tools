@@ -40,12 +40,13 @@
           "label": "Connection",
           "description": "Connection to use"
         },
-        "valueType": "IDENTIFIER",
+        "valueType": "EXPRESSION",
         "valueTypeConstraint": "mysql:Client",
         "value": "mysqlClient",
         "optional": false,
         "editable": false,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       },
       "returnType": {
         "metadata": {
@@ -58,6 +59,7 @@
         "optional": false,
         "editable": true,
         "advanced": false,
+        "hidden": false,
         "codedata": {
           "kind": "PARAM_FOR_TYPE_INFER",
           "originalName": "returnType"
@@ -74,6 +76,7 @@
         "optional": false,
         "editable": true,
         "advanced": false,
+        "hidden": false,
         "codedata": {
           "kind": "REQUIRED",
           "originalName": "sqlQuery",
@@ -99,6 +102,7 @@
         "optional": false,
         "editable": false,
         "advanced": false,
+        "hidden": false,
         "codedata": {
           "importStatements": "ballerina/sql"
         }
@@ -112,7 +116,8 @@
         "value": "returnType",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       },
       "checkError": {
         "metadata": {
@@ -123,7 +128,8 @@
         "value": true,
         "optional": false,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "hidden": false
       }
     },
     "flags": 0

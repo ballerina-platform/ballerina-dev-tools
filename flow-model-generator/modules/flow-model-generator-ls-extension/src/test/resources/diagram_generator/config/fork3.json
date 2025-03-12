@@ -67,7 +67,8 @@
             "value": "[]",
             "optional": true,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           },
           "variable": {
             "metadata": {
@@ -79,6 +80,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "lineRange": {
                 "fileName": "fork.bal",
@@ -104,6 +106,7 @@
             "optional": false,
             "editable": true,
             "advanced": false,
+            "hidden": false,
             "codedata": {}
           }
         },
@@ -162,6 +165,7 @@
                 "optional": false,
                 "editable": false,
                 "advanced": false,
+                "hidden": false,
                 "codedata": {
                   "lineRange": {
                     "fileName": "fork.bal",
@@ -185,7 +189,8 @@
                 "value": "",
                 "optional": true,
                 "editable": true,
-                "advanced": false
+                "advanced": false,
+                "hidden": false
               }
             },
             "children": [
@@ -229,6 +234,7 @@
                     "optional": false,
                     "editable": true,
                     "advanced": false,
+                    "hidden": false,
                     "codedata": {
                       "kind": "REQUIRED",
                       "originalName": "seconds"
@@ -248,16 +254,11 @@
               {
                 "id": "80755",
                 "metadata": {
-                  "label": "push",
-                  "description": "Adds values to the end of an array.\n\n```ballerina\nint[] numbers = [2];\nnumbers.push(4, 6);\nnumbers ⇒ [2,4,6]\nint[] moreNumbers = [8, 10, 12, 14];\nnumbers.push(...moreNumbers);\nnumbers ⇒ [2,4,6,8,10,12,14]\n```\n",
-                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.array_0.0.0.png"
+                  "label": "Custom Expression",
+                  "description": "Represents a custom Ballerina expression"
                 },
                 "codedata": {
-                  "node": "METHOD_CALL",
-                  "org": "ballerina",
-                  "module": "lang.array",
-                  "symbol": "push",
-                  "version": "0.0.0",
+                  "node": "EXPRESSION",
                   "lineRange": {
                     "fileName": "fork.bal",
                     "startLine": {
@@ -273,66 +274,17 @@
                 },
                 "returning": false,
                 "properties": {
-                  "arr": {
+                  "statement": {
                     "metadata": {
-                      "label": "arr",
-                      "description": "the array"
+                      "label": "Statement",
+                      "description": "Ballerina statement"
                     },
                     "valueType": "EXPRESSION",
-                    "valueTypeConstraint": "array:Type[]",
-                    "value": "\"WA\"",
-                    "placeholder": "[]",
+                    "value": "results.push(\"WA\");",
                     "optional": false,
                     "editable": true,
                     "advanced": false,
-                    "codedata": {
-                      "kind": "REQUIRED",
-                      "originalName": "arr"
-                    },
-                    "typeMembers": [
-                      {
-                        "type": "array:Type",
-                        "packageInfo": "ballerina:lang.array:0.0.0",
-                        "kind": "ARRAY_TYPE",
-                        "selected": false
-                      }
-                    ]
-                  },
-                  "vals": {
-                    "metadata": {
-                      "label": "vals",
-                      "description": "values to add to the end of the array"
-                    },
-                    "valueType": "EXPRESSION_SET",
-                    "valueTypeConstraint": "array:Type",
-                    "value": [],
-                    "placeholder": "()",
-                    "optional": true,
-                    "editable": true,
-                    "advanced": true,
-                    "codedata": {
-                      "kind": "REST_PARAMETER",
-                      "originalName": "vals"
-                    },
-                    "typeMembers": [
-                      {
-                        "type": "array:Type",
-                        "packageInfo": "ballerina:lang.array:0.0.0",
-                        "kind": "ARRAY_TYPE",
-                        "selected": false
-                      }
-                    ]
-                  },
-                  "connection": {
-                    "metadata": {
-                      "label": "Connection",
-                      "description": "Connection to use"
-                    },
-                    "valueType": "EXPRESSION",
-                    "value": "            results",
-                    "optional": false,
-                    "editable": false,
-                    "advanced": false
+                    "hidden": false
                   }
                 },
                 "flags": 0
@@ -369,6 +321,7 @@
                 "optional": false,
                 "editable": false,
                 "advanced": false,
+                "hidden": false,
                 "codedata": {
                   "lineRange": {
                     "fileName": "fork.bal",
@@ -392,7 +345,8 @@
                 "value": "",
                 "optional": true,
                 "editable": true,
-                "advanced": false
+                "advanced": false,
+                "hidden": false
               }
             },
             "children": [
@@ -436,6 +390,7 @@
                     "optional": false,
                     "editable": true,
                     "advanced": false,
+                    "hidden": false,
                     "codedata": {
                       "kind": "REQUIRED",
                       "originalName": "seconds"
@@ -455,16 +410,11 @@
               {
                 "id": "85715",
                 "metadata": {
-                  "label": "push",
-                  "description": "Adds values to the end of an array.\n\n```ballerina\nint[] numbers = [2];\nnumbers.push(4, 6);\nnumbers ⇒ [2,4,6]\nint[] moreNumbers = [8, 10, 12, 14];\nnumbers.push(...moreNumbers);\nnumbers ⇒ [2,4,6,8,10,12,14]\n```\n",
-                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.array_0.0.0.png"
+                  "label": "Custom Expression",
+                  "description": "Represents a custom Ballerina expression"
                 },
                 "codedata": {
-                  "node": "METHOD_CALL",
-                  "org": "ballerina",
-                  "module": "lang.array",
-                  "symbol": "push",
-                  "version": "0.0.0",
+                  "node": "EXPRESSION",
                   "lineRange": {
                     "fileName": "fork.bal",
                     "startLine": {
@@ -480,66 +430,17 @@
                 },
                 "returning": false,
                 "properties": {
-                  "arr": {
+                  "statement": {
                     "metadata": {
-                      "label": "arr",
-                      "description": "the array"
+                      "label": "Statement",
+                      "description": "Ballerina statement"
                     },
                     "valueType": "EXPRESSION",
-                    "valueTypeConstraint": "array:Type[]",
-                    "value": "\"WB\"",
-                    "placeholder": "[]",
+                    "value": "results.push(\"WB\");",
                     "optional": false,
                     "editable": true,
                     "advanced": false,
-                    "codedata": {
-                      "kind": "REQUIRED",
-                      "originalName": "arr"
-                    },
-                    "typeMembers": [
-                      {
-                        "type": "array:Type",
-                        "packageInfo": "ballerina:lang.array:0.0.0",
-                        "kind": "ARRAY_TYPE",
-                        "selected": false
-                      }
-                    ]
-                  },
-                  "vals": {
-                    "metadata": {
-                      "label": "vals",
-                      "description": "values to add to the end of the array"
-                    },
-                    "valueType": "EXPRESSION_SET",
-                    "valueTypeConstraint": "array:Type",
-                    "value": [],
-                    "placeholder": "()",
-                    "optional": true,
-                    "editable": true,
-                    "advanced": true,
-                    "codedata": {
-                      "kind": "REST_PARAMETER",
-                      "originalName": "vals"
-                    },
-                    "typeMembers": [
-                      {
-                        "type": "array:Type",
-                        "packageInfo": "ballerina:lang.array:0.0.0",
-                        "kind": "ARRAY_TYPE",
-                        "selected": false
-                      }
-                    ]
-                  },
-                  "connection": {
-                    "metadata": {
-                      "label": "Connection",
-                      "description": "Connection to use"
-                    },
-                    "valueType": "EXPRESSION",
-                    "value": "            results",
-                    "optional": false,
-                    "editable": false,
-                    "advanced": false
+                    "hidden": false
                   }
                 },
                 "flags": 0
@@ -581,7 +482,8 @@
             "value": "Only wait for WB",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           }
         },
         "flags": 0
@@ -618,7 +520,8 @@
             "value": false,
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           },
           "futures": {
             "metadata": {
@@ -644,6 +547,7 @@
                     "optional": false,
                     "editable": true,
                     "advanced": false,
+                    "hidden": false,
                     "codedata": {
                       "dependentProperty": "waitAll"
                     }
@@ -657,17 +561,20 @@
                     "value": "WB",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   }
                 },
                 "optional": false,
                 "editable": false,
-                "advanced": false
+                "advanced": false,
+                "hidden": false
               }
             },
             "optional": false,
             "editable": false,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           }
         },
         "flags": 0
@@ -704,7 +611,8 @@
             "value": "results",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           }
         },
         "flags": 0

@@ -10,7 +10,10 @@
       "metadata": {
         "label": "Salesforce Client",
         "description": "Ballerina Salesforce connector provides the capability to access Salesforce REST API.\nThis connector lets you to perform operations for SObjects, query using SOQL, search using SOSL, and describe SObjects\nand organizational data.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_salesforce_8.1.0.png"
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_salesforce_8.1.0.png",
+        "data": {
+          "isAgentSupport": false
+        }
       },
       "codedata": {
         "node": "NEW_CONNECTION",
@@ -26,7 +29,10 @@
       "metadata": {
         "label": "Pardot Client",
         "description": "This is a generated connector for [Salesforce Pardot API v5](https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html) OpenAPI specification.\nThe version 5 of the Pardot API to read and update a variety of assets and objects, like File and Layout Template objects.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_salesforce.pardot_1.3.1.png"
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_salesforce.pardot_1.3.1.png",
+        "data": {
+          "isAgentSupport": false
+        }
       },
       "codedata": {
         "node": "NEW_CONNECTION",
@@ -42,7 +48,10 @@
       "metadata": {
         "label": "Einstein Client",
         "description": "This is a generated connector for [Einstein Vision and Einstein Language API](https://metamind.readme.io/reference#predictive-vision-service-api) OpenAPI specification. Allows you to access the Einstein Vision and Einstein Language services via the standard REST API calls. Use the APIs to programmatically work with datasets, labels, examples, models, and predictions.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_salesforce.einstein_1.3.1.png"
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_salesforce.einstein_1.3.1.png",
+        "data": {
+          "isAgentSupport": false
+        }
       },
       "codedata": {
         "node": "NEW_CONNECTION",

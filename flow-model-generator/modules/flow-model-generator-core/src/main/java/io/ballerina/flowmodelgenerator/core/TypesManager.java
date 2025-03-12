@@ -162,6 +162,25 @@ public class TypesManager {
         return gson.toJsonTree(textEditsMap);
     }
 
+    public JsonElement createMultipleTypes(Path filePath, List<TypeData> typeDataList) {
+        Map<Path, List<TextEdit>> textEditsMap = new HashMap<>();
+        List<TextEdit> textEdits = new ArrayList<>();
+        textEditsMap.put(filePath, textEdits);
+
+        List<String> codeSnippets = new ArrayList<>();
+        for (TypeData typeData : typeDataList) {
+            SourceCodeGenerator sourceCodeGenerator = new SourceCodeGenerator();
+            String codeSnippet = sourceCodeGenerator.generateCodeSnippetForType(typeData);
+            codeSnippets.add(codeSnippet);
+        }
+        SyntaxTree syntaxTree = this.typeDocument.syntaxTree();
+        ModulePartNode modulePartNode = syntaxTree.rootNode();
+        textEdits.add(new TextEdit(CommonUtils.toRange(modulePartNode.lineRange().endLine()),
+                String.join(System.lineSeparator(), codeSnippets)));
+
+        return gson.toJsonTree(textEditsMap);
+    }
+
     public JsonElement createGraphqlClassType(Path filePath, TypeData typeData) {
         List<TextEdit> textEdits = new ArrayList<>();
         Map<Path, List<TextEdit>> textEditsMap = new HashMap<>();

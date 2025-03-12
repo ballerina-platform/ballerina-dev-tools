@@ -38,12 +38,13 @@
           "label": "Connection",
           "description": "Connection to use"
         },
-        "valueType": "IDENTIFIER",
+        "valueType": "EXPRESSION",
         "valueTypeConstraint": "http:Client",
         "value": "httpClient",
         "optional": false,
         "editable": false,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       },
       "targetType": {
         "metadata": {
@@ -56,6 +57,7 @@
         "optional": false,
         "editable": true,
         "advanced": false,
+        "hidden": false,
         "codedata": {
           "kind": "PARAM_FOR_TYPE_INFER",
           "originalName": "targetType"
@@ -72,6 +74,7 @@
         "optional": false,
         "editable": true,
         "advanced": false,
+        "hidden": false,
         "codedata": {
           "kind": "REQUIRED",
           "originalName": "path"
@@ -81,6 +84,31 @@
             "type": "string",
             "packageInfo": "",
             "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "message": {
+        "metadata": {
+          "label": "message",
+          "description": "An HTTP outbound request or any allowed payload"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "http:RequestMessage",
+        "placeholder": "{}",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "hidden": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "message"
+        },
+        "typeMembers": [
+          {
+            "type": "RequestMessage",
+            "packageInfo": "ballerina:http:2.12.2",
+            "kind": "OTHER",
             "selected": false
           }
         ]
@@ -96,6 +124,7 @@
         "optional": true,
         "editable": true,
         "advanced": true,
+        "hidden": false,
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "headers"
@@ -126,6 +155,7 @@
         "optional": true,
         "editable": true,
         "advanced": true,
+        "hidden": false,
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "mediaType"
@@ -145,30 +175,6 @@
           }
         ]
       },
-      "message": {
-        "metadata": {
-          "label": "message",
-          "description": "An HTTP outbound request or any allowed payload"
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "http:RequestMessage",
-        "placeholder": "{}",
-        "optional": false,
-        "editable": true,
-        "advanced": false,
-        "codedata": {
-          "kind": "REQUIRED",
-          "originalName": "message"
-        },
-        "typeMembers": [
-          {
-            "type": "RequestMessage",
-            "packageInfo": "ballerina:http:2.12.2",
-            "kind": "OTHER",
-            "selected": false
-          }
-        ]
-      },
       "type": {
         "metadata": {
           "label": "Variable Type",
@@ -180,6 +186,7 @@
         "optional": false,
         "editable": false,
         "advanced": false,
+        "hidden": false,
         "codedata": {}
       },
       "variable": {
@@ -191,7 +198,8 @@
         "value": "var2",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       },
       "checkError": {
         "metadata": {
@@ -202,7 +210,8 @@
         "value": true,
         "optional": false,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "hidden": false
       }
     },
     "flags": 0

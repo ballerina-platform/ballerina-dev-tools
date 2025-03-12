@@ -54,6 +54,7 @@ import io.ballerina.modelgenerator.commons.FunctionDataBuilder;
 import io.ballerina.modelgenerator.commons.ParameterData;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Project;
+import io.ballerina.tools.diagnostics.Location;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextDocumentChange;
@@ -64,6 +65,7 @@ import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -87,7 +89,6 @@ public class AgentsGenerator {
     private static final String AI_AGENT = "ai.agent";
     private static final String INIT = "init";
     private static final String AGENT_FILE = "agents.bal";
-    public static final String BASE_AGENT = "BaseAgent";
     public static final String AGENT = "Agent";
     private static final String BALLERINA_ORG = "ballerina";
     private static final String HTTP_MODULE = "http";
@@ -102,30 +103,6 @@ public class AgentsGenerator {
     public AgentsGenerator(SemanticModel semanticModel) {
         this.gson = new Gson();
         this.semanticModel = semanticModel;
-    }
-
-    public JsonArray getAllAgents() {
-        List<Codedata> agents = new ArrayList<>();
-        ModuleSymbol agentModule = getAgentModule();
-        Optional<ModuleSymbol> optModule = agentModule.getModule();
-        if (optModule.isEmpty()) {
-            throw new IllegalStateException("Agent module id not found");
-        }
-        ModuleID id = optModule.get().id();
-        for (ClassSymbol classSymbol : agentModule.classes()) {
-            if (classSymbol.qualifiers().contains(Qualifier.CLIENT) && classSymbol.getName().orElse("").equals(AGENT)) {
-                agents.add(new Codedata.Builder<>(null).node(NodeKind.AGENT)
-                        .org(id.orgName())
-                        .module(id.packageName())
-                        .version(id.version())
-                        .object(classSymbol.getName().orElse(AGENT))
-                        .symbol(INIT)
-                        .build());
-
-            }
-        }
-
-        return gson.toJsonTree(agents).getAsJsonArray();
     }
 
     public JsonArray getAllAgents(SemanticModel agentSymbol) {
@@ -152,53 +129,6 @@ public class AgentsGenerator {
             }
         }
         return gson.toJsonTree(agents).getAsJsonArray();
-    }
-
-    private ModuleSymbol getAgentModule() {
-        assert semanticModel != null;
-        for (Symbol symbol : semanticModel.moduleSymbols()) {
-            if (symbol.kind() == SymbolKind.MODULE) {
-                ModuleSymbol modSymbol = (ModuleSymbol) symbol;
-                if (modSymbol.id().orgName().equals(BALLERINAX) && modSymbol.id().packageName().equals(AI_AGENT)) {
-                    return modSymbol;
-                }
-            }
-        }
-        throw new IllegalStateException("Agent module not found");
-    }
-
-    public JsonArray getAllModels() {
-        ModuleSymbol agentModule = getAgentModule();
-        List<ClassSymbol> modelSymbols = new ArrayList<>();
-        for (ClassSymbol classSymbol : agentModule.classes()) {
-            if (!classSymbol.qualifiers().contains(Qualifier.CLIENT)) {
-                continue;
-            }
-            List<TypeSymbol> inclusionsTypes = classSymbol.typeInclusions();
-            for (TypeSymbol typeSymbol : inclusionsTypes) {
-                if (typeSymbol.getName().isPresent() && typeSymbol.getName().get().equals(MODEL)) {
-                    modelSymbols.add(classSymbol);
-                    break;
-                }
-            }
-        }
-
-        Optional<ModuleSymbol> optModule = agentModule.getModule();
-        if (optModule.isEmpty()) {
-            throw new IllegalStateException("Agent module id not found");
-        }
-        ModuleID id = optModule.get().id();
-        List<Codedata> models = new ArrayList<>();
-        for (ClassSymbol model : modelSymbols) {
-            models.add(new Codedata.Builder<>(null).node(NodeKind.CLASS_INIT)
-                    .org(id.orgName())
-                    .module(id.packageName())
-                    .version(id.version())
-                    .object(model.getName().orElse(MODEL))
-                    .symbol(INIT)
-                    .build());
-        }
-        return gson.toJsonTree(models).getAsJsonArray();
     }
 
     public JsonArray getAllModels(SemanticModel agentSymbol) {
@@ -299,8 +229,8 @@ public class AgentsGenerator {
         return gson.toJsonTree(functionNames).getAsJsonArray();
     }
 
-    public JsonElement genTool(JsonElement node, String toolName, String connectionName, Path filePath,
-                               WorkspaceManager workspaceManager) {
+    public JsonElement genTool(JsonElement node, String toolName, String connectionName, String description,
+                               Path filePath, WorkspaceManager workspaceManager) {
         FlowNode flowNode = gson.fromJson(node, FlowNode.class);
         NodeKind nodeKind = flowNode.codedata().node();
         SourceBuilder sourceBuilder = new SourceBuilder(flowNode, workspaceManager, filePath);
@@ -371,12 +301,7 @@ public class AgentsGenerator {
             sourceBuilder.textEdit(false, AGENT_FILE);
             return gson.toJsonTree(sourceBuilder.build());
         } else if (nodeKind == NodeKind.REMOTE_ACTION_CALL) {
-            String description = flowNode.metadata().description();
-            boolean hasDescription = description != null && !description.isEmpty();
-            if (hasDescription) {
-                sourceBuilder.token().descriptionDoc(description);
-            }
-
+            boolean hasDescription = genDescription(description, flowNode, sourceBuilder);
             Map<String, Property> properties = flowNode.properties();
             Set<String> keys = new LinkedHashSet<>(properties != null ? properties.keySet() : Set.of());
             keys.removeAll(Set.of(Property.VARIABLE_KEY, Property.TYPE_KEY, TARGET_TYPE, Property.CONNECTION_KEY,
@@ -457,12 +382,7 @@ public class AgentsGenerator {
             sourceBuilder.textEdit(false, AGENT_FILE);
             return gson.toJsonTree(sourceBuilder.build());
         } else if (nodeKind == NodeKind.RESOURCE_ACTION_CALL) {
-            String description = flowNode.metadata().description();
-            boolean hasDescription = description != null && !description.isEmpty();
-            if (hasDescription) {
-                sourceBuilder.token().descriptionDoc(description);
-            }
-
+            boolean hasDescription = genDescription(description, flowNode, sourceBuilder);
             Map<String, Property> properties = flowNode.properties();
             Set<String> keys = new LinkedHashSet<>(properties != null ? properties.keySet() : Set.of());
             Set<String> ignoredKeys = new HashSet<>(List.of(Property.CONNECTION_KEY, Property.VARIABLE_KEY,
@@ -552,13 +472,8 @@ public class AgentsGenerator {
                 }
             }
 
-            Optional<Property> connection = flowNode.getProperty(Property.CONNECTION_KEY);
-            if (connection.isEmpty()) {
-                throw new IllegalStateException("Client must be defined for an action call node");
-            }
-
             sourceBuilder.token()
-                    .name(connection.get().toSourceCode())
+                    .name(connectionName)
                     .keyword(SyntaxKind.RIGHT_ARROW_TOKEN)
                     .resourcePath(resourcePath)
                     .keyword(SyntaxKind.DOT_TOKEN)
@@ -600,6 +515,21 @@ public class AgentsGenerator {
             }
         }
         return false;
+    }
+
+    private boolean genDescription(String description, FlowNode flowNode, SourceBuilder sourceBuilder) {
+        String desc = "";
+        String flowNodeDesc = flowNode.metadata().description();
+        if (!description.isEmpty()) {
+            desc = description;
+        } else if (flowNodeDesc != null && !flowNodeDesc.isEmpty()) {
+            desc = flowNodeDesc;
+        }
+        boolean hasDescription = !desc.isEmpty();
+        if (hasDescription) {
+            sourceBuilder.token().descriptionDoc(desc);
+        }
+        return hasDescription;
     }
 
     public JsonArray getActions(JsonElement node, Path filePath, Project project, WorkspaceManager workspaceManager) {
@@ -709,5 +639,34 @@ public class AgentsGenerator {
             methods.add(item);
         }
         return gson.toJsonTree(methods).getAsJsonArray();
+    }
+
+    public JsonElement editTool(String toolName, String description, Path projectPath) {
+        Map<Path, List<TextEdit>> textEditsMap = new HashMap<>();
+        List<TextEdit> textEdits = new ArrayList<>();
+        for (Symbol symbol : semanticModel.moduleSymbols()) {
+            if (symbol.kind() != SymbolKind.FUNCTION) {
+                continue;
+            }
+            FunctionSymbol functionSymbol = (FunctionSymbol) symbol;
+            if (!functionSymbol.getName().orElseThrow().equals(toolName)) {
+                continue;
+            }
+
+            for (AnnotationAttachmentSymbol annotAttachment : functionSymbol.annotAttachments()) {
+                AnnotationSymbol annotationSymbol = annotAttachment.typeDescriptor();
+                if (!annotationSymbol.getName().orElseThrow().equals("Tool")) {
+                    continue;
+                }
+                Location location = annotAttachment.getLocation().orElseThrow();
+                textEdits.add(new TextEdit(CommonUtils.toRange(location.lineRange()),
+                        "@agent:Tool {description: \"" + description + "\"}" + System.lineSeparator()));
+                break;
+            }
+            textEditsMap.put(projectPath.resolve(functionSymbol.getLocation().orElseThrow().lineRange().fileName()),
+                    textEdits);
+            break;
+        }
+        return gson.toJsonTree(textEditsMap);
     }
 }

@@ -109,3 +109,5 @@ compileJava {
         classpath = files()
     }
 }
+
+defineSyncTask("bre/lib")

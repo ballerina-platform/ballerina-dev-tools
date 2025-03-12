@@ -87,6 +87,7 @@
                 "optional": false,
                 "editable": false,
                 "advanced": false,
+                "hidden": false,
                 "codedata": {
                   "lineRange": {
                     "fileName": "wait.bal",
@@ -110,7 +111,8 @@
                 "value": "string|error",
                 "optional": true,
                 "editable": true,
-                "advanced": false
+                "advanced": false,
+                "hidden": false
               }
             },
             "children": [
@@ -146,7 +148,8 @@
                     "value": "mockFetch(\"http://1.com\", 1)",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   }
                 },
                 "flags": 0
@@ -183,6 +186,7 @@
                 "optional": false,
                 "editable": false,
                 "advanced": false,
+                "hidden": false,
                 "codedata": {
                   "lineRange": {
                     "fileName": "wait.bal",
@@ -206,7 +210,8 @@
                 "value": "string|error",
                 "optional": true,
                 "editable": true,
-                "advanced": false
+                "advanced": false,
+                "hidden": false
               }
             },
             "children": [
@@ -242,7 +247,8 @@
                     "value": "mockFetch(\"http://2.com\", 2)",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   }
                 },
                 "flags": 0
@@ -284,7 +290,8 @@
             "value": "",
             "optional": true,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           },
           "variable": {
             "metadata": {
@@ -296,6 +303,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "lineRange": {
                 "fileName": "wait.bal",
@@ -321,6 +329,7 @@
             "optional": false,
             "editable": true,
             "advanced": false,
+            "hidden": false,
             "codedata": {}
           }
         },
@@ -379,7 +388,8 @@
                 "placeholder": "true",
                 "optional": false,
                 "editable": true,
-                "advanced": false
+                "advanced": false,
+                "hidden": false
               }
             },
             "children": [
@@ -415,7 +425,8 @@
                     "value": false,
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   },
                   "futures": {
                     "metadata": {
@@ -441,6 +452,7 @@
                             "optional": false,
                             "editable": true,
                             "advanced": false,
+                            "hidden": false,
                             "codedata": {
                               "dependentProperty": "waitAll"
                             }
@@ -454,17 +466,20 @@
                             "value": "W1",
                             "optional": false,
                             "editable": true,
-                            "advanced": false
+                            "advanced": false,
+                            "hidden": false
                           }
                         },
                         "optional": false,
                         "editable": false,
-                        "advanced": false
+                        "advanced": false,
+                        "hidden": false
                       }
                     },
                     "optional": false,
                     "editable": false,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   }
                 },
                 "flags": 1
@@ -523,7 +538,8 @@
                     "value": false,
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   },
                   "futures": {
                     "metadata": {
@@ -549,6 +565,7 @@
                             "optional": false,
                             "editable": true,
                             "advanced": false,
+                            "hidden": false,
                             "codedata": {
                               "dependentProperty": "waitAll"
                             }
@@ -562,17 +579,20 @@
                             "value": "W2",
                             "optional": false,
                             "editable": true,
-                            "advanced": false
+                            "advanced": false,
+                            "hidden": false
                           }
                         },
                         "optional": false,
                         "editable": false,
-                        "advanced": false
+                        "advanced": false,
+                        "hidden": false
                       }
                     },
                     "optional": false,
                     "editable": false,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   }
                 },
                 "flags": 1
@@ -624,6 +644,7 @@
             "optional": false,
             "editable": true,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "kind": "REST_PARAMETER",
               "originalName": "values"

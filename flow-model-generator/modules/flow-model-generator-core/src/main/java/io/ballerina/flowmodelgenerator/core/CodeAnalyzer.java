@@ -22,11 +22,13 @@ import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.AnnotationAttachmentSymbol;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
+import io.ballerina.compiler.api.symbols.Documentation;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
 import io.ballerina.compiler.api.symbols.MethodSymbol;
 import io.ballerina.compiler.api.symbols.ModuleSymbol;
 import io.ballerina.compiler.api.symbols.ParameterSymbol;
+import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
@@ -303,7 +305,7 @@ class CodeAnalyzer extends NodeVisitor {
                     .object(classSymbol.get().getName().orElse(""))
                     .symbol(functionName)
                     .stepOut()
-                .properties().callExpression(expressionNode, Property.CONNECTION_KEY);
+                .properties().callConnection(expressionNode, Property.CONNECTION_KEY);
         processFunctionSymbol(remoteMethodCallActionNode, remoteMethodCallActionNode.arguments(), functionSymbol,
                 functionData);
 
@@ -359,7 +361,7 @@ class CodeAnalyzer extends NodeVisitor {
                     throw new IllegalStateException("Model argument not found for the new expression: " +
                             newExpressionNode);
                 }
-                Map<String, String> toolUrls = new HashMap<>();
+                List<ToolData> toolUrls = new ArrayList<>();
                 ListConstructorExpressionNode listConstructorExpressionNode = (ListConstructorExpressionNode) toolsArg;
                 for (Node node : listConstructorExpressionNode.expressions()) {
                     if (node.kind() != SyntaxKind.SIMPLE_NAME_REFERENCE) {
@@ -369,11 +371,11 @@ class CodeAnalyzer extends NodeVisitor {
                     String toolName = simpleNameReferenceNode.name().text();
                     String icon = getIcon(toolName);
                     if (!icon.isEmpty()) {
-                        toolUrls.put(toolName, icon);
+                        toolUrls.add(new ToolData(toolName, icon, getToolDescription(toolName)));
                     }
                 }
-                String modelUrl = getModelIconUrl(modelArg);
-                if (!modelUrl.isEmpty()) {
+                ModelData modelUrl = getModelIconUrl(modelArg);
+                if (modelUrl != null) {
                     nodeBuilder.metadata().addData("model", modelUrl);
                 }
                 if (!toolUrls.isEmpty()) {
@@ -470,7 +472,7 @@ class CodeAnalyzer extends NodeVisitor {
                     .resourcePath(resourcePathTemplate.resourcePathTemplate())
                     .stepOut()
                 .properties()
-                .callExpression(expressionNode, Property.CONNECTION_KEY)
+                .callConnection(expressionNode, Property.CONNECTION_KEY)
                 .data(this.typedBindingPatternNode, false, new HashSet<>());
         processFunctionSymbol(clientResourceAccessActionNode, argumentNodes, functionSymbol, functionData);
     }
@@ -1044,7 +1046,7 @@ class CodeAnalyzer extends NodeVisitor {
     }
 
     private void checkForNewConnectionOrAgent(NewExpressionNode newExpressionNode,
-                                       SeparatedNodeList<FunctionArgumentNode> argumentNodes) {
+                                              SeparatedNodeList<FunctionArgumentNode> argumentNodes) {
         Optional<ClassSymbol> optClassSymbol = getClassSymbol(newExpressionNode);
         if (optClassSymbol.isEmpty()) {
             return;
@@ -1054,8 +1056,11 @@ class CodeAnalyzer extends NodeVisitor {
             startNode(NodeKind.AGENT, newExpressionNode);
         } else if (isAIModel(classSymbol)) {
             startNode(NodeKind.CLASS_INIT, newExpressionNode);
-        } else {
+        } else if (classSymbol.qualifiers().contains(Qualifier.CLIENT)) {
             startNode(NodeKind.NEW_CONNECTION, newExpressionNode);
+        } else {
+            handleExpressionNode(newExpressionNode);
+            return;
         }
 
         Optional<MethodSymbol> optMethodSymbol = classSymbol.initMethod();
@@ -1297,6 +1302,18 @@ class CodeAnalyzer extends NodeVisitor {
             return;
         }
 
+        // Consider lang lib methods as a variable node with an expression
+        if (CommonUtils.isValueLangLibFunction(functionSymbol)) {
+            return;
+        }
+
+        Optional<ClassSymbol> classSymbol = getClassSymbol(methodCallExpressionNode.expression());
+        if (classSymbol.isEmpty()) {
+            handleExpressionNode(methodCallExpressionNode);
+            return;
+        }
+
+
         ExpressionNode expressionNode = methodCallExpressionNode.expression();
         NameReferenceNode nameReferenceNode = methodCallExpressionNode.methodName();
         String functionName = getIdentifierName(nameReferenceNode);
@@ -1317,11 +1334,6 @@ class CodeAnalyzer extends NodeVisitor {
                         .userModuleInfo(moduleInfo);
         FunctionData functionData = functionDataBuilder.build();
 
-        if (!CommonUtils.isValueLangLibFunction(functionSymbol)) {
-            processFunctionSymbol(methodCallExpressionNode, methodCallExpressionNode.arguments(), functionSymbol,
-                    functionData);
-        }
-
         nodeBuilder
                 .symbolInfo(functionSymbol)
                     .metadata()
@@ -1330,9 +1342,14 @@ class CodeAnalyzer extends NodeVisitor {
                     .stepOut()
                 .codedata()
                     .symbol(functionName)
-                    .stepOut()
-                .properties()
-                .callExpression(expressionNode, Property.CONNECTION_KEY);
+                    .object(classSymbol.get().getName().orElse(""));
+        if (classSymbol.get().qualifiers().contains(Qualifier.CLIENT)) {
+            nodeBuilder.properties().callConnection(expressionNode, Property.CONNECTION_KEY);
+        } else {
+            nodeBuilder.properties().callExpression(expressionNode, Property.CONNECTION_KEY);
+        }
+        processFunctionSymbol(methodCallExpressionNode, methodCallExpressionNode.arguments(), functionSymbol,
+                functionData);
     }
 
     @Override
@@ -1383,18 +1400,6 @@ class CodeAnalyzer extends NodeVisitor {
                 .description(functionData.description())
                 .stepOut()
                 .codedata().symbol(functionName);
-
-        if (isAgentCall(symbol.get())) {
-            SeparatedNodeList<FunctionArgumentNode> arguments = functionCallExpressionNode.arguments();
-            String modelUrl = getModelIconUrl(arguments.get(0));
-            List<String> toolUrls = getToolIconUrls(arguments.get(arguments.size() - 1));
-            if (!modelUrl.isEmpty()) {
-                nodeBuilder.metadata().addData("model", modelUrl);
-            }
-            if (!toolUrls.isEmpty()) {
-                nodeBuilder.metadata().addData("tools", toolUrls);
-            }
-        }
     }
 
     private void processFunctionSymbol(NonTerminalNode callNode, SeparatedNodeList<FunctionArgumentNode> arguments,
@@ -1403,7 +1408,7 @@ class CodeAnalyzer extends NodeVisitor {
         final Queue<Node> positionalArgs = new LinkedList<>();
         calculateFunctionArgs(namedArgValueMap, positionalArgs, arguments);
 
-        Map<String, ParameterData> funcParamMap = new HashMap<>();
+        Map<String, ParameterData> funcParamMap = new LinkedHashMap<>();
         FunctionTypeSymbol functionTypeSymbol = functionSymbol.typeDescriptor();
         functionData.parameters().forEach((key, paramResult) -> {
             if (paramResult.kind() != ParameterData.Kind.PARAM_FOR_TYPE_INFER) {
@@ -1491,60 +1496,21 @@ class CodeAnalyzer extends NodeVisitor {
         return false;
     }
 
-    private String getModelIconUrl(ExpressionNode expressionNode) {
+    private ModelData getModelIconUrl(ExpressionNode expressionNode) {
         if (expressionNode.kind() != SyntaxKind.SIMPLE_NAME_REFERENCE) {
-            return "";
+            return null;
         }
         Optional<Symbol> optSymbol = semanticModel.symbol(expressionNode);
         if (optSymbol.isEmpty()) {
-            return "";
+            return null;
         }
         Optional<ModuleSymbol> optModule = optSymbol.get().getModule();
         if (optModule.isEmpty()) {
-            return "";
+            return null;
         }
         ModuleID id = optModule.get().id();
-        return CommonUtils.generateIcon(id.moduleName(), id.packageName(), id.version());
-    }
-
-    private String getModelIconUrl(FunctionArgumentNode firstArgNode) {
-        if (firstArgNode.kind() == SyntaxKind.POSITIONAL_ARG) {
-            Node firstArg = ((PositionalArgumentNode) firstArgNode).expression();
-            if (firstArg.kind() == SyntaxKind.SIMPLE_NAME_REFERENCE) {
-                Optional<Symbol> optArg = semanticModel.symbol(firstArg);
-                if (optArg.isPresent()) {
-                    Optional<ModuleSymbol> optModule = optArg.get().getModule();
-                    if (optModule.isPresent()) {
-                        ModuleID id = optModule.get().id();
-                        return CommonUtils.generateIcon(id.moduleName(), id.packageName(), id.version());
-                    }
-                }
-            }
-        }
-        return "";
-    }
-
-    private List<String> getToolIconUrls(FunctionArgumentNode lastArgNode) {
-        List<String> toolUrls = new ArrayList<>();
-        if (lastArgNode.kind() == SyntaxKind.POSITIONAL_ARG) {
-            Node lastArg = ((PositionalArgumentNode) lastArgNode).expression();
-            if (lastArg.kind() == SyntaxKind.LIST_CONSTRUCTOR) {
-                ListConstructorExpressionNode listConstructor = (ListConstructorExpressionNode) lastArg;
-                for (Node expression : listConstructor.expressions()) {
-                    if (expression.kind() == SyntaxKind.SIMPLE_NAME_REFERENCE) {
-                        Optional<Symbol> optArg = semanticModel.symbol(expression);
-                        if (optArg.isPresent()) {
-                            Optional<ModuleSymbol> optModule = optArg.get().getModule();
-                            if (optModule.isPresent()) {
-                                ModuleID id = optModule.get().id();
-                                toolUrls.add(CommonUtils.generateIcon(id.moduleName(), id.packageName(), id.version()));
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return toolUrls;
+        return new ModelData(optSymbol.get().getName().orElseThrow(),
+                CommonUtils.generateIcon(id.moduleName(), id.packageName(), id.version()));
     }
 
     private static String getIdentifierName(NameReferenceNode nameReferenceNode) {
@@ -2033,6 +1999,29 @@ class CodeAnalyzer extends NodeVisitor {
         return "";
     }
 
+    private String getToolDescription(String toolName) {
+        for (Symbol symbol : semanticModel.moduleSymbols()) {
+            if (symbol.kind() != SymbolKind.FUNCTION) {
+                continue;
+            }
+            FunctionSymbol functionSymbol = (FunctionSymbol) symbol;
+            if (!functionSymbol.getName().orElseThrow().equals(toolName)) {
+                continue;
+            }
+            Optional<Documentation> optDoc = functionSymbol.documentation();
+            if (optDoc.isEmpty()) {
+                break;
+            }
+            Optional<String> optDescription = optDoc.get().description();
+            if (optDescription.isEmpty()) {
+                break;
+            }
+            return optDescription.get();
+        }
+
+        return "";
+    }
+
     private ImplicitNewExpressionNode getNewExpr(ExpressionNode expressionNode) {
         NonTerminalNode expr = expressionNode;
         if (expressionNode.kind() == SyntaxKind.CHECK_EXPRESSION) {
@@ -2060,6 +2049,14 @@ class CodeAnalyzer extends NodeVisitor {
     }
 
     private record CommentMetadata(String comment, LineRange position) {
+
+    }
+
+    private record ToolData(String name, String path, String description) {
+
+    }
+
+    private record ModelData(String name, String path) {
 
     }
 }

@@ -37,12 +37,13 @@
           "label": "Connection",
           "description": "Connection to use"
         },
-        "valueType": "IDENTIFIER",
+        "valueType": "EXPRESSION",
         "valueTypeConstraint": "http:Client",
         "value": "httpClient",
         "optional": false,
         "editable": false,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       },
       "resourcePath": {
         "metadata": {
@@ -54,6 +55,7 @@
         "optional": false,
         "editable": true,
         "advanced": false,
+        "hidden": false,
         "codedata": {
           "originalName": "/path/to/subdirectory"
         }
@@ -69,6 +71,7 @@
         "optional": false,
         "editable": true,
         "advanced": false,
+        "hidden": false,
         "codedata": {
           "kind": "PARAM_FOR_TYPE_INFER",
           "originalName": "targetType"
@@ -85,6 +88,7 @@
         "optional": true,
         "editable": true,
         "advanced": true,
+        "hidden": false,
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "headers"
@@ -115,6 +119,7 @@
         "optional": true,
         "editable": true,
         "advanced": true,
+        "hidden": false,
         "codedata": {
           "kind": "INCLUDED_RECORD_REST",
           "originalName": "Additional Values"
@@ -132,6 +137,7 @@
         "optional": false,
         "editable": false,
         "advanced": false,
+        "hidden": false,
         "codedata": {}
       },
       "variable": {
@@ -143,7 +149,8 @@
         "value": "var2",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       },
       "checkError": {
         "metadata": {
@@ -154,7 +161,8 @@
         "value": true,
         "optional": false,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "hidden": false
       }
     },
     "flags": 0

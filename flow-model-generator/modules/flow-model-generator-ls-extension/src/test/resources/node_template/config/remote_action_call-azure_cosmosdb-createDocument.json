@@ -33,12 +33,113 @@
           "label": "Connection",
           "description": "Connection to use"
         },
-        "valueType": "IDENTIFIER",
+        "valueType": "EXPRESSION",
         "valueTypeConstraint": "azure_cosmosdb:DataPlaneClient",
         "value": "covid19Client",
         "optional": false,
         "editable": false,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
+      },
+      "databaseId": {
+        "metadata": {
+          "label": "databaseId",
+          "description": "ID of the database to which the container belongs to"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"\"",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "hidden": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "databaseId"
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "containerId": {
+        "metadata": {
+          "label": "containerId",
+          "description": "ID of the container where, document is created"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"\"",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "hidden": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "containerId"
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "documemtId": {
+        "metadata": {
+          "label": "documemtId",
+          "description": "ID of the document"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"\"",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "hidden": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "documemtId"
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "document": {
+        "metadata": {
+          "label": "document",
+          "description": "A JSON document to be saved in the database"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "map<json>",
+        "placeholder": "{}",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "hidden": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "document"
+        },
+        "typeMembers": [
+          {
+            "type": "map<json>",
+            "packageInfo": "",
+            "kind": "MAP_TYPE",
+            "selected": false
+          }
+        ]
       },
       "partitionKey": {
         "metadata": {
@@ -51,6 +152,7 @@
         "optional": false,
         "editable": true,
         "advanced": false,
+        "hidden": false,
         "codedata": {
           "kind": "REQUIRED",
           "originalName": "partitionKey"
@@ -82,102 +184,6 @@
           }
         ]
       },
-      "document": {
-        "metadata": {
-          "label": "document",
-          "description": "A JSON document to be saved in the database"
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "map<json>",
-        "placeholder": "{}",
-        "optional": false,
-        "editable": true,
-        "advanced": false,
-        "codedata": {
-          "kind": "REQUIRED",
-          "originalName": "document"
-        },
-        "typeMembers": [
-          {
-            "type": "map<json>",
-            "packageInfo": "",
-            "kind": "MAP_TYPE",
-            "selected": false
-          }
-        ]
-      },
-      "documemtId": {
-        "metadata": {
-          "label": "documemtId",
-          "description": "ID of the document"
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "string",
-        "placeholder": "\"\"",
-        "optional": false,
-        "editable": true,
-        "advanced": false,
-        "codedata": {
-          "kind": "REQUIRED",
-          "originalName": "documemtId"
-        },
-        "typeMembers": [
-          {
-            "type": "string",
-            "packageInfo": "",
-            "kind": "BASIC_TYPE",
-            "selected": false
-          }
-        ]
-      },
-      "databaseId": {
-        "metadata": {
-          "label": "databaseId",
-          "description": "ID of the database to which the container belongs to"
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "string",
-        "placeholder": "\"\"",
-        "optional": false,
-        "editable": true,
-        "advanced": false,
-        "codedata": {
-          "kind": "REQUIRED",
-          "originalName": "databaseId"
-        },
-        "typeMembers": [
-          {
-            "type": "string",
-            "packageInfo": "",
-            "kind": "BASIC_TYPE",
-            "selected": false
-          }
-        ]
-      },
-      "containerId": {
-        "metadata": {
-          "label": "containerId",
-          "description": "ID of the container where, document is created"
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "string",
-        "placeholder": "\"\"",
-        "optional": false,
-        "editable": true,
-        "advanced": false,
-        "codedata": {
-          "kind": "REQUIRED",
-          "originalName": "containerId"
-        },
-        "typeMembers": [
-          {
-            "type": "string",
-            "packageInfo": "",
-            "kind": "BASIC_TYPE",
-            "selected": false
-          }
-        ]
-      },
       "requestOptions": {
         "metadata": {
           "label": "requestOptions",
@@ -189,6 +195,7 @@
         "optional": true,
         "editable": true,
         "advanced": true,
+        "hidden": false,
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "requestOptions"
@@ -219,6 +226,7 @@
         "optional": false,
         "editable": false,
         "advanced": false,
+        "hidden": false,
         "codedata": {}
       },
       "variable": {
@@ -230,7 +238,8 @@
         "value": "azureCosmosdbDocumentresponse",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       },
       "checkError": {
         "metadata": {
@@ -241,7 +250,8 @@
         "value": true,
         "optional": false,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "hidden": false
       }
     },
     "flags": 0

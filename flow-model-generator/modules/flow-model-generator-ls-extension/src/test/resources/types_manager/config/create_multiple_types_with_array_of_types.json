@@ -1,0 +1,2043 @@
+{
+  "filePath": "test_pack2/types.bal",
+  "description": "Create multiple types",
+  "types": [
+    {
+      "name": "Address",
+      "editable": true,
+      "metadata": {
+        "label": "Address",
+        "description": ""
+      },
+      "codedata": {
+        "node": "RECORD"
+      },
+      "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "Address",
+          "optional": false,
+          "editable": false,
+          "advanced": false
+        },
+        "isPublic": {
+          "metadata": {
+            "label": "public",
+            "description": "Is this public"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": false
+        },
+        "description": {
+          "metadata": {
+            "label": "Type description",
+            "description": "Detailed description about the type"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isArray": {
+          "metadata": {
+            "label": "Is array type",
+            "description": "Is this type an array or list value"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        },
+        "arraySize": {
+          "metadata": {
+            "label": "Size of the array",
+            "description": "Array dimensions"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        }
+      },
+      "members": [
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "street",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "city",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "zip",
+          "docs": ""
+        }
+      ],
+      "restMember": {
+        "kind": "FIELD",
+        "refs": [
+          "json"
+        ],
+        "type": "json"
+      },
+      "includes": []
+    },
+    {
+      "name": "EmergencyContact",
+      "editable": true,
+      "metadata": {
+        "label": "EmergencyContact",
+        "description": ""
+      },
+      "codedata": {
+        "node": "RECORD"
+      },
+      "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "EmergencyContact",
+          "optional": false,
+          "editable": false,
+          "advanced": false
+        },
+        "isPublic": {
+          "metadata": {
+            "label": "public",
+            "description": "Is this public"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": false
+        },
+        "description": {
+          "metadata": {
+            "label": "Type description",
+            "description": "Detailed description about the type"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isArray": {
+          "metadata": {
+            "label": "Is array type",
+            "description": "Is this type an array or list value"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        },
+        "arraySize": {
+          "metadata": {
+            "label": "Size of the array",
+            "description": "Array dimensions"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        }
+      },
+      "members": [
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "name",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "relationship",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "phone",
+          "docs": ""
+        }
+      ],
+      "restMember": {
+        "kind": "FIELD",
+        "refs": [
+          "json"
+        ],
+        "type": "json"
+      },
+      "includes": []
+    },
+    {
+      "name": "Patient",
+      "editable": true,
+      "metadata": {
+        "label": "Patient",
+        "description": ""
+      },
+      "codedata": {
+        "node": "RECORD"
+      },
+      "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "Patient",
+          "optional": false,
+          "editable": false,
+          "advanced": false
+        },
+        "isPublic": {
+          "metadata": {
+            "label": "public",
+            "description": "Is this public"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": false
+        },
+        "description": {
+          "metadata": {
+            "label": "Type description",
+            "description": "Detailed description about the type"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isArray": {
+          "metadata": {
+            "label": "Is array type",
+            "description": "Is this type an array or list value"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        },
+        "arraySize": {
+          "metadata": {
+            "label": "Size of the array",
+            "description": "Array dimensions"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        }
+      },
+      "members": [
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "name",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "dob",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "ssn",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [
+            "Address"
+          ],
+          "type": "Address",
+          "name": "address",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "phone",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "email",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "cardNo",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [
+            "EmergencyContact"
+          ],
+          "type": "EmergencyContact",
+          "name": "emergencyContact",
+          "docs": ""
+        }
+      ],
+      "restMember": {
+        "kind": "FIELD",
+        "refs": [
+          "json"
+        ],
+        "type": "json"
+      },
+      "includes": []
+    },
+    {
+      "name": "Location",
+      "editable": true,
+      "metadata": {
+        "label": "Location",
+        "description": ""
+      },
+      "codedata": {
+        "node": "RECORD"
+      },
+      "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "Location",
+          "optional": false,
+          "editable": false,
+          "advanced": false
+        },
+        "isPublic": {
+          "metadata": {
+            "label": "public",
+            "description": "Is this public"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": false
+        },
+        "description": {
+          "metadata": {
+            "label": "Type description",
+            "description": "Detailed description about the type"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isArray": {
+          "metadata": {
+            "label": "Is array type",
+            "description": "Is this type an array or list value"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        },
+        "arraySize": {
+          "metadata": {
+            "label": "Size of the array",
+            "description": "Array dimensions"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        }
+      },
+      "members": [
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "address",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "city",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "zip",
+          "docs": ""
+        }
+      ],
+      "restMember": {
+        "kind": "FIELD",
+        "refs": [
+          "json"
+        ],
+        "type": "json"
+      },
+      "includes": []
+    },
+    {
+      "name": "DepartmentsItem",
+      "editable": true,
+      "metadata": {
+        "label": "DepartmentsItem",
+        "description": ""
+      },
+      "codedata": {
+        "node": "RECORD"
+      },
+      "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "DepartmentsItem",
+          "optional": false,
+          "editable": false,
+          "advanced": false
+        },
+        "isPublic": {
+          "metadata": {
+            "label": "public",
+            "description": "Is this public"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": false
+        },
+        "description": {
+          "metadata": {
+            "label": "Type description",
+            "description": "Detailed description about the type"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isArray": {
+          "metadata": {
+            "label": "Is array type",
+            "description": "Is this type an array or list value"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        },
+        "arraySize": {
+          "metadata": {
+            "label": "Size of the array",
+            "description": "Array dimensions"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        }
+      },
+      "members": [
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "department_id",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "name",
+          "docs": ""
+        }
+      ],
+      "restMember": {
+        "kind": "FIELD",
+        "refs": [
+          "json"
+        ],
+        "type": "json"
+      },
+      "includes": []
+    },
+    {
+      "name": "HospitalInfo",
+      "editable": true,
+      "metadata": {
+        "label": "HospitalInfo",
+        "description": ""
+      },
+      "codedata": {
+        "node": "RECORD"
+      },
+      "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "HospitalInfo",
+          "optional": false,
+          "editable": false,
+          "advanced": false
+        },
+        "isPublic": {
+          "metadata": {
+            "label": "public",
+            "description": "Is this public"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": false
+        },
+        "description": {
+          "metadata": {
+            "label": "Type description",
+            "description": "Detailed description about the type"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isArray": {
+          "metadata": {
+            "label": "Is array type",
+            "description": "Is this type an array or list value"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        },
+        "arraySize": {
+          "metadata": {
+            "label": "Size of the array",
+            "description": "Array dimensions"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        }
+      },
+      "members": [
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "hospital_id",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "hospital",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [
+            "Location"
+          ],
+          "type": "Location",
+          "name": "location",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": {
+            "editable": false,
+            "codedata": {
+              "node": "ARRAY"
+            },
+            "properties": {
+              "isArray": {
+                "metadata": {
+                  "label": "Is array type",
+                  "description": "Is this type an array or list value"
+                },
+                "valueType": "FLAG",
+                "value": "true",
+                "optional": true,
+                "editable": true,
+                "advanced": true
+              },
+              "arraySize": {
+                "metadata": {
+                  "label": "Size of the array",
+                  "description": "Array dimensions"
+                },
+                "valueType": "STRING",
+                "value": "",
+                "optional": false,
+                "editable": false,
+                "advanced": false
+              }
+            },
+            "members": [
+              {
+                "kind": "TYPE",
+                "refs": [
+                  "DepartmentsItem"
+                ],
+                "type": "DepartmentsItem",
+                "name": "DepartmentsItem"
+              }
+            ]
+          },
+          "name": "departments",
+          "docs": ""
+        }
+      ],
+      "restMember": {
+        "kind": "FIELD",
+        "refs": [
+          "json"
+        ],
+        "type": "json"
+      },
+      "includes": []
+    },
+    {
+      "name": "Contact",
+      "editable": true,
+      "metadata": {
+        "label": "Contact",
+        "description": ""
+      },
+      "codedata": {
+        "node": "RECORD"
+      },
+      "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "Contact",
+          "optional": false,
+          "editable": false,
+          "advanced": false
+        },
+        "isPublic": {
+          "metadata": {
+            "label": "public",
+            "description": "Is this public"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": false
+        },
+        "description": {
+          "metadata": {
+            "label": "Type description",
+            "description": "Detailed description about the type"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isArray": {
+          "metadata": {
+            "label": "Is array type",
+            "description": "Is this type an array or list value"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        },
+        "arraySize": {
+          "metadata": {
+            "label": "Size of the array",
+            "description": "Array dimensions"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        }
+      },
+      "members": [
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "phone",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "email",
+          "docs": ""
+        }
+      ],
+      "restMember": {
+        "kind": "FIELD",
+        "refs": [
+          "json"
+        ],
+        "type": "json"
+      },
+      "includes": []
+    },
+    {
+      "name": "Doctor",
+      "editable": true,
+      "metadata": {
+        "label": "Doctor",
+        "description": ""
+      },
+      "codedata": {
+        "node": "RECORD"
+      },
+      "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "Doctor",
+          "optional": false,
+          "editable": false,
+          "advanced": false
+        },
+        "isPublic": {
+          "metadata": {
+            "label": "public",
+            "description": "Is this public"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": false
+        },
+        "description": {
+          "metadata": {
+            "label": "Type description",
+            "description": "Detailed description about the type"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isArray": {
+          "metadata": {
+            "label": "Is array type",
+            "description": "Is this type an array or list value"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        },
+        "arraySize": {
+          "metadata": {
+            "label": "Size of the array",
+            "description": "Array dimensions"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        }
+      },
+      "members": [
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "name",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "specialization",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "int",
+          "name": "experience",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [
+            "Contact"
+          ],
+          "type": "Contact",
+          "name": "contact",
+          "docs": ""
+        }
+      ],
+      "restMember": {
+        "kind": "FIELD",
+        "refs": [
+          "json"
+        ],
+        "type": "json"
+      },
+      "includes": []
+    },
+    {
+      "name": "Appointment",
+      "editable": true,
+      "metadata": {
+        "label": "Appointment",
+        "description": ""
+      },
+      "codedata": {
+        "node": "RECORD"
+      },
+      "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "Appointment",
+          "optional": false,
+          "editable": false,
+          "advanced": false
+        },
+        "isPublic": {
+          "metadata": {
+            "label": "public",
+            "description": "Is this public"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": false
+        },
+        "description": {
+          "metadata": {
+            "label": "Type description",
+            "description": "Detailed description about the type"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isArray": {
+          "metadata": {
+            "label": "Is array type",
+            "description": "Is this type an array or list value"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        },
+        "arraySize": {
+          "metadata": {
+            "label": "Size of the array",
+            "description": "Array dimensions"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        }
+      },
+      "members": [
+        {
+          "kind": "FIELD",
+          "refs": [
+            "Doctor"
+          ],
+          "type": "Doctor",
+          "name": "doctor",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "appointment_date",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "status",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "appointment_notes",
+          "docs": ""
+        }
+      ],
+      "restMember": {
+        "kind": "FIELD",
+        "refs": [
+          "json"
+        ],
+        "type": "json"
+      },
+      "includes": []
+    },
+    {
+      "name": "Insurance",
+      "editable": true,
+      "metadata": {
+        "label": "Insurance",
+        "description": ""
+      },
+      "codedata": {
+        "node": "RECORD"
+      },
+      "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "Insurance",
+          "optional": false,
+          "editable": false,
+          "advanced": false
+        },
+        "isPublic": {
+          "metadata": {
+            "label": "public",
+            "description": "Is this public"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": false
+        },
+        "description": {
+          "metadata": {
+            "label": "Type description",
+            "description": "Detailed description about the type"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isArray": {
+          "metadata": {
+            "label": "Is array type",
+            "description": "Is this type an array or list value"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        },
+        "arraySize": {
+          "metadata": {
+            "label": "Size of the array",
+            "description": "Array dimensions"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        }
+      },
+      "members": [
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "provider",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "policy_number",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "int",
+          "name": "coverage",
+          "docs": ""
+        }
+      ],
+      "restMember": {
+        "kind": "FIELD",
+        "refs": [
+          "json"
+        ],
+        "type": "json"
+      },
+      "includes": []
+    },
+    {
+      "name": "Billing",
+      "editable": true,
+      "metadata": {
+        "label": "Billing",
+        "description": ""
+      },
+      "codedata": {
+        "node": "RECORD"
+      },
+      "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "Billing",
+          "optional": false,
+          "editable": false,
+          "advanced": false
+        },
+        "isPublic": {
+          "metadata": {
+            "label": "public",
+            "description": "Is this public"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": false
+        },
+        "description": {
+          "metadata": {
+            "label": "Type description",
+            "description": "Detailed description about the type"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isArray": {
+          "metadata": {
+            "label": "Is array type",
+            "description": "Is this type an array or list value"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        },
+        "arraySize": {
+          "metadata": {
+            "label": "Size of the array",
+            "description": "Array dimensions"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        }
+      },
+      "members": [
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "bill_id",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "int",
+          "name": "total_amount",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "int",
+          "name": "paid_amount",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "int",
+          "name": "due_amount",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [
+            "Insurance"
+          ],
+          "type": "Insurance",
+          "name": "insurance",
+          "docs": ""
+        }
+      ],
+      "restMember": {
+        "kind": "FIELD",
+        "refs": [
+          "json"
+        ],
+        "type": "json"
+      },
+      "includes": []
+    },
+    {
+      "name": "MedicationsItem",
+      "editable": true,
+      "metadata": {
+        "label": "MedicationsItem",
+        "description": ""
+      },
+      "codedata": {
+        "node": "RECORD"
+      },
+      "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "MedicationsItem",
+          "optional": false,
+          "editable": false,
+          "advanced": false
+        },
+        "isPublic": {
+          "metadata": {
+            "label": "public",
+            "description": "Is this public"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": false
+        },
+        "description": {
+          "metadata": {
+            "label": "Type description",
+            "description": "Detailed description about the type"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isArray": {
+          "metadata": {
+            "label": "Is array type",
+            "description": "Is this type an array or list value"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        },
+        "arraySize": {
+          "metadata": {
+            "label": "Size of the array",
+            "description": "Array dimensions"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        }
+      },
+      "members": [
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "name",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "dosage",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "frequency",
+          "docs": ""
+        }
+      ],
+      "restMember": {
+        "kind": "FIELD",
+        "refs": [
+          "json"
+        ],
+        "type": "json"
+      },
+      "includes": []
+    },
+    {
+      "name": "Pharmacy",
+      "editable": true,
+      "metadata": {
+        "label": "Pharmacy",
+        "description": ""
+      },
+      "codedata": {
+        "node": "RECORD"
+      },
+      "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "Pharmacy",
+          "optional": false,
+          "editable": false,
+          "advanced": false
+        },
+        "isPublic": {
+          "metadata": {
+            "label": "public",
+            "description": "Is this public"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": false
+        },
+        "description": {
+          "metadata": {
+            "label": "Type description",
+            "description": "Detailed description about the type"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isArray": {
+          "metadata": {
+            "label": "Is array type",
+            "description": "Is this type an array or list value"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        },
+        "arraySize": {
+          "metadata": {
+            "label": "Size of the array",
+            "description": "Array dimensions"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        }
+      },
+      "members": [
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "name",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "location",
+          "docs": ""
+        }
+      ],
+      "restMember": {
+        "kind": "FIELD",
+        "refs": [
+          "json"
+        ],
+        "type": "json"
+      },
+      "includes": []
+    },
+    {
+      "name": "Prescription",
+      "editable": true,
+      "metadata": {
+        "label": "Prescription",
+        "description": ""
+      },
+      "codedata": {
+        "node": "RECORD"
+      },
+      "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "Prescription",
+          "optional": false,
+          "editable": false,
+          "advanced": false
+        },
+        "isPublic": {
+          "metadata": {
+            "label": "public",
+            "description": "Is this public"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": false
+        },
+        "description": {
+          "metadata": {
+            "label": "Type description",
+            "description": "Detailed description about the type"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isArray": {
+          "metadata": {
+            "label": "Is array type",
+            "description": "Is this type an array or list value"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        },
+        "arraySize": {
+          "metadata": {
+            "label": "Size of the array",
+            "description": "Array dimensions"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        }
+      },
+      "members": [
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": {
+            "editable": false,
+            "codedata": {
+              "node": "ARRAY"
+            },
+            "properties": {
+              "isArray": {
+                "metadata": {
+                  "label": "Is array type",
+                  "description": "Is this type an array or list value"
+                },
+                "valueType": "FLAG",
+                "value": "true",
+                "optional": true,
+                "editable": true,
+                "advanced": true
+              },
+              "arraySize": {
+                "metadata": {
+                  "label": "Size of the array",
+                  "description": "Array dimensions"
+                },
+                "valueType": "STRING",
+                "value": "",
+                "optional": false,
+                "editable": false,
+                "advanced": false
+              }
+            },
+            "members": [
+              {
+                "kind": "TYPE",
+                "refs": [
+                  "MedicationsItem"
+                ],
+                "type": "MedicationsItem",
+                "name": "MedicationsItem"
+              }
+            ]
+          },
+          "name": "medications",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [
+            "Pharmacy"
+          ],
+          "type": "Pharmacy",
+          "name": "pharmacy",
+          "docs": ""
+        }
+      ],
+      "restMember": {
+        "kind": "FIELD",
+        "refs": [
+          "json"
+        ],
+        "type": "json"
+      },
+      "includes": []
+    },
+    {
+      "name": "LabTestsItem",
+      "editable": true,
+      "metadata": {
+        "label": "LabTestsItem",
+        "description": ""
+      },
+      "codedata": {
+        "node": "RECORD"
+      },
+      "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "LabTestsItem",
+          "optional": false,
+          "editable": false,
+          "advanced": false
+        },
+        "isPublic": {
+          "metadata": {
+            "label": "public",
+            "description": "Is this public"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": false
+        },
+        "description": {
+          "metadata": {
+            "label": "Type description",
+            "description": "Detailed description about the type"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isArray": {
+          "metadata": {
+            "label": "Is array type",
+            "description": "Is this type an array or list value"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        },
+        "arraySize": {
+          "metadata": {
+            "label": "Size of the array",
+            "description": "Array dimensions"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        }
+      },
+      "members": [
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "test_id",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "test_name",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "result",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "date",
+          "docs": ""
+        }
+      ],
+      "restMember": {
+        "kind": "FIELD",
+        "refs": [
+          "json"
+        ],
+        "type": "json"
+      },
+      "includes": []
+    },
+    {
+      "name": "RoomDetails",
+      "editable": true,
+      "metadata": {
+        "label": "RoomDetails",
+        "description": ""
+      },
+      "codedata": {
+        "node": "RECORD"
+      },
+      "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "RoomDetails",
+          "optional": false,
+          "editable": false,
+          "advanced": false
+        },
+        "isPublic": {
+          "metadata": {
+            "label": "public",
+            "description": "Is this public"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": false
+        },
+        "description": {
+          "metadata": {
+            "label": "Type description",
+            "description": "Detailed description about the type"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isArray": {
+          "metadata": {
+            "label": "Is array type",
+            "description": "Is this type an array or list value"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        },
+        "arraySize": {
+          "metadata": {
+            "label": "Size of the array",
+            "description": "Array dimensions"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        }
+      },
+      "members": [
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "room_no",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "bed_no",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "room_type",
+          "docs": ""
+        }
+      ],
+      "restMember": {
+        "kind": "FIELD",
+        "refs": [
+          "json"
+        ],
+        "type": "json"
+      },
+      "includes": []
+    },
+    {
+      "name": "Nurse",
+      "editable": true,
+      "metadata": {
+        "label": "Nurse",
+        "description": ""
+      },
+      "codedata": {
+        "node": "RECORD"
+      },
+      "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "Nurse",
+          "optional": false,
+          "editable": false,
+          "advanced": false
+        },
+        "isPublic": {
+          "metadata": {
+            "label": "public",
+            "description": "Is this public"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": false
+        },
+        "description": {
+          "metadata": {
+            "label": "Type description",
+            "description": "Detailed description about the type"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isArray": {
+          "metadata": {
+            "label": "Is array type",
+            "description": "Is this type an array or list value"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        },
+        "arraySize": {
+          "metadata": {
+            "label": "Size of the array",
+            "description": "Array dimensions"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        }
+      },
+      "members": [
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "name",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "shift",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [
+            "Contact"
+          ],
+          "type": "Contact",
+          "name": "contact",
+          "docs": ""
+        }
+      ],
+      "restMember": {
+        "kind": "FIELD",
+        "refs": [
+          "json"
+        ],
+        "type": "json"
+      },
+      "includes": []
+    },
+    {
+      "name": "MyType",
+      "editable": true,
+      "metadata": {
+        "label": "MyType",
+        "description": ""
+      },
+      "codedata": {
+        "node": "RECORD"
+      },
+      "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "MyType",
+          "optional": false,
+          "editable": false,
+          "advanced": false
+        },
+        "isPublic": {
+          "metadata": {
+            "label": "public",
+            "description": "Is this public"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": false
+        },
+        "description": {
+          "metadata": {
+            "label": "Type description",
+            "description": "Detailed description about the type"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": true,
+          "advanced": false
+        },
+        "isArray": {
+          "metadata": {
+            "label": "Is array type",
+            "description": "Is this type an array or list value"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        },
+        "arraySize": {
+          "metadata": {
+            "label": "Size of the array",
+            "description": "Array dimensions"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": true,
+          "editable": true,
+          "advanced": true
+        }
+      },
+      "members": [
+        {
+          "kind": "FIELD",
+          "refs": [
+            "Patient"
+          ],
+          "type": "Patient",
+          "name": "patient",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [
+            "HospitalInfo"
+          ],
+          "type": "HospitalInfo",
+          "name": "hospitalInfo",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [
+            "Appointment"
+          ],
+          "type": "Appointment",
+          "name": "appointment",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [
+            "Billing"
+          ],
+          "type": "Billing",
+          "name": "billing",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [
+            "Prescription"
+          ],
+          "type": "Prescription",
+          "name": "prescription",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": {
+            "editable": false,
+            "codedata": {
+              "node": "ARRAY"
+            },
+            "properties": {
+              "isArray": {
+                "metadata": {
+                  "label": "Is array type",
+                  "description": "Is this type an array or list value"
+                },
+                "valueType": "FLAG",
+                "value": "true",
+                "optional": true,
+                "editable": true,
+                "advanced": true
+              },
+              "arraySize": {
+                "metadata": {
+                  "label": "Size of the array",
+                  "description": "Array dimensions"
+                },
+                "valueType": "STRING",
+                "value": "",
+                "optional": false,
+                "editable": false,
+                "advanced": false
+              }
+            },
+            "members": [
+              {
+                "kind": "TYPE",
+                "refs": [
+                  "LabTestsItem"
+                ],
+                "type": "LabTestsItem",
+                "name": "LabTestsItem"
+              }
+            ]
+          },
+          "name": "labTests",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [
+            "RoomDetails"
+          ],
+          "type": "RoomDetails",
+          "name": "roomDetails",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [
+            "Nurse"
+          ],
+          "type": "Nurse",
+          "name": "nurse",
+          "docs": ""
+        },
+        {
+          "kind": "FIELD",
+          "refs": [],
+          "type": "string",
+          "name": "consultation_type",
+          "docs": ""
+        }
+      ],
+      "restMember": {
+        "kind": "FIELD",
+        "refs": [
+          "json"
+        ],
+        "type": "json"
+      },
+      "includes": []
+    }
+  ],
+  "output": {
+    "test_pack2/types.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 3,
+            "character": 3
+          },
+          "end": {
+            "line": 3,
+            "character": 3
+          }
+        },
+        "newText": "\ntype Address record {|\n\tstring street;\n\tstring city;\n\tstring zip;\n\tjson ...;\n|};\n\ntype EmergencyContact record {|\n\tstring name;\n\tstring relationship;\n\tstring phone;\n\tjson ...;\n|};\n\ntype Patient record {|\n\tstring name;\n\tstring dob;\n\tstring ssn;\n\tAddress address;\n\tstring phone;\n\tstring email;\n\tstring cardNo;\n\tEmergencyContact emergencyContact;\n\tjson ...;\n|};\n\ntype Location record {|\n\tstring address;\n\tstring city;\n\tstring zip;\n\tjson ...;\n|};\n\ntype DepartmentsItem record {|\n\tstring department_id;\n\tstring name;\n\tjson ...;\n|};\n\ntype HospitalInfo record {|\n\tstring hospital_id;\n\tstring hospital;\n\tLocation location;\n\tDepartmentsItem[] departments;\n\tjson ...;\n|};\n\ntype Contact record {|\n\tstring phone;\n\tstring email;\n\tjson ...;\n|};\n\ntype Doctor record {|\n\tstring name;\n\tstring specialization;\n\tint experience;\n\tContact contact;\n\tjson ...;\n|};\n\ntype Appointment record {|\n\tDoctor doctor;\n\tstring appointment_date;\n\tstring status;\n\tstring appointment_notes;\n\tjson ...;\n|};\n\ntype Insurance record {|\n\tstring provider;\n\tstring policy_number;\n\tint coverage;\n\tjson ...;\n|};\n\ntype Billing record {|\n\tstring bill_id;\n\tint total_amount;\n\tint paid_amount;\n\tint due_amount;\n\tInsurance insurance;\n\tjson ...;\n|};\n\ntype MedicationsItem record {|\n\tstring name;\n\tstring dosage;\n\tstring frequency;\n\tjson ...;\n|};\n\ntype Pharmacy record {|\n\tstring name;\n\tstring location;\n\tjson ...;\n|};\n\ntype Prescription record {|\n\tMedicationsItem[] medications;\n\tPharmacy pharmacy;\n\tjson ...;\n|};\n\ntype LabTestsItem record {|\n\tstring test_id;\n\tstring test_name;\n\tstring result;\n\tstring date;\n\tjson ...;\n|};\n\ntype RoomDetails record {|\n\tstring room_no;\n\tstring bed_no;\n\tstring room_type;\n\tjson ...;\n|};\n\ntype Nurse record {|\n\tstring name;\n\tstring shift;\n\tContact contact;\n\tjson ...;\n|};\n\ntype MyType record {|\n\tPatient patient;\n\tHospitalInfo hospitalInfo;\n\tAppointment appointment;\n\tBilling billing;\n\tPrescription prescription;\n\tLabTestsItem[] labTests;\n\tRoomDetails roomDetails;\n\tNurse nurse;\n\tstring consultation_type;\n\tjson ...;\n|};"
+      }
+    ]
+  }
+}

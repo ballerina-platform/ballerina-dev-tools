@@ -1,0 +1,95 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "69600",
+    "metadata": {
+      "label": "Variable",
+      "description": "Assign a value to a variable"
+    },
+    "codedata": {
+      "node": "VARIABLE",
+      "lineRange": {
+        "fileName": "method_call.bal",
+        "startLine": {
+          "line": 38,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 38,
+          "offset": 36
+        }
+      },
+      "sourceCode": "int[] numbers = [1, 2, 3, 4, 5];"
+    },
+    "returning": false,
+    "properties": {
+      "expression": {
+        "metadata": {
+          "label": "Expression",
+          "description": "Initialize with value"
+        },
+        "valueType": "EXPRESSION",
+        "value": "[1, 2, 3, 4, 5]",
+        "optional": true,
+        "editable": true,
+        "advanced": false
+      },
+      "variable": {
+        "metadata": {
+          "label": "Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "numbers",
+        "optional": false,
+        "editable": false,
+        "advanced": false,
+        "codedata": {
+          "lineRange": {
+            "fileName": "method_call.bal",
+            "startLine": {
+              "line": 38,
+              "offset": 10
+            },
+            "endLine": {
+              "line": 38,
+              "offset": 17
+            }
+          }
+        }
+      },
+      "type": {
+        "metadata": {
+          "label": "Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "int[]",
+        "placeholder": "var",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "codedata": {}
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 38,
+            "character": 4
+          },
+          "end": {
+            "line": 38,
+            "character": 36
+          }
+        },
+        "newText": "int[] numbers = [1, 2, 3, 4, 5];"
+      }
+    ]
+  }
+}

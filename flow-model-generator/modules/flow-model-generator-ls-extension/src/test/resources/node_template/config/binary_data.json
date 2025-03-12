@@ -24,7 +24,8 @@
         "value": "var1",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       },
       "type": {
         "metadata": {
@@ -35,7 +36,8 @@
         "value": "byte[]",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       },
       "expression": {
         "metadata": {
@@ -46,7 +48,8 @@
         "value": "base64 `abcd`",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       }
     },
     "flags": 0

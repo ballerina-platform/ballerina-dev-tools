@@ -1,0 +1,320 @@
+{
+  "source": "data_mapper/main.bal",
+  "position": {
+    "line": 14,
+    "offset": 0
+  },
+  "description": "",
+  "codedata": {
+    "node": "NEW_CONNECTION",
+    "org": "ballerinax",
+    "module": "mssql",
+    "object": "Client",
+    "symbol": "init",
+    "version": "1.14.0"
+  },
+  "output": {
+    "id": "31",
+    "metadata": {
+      "label": "New Connection",
+      "description": "Represents an MSSQL database client.",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mssql_1.13.1.png"
+    },
+    "codedata": {
+      "node": "NEW_CONNECTION",
+      "org": "ballerinax",
+      "module": "mssql",
+      "object": "Client",
+      "symbol": "init",
+      "version": "1.13.1",
+      "isNew": true
+    },
+    "returning": false,
+    "properties": {
+      "host": {
+        "metadata": {
+          "label": "host",
+          "description": "Hostname of the MSSQL server"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"localhost\"",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "hidden": false,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "host"
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "user": {
+        "metadata": {
+          "label": "user",
+          "description": "If the MSSQL server is secured, the username"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string|()",
+        "placeholder": "\"sa\"",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "hidden": false,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "user"
+        },
+        "typeMembers": [
+          {
+            "type": "()",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "password": {
+        "metadata": {
+          "label": "password",
+          "description": "The password of the MSSQL server for the provided username"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string|()",
+        "placeholder": "()",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "hidden": false,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "password"
+        },
+        "typeMembers": [
+          {
+            "type": "()",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "database": {
+        "metadata": {
+          "label": "database",
+          "description": "The name of the database"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string|()",
+        "placeholder": "()",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "hidden": false,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "database"
+        },
+        "typeMembers": [
+          {
+            "type": "()",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "port": {
+        "metadata": {
+          "label": "port",
+          "description": "Port number of the MSSQL server"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "int",
+        "placeholder": "1433",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "hidden": false,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "port"
+        },
+        "typeMembers": [
+          {
+            "type": "int",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "instance": {
+        "metadata": {
+          "label": "instance",
+          "description": "Instance name of the MSSQL server"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"\"",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "hidden": false,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "instance"
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "options": {
+        "metadata": {
+          "label": "options",
+          "description": "MSSQL database connection options"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "mssql:Options|()",
+        "placeholder": "()",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "hidden": false,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "options"
+        },
+        "typeMembers": [
+          {
+            "type": "()",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "Options",
+            "packageInfo": "ballerinax:mssql:1.13.1",
+            "kind": "RECORD_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "connectionPool": {
+        "metadata": {
+          "label": "connectionPool",
+          "description": "The `sql:ConnectionPool` to be used for the connection. If there is no\n`connectionPool` provided, the global connection pool (shared by all clients) will be used"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "sql:ConnectionPool|()",
+        "placeholder": "()",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "hidden": false,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "connectionPool",
+          "importStatements": "ballerina/sql"
+        },
+        "typeMembers": [
+          {
+            "type": "()",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "ConnectionPool",
+            "packageInfo": "ballerina:sql:1.14.0",
+            "kind": "RECORD_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "type": {
+        "metadata": {
+          "label": "Variable Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "mssql:Client",
+        "placeholder": "var",
+        "optional": false,
+        "editable": false,
+        "advanced": false,
+        "hidden": false,
+        "codedata": {
+          "importStatements": "ballerina/sql"
+        }
+      },
+      "variable": {
+        "metadata": {
+          "label": "Connection Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "mssqlClient",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "hidden": false
+      },
+      "scope": {
+        "metadata": {
+          "label": "Connection Scope",
+          "description": "Scope of the connection, Global or Local"
+        },
+        "valueType": "ENUM",
+        "value": "Global",
+        "optional": false,
+        "editable": true,
+        "advanced": true,
+        "hidden": false
+      },
+      "checkError": {
+        "metadata": {
+          "label": "Check Error",
+          "description": "Terminate on error"
+        },
+        "valueType": "FLAG",
+        "value": true,
+        "optional": false,
+        "editable": false,
+        "advanced": true,
+        "hidden": false
+      }
+    },
+    "flags": 0
+  }
+}
