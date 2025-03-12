@@ -1401,7 +1401,7 @@
             "character": 0
           }
         },
-        "newText": "\nservice \"queueName\" on rabbitmqListener {\n\tremote function onMessage(rabbitmq:AnydataMessage message) returns error? {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t\tpanic error(\"Unhandled error\");\n\t\t}\n\t}\n\n\tremote function onMessage(rabbitmq:Caller caller) returns error? {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t\tpanic error(\"Unhandled error\");\n\t\t}\n\t}\n}"
+        "newText": "\nservice \"queueName\" on rabbitmqListener {\n\tremote function onMessage(rabbitmq:AnydataMessage message) returns error? {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t\treturn error(\"Not implemented\", err);\n\t\t}\n\t}\n\n\tremote function onMessage(rabbitmq:Caller caller) returns error? {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t\treturn error(\"Not implemented\", err);\n\t\t}\n\t}\n}"
       }
     ]
   }

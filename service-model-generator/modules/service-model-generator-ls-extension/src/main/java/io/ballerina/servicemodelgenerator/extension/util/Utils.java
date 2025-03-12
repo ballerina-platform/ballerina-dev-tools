@@ -923,7 +923,7 @@ public final class Utils {
             builder.append(" ");
         }
         builder.append(getValueString(function.getName()));
-        builder.append(getFunctionSignature(function, statusCodeResponses));
+        builder.append(getFunctionSignature(function, statusCodeResponses, true));
         builder.append("{");
         builder.append(System.lineSeparator());
         if (kind.equals(FunctionBodyKind.DO_BLOCK) || kind.equals(FunctionBodyKind.BLOCK_WITH_PANIC)) {
@@ -951,7 +951,7 @@ public final class Utils {
             builder.append(System.lineSeparator());
             builder.append("\t\t// handle error");
             builder.append(System.lineSeparator());
-            builder.append("\t\tpanic error(\"Unhandled error\");");
+            builder.append("\t\treturn error(\"Not implemented\", err);");
             builder.append(System.lineSeparator());
             builder.append("\t}");
             builder.append(System.lineSeparator());
@@ -966,10 +966,12 @@ public final class Utils {
         DO_BLOCK
     }
 
-    public static String getFunctionSignature(Function function, List<String> statusCodeResponses) {
+    public static String getFunctionSignature(Function function, List<String> statusCodeResponses, boolean isAdd) {
         StringBuilder builder = new StringBuilder();
         builder.append("(");
         List<String> params = new ArrayList<>();
+        // sort params list where required params come first
+        function.getParameters().sort(new Parameter.RequiredParamSorter());
         function.getParameters().forEach(param -> {
             if (param.isEnabled()) {
                 String paramDef;
@@ -994,14 +996,22 @@ public final class Utils {
         if (Objects.nonNull(returnType)) {
             if (returnType.isEnabledWithValue()) {
                 builder.append(" returns ");
-                builder.append(getValueString(returnType));
+                String returnTypeStr = getValueString(returnType);
+                if (isAdd && !returnTypeStr.contains("error")) {
+                    returnTypeStr = "error|" + returnTypeStr;
+                }
+                builder.append(returnTypeStr);
             } else if (returnType.isEnabled() && Objects.nonNull(returnType.getResponses()) &&
                     !returnType.getResponses().isEmpty()) {
-                List<String> responses = returnType.getResponses().stream()
+                List<String> responses = new ArrayList<>(returnType.getResponses().stream()
                         .filter(HttpResponse::isEnabled)
                         .map(response -> HttpUtil.getStatusCodeResponse(response, statusCodeResponses))
-                        .toList();
+                        .filter(Objects::nonNull)
+                        .toList());
                 if (!responses.isEmpty()) {
+                    if (isAdd && !statusCodeResponses.contains("error")) {
+                        responses.addFirst("error");
+                    }
                     builder.append(" returns ");
                     builder.append(String.join("|", responses));
                 }

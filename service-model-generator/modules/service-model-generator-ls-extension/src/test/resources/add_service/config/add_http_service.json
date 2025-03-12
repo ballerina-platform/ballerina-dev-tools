@@ -666,7 +666,7 @@
             "character": 0
           }
         },
-        "newText": "\nservice / on httpDefaultListener {\n\tresource function get greeting() returns json|http:InternalServerError {\n\t\tdo {\n\t\t\treturn \"Hello, Greetings!\";\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t\tpanic error(\"Unhandled error\");\n\t\t}\n\t}\n}"
+        "newText": "\nservice / on httpDefaultListener {\n\tresource function get greeting() returns error|json|http:InternalServerError {\n\t\tdo {\n\t\t\treturn \"Hello, Greetings!\";\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t\treturn error(\"Not implemented\", err);\n\t\t}\n\t}\n}"
       }
     ]
   }
