@@ -30,6 +30,18 @@
     },
     {
       "metadata": {
+        "label": "Agent Tools",
+        "description": "Functions used as agent tools",
+        "keywords": [
+          "Project",
+          "Local",
+          "Function"
+        ]
+      },
+      "items": []
+    },
+    {
+      "metadata": {
         "label": "Imported Functions",
         "description": "Functions imported from other integrations",
         "keywords": [

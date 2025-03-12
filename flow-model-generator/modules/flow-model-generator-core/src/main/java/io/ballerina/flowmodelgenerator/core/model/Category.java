@@ -54,6 +54,7 @@ public record Category(Metadata metadata, List<Item> items) implements Item {
         DATA("Data", "Data nodes are used to create, read, update, delete, and transform data", null),
         CURRENT_INTEGRATION("Current Integration", "Functions defined within the current integration",
                 List.of("Project", "Local", "Function")),
+        AGENT_TOOLS("Agent Tools", "Functions used as agent tools", List.of("Project", "Local", "Function")),
         IMPORTED_FUNCTIONS("Imported Functions", "Functions imported from other integrations",
                 List.of("Imported", "Function", "Library")),
         AVAILABLE_FUNCTIONS("Available Functions", "Functions available in the library",

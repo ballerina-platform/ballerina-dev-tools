@@ -87,6 +87,9 @@ public function main() returns error? {
 
 }
 
+# The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.
+# + path - Request path
+# + headers - The entity headers
 @agent:Tool
 @display {
     iconPath: "/path/icon.png"
