@@ -22,6 +22,7 @@ import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.AnnotationAttachmentSymbol;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
+import io.ballerina.compiler.api.symbols.Documentation;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
 import io.ballerina.compiler.api.symbols.MethodSymbol;
@@ -360,7 +361,7 @@ class CodeAnalyzer extends NodeVisitor {
                     throw new IllegalStateException("Model argument not found for the new expression: " +
                             newExpressionNode);
                 }
-                List<IconData> toolUrls = new ArrayList<>();
+                List<ToolData> toolUrls = new ArrayList<>();
                 ListConstructorExpressionNode listConstructorExpressionNode = (ListConstructorExpressionNode) toolsArg;
                 for (Node node : listConstructorExpressionNode.expressions()) {
                     if (node.kind() != SyntaxKind.SIMPLE_NAME_REFERENCE) {
@@ -370,10 +371,10 @@ class CodeAnalyzer extends NodeVisitor {
                     String toolName = simpleNameReferenceNode.name().text();
                     String icon = getIcon(toolName);
                     if (!icon.isEmpty()) {
-                        toolUrls.add(new IconData(toolName, icon));
+                        toolUrls.add(new ToolData(toolName, icon, getToolDescription(toolName)));
                     }
                 }
-                IconData modelUrl = getModelIconUrl(modelArg);
+                ModelData modelUrl = getModelIconUrl(modelArg);
                 if (modelUrl != null) {
                     nodeBuilder.metadata().addData("model", modelUrl);
                 }
@@ -1495,7 +1496,7 @@ class CodeAnalyzer extends NodeVisitor {
         return false;
     }
 
-    private IconData getModelIconUrl(ExpressionNode expressionNode) {
+    private ModelData getModelIconUrl(ExpressionNode expressionNode) {
         if (expressionNode.kind() != SyntaxKind.SIMPLE_NAME_REFERENCE) {
             return null;
         }
@@ -1508,7 +1509,7 @@ class CodeAnalyzer extends NodeVisitor {
             return null;
         }
         ModuleID id = optModule.get().id();
-        return new IconData(optSymbol.get().getName().orElseThrow(),
+        return new ModelData(optSymbol.get().getName().orElseThrow(),
                 CommonUtils.generateIcon(id.moduleName(), id.packageName(), id.version()));
     }
 
@@ -1998,6 +1999,29 @@ class CodeAnalyzer extends NodeVisitor {
         return "";
     }
 
+    private String getToolDescription(String toolName) {
+        for (Symbol symbol : semanticModel.moduleSymbols()) {
+            if (symbol.kind() != SymbolKind.FUNCTION) {
+                continue;
+            }
+            FunctionSymbol functionSymbol = (FunctionSymbol) symbol;
+            if (!functionSymbol.getName().orElseThrow().equals(toolName)) {
+                continue;
+            }
+            Optional<Documentation> optDoc = functionSymbol.documentation();
+            if (optDoc.isEmpty()) {
+                break;
+            }
+            Optional<String> optDescription = optDoc.get().description();
+            if (optDescription.isEmpty()) {
+                break;
+            }
+            return optDescription.get();
+        }
+
+        return "";
+    }
+
     private ImplicitNewExpressionNode getNewExpr(ExpressionNode expressionNode) {
         NonTerminalNode expr = expressionNode;
         if (expressionNode.kind() == SyntaxKind.CHECK_EXPRESSION) {
@@ -2028,7 +2052,11 @@ class CodeAnalyzer extends NodeVisitor {
 
     }
 
-    private record IconData(String name, String path) {
+    private record ToolData(String name, String path, String description) {
+
+    }
+
+    private record ModelData(String name, String path) {
 
     }
 }

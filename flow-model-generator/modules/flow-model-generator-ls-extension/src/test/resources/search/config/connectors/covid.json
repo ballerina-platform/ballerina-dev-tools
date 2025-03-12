@@ -1,7 +1,7 @@
 {
   "description": "Sample flow model",
-  "source": "empty.bal",
   "kind": "CONNECTOR",
+  "source": "empty.bal",
   "queryMap": {
     "q": "covid"
   },
@@ -10,7 +10,10 @@
       "metadata": {
         "label": "Covid19 Client",
         "description": "This is a generated connector from [Novel COVID-19 API version 3.0.0](https://disease.sh/docs/) OpenAPI Specification.\nBallerina connector for COVID-19 provides easy access to latest COVID-19 related data across the world. Please refer to [API documentation](https://disease.sh) for more detail.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png",
+        "data": {
+          "isAgentSupport": false
+        }
       },
       "codedata": {
         "node": "NEW_CONNECTION",

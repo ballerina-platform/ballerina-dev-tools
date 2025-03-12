@@ -1,0 +1,22 @@
+{
+  "source": "agent_3",
+  "toolName": "set",
+  "description": "New description",
+  "output": {
+    "agent_3/agents.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 92,
+            "character": 0
+          },
+          "end": {
+            "line": 92,
+            "character": 11
+          }
+        },
+        "newText": "@agent:Tool {description: \"New description\"}\n"
+      }
+    ]
+  }
+}

@@ -295,7 +295,6 @@ public class ServiceModelAPITests {
         resource.addParameter(header);
 
         HttpResponse response = new HttpResponse("201", "json", "Created");
-        response.setCreateStatusCodeResponse(new Value("true", "BOOLEAN", true));
         resource.getReturnType().setResponses(List.of(response));
         resource.getReturnType().setEnabled(true);
 
@@ -571,7 +570,6 @@ public class ServiceModelAPITests {
         List<HttpResponse> responses = function.getReturnType().getResponses();
 
         HttpResponse response1 = new HttpResponse("204", "map<int>", "NoContent");
-        response1.setCreateStatusCodeResponse(new Value("true", "BOOLEAN", true));
         responses.add(response1);
 
         HttpResponse response2 = new HttpResponse("map<string>");

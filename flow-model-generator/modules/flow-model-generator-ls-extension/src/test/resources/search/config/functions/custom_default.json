@@ -31,6 +31,7 @@
           "metadata": {
             "label": "transform",
             "data": {
+              "isAgentTool": false,
               "isDataMappedFunction": false
             }
           },
@@ -45,6 +46,7 @@
             "label": "add",
             "description": "Adds two integers and returns the result.\n\n```\nint result = add(5, 3);\n// result will be 8\n```",
             "data": {
+              "isAgentTool": false,
               "isDataMappedFunction": false
             }
           },
@@ -58,6 +60,7 @@
           "metadata": {
             "label": "sum",
             "data": {
+              "isAgentTool": false,
               "isDataMappedFunction": false
             }
           },
@@ -72,6 +75,7 @@
             "label": "prefixSum",
             "description": "Computes the prefix sum of an array of integers.\n\nThe prefix sum of an array is a new array where each element at index `i` is the sum of the elements\nfrom the start of the array up to index `i`.\n",
             "data": {
+              "isAgentTool": false,
               "isDataMappedFunction": false
             }
           },
@@ -86,6 +90,7 @@
             "label": "safeDivide",
             "description": "Performs a safe division operation.\n\nThis function divides the given numerator by the denominator and returns the result.\nIf the denominator is zero, it returns an error indicating a division by zero.\n",
             "data": {
+              "isAgentTool": false,
               "isDataMappedFunction": false
             }
           },
@@ -99,6 +104,7 @@
           "metadata": {
             "label": "greet",
             "data": {
+              "isAgentTool": false,
               "isDataMappedFunction": false
             }
           },
@@ -109,6 +115,18 @@
           "enabled": true
         }
       ]
+    },
+    {
+      "metadata": {
+        "label": "Agent Tools",
+        "description": "Functions used as agent tools",
+        "keywords": [
+          "Project",
+          "Local",
+          "Function"
+        ]
+      },
+      "items": []
     },
     {
       "metadata": {
