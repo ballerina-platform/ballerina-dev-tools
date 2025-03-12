@@ -367,6 +367,7 @@ public class DatabaseManager {
                         ParameterData.Kind.valueOf(rs.getString("kind")),
                         rs.getString("default_value"),
                         rs.getString("description"),
+                        "",
                         rs.getBoolean("optional"),
                         rs.getString("import_statements"),
                         new ArrayList<>()
@@ -477,6 +478,7 @@ public class DatabaseManager {
                     kind,
                     defaultValue,
                     description,
+                    null,
                     optional,
                     importStatements,
                     typeMembers
