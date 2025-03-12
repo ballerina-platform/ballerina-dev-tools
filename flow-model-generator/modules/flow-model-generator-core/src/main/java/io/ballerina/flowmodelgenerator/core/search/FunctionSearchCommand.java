@@ -139,7 +139,8 @@ class FunctionSearchCommand extends SearchCommand {
             if (location.isPresent()) {
                 isDataMappedFunction = location.get().lineRange().fileName().equals(DATA_MAPPER_FILE_NAME);
                 LineRange fnLineRange = location.get().lineRange();
-                if (PositionUtil.isWithinLineRange(fnLineRange, position)) {
+                if (fnLineRange.fileName().equals(position.fileName()) &&
+                        PositionUtil.isWithinLineRange(fnLineRange, position)) {
                     continue;
                 }
             }

@@ -500,9 +500,14 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
         return CompletableFuture.supplyAsync(() -> {
             FlowModelAvailableNodesResponse response = new FlowModelAvailableNodesResponse();
             try {
-                Project project = this.workspaceManager.loadProject(Path.of(request.filePath()));
+                Path filePath = Path.of(request.filePath());
+                Project project = this.workspaceManager.loadProject(filePath);
                 SearchCommand.Kind searchKind = SearchCommand.Kind.valueOf(request.searchKind());
-                SearchCommand command = SearchCommand.from(searchKind, project, request.position(), request.queryMap());
+                LineRange position = LineRange.from(
+                        filePath.getFileName().toString(),
+                        request.position().startLine(),
+                        request.position().endLine());
+                SearchCommand command = SearchCommand.from(searchKind, project, position, request.queryMap());
                 response.setCategories(command.execute());
             } catch (Throwable e) {
                 response.setError(e);
