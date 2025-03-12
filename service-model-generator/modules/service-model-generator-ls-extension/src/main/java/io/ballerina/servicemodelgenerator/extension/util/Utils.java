@@ -459,20 +459,23 @@ public final class Utils {
         Parameter parameterModel = Parameter.getNewParameter(isGraphQL);
         parameterModel.setMetadata(new MetaData(paramName, paramName));
         parameterModel.setKind(paramKind);
-        if (isHttp) {
-            Optional<String> httpParameterType = getHttpParameterType(annotationNodes);
-            if (httpParameterType.isPresent()) {
-                parameterModel.setHttpParamType(httpParameterType.get());
-            } else {
-                parameterModel.setHttpParamType(ServiceModelGeneratorConstants.HTTP_PARAM_TYPE_QUERY);
-            }
-        }
         getHttpParameterType(annotationNodes).ifPresent(parameterModel::setHttpParamType);
         Value type = parameterModel.getType();
         type.setValue(typeName);
         type.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_TYPE);
         type.setType(true);
         type.setEnabled(true);
+        if (isHttp) {
+            Optional<String> httpParameterType = getHttpParameterType(annotationNodes);
+            if (httpParameterType.isPresent()) {
+                parameterModel.setHttpParamType(httpParameterType.get());
+            } else {
+                if (!(typeName.equals("http:Request") || typeName.equals("http:Caller")
+                        || typeName.equals("http:Headers"))) {
+                    parameterModel.setHttpParamType(ServiceModelGeneratorConstants.HTTP_PARAM_TYPE_QUERY);
+                }
+            }
+        }
         Value name = parameterModel.getName();
         name.setValue(paramName);
         name.setValueType(valueType);
@@ -637,8 +640,8 @@ public final class Utils {
         updateValue(functionModel.getReturnType(), commonFunction.getReturnType());
         List<Parameter> parameters = functionModel.getParameters();
         parameters.removeIf(parameter -> commonFunction.getParameters().stream()
-                .anyMatch(newParameter -> newParameter.getName().getValue()
-                        .equals(parameter.getName().getValue())));
+                .anyMatch(newParameter -> newParameter.getType().getValue()
+                        .equals(parameter.getType().getValue())));
         commonFunction.getParameters().forEach(functionModel::addParameter);
     }
 
