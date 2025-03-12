@@ -16,6 +16,12 @@ import io.ballerina.modelgenerator.commons.ParameterData;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 
 public class NPFunctionCall extends FunctionCall {
+
+    public static final String LABEL = "Call Natural Function";
+    public static final String DESCRIPTION = "Call a natural programming function";
+    public static final String ICON =
+            "https://gist.github.com/user-attachments/assets/903c5c16-7d67-4af8-8113-ce7c59ccdaab";
+
     @Override
     protected NodeKind getFunctionNodeKind() {
         return NodeKind.NP_FUNCTION_CALL;
@@ -91,7 +97,7 @@ public class NPFunctionCall extends FunctionCall {
                 .functionResultKind(getFunctionResultKind())
                 .userModuleInfo(moduleInfo);
 
-        if (getFunctionNodeKind() != NodeKind.FUNCTION_CALL) {
+        if (getFunctionNodeKind() != NodeKind.FUNCTION_CALL || getFunctionNodeKind() != NodeKind.NP_FUNCTION_CALL) {
             functionDataBuilder.parentSymbolType(codedata.object());
         }
 

@@ -30,6 +30,7 @@ import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.Item;
 import io.ballerina.flowmodelgenerator.core.model.Metadata;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
+import io.ballerina.flowmodelgenerator.core.model.node.NPFunctionCall;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.SearchResult;
 import io.ballerina.projects.Project;
@@ -47,9 +48,6 @@ import java.util.Optional;
  * @since 2.0.0
  */
 class NPFunctionSearchCommand extends SearchCommand {
-
-    private static final String NP_FUNCTION_ICON =
-            "https://gist.github.com/user-attachments/assets/903c5c16-7d67-4af8-8113-ce7c59ccdaab";
 
     public NPFunctionSearchCommand(Project project, LineRange position, Map<String, String> queryMap) {
         super(project, position, queryMap);
@@ -87,7 +85,7 @@ class NPFunctionSearchCommand extends SearchCommand {
 
             Metadata metadata = new Metadata.Builder<>(null)
                     .label(symbol.getName().get())
-                    .icon(NP_FUNCTION_ICON)
+                    .icon(NPFunctionCall.ICON)
                     .description(functionSymbol.documentation()
                             .flatMap(Documentation::description)
                             .orElse(null))

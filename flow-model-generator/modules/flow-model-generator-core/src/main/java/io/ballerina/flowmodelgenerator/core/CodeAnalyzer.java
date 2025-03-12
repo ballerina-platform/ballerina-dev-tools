@@ -176,9 +176,6 @@ class CodeAnalyzer extends NodeVisitor {
     private final boolean forceAssign;
     private final String connectionScope;
 
-    private static final String LLM_CALL = "LlmCall";
-    private static final String CALL_LLM = "callLlm";
-
     // State fields
     private NodeBuilder nodeBuilder;
     private final List<FlowNode> flowNodeList;
