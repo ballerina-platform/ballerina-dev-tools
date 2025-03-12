@@ -779,13 +779,18 @@ public final class Utils {
         List<String> functions = new ArrayList<>();
         boolean isNewTcpService = Utils.isTcpService(service.getOrgName(), service.getPackageName())
                 && service.getProperties().containsKey("returningServiceClass");
+
+        boolean isAiAgent = Utils.isAiAgentModule(service.getOrgName(), service.getPackageName());
+
         if (isNewTcpService) {
             String serviceClassName = service.getProperties().get("returningServiceClass").getValue();
             String onConnectFunc = Utils.getTcpOnConnectTemplate().formatted(serviceClassName, serviceClassName);
             functions.add(onConnectFunc);
+        } else if (isAiAgent) {
+            String chatFunction = getAgentChatFunction();
+            functions.add(chatFunction);
         } else {
-            boolean isAiAgent = service.getModuleName().equals("ai.agent");
-            FunctionBodyKind kind = isAiAgent ? FunctionBodyKind.EMPTY : FunctionBodyKind.DO_BLOCK;
+            FunctionBodyKind kind = FunctionBodyKind.DO_BLOCK;
             service.getFunctions().forEach(function -> {
                 if (function.isEnabled()) {
                     String functionNode = "\t" + getFunction(function, new ArrayList<>(), kind, context)
@@ -798,6 +803,12 @@ public final class Utils {
         builder.append(System.lineSeparator());
         builder.append(ServiceModelGeneratorConstants.CLOSE_BRACE);
         return builder.toString();
+    }
+
+    private static String getAgentChatFunction() {
+        return "    resource function post chat(@http:Payload agent:ChatReqMessage request) " +
+                "returns agent:ChatRespMessage|error {" + System.lineSeparator() +
+                "    }";
     }
 
     private static List<String> getAnnotationEdits(Service service) {
@@ -1130,4 +1141,7 @@ public final class Utils {
         return input;
     }
 
+    public static boolean isAiAgentModule(String org, String module) {
+        return org.equals("ballerinax") && module.equals("ai.agent");
+    }
 }

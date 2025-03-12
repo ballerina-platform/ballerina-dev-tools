@@ -1,0 +1,5 @@
+{
+  "filePath": "sample2/main.bal",
+  "description": "Test adding a rabbitmq service",
+  "defaultListenerRef": "defaultListener"
+}
