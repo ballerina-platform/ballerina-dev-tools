@@ -100,7 +100,7 @@ public class GenToolsTest extends AbstractLSTest {
             TestConfig updatedConfig =
                     new TestConfig(testConfig.source(), testConfig.name(), testConfig.connection(),
                             testConfig.description(), testConfig.toolDescription(), testConfig.diagram(), newMap);
-            updateConfig(configJsonPath, updatedConfig);
+//            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
     }

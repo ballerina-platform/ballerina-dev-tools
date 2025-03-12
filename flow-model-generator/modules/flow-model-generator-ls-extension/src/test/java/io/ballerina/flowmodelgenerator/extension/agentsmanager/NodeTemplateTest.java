@@ -42,8 +42,8 @@ public class NodeTemplateTest extends AbstractLSTest {
     @Override
     protected Object[] getConfigsList() {
         return new Object[][]{
-//                {Path.of("agent_template.json")},
-//                {Path.of("agent_call_template.json")},
+                {Path.of("agent_template.json")},
+                {Path.of("agent_call_template.json")},
                 {Path.of("model_template.json")}
         };
     }
@@ -64,7 +64,7 @@ public class NodeTemplateTest extends AbstractLSTest {
             TestConfig updateConfig =
                     new TestConfig(testConfig.source(), testConfig.position(), testConfig.description(),
                             testConfig.codedata(), nodeTemplate);
-            updateConfig(configJsonPath, updateConfig);
+//            updateConfig(configJsonPath, updateConfig);
             compareJsonElements(nodeTemplate, testConfig.output());
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
