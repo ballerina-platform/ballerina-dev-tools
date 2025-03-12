@@ -681,7 +681,7 @@
         "optionalAbsoluteResourcePath": 0,
         "absoluteResourcePathLabel": "Service Base Path",
         "absoluteResourcePathDescription": "The base path of the service",
-        "absoluteResourcePathDefaultValue": "",
+        "absoluteResourcePathDefaultValue": "/agentChat",
         "optionalStringLiteral": 1,
         "stringLiteralLabel": "Service Base Path",
         "stringLiteralDescription": "The base path of the service",
