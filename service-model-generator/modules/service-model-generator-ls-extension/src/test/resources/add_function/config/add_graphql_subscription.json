@@ -96,7 +96,7 @@
             "character": 5
           }
         },
-        "newText": "\n\tresource function subscribe names() returns stream<string, error?> {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t\tpanic error(\"Unhandled error\");\n\t\t}\n\t}"
+        "newText": "\n\tresource function subscribe names() returns stream<string, error?> {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t\treturn error(\"Not implemented\", err);\n\t\t}\n\t}"
       }
     ]
   }

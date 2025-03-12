@@ -648,7 +648,7 @@
             "character": 0
           }
         },
-        "newText": "\n\tresource function get customHttpOK() returns http:Accepted {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t\tpanic error(\"Unhandled error\");\n\t\t}\n\t}\n"
+        "newText": "\n\tresource function get customHttpOK() returns error|http:Accepted {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t\treturn error(\"Not implemented\", err);\n\t\t}\n\t}\n"
       }
     ]
   }
