@@ -43,7 +43,7 @@
       },
       "databaseId": {
         "metadata": {
-          "label": "databaseId",
+          "label": "Database ID",
           "description": "ID of the database to which the container belongs to"
         },
         "valueType": "EXPRESSION",
@@ -68,7 +68,7 @@
       },
       "containerId": {
         "metadata": {
-          "label": "containerId",
+          "label": "Container ID",
           "description": "ID of the container where, document is created"
         },
         "valueType": "EXPRESSION",
@@ -93,7 +93,7 @@
       },
       "documemtId": {
         "metadata": {
-          "label": "documemtId",
+          "label": "Document ID",
           "description": "ID of the document"
         },
         "valueType": "EXPRESSION",
@@ -118,7 +118,7 @@
       },
       "document": {
         "metadata": {
-          "label": "document",
+          "label": "Document",
           "description": "A JSON document to be saved in the database"
         },
         "valueType": "EXPRESSION",
@@ -143,7 +143,7 @@
       },
       "partitionKey": {
         "metadata": {
-          "label": "partitionKey",
+          "label": "Partition Key",
           "description": "The specific value related to the partition key field of the container "
         },
         "valueType": "EXPRESSION",
@@ -186,7 +186,7 @@
       },
       "requestOptions": {
         "metadata": {
-          "label": "requestOptions",
+          "label": "Optional Header Parameters",
           "description": "The `cosmos_db:RequestOptions` which can be used to add additional capabilities that can \noverride client configuration provided in the inilization"
         },
         "valueType": "EXPRESSION",
