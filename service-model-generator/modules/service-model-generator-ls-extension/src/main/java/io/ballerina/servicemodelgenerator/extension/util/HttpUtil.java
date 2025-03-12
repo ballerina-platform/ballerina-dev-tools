@@ -210,12 +210,17 @@ public final class HttpUtil {
                                                        SemanticModel semanticModel, String currentModuleName) {
         List<TypeSymbol> statusCodeResponses = new ArrayList<>();
         List<TypeSymbol> anydataResponses = new ArrayList<>();
+        List<TypeSymbol> errorResponses = new ArrayList<>();
         Optional<UnionTypeSymbol> unionType = getUnionType(returnTypeSymbol);
         AtomicBoolean hasHttpResponse = new AtomicBoolean(false);
+
+        TypeSymbol errorTypeSymbol = semanticModel.types().ERROR;
         unionType.ifPresentOrElse(
                 unionTypeSymbol -> unionTypeSymbol.memberTypeDescriptors().forEach(member -> {
                     if (isSubTypeOfHttpStatusCodeResponse(member, semanticModel)) {
                         statusCodeResponses.add(member);
+                    } else if (member.subtypeOf(errorTypeSymbol)) {
+                        errorResponses.add(member);
                     } else if (isHttpResponse(getTypeName(member, currentModuleName))) {
                         hasHttpResponse.set(true);
                     } else {
@@ -227,6 +232,8 @@ public final class HttpUtil {
                         statusCodeResponses.add(returnTypeSymbol);
                     } else if (isHttpResponse(getTypeName(returnTypeSymbol, currentModuleName))) {
                         hasHttpResponse.set(true);
+                    } else if (returnTypeSymbol.subtypeOf(errorTypeSymbol)) {
+                        errorResponses.add(returnTypeSymbol);
                     } else {
                         anydataResponses.add(returnTypeSymbol);
                     }
@@ -249,6 +256,15 @@ public final class HttpUtil {
                 .map(type -> getTypeName(type, currentModuleName))
                 .forEach(type -> {
                     HttpResponse response = new HttpResponse(String.valueOf(defaultStatusCode), type);
+                    response.setEnabled(true);
+                    response.setEditable(true);
+                    responses.add(response);
+                });
+
+        errorResponses.stream()
+                .map(type -> getTypeName(type, currentModuleName))
+                .forEach(type -> {
+                    HttpResponse response = new HttpResponse(String.valueOf(500), type);
                     response.setEnabled(true);
                     response.setEditable(true);
                     responses.add(response);
@@ -307,36 +323,6 @@ public final class HttpUtil {
             return parts[1].equals(currentModuleName) ? parts[3] : parts[1] + ":" + parts[3];
         }
         return signature;
-    }
-
-    static TypeSymbol getBodyType(RecordTypeSymbol responseRecordType, SemanticModel semanticModel) {
-        if (Objects.nonNull(responseRecordType) && responseRecordType.fieldDescriptors().containsKey("body")) {
-            return responseRecordType.fieldDescriptors().get("body").typeDescriptor();
-        }
-        return semanticModel.types().ANYDATA;
-    }
-
-    static Optional<RecordTypeSymbol> getRecordTypeSymbol(TypeSymbol typeSymbol) {
-        TypeSymbol statusCodeResType = getReferredType(typeSymbol);
-        if (statusCodeResType instanceof TypeReferenceTypeSymbol statusCodeResRefType &&
-                statusCodeResRefType.typeDescriptor() instanceof RecordTypeSymbol recordTypeSymbol) {
-            return Optional.of(recordTypeSymbol);
-        } else if (statusCodeResType instanceof RecordTypeSymbol recordTypeSymbol) {
-            return Optional.of(recordTypeSymbol);
-        }
-        return Optional.empty();
-    }
-
-    public static TypeSymbol getReferredType(TypeSymbol typeSymbol) {
-        if (typeSymbol.typeKind().equals(TypeDescKind.TYPE_REFERENCE)) {
-            TypeSymbol referencedType = ((TypeReferenceTypeSymbol) typeSymbol).typeDescriptor();
-            if (referencedType.typeKind().equals(TypeDescKind.TYPE_REFERENCE)) {
-                return getReferredType(referencedType);
-            } else {
-                return typeSymbol;
-            }
-        }
-        return typeSymbol;
     }
 
     private static Optional<UnionTypeSymbol> getUnionType(TypeSymbol typeSymbol) {
