@@ -78,6 +78,7 @@ import io.ballerina.servicemodelgenerator.extension.request.ServiceModifierReque
 import io.ballerina.servicemodelgenerator.extension.request.ServiceSourceRequest;
 import io.ballerina.servicemodelgenerator.extension.request.TriggerListRequest;
 import io.ballerina.servicemodelgenerator.extension.request.TriggerRequest;
+import io.ballerina.servicemodelgenerator.extension.response.AddOrGetDefaultListenerResponse;
 import io.ballerina.servicemodelgenerator.extension.response.CommonSourceResponse;
 import io.ballerina.servicemodelgenerator.extension.response.FunctionModelResponse;
 import io.ballerina.servicemodelgenerator.extension.response.ListenerDiscoveryResponse;
@@ -252,6 +253,62 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 return new CommonSourceResponse(Map.of(request.filePath(), edits));
             } catch (Throwable e) {
                 return new CommonSourceResponse(e);
+            }
+        });
+    }
+
+    /**
+     * Get the http default listener reference or send text edits to add a default listener.
+     *
+     * @param request Listener discovery request
+     * @return {@link AddOrGetDefaultListenerResponse} of the add or get default listener response
+     */
+    @JsonRequest
+    public CompletableFuture<AddOrGetDefaultListenerResponse> addOrGetDefaultListener(ListenerDiscoveryRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                AddOrGetDefaultListenerResponse response = new AddOrGetDefaultListenerResponse();
+                Path filePath = Path.of(request.filePath());
+                Project project = this.workspaceManager.loadProject(filePath);
+                Package currentPackage = project.currentPackage();
+                Module module = currentPackage.module(ModuleName.from(currentPackage.packageName()));
+                ModuleId moduleId = module.moduleId();
+                SemanticModel semanticModel = currentPackage.getCompilation().getSemanticModel(moduleId);
+
+                Optional<String> httpDefaultListenerNameRef = ListenerUtil.getHttpDefaultListenerNameRef(
+                        semanticModel, project);
+                if (httpDefaultListenerNameRef.isPresent()) {
+                    response.setDefaultListenerRef(httpDefaultListenerNameRef.get());
+                    return response;
+                }
+                Optional<Document> document = this.workspaceManager.document(filePath);
+                if (document.isEmpty()) {
+                    return response;
+                }
+                ModulePartNode node = document.get().syntaxTree().rootNode();
+                LineRange lineRange = node.lineRange();
+
+                List<TextEdit> edits = new ArrayList<>();
+                if (!importExists(node, "ballerina", "http")) {
+                    String importText = getImportStmt("ballerina", "http");
+                    edits.add(new TextEdit(Utils.toRange(lineRange.startLine()), importText));
+                }
+
+                List<ImportDeclarationNode> importsList = node.imports().stream().toList();
+                LinePosition listenerDeclaringLoc;
+                if (!importsList.isEmpty()) {
+                    listenerDeclaringLoc = importsList.get(importsList.size() - 1).lineRange().endLine();
+                } else {
+                    listenerDeclaringLoc = lineRange.endLine();
+                }
+                String listenerDeclarationStmt = ListenerUtil.getListenerDeclarationStmt(
+                        semanticModel, document.get(), listenerDeclaringLoc);
+                edits.add(new TextEdit(Utils.toRange(listenerDeclaringLoc), listenerDeclarationStmt));
+
+                response.setTextEdits(Map.of(request.filePath(), edits));
+                return response;
+            } catch (Throwable e) {
+                return new AddOrGetDefaultListenerResponse(e);
             }
         });
     }
