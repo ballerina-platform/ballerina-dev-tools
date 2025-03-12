@@ -678,7 +678,7 @@
         "typeDescriptorDescription": "The service type descriptor",
         "typeDescriptorDefaultValue": "",
         "addDefaultTypeDescriptor": 0,
-        "optionalAbsoluteResourcePath": 1,
+        "optionalAbsoluteResourcePath": 0,
         "absoluteResourcePathLabel": "Service Base Path",
         "absoluteResourcePathDescription": "The base path of the service",
         "absoluteResourcePathDefaultValue": "",
