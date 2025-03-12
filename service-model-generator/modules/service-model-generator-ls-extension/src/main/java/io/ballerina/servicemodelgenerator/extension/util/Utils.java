@@ -77,6 +77,7 @@ import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -959,6 +960,8 @@ public final class Utils {
         StringBuilder builder = new StringBuilder();
         builder.append("(");
         List<String> params = new ArrayList<>();
+        // sort params list where required params come first
+        function.getParameters().sort(new Function.RequiredParamSorter());
         function.getParameters().forEach(param -> {
             if (param.isEnabled()) {
                 String paramDef;
