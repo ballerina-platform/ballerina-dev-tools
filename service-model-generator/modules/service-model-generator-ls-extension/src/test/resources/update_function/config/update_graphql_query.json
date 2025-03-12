@@ -5,6 +5,10 @@
     "qualifiers": [],
     "kind": "QUERY",
     "accessor": {
+      "metadata": {
+        "label": "",
+        "description": ""
+      },
       "enabled": true,
       "editable": true,
       "value": "get",
@@ -15,6 +19,10 @@
       "addNewButton": false
     },
     "name": {
+      "metadata": {
+        "label": "",
+        "description": ""
+      },
       "enabled": true,
       "editable": true,
       "value": "greeting/[string param]",
@@ -32,6 +40,10 @@
         },
         "kind": "REQUIRED",
         "type": {
+          "metadata": {
+            "label": "",
+            "description": ""
+          },
           "enabled": true,
           "editable": true,
           "value": "string",
@@ -42,6 +54,10 @@
           "addNewButton": false
         },
         "name": {
+          "metadata": {
+            "label": "",
+            "description": ""
+          },
           "enabled": true,
           "editable": true,
           "value": "id",
@@ -52,6 +68,10 @@
           "addNewButton": false
         },
         "defaultValue": {
+          "metadata": {
+            "label": "",
+            "description": ""
+          },
           "enabled": false,
           "editable": true,
           "isType": false,
@@ -121,7 +141,7 @@
             "character": 62
           }
         },
-        "newText": "(string id) returns string|int "
+        "newText": "(string id) returns error|string|int "
       }
     ]
   }

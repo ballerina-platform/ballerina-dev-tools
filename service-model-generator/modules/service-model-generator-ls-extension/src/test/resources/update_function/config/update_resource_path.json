@@ -56,6 +56,10 @@
         },
         "kind": "REQUIRED",
         "type": {
+          "metadata": {
+            "label": "",
+            "description": ""
+          },
           "enabled": true,
           "editable": false,
           "value": "",
@@ -68,6 +72,10 @@
           "addNewButton": false
         },
         "name": {
+          "metadata": {
+            "label": "",
+            "description": ""
+          },
           "enabled": true,
           "editable": true,
           "value": "",
@@ -91,6 +99,10 @@
         },
         "kind": "REQUIRED",
         "type": {
+          "metadata": {
+            "label": "",
+            "description": ""
+          },
           "enabled": true,
           "editable": false,
           "value": "",
@@ -103,6 +115,10 @@
           "addNewButton": false
         },
         "name": {
+          "metadata": {
+            "label": "",
+            "description": ""
+          },
           "enabled": true,
           "editable": true,
           "value": "",
@@ -126,6 +142,10 @@
         },
         "kind": "REQUIRED",
         "type": {
+          "metadata": {
+            "label": "",
+            "description": ""
+          },
           "enabled": true,
           "editable": false,
           "value": "",
@@ -138,6 +158,10 @@
           "addNewButton": false
         },
         "name": {
+          "metadata": {
+            "label": "",
+            "description": ""
+          },
           "enabled": true,
           "editable": true,
           "value": "",
@@ -163,6 +187,10 @@
         },
         "kind": "REQUIRED",
         "type": {
+          "metadata": {
+            "label": "",
+            "description": ""
+          },
           "enabled": true,
           "editable": true,
           "value": "",
@@ -175,6 +203,10 @@
           "addNewButton": false
         },
         "name": {
+          "metadata": {
+            "label": "",
+            "description": ""
+          },
           "enabled": true,
           "editable": true,
           "value": "",
@@ -215,6 +247,10 @@
         },
         "kind": "REQUIRED",
         "type": {
+          "metadata": {
+            "label": "",
+            "description": ""
+          },
           "enabled": true,
           "editable": true,
           "value": "",
@@ -227,6 +263,10 @@
           "addNewButton": false
         },
         "name": {
+          "metadata": {
+            "label": "",
+            "description": ""
+          },
           "enabled": true,
           "editable": true,
           "value": "",
@@ -267,6 +307,10 @@
         },
         "kind": "REQUIRED",
         "type": {
+          "metadata": {
+            "label": "",
+            "description": ""
+          },
           "enabled": true,
           "editable": true,
           "value": "",
@@ -279,6 +323,10 @@
           "addNewButton": false
         },
         "name": {
+          "metadata": {
+            "label": "",
+            "description": ""
+          },
           "enabled": true,
           "editable": true,
           "value": "",
@@ -301,6 +349,10 @@
       "responses": [
         {
           "statusCode": {
+            "metadata": {
+              "label": "",
+              "description": ""
+            },
             "enabled": true,
             "editable": true,
             "value": "500",
@@ -311,6 +363,10 @@
             "addNewButton": false
           },
           "body": {
+            "metadata": {
+              "label": "",
+              "description": ""
+            },
             "enabled": true,
             "editable": true,
             "value": "anydata",
@@ -321,6 +377,10 @@
             "addNewButton": false
           },
           "name": {
+            "metadata": {
+              "label": "",
+              "description": ""
+            },
             "enabled": true,
             "editable": true,
             "value": "http:InternalServerError",
@@ -331,6 +391,10 @@
             "addNewButton": false
           },
           "type": {
+            "metadata": {
+              "label": "",
+              "description": ""
+            },
             "enabled": true,
             "editable": true,
             "value": "http:InternalServerError",
@@ -339,10 +403,18 @@
             "optional": false,
             "advanced": false,
             "addNewButton": false
-          }
+          },
+          "enabled": true,
+          "editable": false,
+          "advanced": false,
+          "isHttpResponseType": false
         },
         {
           "statusCode": {
+            "metadata": {
+              "label": "",
+              "description": ""
+            },
             "enabled": true,
             "editable": true,
             "value": "200",
@@ -353,6 +425,10 @@
             "addNewButton": false
           },
           "body": {
+            "metadata": {
+              "label": "",
+              "description": ""
+            },
             "enabled": true,
             "editable": true,
             "value": "json",
@@ -363,6 +439,10 @@
             "addNewButton": false
           },
           "name": {
+            "metadata": {
+              "label": "",
+              "description": ""
+            },
             "enabled": true,
             "editable": true,
             "value": "json",
@@ -373,6 +453,10 @@
             "addNewButton": false
           },
           "type": {
+            "metadata": {
+              "label": "",
+              "description": ""
+            },
             "enabled": true,
             "editable": true,
             "value": "json",
@@ -381,10 +465,18 @@
             "optional": false,
             "advanced": false,
             "addNewButton": false
-          }
+          },
+          "enabled": true,
+          "editable": false,
+          "advanced": false,
+          "isHttpResponseType": false
         },
         {
           "statusCode": {
+            "metadata": {
+              "label": "",
+              "description": ""
+            },
             "enabled": true,
             "editable": true,
             "value": "202",
@@ -395,6 +487,10 @@
             "addNewButton": false
           },
           "body": {
+            "metadata": {
+              "label": "",
+              "description": ""
+            },
             "enabled": true,
             "editable": true,
             "value": "string",
@@ -405,6 +501,10 @@
             "addNewButton": false
           },
           "name": {
+            "metadata": {
+              "label": "",
+              "description": ""
+            },
             "enabled": true,
             "editable": true,
             "value": "http:StatusAccepted status; string mediaType?; map<string|int|boolean|string[]|int[]|boolean[]> headers?;|}",
@@ -415,6 +515,10 @@
             "addNewButton": false
           },
           "type": {
+            "metadata": {
+              "label": "",
+              "description": ""
+            },
             "enabled": true,
             "editable": true,
             "value": "http:StatusAccepted status; string mediaType?; map<string|int|boolean|string[]|int[]|boolean[]> headers?;|}",
@@ -423,7 +527,11 @@
             "optional": false,
             "advanced": false,
             "addNewButton": false
-          }
+          },
+          "enabled": true,
+          "editable": false,
+          "advanced": false,
+          "isHttpResponseType": false
         }
       ],
       "schema": {
@@ -488,22 +596,6 @@
             "advanced": false,
             "addNewButton": false
           },
-          "createStatusCodeResponse": {
-            "metadata": {
-              "label": "Create Status Code Response Type",
-              "description": "Create a new status code response type"
-            },
-            "enabled": false,
-            "editable": true,
-            "value": "",
-            "valueType": "BOOLEAN",
-            "valueTypeConstraint": "boolean",
-            "isType": false,
-            "placeholder": "false",
-            "optional": false,
-            "advanced": false,
-            "addNewButton": false
-          },
           "type": {
             "metadata": {
               "label": "Response Type",
@@ -519,7 +611,11 @@
             "optional": true,
             "advanced": false,
             "addNewButton": false
-          }
+          },
+          "enabled": true,
+          "editable": false,
+          "advanced": false,
+          "isHttpResponseType": false
         }
       },
       "metadata": {
@@ -596,7 +692,7 @@
             "character": 85
           }
         },
-        "newText": "() returns json|http:InternalServerError "
+        "newText": "() returns error|json|http:InternalServerError "
       }
     ]
   }
