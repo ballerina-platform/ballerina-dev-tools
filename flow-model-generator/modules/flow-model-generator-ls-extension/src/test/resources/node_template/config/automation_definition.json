@@ -15,10 +15,22 @@
     },
     "returning": false,
     "properties": {
+      "functionName": {
+        "metadata": {
+          "label": "Name",
+          "description": "Name of the function"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "main",
+        "optional": false,
+        "editable": false,
+        "advanced": false,
+        "hidden": true
+      },
       "parameters": {
         "metadata": {
-          "label": "Parameters",
-          "description": "Automation parameters"
+          "label": "Startup Parameters",
+          "description": "Define the parameters to be passed to the automation at startup"
         },
         "valueType": "REPEATABLE_PROPERTY",
         "valueTypeConstraint": {
@@ -35,11 +47,11 @@
               },
               "valueType": "SINGLE_SELECT",
               "valueTypeConstraint": [
-                "STRING",
-                "INT",
-                "FLOAT",
-                "DECIMAL",
-                "BYTE"
+                "string",
+                "int",
+                "float",
+                "decimal",
+                "byte"
               ],
               "value": "",
               "optional": false,
@@ -68,7 +80,19 @@
         "value": {},
         "optional": true,
         "editable": false,
-        "advanced": true,
+        "advanced": false,
+        "hidden": false
+      },
+      "returnError": {
+        "metadata": {
+          "label": "Return Error",
+          "description": "Indicate if the automation should exit with error"
+        },
+        "valueType": "FLAG",
+        "value": true,
+        "optional": false,
+        "editable": true,
+        "advanced": false,
         "hidden": false
       }
     },
