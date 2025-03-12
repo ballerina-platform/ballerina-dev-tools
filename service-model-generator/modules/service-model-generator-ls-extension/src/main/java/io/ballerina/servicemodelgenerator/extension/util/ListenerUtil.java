@@ -54,6 +54,7 @@ import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.TextRange;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -168,10 +169,14 @@ public class ListenerUtil {
         if (Objects.nonNull(listener) && listener.isEnabledWithValue()) {
             List<String> values = listener.getValues();
             if (Objects.nonNull(values) && !values.isEmpty()) {
+                List<String> valuesList = new ArrayList<>() {{
+                    addAll(values);
+                }};
                 for (int i = 0; i < values.size(); i++) {
                     if (values.get(i).equals(
                             ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_ITEM_LABEL)) {
-                        values.set(i, ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_VAR_NAME);
+                        valuesList.set(i, ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_VAR_NAME);
+                        listener.setValues(valuesList);
                         return true;
                     }
                 }
