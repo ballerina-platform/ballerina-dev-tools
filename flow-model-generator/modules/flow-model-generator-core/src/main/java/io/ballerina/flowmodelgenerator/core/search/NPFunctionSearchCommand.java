@@ -38,6 +38,7 @@ import io.ballerina.tools.text.LineRange;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
@@ -80,6 +81,12 @@ class NPFunctionSearchCommand extends SearchCommand {
         for (Symbol symbol : functionSymbols) {
             FunctionSymbol functionSymbol = (FunctionSymbol) symbol;
             if (!CommonUtils.isNpFunction(functionSymbol)) {
+                continue;
+            }
+
+            if (symbol.getName().isEmpty() ||
+                    (!query.isEmpty() && !symbol.getName().get().toLowerCase(Locale.ROOT)
+                            .contains(query.toLowerCase(Locale.ROOT)))) {
                 continue;
             }
 
