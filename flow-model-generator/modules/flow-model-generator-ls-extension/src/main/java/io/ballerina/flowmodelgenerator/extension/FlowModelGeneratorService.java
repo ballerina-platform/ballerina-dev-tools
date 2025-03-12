@@ -503,10 +503,13 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
                 Path filePath = Path.of(request.filePath());
                 Project project = this.workspaceManager.loadProject(filePath);
                 SearchCommand.Kind searchKind = SearchCommand.Kind.valueOf(request.searchKind());
-                LineRange position = LineRange.from(
-                        filePath.getFileName().toString(),
-                        request.position().startLine(),
-                        request.position().endLine());
+                LineRange position = request.position();
+                if (request.position() != null) {
+                    position = LineRange.from(
+                            Optional.ofNullable(filePath.getFileName()).map(Path::toString).orElse(""),
+                            request.position().startLine(),
+                            request.position().endLine());
+                }
                 SearchCommand command = SearchCommand.from(searchKind, project, position, request.queryMap());
                 response.setCategories(command.execute());
             } catch (Throwable e) {
