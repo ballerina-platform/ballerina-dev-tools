@@ -66,6 +66,15 @@ public class ModelGeneratorTest extends AbstractLSTest {
     }
 
     @Override
+    protected String[] skipList() {
+        // TODO: Re-enable once the version mismatch issue is fixed
+        return new String[] {
+                "remote_action_call-mysql1.json",
+                "remote_action_call-mysql2.json",
+        };
+    }
+
+    @Override
     protected String getResourceDir() {
         return "diagram_generator";
     }
