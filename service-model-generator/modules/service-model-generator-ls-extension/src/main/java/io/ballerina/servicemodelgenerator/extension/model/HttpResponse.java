@@ -18,28 +18,31 @@
 
 package io.ballerina.servicemodelgenerator.extension.model;
 
+/**
+ * Represents a HTTP response.
+ *
+ * @since 2.0.0
+ */
 public class HttpResponse {
     private Value statusCode;
     private Value body;
     private Value name;
-    private Value createStatusCodeResponse;
     private Value type;
+    private Value headers;
+    private boolean enabled = true;
+    private boolean editable = false;
+    private boolean advanced = false;
+    private boolean isHttpResponseType = false;
 
     public HttpResponse() {
-        this(null, null, null, null, null);
     }
 
-    public HttpResponse(Value statusCode, Value body, Value name, Value createStatusCodeResponse, Value type) {
+    public HttpResponse(Value statusCode, Value body, Value name, Value type, Value headers) {
         this.statusCode = statusCode;
         this.body = body;
         this.name = name;
-        this.createStatusCodeResponse = createStatusCodeResponse;
         this.type = type;
-    }
-
-    public HttpResponse(String statusCode, String body) {
-        this.statusCode = new Value(statusCode, "EXPRESSION", true);
-        this.body = new Value(body, "EXPRESSION", true);
+        this.headers = headers;
     }
 
     public HttpResponse(String type) {
@@ -47,16 +50,35 @@ public class HttpResponse {
     }
 
     public HttpResponse(String statusCode, String body, String name) {
-        this.statusCode = new Value(statusCode, "EXPRESSION", true);
+        this.statusCode = new Value(statusCode, "SINGLE_SELECT", true);
         this.body = new Value(body, "EXPRESSION", true);
         this.name = new Value(name, "EXPRESSION", true);
     }
 
-    public HttpResponse(String statusCode, String body, String name, String type) {
-        this.statusCode = new Value(statusCode, "EXPRESSION", true);
-        this.body = new Value(body, "EXPRESSION", true);
-        this.name = new Value(name, "EXPRESSION", true);
-        this.type = new Value(name, "EXPRESSION", true);
+    public HttpResponse(String statusCode, String type) {
+        this.statusCode = new Value(statusCode, "SINGLE_SELECT", true);
+        this.body = new Value(type, "TYPE", true);
+        this.name = new Value("", "IDENTIFIER", true);
+        this.type = new Value(type, "TYPE", true);
+        this.headers = new Value("", "EXPRESSION_SET", true);
+    }
+
+    public HttpResponse(String statusCode, String type, boolean editable) {
+        this.statusCode = new Value(statusCode, "SINGLE_SELECT", true);
+        this.body = new Value("", "TYPE", true);
+        this.name = new Value("", "IDENTIFIER", true);
+        this.type = new Value(type, "TYPE", true);
+        this.headers = new Value("", "EXPRESSION_SET", true);
+        this.editable = editable;
+    }
+
+    public static HttpResponse getAnonResponse(String code, String typeStr) {
+        Value statusCode = new Value(code, "SINGLE_SELECT", true);
+        Value body = new Value("", "EXPRESSION", true);
+        Value name = new Value("", "EXPRESSION", true);
+        Value type = new Value(typeStr, "EXPRESSION", true);
+        Value headers = new Value("", "EXPRESSION_SET", true);
+        return new HttpResponse(statusCode, body, name, type, headers);
     }
 
     public Value getStatusCode() {
@@ -83,19 +105,47 @@ public class HttpResponse {
         this.name = name;
     }
 
-    public Value isCreateStatusCodeResponse() {
-        return createStatusCodeResponse;
-    }
-
-    public void setCreateStatusCodeResponse(Value createStatusCodeResponse) {
-        this.createStatusCodeResponse = createStatusCodeResponse;
-    }
-
     public Value getType() {
         return type;
     }
 
     public void setType(Value type) {
         this.type = type;
+    }
+
+    public void setEditable(boolean editable) {
+        this.editable = editable;
+    }
+
+    public void setAdvanced(boolean advanced) {
+        this.advanced = advanced;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public Value getHeaders() {
+        return headers;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public boolean isAdvanced() {
+        return advanced;
+    }
+
+    public boolean isEditable() {
+        return editable;
+    }
+
+    public boolean isHttpResponseType() {
+        return isHttpResponseType;
+    }
+
+    public void setHttpResponseType(boolean httpResponseType) {
+        isHttpResponseType = httpResponseType;
     }
 }
