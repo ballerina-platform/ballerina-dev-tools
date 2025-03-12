@@ -132,6 +132,7 @@ import static io.ballerina.servicemodelgenerator.extension.util.Utils.getListene
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.getPath;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.getServiceDeclarationNode;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.importExists;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.isAiAgentModule;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.isHttpServiceContractType;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.populateRequiredFuncsDesignApproachAndServiceType;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateServiceContractModel;
@@ -323,9 +324,19 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                             service.getListener().getValue(), isDefaultListenerCreationRequired));
                 }
 
+                List<String> importStmts = new ArrayList<>();
+                if (isAiAgentModule(service.getOrgName(), service.getModuleName()) &&
+                        !importExists(node, "ballerina", "http")) {
+                    importStmts.add(Utils.getImportStmt("ballerina", "http"));
+                }
+
                 if (!importExists(node, service.getOrgName(), service.getModuleName())) {
-                    String importText = Utils.getImportStmt(service.getOrgName(), service.getModuleName());
-                    edits.add(new TextEdit(Utils.toRange(lineRange.startLine()), importText));
+                    importStmts.add(Utils.getImportStmt(service.getOrgName(), service.getModuleName()));
+                }
+
+                if (!importStmts.isEmpty()) {
+                    String imports = String.join(ServiceModelGeneratorConstants.LINE_SEPARATOR, importStmts);
+                    edits.add(new TextEdit(Utils.toRange(lineRange.startLine()), imports));
                 }
 
                 SemanticModel semanticModel = null;
