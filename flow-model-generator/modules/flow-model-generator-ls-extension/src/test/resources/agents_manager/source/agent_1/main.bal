@@ -32,12 +32,12 @@ function fn(int x) returns int {
 }
 
 @agent:Tool
-function fn1(int x) returns int|error? {
+function fn2(int x, error? err) returns int? {
     return x + 1;
 }
 
 @agent:Tool
-function fn2(int x, error? err) returns int? {
+function fn1(int x) returns int|error? {
     return x + 1;
 }
 

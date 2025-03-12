@@ -15,7 +15,8 @@
       "object": "Agent",
       "symbol": "init",
       "version": "0.7.9",
-      "id": 0
+      "id": 0,
+      "isNew": true
     },
     "returning": false,
     "properties": {

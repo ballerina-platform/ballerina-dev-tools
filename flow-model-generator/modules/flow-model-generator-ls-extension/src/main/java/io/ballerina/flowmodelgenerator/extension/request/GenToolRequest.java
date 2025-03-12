@@ -23,10 +23,14 @@ import com.google.gson.JsonElement;
 /**
  * A request to retrieve tools of the agent.
  *
- * @param filePath   path of the file
- * @param flowNode   diagram node
- * @param toolName   name of the tool
- * @param connection name of the connection
+ * @param filePath    path of the file
+ * @param flowNode    diagram node
+ * @param toolName    name of the tool
+ * @param description description of the tool
+ * @param connection  name of the connection
+ *                    
+ * @since 2.0.0
  */
-public record GenToolRequest(String filePath, JsonElement flowNode, String toolName, String connection) {
+public record GenToolRequest(String filePath, JsonElement flowNode, String toolName, String description,
+                             String connection) {
 }
