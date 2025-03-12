@@ -1,0 +1,87 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "36858",
+    "metadata": {
+      "label": "close",
+      "description": "Close the connection.\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
+    },
+    "codedata": {
+      "node": "METHOD_CALL",
+      "org": "ballerinax",
+      "module": "redis",
+      "symbol": "close",
+      "version": "3.0.2",
+      "lineRange": {
+        "fileName": "method_call_redis.bal",
+        "startLine": {
+          "line": 5,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 5,
+          "offset": 30
+        }
+      },
+      "sourceCode": "check redisClient.close();"
+    },
+    "returning": false,
+    "properties": {
+      "checkError": {
+        "metadata": {
+          "label": "Check Error",
+          "description": "Trigger error flow"
+        },
+        "valueType": "FLAG",
+        "value": true,
+        "optional": false,
+        "editable": true,
+        "advanced": true
+      },
+      "connection": {
+        "metadata": {
+          "label": "Connection",
+          "description": "Connection to use"
+        },
+        "valueType": "EXPRESSION",
+        "value": "redisClient",
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      }
+    },
+    "flags": 1
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import ballerinax/redis;"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 5,
+            "character": 4
+          },
+          "end": {
+            "line": 5,
+            "character": 30
+          }
+        },
+        "newText": "check redisClient.close();"
+      }
+    ]
+  }
+}

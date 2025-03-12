@@ -67,7 +67,8 @@
             "value": "",
             "optional": true,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           },
           "variable": {
             "metadata": {
@@ -79,6 +80,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "lineRange": {
                 "fileName": "error_handler.bal",
@@ -104,6 +106,7 @@
             "optional": false,
             "editable": true,
             "advanced": false,
+            "hidden": false,
             "codedata": {}
           }
         },
@@ -191,7 +194,8 @@
                     "value": "foodClient",
                     "optional": false,
                     "editable": false,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   },
                   "targetType": {
                     "metadata": {
@@ -205,6 +209,7 @@
                     "optional": false,
                     "editable": true,
                     "advanced": false,
+                    "hidden": false,
                     "codedata": {
                       "kind": "PARAM_FOR_TYPE_INFER",
                       "originalName": "targetType"
@@ -222,6 +227,7 @@
                     "optional": false,
                     "editable": true,
                     "advanced": false,
+                    "hidden": false,
                     "codedata": {
                       "kind": "REQUIRED",
                       "originalName": "path"
@@ -246,6 +252,7 @@
                     "optional": true,
                     "editable": true,
                     "advanced": true,
+                    "hidden": false,
                     "codedata": {
                       "kind": "DEFAULTABLE",
                       "originalName": "headers"
@@ -274,7 +281,8 @@
                     "value": true,
                     "optional": false,
                     "editable": true,
-                    "advanced": true
+                    "advanced": true,
+                    "hidden": false
                   },
                   "variable": {
                     "metadata": {
@@ -286,6 +294,7 @@
                     "optional": false,
                     "editable": false,
                     "advanced": false,
+                    "hidden": false,
                     "codedata": {
                       "lineRange": {
                         "fileName": "error_handler.bal",
@@ -311,6 +320,7 @@
                     "optional": false,
                     "editable": false,
                     "advanced": false,
+                    "hidden": false,
                     "codedata": {}
                   }
                 },
@@ -319,16 +329,11 @@
               {
                 "id": "50998",
                 "metadata": {
-                  "label": "toString",
-                  "description": "Performs a direct conversion of a value to a string.\n\nThe conversion is direct in the sense that when applied to a value that is already\na string it leaves the value unchanged.\n\nThe details of the conversion are specified by the ToString abstract operation\ndefined in the Ballerina Language Specification, using the direct style.\n\n```ballerina\ndecimal value = 12.12d;\nvalue.toString() ⇒ 12.12\nanydata[] data = [1, \"Sam\", 12.3f, 12.12d, {value: 12}];\ndata.toString() ⇒ [1,\"Sam\",12.3,12.12,{\"value\":12}]\n```\n",
-                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.value_0.0.0.png"
+                  "label": "Assign",
+                  "description": "Assign a value to a variable"
                 },
                 "codedata": {
-                  "node": "METHOD_CALL",
-                  "org": "ballerina",
-                  "module": "lang.value",
-                  "symbol": "toString",
-                  "version": "0.0.0",
+                  "node": "ASSIGN",
                   "lineRange": {
                     "fileName": "error_handler.bal",
                     "startLine": {
@@ -344,16 +349,29 @@
                 },
                 "returning": false,
                 "properties": {
-                  "connection": {
+                  "expression": {
                     "metadata": {
-                      "label": "Connection",
-                      "description": "Connection to use"
+                      "label": "Expression",
+                      "description": "Assign value"
                     },
                     "valueType": "EXPRESSION",
-                    "value": "res3",
+                    "value": "res3.toString()",
                     "optional": false,
-                    "editable": false,
-                    "advanced": false
+                    "editable": true,
+                    "advanced": false,
+                    "hidden": false
+                  },
+                  "variable": {
+                    "metadata": {
+                      "label": "Name",
+                      "description": "Name of the variable"
+                    },
+                    "valueType": "IDENTIFIER",
+                    "value": "msg",
+                    "optional": false,
+                    "editable": true,
+                    "advanced": false,
+                    "hidden": false
                   }
                 },
                 "flags": 0
@@ -412,7 +430,8 @@
                     "value": "\"Failed to get the response\"",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   },
                   "variable": {
                     "metadata": {
@@ -423,7 +442,8 @@
                     "value": "msg",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   }
                 },
                 "flags": 0
@@ -510,7 +530,8 @@
                             "value": "foodClient",
                             "optional": false,
                             "editable": false,
-                            "advanced": false
+                            "advanced": false,
+                            "hidden": false
                           },
                           "targetType": {
                             "metadata": {
@@ -524,6 +545,7 @@
                             "optional": false,
                             "editable": true,
                             "advanced": false,
+                            "hidden": false,
                             "codedata": {
                               "kind": "PARAM_FOR_TYPE_INFER",
                               "originalName": "targetType"
@@ -541,6 +563,7 @@
                             "optional": false,
                             "editable": true,
                             "advanced": false,
+                            "hidden": false,
                             "codedata": {
                               "kind": "REQUIRED",
                               "originalName": "path"
@@ -566,6 +589,7 @@
                             "optional": false,
                             "editable": true,
                             "advanced": false,
+                            "hidden": false,
                             "codedata": {
                               "kind": "REQUIRED",
                               "originalName": "message"
@@ -590,6 +614,7 @@
                             "optional": true,
                             "editable": true,
                             "advanced": true,
+                            "hidden": false,
                             "codedata": {
                               "kind": "DEFAULTABLE",
                               "originalName": "headers"
@@ -620,6 +645,7 @@
                             "optional": true,
                             "editable": true,
                             "advanced": true,
+                            "hidden": false,
                             "codedata": {
                               "kind": "DEFAULTABLE",
                               "originalName": "mediaType"
@@ -648,7 +674,8 @@
                             "value": true,
                             "optional": false,
                             "editable": true,
-                            "advanced": true
+                            "advanced": true,
+                            "hidden": false
                           },
                           "variable": {
                             "metadata": {
@@ -660,6 +687,7 @@
                             "optional": false,
                             "editable": false,
                             "advanced": false,
+                            "hidden": false,
                             "codedata": {
                               "lineRange": {
                                 "fileName": "error_handler.bal",
@@ -685,6 +713,7 @@
                             "optional": false,
                             "editable": false,
                             "advanced": false,
+                            "hidden": false,
                             "codedata": {}
                           }
                         },
@@ -693,16 +722,11 @@
                       {
                         "id": "56102",
                         "metadata": {
-                          "label": "toString",
-                          "description": "Performs a direct conversion of a value to a string.\n\nThe conversion is direct in the sense that when applied to a value that is already\na string it leaves the value unchanged.\n\nThe details of the conversion are specified by the ToString abstract operation\ndefined in the Ballerina Language Specification, using the direct style.\n\n```ballerina\ndecimal value = 12.12d;\nvalue.toString() ⇒ 12.12\nanydata[] data = [1, \"Sam\", 12.3f, 12.12d, {value: 12}];\ndata.toString() ⇒ [1,\"Sam\",12.3,12.12,{\"value\":12}]\n```\n",
-                          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.value_0.0.0.png"
+                          "label": "Assign",
+                          "description": "Assign a value to a variable"
                         },
                         "codedata": {
-                          "node": "METHOD_CALL",
-                          "org": "ballerina",
-                          "module": "lang.value",
-                          "symbol": "toString",
-                          "version": "0.0.0",
+                          "node": "ASSIGN",
                           "lineRange": {
                             "fileName": "error_handler.bal",
                             "startLine": {
@@ -718,16 +742,29 @@
                         },
                         "returning": false,
                         "properties": {
-                          "connection": {
+                          "expression": {
                             "metadata": {
-                              "label": "Connection",
-                              "description": "Connection to use"
+                              "label": "Expression",
+                              "description": "Assign value"
                             },
                             "valueType": "EXPRESSION",
-                            "value": "res",
+                            "value": "msg.toString() + res.toString()",
                             "optional": false,
-                            "editable": false,
-                            "advanced": false
+                            "editable": true,
+                            "advanced": false,
+                            "hidden": false
+                          },
+                          "variable": {
+                            "metadata": {
+                              "label": "Name",
+                              "description": "Name of the variable"
+                            },
+                            "valueType": "IDENTIFIER",
+                            "value": "msg",
+                            "optional": false,
+                            "editable": true,
+                            "advanced": false,
+                            "hidden": false
                           }
                         },
                         "flags": 0
@@ -786,7 +823,8 @@
                             "value": "\"Error occurred while logging the error\"",
                             "optional": false,
                             "editable": true,
-                            "advanced": false
+                            "advanced": false,
+                            "hidden": false
                           },
                           "variable": {
                             "metadata": {
@@ -797,7 +835,8 @@
                             "value": "msg",
                             "optional": false,
                             "editable": true,
-                            "advanced": false
+                            "advanced": false,
+                            "hidden": false
                           }
                         },
                         "flags": 0
@@ -854,6 +893,7 @@
             "optional": false,
             "editable": true,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "kind": "REQUIRED",
               "originalName": "url"
@@ -867,26 +907,189 @@
               }
             ]
           },
-          "responseLimits": {
+          "httpVersion": {
             "metadata": {
-              "label": "responseLimits",
-              "description": "Configurations associated with inbound response size limits"
+              "label": "httpVersion",
+              "description": "The HTTP version understood by the client"
             },
             "valueType": "EXPRESSION",
-            "valueTypeConstraint": "http:ResponseLimitConfigs",
+            "valueTypeConstraint": "http:HttpVersion",
+            "placeholder": "\"2.0\"",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "hidden": false,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "httpVersion"
+            },
+            "typeMembers": [
+              {
+                "type": "HttpVersion",
+                "packageInfo": "ballerina:http:2.14.0",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
+          },
+          "http1Settings": {
+            "metadata": {
+              "label": "http1Settings",
+              "description": "Configurations related to HTTP/1.x protocol"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ClientHttp1Settings",
             "placeholder": "{}",
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
-              "originalName": "responseLimits"
+              "originalName": "http1Settings"
             },
             "typeMembers": [
               {
-                "type": "ResponseLimitConfigs",
+                "type": "ClientHttp1Settings",
                 "packageInfo": "ballerina:http:2.14.0",
                 "kind": "RECORD_TYPE",
+                "selected": false
+              }
+            ]
+          },
+          "http2Settings": {
+            "metadata": {
+              "label": "http2Settings",
+              "description": "Configurations related to HTTP/2 protocol"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ClientHttp2Settings",
+            "placeholder": "{}",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "hidden": false,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "http2Settings"
+            },
+            "typeMembers": [
+              {
+                "type": "ClientHttp2Settings",
+                "packageInfo": "ballerina:http:2.14.0",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              }
+            ]
+          },
+          "timeout": {
+            "metadata": {
+              "label": "timeout",
+              "description": "The maximum time to wait (in seconds) for a response before closing the connection"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "decimal",
+            "placeholder": "0.0d",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "hidden": false,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "timeout"
+            },
+            "typeMembers": [
+              {
+                "type": "decimal",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
+          },
+          "forwarded": {
+            "metadata": {
+              "label": "forwarded",
+              "description": "The choice of setting `forwarded`/`x-forwarded` header"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string",
+            "placeholder": "\"\"",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "hidden": false,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "forwarded"
+            },
+            "typeMembers": [
+              {
+                "type": "string",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
+          },
+          "followRedirects": {
+            "metadata": {
+              "label": "followRedirects",
+              "description": "Configurations associated with Redirection"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:FollowRedirects|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "hidden": false,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "followRedirects"
+            },
+            "typeMembers": [
+              {
+                "type": "FollowRedirects",
+                "packageInfo": "ballerina:http:2.14.0",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
+          },
+          "poolConfig": {
+            "metadata": {
+              "label": "poolConfig",
+              "description": "Configurations associated with request pooling"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:PoolConfiguration|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "hidden": false,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "poolConfig"
+            },
+            "typeMembers": [
+              {
+                "type": "PoolConfiguration",
+                "packageInfo": "ballerina:http:2.14.0",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
                 "selected": false
               }
             ]
@@ -902,6 +1105,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "cache"
@@ -915,31 +1119,26 @@
               }
             ]
           },
-          "cookieConfig": {
+          "compression": {
             "metadata": {
-              "label": "cookieConfig",
-              "description": "Configurations associated with cookies"
+              "label": "compression",
+              "description": "Specifies the way of handling compression (`accept-encoding`) header"
             },
             "valueType": "EXPRESSION",
-            "valueTypeConstraint": "http:CookieConfig|()",
-            "placeholder": "()",
+            "valueTypeConstraint": "http:Compression",
+            "placeholder": "\"AUTO\"",
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
-              "originalName": "cookieConfig"
+              "originalName": "compression"
             },
             "typeMembers": [
               {
-                "type": "CookieConfig",
+                "type": "Compression",
                 "packageInfo": "ballerina:http:2.14.0",
-                "kind": "RECORD_TYPE",
-                "selected": false
-              },
-              {
-                "type": "()",
-                "packageInfo": "",
                 "kind": "BASIC_TYPE",
                 "selected": false
               }
@@ -956,6 +1155,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "auth"
@@ -1011,6 +1211,37 @@
               }
             ]
           },
+          "circuitBreaker": {
+            "metadata": {
+              "label": "circuitBreaker",
+              "description": "Configurations associated with the behaviour of the Circuit Breaker"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:CircuitBreakerConfig|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "hidden": false,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "circuitBreaker"
+            },
+            "typeMembers": [
+              {
+                "type": "CircuitBreakerConfig",
+                "packageInfo": "ballerina:http:2.14.0",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
+          },
           "retryConfig": {
             "metadata": {
               "label": "retryConfig",
@@ -1022,6 +1253,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "retryConfig"
@@ -1041,24 +1273,25 @@
               }
             ]
           },
-          "poolConfig": {
+          "cookieConfig": {
             "metadata": {
-              "label": "poolConfig",
-              "description": "Configurations associated with request pooling"
+              "label": "cookieConfig",
+              "description": "Configurations associated with cookies"
             },
             "valueType": "EXPRESSION",
-            "valueTypeConstraint": "http:PoolConfiguration|()",
+            "valueTypeConstraint": "http:CookieConfig|()",
             "placeholder": "()",
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
-              "originalName": "poolConfig"
+              "originalName": "cookieConfig"
             },
             "typeMembers": [
               {
-                "type": "PoolConfiguration",
+                "type": "CookieConfig",
                 "packageInfo": "ballerina:http:2.14.0",
                 "kind": "RECORD_TYPE",
                 "selected": false
@@ -1071,48 +1304,81 @@
               }
             ]
           },
-          "timeout": {
+          "responseLimits": {
             "metadata": {
-              "label": "timeout",
-              "description": "The maximum time to wait (in seconds) for a response before closing the connection"
+              "label": "responseLimits",
+              "description": "Configurations associated with inbound response size limits"
             },
             "valueType": "EXPRESSION",
-            "valueTypeConstraint": "decimal",
-            "placeholder": "0.0d",
+            "valueTypeConstraint": "http:ResponseLimitConfigs",
+            "placeholder": "{}",
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
-              "originalName": "timeout"
+              "originalName": "responseLimits"
             },
             "typeMembers": [
               {
-                "type": "decimal",
+                "type": "ResponseLimitConfigs",
+                "packageInfo": "ballerina:http:2.14.0",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              }
+            ]
+          },
+          "proxy": {
+            "metadata": {
+              "label": "proxy",
+              "description": "Proxy server related options"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:ProxyConfig|()",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "hidden": false,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "proxy"
+            },
+            "typeMembers": [
+              {
+                "type": "ProxyConfig",
+                "packageInfo": "ballerina:http:2.14.0",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              },
+              {
+                "type": "()",
                 "packageInfo": "",
                 "kind": "BASIC_TYPE",
                 "selected": false
               }
             ]
           },
-          "forwarded": {
+          "validation": {
             "metadata": {
-              "label": "forwarded",
-              "description": "The choice of setting `forwarded`/`x-forwarded` header"
+              "label": "validation",
+              "description": "Enables the inbound payload validation functionalty which provided by the constraint package. Enabled by default"
             },
             "valueType": "EXPRESSION",
-            "valueTypeConstraint": "string",
-            "placeholder": "\"\"",
+            "valueTypeConstraint": "boolean",
+            "placeholder": "false",
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
-              "originalName": "forwarded"
+              "originalName": "validation"
             },
             "typeMembers": [
               {
-                "type": "string",
+                "type": "boolean",
                 "packageInfo": "",
                 "kind": "BASIC_TYPE",
                 "selected": false
@@ -1130,6 +1396,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "socketConfig"
@@ -1154,6 +1421,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "laxDataBinding"
@@ -1161,90 +1429,6 @@
             "typeMembers": [
               {
                 "type": "boolean",
-                "packageInfo": "",
-                "kind": "BASIC_TYPE",
-                "selected": false
-              }
-            ]
-          },
-          "proxy": {
-            "metadata": {
-              "label": "proxy",
-              "description": "Proxy server related options"
-            },
-            "valueType": "EXPRESSION",
-            "valueTypeConstraint": "http:ProxyConfig|()",
-            "placeholder": "()",
-            "optional": true,
-            "editable": true,
-            "advanced": true,
-            "codedata": {
-              "kind": "INCLUDED_FIELD",
-              "originalName": "proxy"
-            },
-            "typeMembers": [
-              {
-                "type": "ProxyConfig",
-                "packageInfo": "ballerina:http:2.14.0",
-                "kind": "RECORD_TYPE",
-                "selected": false
-              },
-              {
-                "type": "()",
-                "packageInfo": "",
-                "kind": "BASIC_TYPE",
-                "selected": false
-              }
-            ]
-          },
-          "httpVersion": {
-            "metadata": {
-              "label": "httpVersion",
-              "description": "The HTTP version understood by the client"
-            },
-            "valueType": "EXPRESSION",
-            "valueTypeConstraint": "http:HttpVersion",
-            "placeholder": "\"2.0\"",
-            "optional": true,
-            "editable": true,
-            "advanced": true,
-            "codedata": {
-              "kind": "INCLUDED_FIELD",
-              "originalName": "httpVersion"
-            },
-            "typeMembers": [
-              {
-                "type": "HttpVersion",
-                "packageInfo": "ballerina:http:2.14.0",
-                "kind": "BASIC_TYPE",
-                "selected": false
-              }
-            ]
-          },
-          "followRedirects": {
-            "metadata": {
-              "label": "followRedirects",
-              "description": "Configurations associated with Redirection"
-            },
-            "valueType": "EXPRESSION",
-            "valueTypeConstraint": "http:FollowRedirects|()",
-            "placeholder": "()",
-            "optional": true,
-            "editable": true,
-            "advanced": true,
-            "codedata": {
-              "kind": "INCLUDED_FIELD",
-              "originalName": "followRedirects"
-            },
-            "typeMembers": [
-              {
-                "type": "FollowRedirects",
-                "packageInfo": "ballerina:http:2.14.0",
-                "kind": "RECORD_TYPE",
-                "selected": false
-              },
-              {
-                "type": "()",
                 "packageInfo": "",
                 "kind": "BASIC_TYPE",
                 "selected": false
@@ -1262,6 +1446,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "secureSocket"
@@ -1281,132 +1466,6 @@
               }
             ]
           },
-          "circuitBreaker": {
-            "metadata": {
-              "label": "circuitBreaker",
-              "description": "Configurations associated with the behaviour of the Circuit Breaker"
-            },
-            "valueType": "EXPRESSION",
-            "valueTypeConstraint": "http:CircuitBreakerConfig|()",
-            "placeholder": "()",
-            "optional": true,
-            "editable": true,
-            "advanced": true,
-            "codedata": {
-              "kind": "INCLUDED_FIELD",
-              "originalName": "circuitBreaker"
-            },
-            "typeMembers": [
-              {
-                "type": "CircuitBreakerConfig",
-                "packageInfo": "ballerina:http:2.14.0",
-                "kind": "RECORD_TYPE",
-                "selected": false
-              },
-              {
-                "type": "()",
-                "packageInfo": "",
-                "kind": "BASIC_TYPE",
-                "selected": false
-              }
-            ]
-          },
-          "http2Settings": {
-            "metadata": {
-              "label": "http2Settings",
-              "description": "Configurations related to HTTP/2 protocol"
-            },
-            "valueType": "EXPRESSION",
-            "valueTypeConstraint": "http:ClientHttp2Settings",
-            "placeholder": "{}",
-            "optional": true,
-            "editable": true,
-            "advanced": true,
-            "codedata": {
-              "kind": "INCLUDED_FIELD",
-              "originalName": "http2Settings"
-            },
-            "typeMembers": [
-              {
-                "type": "ClientHttp2Settings",
-                "packageInfo": "ballerina:http:2.14.0",
-                "kind": "RECORD_TYPE",
-                "selected": false
-              }
-            ]
-          },
-          "compression": {
-            "metadata": {
-              "label": "compression",
-              "description": "Specifies the way of handling compression (`accept-encoding`) header"
-            },
-            "valueType": "EXPRESSION",
-            "valueTypeConstraint": "http:Compression",
-            "placeholder": "\"AUTO\"",
-            "optional": true,
-            "editable": true,
-            "advanced": true,
-            "codedata": {
-              "kind": "INCLUDED_FIELD",
-              "originalName": "compression"
-            },
-            "typeMembers": [
-              {
-                "type": "Compression",
-                "packageInfo": "ballerina:http:2.14.0",
-                "kind": "BASIC_TYPE",
-                "selected": false
-              }
-            ]
-          },
-          "http1Settings": {
-            "metadata": {
-              "label": "http1Settings",
-              "description": "Configurations related to HTTP/1.x protocol"
-            },
-            "valueType": "EXPRESSION",
-            "valueTypeConstraint": "http:ClientHttp1Settings",
-            "placeholder": "{}",
-            "optional": true,
-            "editable": true,
-            "advanced": true,
-            "codedata": {
-              "kind": "INCLUDED_FIELD",
-              "originalName": "http1Settings"
-            },
-            "typeMembers": [
-              {
-                "type": "ClientHttp1Settings",
-                "packageInfo": "ballerina:http:2.14.0",
-                "kind": "RECORD_TYPE",
-                "selected": false
-              }
-            ]
-          },
-          "validation": {
-            "metadata": {
-              "label": "validation",
-              "description": "Enables the inbound payload validation functionalty which provided by the constraint package. Enabled by default"
-            },
-            "valueType": "EXPRESSION",
-            "valueTypeConstraint": "boolean",
-            "placeholder": "false",
-            "optional": true,
-            "editable": true,
-            "advanced": true,
-            "codedata": {
-              "kind": "INCLUDED_FIELD",
-              "originalName": "validation"
-            },
-            "typeMembers": [
-              {
-                "type": "boolean",
-                "packageInfo": "",
-                "kind": "BASIC_TYPE",
-                "selected": false
-              }
-            ]
-          },
           "checkError": {
             "metadata": {
               "label": "Check Error",
@@ -1416,7 +1475,8 @@
             "value": true,
             "optional": false,
             "editable": false,
-            "advanced": true
+            "advanced": true,
+            "hidden": false
           },
           "scope": {
             "metadata": {
@@ -1427,7 +1487,8 @@
             "value": "Global",
             "optional": false,
             "editable": true,
-            "advanced": true
+            "advanced": true,
+            "hidden": false
           },
           "variable": {
             "metadata": {
@@ -1439,6 +1500,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "lineRange": {
                 "fileName": "error_handler.bal",
@@ -1464,6 +1526,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {}
           }
         },

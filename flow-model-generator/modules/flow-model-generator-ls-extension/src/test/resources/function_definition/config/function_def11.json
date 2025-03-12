@@ -27,7 +27,7 @@
     "properties": {
       "functionName": {
         "metadata": {
-          "label": "Function Name",
+          "label": "Name",
           "description": "Name of the function"
         },
         "valueType": "IDENTIFIER",
@@ -35,6 +35,7 @@
         "optional": false,
         "editable": false,
         "advanced": false,
+        "hidden": false,
         "codedata": {
           "lineRange": {
             "fileName": "function_def.bal",
@@ -58,7 +59,8 @@
         "value": "",
         "optional": true,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       },
       "parameters": {
         "metadata": {
@@ -83,7 +85,8 @@
               "value": "",
               "optional": false,
               "editable": true,
-              "advanced": false
+              "advanced": false,
+              "hidden": false
             },
             "variable": {
               "metadata": {
@@ -94,17 +97,20 @@
               "value": "",
               "optional": false,
               "editable": true,
-              "advanced": false
+              "advanced": false,
+              "hidden": false
             }
           },
           "optional": false,
           "editable": false,
-          "advanced": false
+          "advanced": false,
+          "hidden": false
         },
         "value": {},
         "optional": true,
         "editable": false,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       }
     },
     "flags": 0

@@ -1,0 +1,48 @@
+{
+  "description": "",
+  "filePath": "proj/main.bal",
+  "context": {
+    "expression": "`SELECT * FROM`",
+    "startLine": {
+      "line": 0,
+      "offset": 0
+    },
+    "offset": 10,
+    "codedata": {
+      "node": "REMOTE_ACTION_CALL",
+      "org": "ballerinax",
+      "module": "mysql",
+      "object": "Client",
+      "symbol": "query",
+      "version": "1.14.0",
+      "isNew": true,
+      "inferredReturnType": "stream<rowType, sql:Error?>"
+    },
+    "property": {
+      "metadata": {
+        "label": "sqlQuery",
+        "description": "The SQL query such as `` `SELECT * from Album WHERE name=${albumName}` ``"
+      },
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "sql:ParameterizedQuery",
+      "placeholder": "``",
+      "optional": false,
+      "editable": true,
+      "advanced": false,
+      "codedata": {
+        "kind": "REQUIRED",
+        "originalName": "sqlQuery",
+        "importStatements": "ballerina/sql"
+      },
+      "typeMembers": [
+        {
+          "type": "ParameterizedQuery",
+          "packageInfo": "ballerina:sql:1.14.0",
+          "kind": "OBJECT_TYPE",
+          "selected": false
+        }
+      ]
+    }
+  },
+  "diagnostics": []
+}

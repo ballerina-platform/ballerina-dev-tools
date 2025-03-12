@@ -307,15 +307,26 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
         return this;
     }
 
-    public FormBuilder<T> callExpression(ExpressionNode expressionNode, String key) {
+    public FormBuilder<T> callConnection(ExpressionNode expressionNode, String key) {
         propertyBuilder
                 .metadata()
                     .label(Property.CONNECTION_LABEL)
                     .description(Property.CONNECTION_DOC)
                     .stepOut()
                 .type(Property.ValueType.EXPRESSION)
-                .value(expressionNode.toString())
-                .type(Property.ValueType.EXPRESSION);
+                .value(expressionNode.toString());
+        addProperty(key);
+        return this;
+    }
+
+    public FormBuilder<T> callExpression(ExpressionNode expressionNode, String key) {
+        propertyBuilder
+                .metadata()
+                    .label(Property.METHOD_EXPRESSION_LABEL)
+                    .description(Property.METHOD_EXPRESSION_DOC)
+                    .stepOut()
+                .type(Property.ValueType.EXPRESSION)
+                .value(expressionNode.toString());
         addProperty(key);
         return this;
     }

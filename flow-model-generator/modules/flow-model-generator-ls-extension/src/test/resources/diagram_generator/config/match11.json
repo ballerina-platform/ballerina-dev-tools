@@ -94,12 +94,14 @@
                     "value": "[var quantity, var ripeness]",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   }
                 ],
                 "optional": false,
                 "editable": true,
-                "advanced": false
+                "advanced": false,
+                "hidden": false
               },
               "guard": {
                 "metadata": {
@@ -110,7 +112,8 @@
                 "value": "quantity is int && ripeness is int ",
                 "optional": false,
                 "editable": true,
-                "advanced": false
+                "advanced": false,
+                "hidden": false
               }
             },
             "children": [
@@ -167,7 +170,8 @@
                         "placeholder": "true",
                         "optional": false,
                         "editable": true,
-                        "advanced": false
+                        "advanced": false,
+                        "hidden": false
                       }
                     },
                     "children": [
@@ -204,7 +208,8 @@
                             "value": "error(\"Invalid input values\")",
                             "optional": false,
                             "editable": true,
-                            "advanced": false
+                            "advanced": false,
+                            "hidden": false
                           }
                         },
                         "flags": 0
@@ -246,7 +251,8 @@
                     "value": "string `Order for ${quantity} peaches with ripeness ${ripeness}`",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   }
                 },
                 "flags": 0
@@ -289,12 +295,14 @@
                     "value": "_",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   }
                 ],
                 "optional": false,
                 "editable": true,
-                "advanced": false
+                "advanced": false,
+                "hidden": false
               }
             },
             "children": [
@@ -331,7 +339,8 @@
                     "value": "error(\"Invalid data format\")",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   }
                 },
                 "flags": 0
@@ -367,7 +376,8 @@
                 "value": "false",
                 "optional": false,
                 "editable": true,
-                "advanced": false
+                "advanced": false,
+                "hidden": false
               },
               "errorVariable": {
                 "metadata": {
@@ -379,7 +389,8 @@
                 "placeholder": "err",
                 "optional": false,
                 "editable": true,
-                "advanced": false
+                "advanced": false,
+                "hidden": false
               },
               "errorType": {
                 "metadata": {
@@ -391,7 +402,8 @@
                 "placeholder": "error",
                 "optional": false,
                 "editable": true,
-                "advanced": false
+                "advanced": false,
+                "hidden": false
               }
             },
             "children": [
@@ -427,7 +439,8 @@
                     "value": "string `Error processing peach order: ${e.message()}`",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   }
                 },
                 "flags": 0
@@ -446,7 +459,8 @@
             "placeholder": "true",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           }
         },
         "flags": 0

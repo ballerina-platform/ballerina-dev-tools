@@ -88,7 +88,8 @@
                 "placeholder": "true",
                 "optional": false,
                 "editable": true,
-                "advanced": false
+                "advanced": false,
+                "hidden": false
               }
             },
             "children": [
@@ -124,7 +125,8 @@
                     "value": "<int>quantity",
                     "optional": true,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   },
                   "variable": {
                     "metadata": {
@@ -136,6 +138,7 @@
                     "optional": false,
                     "editable": false,
                     "advanced": false,
+                    "hidden": false,
                     "codedata": {
                       "lineRange": {
                         "fileName": "match.bal",
@@ -161,6 +164,7 @@
                     "optional": false,
                     "editable": true,
                     "advanced": false,
+                    "hidden": false,
                     "codedata": {}
                   }
                 },
@@ -225,12 +229,14 @@
                             "value": "var n",
                             "optional": false,
                             "editable": true,
-                            "advanced": false
+                            "advanced": false,
+                            "hidden": false
                           }
                         ],
                         "optional": false,
                         "editable": true,
-                        "advanced": false
+                        "advanced": false,
+                        "hidden": false
                       },
                       "guard": {
                         "metadata": {
@@ -241,7 +247,8 @@
                         "value": "n > 10 ",
                         "optional": false,
                         "editable": true,
-                        "advanced": false
+                        "advanced": false,
+                        "hidden": false
                       }
                     },
                     "children": [
@@ -277,7 +284,8 @@
                             "value": "\"bulk\"",
                             "optional": false,
                             "editable": true,
-                            "advanced": false
+                            "advanced": false,
+                            "hidden": false
                           }
                         },
                         "flags": 0
@@ -320,12 +328,14 @@
                             "value": "var n",
                             "optional": false,
                             "editable": true,
-                            "advanced": false
+                            "advanced": false,
+                            "hidden": false
                           }
                         ],
                         "optional": false,
                         "editable": true,
-                        "advanced": false
+                        "advanced": false,
+                        "hidden": false
                       },
                       "guard": {
                         "metadata": {
@@ -336,7 +346,8 @@
                         "value": "n > 5 ",
                         "optional": false,
                         "editable": true,
-                        "advanced": false
+                        "advanced": false,
+                        "hidden": false
                       }
                     },
                     "children": [
@@ -399,12 +410,14 @@
                                     "value": "var m",
                                     "optional": false,
                                     "editable": true,
-                                    "advanced": false
+                                    "advanced": false,
+                                    "hidden": false
                                   }
                                 ],
                                 "optional": false,
                                 "editable": true,
-                                "advanced": false
+                                "advanced": false,
+                                "hidden": false
                               },
                               "guard": {
                                 "metadata": {
@@ -415,7 +428,8 @@
                                 "value": "m > 8 ",
                                 "optional": false,
                                 "editable": true,
-                                "advanced": false
+                                "advanced": false,
+                                "hidden": false
                               }
                             },
                             "children": [
@@ -451,7 +465,8 @@
                                     "value": "\"large pack\"",
                                     "optional": false,
                                     "editable": true,
-                                    "advanced": false
+                                    "advanced": false,
+                                    "hidden": false
                                   }
                                 },
                                 "flags": 0
@@ -494,12 +509,14 @@
                                     "value": "var m",
                                     "optional": false,
                                     "editable": true,
-                                    "advanced": false
+                                    "advanced": false,
+                                    "hidden": false
                                   }
                                 ],
                                 "optional": false,
                                 "editable": true,
-                                "advanced": false
+                                "advanced": false,
+                                "hidden": false
                               },
                               "guard": {
                                 "metadata": {
@@ -510,7 +527,8 @@
                                 "value": "m > 6 ",
                                 "optional": false,
                                 "editable": true,
-                                "advanced": false
+                                "advanced": false,
+                                "hidden": false
                               }
                             },
                             "children": [
@@ -546,7 +564,8 @@
                                     "value": "\"medium pack\"",
                                     "optional": false,
                                     "editable": true,
-                                    "advanced": false
+                                    "advanced": false,
+                                    "hidden": false
                                   }
                                 },
                                 "flags": 0
@@ -589,12 +608,14 @@
                                     "value": "_",
                                     "optional": false,
                                     "editable": true,
-                                    "advanced": false
+                                    "advanced": false,
+                                    "hidden": false
                                   }
                                 ],
                                 "optional": false,
                                 "editable": true,
-                                "advanced": false
+                                "advanced": false,
+                                "hidden": false
                               }
                             },
                             "children": [
@@ -630,7 +651,8 @@
                                     "value": "\"small pack\"",
                                     "optional": false,
                                     "editable": true,
-                                    "advanced": false
+                                    "advanced": false,
+                                    "hidden": false
                                   }
                                 },
                                 "flags": 0
@@ -649,7 +671,8 @@
                             "placeholder": "true",
                             "optional": false,
                             "editable": true,
-                            "advanced": false
+                            "advanced": false,
+                            "hidden": false
                           }
                         },
                         "flags": 0
@@ -692,12 +715,14 @@
                             "value": "_",
                             "optional": false,
                             "editable": true,
-                            "advanced": false
+                            "advanced": false,
+                            "hidden": false
                           }
                         ],
                         "optional": false,
                         "editable": true,
-                        "advanced": false
+                        "advanced": false,
+                        "hidden": false
                       }
                     },
                     "children": [
@@ -733,7 +758,8 @@
                             "value": "\"individual\"",
                             "optional": false,
                             "editable": true,
-                            "advanced": false
+                            "advanced": false,
+                            "hidden": false
                           }
                         },
                         "flags": 0
@@ -752,7 +778,8 @@
                     "placeholder": "true",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   }
                 },
                 "flags": 0
@@ -794,7 +821,8 @@
             "value": "\"invalid quantity\"",
             "optional": false,
             "editable": true,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           }
         },
         "flags": 0

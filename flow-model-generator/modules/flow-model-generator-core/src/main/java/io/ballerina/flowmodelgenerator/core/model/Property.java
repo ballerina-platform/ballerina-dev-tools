@@ -39,13 +39,14 @@ import java.util.List;
  * @param optional            whether the property can be left empty
  * @param editable            whether the property is not readonly
  * @param advanced            whether the property should be shown in the advanced tab
+ * @param hidden              whether the property should be hidden
  * @param diagnostics         diagnostics of the property
  * @param codedata            codedata of the property
  * @param typeMembers         member types of the type constrain
  * @since 2.0.0
  */
 public record Property(Metadata metadata, String valueType, Object valueTypeConstraint, Object value,
-                       String placeholder, boolean optional, boolean editable, boolean advanced,
+                       String placeholder, boolean optional, boolean editable, boolean advanced, boolean hidden,
                        Diagnostics diagnostics, PropertyCodedata codedata, List<PropertyTypeMemberInfo> typeMembers) {
 
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
@@ -156,6 +157,8 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
     public static final String CONNECTION_KEY = "connection";
     public static final String CONNECTION_LABEL = "Connection";
     public static final String CONNECTION_DOC = "Connection to use";
+    public static final String METHOD_EXPRESSION_LABEL = "Object";
+    public static final String METHOD_EXPRESSION_DOC = "The object which you want to call the method on";
 
     public static final String RESOURCE_PATH_KEY = "resourcePath";
     public static final String RESOURCE_PATH_LABEL = "Resource Path";
@@ -231,6 +234,7 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
         private boolean optional;
         private boolean editable;
         private boolean advanced;
+        private boolean hidden;
         private Object typeConstraint;
         private Metadata.Builder<Builder<T>> metadataBuilder;
         private Diagnostics.Builder<Builder<T>> diagnosticsBuilder;
@@ -292,6 +296,11 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
             return this;
         }
 
+        public Builder<T> hidden() {
+            this.hidden = true;
+            return this;
+        }
+
         public Metadata.Builder<Builder<T>> metadata() {
             if (this.metadataBuilder == null) {
                 this.metadataBuilder = new Metadata.Builder<>(this);
@@ -329,7 +338,7 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
         public Property build() {
             Property property =
                     new Property(metadataBuilder == null ? null : metadataBuilder.build(), type, typeConstraint, value,
-                            placeholder, optional, editable, advanced,
+                            placeholder, optional, editable, advanced, hidden,
                             diagnosticsBuilder == null ? null : diagnosticsBuilder.build(),
                             codedataBuilder == null ? null : codedataBuilder.build(), typeMembers);
             this.metadataBuilder = null;
@@ -340,6 +349,7 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
             this.optional = false;
             this.editable = false;
             this.advanced = false;
+            this.hidden = false;
             this.diagnosticsBuilder = null;
             this.codedataBuilder = null;
             this.typeMembers = null;

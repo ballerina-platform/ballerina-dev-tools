@@ -42,6 +42,7 @@
         "optional": false,
         "editable": true,
         "advanced": false,
+        "hidden": false,
         "codedata": {
           "kind": "REQUIRED",
           "originalName": "host"
@@ -66,6 +67,7 @@
         "optional": false,
         "editable": true,
         "advanced": false,
+        "hidden": false,
         "codedata": {
           "kind": "REQUIRED",
           "originalName": "port"
@@ -90,6 +92,7 @@
         "optional": true,
         "editable": true,
         "advanced": true,
+        "hidden": false,
         "codedata": {
           "kind": "INCLUDED_FIELD",
           "originalName": "username"
@@ -114,6 +117,7 @@
         "optional": true,
         "editable": true,
         "advanced": true,
+        "hidden": false,
         "codedata": {
           "kind": "INCLUDED_FIELD",
           "originalName": "password"
@@ -138,6 +142,7 @@
         "optional": true,
         "editable": true,
         "advanced": true,
+        "hidden": false,
         "codedata": {
           "kind": "INCLUDED_FIELD",
           "originalName": "virtualHost"
@@ -162,6 +167,7 @@
         "optional": true,
         "editable": true,
         "advanced": true,
+        "hidden": false,
         "codedata": {
           "kind": "INCLUDED_FIELD",
           "originalName": "connectionTimeout"
@@ -186,6 +192,7 @@
         "optional": true,
         "editable": true,
         "advanced": true,
+        "hidden": false,
         "codedata": {
           "kind": "INCLUDED_FIELD",
           "originalName": "handshakeTimeout"
@@ -210,6 +217,7 @@
         "optional": true,
         "editable": true,
         "advanced": true,
+        "hidden": false,
         "codedata": {
           "kind": "INCLUDED_FIELD",
           "originalName": "shutdownTimeout"
@@ -234,6 +242,7 @@
         "optional": true,
         "editable": true,
         "advanced": true,
+        "hidden": false,
         "codedata": {
           "kind": "INCLUDED_FIELD",
           "originalName": "heartbeat"
@@ -258,6 +267,7 @@
         "optional": true,
         "editable": true,
         "advanced": true,
+        "hidden": false,
         "codedata": {
           "kind": "INCLUDED_FIELD",
           "originalName": "validation"
@@ -282,6 +292,7 @@
         "optional": true,
         "editable": true,
         "advanced": true,
+        "hidden": false,
         "codedata": {
           "kind": "INCLUDED_FIELD",
           "originalName": "secureSocket"
@@ -306,6 +317,7 @@
         "optional": true,
         "editable": true,
         "advanced": true,
+        "hidden": false,
         "codedata": {
           "kind": "INCLUDED_FIELD",
           "originalName": "auth"
@@ -330,6 +342,7 @@
         "optional": false,
         "editable": false,
         "advanced": false,
+        "hidden": false,
         "codedata": {}
       },
       "variable": {
@@ -341,7 +354,8 @@
         "value": "rabbitmqClient",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       },
       "scope": {
         "metadata": {
@@ -352,7 +366,8 @@
         "value": "Global",
         "optional": false,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "hidden": false
       },
       "checkError": {
         "metadata": {
@@ -363,7 +378,8 @@
         "value": true,
         "optional": false,
         "editable": false,
-        "advanced": true
+        "advanced": true,
+        "hidden": false
       }
     },
     "flags": 0

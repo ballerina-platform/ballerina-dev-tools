@@ -36,7 +36,8 @@
         "value": "User",
         "optional": false,
         "editable": false,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       },
       "isPublic": {
         "metadata": {
@@ -47,7 +48,8 @@
         "value": "false",
         "optional": true,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       },
       "description": {
         "metadata": {
@@ -58,7 +60,8 @@
         "value": "User record type\nSimple record type with docs, anonymous field types (union, record)",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       },
       "isArray": {
         "metadata": {
@@ -69,7 +72,8 @@
         "value": "false",
         "optional": true,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "hidden": false
       },
       "arraySize": {
         "metadata": {
@@ -80,7 +84,8 @@
         "value": "",
         "optional": true,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "hidden": false
       }
     },
     "members": [
@@ -116,7 +121,8 @@
               "value": "false",
               "optional": true,
               "editable": true,
-              "advanced": true
+              "advanced": true,
+              "hidden": false
             },
             "arraySize": {
               "metadata": {
@@ -127,7 +133,8 @@
               "value": "",
               "optional": false,
               "editable": false,
-              "advanced": false
+              "advanced": false,
+              "hidden": false
             }
           },
           "members": [
@@ -176,7 +183,8 @@
               "value": "false",
               "optional": true,
               "editable": true,
-              "advanced": true
+              "advanced": true,
+              "hidden": false
             },
             "arraySize": {
               "metadata": {
@@ -187,7 +195,8 @@
               "value": "",
               "optional": true,
               "editable": true,
-              "advanced": true
+              "advanced": true,
+              "hidden": false
             }
           },
           "members": [
@@ -216,7 +225,8 @@
                     "value": "false",
                     "optional": true,
                     "editable": true,
-                    "advanced": true
+                    "advanced": true,
+                    "hidden": false
                   },
                   "arraySize": {
                     "metadata": {
@@ -227,7 +237,8 @@
                     "value": "",
                     "optional": true,
                     "editable": true,
-                    "advanced": true
+                    "advanced": true,
+                    "hidden": false
                   }
                 },
                 "members": [
@@ -290,7 +301,8 @@
           "value": "UserAddress",
           "optional": false,
           "editable": false,
-          "advanced": false
+          "advanced": false,
+          "hidden": false
         },
         "isPublic": {
           "metadata": {
@@ -301,7 +313,8 @@
           "value": "false",
           "optional": true,
           "editable": true,
-          "advanced": false
+          "advanced": false,
+          "hidden": false
         },
         "description": {
           "metadata": {
@@ -312,7 +325,8 @@
           "value": "Record type with a rest field",
           "optional": false,
           "editable": true,
-          "advanced": false
+          "advanced": false,
+          "hidden": false
         },
         "isArray": {
           "metadata": {
@@ -323,7 +337,8 @@
           "value": "false",
           "optional": true,
           "editable": true,
-          "advanced": true
+          "advanced": true,
+          "hidden": false
         },
         "arraySize": {
           "metadata": {
@@ -334,7 +349,8 @@
           "value": "",
           "optional": true,
           "editable": true,
-          "advanced": true
+          "advanced": true,
+          "hidden": false
         }
       },
       "members": [
@@ -356,7 +372,8 @@
                 "value": "false",
                 "optional": true,
                 "editable": true,
-                "advanced": true
+                "advanced": true,
+                "hidden": false
               },
               "arraySize": {
                 "metadata": {
@@ -367,7 +384,8 @@
                 "value": "",
                 "optional": false,
                 "editable": false,
-                "advanced": false
+                "advanced": false,
+                "hidden": false
               }
             },
             "members": [
@@ -450,7 +468,8 @@
           "value": "City",
           "optional": false,
           "editable": false,
-          "advanced": false
+          "advanced": false,
+          "hidden": false
         },
         "isPublic": {
           "metadata": {
@@ -461,7 +480,8 @@
           "value": "false",
           "optional": true,
           "editable": true,
-          "advanced": false
+          "advanced": false,
+          "hidden": false
         },
         "description": {
           "metadata": {
@@ -472,7 +492,8 @@
           "value": "",
           "optional": false,
           "editable": true,
-          "advanced": false
+          "advanced": false,
+          "hidden": false
         },
         "isArray": {
           "metadata": {
@@ -483,7 +504,8 @@
           "value": "false",
           "optional": true,
           "editable": true,
-          "advanced": true
+          "advanced": true,
+          "hidden": false
         },
         "arraySize": {
           "metadata": {
@@ -494,7 +516,8 @@
           "value": "",
           "optional": true,
           "editable": true,
-          "advanced": true
+          "advanced": true,
+          "hidden": false
         }
       },
       "members": [
