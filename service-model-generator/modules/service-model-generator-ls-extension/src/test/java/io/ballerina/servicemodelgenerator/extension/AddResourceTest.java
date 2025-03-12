@@ -16,15 +16,16 @@
  *  under the License.
  */
 
-package io.ballerina.flowmodelgenerator.extension.agentsmanager;
+package io.ballerina.servicemodelgenerator.extension;
 
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import io.ballerina.flowmodelgenerator.extension.request.EditToolRequest;
 import io.ballerina.modelgenerator.commons.AbstractLSTest;
+import io.ballerina.servicemodelgenerator.extension.model.Codedata;
+import io.ballerina.servicemodelgenerator.extension.model.Function;
+import io.ballerina.servicemodelgenerator.extension.request.FunctionSourceRequest;
 import org.eclipse.lsp4j.TextEdit;
 import org.testng.Assert;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -37,22 +38,14 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Tests for the agent editing.
+ * Tests for the service model source generator addFunction service.
  *
  * @since 2.0.0
  */
-public class EditToolTest extends AbstractLSTest {
+public class AddResourceTest extends AbstractLSTest {
 
-    private static final Type textEditListType = new TypeToken<Map<String, List<TextEdit>>>() {
+    private static final Type TEXT_EDIT_LIST_TYPE = new TypeToken<Map<String, List<TextEdit>>>() {
     }.getType();
-
-    @DataProvider(name = "data-provider")
-    @Override
-    protected Object[] getConfigsList() {
-        return new Object[][]{
-                {Path.of("edit_tool.json")}
-        };
-    }
 
     @Override
     @Test(dataProvider = "data-provider")
@@ -60,12 +53,12 @@ public class EditToolTest extends AbstractLSTest {
         Path configJsonPath = configDir.resolve(config);
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
 
-        EditToolRequest request =
-                new EditToolRequest(testConfig.toolName(), testConfig.description(),
-                        sourceDir.resolve(testConfig.source()).toAbsolutePath().toString());
+        FunctionSourceRequest request = new FunctionSourceRequest(
+                sourceDir.resolve(testConfig.filePath()).toAbsolutePath().toString(),
+                testConfig.function(), testConfig.codedata());
         JsonObject jsonMap = getResponse(request).getAsJsonObject("textEdits");
 
-        Map<String, List<TextEdit>> actualTextEdits = gson.fromJson(jsonMap, textEditListType);
+        Map<String, List<TextEdit>> actualTextEdits = gson.fromJson(jsonMap, TEXT_EDIT_LIST_TYPE);
 
         boolean assertFailure = false;
 
@@ -92,7 +85,8 @@ public class EditToolTest extends AbstractLSTest {
 
         if (assertFailure) {
             TestConfig updatedConfig =
-                    new TestConfig(testConfig.source(), testConfig.toolName(), testConfig.description(), newMap);
+                    new TestConfig(testConfig.filePath(), testConfig.description(), testConfig.codedata(),
+                            testConfig.function(), newMap);
 //            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
@@ -100,33 +94,34 @@ public class EditToolTest extends AbstractLSTest {
 
     @Override
     protected String getResourceDir() {
-        return "agents_manager";
+        return "add_resource";
     }
 
     @Override
     protected Class<? extends AbstractLSTest> clazz() {
-        return EditToolTest.class;
-    }
-
-    @Override
-    protected String getApiName() {
-        return "editTool";
+        return AddResourceTest.class;
     }
 
     @Override
     protected String getServiceName() {
-        return "agentManager";
+        return "serviceDesign";
+    }
+    
+    @Override
+    protected String getApiName() {
+        return "addResource";
     }
 
     /**
      * Represents the test configuration for the source generator test.
      *
-     * @param source      The source file name
-     * @param description The description of the test
-     * @param toolName     The tool name to edit the description
-     * @param output      The expected output source code
+     * @param filePath    The path to the source file.
+     * @param description The description of the test.
+     * @param codedata    The codedata of the function.
+     * @param function    The function to be updated.
+     * @param output      The expected output.
      */
-    private record TestConfig(String source, String toolName, String description,
+    private record TestConfig(String filePath, String description, Codedata codedata, Function function,
                               Map<String, List<TextEdit>> output) {
 
         public String description() {

@@ -123,6 +123,7 @@ import static io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtil
 import static io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtils.updateFunctionList;
 import static io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtils.updateGenericServiceModel;
 import static io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtils.updateListenerItems;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.addServiceAnnotationTextEdits;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.expectsTriggerByName;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.filterTriggers;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.getFunction;
@@ -437,7 +438,6 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                     return new CommonSourceResponse();
                 }
                 ServiceDeclarationNode serviceNode = (ServiceDeclarationNode) node;
-                LineRange serviceEnd = serviceNode.closeBraceToken().lineRange();
                 List<String> statusCodeResponses = new ArrayList<>();
                 String functionDefinition = ServiceModelGeneratorConstants.LINE_SEPARATOR +
                         "\t" + getFunction(request.function(), statusCodeResponses, Utils.FunctionBodyKind.DO_BLOCK,
@@ -445,7 +445,9 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                         .replace(ServiceModelGeneratorConstants.LINE_SEPARATOR,
                                 ServiceModelGeneratorConstants.LINE_SEPARATOR + "\t")
                         + ServiceModelGeneratorConstants.LINE_SEPARATOR;
+
                 List<TextEdit> textEdits = new ArrayList<>();
+                LineRange serviceEnd = serviceNode.closeBraceToken().lineRange();
                 textEdits.add(new TextEdit(Utils.toRange(serviceEnd.startLine()), functionDefinition));
                 String statusCodeResEdits = statusCodeResponses.stream()
                         .collect(Collectors.joining(ServiceModelGeneratorConstants.LINE_SEPARATOR
@@ -801,11 +803,15 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 }
 
                 ServiceDeclarationNode serviceNode = (ServiceDeclarationNode) node;
+
+                addServiceAnnotationTextEdits(service, serviceNode, edits);
+
                 Value basePathValue = service.getBasePath();
                 if (Objects.nonNull(basePathValue) && basePathValue.isEnabledWithValue()) {
                     String basePath = basePathValue.getValue();
                     NodeList<Node> nodes = serviceNode.absoluteResourcePath();
-                    if (!nodes.isEmpty()) {
+                    String currentPath = getPath(nodes);
+                    if (!currentPath.equals(basePath) && !nodes.isEmpty()) {
                         LinePosition startPos = nodes.get(0).lineRange().startLine();
                         LinePosition endPos = nodes.get(nodes.size() - 1).lineRange().endLine();
                         LineRange basePathLineRange = LineRange.from(lineRange.fileName(), startPos, endPos);
@@ -818,7 +824,8 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 if (Objects.nonNull(stringLiteral) && stringLiteral.isEnabledWithValue()) {
                     String stringLiteralValue = stringLiteral.getValue();
                     NodeList<Node> nodes = serviceNode.absoluteResourcePath();
-                    if (!nodes.isEmpty()) {
+                    String currentPath = getPath(nodes);
+                    if (!currentPath.equals(stringLiteralValue) && !nodes.isEmpty()) {
                         LinePosition startPos = nodes.get(0).lineRange().startLine();
                         LinePosition endPos = nodes.get(nodes.size() - 1).lineRange().endLine();
                         LineRange basePathLineRange = LineRange.from(lineRange.fileName(), startPos, endPos);

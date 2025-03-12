@@ -19,7 +19,13 @@
 package io.ballerina.flowmodelgenerator.core.search;
 
 import io.ballerina.compiler.api.ModuleID;
-import io.ballerina.compiler.api.symbols.*;
+import io.ballerina.compiler.api.symbols.AnnotationAttachmentSymbol;
+import io.ballerina.compiler.api.symbols.AnnotationSymbol;
+import io.ballerina.compiler.api.symbols.Documentation;
+import io.ballerina.compiler.api.symbols.FunctionSymbol;
+import io.ballerina.compiler.api.symbols.ModuleSymbol;
+import io.ballerina.compiler.api.symbols.Symbol;
+import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.flowmodelgenerator.core.model.AvailableNode;
 import io.ballerina.flowmodelgenerator.core.model.Category;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
@@ -145,14 +151,14 @@ class FunctionSearchCommand extends SearchCommand {
                 continue;
             }
 
-            boolean agentTool = isAgentTool(functionSymbol);
+            boolean isAgentTool = isAgentTool(functionSymbol);
             Metadata metadata = new Metadata.Builder<>(null)
                     .label(symbol.getName().get())
                     .description(functionSymbol.documentation()
                             .flatMap(Documentation::description)
                             .orElse(null))
                     .addData("isDataMappedFunction", isDataMappedFunction)
-                    .addData("isAgentTool", agentTool)
+                    .addData("isAgentTool", isAgentTool)
                     .build();
 
             Codedata.Builder<Object> codedata = new Codedata.Builder<>(null)
@@ -165,7 +171,7 @@ class FunctionSearchCommand extends SearchCommand {
                 id.moduleName();
             }
 
-            if (agentTool) {
+            if (isAgentTool) {
                 availableTools.add(new AvailableNode(metadata, codedata.build(), true));
             } else {
                 availableNodes.add(new AvailableNode(metadata, codedata.build(), true));
