@@ -1,0 +1,244 @@
+{
+  "source": "function_definition/main.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "33795",
+    "metadata": {
+      "label": "Automation",
+      "description": "Define an automation"
+    },
+    "codedata": {
+      "node": "AUTOMATION",
+      "isNew": true
+    },
+    "returning": false,
+    "properties": {
+      "functionName": {
+        "metadata": {
+          "label": "Name",
+          "description": "Name of the function"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "main",
+        "optional": false,
+        "editable": false,
+        "advanced": false,
+        "hidden": true
+      },
+      "parameters": {
+        "metadata": {
+          "label": "Startup Parameters",
+          "description": "Define the parameters to be passed to the automation at startup"
+        },
+        "valueType": "REPEATABLE_PROPERTY",
+        "valueTypeConstraint": {
+          "metadata": {
+            "label": "Parameter",
+            "description": "Function parameter"
+          },
+          "valueType": "FIXED_PROPERTY",
+          "value": {
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "SINGLE_SELECT",
+              "valueTypeConstraint": [
+                "string",
+                "int",
+                "float",
+                "decimal",
+                "byte"
+              ],
+              "value": "",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "variable": {
+              "metadata": {
+                "label": "Variable Name",
+                "description": "Name of the variable"
+              },
+              "valueType": "IDENTIFIER",
+              "value": "",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            }
+          },
+          "optional": false,
+          "editable": false,
+          "advanced": false,
+          "hidden": false
+        },
+        "value": {
+          "divisor": {
+            "metadata": {
+              "label": "Parameter",
+              "description": "Function parameter"
+            },
+            "valueType": "FIXED_PROPERTY",
+            "value": {
+              "type": {
+                "metadata": {
+                  "label": "Variable Type",
+                  "description": "Type of the variable"
+                },
+                "valueType": "SINGLE_SELECT",
+                "valueTypeConstraint": [
+                  "string",
+                  "int",
+                  "float",
+                  "decimal",
+                  "byte"
+                ],
+                "value": "int",
+                "optional": false,
+                "editable": true,
+                "advanced": false,
+                "hidden": false
+              },
+              "variable": {
+                "metadata": {
+                  "label": "Variable Name",
+                  "description": "Name of the variable"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "divisor",
+                "optional": false,
+                "editable": true,
+                "advanced": false,
+                "hidden": false,
+                "codedata": {
+                  "lineRange": {
+                    "fileName": "main1.bal",
+                    "startLine": {
+                      "line": 2,
+                      "offset": 25
+                    },
+                    "endLine": {
+                      "line": 2,
+                      "offset": 32
+                    }
+                  }
+                }
+              }
+            },
+            "optional": false,
+            "editable": false,
+            "advanced": false,
+            "hidden": false
+          },
+          "numbers": {
+            "metadata": {
+              "label": "Parameter",
+              "description": "Function parameter"
+            },
+            "valueType": "FIXED_PROPERTY",
+            "value": {
+              "type": {
+                "metadata": {
+                  "label": "Variable Type",
+                  "description": "Type of the variable"
+                },
+                "valueType": "SINGLE_SELECT",
+                "valueTypeConstraint": [
+                  "string",
+                  "int",
+                  "float",
+                  "decimal",
+                  "byte"
+                ],
+                "value": "float...",
+                "optional": false,
+                "editable": true,
+                "advanced": false,
+                "hidden": false
+              },
+              "variable": {
+                "metadata": {
+                  "label": "Variable Name",
+                  "description": "Name of the variable"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "numbers",
+                "optional": false,
+                "editable": true,
+                "advanced": false,
+                "hidden": false,
+                "codedata": {
+                  "lineRange": {
+                    "fileName": "main1.bal",
+                    "startLine": {
+                      "line": 2,
+                      "offset": 43
+                    },
+                    "endLine": {
+                      "line": 2,
+                      "offset": 50
+                    }
+                  }
+                }
+              }
+            },
+            "optional": false,
+            "editable": false,
+            "advanced": false,
+            "hidden": false
+          }
+        },
+        "optional": true,
+        "editable": false,
+        "advanced": false,
+        "hidden": false
+      },
+      "returnError": {
+        "metadata": {
+          "label": "Return Error",
+          "description": "Indicate if the automation should exit with error"
+        },
+        "valueType": "FLAG",
+        "value": true,
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "hidden": false
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "function_definition/automation.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import ballerina/log;"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "public function main( int divisor, float... numbers) returns error?{\ndo {\n} on fail error e {\nlog:printError(\"Error occurred\", 'error=e);\nreturn e;\n} }"
+      }
+    ]
+  }
+}

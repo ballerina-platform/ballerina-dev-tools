@@ -47,20 +47,22 @@ public class AutomationBuilder extends FunctionDefinitionBuilder {
     public static final String DESCRIPTION = "Define an automation";
     public static final String MAIN_FUNCTION_NAME = "main";
 
-    public static final String PARAMETERS_LABEL = "Parameters";
-    public static final String PARAMETERS_DOC = "Automation parameters";
+    public static final String PARAMETERS_LABEL = "Startup Parameters";
+    public static final String PARAMETERS_DOC = "Define the parameters to be passed to the automation at startup";
 
     public static final String RETURN_ERROR_KEY = "returnError";
     public static final String RETURN_ERROR_LABEL = "Return Error";
-    public static final String RETURN_ERROR_DOC = "Indicate if the automation should return error type";
+    public static final String RETURN_ERROR_DOC = "Indicate if the automation should exit with error";
 
     private static final String AUTOMATIONS_BAL = "automation.bal";
+    private static final String DEFAULT_BODY =
+            "do {\n} on fail error e {\n  log:printError(\"Error occurred\", 'error=e);\n   return e;\n}";
     private static final List<String> TYPE_CONSTRAINT = List.of(
-            TypeKind.STRING.toString(),
-            TypeKind.INT.toString(),
-            TypeKind.FLOAT.toString(),
-            TypeKind.DECIMAL.toString(),
-            TypeKind.BYTE.toString()
+            TypeKind.STRING.typeName(),
+            TypeKind.INT.typeName(),
+            TypeKind.FLOAT.typeName(),
+            TypeKind.DECIMAL.typeName(),
+            TypeKind.BYTE.typeName()
     );
 
     private static final Gson gson = new Gson();
@@ -77,11 +79,32 @@ public class AutomationBuilder extends FunctionDefinitionBuilder {
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
-        setProperties(this, false);
-        endNestedProperties(this);
+        setProperties(this);
+        endNestedProperties(this, true);
     }
 
-    public static void setProperties(NodeBuilder nodeBuilder, boolean returnError) {
+    public static void setProperties(NodeBuilder nodeBuilder) {
+        nodeBuilder.properties().custom()
+                .metadata()
+                    .label(FUNCTION_NAME_LABEL)
+                    .description(FUNCTION_NAME_DOC)
+                    .stepOut()
+                .value(MAIN_FUNCTION_NAME)
+                .type(Property.ValueType.IDENTIFIER)
+                .hidden()
+                .stepOut()
+                .addProperty(Property.FUNCTION_NAME_KEY);
+        nodeBuilder.properties().nestedProperty();
+    }
+
+    public static void setProperty(FormBuilder<?> formBuilder, String type, String name, Token token) {
+        formBuilder.parameter(type, name, token, Property.ValueType.SINGLE_SELECT, TYPE_CONSTRAINT);
+    }
+
+    public static void endNestedProperties(NodeBuilder nodeBuilder, boolean returnError) {
+        nodeBuilder.properties()
+                .endNestedProperty(Property.ValueType.REPEATABLE_PROPERTY, Property.PARAMETERS_KEY, PARAMETERS_LABEL,
+                        PARAMETERS_DOC, getParameterSchema(), true, false);
         nodeBuilder.properties().custom()
                 .metadata()
                     .label(RETURN_ERROR_LABEL)
@@ -92,23 +115,12 @@ public class AutomationBuilder extends FunctionDefinitionBuilder {
                 .type(Property.ValueType.FLAG)
                 .stepOut()
                 .addProperty(RETURN_ERROR_KEY);
-        nodeBuilder.properties().nestedProperty();
-    }
-
-    public static void setProperty(FormBuilder<?> formBuilder, String type, String name, Token token) {
-        formBuilder.parameter(type, name, token, Property.ValueType.SINGLE_SELECT, TYPE_CONSTRAINT);
-    }
-
-    public static void endNestedProperties(NodeBuilder nodeBuilder) {
-        nodeBuilder.properties()
-                .nestedProperty()
-                .endNestedProperty(Property.ValueType.REPEATABLE_PROPERTY, Property.PARAMETERS_KEY, PARAMETERS_LABEL,
-                        PARAMETERS_DOC, getParameterSchema(), true, true);
     }
 
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
         sourceBuilder.token()
+                .keyword(SyntaxKind.PUBLIC_KEYWORD)
                 .keyword(SyntaxKind.FUNCTION_KEYWORD)
                 .name(MAIN_FUNCTION_NAME)
                 .keyword(SyntaxKind.OPEN_PAREN_TOKEN);
@@ -134,8 +146,9 @@ public class AutomationBuilder extends FunctionDefinitionBuilder {
         sourceBuilder.token().keyword(SyntaxKind.CLOSE_PAREN_TOKEN);
 
         // Write the return type
-        Optional<Property> returnType = sourceBuilder.flowNode.getProperty(RETURN_ERROR_KEY);
-        if (returnType.isPresent() && returnType.get().value().equals(true)) {
+        Optional<Property> returnError = sourceBuilder.flowNode.getProperty(RETURN_ERROR_KEY);
+        boolean hasReturnError = returnError.isPresent() && returnError.get().value().equals(true);
+        if (hasReturnError) {
             sourceBuilder.token()
                     .keyword(SyntaxKind.RETURNS_KEYWORD)
                     .name("error?");
@@ -144,12 +157,15 @@ public class AutomationBuilder extends FunctionDefinitionBuilder {
         // Generate text edits based on the line range
         LineRange lineRange = sourceBuilder.flowNode.codedata().lineRange();
         if (lineRange == null) {
-            sourceBuilder
-                    .token()
-                        .openBrace()
-                        .closeBrace()
-                        .stepOut()
+            sourceBuilder.token().openBrace();
+            if (hasReturnError) {
+                sourceBuilder.token().name(DEFAULT_BODY);
+            }
+            sourceBuilder.token().closeBrace()
+                    .stepOut()
                     .textEdit(false, AUTOMATIONS_BAL);
+            Path path = sourceBuilder.workspaceManager.projectRoot(sourceBuilder.filePath).resolve(AUTOMATIONS_BAL);
+            sourceBuilder.acceptImport(path, "ballerina", "log");
         } else {
             sourceBuilder
                     .token().skipFormatting().stepOut()

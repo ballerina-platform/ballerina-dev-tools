@@ -124,7 +124,7 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
         switch (nodeKind) {
             case FUNCTION_DEFINITION -> FunctionDefinitionBuilder.setProperties(nodeBuilder, returnType);
             case DATA_MAPPER_DEFINITION -> DataMapperDefinitionBuilder.setProperties(nodeBuilder, returnType);
-            case AUTOMATION -> AutomationBuilder.setProperties(nodeBuilder, !returnType.isEmpty());
+            case AUTOMATION -> AutomationBuilder.setProperties(nodeBuilder);
             case NP_FUNCTION_DEFINITION -> NPFunctionDefinitionBuilder.setProperties(nodeBuilder, returnType);
         }
 
@@ -171,7 +171,7 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
         switch (nodeKind) {
             case FUNCTION_DEFINITION -> FunctionDefinitionBuilder.endNestedProperties(nodeBuilder);
             case DATA_MAPPER_DEFINITION -> DataMapperDefinitionBuilder.endNestedProperties(nodeBuilder);
-            case AUTOMATION -> AutomationBuilder.endNestedProperties(nodeBuilder);
+            case AUTOMATION -> AutomationBuilder.endNestedProperties(nodeBuilder, !returnType.isEmpty());
             case NP_FUNCTION_DEFINITION -> {
                 NPFunctionDefinitionBuilder.endNestedProperties(nodeBuilder);
                 processNpFunctionDefinitionProperties(functionDefinitionNode, nodeBuilder);
