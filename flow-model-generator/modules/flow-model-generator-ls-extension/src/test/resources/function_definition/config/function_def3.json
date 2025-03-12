@@ -4,7 +4,7 @@
   "functionName": "greet",
   "description": "",
   "output": {
-    "id": "42945",
+    "id": "42728",
     "metadata": {
       "label": "Function Definition",
       "description": "Define a function"
@@ -15,7 +15,7 @@
         "fileName": "function_def.bal",
         "startLine": {
           "line": 11,
-          "offset": 7
+          "offset": 0
         },
         "endLine": {
           "line": 11,
@@ -133,7 +133,7 @@
                 "valueType": "IDENTIFIER",
                 "value": "name",
                 "optional": false,
-                "editable": false,
+                "editable": true,
                 "advanced": false,
                 "hidden": false,
                 "codedata": {
@@ -183,7 +183,7 @@
                 "valueType": "IDENTIFIER",
                 "value": "title",
                 "optional": false,
-                "editable": false,
+                "editable": true,
                 "advanced": false,
                 "hidden": false,
                 "codedata": {

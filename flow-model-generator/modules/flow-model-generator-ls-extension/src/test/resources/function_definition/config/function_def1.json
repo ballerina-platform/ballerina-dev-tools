@@ -4,7 +4,7 @@
   "functionName": "simpleFunction",
   "description": "",
   "output": {
-    "id": "32986",
+    "id": "32769",
     "metadata": {
       "label": "Function Definition",
       "description": "Define a function"
@@ -15,7 +15,7 @@
         "fileName": "function_def.bal",
         "startLine": {
           "line": 1,
-          "offset": 7
+          "offset": 0
         },
         "endLine": {
           "line": 1,

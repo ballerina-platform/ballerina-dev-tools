@@ -4,7 +4,7 @@
   "functionName": "getCounter",
   "description": "",
   "output": {
-    "id": "73730",
+    "id": "73451",
     "metadata": {
       "label": "Function Definition",
       "description": "Define a function"
@@ -15,7 +15,7 @@
         "fileName": "function_def.bal",
         "startLine": {
           "line": 42,
-          "offset": 9
+          "offset": 0
         },
         "endLine": {
           "line": 42,

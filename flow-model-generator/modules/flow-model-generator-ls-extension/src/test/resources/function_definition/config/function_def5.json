@@ -4,7 +4,7 @@
   "functionName": "complexFunction",
   "description": "",
   "output": {
-    "id": "56882",
+    "id": "56665",
     "metadata": {
       "label": "Function Definition",
       "description": "Define a function"
@@ -15,7 +15,7 @@
         "fileName": "function_def.bal",
         "startLine": {
           "line": 25,
-          "offset": 7
+          "offset": 0
         },
         "endLine": {
           "line": 25,
@@ -133,7 +133,7 @@
                 "valueType": "IDENTIFIER",
                 "value": "required",
                 "optional": false,
-                "editable": false,
+                "editable": true,
                 "advanced": false,
                 "hidden": false,
                 "codedata": {
@@ -183,7 +183,7 @@
                 "valueType": "IDENTIFIER",
                 "value": "name",
                 "optional": false,
-                "editable": false,
+                "editable": true,
                 "advanced": false,
                 "hidden": false,
                 "codedata": {
@@ -233,7 +233,7 @@
                 "valueType": "IDENTIFIER",
                 "value": "flag",
                 "optional": false,
-                "editable": false,
+                "editable": true,
                 "advanced": false,
                 "hidden": false,
                 "codedata": {
@@ -283,7 +283,7 @@
                 "valueType": "IDENTIFIER",
                 "value": "rest",
                 "optional": false,
-                "editable": false,
+                "editable": true,
                 "advanced": false,
                 "hidden": false,
                 "codedata": {

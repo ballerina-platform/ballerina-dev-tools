@@ -108,10 +108,10 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
                 .defaultModuleName(this.moduleInfo);
 
         // Set the line range of the function definition node
-        LineRange functionKeywordLineRange = functionDefinitionNode.functionKeyword().lineRange();
+        LineRange functionLineRange = functionDefinitionNode.lineRange();
         nodeBuilder.codedata().lineRange(LineRange.from(
-                functionKeywordLineRange.fileName(),
-                functionKeywordLineRange.startLine(),
+                functionLineRange.fileName(),
+                functionLineRange.startLine(),
                 functionDefinitionNode.functionBody().lineRange().startLine()));
 
         // Set the function name, return type and nested properties

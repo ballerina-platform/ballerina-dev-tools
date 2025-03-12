@@ -133,7 +133,7 @@
                 "valueType": "IDENTIFIER",
                 "value": "foo",
                 "optional": false,
-                "editable": false,
+                "editable": true,
                 "advanced": false,
                 "hidden": false,
                 "codedata": {
@@ -183,7 +183,7 @@
                 "valueType": "IDENTIFIER",
                 "value": "bar",
                 "optional": false,
-                "editable": false,
+                "editable": true,
                 "advanced": false,
                 "hidden": false,
                 "codedata": {

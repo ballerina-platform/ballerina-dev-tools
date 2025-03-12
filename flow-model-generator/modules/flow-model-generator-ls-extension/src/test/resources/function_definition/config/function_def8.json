@@ -4,7 +4,7 @@
   "functionName": "processUser",
   "description": "",
   "output": {
-    "id": "78667",
+    "id": "78450",
     "metadata": {
       "label": "Function Definition",
       "description": "Define a function"
@@ -15,7 +15,7 @@
         "fileName": "function_def.bal",
         "startLine": {
           "line": 47,
-          "offset": 7
+          "offset": 0
         },
         "endLine": {
           "line": 47,
@@ -133,7 +133,7 @@
                 "valueType": "IDENTIFIER",
                 "value": "user",
                 "optional": false,
-                "editable": false,
+                "editable": true,
                 "advanced": false,
                 "hidden": false,
                 "codedata": {

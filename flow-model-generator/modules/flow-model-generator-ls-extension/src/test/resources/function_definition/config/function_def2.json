@@ -4,7 +4,7 @@
   "functionName": "add",
   "description": "",
   "output": {
-    "id": "37959",
+    "id": "37742",
     "metadata": {
       "label": "Function Definition",
       "description": "Define a function"
@@ -15,7 +15,7 @@
         "fileName": "function_def.bal",
         "startLine": {
           "line": 6,
-          "offset": 7
+          "offset": 0
         },
         "endLine": {
           "line": 6,
@@ -133,7 +133,7 @@
                 "valueType": "IDENTIFIER",
                 "value": "a",
                 "optional": false,
-                "editable": false,
+                "editable": true,
                 "advanced": false,
                 "hidden": false,
                 "codedata": {
@@ -183,7 +183,7 @@
                 "valueType": "IDENTIFIER",
                 "value": "b",
                 "optional": false,
-                "editable": false,
+                "editable": true,
                 "advanced": false,
                 "hidden": false,
                 "codedata": {

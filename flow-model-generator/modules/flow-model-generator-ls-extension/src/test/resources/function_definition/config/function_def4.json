@@ -4,7 +4,7 @@
   "functionName": "sum",
   "description": "",
   "output": {
-    "id": "47881",
+    "id": "47664",
     "metadata": {
       "label": "Function Definition",
       "description": "Define a function"
@@ -15,7 +15,7 @@
         "fileName": "function_def.bal",
         "startLine": {
           "line": 16,
-          "offset": 7
+          "offset": 0
         },
         "endLine": {
           "line": 16,
@@ -133,7 +133,7 @@
                 "valueType": "IDENTIFIER",
                 "value": "numbers",
                 "optional": false,
-                "editable": false,
+                "editable": true,
                 "advanced": false,
                 "hidden": false,
                 "codedata": {

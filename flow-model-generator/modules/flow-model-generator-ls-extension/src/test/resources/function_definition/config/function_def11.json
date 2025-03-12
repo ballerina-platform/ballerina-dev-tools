@@ -4,7 +4,7 @@
   "functionName": "ව",
   "description": "",
   "output": {
-    "id": "89517",
+    "id": "89300",
     "metadata": {
       "label": "Function Definition",
       "description": "Define a function"
@@ -15,7 +15,7 @@
         "fileName": "function_def.bal",
         "startLine": {
           "line": 58,
-          "offset": 7
+          "offset": 0
         },
         "endLine": {
           "line": 58,
