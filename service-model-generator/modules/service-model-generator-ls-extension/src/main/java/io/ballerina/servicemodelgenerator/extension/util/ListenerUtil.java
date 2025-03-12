@@ -127,7 +127,7 @@ public class ListenerUtil {
         if (Objects.nonNull(listener) && listener.isEnabledWithValue()) {
             List<String> values = listener.getValues();
             if (Objects.nonNull(values) && !values.isEmpty()) {
-                List<Object> valuesList = new ArrayList<>() {{
+                List<String> valuesList = new ArrayList<>() {{
                     addAll(values);
                 }};
                 for (int i = 0; i < values.size(); i++) {

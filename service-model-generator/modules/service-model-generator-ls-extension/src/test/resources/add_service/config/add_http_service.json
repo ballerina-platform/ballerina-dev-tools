@@ -25,7 +25,7 @@
         "editable": true,
         "value": "",
         "values": [
-          "httpDefaultListener"
+          "(+) Create and use the default HTTP listener (port: 8080)"
         ],
         "valueType": "MULTIPLE_SELECT",
         "valueTypeConstraint": "http:Listener",
@@ -82,7 +82,7 @@
         },
         "enabled": true,
         "editable": true,
-        "value": "/api",
+        "value": "/",
         "valueType": "IDENTIFIER",
         "valueTypeConstraint": "string",
         "isType": false,
@@ -666,7 +666,7 @@
             "character": 0
           }
         },
-        "newText": "\nservice /api on httpDefaultListener {\n\tresource function get greeting() returns json|http:InternalServerError {\n\t\tdo {\n\t\t\treturn \"Hello, Greetings!\";\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t\tpanic error(\"Unhandled error\");\n\t\t}\n\t}\n}"
+        "newText": "\nservice / on httpDefaultListener {\n\tresource function get greeting() returns json|http:InternalServerError {\n\t\tdo {\n\t\t\treturn \"Hello, Greetings!\";\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t\tpanic error(\"Unhandled error\");\n\t\t}\n\t}\n}"
       }
     ]
   }
