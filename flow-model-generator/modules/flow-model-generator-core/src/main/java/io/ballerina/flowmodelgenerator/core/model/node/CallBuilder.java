@@ -163,9 +163,10 @@ public abstract class CallBuilder extends NodeBuilder {
 
             String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
             Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder = properties().custom();
+            String label = paramResult.label();
             customPropBuilder
                     .metadata()
-                        .label(unescapedParamName)
+                        .label(label == null || label.isEmpty() ? unescapedParamName : label)
                         .description(paramResult.description())
                         .stepOut()
                     .codedata()

@@ -22,6 +22,8 @@ import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.TypeBuilder;
 import io.ballerina.compiler.api.Types;
+import io.ballerina.compiler.api.symbols.AnnotationAttachmentSymbol;
+import io.ballerina.compiler.api.symbols.AnnotationSymbol;
 import io.ballerina.compiler.api.symbols.ArrayTypeSymbol;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
 import io.ballerina.compiler.api.symbols.Documentable;
@@ -51,6 +53,7 @@ import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.compiler.api.symbols.resourcepath.PathSegmentList;
 import io.ballerina.compiler.api.symbols.resourcepath.ResourcePath;
+import io.ballerina.compiler.api.values.ConstantValue;
 import io.ballerina.compiler.syntax.tree.DefaultableParameterNode;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
@@ -90,6 +93,8 @@ import java.util.stream.Stream;
  */
 public class FunctionDataBuilder {
 
+    public static final String DISPLAY_ANNOTATION = "display";
+    public static final String LABEL = "label";
     private SemanticModel semanticModel;
     private TypeSymbol errorTypeSymbol;
     private Package resolvedPackage;
@@ -563,8 +568,9 @@ public class FunctionDataBuilder {
             defaultValue = getDefaultValue(paramSymbol, typeSymbol);
             paramType = getTypeSignature(typeSymbol);
         }
-        ParameterData parameterData = ParameterData.from(paramName, paramDescription, paramType, defaultValue,
-                parameterKind, optional, importStatements);
+        ParameterData parameterData = ParameterData.from(paramName, paramDescription,
+                getLabel(paramSymbol.annotAttachments()), paramType, defaultValue, parameterKind, optional,
+                importStatements);
         parameters.put(paramName, parameterData);
         addParameterMemberTypes(typeSymbol, parameterData, union);
         return parameters;
@@ -670,6 +676,7 @@ public class FunctionDataBuilder {
             String paramType = getTypeSignature(typeSymbol);
             boolean optional = recordFieldSymbol.isOptional() || recordFieldSymbol.hasDefaultValue();
             ParameterData parameterData = ParameterData.from(paramName, documentationMap.get(paramName),
+                    getLabel(recordFieldSymbol.annotAttachments()),
                     paramType, defaultValue, ParameterData.Kind.INCLUDED_FIELD, optional,
                     CommonUtils.getImportStatements(typeSymbol, moduleInfo).orElse(null));
             parameters.put(paramName, parameterData);
@@ -865,6 +872,34 @@ public class FunctionDataBuilder {
                     String.format("%s/%s:%s", moduleInfo.org(), moduleInfo.packageName(), moduleInfo.version());
             lsClientLogger.notifyClient(messageType, String.format(message, signature));
         }
+    }
+
+    private String getLabel(List<AnnotationAttachmentSymbol> annotationAttachmentSymbols) {
+        for (AnnotationAttachmentSymbol annotAttachment : annotationAttachmentSymbols) {
+            AnnotationSymbol annotationSymbol = annotAttachment.typeDescriptor();
+            Optional<String> optName = annotationSymbol.getName();
+            if (optName.isEmpty()) {
+                continue;
+            }
+            if (!optName.get().equals(DISPLAY_ANNOTATION)) {
+                continue;
+            }
+            Optional<ConstantValue> optAttachmentValue = annotAttachment.attachmentValue();
+            if (optAttachmentValue.isEmpty()) {
+                break;
+            }
+            ConstantValue attachmentValue = optAttachmentValue.get();
+            if (attachmentValue.valueType().typeKind() != TypeDescKind.RECORD) {
+                throw new IllegalStateException("Annotation attachment value is not a record");
+            }
+            HashMap<?, ?> valueMap = (HashMap<?, ?>) attachmentValue.value();
+            Object label = valueMap.get(LABEL);
+            if (label == null) {
+                break;
+            }
+            return label.toString();
+        }
+        return "";
     }
 
     private record ParamForTypeInfer(String paramName, String defaultValue, String type) {

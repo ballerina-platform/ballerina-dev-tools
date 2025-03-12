@@ -25,31 +25,6 @@
     },
     "returning": false,
     "properties": {
-      "password": {
-        "metadata": {
-          "label": "password",
-          "description": "The password of the Snowflake account"
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "string",
-        "placeholder": "\"\"",
-        "optional": false,
-        "editable": true,
-        "advanced": false,
-        "hidden": false,
-        "codedata": {
-          "kind": "REQUIRED",
-          "originalName": "password"
-        },
-        "typeMembers": [
-          {
-            "type": "string",
-            "packageInfo": "",
-            "kind": "BASIC_TYPE",
-            "selected": false
-          }
-        ]
-      },
       "account_identifier": {
         "metadata": {
           "label": "account_identifier",
@@ -65,6 +40,56 @@
         "codedata": {
           "kind": "REQUIRED",
           "originalName": "account_identifier"
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "user": {
+        "metadata": {
+          "label": "user",
+          "description": "The username of the Snowflake account"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"\"",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "hidden": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "user"
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "password": {
+        "metadata": {
+          "label": "password",
+          "description": "The password of the Snowflake account"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"\"",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "hidden": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "password"
         },
         "typeMembers": [
           {
@@ -134,31 +159,6 @@
             "type": "ConnectionPool",
             "packageInfo": "ballerina:sql:1.13.0",
             "kind": "RECORD_TYPE",
-            "selected": false
-          }
-        ]
-      },
-      "user": {
-        "metadata": {
-          "label": "user",
-          "description": "The username of the Snowflake account"
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "string",
-        "placeholder": "\"\"",
-        "optional": false,
-        "editable": true,
-        "advanced": false,
-        "hidden": false,
-        "codedata": {
-          "kind": "REQUIRED",
-          "originalName": "user"
-        },
-        "typeMembers": [
-          {
-            "type": "string",
-            "packageInfo": "",
-            "kind": "BASIC_TYPE",
             "selected": false
           }
         ]

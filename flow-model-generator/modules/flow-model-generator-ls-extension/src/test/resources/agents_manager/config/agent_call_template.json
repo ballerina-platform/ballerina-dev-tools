@@ -12,14 +12,14 @@
     "object": "Agent",
     "symbol": "run",
     "parentSymbol": "agentRun",
-    "version": "0.7.12"
+    "version": "0.7.13"
   },
   "output": {
     "id": "31",
     "metadata": {
       "label": "run",
       "description": "Executes the agent for a given user query.\n",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.7.12.png"
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.7.13.png"
     },
     "codedata": {
       "node": "AGENT_CALL",
@@ -27,7 +27,7 @@
       "module": "ai.agent",
       "object": "Agent",
       "symbol": "run",
-      "version": "0.7.12",
+      "version": "0.7.13",
       "isNew": true
     },
     "returning": false,
@@ -37,17 +37,18 @@
           "label": "Connection",
           "description": "Connection to use"
         },
-        "valueType": "IDENTIFIER",
+        "valueType": "EXPRESSION",
         "valueTypeConstraint": "agent:Agent",
         "value": "agentRun",
         "optional": false,
         "editable": false,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       },
       "query": {
         "metadata": {
-          "label": "query",
-          "description": "Natural language command for the agent."
+          "label": "Query",
+          "description": "The natural language input provided to the agent"
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
@@ -55,6 +56,7 @@
         "optional": false,
         "editable": true,
         "advanced": false,
+        "hidden": false,
         "codedata": {
           "kind": "REQUIRED",
           "originalName": "query"
@@ -70,7 +72,7 @@
       },
       "memoryId": {
         "metadata": {
-          "label": "memoryId",
+          "label": "Memory ID",
           "description": "The ID associated with the agent memory"
         },
         "valueType": "EXPRESSION",
@@ -79,6 +81,7 @@
         "optional": true,
         "editable": true,
         "advanced": true,
+        "hidden": false,
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "memoryId"
@@ -103,6 +106,7 @@
         "optional": false,
         "editable": false,
         "advanced": false,
+        "hidden": false,
         "codedata": {}
       },
       "variable": {
@@ -114,7 +118,8 @@
         "value": "stringResult",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       },
       "checkError": {
         "metadata": {
@@ -125,7 +130,8 @@
         "value": true,
         "optional": false,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "hidden": false
       }
     },
     "flags": 0
