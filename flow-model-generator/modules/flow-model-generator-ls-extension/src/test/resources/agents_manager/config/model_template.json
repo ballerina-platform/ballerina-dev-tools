@@ -9,7 +9,7 @@
     "node": "CLASS_INIT",
     "org": "ballerinax",
     "module": "ai.agent",
-    "version": "0.7.13",
+    "version": "0.7.15",
     "object": "OpenAiModel",
     "symbol": "init"
   },
@@ -18,7 +18,7 @@
     "metadata": {
       "label": "Class",
       "description": "OpenAiModel is a client class that provides an interface for interacting with OpenAI language models.",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.7.13.png"
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.7.15.png"
     },
     "codedata": {
       "node": "CLASS_INIT",
@@ -26,7 +26,7 @@
       "module": "ai.agent",
       "object": "OpenAiModel",
       "symbol": "init",
-      "version": "0.7.13",
+      "version": "0.7.15",
       "isNew": true
     },
     "returning": false,
@@ -105,7 +105,7 @@
         "typeMembers": [
           {
             "type": "agent:OPEN_AI_MODEL_NAMES",
-            "packageInfo": "ballerinax:ai.agent:0.7.13",
+            "packageInfo": "ballerinax:ai.agent:0.7.15",
             "kind": "BASIC_TYPE",
             "selected": false
           }
@@ -563,11 +563,11 @@
       },
       "variable": {
         "metadata": {
-          "label": "Name",
+          "label": "Variable Name",
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "model",
+        "value": "agentOpenaimodel",
         "optional": false,
         "editable": true,
         "advanced": false,
