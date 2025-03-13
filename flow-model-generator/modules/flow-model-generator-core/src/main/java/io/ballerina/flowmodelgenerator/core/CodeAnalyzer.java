@@ -379,10 +379,7 @@ class CodeAnalyzer extends NodeVisitor {
                     }
                     SimpleNameReferenceNode simpleNameReferenceNode = (SimpleNameReferenceNode) node;
                     String toolName = simpleNameReferenceNode.name().text();
-                    String icon = getIcon(toolName);
-                    if (!icon.isEmpty()) {
-                        toolUrls.add(new ToolData(toolName, icon, getToolDescription(toolName)));
-                    }
+                    toolUrls.add(new ToolData(toolName, getIcon(toolName), getToolDescription(toolName)));
                 }
                 if (!toolUrls.isEmpty()) {
                     nodeBuilder.metadata().addData("tools", toolUrls);
