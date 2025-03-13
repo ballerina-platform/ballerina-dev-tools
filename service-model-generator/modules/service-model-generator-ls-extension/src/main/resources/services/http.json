@@ -18,7 +18,7 @@
     "listener": {
       "metadata": {
         "label": "Listeners",
-        "description": "The Listeners to be bound with the service"
+        "description": ""
       },
       "codedata": {
         "type": "LISTENER"
@@ -38,7 +38,7 @@
     "designApproach": {
       "metadata": {
         "label": "Contract",
-        "description": "The contract of the service"
+        "description": "The Contract Of The Service"
       },
       "enabled": true,
       "editable": true,
@@ -51,7 +51,7 @@
       "choices": [
         {
           "metadata": {
-            "label": "Design from scratch",
+            "label": "Design From Scratch",
             "description": "Design the service from scratch"
           },
           "enabled": true,
@@ -66,7 +66,7 @@
             "basePath": {
               "metadata": {
                 "label": "Service Base Path",
-                "description": "The base path for the service"
+                "description": ""
               },
               "enabled": true,
               "editable": true,
@@ -85,7 +85,7 @@
         },
         {
           "metadata": {
-            "label": "Import from OpenAPI specification",
+            "label": "Import From OpenAPI Specification",
             "description": "Implement the service from an OpenAPI specification"
           },
           "enabled": false,
@@ -140,7 +140,7 @@
     "annotServiceConfig": {
       "metadata": {
         "label": "Service Configuration",
-        "description": "Configurations for the Http service"
+        "description": "Define advanced configurations like service level security, etc."
       },
       "enabled": true,
       "editable": true,
