@@ -38,6 +38,7 @@ import io.ballerina.compiler.syntax.tree.RequiredParameterNode;
 import io.ballerina.compiler.syntax.tree.RestParameterNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.Token;
+import io.ballerina.flowmodelgenerator.core.Constants;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
@@ -162,8 +163,7 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
 
                 continue;
             }
-            nodeBuilder.properties().parameter(paramType, paramName.map(Token::text).orElse(""),
-                    paramName.orElse(null));
+
             String paramNameText = paramName.map(Token::text).orElse("");
             Token paramToken = paramName.orElse(null);
             switch (nodeKind) {
@@ -175,16 +175,6 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
                 default -> FunctionDefinitionBuilder.setProperty(nodeBuilder.properties(), paramType,
                         paramNameText, paramToken);
             }
-        }
-
-        switch (nodeKind) {
-            case DATA_MAPPER_DEFINITION -> DataMapperDefinitionBuilder.setOptionalProperties(nodeBuilder);
-            case AUTOMATION -> AutomationBuilder.setOptionalProperties(nodeBuilder, !returnType.isEmpty());
-            case NP_FUNCTION_DEFINITION -> {
-                NPFunctionDefinitionBuilder.endOptionalProperties(nodeBuilder);
-                processNpFunctionDefinitionProperties(functionDefinitionNode, nodeBuilder);
-            }
-            default -> FunctionDefinitionBuilder.setOptionalProperties(nodeBuilder);
         }
 
         switch (nodeKind) {
