@@ -37,7 +37,7 @@ import java.util.Optional;
  */
 public class VariableBuilder extends NodeBuilder {
 
-    public static final String LABEL = "Variable";
+    public static final String LABEL = "Declare Variable";
     public static final String DESCRIPTION = "New variable with type";
     public static final String EXPRESSION_DOC = "Initialize with value";
 

@@ -149,7 +149,7 @@ public class AvailableNodesGenerator {
     private void setDefaultNodes() {
         AvailableNode function = new AvailableNode(
                 new Metadata.Builder<>(null)
-                        .label("Function Call")
+                        .label("Call Function")
                         .description("Both project and utility functions")
                         .build(),
                 new Codedata.Builder<>(null)
