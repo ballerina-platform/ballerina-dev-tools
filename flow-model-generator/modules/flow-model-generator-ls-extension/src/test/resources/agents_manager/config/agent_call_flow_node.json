@@ -17,8 +17,12 @@
         "metadata": {
           "label": "run",
           "description": "Executes the agent for a given user query.\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.7.13.png",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.7.15.png",
           "data": {
+            "agent": {
+              "instructions": "\"Help the students with their questions.\"",
+              "role": "\"Math tutor\""
+            },
             "model": {
               "name": "myModel",
               "path": "https://bcentral-packageicons.azureedge.net/images/agent_agent_0.1.0.png",
@@ -29,6 +33,16 @@
                 "name": "set",
                 "path": "/path/icon.png",
                 "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints."
+              },
+              {
+                "name": "sum",
+                "path": "",
+                "description": ""
+              },
+              {
+                "name": "mutiply",
+                "path": "",
+                "description": ""
               }
             ]
           }
@@ -39,7 +53,7 @@
           "module": "ai.agent",
           "object": "Agent",
           "symbol": "run",
-          "version": "0.7.13",
+          "version": "0.7.15",
           "lineRange": {
             "fileName": "agents.bal",
             "startLine": {
@@ -69,7 +83,7 @@
           },
           "query": {
             "metadata": {
-              "label": "query",
+              "label": "Query",
               "description": "The natural language input provided to the agent"
             },
             "valueType": "EXPRESSION",
@@ -95,7 +109,7 @@
           },
           "memoryId": {
             "metadata": {
-              "label": "memoryId",
+              "label": "Memory ID",
               "description": "The ID associated with the agent memory"
             },
             "valueType": "EXPRESSION",
@@ -179,7 +193,7 @@
         "metadata": {
           "label": "Agent",
           "description": "Represents an agent.",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.7.13.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.7.15.png"
         },
         "codedata": {
           "node": "AGENT",
@@ -204,7 +218,7 @@
         "properties": {
           "model": {
             "metadata": {
-              "label": "model",
+              "label": "Model",
               "description": "The model used by the agent"
             },
             "valueType": "EXPRESSION",
@@ -221,8 +235,8 @@
             },
             "typeMembers": [
               {
-                "type": "agent:Model",
-                "packageInfo": "ballerinax:ai.agent:0.7.13",
+                "type": "Model",
+                "packageInfo": "ballerinax:ai.agent:0.7.15",
                 "kind": "OBJECT_TYPE",
                 "selected": false
               }
@@ -230,7 +244,7 @@
           },
           "systemPrompt": {
             "metadata": {
-              "label": "systemPrompt",
+              "label": "System Prompt",
               "description": "The system prompt assigned to the agent"
             },
             "valueType": "EXPRESSION",
@@ -247,16 +261,16 @@
             },
             "typeMembers": [
               {
-                "type": "agent:SystemPrompt",
-                "packageInfo": "ballerinax:ai.agent:0.7.13",
+                "type": "SystemPrompt",
+                "packageInfo": "ballerinax:ai.agent:0.7.15",
                 "kind": "RECORD_TYPE",
-                "selected": true
+                "selected": false
               }
             ]
           },
           "agentType": {
             "metadata": {
-              "label": "agentType",
+              "label": "Agent Type",
               "description": "Type of the agent"
             },
             "valueType": "EXPRESSION",
@@ -273,8 +287,8 @@
             },
             "typeMembers": [
               {
-                "type": "agent:AgentType",
-                "packageInfo": "ballerinax:ai.agent:0.7.13",
+                "type": "AgentType",
+                "packageInfo": "ballerinax:ai.agent:0.7.15",
                 "kind": "BASIC_TYPE",
                 "selected": false
               }
@@ -282,7 +296,7 @@
           },
           "tools": {
             "metadata": {
-              "label": "tools",
+              "label": "Tools",
               "description": "The tools available for the agent"
             },
             "valueType": "EXPRESSION",
@@ -299,7 +313,7 @@
             },
             "typeMembers": [
               {
-                "type": "agent:BaseToolKit|agent:ToolConfig|agent:FunctionTool",
+                "type": "BaseToolKit|agent",
                 "packageInfo": "",
                 "kind": "ARRAY_TYPE",
                 "selected": false
@@ -308,7 +322,7 @@
           },
           "maxIter": {
             "metadata": {
-              "label": "maxIter",
+              "label": "Maximum Iterations",
               "description": "The maximum number of iterations the agent performs to complete the task"
             },
             "valueType": "EXPRESSION",
@@ -333,7 +347,7 @@
           },
           "verbose": {
             "metadata": {
-              "label": "verbose",
+              "label": "Verbose",
               "description": "Specifies whether verbose logging is enabled"
             },
             "valueType": "EXPRESSION",
@@ -358,7 +372,7 @@
           },
           "memoryManager": {
             "metadata": {
-              "label": "memoryManager",
+              "label": "Memory Manager",
               "description": "The memory manager used by the agent to store and manage conversation history"
             },
             "valueType": "EXPRESSION",
@@ -374,8 +388,8 @@
             },
             "typeMembers": [
               {
-                "type": "agent:MemoryManager",
-                "packageInfo": "ballerinax:ai.agent:0.7.13",
+                "type": "MemoryManager",
+                "packageInfo": "ballerinax:ai.agent:0.7.15",
                 "kind": "OBJECT_TYPE",
                 "selected": false
               }
@@ -1810,7 +1824,7 @@
         "metadata": {
           "label": "Class",
           "description": "AzureOpenAiModel is a client class that provides an interface for interacting with Azure-hosted OpenAI language models.",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.7.13.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.7.15.png"
         },
         "codedata": {
           "node": "CLASS_INIT",
@@ -1835,7 +1849,7 @@
         "properties": {
           "serviceUrl": {
             "metadata": {
-              "label": "serviceUrl",
+              "label": "Service URL",
               "description": "The base URL of Azure OpenAI API endpoint"
             },
             "valueType": "EXPRESSION",
@@ -1870,7 +1884,7 @@
           },
           "apiKey": {
             "metadata": {
-              "label": "apiKey",
+              "label": "API Key",
               "description": "The Azure OpenAI API key"
             },
             "valueType": "EXPRESSION",
@@ -1896,7 +1910,7 @@
           },
           "deploymentId": {
             "metadata": {
-              "label": "deploymentId",
+              "label": "Deployment ID",
               "description": "The deployment identifier for the specific model deployment in Azure  "
             },
             "valueType": "EXPRESSION",
@@ -1922,7 +1936,7 @@
           },
           "apiVersion": {
             "metadata": {
-              "label": "apiVersion",
+              "label": "API Version",
               "description": "The Azure OpenAI API version (e.g., \"2023-07-01-preview\")"
             },
             "valueType": "EXPRESSION",
@@ -1948,7 +1962,7 @@
           },
           "maxTokens": {
             "metadata": {
-              "label": "maxTokens",
+              "label": "Maximum Tokens",
               "description": "The upper limit for the number of tokens in the response generated by the model"
             },
             "valueType": "EXPRESSION",
@@ -1973,7 +1987,7 @@
           },
           "temperature": {
             "metadata": {
-              "label": "temperature",
+              "label": "Temperature",
               "description": "The temperature for controlling randomness in the model's output  "
             },
             "valueType": "EXPRESSION",
@@ -1998,7 +2012,7 @@
           },
           "httpVersion": {
             "metadata": {
-              "label": "httpVersion",
+              "label": "HTTP Version",
               "description": "The HTTP version understood by the client"
             },
             "valueType": "EXPRESSION",
@@ -2024,7 +2038,7 @@
           },
           "http1Settings": {
             "metadata": {
-              "label": "http1Settings",
+              "label": "HTTP1 Settings",
               "description": "Configurations related to HTTP/1.x protocol"
             },
             "valueType": "EXPRESSION",
@@ -2050,7 +2064,7 @@
           },
           "http2Settings": {
             "metadata": {
-              "label": "http2Settings",
+              "label": "HTTP2 Settings",
               "description": "Configurations related to HTTP/2 protocol"
             },
             "valueType": "EXPRESSION",
@@ -2076,7 +2090,7 @@
           },
           "timeout": {
             "metadata": {
-              "label": "timeout",
+              "label": "Timeout",
               "description": "The maximum time to wait (in seconds) for a response before closing the connection"
             },
             "valueType": "EXPRESSION",
@@ -2101,7 +2115,7 @@
           },
           "forwarded": {
             "metadata": {
-              "label": "forwarded",
+              "label": "Forwarded",
               "description": "The choice of setting `forwarded`/`x-forwarded` header"
             },
             "valueType": "EXPRESSION",
@@ -2126,7 +2140,7 @@
           },
           "poolConfig": {
             "metadata": {
-              "label": "poolConfig",
+              "label": "Pool Configuration",
               "description": "Configurations associated with request pooling"
             },
             "valueType": "EXPRESSION",
@@ -2152,7 +2166,7 @@
           },
           "cache": {
             "metadata": {
-              "label": "cache",
+              "label": "Cache Configuration",
               "description": "HTTP caching related configurations"
             },
             "valueType": "EXPRESSION",
@@ -2178,7 +2192,7 @@
           },
           "compression": {
             "metadata": {
-              "label": "compression",
+              "label": "Compression",
               "description": "Specifies the way of handling compression (`accept-encoding`) header"
             },
             "valueType": "EXPRESSION",
@@ -2204,7 +2218,7 @@
           },
           "circuitBreaker": {
             "metadata": {
-              "label": "circuitBreaker",
+              "label": "Circuit Breaker Configuration",
               "description": "Configurations associated with the behaviour of the Circuit Breaker"
             },
             "valueType": "EXPRESSION",
@@ -2230,7 +2244,7 @@
           },
           "retryConfig": {
             "metadata": {
-              "label": "retryConfig",
+              "label": "Retry Configuration",
               "description": "Configurations associated with retrying"
             },
             "valueType": "EXPRESSION",
@@ -2256,7 +2270,7 @@
           },
           "responseLimits": {
             "metadata": {
-              "label": "responseLimits",
+              "label": "Response Limit Configuration",
               "description": "Configurations associated with inbound response size limits"
             },
             "valueType": "EXPRESSION",
@@ -2282,7 +2296,7 @@
           },
           "secureSocket": {
             "metadata": {
-              "label": "secureSocket",
+              "label": "Secure Socket Configuration",
               "description": "SSL/TLS-related options"
             },
             "valueType": "EXPRESSION",
@@ -2308,7 +2322,7 @@
           },
           "proxy": {
             "metadata": {
-              "label": "proxy",
+              "label": "Proxy Configuration",
               "description": "Proxy server related options"
             },
             "valueType": "EXPRESSION",
@@ -2334,7 +2348,7 @@
           },
           "validation": {
             "metadata": {
-              "label": "validation",
+              "label": "Payload Validation",
               "description": "Enables the inbound payload validation functionality which provided by the constraint package. Enabled by default"
             },
             "valueType": "EXPRESSION",

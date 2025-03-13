@@ -54,7 +54,8 @@ import static io.ballerina.flowmodelgenerator.core.converters.utils.Utils.unesca
  */
 public final class JsonToRecordMapperConverterUtils {
 
-    private JsonToRecordMapperConverterUtils() {}
+    private JsonToRecordMapperConverterUtils() {
+    }
 
     private static final String ARRAY_RECORD_SUFFIX = "Item";
     private static final String QUOTED_IDENTIFIER_PREFIX = "'";
@@ -87,7 +88,7 @@ public final class JsonToRecordMapperConverterUtils {
      * This method returns existing Types on a module/file(for single file projects).
      *
      * @param workspaceManager Workspace manager instance
-     * @param filePath FilePath URI of the/a file in a singleFileProject or module
+     * @param filePath         FilePath URI of the/a file in a singleFileProject or module
      * @return {@link List<String>} List of already existing Types
      */
     public static List<String> getExistingTypeNames(WorkspaceManager workspaceManager, Path filePath) {
@@ -140,10 +141,10 @@ public final class JsonToRecordMapperConverterUtils {
     /**
      * This method returns an alternative fieldName if the given filedName is already exist.
      *
-     * @param fieldName Field name of the JSON Object/Array
-     * @param isArrayField To denote whether given field is an array or not
+     * @param fieldName          Field name of the JSON Object/Array
+     * @param isArrayField       To denote whether given field is an array or not
      * @param existingFieldNames The list of already existing field names
-     * @param updatedFieldNames The list of updated field names
+     * @param updatedFieldNames  The list of updated field names
      * @return {@link List<String>} List of already existing Types
      */
     public static String getAndUpdateFieldNames(String fieldName, boolean isArrayField, List<String> existingFieldNames,
@@ -212,13 +213,13 @@ public final class JsonToRecordMapperConverterUtils {
                 .sorted(Comparator.comparing(TypeDescriptorNode::toSourceCode));
         Stream<TypeDescriptorNode> arrayNodes = typeDescriptorNodes.stream()
                 .filter(node -> (node instanceof ArrayTypeDescriptorNode)).sorted((node1, node2) -> {
-            ArrayTypeDescriptorNode arrayNode1 = (ArrayTypeDescriptorNode) node1;
-            ArrayTypeDescriptorNode arrayNode2 = (ArrayTypeDescriptorNode) node2;
-            return getNumberOfDimensions(arrayNode1).equals(getNumberOfDimensions(arrayNode2)) ?
-                    (arrayNode1).memberTypeDesc().toSourceCode()
-                            .compareTo((arrayNode2).memberTypeDesc().toSourceCode()) :
-                    getNumberOfDimensions(arrayNode1) - getNumberOfDimensions(arrayNode2);
-        });
+                    ArrayTypeDescriptorNode arrayNode1 = (ArrayTypeDescriptorNode) node1;
+                    ArrayTypeDescriptorNode arrayNode2 = (ArrayTypeDescriptorNode) node2;
+                    return getNumberOfDimensions(arrayNode1).equals(getNumberOfDimensions(arrayNode2)) ?
+                            (arrayNode1).memberTypeDesc().toSourceCode()
+                                    .compareTo((arrayNode2).memberTypeDesc().toSourceCode()) :
+                            getNumberOfDimensions(arrayNode1) - getNumberOfDimensions(arrayNode2);
+                });
         return Stream.concat(nonArrayNodes, arrayNodes).toList();
     }
 

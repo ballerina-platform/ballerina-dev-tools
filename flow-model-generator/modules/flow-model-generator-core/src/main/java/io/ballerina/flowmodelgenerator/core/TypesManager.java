@@ -73,6 +73,7 @@ import java.util.stream.Collectors;
  * @since 2.0.0
  */
 public class TypesManager {
+
     private static final Gson gson = new Gson();
     private final Module module;
     private final Document typeDocument;
@@ -86,8 +87,7 @@ public class TypesManager {
         this.module = typeDocument.module();
     }
 
-    public JsonElement getAllTypes() {
-        SemanticModel semanticModel = this.module.getCompilation().getSemanticModel();
+    public JsonElement getAllTypes(SemanticModel semanticModel) {
         Map<String, Symbol> symbolMap = semanticModel.moduleSymbols().stream()
                 .filter(s -> supportedSymbolKinds.contains(s.kind()))
                 .collect(Collectors.toMap(symbol -> symbol.getName().orElse(""), symbol -> symbol));
@@ -108,8 +108,7 @@ public class TypesManager {
         return gson.toJsonTree(allTypes);
     }
 
-    public JsonElement getType(Document document, LinePosition linePosition) {
-        SemanticModel semanticModel = this.module.getCompilation().getSemanticModel();
+    public JsonElement getType(SemanticModel semanticModel, Document document, LinePosition linePosition) {
         Optional<Symbol> symbol = semanticModel.symbol(document, linePosition);
         if (symbol.isEmpty() || !supportedGraphqlSymbolKinds.contains(symbol.get().kind())) {
             return null;
@@ -260,7 +259,7 @@ public class TypesManager {
             case ENUM -> typeTransformer.transform((EnumSymbol) symbol);
             case SERVICE_DECLARATION -> typeTransformer.transform((ServiceDeclarationSymbol) symbol);
             case TYPE -> getTypeData(((TypeReferenceTypeSymbol) symbol).definition());
-            default ->  null;
+            default -> null;
         };
     }
 
@@ -395,7 +394,7 @@ public class TypesManager {
                 objectTypeSymbol.methods().forEach((key, method) -> {
                     // params
                     method.typeDescriptor().params().ifPresent(params -> params.forEach(param -> {
-                                addDependencyTypes(param.typeDescriptor(), references);
+                        addDependencyTypes(param.typeDescriptor(), references);
                     }));
 
                     // return type

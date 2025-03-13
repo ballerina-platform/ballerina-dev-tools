@@ -9,7 +9,7 @@
     "node": "CLASS_INIT",
     "org": "ballerinax",
     "module": "ai.agent",
-    "version": "0.7.13",
+    "version": "0.7.15",
     "object": "OpenAiModel",
     "symbol": "init"
   },
@@ -18,7 +18,7 @@
     "metadata": {
       "label": "Class",
       "description": "OpenAiModel is a client class that provides an interface for interacting with OpenAI language models.",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.7.13.png"
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.7.15.png"
     },
     "codedata": {
       "node": "CLASS_INIT",
@@ -26,7 +26,7 @@
       "module": "ai.agent",
       "object": "OpenAiModel",
       "symbol": "init",
-      "version": "0.7.13",
+      "version": "0.7.15",
       "isNew": true
     },
     "returning": false,
@@ -59,10 +59,40 @@
       "modelType": {
         "metadata": {
           "label": "Model Type",
-          "description": "The OpenAI model name"
+          "description": "The OpenAI model name as constant from OPEN_AI_MODEL_NAMES enum"
         },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "agent:OPEN_AI_MODEL_NAMES",
+        "valueType": "SINGLE_SELECT",
+        "valueTypeConstraint": [
+          "agent:O3_MINI",
+          "agent:O3_MINI_2025_01_31",
+          "agent:O1",
+          "agent:O1_2024_12_17",
+          "agent:GPT_4O",
+          "agent:GPT_4O_2024_11_20",
+          "agent:GPT_4O_2024_08_06",
+          "agent:GPT_4O_2024_05_13",
+          "agent:GPT_4O_MINI",
+          "agent:GPT_4O_MINI_2024_07_18",
+          "agent:GPT_4_TURBO",
+          "agent:GPT_4_TURBO_2024_04_09",
+          "agent:GPT_4_0125_PREVIEW",
+          "agent:GPT_4_TURBO_PREVIEW",
+          "agent:GPT_4_1106_PREVIEW",
+          "agent:GPT_4_VISION_PREVIEW",
+          "agent:GPT_4",
+          "agent:GPT_4_0314",
+          "agent:GPT_4_0613",
+          "agent:GPT_4_32K",
+          "agent:GPT_4_32K_0314",
+          "agent:GPT_4_32K_0613",
+          "agent:GPT_3_5_TURBO",
+          "agent:GPT_3_5_TURBO_16K",
+          "agent:GPT_3_5_TURBO_0301",
+          "agent:GPT_3_5_TURBO_0613",
+          "agent:GPT_3_5_TURBO_1106",
+          "agent:GPT_3_5_TURBO_0125",
+          "agent:GPT_3_5_TURBO_16K_0613"
+        ],
         "placeholder": "\"gpt-3.5-turbo-16k-0613\"",
         "optional": false,
         "editable": true,
@@ -75,7 +105,7 @@
         "typeMembers": [
           {
             "type": "agent:OPEN_AI_MODEL_NAMES",
-            "packageInfo": "ballerinax:ai.agent:0.7.13",
+            "packageInfo": "ballerinax:ai.agent:0.7.15",
             "kind": "BASIC_TYPE",
             "selected": false
           }
@@ -533,11 +563,11 @@
       },
       "variable": {
         "metadata": {
-          "label": "Name",
+          "label": "Variable Name",
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "model",
+        "value": "agentOpenaimodel",
         "optional": false,
         "editable": true,
         "advanced": false,

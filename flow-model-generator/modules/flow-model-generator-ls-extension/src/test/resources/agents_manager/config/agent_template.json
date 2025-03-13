@@ -11,14 +11,14 @@
     "module": "ai.agent",
     "object": "Agent",
     "symbol": "init",
-    "version": "0.7.13"
+    "version": "0.7.15"
   },
   "output": {
     "id": "31",
     "metadata": {
       "label": "Agent",
       "description": "Represents an agent.",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.7.13.png",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.7.15.png",
       "data": {
         "paramsToHide": [
           "model",
@@ -33,7 +33,7 @@
       "module": "ai.agent",
       "object": "Agent",
       "symbol": "init",
-      "version": "0.7.13",
+      "version": "0.7.15",
       "isNew": true
     },
     "returning": false,
@@ -56,8 +56,8 @@
         },
         "typeMembers": [
           {
-            "type": "agent:SystemPrompt",
-            "packageInfo": "ballerinax:ai.agent:0.7.13",
+            "type": "SystemPrompt",
+            "packageInfo": "ballerinax:ai.agent:0.7.15",
             "kind": "RECORD_TYPE",
             "selected": false
           }
@@ -81,8 +81,8 @@
         },
         "typeMembers": [
           {
-            "type": "agent:Model",
-            "packageInfo": "ballerinax:ai.agent:0.7.13",
+            "type": "Model",
+            "packageInfo": "ballerinax:ai.agent:0.7.15",
             "kind": "OBJECT_TYPE",
             "selected": false
           }
@@ -106,7 +106,7 @@
         },
         "typeMembers": [
           {
-            "type": "agent:BaseToolKit|agent:ToolConfig|agent:FunctionTool",
+            "type": "BaseToolKit|agent",
             "packageInfo": "",
             "kind": "ARRAY_TYPE",
             "selected": false
@@ -131,8 +131,8 @@
         },
         "typeMembers": [
           {
-            "type": "agent:AgentType",
-            "packageInfo": "ballerinax:ai.agent:0.7.13",
+            "type": "AgentType",
+            "packageInfo": "ballerinax:ai.agent:0.7.15",
             "kind": "BASIC_TYPE",
             "selected": false
           }
@@ -206,8 +206,8 @@
         },
         "typeMembers": [
           {
-            "type": "agent:MemoryManager",
-            "packageInfo": "ballerinax:ai.agent:0.7.13",
+            "type": "MemoryManager",
+            "packageInfo": "ballerinax:ai.agent:0.7.15",
             "kind": "OBJECT_TYPE",
             "selected": false
           }
@@ -229,11 +229,11 @@
       },
       "variable": {
         "metadata": {
-          "label": "Name",
+          "label": "Variable Name",
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "agent",
+        "value": "agentAgent",
         "optional": false,
         "editable": true,
         "advanced": false,

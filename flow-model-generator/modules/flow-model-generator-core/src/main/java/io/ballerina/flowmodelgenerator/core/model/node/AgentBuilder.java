@@ -80,17 +80,7 @@ public class AgentBuilder extends CallBuilder {
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
         super.setConcreteTemplateData(context);
-        properties()
-                .custom()
-                    .metadata()
-                        .label("Name")
-                        .description("Name of the variable")
-                        .stepOut()
-                    .value(DEFAULT_AGENT_NAME)
-                    .type(Property.ValueType.IDENTIFIER)
-                    .editable()
-                    .stepOut()
-                    .addProperty(Property.VARIABLE_KEY);
+
         metadata().addData(PARAMS_TO_HIDE, List.of(MODEL, TOOLS, TYPE));
     }
 }

@@ -365,7 +365,8 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 Path filePath = Path.of(request.filePath());
                 Project project = this.workspaceManager.loadProject(filePath);
                 Optional<Document> document = this.workspaceManager.document(filePath);
-                if (document.isEmpty()) {
+                Optional<SemanticModel> semanticModel = this.workspaceManager.semanticModel(filePath);
+                if (document.isEmpty() || semanticModel.isEmpty()) {
                     return new CommonSourceResponse();
                 }
                 ModulePartNode node = document.get().syntaxTree().rootNode();
@@ -399,7 +400,6 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                     edits.add(new TextEdit(Utils.toRange(lineRange.startLine()), imports));
                 }
 
-                SemanticModel semanticModel = null;
                 if (isDefaultListenerCreationRequired) {
                     List<ImportDeclarationNode> importsList = node.imports().stream().toList();
                     LinePosition listenerDeclaringLoc;
@@ -408,23 +408,15 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                     } else {
                         listenerDeclaringLoc = lineRange.endLine();
                     }
-                    Package currentPackage = project.currentPackage();
-                    Module module = document.get().module();
-                    semanticModel = currentPackage.getCompilation().getSemanticModel(module.moduleId());
                     String listenerDeclarationStmt = ListenerUtil.getListenerDeclarationStmt(
-                            semanticModel, document.get(), listenerDeclaringLoc);
+                            semanticModel.get(), document.get(), listenerDeclaringLoc);
                     edits.add(new TextEdit(Utils.toRange(listenerDeclaringLoc), listenerDeclarationStmt));
                 }
 
                 Utils.FunctionAddContext context = Utils.getTriggerAddContext(service.getOrgName(),
                         service.getPackageName());
                 if (context.equals(Utils.FunctionAddContext.TCP_SERVICE_ADD)) {
-                    if (semanticModel == null) {
-                        Package currentPackage = project.currentPackage();
-                        Module module = document.get().module();
-                        semanticModel = currentPackage.getCompilation().getSemanticModel(module.moduleId());
-                    }
-                    String serviceName = Utils.generateTypeIdentifier(semanticModel, document.get(),
+                    String serviceName = Utils.generateTypeIdentifier(semanticModel.get(), document.get(),
                             lineRange.endLine(), "TcpEchoService");
                     service.getProperties().put("returningServiceClass", Value.getTcpValue(serviceName));
                 }
@@ -862,6 +854,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 Path filePath = Path.of(request.filePath());
                 this.workspaceManager.loadProject(filePath);
                 Optional<Document> document = this.workspaceManager.document(filePath);
+                Optional<SemanticModel> semanticModel = this.workspaceManager.semanticModel(filePath);
                 if (document.isEmpty()) {
                     return new CommonSourceResponse();
                 }
@@ -931,9 +924,8 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                     } else {
                         listenerDeclaringLoc = lineRange.endLine();
                     }
-                    SemanticModel semanticModel = document.get().module().getCompilation().getSemanticModel();
                     String listenerDeclarationStmt = ListenerUtil.getListenerDeclarationStmt(
-                            semanticModel, document.get(), listenerDeclaringLoc);
+                            semanticModel.get(), document.get(), listenerDeclaringLoc);
                     edits.add(new TextEdit(Utils.toRange(listenerDeclaringLoc), listenerDeclarationStmt));
                 }
 

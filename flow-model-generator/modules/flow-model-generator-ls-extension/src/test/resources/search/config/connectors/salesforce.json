@@ -21,7 +21,8 @@
         "module": "salesforce",
         "object": "Client",
         "symbol": "init",
-        "version": "8.1.0"
+        "version": "8.1.0",
+        "isGenerated": false
       },
       "enabled": true
     },
@@ -40,7 +41,8 @@
         "module": "salesforce.pardot",
         "object": "Client",
         "symbol": "init",
-        "version": "1.3.1"
+        "version": "1.3.1",
+        "isGenerated": false
       },
       "enabled": true
     },
@@ -59,7 +61,8 @@
         "module": "salesforce.einstein",
         "object": "Client",
         "symbol": "init",
-        "version": "1.3.1"
+        "version": "1.3.1",
+        "isGenerated": false
       },
       "enabled": true
     }

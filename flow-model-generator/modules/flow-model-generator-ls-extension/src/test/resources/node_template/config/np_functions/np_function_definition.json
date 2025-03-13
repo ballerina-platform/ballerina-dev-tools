@@ -1,0 +1,125 @@
+{
+  "description": "Sample diagram node for natural function call",
+  "codedata": {
+    "node": "NP_FUNCTION_DEFINITION"
+  },
+  "output": {
+    "id": "31",
+    "metadata": {
+      "label": "Natural Function",
+      "description": "Define a natural function"
+    },
+    "codedata": {
+      "node": "NP_FUNCTION_DEFINITION",
+      "org": "ballerinax",
+      "module": "np",
+      "isNew": true
+    },
+    "returning": false,
+    "properties": {
+      "functionName": {
+        "metadata": {
+          "label": "Name",
+          "description": "Name of the natural function"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "naturalFunction",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "hidden": false
+      },
+      "type": {
+        "metadata": {
+          "label": "Return Type",
+          "description": "Type of the return value"
+        },
+        "valueType": "TYPE",
+        "value": "",
+        "optional": true,
+        "editable": true,
+        "advanced": false,
+        "hidden": false
+      },
+      "parameters": {
+        "metadata": {
+          "label": "Parameters",
+          "description": "Function parameters"
+        },
+        "valueType": "REPEATABLE_PROPERTY",
+        "valueTypeConstraint": {
+          "metadata": {
+            "label": "Parameter",
+            "description": "Function parameter"
+          },
+          "valueType": "FIXED_PROPERTY",
+          "value": {
+            "type": {
+              "metadata": {
+                "label": "Type",
+                "description": "Type of the parameter"
+              },
+              "valueType": "TYPE",
+              "value": "",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "variable": {
+              "metadata": {
+                "label": "Name",
+                "description": "Name of the parameter"
+              },
+              "valueType": "IDENTIFIER",
+              "value": "",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            }
+          },
+          "optional": false,
+          "editable": false,
+          "advanced": false,
+          "hidden": false
+        },
+        "value": {},
+        "optional": true,
+        "editable": false,
+        "advanced": false,
+        "hidden": false
+      },
+      "prompt": {
+        "metadata": {
+          "label": "Prompt",
+          "description": "Prompt for the function"
+        },
+        "valueType": "RAW_TEMPLATE",
+        "valueTypeConstraint": "np:Prompt",
+        "value": "``",
+        "placeholder": "",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "hidden": true,
+        "codedata": {
+          "kind": "REQUIRED"
+        }
+      },
+      "enableModelContext": {
+        "metadata": {
+          "label": "Enable Model Context",
+          "description": "Enable model context for the function"
+        },
+        "valueType": "FLAG",
+        "value": false,
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "hidden": false
+      }
+    },
+    "flags": 0
+  }
+}

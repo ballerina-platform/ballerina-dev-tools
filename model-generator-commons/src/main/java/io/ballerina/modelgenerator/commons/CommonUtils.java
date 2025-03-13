@@ -92,7 +92,7 @@ public class CommonUtils {
     public static final String BALLERINA_ORG_NAME = "ballerina";
     public static final String BALLERINAX_ORG_NAME = "ballerinax";
     public static final String LANG_LIB_PREFIX = "lang.";
-    private static final String LLM_CALL = "LlmCall";
+    private static final String NATURAL_FUNCTION = "NaturalFunction";
     private static final String CALL_LLM = "callLlm";
 
     /**
@@ -805,7 +805,7 @@ public class CommonUtils {
         return annotAttachments.stream()
                 .anyMatch(annot ->
                         isNpModule(annot.typeDescriptor()) &&
-                                annot.typeDescriptor().nameEquals(LLM_CALL));
+                                annot.typeDescriptor().nameEquals(NATURAL_FUNCTION));
     }
 
     public static String getClassType(String packageName, String clientName) {

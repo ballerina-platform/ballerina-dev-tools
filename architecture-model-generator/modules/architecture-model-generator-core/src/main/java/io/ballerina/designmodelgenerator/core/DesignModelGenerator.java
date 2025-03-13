@@ -64,7 +64,7 @@ public class DesignModelGenerator {
 
     public DesignModelGenerator(Package ballerinaPackage) {
         this.defaultModule = ballerinaPackage.getDefaultModule();
-        this.semanticModel = this.defaultModule.getCompilation().getSemanticModel();
+        this.semanticModel = ballerinaPackage.getCompilation().getSemanticModel(this.defaultModule.moduleId());
         this.rootPath = ballerinaPackage.project().sourceRoot();
         this.documentMap = new HashMap<>();
         this.defaultModule.documentIds().forEach(documentId -> {
@@ -79,7 +79,7 @@ public class DesignModelGenerator {
         ConnectionFinder connectionFinder = new ConnectionFinder(semanticModel, rootPath, documentMap,
                 intermediateModel);
         this.defaultModule.documentIds().forEach(d -> {
-            ModulePartNode rootNode =  this.defaultModule.document(d).syntaxTree().rootNode();
+            ModulePartNode rootNode = this.defaultModule.document(d).syntaxTree().rootNode();
             CodeAnalyzer codeAnalyzer = new CodeAnalyzer(semanticModel, intermediateModel, rootPath, connectionFinder);
             codeAnalyzer.visit(rootNode);
         });
@@ -155,7 +155,7 @@ public class DesignModelGenerator {
                     if (objectTypeSymbol.qualifiers().contains(Qualifier.CLIENT)) {
                         LineRange lineRange = variableSymbol.getLocation().get().lineRange();
                         String sortText = lineRange.fileName() + lineRange.startLine().line();
-                        String icon =  CommonUtils.generateIcon(variableSymbol.typeDescriptor());
+                        String icon = CommonUtils.generateIcon(variableSymbol.typeDescriptor());
                         Connection connection = new Connection(variableSymbol.getName().get(), sortText,
                                 getLocation(lineRange), Connection.Scope.GLOBAL, icon, true);
                         intermediateModel.connectionMap.put(
