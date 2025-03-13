@@ -138,13 +138,16 @@ public class Value {
     public String getValue() {
         List<String> values = this.values;
         if (Objects.nonNull(values) && !values.isEmpty()) {
-            return String.join(", ", values);
+            return String.join(", ", values.stream().map(Object::toString).toList());
         }
         return value;
     }
 
     public List<String> getValues() {
-        return values;
+        if (Objects.nonNull(values)) {
+            return values.stream().map(Object::toString).toList();
+        }
+        return null;
     }
 
     public void setValue(String value) {
@@ -245,6 +248,10 @@ public class Value {
 
     public Value getProperty(String key) {
         return properties.get(key);
+    }
+
+    public void setAddNewButton(boolean addNewButton) {
+        this.addNewButton = addNewButton;
     }
 
     public boolean isAddNewButton() {

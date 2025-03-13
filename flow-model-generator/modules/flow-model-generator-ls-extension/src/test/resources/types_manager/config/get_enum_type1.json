@@ -36,7 +36,8 @@
         "value": "Color",
         "optional": false,
         "editable": false,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       },
       "isArray": {
         "metadata": {
@@ -47,7 +48,8 @@
         "value": "false",
         "optional": true,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "hidden": false
       },
       "arraySize": {
         "metadata": {
@@ -58,7 +60,8 @@
         "value": "",
         "optional": false,
         "editable": false,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       },
       "description": {
         "metadata": {
@@ -69,7 +72,8 @@
         "value": "",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       }
     },
     "members": [

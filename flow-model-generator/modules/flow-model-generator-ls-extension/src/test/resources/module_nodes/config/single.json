@@ -45,6 +45,7 @@
             "optional": false,
             "editable": true,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "kind": "REQUIRED",
               "originalName": "url"
@@ -69,6 +70,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "auth"
@@ -135,6 +137,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "secureSocket"
@@ -165,6 +168,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "poolConfig"
@@ -195,6 +199,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "compression"
@@ -219,6 +224,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "maxInboundMessageSize"
@@ -243,6 +249,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "timeout"
@@ -267,6 +274,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "retryConfiguration"
@@ -295,7 +303,8 @@
             "value": true,
             "optional": false,
             "editable": false,
-            "advanced": true
+            "advanced": true,
+            "hidden": false
           },
           "scope": {
             "metadata": {
@@ -306,7 +315,8 @@
             "value": "Global",
             "optional": false,
             "editable": true,
-            "advanced": true
+            "advanced": true,
+            "hidden": false
           },
           "variable": {
             "metadata": {
@@ -318,6 +328,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "lineRange": {
                 "fileName": "source.bal",
@@ -343,6 +354,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {}
           }
         },
@@ -388,6 +400,7 @@
             "optional": false,
             "editable": true,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "kind": "REQUIRED",
               "originalName": "url"
@@ -412,6 +425,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "responseLimits"
@@ -436,6 +450,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "cache"
@@ -460,6 +475,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "cookieConfig"
@@ -490,6 +506,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "auth"
@@ -556,6 +573,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "retryConfig"
@@ -586,6 +604,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "poolConfig"
@@ -616,6 +635,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "timeout"
@@ -640,6 +660,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "forwarded"
@@ -664,6 +685,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "socketConfig"
@@ -688,6 +710,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "laxDataBinding"
@@ -712,6 +735,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "proxy"
@@ -742,6 +766,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "httpVersion"
@@ -766,6 +791,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "followRedirects"
@@ -796,6 +822,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "secureSocket"
@@ -826,6 +853,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "circuitBreaker"
@@ -856,6 +884,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "http2Settings"
@@ -880,6 +909,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "compression"
@@ -904,6 +934,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "http1Settings"
@@ -928,6 +959,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "validation"
@@ -950,7 +982,8 @@
             "value": true,
             "optional": false,
             "editable": false,
-            "advanced": true
+            "advanced": true,
+            "hidden": false
           },
           "scope": {
             "metadata": {
@@ -961,7 +994,8 @@
             "value": "Global",
             "optional": false,
             "editable": true,
-            "advanced": true
+            "advanced": true,
+            "hidden": false
           },
           "variable": {
             "metadata": {
@@ -973,6 +1007,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "lineRange": {
                 "fileName": "source.bal",
@@ -998,6 +1033,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {}
           }
         },
@@ -1042,6 +1078,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "secureSocket"
@@ -1066,6 +1103,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "connectionPooling"
@@ -1090,6 +1128,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "connection"
@@ -1120,6 +1159,7 @@
             "optional": true,
             "editable": true,
             "advanced": true,
+            "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
               "originalName": "isClusterConnection"
@@ -1142,7 +1182,8 @@
             "value": true,
             "optional": false,
             "editable": false,
-            "advanced": true
+            "advanced": true,
+            "hidden": false
           },
           "scope": {
             "metadata": {
@@ -1153,7 +1194,8 @@
             "value": "Global",
             "optional": false,
             "editable": true,
-            "advanced": true
+            "advanced": true,
+            "hidden": false
           },
           "variable": {
             "metadata": {
@@ -1165,6 +1207,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {
               "lineRange": {
                 "fileName": "source.bal",
@@ -1190,6 +1233,7 @@
             "optional": false,
             "editable": false,
             "advanced": false,
+            "hidden": false,
             "codedata": {}
           }
         },

@@ -20,6 +20,13 @@ package io.ballerina.flowmodelgenerator.core;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
+import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.ExternalFunctionSymbol;
+import io.ballerina.compiler.api.symbols.FunctionSymbol;
+import io.ballerina.compiler.api.symbols.ParameterSymbol;
+import io.ballerina.compiler.api.symbols.Symbol;
+import io.ballerina.compiler.api.symbols.SymbolKind;
+import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.DefaultableParameterNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.ModuleMemberDeclarationNode;
@@ -36,10 +43,16 @@ import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.node.DataMapperDefinitionBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.FunctionDefinitionBuilder;
+import io.ballerina.flowmodelgenerator.core.model.node.NPFunctionDefinitionBuilder;
+import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.ModuleInfo;
+import io.ballerina.modelgenerator.commons.ParameterData;
 import io.ballerina.tools.text.LineRange;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Analyzes the module level functions and generates the flow model.
@@ -49,29 +62,36 @@ import java.util.Optional;
 public class ModuleNodeAnalyzer extends NodeVisitor {
 
     private final ModuleInfo moduleInfo;
+    private final SemanticModel semanticModel;
     private final Gson gson;
     private JsonElement node;
 
-    public ModuleNodeAnalyzer(ModuleInfo moduleInfo) {
+    public ModuleNodeAnalyzer(ModuleInfo moduleInfo, SemanticModel semanticModel) {
         this.moduleInfo = moduleInfo;
+        this.semanticModel = semanticModel;
         this.gson = new Gson();
     }
 
     public Optional<JsonElement> findFunction(ModulePartNode rootNode, String functionName) {
         for (ModuleMemberDeclarationNode member : rootNode.members()) {
-            if (member.kind() == SyntaxKind.FUNCTION_DEFINITION) {
-                FunctionDefinitionNode functionNode = (FunctionDefinitionNode) member;
-                if (functionNode.functionName().text().equals(functionName)) {
-                    functionNode.accept(this);
-                    return Optional.of(this.node);
-                }
+            if (member.kind() != SyntaxKind.FUNCTION_DEFINITION) {
+                continue;
             }
+
+            FunctionDefinitionNode functionNode = (FunctionDefinitionNode) member;
+            if (functionNode.functionName().text().equals(functionName)) {
+                functionNode.accept(this);
+                return Optional.of(this.node);
+            }
+
         }
         return Optional.empty();
     }
 
     @Override
     public void visit(FunctionDefinitionNode functionDefinitionNode) {
+        boolean isNpFunction = isNpFunction(functionDefinitionNode);
+
         // Build the metadata based on the function body kind
         FunctionMetadata metadata = functionDefinitionNode.functionBody().kind() == SyntaxKind.EXPRESSION_FUNCTION_BODY
                 ? new FunctionMetadata(
@@ -80,12 +100,19 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
                     DataMapperDefinitionBuilder.PARAMETERS_DOC,
                     false,
                     DataMapperDefinitionBuilder.RECORD_TYPE)
-                : new FunctionMetadata(
-                    NodeKind.FUNCTION_DEFINITION,
-                    FunctionDefinitionBuilder.PARAMETERS_LABEL,
-                    FunctionDefinitionBuilder.PARAMETERS_DOC,
-                    true,
-                    null);
+                : isNpFunction
+                    ? new FunctionMetadata(
+                        NodeKind.NP_FUNCTION_DEFINITION,
+                        NPFunctionDefinitionBuilder.PARAMETERS_LABEL,
+                        NPFunctionDefinitionBuilder.PARAMETERS_DOC,
+                        true,
+                        null)
+                    : new FunctionMetadata(
+                        NodeKind.FUNCTION_DEFINITION,
+                        FunctionDefinitionBuilder.PARAMETERS_LABEL,
+                        FunctionDefinitionBuilder.PARAMETERS_DOC,
+                        true,
+                        null);
         NodeBuilder nodeBuilder = NodeBuilder.getNodeFromKind(metadata.nodeKind)
                 .defaultModuleName(this.moduleInfo);
 
@@ -109,6 +136,10 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
 
         // Set the function parameters
         for (ParameterNode parameter : functionDefinitionNode.functionSignature().parameters()) {
+            if (isNpFunctionProperty(parameter)) {
+                continue;
+            }
+
             String paramType;
             Optional<Token> paramName;
             switch (parameter.kind()) {
@@ -142,8 +173,71 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
                 FunctionDefinitionBuilder.getParameterSchema(),
                 metadata.optionalParameters);
 
+        if (isNpFunction) {
+            processNpFunctionDefinitionProperties(functionDefinitionNode, nodeBuilder);
+        }
+
         // Build the definition node
         this.node = gson.toJsonTree(nodeBuilder.build());
+    }
+
+    private void processNpFunctionDefinitionProperties(FunctionDefinitionNode functionDefinitionNode,
+                                                       NodeBuilder nodeBuilder) {
+        AtomicReference<String> npPromptDefaultValue = new AtomicReference<>();
+        AtomicReference<String> npModelDefaultValue = new AtomicReference<>();
+        AtomicBoolean isModelPropertyAvailable = new AtomicBoolean(false);
+
+        functionDefinitionNode.functionSignature().parameters().forEach(param -> {
+            if (param.kind() == SyntaxKind.DEFAULTABLE_PARAM) {
+                DefaultableParameterNode defParam = (DefaultableParameterNode) param;
+                if (defParam.paramName().isEmpty()) {
+                    return;
+                }
+                if (defParam.paramName().get().text().equals("model")) {
+                    isModelPropertyAvailable.set(true);
+                    npModelDefaultValue.set(defParam.expression().toSourceCode());
+                } else if (defParam.paramName().get().text().equals("prompt")) {
+                    npPromptDefaultValue.set(defParam.expression().toSourceCode());
+                }
+            }
+        });
+
+        // Set the NP function properties
+        nodeBuilder.properties().custom()
+                .metadata()
+                    .label(NPFunctionDefinitionBuilder.PROMPT_LABEL)
+                    .description(NPFunctionDefinitionBuilder.PROMPT_DESCRIPTION)
+                    .stepOut()
+                .codedata()
+                    .kind(ParameterData.Kind.REQUIRED.name())
+                    .stepOut()
+                .typeConstraint(NPFunctionDefinitionBuilder.PROMPT_TYPE)
+                .value(npPromptDefaultValue.get())
+                .editable()
+                .hidden()
+                .type(Property.ValueType.RAW_TEMPLATE)
+                .stepOut()
+                .addProperty(NPFunctionDefinitionBuilder.PROMPT);
+
+        if (isModelPropertyAvailable.get()) {
+            nodeBuilder.properties().custom()
+                    .metadata()
+                        .label(NPFunctionDefinitionBuilder.MODEL_LABEL)
+                        .description(NPFunctionDefinitionBuilder.MODEL_DESCRIPTION)
+                        .stepOut()
+                    .codedata()
+                        .kind(ParameterData.Kind.DEFAULTABLE.name())
+                        .stepOut()
+                    .typeConstraint(NPFunctionDefinitionBuilder.MODEL_TYPE)
+                    .value(npModelDefaultValue.get())
+                    .editable()
+                    .optional(true)
+                    .advanced(true)
+                    .type(Property.ValueType.EXPRESSION)
+                    .stepOut()
+                    .addProperty(NPFunctionDefinitionBuilder.MODEL);
+        }
+
     }
 
     private static String getNodeValue(Node node) {
@@ -160,5 +254,60 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
             String parametersDoc,
             boolean optionalParameters,
             String returnTypeConstraint) {
+    }
+
+    // Utils
+    /**
+     * Check whether the given function is a prompt as code function.
+     *
+     * @param functionDefinitionNode Function definition node
+     * @return true if the function is a prompt as code function else false
+     */
+    private boolean isNpFunction(FunctionDefinitionNode functionDefinitionNode) {
+        Optional<Symbol> funcSymbol = this.semanticModel.symbol(functionDefinitionNode);
+
+        if (funcSymbol.isEmpty() || funcSymbol.get().kind() != SymbolKind.FUNCTION
+                || !((FunctionSymbol) funcSymbol.get()).external()) {
+            return false;
+        }
+
+        return CommonUtils.isNpFunction(((ExternalFunctionSymbol) funcSymbol.get()));
+    }
+
+
+    /**
+     * Check whether a particular function parameter is a NP function property.
+     * e.g. np:Prompt and np:Model are NP function properties.
+     *
+     * @return true if the function parameter is a NP function property else false
+     */
+    private boolean isNpFunctionProperty(ParameterNode parameterNode) {
+        List<String> npFunctionProperties = List.of(NPFunctionDefinitionBuilder.PROMPT,
+                NPFunctionDefinitionBuilder.MODEL);
+        List<String> npFunctionPropertyTypes = List.of("Prompt", "Model");
+
+        Optional<Token> paramName;
+        if (parameterNode.kind() == SyntaxKind.REQUIRED_PARAM) {
+            RequiredParameterNode reqParam = (RequiredParameterNode) parameterNode;
+            paramName = reqParam.paramName();
+        } else if (parameterNode.kind() == SyntaxKind.DEFAULTABLE_PARAM) {
+            DefaultableParameterNode defParam = (DefaultableParameterNode) parameterNode;
+            paramName = defParam.paramName();
+        } else {
+            return false;
+        }
+
+        if (paramName.isEmpty() || !npFunctionProperties.contains(paramName.get().text())) {
+            return false;
+        }
+
+        Optional<Symbol> paramSymbol = this.semanticModel.symbol(parameterNode);
+        if (paramSymbol.isEmpty()) {
+            return false;
+        }
+
+        TypeSymbol typeDesc = ((ParameterSymbol) paramSymbol.get()).typeDescriptor();
+        return CommonUtils.isNpModule(typeDesc) && typeDesc.getName().isPresent()
+                && npFunctionPropertyTypes.contains(typeDesc.getName().get());
     }
 }

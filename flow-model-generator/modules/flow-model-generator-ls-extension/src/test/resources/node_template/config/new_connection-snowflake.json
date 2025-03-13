@@ -25,30 +25,6 @@
     },
     "returning": false,
     "properties": {
-      "password": {
-        "metadata": {
-          "label": "password",
-          "description": "The password of the Snowflake account"
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "string",
-        "placeholder": "\"\"",
-        "optional": false,
-        "editable": true,
-        "advanced": false,
-        "codedata": {
-          "kind": "REQUIRED",
-          "originalName": "password"
-        },
-        "typeMembers": [
-          {
-            "type": "string",
-            "packageInfo": "",
-            "kind": "BASIC_TYPE",
-            "selected": false
-          }
-        ]
-      },
       "account_identifier": {
         "metadata": {
           "label": "account_identifier",
@@ -60,9 +36,60 @@
         "optional": false,
         "editable": true,
         "advanced": false,
+        "hidden": false,
         "codedata": {
           "kind": "REQUIRED",
           "originalName": "account_identifier"
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "user": {
+        "metadata": {
+          "label": "user",
+          "description": "The username of the Snowflake account"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"\"",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "hidden": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "user"
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "password": {
+        "metadata": {
+          "label": "password",
+          "description": "The password of the Snowflake account"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"\"",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "hidden": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "password"
         },
         "typeMembers": [
           {
@@ -84,6 +111,7 @@
         "optional": true,
         "editable": true,
         "advanced": true,
+        "hidden": false,
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "options"
@@ -114,6 +142,7 @@
         "optional": true,
         "editable": true,
         "advanced": true,
+        "hidden": false,
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "connectionPool",
@@ -134,30 +163,6 @@
           }
         ]
       },
-      "user": {
-        "metadata": {
-          "label": "user",
-          "description": "The username of the Snowflake account"
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "string",
-        "placeholder": "\"\"",
-        "optional": false,
-        "editable": true,
-        "advanced": false,
-        "codedata": {
-          "kind": "REQUIRED",
-          "originalName": "user"
-        },
-        "typeMembers": [
-          {
-            "type": "string",
-            "packageInfo": "",
-            "kind": "BASIC_TYPE",
-            "selected": false
-          }
-        ]
-      },
       "type": {
         "metadata": {
           "label": "Variable Type",
@@ -169,6 +174,7 @@
         "optional": false,
         "editable": false,
         "advanced": false,
+        "hidden": false,
         "codedata": {
           "importStatements": "ballerina/sql"
         }
@@ -182,7 +188,8 @@
         "value": "snowflakeClient",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       },
       "scope": {
         "metadata": {
@@ -193,7 +200,8 @@
         "value": "Global",
         "optional": false,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "hidden": false
       },
       "checkError": {
         "metadata": {
@@ -204,7 +212,8 @@
         "value": true,
         "optional": false,
         "editable": false,
-        "advanced": true
+        "advanced": true,
+        "hidden": false
       }
     },
     "flags": 0

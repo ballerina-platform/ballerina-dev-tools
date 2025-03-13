@@ -14,7 +14,7 @@
     },
     "enabled": true,
     "editable": true,
-    "value": "",
+    "value": "GET",
     "valueType": "SINGLE_SELECT",
     "valueTypeConstraint": "http:Method",
     "isType": false,
@@ -56,7 +56,7 @@
       "type": {
         "enabled": true,
         "editable": false,
-        "value": "",
+        "value": "http:Request",
         "valueType": "TYPE",
         "valueTypeConstraint": "http:Request",
         "isType": true,
@@ -89,7 +89,7 @@
       "type": {
         "enabled": true,
         "editable": false,
-        "value": "",
+        "value": "http:Caller",
         "valueType": "TYPE",
         "valueTypeConstraint": "http:Caller",
         "isType": true,
@@ -104,7 +104,7 @@
         "valueType": "IDENTIFIER",
         "valueTypeConstraint": "string",
         "isType": false,
-        "placeholder": "request",
+        "placeholder": "caller",
         "optional": false,
         "advanced": false
       },
@@ -122,7 +122,7 @@
       "type": {
         "enabled": true,
         "editable": false,
-        "value": "",
+        "value": "http:Headers",
         "valueType": "TYPE",
         "valueTypeConstraint": "http:Headers",
         "isType": true,
@@ -137,7 +137,7 @@
         "valueType": "IDENTIFIER",
         "valueTypeConstraint": "string",
         "isType": false,
-        "placeholder": "request",
+        "placeholder": "headers",
         "optional": false,
         "advanced": false
       },
@@ -184,7 +184,7 @@
         "enabled": false,
         "editable": true,
         "value": "",
-        "valueType": "STRING",
+        "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
         "isType": false,
         "placeholder": "",
@@ -283,7 +283,7 @@
       "label": "Return type",
       "description": "Return type of the function"
     },
-    "enabled": false,
+    "enabled": true,
     "editable": true,
     "value": "",
     "valueType": "TYPE",
@@ -292,21 +292,173 @@
     "placeholder": "",
     "optional": true,
     "advanced": false,
-    "responses": [],
+    "responses": [
+      {
+        "statusCode": {
+          "metadata": {
+            "label": "",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "200",
+          "valueType": "SINGLE_SELECT",
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "body": {
+          "metadata": {
+            "label": "",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "http:Response",
+          "valueType": "TYPE",
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "name": {
+          "metadata": {
+            "label": "",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "IDENTIFIER",
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "type": {
+          "metadata": {
+            "label": "",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "http:Response",
+          "valueType": "TYPE",
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "headers": {
+          "metadata": {
+            "label": "",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION_SET",
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "enabled": false,
+        "editable": true,
+        "advanced": true,
+        "isHttpResponseType": true
+      },
+      {
+        "statusCode": {
+          "metadata": {
+            "label": "",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "200",
+          "valueType": "SINGLE_SELECT",
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "body": {
+          "metadata": {
+            "label": "",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "json",
+          "valueType": "TYPE",
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "name": {
+          "metadata": {
+            "label": "",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "IDENTIFIER",
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "type": {
+          "metadata": {
+            "label": "",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "json",
+          "valueType": "TYPE",
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "headers": {
+          "metadata": {
+            "label": "",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION_SET",
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "enabled": true,
+        "editable": true,
+        "advanced": true
+      }
+    ],
     "schema": {
       "statusCodeResponse": {
         "statusCode": {
           "metadata": {
             "label": "Status Code",
-            "description": "Response status code"
+            "description": "The status code"
           },
-          "enabled": false,
-          "editable": false,
+          "enabled": true,
+          "editable": true,
           "value": "",
           "valueType": "SINGLE_SELECT",
           "valueTypeConstraint": "http:StatusCode",
           "isType": false,
-          "placeholder": "",
+          "placeholder": "200",
           "optional": false,
           "advanced": false,
           "items": [
@@ -324,63 +476,69 @@
         },
         "body": {
           "metadata": {
-            "label": "Body type",
-            "description": "Type of the response body field"
+            "label": "Body",
+            "description": "Response Body"
           },
-          "enabled": false,
-          "editable": false,
-          "value": "",
-          "valueType": "TYPE",
-          "valueTypeConstraint": "anydata",
-          "isType": true,
-          "placeholder": "",
-          "optional": true,
-          "advanced": true
-        },
-        "createStatusCodeResponse": {
-          "metadata": {
-            "label": "Create Status Code Response Type",
-            "description": "Create a new status code response type"
-          },
-          "enabled": false,
+          "enabled": true,
           "editable": true,
           "value": "",
-          "valueType": "BOOLEAN",
-          "valueTypeConstraint": "boolean",
+          "valueType": "TYPE",
           "isType": false,
-          "placeholder": "false",
-          "optional": false,
-          "advanced": false
+          "optional": true,
+          "advanced": false,
+          "addNewButton": false
         },
         "name": {
           "metadata": {
-            "label": "Name of the Response Status Code Type",
-            "description": "Type name of the status code response"
+            "label": "Name of the response",
+            "description": "Create a new response type"
           },
-          "enabled": false,
-          "editable": false,
+          "enabled": true,
+          "editable": true,
           "value": "",
-          "valueType": "EXPRESSION",
-          "valueTypeConstraint": "anydata",
-          "isType": true,
-          "placeholder": "",
-          "optional": false,
-          "advanced": true
+          "valueType": "IDENTIFIER",
+          "isType": false,
+          "optional": true,
+          "advanced": false,
+          "addNewButton": false
         },
         "type": {
           "metadata": {
             "label": "Response Type",
-            "description": "The response type"
+            "description": "Select a response type"
           },
-          "enabled": false,
-          "editable": false,
+          "enabled": true,
+          "editable": true,
           "value": "",
           "valueType": "TYPE",
-          "valueTypeConstraint": "anydata|http:StatusCodeResponse",
-          "isType": true,
-          "placeholder": "",
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "headers": {
+          "metadata": {
+            "label": "Header types",
+            "description": "Response header types"
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "MULTIPLE_SELECT",
+          "isType": false,
           "optional": true,
-          "advanced": false
+          "advanced": false,
+          "addNewButton": false,
+          "isHttpResponseType": true,
+          "items": [
+            "",
+            "string",
+            "int",
+            "boolean",
+            "string[]",
+            "int[]",
+            "boolean[]"
+          ]
         }
       }
     }

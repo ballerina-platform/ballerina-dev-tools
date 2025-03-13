@@ -288,6 +288,22 @@ public class ServiceModelUtils {
                 .setReturnType(new FunctionReturnType(functionReturnType.build()))
                 .setParameters(parameters);
 
+        if (function.kind().equals(ServiceModelGeneratorConstants.KIND_RESOURCE)) {
+            Value.ValueBuilder accessor = new Value.ValueBuilder()
+                    .setMetadata(new MetaData("Accessor", "The accessor of the resource function"))
+                    .setCodedata(new Codedata("ACCESSOR"))
+                    .setValue(function.accessor())
+                    .setValueType("IDENTIFIER")
+                    .setValueTypeConstraint("string")
+                    .setPlaceholder(function.accessor())
+                    .setEnabled(true)
+                    .setEditable(false)
+                    .setType(false)
+                    .setOptional(false)
+                    .setAdvanced(false);
+            functionBuilder.setAccessor(accessor.build());
+        }
+
         return functionBuilder.build();
     }
 

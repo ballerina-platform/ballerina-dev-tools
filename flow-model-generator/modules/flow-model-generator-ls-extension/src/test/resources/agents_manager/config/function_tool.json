@@ -2,6 +2,7 @@
   "source": "agent_1/agents.bal",
   "name": "toolFunc",
   "description": "Sample diagram node",
+  "toolDescription": "",
   "diagram": {
     "id": "31796",
     "metadata": {

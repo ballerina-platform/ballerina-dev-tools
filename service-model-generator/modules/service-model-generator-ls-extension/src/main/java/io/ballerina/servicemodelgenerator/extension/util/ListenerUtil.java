@@ -54,6 +54,7 @@ import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.TextRange;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -122,14 +123,60 @@ public class ListenerUtil {
         return listeners;
     }
 
+    public static Optional<String> getHttpDefaultListenerNameRef(SemanticModel semanticModel, Project project) {
+        for (Symbol moduleSymbol : semanticModel.moduleSymbols()) {
+            if (!(moduleSymbol instanceof VariableSymbol variableSymbol)
+                    || !variableSymbol.qualifiers().contains(Qualifier.LISTENER)) {
+                continue;
+            }
+            Optional<ModuleSymbol> module = variableSymbol.typeDescriptor().getModule();
+            if (module.isEmpty() || !module.get().id().moduleName().equals("http") ||
+                    variableSymbol.getName().isEmpty()) {
+                continue;
+            }
+            String listenerName = variableSymbol.getName().get().trim();
+            if (variableSymbol.getLocation().isPresent()) {
+                Location location = variableSymbol.getLocation().get();
+                Path path = project.sourceRoot().resolve(location.lineRange().fileName());
+                DocumentId documentId = project.documentId(path);
+                Document document = project.currentPackage().getDefaultModule().document(documentId);
+                if (document != null) {
+                    ModulePartNode node = document.syntaxTree().rootNode();
+                    TextRange range = TextRange.from(location.textRange().startOffset(),
+                            location.textRange().length());
+                    NonTerminalNode foundNode = node.findNode(range);
+                    if (foundNode != null) {
+                        while (foundNode != null && !(foundNode instanceof ListenerDeclarationNode)) {
+                            foundNode = foundNode.parent();
+                        }
+                        if (foundNode != null) {
+                            ListenerDeclarationNode listenerDeclarationNode = (ListenerDeclarationNode) foundNode;
+                            boolean found = listenerDeclarationNode.initializer().toSourceCode()
+                                    .trim().contains("http:getDefaultListener()");
+                            if (found) {
+                                return Optional.of(listenerName);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return Optional.empty();
+    }
+
     public static boolean checkForDefaultListenerExistence(Value listener) {
         if (Objects.nonNull(listener) && listener.isEnabledWithValue()) {
             List<String> values = listener.getValues();
             if (Objects.nonNull(values) && !values.isEmpty()) {
+                List<String> valuesList = new ArrayList<>() {{
+                    addAll(values);
+                }};
                 for (int i = 0; i < values.size(); i++) {
                     if (values.get(i).equals(
                             ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_ITEM_LABEL)) {
-                        values.set(i, ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_VAR_NAME);
+                        valuesList.set(i, ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_VAR_NAME);
+                        listener.setValues(valuesList);
                         return true;
                     }
                 }

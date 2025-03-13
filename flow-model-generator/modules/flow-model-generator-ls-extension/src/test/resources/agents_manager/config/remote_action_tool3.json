@@ -3,6 +3,7 @@
   "name": "toolFunc",
   "connection": "gmailClient",
   "description": "Sample diagram node",
+  "toolDescription": "",
   "diagram": {
     "id": "31",
     "metadata": {

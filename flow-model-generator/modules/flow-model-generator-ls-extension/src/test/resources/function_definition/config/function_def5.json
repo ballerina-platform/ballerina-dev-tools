@@ -27,7 +27,7 @@
     "properties": {
       "functionName": {
         "metadata": {
-          "label": "Function Name",
+          "label": "Name",
           "description": "Name of the function"
         },
         "valueType": "IDENTIFIER",
@@ -35,6 +35,7 @@
         "optional": false,
         "editable": false,
         "advanced": false,
+        "hidden": false,
         "codedata": {
           "lineRange": {
             "fileName": "function_def.bal",
@@ -58,7 +59,8 @@
         "value": "string",
         "optional": true,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       },
       "parameters": {
         "metadata": {
@@ -83,7 +85,8 @@
               "value": "",
               "optional": false,
               "editable": true,
-              "advanced": false
+              "advanced": false,
+              "hidden": false
             },
             "variable": {
               "metadata": {
@@ -94,12 +97,14 @@
               "value": "",
               "optional": false,
               "editable": true,
-              "advanced": false
+              "advanced": false,
+              "hidden": false
             }
           },
           "optional": false,
           "editable": false,
-          "advanced": false
+          "advanced": false,
+          "hidden": false
         },
         "value": {
           "required": {
@@ -119,7 +124,8 @@
                 "value": "int",
                 "optional": false,
                 "editable": true,
-                "advanced": false
+                "advanced": false,
+                "hidden": false
               },
               "variable": {
                 "metadata": {
@@ -131,6 +137,7 @@
                 "optional": false,
                 "editable": false,
                 "advanced": false,
+                "hidden": false,
                 "codedata": {
                   "lineRange": {
                     "fileName": "function_def.bal",
@@ -148,7 +155,8 @@
             },
             "optional": false,
             "editable": false,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           },
           "name": {
             "metadata": {
@@ -167,7 +175,8 @@
                 "value": "string",
                 "optional": false,
                 "editable": true,
-                "advanced": false
+                "advanced": false,
+                "hidden": false
               },
               "variable": {
                 "metadata": {
@@ -179,6 +188,7 @@
                 "optional": false,
                 "editable": false,
                 "advanced": false,
+                "hidden": false,
                 "codedata": {
                   "lineRange": {
                     "fileName": "function_def.bal",
@@ -196,7 +206,8 @@
             },
             "optional": false,
             "editable": false,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           },
           "flag": {
             "metadata": {
@@ -215,7 +226,8 @@
                 "value": "boolean",
                 "optional": false,
                 "editable": true,
-                "advanced": false
+                "advanced": false,
+                "hidden": false
               },
               "variable": {
                 "metadata": {
@@ -227,6 +239,7 @@
                 "optional": false,
                 "editable": false,
                 "advanced": false,
+                "hidden": false,
                 "codedata": {
                   "lineRange": {
                     "fileName": "function_def.bal",
@@ -244,7 +257,8 @@
             },
             "optional": false,
             "editable": false,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           },
           "rest": {
             "metadata": {
@@ -263,7 +277,8 @@
                 "value": "int...",
                 "optional": false,
                 "editable": true,
-                "advanced": false
+                "advanced": false,
+                "hidden": false
               },
               "variable": {
                 "metadata": {
@@ -275,6 +290,7 @@
                 "optional": false,
                 "editable": false,
                 "advanced": false,
+                "hidden": false,
                 "codedata": {
                   "lineRange": {
                     "fileName": "function_def.bal",
@@ -292,12 +308,14 @@
             },
             "optional": false,
             "editable": false,
-            "advanced": false
+            "advanced": false,
+            "hidden": false
           }
         },
         "optional": true,
         "editable": false,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       }
     },
     "flags": 0

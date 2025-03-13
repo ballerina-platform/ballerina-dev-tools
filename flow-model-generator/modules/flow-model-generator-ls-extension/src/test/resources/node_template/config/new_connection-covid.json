@@ -30,30 +30,6 @@
     },
     "returning": false,
     "properties": {
-      "serviceUrl": {
-        "metadata": {
-          "label": "serviceUrl",
-          "description": "URL of the target service "
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "string",
-        "placeholder": "\"https://disease.sh\"",
-        "optional": true,
-        "editable": true,
-        "advanced": true,
-        "codedata": {
-          "kind": "DEFAULTABLE",
-          "originalName": "serviceUrl"
-        },
-        "typeMembers": [
-          {
-            "type": "string",
-            "packageInfo": "",
-            "kind": "BASIC_TYPE",
-            "selected": false
-          }
-        ]
-      },
       "config": {
         "metadata": {
           "label": "config",
@@ -65,6 +41,7 @@
         "optional": true,
         "editable": true,
         "advanced": true,
+        "hidden": false,
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "config"
@@ -74,6 +51,31 @@
             "type": "ConnectionConfig",
             "packageInfo": "ballerinax:covid19:1.5.1",
             "kind": "RECORD_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "serviceUrl": {
+        "metadata": {
+          "label": "serviceUrl",
+          "description": "URL of the target service "
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"https://disease.sh\"",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "hidden": false,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "serviceUrl"
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
             "selected": false
           }
         ]
@@ -89,6 +91,7 @@
         "optional": false,
         "editable": false,
         "advanced": false,
+        "hidden": false,
         "codedata": {}
       },
       "variable": {
@@ -100,7 +103,8 @@
         "value": "covid19Client",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       },
       "scope": {
         "metadata": {
@@ -111,7 +115,8 @@
         "value": "Global",
         "optional": false,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "hidden": false
       },
       "checkError": {
         "metadata": {
@@ -122,7 +127,8 @@
         "value": true,
         "optional": false,
         "editable": false,
-        "advanced": true
+        "advanced": true,
+        "hidden": false
       }
     },
     "flags": 0

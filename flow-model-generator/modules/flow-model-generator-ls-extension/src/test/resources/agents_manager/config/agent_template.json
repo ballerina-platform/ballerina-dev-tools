@@ -11,14 +11,14 @@
     "module": "ai.agent",
     "object": "Agent",
     "symbol": "init",
-    "version": "0.7.9"
+    "version": "0.7.13"
   },
   "output": {
     "id": "31",
     "metadata": {
       "label": "Agent",
       "description": "Represents an agent.",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.7.9.png",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.7.13.png",
       "data": {
         "paramsToHide": [
           "model",
@@ -33,15 +33,15 @@
       "module": "ai.agent",
       "object": "Agent",
       "symbol": "init",
-      "version": "0.7.9",
+      "version": "0.7.13",
       "isNew": true
     },
     "returning": false,
     "properties": {
       "systemPrompt": {
         "metadata": {
-          "label": "systemPrompt",
-          "description": "The system prompt assigned to the agent."
+          "label": "System Prompt",
+          "description": "The system prompt assigned to the agent"
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "agent:SystemPrompt",
@@ -49,6 +49,7 @@
         "optional": false,
         "editable": true,
         "advanced": false,
+        "hidden": false,
         "codedata": {
           "kind": "INCLUDED_FIELD",
           "originalName": "systemPrompt"
@@ -56,88 +57,16 @@
         "typeMembers": [
           {
             "type": "agent:SystemPrompt",
-            "packageInfo": "ballerinax:ai.agent:0.7.9",
+            "packageInfo": "ballerinax:ai.agent:0.7.13",
             "kind": "RECORD_TYPE",
-            "selected": false
-          }
-        ]
-      },
-      "agentType": {
-        "metadata": {
-          "label": "agentType",
-          "description": "Type of the agent"
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "agent:AgentType",
-        "placeholder": "\"FUNCTION_CALL_AGENT\"",
-        "optional": true,
-        "editable": true,
-        "advanced": true,
-        "codedata": {
-          "kind": "INCLUDED_FIELD",
-          "originalName": "agentType"
-        },
-        "typeMembers": [
-          {
-            "type": "agent:AgentType",
-            "packageInfo": "ballerinax:ai.agent:0.7.9",
-            "kind": "BASIC_TYPE",
-            "selected": false
-          }
-        ]
-      },
-      "memory": {
-        "metadata": {
-          "label": "memory",
-          "description": "The memory used by the agent to store and manage conversation history."
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "agent:Memory",
-        "placeholder": "object {}",
-        "optional": true,
-        "editable": true,
-        "advanced": true,
-        "codedata": {
-          "kind": "INCLUDED_FIELD",
-          "originalName": "memory"
-        },
-        "typeMembers": [
-          {
-            "type": "agent:Memory",
-            "packageInfo": "ballerinax:ai.agent:0.7.9",
-            "kind": "OBJECT_TYPE",
-            "selected": false
-          }
-        ]
-      },
-      "maxIter": {
-        "metadata": {
-          "label": "maxIter",
-          "description": "The maximum number of iterations the agent performs to complete the task."
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "int",
-        "placeholder": "0",
-        "optional": true,
-        "editable": true,
-        "advanced": true,
-        "codedata": {
-          "kind": "INCLUDED_FIELD",
-          "originalName": "maxIter"
-        },
-        "typeMembers": [
-          {
-            "type": "int",
-            "packageInfo": "",
-            "kind": "BASIC_TYPE",
             "selected": false
           }
         ]
       },
       "model": {
         "metadata": {
-          "label": "model",
-          "description": "The model used by the agent."
+          "label": "Model",
+          "description": "The model used by the agent"
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "agent:Model",
@@ -145,6 +74,7 @@
         "optional": false,
         "editable": true,
         "advanced": false,
+        "hidden": false,
         "codedata": {
           "kind": "INCLUDED_FIELD",
           "originalName": "model"
@@ -152,7 +82,7 @@
         "typeMembers": [
           {
             "type": "agent:Model",
-            "packageInfo": "ballerinax:ai.agent:0.7.9",
+            "packageInfo": "ballerinax:ai.agent:0.7.13",
             "kind": "OBJECT_TYPE",
             "selected": false
           }
@@ -160,8 +90,8 @@
       },
       "tools": {
         "metadata": {
-          "label": "tools",
-          "description": "The tools available for the agent."
+          "label": "Tools",
+          "description": "The tools available for the agent"
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "(agent:BaseToolKit|agent:ToolConfig|agent:FunctionTool)[]",
@@ -169,6 +99,7 @@
         "optional": true,
         "editable": true,
         "advanced": true,
+        "hidden": false,
         "codedata": {
           "kind": "INCLUDED_FIELD",
           "originalName": "tools"
@@ -182,10 +113,60 @@
           }
         ]
       },
+      "agentType": {
+        "metadata": {
+          "label": "Agent Type",
+          "description": "Type of the agent"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "agent:AgentType",
+        "placeholder": "\"FUNCTION_CALL_AGENT\"",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "hidden": false,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "agentType"
+        },
+        "typeMembers": [
+          {
+            "type": "agent:AgentType",
+            "packageInfo": "ballerinax:ai.agent:0.7.13",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "maxIter": {
+        "metadata": {
+          "label": "Maximum Iterations",
+          "description": "The maximum number of iterations the agent performs to complete the task"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "int",
+        "placeholder": "0",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "hidden": false,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "maxIter"
+        },
+        "typeMembers": [
+          {
+            "type": "int",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
       "verbose": {
         "metadata": {
-          "label": "verbose",
-          "description": "Specifies whether verbose logging is enabled."
+          "label": "Verbose",
+          "description": "Specifies whether verbose logging is enabled"
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "boolean",
@@ -193,6 +174,7 @@
         "optional": true,
         "editable": true,
         "advanced": true,
+        "hidden": false,
         "codedata": {
           "kind": "INCLUDED_FIELD",
           "originalName": "verbose"
@@ -202,6 +184,31 @@
             "type": "boolean",
             "packageInfo": "",
             "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "memoryManager": {
+        "metadata": {
+          "label": "Memory Manager",
+          "description": "The memory manager used by the agent to store and manage conversation history"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "agent:MemoryManager",
+        "placeholder": "object {}",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "hidden": false,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "memoryManager"
+        },
+        "typeMembers": [
+          {
+            "type": "agent:MemoryManager",
+            "packageInfo": "ballerinax:ai.agent:0.7.13",
+            "kind": "OBJECT_TYPE",
             "selected": false
           }
         ]
@@ -217,6 +224,7 @@
         "optional": false,
         "editable": false,
         "advanced": false,
+        "hidden": false,
         "codedata": {}
       },
       "variable": {
@@ -228,7 +236,8 @@
         "value": "agent",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       },
       "checkError": {
         "metadata": {
@@ -239,7 +248,8 @@
         "value": true,
         "optional": false,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "hidden": false
       }
     },
     "flags": 0

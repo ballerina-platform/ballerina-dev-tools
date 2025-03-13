@@ -10,7 +10,10 @@
       "metadata": {
         "label": "gRPC StreamingClient",
         "description": "The base client used in the generated client code to provide the gRPC streaming client actions for\ninteracting  with the gRPC server.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.13.2.png"
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.13.2.png",
+        "data": {
+          "isAgentSupport": false
+        }
       },
       "codedata": {
         "node": "NEW_CONNECTION",
@@ -26,7 +29,10 @@
       "metadata": {
         "label": "gRPC Client",
         "description": "The base client used in the generated client code to provide the capability for initiating the contact and executing remote calls with a remote gRPC service.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.13.2.png"
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.13.2.png",
+        "data": {
+          "isAgentSupport": false
+        }
       },
       "codedata": {
         "node": "NEW_CONNECTION",
@@ -42,7 +48,10 @@
       "metadata": {
         "label": "gRPC Caller",
         "description": "The base client used in the generated client code to provide remote functions for interacting with the caller.\n",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.13.2.png"
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.13.2.png",
+        "data": {
+          "isAgentSupport": false
+        }
       },
       "codedata": {
         "node": "NEW_CONNECTION",

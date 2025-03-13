@@ -154,6 +154,7 @@
                             "optional": false,
                             "editable": false,
                             "advanced": false,
+                            "hidden": false,
                             "codedata": {
                               "lineRange": {
                                 "fileName": "transaction.bal",
@@ -179,6 +180,7 @@
                             "optional": false,
                             "editable": true,
                             "advanced": false,
+                            "hidden": false,
                             "codedata": {}
                           }
                         },
@@ -222,6 +224,7 @@
                     "optional": false,
                     "editable": false,
                     "advanced": false,
+                    "hidden": false,
                     "codedata": {
                       "lineRange": {
                         "fileName": "transaction.bal",
@@ -247,6 +250,7 @@
                     "optional": false,
                     "editable": true,
                     "advanced": false,
+                    "hidden": false,
                     "codedata": {}
                   }
                 },
@@ -283,7 +287,8 @@
                 "value": "false",
                 "optional": false,
                 "editable": true,
-                "advanced": false
+                "advanced": false,
+                "hidden": false
               },
               "errorVariable": {
                 "metadata": {
@@ -295,7 +300,8 @@
                 "placeholder": "err",
                 "optional": false,
                 "editable": true,
-                "advanced": false
+                "advanced": false,
+                "hidden": false
               },
               "errorType": {
                 "metadata": {
@@ -307,7 +313,8 @@
                 "placeholder": "error",
                 "optional": false,
                 "editable": true,
-                "advanced": false
+                "advanced": false,
+                "hidden": false
               }
             },
             "children": [
@@ -343,7 +350,8 @@
                     "value": "e",
                     "optional": false,
                     "editable": true,
-                    "advanced": false
+                    "advanced": false,
+                    "hidden": false
                   }
                 },
                 "flags": 0
