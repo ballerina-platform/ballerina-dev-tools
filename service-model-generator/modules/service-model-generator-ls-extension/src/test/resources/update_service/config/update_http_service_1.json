@@ -128,7 +128,7 @@
             "character": 1
           }
         },
-        "newText": "@http:ServiceConfig{\n    host: \"b7a.localhost\"\n}\n"
+        "newText": "@http:ServiceConfig{\n    host: \"b7a.localhost\"\n}"
       },
       {
         "range": {
