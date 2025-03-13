@@ -101,6 +101,7 @@ public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
                         .kind(REQUIRED.name())
                         .stepOut()
                     .placeholder("")
+                    .value("``")
                     .typeConstraint(PROMPT_TYPE)
                     .typeConstraint(Constants.NaturalFunctions.MODULE_PREFIXED_PROMPT_TYPE)
                     .editable()
