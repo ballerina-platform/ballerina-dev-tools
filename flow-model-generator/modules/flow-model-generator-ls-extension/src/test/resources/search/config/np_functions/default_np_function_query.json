@@ -1,0 +1,77 @@
+{
+  "description": "Sample flow model",
+  "kind": "NP_FUNCTION",
+  "source": "proj/main.bal",
+  "position": {
+    "startLine": {
+      "line": 1,
+      "offset": 1
+    },
+    "endLine": {
+      "line": 1,
+      "offset": 1
+    }
+  },
+  "queryMap": {
+    "q": ""
+  },
+  "categories": [
+    {
+      "metadata": {
+        "label": "Current Integration",
+        "description": "Functions defined within the current integration",
+        "keywords": [
+          "Project",
+          "Local",
+          "Function"
+        ]
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "suggestMovieGenre",
+            "icon": "https://gist.github.com/user-attachments/assets/903c5c16-7d67-4af8-8113-ce7c59ccdaab"
+          },
+          "codedata": {
+            "node": "NP_FUNCTION_CALL",
+            "symbol": "suggestMovieGenre"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "suggestMovieName1",
+            "icon": "https://gist.github.com/user-attachments/assets/903c5c16-7d67-4af8-8113-ce7c59ccdaab"
+          },
+          "codedata": {
+            "node": "NP_FUNCTION_CALL",
+            "symbol": "suggestMovieName1"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "suggestMovieName2",
+            "icon": "https://gist.github.com/user-attachments/assets/903c5c16-7d67-4af8-8113-ce7c59ccdaab"
+          },
+          "codedata": {
+            "node": "NP_FUNCTION_CALL",
+            "symbol": "suggestMovieName2"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "rateMovie",
+            "icon": "https://gist.github.com/user-attachments/assets/903c5c16-7d67-4af8-8113-ce7c59ccdaab"
+          },
+          "codedata": {
+            "node": "NP_FUNCTION_CALL",
+            "symbol": "rateMovie"
+          },
+          "enabled": true
+        }
+      ]
+    }
+  ]
+}

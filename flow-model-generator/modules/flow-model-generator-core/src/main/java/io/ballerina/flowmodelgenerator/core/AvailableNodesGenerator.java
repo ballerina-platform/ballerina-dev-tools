@@ -41,6 +41,7 @@ import io.ballerina.flowmodelgenerator.core.model.Item;
 import io.ballerina.flowmodelgenerator.core.model.Metadata;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
+import io.ballerina.flowmodelgenerator.core.model.node.NPFunctionCall;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.FunctionData;
 import io.ballerina.modelgenerator.commons.FunctionDataBuilder;
@@ -157,11 +158,24 @@ public class AvailableNodesGenerator {
                 true
         );
 
+        AvailableNode npFunction = new AvailableNode(
+                new Metadata.Builder<>(null)
+                        .label(NPFunctionCall.LABEL)
+                        .description(NPFunctionCall.DESCRIPTION)
+                        .icon(Constants.NaturalFunctions.ICON)
+                        .build(),
+                new Codedata.Builder<>(null)
+                        .node(NodeKind.NP_FUNCTION)
+                        .build(),
+                true
+        );
+
         this.rootBuilder.stepIn(Category.Name.STATEMENT)
                 .node(NodeKind.VARIABLE)
                 .node(NodeKind.ASSIGN)
                 .node(function)
-                .node(NodeKind.DATA_MAPPER_CALL);
+                .node(NodeKind.DATA_MAPPER_CALL)
+                .node(npFunction);
 
         this.rootBuilder.stepIn(Category.Name.CONTROL)
                 .node(NodeKind.IF)

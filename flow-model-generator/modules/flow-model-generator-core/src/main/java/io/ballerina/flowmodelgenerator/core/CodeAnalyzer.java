@@ -125,6 +125,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.FunctionCall;
 import io.ballerina.flowmodelgenerator.core.model.node.IfBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.JsonPayloadBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.MethodCall;
+import io.ballerina.flowmodelgenerator.core.model.node.NPFunctionCall;
 import io.ballerina.flowmodelgenerator.core.model.node.NewConnectionBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.PanicBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.RemoteActionCallBuilder;
@@ -177,9 +178,6 @@ class CodeAnalyzer extends NodeVisitor {
     private final DiagnosticHandler diagnosticHandler;
     private final boolean forceAssign;
     private final String connectionScope;
-
-    private static final String LLM_CALL = "LlmCall";
-    private static final String CALL_LLM = "callLlm";
 
     // State fields
     private NodeBuilder nodeBuilder;
@@ -1444,6 +1442,10 @@ class CodeAnalyzer extends NodeVisitor {
         Map<String, ParameterData> funcParamMap = new LinkedHashMap<>();
         FunctionTypeSymbol functionTypeSymbol = functionSymbol.typeDescriptor();
         functionData.parameters().forEach((key, paramResult) -> {
+            if (NPFunctionCall.isPromptParam(paramResult) && CommonUtils.isNpFunction(functionSymbol)) {
+                // Skip if `prompt` param of a np function
+                return;
+            }
             if (paramResult.kind() != ParameterData.Kind.PARAM_FOR_TYPE_INFER) {
                 funcParamMap.put(key, paramResult);
                 return;

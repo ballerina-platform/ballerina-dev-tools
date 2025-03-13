@@ -24,6 +24,7 @@ import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.ModuleSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
+import io.ballerina.flowmodelgenerator.core.Constants;
 import io.ballerina.flowmodelgenerator.core.model.AvailableNode;
 import io.ballerina.flowmodelgenerator.core.model.Category;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
@@ -38,6 +39,7 @@ import io.ballerina.tools.text.LineRange;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
@@ -48,9 +50,6 @@ import java.util.Optional;
  * @since 2.0.0
  */
 class NPFunctionSearchCommand extends SearchCommand {
-
-    private static final String NP_FUNCTION_ICON =
-            "https://gist.github.com/user-attachments/assets/903c5c16-7d67-4af8-8113-ce7c59ccdaab";
 
     public NPFunctionSearchCommand(Project project, LineRange position, Map<String, String> queryMap) {
         super(project, position, queryMap);
@@ -88,9 +87,15 @@ class NPFunctionSearchCommand extends SearchCommand {
                 continue;
             }
 
+            if (symbol.getName().isEmpty() ||
+                    (!query.isEmpty() && !symbol.getName().get().toLowerCase(Locale.ROOT)
+                            .contains(query.toLowerCase(Locale.ROOT)))) {
+                continue;
+            }
+
             Metadata metadata = new Metadata.Builder<>(null)
                     .label(symbol.getName().get())
-                    .icon(NP_FUNCTION_ICON)
+                    .icon(Constants.NaturalFunctions.ICON)
                     .description(functionSymbol.documentation()
                             .flatMap(Documentation::description)
                             .orElse(null))

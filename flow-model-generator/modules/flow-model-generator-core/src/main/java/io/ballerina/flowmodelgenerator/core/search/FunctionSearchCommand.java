@@ -139,6 +139,10 @@ class FunctionSearchCommand extends SearchCommand {
         List<Item> availableTools = new ArrayList<>();
         for (Symbol symbol : functionSymbols) {
             FunctionSymbol functionSymbol = (FunctionSymbol) symbol;
+            if (CommonUtils.isNpFunction(functionSymbol)) {
+                // Skip NP functions
+                continue;
+            }
             boolean isDataMappedFunction = false;
             Optional<Location> location = symbol.getLocation();
             if (location.isPresent()) {

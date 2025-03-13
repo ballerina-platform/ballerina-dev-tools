@@ -1022,6 +1022,26 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
                 Property.PARAMETER_DOC);
     }
 
+    // For advanced parameter use-cases
+    public FormBuilder<T> parameter(String label, String description, Property.ValueType valueType, Object value,
+                                    String propertyKey, boolean editable, boolean advanced) {
+        nestedProperty();
+        propertyBuilder
+                .metadata()
+                    .label(label)
+                    .description(description)
+                    .stepOut()
+                .type(valueType)
+                .value(value)
+                .editable(editable)
+                .advanced(advanced)
+                .editable();
+        addProperty(propertyKey);
+
+        return endNestedProperty(Property.ValueType.FIXED_PROPERTY, propertyKey, Property.PARAMETER_LABEL,
+                Property.PARAMETER_DOC);
+    }
+
     public FormBuilder<T> nestedProperty() {
         Map<String, Property> newProperties = new LinkedHashMap<>();
         nodePropertiesStack.push(nodeProperties);

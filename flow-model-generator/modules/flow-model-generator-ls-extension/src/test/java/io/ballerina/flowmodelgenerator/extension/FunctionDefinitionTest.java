@@ -61,9 +61,19 @@ public class FunctionDefinitionTest extends AbstractLSTest {
     }
 
     @Override
+    protected String[] skipList() {
+        // TODO: Re-enable once the ballerinax/np module is available
+        return new String[] {
+                "np_function_def1.json",
+                "np_function_def2.json",
+        };
+    }
+
+    @Override
     protected String getResourceDir() {
         return "function_definition";
     }
+
 
     @Override
     protected Class<? extends AbstractLSTest> clazz() {
