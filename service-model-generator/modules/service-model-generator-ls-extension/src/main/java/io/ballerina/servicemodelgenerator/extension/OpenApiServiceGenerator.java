@@ -52,6 +52,7 @@ import io.ballerina.projects.ModuleId;
 import io.ballerina.projects.ModuleName;
 import io.ballerina.projects.Package;
 import io.ballerina.projects.Project;
+import io.ballerina.servicemodelgenerator.extension.model.Service;
 import io.ballerina.servicemodelgenerator.extension.util.ListenerUtil;
 import io.ballerina.servicemodelgenerator.extension.util.Utils;
 import io.ballerina.tools.diagnostics.Diagnostic;
@@ -79,6 +80,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static io.ballerina.openapi.core.generators.common.GeneratorConstants.DEFAULT_FILE_HEADER;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.getAnnotationEdits;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.importExists;
 
 /**
@@ -112,10 +114,14 @@ public class OpenApiServiceGenerator {
         this.workspaceManager = workspaceManager;
     }
 
-    public Map<String, List<TextEdit>> generateService(String typeName, String listeners,
-                                                       boolean isDefaultListenerCreationRequired) throws IOException,
+    public Map<String, List<TextEdit>> generateService(Service service, boolean isDefaultListenerCreationRequired)
+            throws IOException,
             BallerinaOpenApiException, FormatterException, WorkspaceDocumentException, EventSyncException {
         Filter filter = new Filter(new ArrayList<>(), new ArrayList<>());
+
+        String typeName = service.getServiceContractTypeName();
+        String listeners = service.getListener().getValue();
+
 
         List<Diagnostic> diagnostics = new ArrayList<>();
         GenSrcFile serviceTypeFile = generateServiceType(openAPIContractPath, typeName, filter, diagnostics);
@@ -162,10 +168,20 @@ public class OpenApiServiceGenerator {
                 textEdits.add(new TextEdit(Utils.toRange(listenerDeclaringLoc), listenerDeclarationStmt));
             }
 
+            StringBuilder serviceBuilder = new StringBuilder();
+
+            List<String> annotations = getAnnotationEdits(service);
+
+            if (!annotations.isEmpty()) {
+                serviceBuilder.append(String.join(System.lineSeparator(), annotations));
+                serviceBuilder.append(System.lineSeparator());
+            }
+
             String serviceImplContent = genServiceImplementation(serviceTypeFile, typeName, listeners, project,
                     mainFile);
-            textEdits.add(new TextEdit(Utils.toRange(modulePartNode.lineRange().endLine()), serviceImplContent));
+            serviceBuilder.append(serviceImplContent);
 
+            textEdits.add(new TextEdit(Utils.toRange(modulePartNode.lineRange().endLine()), serviceBuilder.toString()));
             textEditsMap.put(mainFile.toAbsolutePath().toString(), textEdits);
         }
         textEditsMap.put(projectPath.resolve(serviceTypeFile.getFileName()).toAbsolutePath().toString(),

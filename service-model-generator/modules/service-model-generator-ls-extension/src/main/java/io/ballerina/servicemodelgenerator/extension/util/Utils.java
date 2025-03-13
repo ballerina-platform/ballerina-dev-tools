@@ -811,7 +811,7 @@ public final class Utils {
                 "    }";
     }
 
-    private static List<String> getAnnotationEdits(Service service) {
+    public static List<String> getAnnotationEdits(Service service) {
         Map<String, Value> properties = service.getProperties();
         List<String> annots = new ArrayList<>();
         for (Map.Entry<String, Value> property : properties.entrySet()) {
