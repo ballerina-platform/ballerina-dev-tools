@@ -103,7 +103,7 @@ public class AutomationBuilder extends FunctionDefinitionBuilder {
     public static void setOptionalProperties(NodeBuilder nodeBuilder, boolean returnError) {
         nodeBuilder.properties()
                 .endNestedProperty(Property.ValueType.REPEATABLE_PROPERTY, Property.PARAMETERS_KEY, PARAMETERS_LABEL,
-                        PARAMETERS_DOC, getParameterSchema(), true, false);
+                        PARAMETERS_DOC, getParameterSchema(), true, true);
         nodeBuilder.properties().custom()
                 .metadata()
                     .label(RETURN_ERROR_LABEL)

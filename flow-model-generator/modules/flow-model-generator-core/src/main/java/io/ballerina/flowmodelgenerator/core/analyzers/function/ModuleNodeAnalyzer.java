@@ -123,10 +123,10 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
         }
         // TODO: Check how we can do this using FunctionDefinitionBuilder as the super class
         switch (nodeKind) {
-            case FUNCTION_DEFINITION -> FunctionDefinitionBuilder.setMandatoryProperties(nodeBuilder, returnType);
             case DATA_MAPPER_DEFINITION -> DataMapperDefinitionBuilder.setMandatoryProperties(nodeBuilder, returnType);
             case AUTOMATION -> AutomationBuilder.sendMandatoryProperties(nodeBuilder);
             case NP_FUNCTION_DEFINITION -> NPFunctionDefinitionBuilder.setMandatoryProperties(nodeBuilder, returnType);
+            default -> FunctionDefinitionBuilder.setMandatoryProperties(nodeBuilder, returnType);
         }
 
         // Set the function parameters
@@ -162,21 +162,22 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
             switch (nodeKind) {
                 case AUTOMATION -> AutomationBuilder.setProperty(nodeBuilder.properties(), paramType,
                         paramNameText, paramToken);
-                case DATA_MAPPER_DEFINITION -> DataMapperDefinitionBuilder.setProperty(nodeBuilder.properties(), paramType,
-                        paramNameText, paramToken);
+                case DATA_MAPPER_DEFINITION ->
+                        DataMapperDefinitionBuilder.setProperty(nodeBuilder.properties(), paramType,
+                                paramNameText, paramToken);
                 default -> FunctionDefinitionBuilder.setProperty(nodeBuilder.properties(), paramType,
                         paramNameText, paramToken);
             }
         }
 
         switch (nodeKind) {
-            case FUNCTION_DEFINITION -> FunctionDefinitionBuilder.setOptionalProperties(nodeBuilder);
             case DATA_MAPPER_DEFINITION -> DataMapperDefinitionBuilder.setOptionalProperties(nodeBuilder);
             case AUTOMATION -> AutomationBuilder.setOptionalProperties(nodeBuilder, !returnType.isEmpty());
             case NP_FUNCTION_DEFINITION -> {
                 NPFunctionDefinitionBuilder.endOptionalProperties(nodeBuilder);
                 processNpFunctionDefinitionProperties(functionDefinitionNode, nodeBuilder);
             }
+            default -> FunctionDefinitionBuilder.setOptionalProperties(nodeBuilder);
         }
 
         // Build the definition node

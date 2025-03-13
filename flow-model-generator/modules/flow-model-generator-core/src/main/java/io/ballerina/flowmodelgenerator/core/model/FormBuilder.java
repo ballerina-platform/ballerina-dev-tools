@@ -47,7 +47,6 @@ import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.ModuleInfo;
 import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.langserver.common.utils.NameUtil;
-import org.ballerinalang.model.types.TypeKind;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
