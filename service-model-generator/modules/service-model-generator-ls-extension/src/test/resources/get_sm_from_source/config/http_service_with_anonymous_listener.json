@@ -27,7 +27,7 @@
       "listener": {
         "metadata": {
           "label": "Listeners",
-          "description": "The Listeners to be bound with the service"
+          "description": ""
         },
         "enabled": true,
         "editable": false,
@@ -54,7 +54,7 @@
       "annotServiceConfig": {
         "metadata": {
           "label": "Service Configuration",
-          "description": "Configurations for the Http service"
+          "description": "Define advanced configurations like service level security, etc."
         },
         "enabled": true,
         "editable": true,
@@ -85,7 +85,7 @@
       "basePath": {
         "metadata": {
           "label": "Service Base Path",
-          "description": "The base path for the service"
+          "description": ""
         },
         "enabled": true,
         "editable": true,

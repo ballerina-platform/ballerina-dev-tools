@@ -81,7 +81,7 @@
       "basePath": {
         "metadata": {
           "label": "Service Base Path",
-          "description": "The base path of the service"
+          "description": ""
         },
         "enabled": true,
         "editable": true,
