@@ -112,8 +112,7 @@ public class TypeSymbolAnalyzerFromTypeModel {
                     } else if (matchingType instanceof UnionType ut) {
                         updateUnionTypeConfig(ut, mapping);
                     }
-                }
-                else {
+                } else {
                     matchingType.value = expr.toSourceCode();
                     matchingType.selected = true;
                 }
