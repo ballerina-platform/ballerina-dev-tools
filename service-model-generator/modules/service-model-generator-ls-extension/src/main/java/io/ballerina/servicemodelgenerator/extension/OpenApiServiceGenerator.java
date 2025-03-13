@@ -139,7 +139,8 @@ public class OpenApiServiceGenerator {
         Map<String, List<TextEdit>> textEditsMap = new LinkedHashMap<>();
         Project project = this.workspaceManager.loadProject(mainFile);
         Optional<Document> document = this.workspaceManager.document(mainFile);
-        if (document.isPresent()) {
+        Optional<SemanticModel> semanticModel = this.workspaceManager.semanticModel(mainFile);
+        if (document.isPresent() && semanticModel.isPresent()) {
             List<TextEdit> textEdits = new ArrayList<>();
             ModulePartNode modulePartNode = document.get().syntaxTree().rootNode();
 
@@ -156,9 +157,8 @@ public class OpenApiServiceGenerator {
                 } else {
                     listenerDeclaringLoc = modulePartNode.lineRange().endLine();
                 }
-                SemanticModel semanticModel = document.get().module().getCompilation().getSemanticModel();
                 String listenerDeclarationStmt = ListenerUtil.getListenerDeclarationStmt(
-                        semanticModel, document.get(), listenerDeclaringLoc);
+                        semanticModel.get(), document.get(), listenerDeclaringLoc);
                 textEdits.add(new TextEdit(Utils.toRange(listenerDeclaringLoc), listenerDeclarationStmt));
             }
 

@@ -20,6 +20,7 @@ package io.ballerina.flowmodelgenerator.core.utils;
 
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.projects.Document;
+import io.ballerina.projects.Package;
 import io.ballerina.projects.Project;
 import io.ballerina.projects.ProjectException;
 import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
@@ -97,7 +98,8 @@ public class FileSystemUtils {
 
         // Obtain the default semantic model if not exists
         Project project = workspaceManager.project(filePath).orElseThrow();
-        return project.currentPackage().getDefaultModule().getCompilation().getSemanticModel();
+        Package currentPackage = project.currentPackage();
+        return currentPackage.getCompilation().getSemanticModel(currentPackage.getDefaultModule().moduleId());
     }
 
     /**

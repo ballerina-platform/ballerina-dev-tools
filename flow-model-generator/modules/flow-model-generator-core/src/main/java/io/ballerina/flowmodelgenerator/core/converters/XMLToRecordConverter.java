@@ -20,7 +20,6 @@ package io.ballerina.flowmodelgenerator.core.converters;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
@@ -178,13 +177,14 @@ public final class XMLToRecordConverter {
                 .setForceFormattingOptions(forceFormattingOptions).build();
         String typesSrc = Formatter.format(modulePartNode.syntaxTree(), formattingOptions).toSourceCode();
 
-        io.ballerina.projects.Document modifiedDoc =
+        // TODO: Check on how we can use package compilation here
+        io.ballerina.projects.Document newDoc =
                 project.duplicate().currentPackage().module(document.module().moduleId())
                         .document(document.documentId()).modify().withContent(typesSrc).apply();
-        SemanticModel semanticModel = modifiedDoc.module().getCompilation().getSemanticModel();
+        List<Symbol> moduleSymbols = newDoc.module().getCompilation().getSemanticModel().moduleSymbols();
 
         List<TypesManager.TypeDataWithRefs> typeDataList = new ArrayList<>();
-        for (Symbol symbol : semanticModel.moduleSymbols()) {
+        for (Symbol symbol : moduleSymbols) {
             if (symbol.kind() == SymbolKind.TYPE_DEFINITION) {
                 TypeDefinitionSymbol typeDefSymbol = (TypeDefinitionSymbol) symbol;
                 if (typeNames.contains(typeDefSymbol.getName().get())) {

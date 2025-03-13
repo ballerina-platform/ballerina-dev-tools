@@ -22,14 +22,13 @@ import io.ballerina.designmodelgenerator.core.DesignModelGenerator;
 import io.ballerina.designmodelgenerator.core.model.DesignModel;
 import io.ballerina.designmodelgenerator.extension.request.GetDesignModelRequest;
 import io.ballerina.designmodelgenerator.extension.response.GetDesignModelResponse;
-import io.ballerina.projects.BuildOptions;
-import io.ballerina.projects.Package;
 import io.ballerina.projects.Project;
-import io.ballerina.projects.directory.ProjectLoader;
 import org.ballerinalang.annotation.JavaSPIService;
 import org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService;
+import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.jsonrpc.services.JsonRequest;
 import org.eclipse.lsp4j.jsonrpc.services.JsonSegment;
+import org.eclipse.lsp4j.services.LanguageServer;
 
 import java.nio.file.Path;
 import java.util.concurrent.CompletableFuture;
@@ -38,10 +37,12 @@ import java.util.concurrent.CompletableFuture;
 @JsonSegment("designModelService")
 public class DesignModelGeneratorService implements ExtendedLanguageServerService {
 
-    private static final BuildOptions OPTIONS = BuildOptions.builder()
-            .setOffline(true)
-            .setSticky(false)
-            .build();
+    private WorkspaceManager workspaceManager;
+
+    @Override
+    public void init(LanguageServer langServer, WorkspaceManager workspaceManager) {
+        this.workspaceManager = workspaceManager;
+    }
 
     @Override
     public Class<?> getRemoteInterface() {
@@ -55,15 +56,8 @@ public class DesignModelGeneratorService implements ExtendedLanguageServerServic
             try {
                 Path projectPath = Path.of(request.projectPath());
 
-                // TODO: This is a temporary solution until we investigate why the workspace manager does not
-                //  properly perform the package resolution
-                // Ensure resolution and compilation are triggered
-                Project project = ProjectLoader.loadProject(projectPath, OPTIONS);
-                Package currentPackage = project.currentPackage();
-                currentPackage.getResolution();
-                currentPackage.getCompilation();
-
-                DesignModelGenerator designModelGenerator = new DesignModelGenerator(currentPackage);
+                Project project = workspaceManager.loadProject(projectPath);
+                DesignModelGenerator designModelGenerator = new DesignModelGenerator(project.currentPackage());
                 DesignModel designModel = designModelGenerator.generate();
                 response.setDesignModel(designModel);
             } catch (Throwable e) {

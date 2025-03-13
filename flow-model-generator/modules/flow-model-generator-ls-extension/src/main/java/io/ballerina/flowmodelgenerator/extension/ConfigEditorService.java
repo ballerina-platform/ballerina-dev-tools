@@ -18,6 +18,7 @@
 
 package io.ballerina.flowmodelgenerator.extension;
 
+import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.flowmodelgenerator.core.ConfigVariablesManager;
 import io.ballerina.flowmodelgenerator.extension.request.ConfigVariablesGetRequest;
 import io.ballerina.flowmodelgenerator.extension.request.ConfigVariablesUpdateRequest;
@@ -37,7 +38,9 @@ import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
@@ -66,18 +69,19 @@ public class ConfigEditorService implements ExtendedLanguageServerService {
                 List<Path> filePaths = new ArrayList<>();
                 Files.walkFileTree(projectFolder, new FileReader(filePaths));
 
-                List<Document> documents = new ArrayList<>();
+                Map<Document, SemanticModel> documentSemanticModelMap = new HashMap<>();
                 for (Path filePath : filePaths) {
                     this.workspaceManager.loadProject(filePath);
                     Optional<Document> document = this.workspaceManager.document(filePath);
-                    if (document.isEmpty()) {
+                    Optional<SemanticModel> semanticModel = this.workspaceManager.semanticModel(filePath);
+                    if (document.isEmpty() || semanticModel.isEmpty()) {
                         return response;
                     }
-                    documents.add(document.get());
+                    documentSemanticModelMap.put(document.get(), semanticModel.get());
                 }
 
                 ConfigVariablesManager configVariablesManager = new ConfigVariablesManager();
-                response.setConfigVariables(configVariablesManager.get(documents));
+                response.setConfigVariables(configVariablesManager.get(documentSemanticModelMap));
             } catch (Throwable e) {
                 response.setError(e);
             }
@@ -109,11 +113,13 @@ public class ConfigEditorService implements ExtendedLanguageServerService {
     }
 
     private static class FileReader extends SimpleFileVisitor<Path> {
+
         List<Path> filePaths;
 
         public FileReader(List<Path> filePaths) {
             this.filePaths = filePaths;
         }
+
         @Override
         public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
             if (file.toString().endsWith(".bal")) {

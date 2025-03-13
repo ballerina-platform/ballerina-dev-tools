@@ -32,6 +32,7 @@ import io.ballerina.flowmodelgenerator.core.model.Metadata;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.SearchResult;
+import io.ballerina.projects.Package;
 import io.ballerina.projects.Project;
 import io.ballerina.tools.text.LineRange;
 
@@ -73,8 +74,10 @@ class NPFunctionSearchCommand extends SearchCommand {
     }
 
     private void buildProjectNodes() {
-        List<Symbol> functionSymbols = project.currentPackage().getDefaultModule().getCompilation().
-                getSemanticModel().moduleSymbols().stream()
+        Package currentPackage = project.currentPackage();
+        List<Symbol> functionSymbols = currentPackage.getCompilation()
+                .getSemanticModel(currentPackage.getDefaultModule().moduleId())
+                .moduleSymbols().stream()
                 .filter(symbol -> symbol.kind().equals(SymbolKind.FUNCTION)).toList();
         Category.Builder projectBuilder = rootBuilder.stepIn(Category.Name.CURRENT_INTEGRATION);
 
