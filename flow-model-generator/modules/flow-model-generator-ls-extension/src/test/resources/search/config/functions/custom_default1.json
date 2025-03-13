@@ -1,14 +1,14 @@
 {
   "description": "Sample flow model",
   "kind": "FUNCTION",
-  "source": "proj/main.bal",
+  "source": "proj/fn.bal",
   "position": {
     "startLine": {
-      "line": 2,
+      "line": 15,
       "offset": 0
     },
     "endLine": {
-      "line": 4,
+      "line": 21,
       "offset": 1
     }
   },
@@ -53,20 +53,6 @@
           "codedata": {
             "node": "FUNCTION_CALL",
             "symbol": "add"
-          },
-          "enabled": true
-        },
-        {
-          "metadata": {
-            "label": "sum",
-            "data": {
-              "isAgentTool": false,
-              "isDataMappedFunction": false
-            }
-          },
-          "codedata": {
-            "node": "FUNCTION_CALL",
-            "symbol": "sum"
           },
           "enabled": true
         },

@@ -126,7 +126,7 @@ class FunctionSearchCommand extends SearchCommand {
     private void buildProjectNodes() {
         List<Symbol> functionSymbols = project.currentPackage().getDefaultModule().getCompilation().
                 getSemanticModel().moduleSymbols().stream()
-                .filter(symbol -> symbol.kind().equals(SymbolKind.FUNCTION)).toList();
+                .filter(symbol -> symbol.kind().equals(SymbolKind.FUNCTION) && !symbol.nameEquals("main")).toList();
         Category.Builder projectBuilder = rootBuilder.stepIn(Category.Name.CURRENT_INTEGRATION);
         Category.Builder agentToolsBuilder = rootBuilder.stepIn(Category.Name.AGENT_TOOLS);
 
@@ -139,7 +139,8 @@ class FunctionSearchCommand extends SearchCommand {
             if (location.isPresent()) {
                 isDataMappedFunction = location.get().lineRange().fileName().equals(DATA_MAPPER_FILE_NAME);
                 LineRange fnLineRange = location.get().lineRange();
-                if (PositionUtil.isWithinLineRange(fnLineRange, position)) {
+                if (fnLineRange.fileName().equals(position.fileName()) &&
+                        PositionUtil.isWithinLineRange(fnLineRange, position)) {
                     continue;
                 }
             }

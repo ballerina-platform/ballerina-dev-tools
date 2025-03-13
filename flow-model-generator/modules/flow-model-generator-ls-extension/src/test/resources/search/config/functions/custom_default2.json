@@ -4,11 +4,11 @@
   "source": "proj/main.bal",
   "position": {
     "startLine": {
-      "line": 2,
+      "line": 15,
       "offset": 0
     },
     "endLine": {
-      "line": 4,
+      "line": 21,
       "offset": 1
     }
   },
@@ -111,20 +111,6 @@
           "codedata": {
             "node": "FUNCTION_CALL",
             "symbol": "greet"
-          },
-          "enabled": true
-        },
-        {
-          "metadata": {
-            "label": "sum2",
-            "data": {
-              "isAgentTool": false,
-              "isDataMappedFunction": false
-            }
-          },
-          "codedata": {
-            "node": "FUNCTION_CALL",
-            "symbol": "sum2"
           },
           "enabled": true
         }
