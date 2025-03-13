@@ -77,8 +77,8 @@
           "value": {
             "type": {
               "metadata": {
-                "label": "Variable Type",
-                "description": "Type of the variable"
+                "label": "Type",
+                "description": "Type of the parameter"
               },
               "valueType": "TYPE",
               "value": "",
@@ -89,8 +89,8 @@
             },
             "variable": {
               "metadata": {
-                "label": "Variable Name",
-                "description": "Name of the variable"
+                "label": "Name",
+                "description": "Name of the parameter"
               },
               "valueType": "IDENTIFIER",
               "value": "",
@@ -115,8 +115,8 @@
             "value": {
               "type": {
                 "metadata": {
-                  "label": "Variable Type",
-                  "description": "Type of the variable"
+                  "label": "Type",
+                  "description": "Type of the parameter"
                 },
                 "valueType": "TYPE",
                 "value": "record {|string name; int age;|}",
@@ -127,8 +127,8 @@
               },
               "variable": {
                 "metadata": {
-                  "label": "Variable Name",
-                  "description": "Name of the variable"
+                  "label": "Name",
+                  "description": "Name of the parameter"
                 },
                 "valueType": "IDENTIFIER",
                 "value": "user",

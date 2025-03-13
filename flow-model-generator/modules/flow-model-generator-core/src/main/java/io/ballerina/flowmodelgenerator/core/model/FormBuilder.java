@@ -990,8 +990,8 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
         // Build the parameter type property
         propertyBuilder
                 .metadata()
-                    .label(Property.TYPE_LABEL)
-                    .description(Property.TYPE_DOC)
+                    .label(Property.IMPLICIT_TYPE_LABEL)
+                    .description(Property.PARAMETER_TYPE_DOC)
                     .stepOut()
                 .type(valueType)
                 .typeConstraint(typeConstraint)
@@ -1002,8 +1002,8 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
         // Build the parameter name property
         propertyBuilder
                 .metadata()
-                    .label(Property.VARIABLE_NAME)
-                    .description(Property.VARIABLE_DOC)
+                    .label(Property.IMPLICIT_VARIABLE_LABEL)
+                    .description(Property.PARAMETER_VARIABLE_DOC)
                     .stepOut()
                 .type(Property.ValueType.IDENTIFIER)
                 .editable()
