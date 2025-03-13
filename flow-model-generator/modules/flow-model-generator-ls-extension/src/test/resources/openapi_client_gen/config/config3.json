@@ -35,6 +35,32 @@
     },
     "returning": false,
     "properties": {
+      "config": {
+        "metadata": {
+          "label": "config",
+          "description": "The configurations to be used when initializing the `connector` "
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "mod2:ConnectionConfig",
+        "placeholder": "{}",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "hidden": false,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "config",
+          "importStatements": "oas/client2.client2.mod2"
+        },
+        "typeMembers": [
+          {
+            "type": "ConnectionConfig",
+            "packageInfo": "oas:client2.mod2:0.1.0",
+            "kind": "RECORD_TYPE",
+            "selected": false
+          }
+        ]
+      },
       "serviceUrl": {
         "metadata": {
           "label": "serviceUrl",
@@ -56,32 +82,6 @@
             "type": "string",
             "packageInfo": "",
             "kind": "BASIC_TYPE",
-            "selected": false
-          }
-        ]
-      },
-      "config": {
-        "metadata": {
-          "label": "config",
-          "description": "The configurations to be used when initializing the `connector` "
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "mod2:ConnectionConfig",
-        "placeholder": "{}",
-        "optional": true,
-        "editable": true,
-        "advanced": true,
-        "hidden": false,
-        "codedata": {
-          "kind": "DEFAULTABLE",
-          "originalName": "config",
-          "importStatements": "oas/client2.client2.mod2"
-        },
-        "typeMembers": [
-          {
-            "type": "mod2:ConnectionConfig",
-            "packageInfo": "oas:client2.mod2:0.1.0",
-            "kind": "RECORD_TYPE",
             "selected": false
           }
         ]
