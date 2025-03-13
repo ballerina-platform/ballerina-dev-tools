@@ -159,31 +159,6 @@
             "editable": false,
             "advanced": false,
             "hidden": false
-          },
-          "enableModelContext": {
-            "metadata": {
-              "label": "Parameter",
-              "description": "Function parameter"
-            },
-            "valueType": "FIXED_PROPERTY",
-            "value": {
-              "enableModelContext": {
-                "metadata": {
-                  "label": "Enable Model Context",
-                  "description": "Enable model context for the function"
-                },
-                "valueType": "FLAG",
-                "value": true,
-                "optional": false,
-                "editable": true,
-                "advanced": true,
-                "hidden": false
-              }
-            },
-            "optional": false,
-            "editable": false,
-            "advanced": false,
-            "hidden": false
           }
         },
         "optional": true,

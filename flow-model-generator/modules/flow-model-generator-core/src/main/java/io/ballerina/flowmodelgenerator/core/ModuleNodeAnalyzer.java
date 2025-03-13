@@ -171,13 +171,6 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
                     paramName.orElse(null));
         }
 
-        if (isNpFunction) {
-            // set `enableModuleContext` parameter
-            nodeBuilder.properties().parameter(Constants.NaturalFunctions.ENABLE_MODEL_CONTEXT_LABEL,
-                    Constants.NaturalFunctions.ENABLE_MODEL_CONTEXT_DESCRIPTION, Property.ValueType.FLAG,
-                    isContextParamAvailable, Constants.NaturalFunctions.ENABLE_MODEL_CONTEXT, true, true);
-        }
-
         nodeBuilder.properties().endNestedProperty(
                 Property.ValueType.REPEATABLE_PROPERTY,
                 Property.PARAMETERS_KEY,
