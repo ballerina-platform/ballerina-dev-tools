@@ -80,8 +80,7 @@ public class XMLToRecordConverterService implements ExtendedLanguageServerServic
                 }
                 TypesManager typesManager = new TypesManager(document.get());
 
-                XMLToRecordConverter converter =
-                        new XMLToRecordConverter(project, document.get(), typesManager);
+                XMLToRecordConverter converter = new XMLToRecordConverter(project, document.get(), typesManager);
                 response.setTypes(converter.convert(xmlValue, isRecordTypeDesc, isClosed, forceFormatRecordFields,
                         textFieldName, withNameSpace, withoutAttributes, withoutAttributeAnnot, prefix));
             } catch (Throwable e) {

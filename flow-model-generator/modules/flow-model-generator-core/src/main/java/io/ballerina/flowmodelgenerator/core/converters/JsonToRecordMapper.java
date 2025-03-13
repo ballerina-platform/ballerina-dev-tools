@@ -102,17 +102,15 @@ public final class JsonToRecordMapper {
     private final Document document;
     private final Path filePath;
     private final TypesManager typesManager;
-    private final SemanticModel semanticModel;
 
     public JsonToRecordMapper(String recordName, String prefix, Project project, Document document, Path filePath,
-                              TypesManager typesManager, SemanticModel semanticModel) {
+                              TypesManager typesManager) {
         this.recordName = recordName;
         this.prefix = prefix;
         this.project = project;
         this.document = document;
         this.filePath = filePath;
         this.typesManager = typesManager;
-        this.semanticModel = semanticModel;
     }
 
     private static final String NEW_RECORD_NAME = "NewRecord";
@@ -134,7 +132,7 @@ public final class JsonToRecordMapper {
                                boolean forceFormatRecordFields, WorkspaceManager workspaceManager,
                                boolean isNullAsOptional)
             throws JsonToRecordConverterException, FormatterException {
-        List<String> existingFieldNames = getExistingTypeNames(workspaceManager, this.filePath, semanticModel);
+        List<String> existingFieldNames = getExistingTypeNames(workspaceManager, this.filePath);
         Map<String, String> updatedFieldNames = new HashMap<>();
         Map<String, NonTerminalNode> recordToTypeDescNodes = new LinkedHashMap<>();
         Map<String, JsonElement> jsonFieldToElements = new LinkedHashMap<>();

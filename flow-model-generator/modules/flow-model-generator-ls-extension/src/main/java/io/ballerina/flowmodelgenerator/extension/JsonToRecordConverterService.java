@@ -18,7 +18,6 @@
 
 package io.ballerina.flowmodelgenerator.extension;
 
-import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.flowmodelgenerator.core.TypesManager;
 import io.ballerina.flowmodelgenerator.core.converters.JsonToRecordMapper;
 import io.ballerina.flowmodelgenerator.extension.request.JsonToRecordRequest;
@@ -74,13 +73,12 @@ public class JsonToRecordConverterService implements ExtendedLanguageServerServi
                 Path filePath = Path.of(request.getFilePathUri());
                 Project project = this.workspaceManager.loadProject(filePath);
                 Optional<Document> document = this.workspaceManager.document(filePath);
-                Optional<SemanticModel> semanticModel = this.workspaceManager.semanticModel(filePath);
-                if (document.isEmpty() || semanticModel.isEmpty()) {
+                if (document.isEmpty()) {
                     return response;
                 }
                 TypesManager typesManager = new TypesManager(document.get());
                 JsonToRecordMapper jsonToRecordMapper = new JsonToRecordMapper(recordName, prefix, project,
-                        document.get(), filePath, typesManager, semanticModel.get());
+                        document.get(), filePath, typesManager);
                 response.setTypes(jsonToRecordMapper.convert(jsonString, isRecordTypeDesc, isClosed,
                         forceFormatRecordFields, workspaceManager, isNullAsOptional));
             } catch (Throwable e) {

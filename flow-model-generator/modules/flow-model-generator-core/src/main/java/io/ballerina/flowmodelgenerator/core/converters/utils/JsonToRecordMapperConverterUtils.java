@@ -29,7 +29,11 @@ import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.Token;
 import io.ballerina.compiler.syntax.tree.TypeDescriptorNode;
 import io.ballerina.compiler.syntax.tree.UnionTypeDescriptorNode;
+import io.ballerina.projects.Package;
+import io.ballerina.projects.Project;
 import io.ballerina.projects.ProjectException;
+import io.ballerina.projects.directory.BuildProject;
+import io.ballerina.projects.directory.SingleFileProject;
 import io.ballerina.projects.util.ProjectUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
@@ -89,8 +93,7 @@ public final class JsonToRecordMapperConverterUtils {
      * @param filePath         FilePath URI of the/a file in a singleFileProject or module
      * @return {@link List<String>} List of already existing Types
      */
-    public static List<String> getExistingTypeNames(WorkspaceManager workspaceManager, Path filePath,
-                                                    SemanticModel semanticModel) {
+    public static List<String> getExistingTypeNames(WorkspaceManager workspaceManager, Path filePath) {
         List<String> existingTypeNames = new ArrayList<>();
         if (filePath == null) {
             return existingTypeNames;
@@ -107,18 +110,24 @@ public final class JsonToRecordMapperConverterUtils {
         }
 
         try {
+            Project project;
             List<Symbol> moduleSymbols;
             Path projectRoot = ProjectUtils.findProjectRoot(filePath);
             if (projectRoot == null) {
                 // Since the project-root cannot be found, the provided file is considered as SingleFileProject.
-                moduleSymbols = semanticModel.moduleSymbols();
+                project = SingleFileProject.load(filePath);
+                moduleSymbols =
+                        project.currentPackage().getDefaultModule().getCompilation().getSemanticModel().moduleSymbols();
                 moduleSymbols.forEach(symbol -> {
                     if (symbol.getName().isPresent()) {
                         existingTypeNames.add(symbol.getName().get());
                     }
                 });
             } else {
-                moduleSymbols = semanticModel.moduleSymbols();
+                project = BuildProject.load(projectRoot);
+                moduleSymbols = project.currentPackage()
+                        .module(project.documentId(filePath).moduleId())
+                        .getCompilation().getSemanticModel().moduleSymbols();
                 moduleSymbols.forEach(symbol -> {
                     if (symbol.getName().isPresent()) {
                         existingTypeNames.add(symbol.getName().get());
@@ -134,10 +143,10 @@ public final class JsonToRecordMapperConverterUtils {
     /**
      * This method returns an alternative fieldName if the given filedName is already exist.
      *
-     * @param fieldName Field name of the JSON Object/Array
-     * @param isArrayField To denote whether given field is an array or not
+     * @param fieldName          Field name of the JSON Object/Array
+     * @param isArrayField       To denote whether given field is an array or not
      * @param existingFieldNames The list of already existing field names
-     * @param updatedFieldNames The list of updated field names
+     * @param updatedFieldNames  The list of updated field names
      * @return {@link List<String>} List of already existing Types
      */
     public static String getAndUpdateFieldNames(String fieldName, boolean isArrayField, List<String> existingFieldNames,
@@ -206,13 +215,13 @@ public final class JsonToRecordMapperConverterUtils {
                 .sorted(Comparator.comparing(TypeDescriptorNode::toSourceCode));
         Stream<TypeDescriptorNode> arrayNodes = typeDescriptorNodes.stream()
                 .filter(node -> (node instanceof ArrayTypeDescriptorNode)).sorted((node1, node2) -> {
-            ArrayTypeDescriptorNode arrayNode1 = (ArrayTypeDescriptorNode) node1;
-            ArrayTypeDescriptorNode arrayNode2 = (ArrayTypeDescriptorNode) node2;
-            return getNumberOfDimensions(arrayNode1).equals(getNumberOfDimensions(arrayNode2)) ?
-                    (arrayNode1).memberTypeDesc().toSourceCode()
-                            .compareTo((arrayNode2).memberTypeDesc().toSourceCode()) :
-                    getNumberOfDimensions(arrayNode1) - getNumberOfDimensions(arrayNode2);
-        });
+                    ArrayTypeDescriptorNode arrayNode1 = (ArrayTypeDescriptorNode) node1;
+                    ArrayTypeDescriptorNode arrayNode2 = (ArrayTypeDescriptorNode) node2;
+                    return getNumberOfDimensions(arrayNode1).equals(getNumberOfDimensions(arrayNode2)) ?
+                            (arrayNode1).memberTypeDesc().toSourceCode()
+                                    .compareTo((arrayNode2).memberTypeDesc().toSourceCode()) :
+                            getNumberOfDimensions(arrayNode1) - getNumberOfDimensions(arrayNode2);
+                });
         return Stream.concat(nonArrayNodes, arrayNodes).toList();
     }
 
