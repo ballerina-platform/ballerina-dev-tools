@@ -221,11 +221,13 @@ public class TypesManagerService implements ExtendedLanguageServerService {
                     throw new IllegalArgumentException(
                             String.format("Package '%s/%s:%s' not found", orgName, packageName, versionName));
                 }
+                String[] parts = request.typeConstraint().split(":");
+                String typeStr = parts.length > 1 ? parts[1] : parts[0];
 
                 // Get the type symbol
                 Optional<TypeSymbol> typeSymbol = semanticModel.get().moduleSymbols().parallelStream()
                         .filter(symbol -> symbol.kind() == SymbolKind.TYPE_DEFINITION &&
-                                symbol.nameEquals(request.typeConstraint()))
+                                symbol.nameEquals(typeStr))
                         .map(symbol -> ((TypeDefinitionSymbol) symbol).typeDescriptor())
                         .findFirst();
                 if (typeSymbol.isEmpty()) {
@@ -368,8 +370,11 @@ public class TypesManagerService implements ExtendedLanguageServerService {
             );
         }
 
+        String[] parts = typeConstraint.split(":");
+        String type = parts.length > 1 ? parts[1] : parts[0];
+
         return semanticModel.get().moduleSymbols().parallelStream()
-                .filter(symbol -> symbol.kind() == SymbolKind.TYPE_DEFINITION && symbol.nameEquals(typeConstraint))
+                .filter(symbol -> symbol.kind() == SymbolKind.TYPE_DEFINITION && symbol.nameEquals(type))
                 .map(symbol -> ((TypeDefinitionSymbol) symbol).typeDescriptor())
                 .findFirst();
     }
