@@ -68,6 +68,7 @@ import io.ballerina.compiler.syntax.tree.ListConstructorExpressionNode;
 import io.ballerina.compiler.syntax.tree.LocalTypeDefinitionStatementNode;
 import io.ballerina.compiler.syntax.tree.LockStatementNode;
 import io.ballerina.compiler.syntax.tree.MappingConstructorExpressionNode;
+import io.ballerina.compiler.syntax.tree.MappingFieldNode;
 import io.ballerina.compiler.syntax.tree.MatchClauseNode;
 import io.ballerina.compiler.syntax.tree.MatchGuardNode;
 import io.ballerina.compiler.syntax.tree.MatchStatementNode;
@@ -96,6 +97,7 @@ import io.ballerina.compiler.syntax.tree.ReturnTypeDescriptorNode;
 import io.ballerina.compiler.syntax.tree.RollbackStatementNode;
 import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
+import io.ballerina.compiler.syntax.tree.SpecificFieldNode;
 import io.ballerina.compiler.syntax.tree.StartActionNode;
 import io.ballerina.compiler.syntax.tree.StatementNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
@@ -341,6 +343,7 @@ class CodeAnalyzer extends NodeVisitor {
                 }
                 ExpressionNode toolsArg = null;
                 ExpressionNode modelArg = null;
+                ExpressionNode systemPromptArg = null;
                 for (FunctionArgumentNode arg : argList.get().arguments()) {
                     if (arg.kind() == SyntaxKind.NAMED_ARG) {
                         NamedArgumentNode namedArgumentNode = (NamedArgumentNode) arg;
@@ -348,6 +351,8 @@ class CodeAnalyzer extends NodeVisitor {
                             toolsArg = namedArgumentNode.expression();
                         } else if (namedArgumentNode.argumentName().name().text().equals("model")) {
                             modelArg = namedArgumentNode.expression();
+                        } else if (namedArgumentNode.argumentName().name().text().equals("systemPrompt")) {
+                            systemPromptArg = namedArgumentNode.expression();
                         }
                     }
                 }
@@ -359,9 +364,14 @@ class CodeAnalyzer extends NodeVisitor {
                     throw new IllegalStateException("Model argument not found for the new expression: " +
                             newExpressionNode);
                 }
+                if (systemPromptArg == null || systemPromptArg.kind() != SyntaxKind.MAPPING_CONSTRUCTOR) {
+                    throw new IllegalStateException("SystemPrompt argument not found for the new expression: " +
+                            newExpressionNode);
+                }
+                
                 List<ToolData> toolUrls = new ArrayList<>();
-                ListConstructorExpressionNode listConstructorExpressionNode = (ListConstructorExpressionNode) toolsArg;
-                for (Node node : listConstructorExpressionNode.expressions()) {
+                ListConstructorExpressionNode listCtrExprNode = (ListConstructorExpressionNode) toolsArg;
+                for (Node node : listCtrExprNode.expressions()) {
                     if (node.kind() != SyntaxKind.SIMPLE_NAME_REFERENCE) {
                         throw new IllegalStateException("Tool node is not a simple name reference: " + node);
                     }
@@ -372,12 +382,30 @@ class CodeAnalyzer extends NodeVisitor {
                         toolUrls.add(new ToolData(toolName, icon, getToolDescription(toolName)));
                     }
                 }
+                if (!toolUrls.isEmpty()) {
+                    nodeBuilder.metadata().addData("tools", toolUrls);
+                }
+
+                MappingConstructorExpressionNode mappingCtrExprNode =
+                        (MappingConstructorExpressionNode) systemPromptArg;
+                SeparatedNodeList<MappingFieldNode> fields = mappingCtrExprNode.fields();
+                Map<String, String> agentData = new HashMap<>();
+                for (MappingFieldNode field : fields) {
+                    SyntaxKind kind = field.kind();
+                    if (kind != SyntaxKind.SPECIFIC_FIELD) {
+                        continue;
+                    }
+                    SpecificFieldNode specificFieldNode = (SpecificFieldNode) field;
+                    agentData.put(specificFieldNode.fieldName().toString().trim(),
+                            specificFieldNode.valueExpr().orElseThrow().toSourceCode());
+                }
+                if (!agentData.isEmpty()) {
+                    nodeBuilder.metadata().addData("agent", agentData);
+                }
+
                 ModelData modelUrl = getModelIconUrl(modelArg);
                 if (modelUrl != null) {
                     nodeBuilder.metadata().addData("model", modelUrl);
-                }
-                if (!toolUrls.isEmpty()) {
-                    nodeBuilder.metadata().addData("tools", toolUrls);
                 }
                 break;
             }
@@ -485,10 +513,11 @@ class CodeAnalyzer extends NodeVisitor {
             }
 
             String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
+            String label = paramResult.label();
             Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder = nodeBuilder.properties().custom();
             customPropBuilder
                     .metadata()
-                        .label(unescapedParamName)
+                        .label(label == null || label.isEmpty() ? unescapedParamName : label)
                         .description(paramResult.description())
                         .stepOut()
                     .codedata()
@@ -560,10 +589,11 @@ class CodeAnalyzer extends NodeVisitor {
                 }
 
                 String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
+                String label = paramResult.label();
                 Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder = nodeBuilder.properties().custom();
                 customPropBuilder
                         .metadata()
-                            .label(unescapedParamName)
+                            .label(label == null || label.isEmpty() ? unescapedParamName : label)
                             .description(paramResult.description())
                             .stepOut()
                         .codedata()
@@ -637,9 +667,10 @@ class CodeAnalyzer extends NodeVisitor {
                             }
                         }
                     }
+                    String label = paramResult.label();
                     customPropBuilder
                             .metadata()
-                                .label(unescapedParamName)
+                                .label(label == null || label.isEmpty() ? unescapedParamName : label)
                                 .description(paramResult.description())
                                 .stepOut()
                             .type(getPropertyTypeFromParam(parameterSymbol, paramResult.kind()))
@@ -735,9 +766,10 @@ class CodeAnalyzer extends NodeVisitor {
                                     selectedType = CommonUtils.getTypeSignature(paramType.get(), null);
                                 }
                             }
+                            String label = paramResult.label();
                             customPropBuilder
                                     .metadata()
-                                        .label(unescapedParamName)
+                                        .label(label == null || label.isEmpty() ? unescapedParamName : label)
                                         .description(paramResult.description())
                                         .stepOut()
                                     .type(getPropertyTypeFromParam(parameterSymbol, paramResult.kind()))
@@ -781,9 +813,10 @@ class CodeAnalyzer extends NodeVisitor {
                                 }
 
                                 String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
+                                String label = paramResult.label();
                                 customPropBuilder
                                         .metadata()
-                                            .label(unescapedParamName)
+                                            .label(label == null || label.isEmpty() ? unescapedParamName : label)
                                             .description(paramResult.description())
                                             .stepOut()
                                         .type(getPropertyTypeFromParam(parameterSymbol, paramResult.kind()))
@@ -822,9 +855,10 @@ class CodeAnalyzer extends NodeVisitor {
                                     selectedType = CommonUtils.getTypeSignature(paramType.get(), null);
                                 }
                             }
+                            String label = paramResult.label();
                             customPropBuilder
                                     .metadata()
-                                        .label(unescapedParamName)
+                                        .label(label == null || label.isEmpty() ? unescapedParamName : label)
                                         .description(paramResult.description())
                                         .stepOut()
                                     .type(getPropertyTypeFromParam(parameterSymbol, paramResult.kind()))
@@ -868,9 +902,10 @@ class CodeAnalyzer extends NodeVisitor {
                         }
                     }
                 }
+                String label = paramResult.label();
                 customPropBuilder
                         .metadata()
-                            .label(unescapedParamName)
+                            .label(label == null || label.isEmpty() ? unescapedParamName : label)
                             .description(paramResult.description())
                             .stepOut()
                         .type(getPropertyTypeFromParam(parameterSymbol, paramResult.kind()))
@@ -916,9 +951,10 @@ class CodeAnalyzer extends NodeVisitor {
                         }
                     }
                 }
+                String label = paramResult.label();
                 customPropBuilder
                         .metadata()
-                        .label(unescapedParamName)
+                        .label(label == null || label.isEmpty() ? unescapedParamName : label)
                         .description(paramResult.description())
                         .stepOut()
                         .type(getPropertyTypeFromParam(null, paramResult.kind()))

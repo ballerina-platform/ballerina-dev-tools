@@ -21,7 +21,8 @@
         "module": "persist.inmemory",
         "object": "InMemoryClient",
         "symbol": "init",
-        "version": "1.5.0"
+        "version": "1.5.0",
+        "isGenerated": false
       },
       "enabled": true
     },
@@ -40,7 +41,8 @@
         "module": "persist.googlesheets",
         "object": "GoogleSheetsClient",
         "symbol": "init",
-        "version": "1.5.0"
+        "version": "1.5.0",
+        "isGenerated": false
       },
       "enabled": true
     },
@@ -59,7 +61,8 @@
         "module": "persist.sql",
         "object": "SQLClient",
         "symbol": "init",
-        "version": "1.5.0"
+        "version": "1.5.0",
+        "isGenerated": false
       },
       "enabled": true
     },
@@ -78,7 +81,8 @@
         "module": "persist.redis",
         "object": "RedisClient",
         "symbol": "init",
-        "version": "0.3.0"
+        "version": "0.3.0",
+        "isGenerated": false
       },
       "enabled": true
     }

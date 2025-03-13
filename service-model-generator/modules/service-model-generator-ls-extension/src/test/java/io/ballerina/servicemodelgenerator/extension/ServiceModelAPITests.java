@@ -48,8 +48,11 @@ import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.langserver.BallerinaLanguageServer;
 import org.ballerinalang.langserver.util.TestUtil;
+import org.eclipse.lsp4j.DidCloseTextDocumentParams;
+import org.eclipse.lsp4j.TextDocumentIdentifier;
 import org.eclipse.lsp4j.jsonrpc.Endpoint;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -136,6 +139,9 @@ public class ServiceModelAPITests {
         Assert.assertTrue(response.hasListeners());
         Assert.assertEquals(response.listeners().size(), 1);
         Assert.assertTrue(response.listeners().contains("kafkaListener"));
+
+        serviceEndpoint.notify("textDocument/didClose",
+                new DidCloseTextDocumentParams(new TextDocumentIdentifier(filePath.toUri().toString())));
     }
 
     @Test
@@ -192,6 +198,8 @@ public class ServiceModelAPITests {
         result = serviceEndpoint.request("serviceDesign/getServiceModel", request);
         response = (ServiceModelResponse) result.get();
         Assert.assertTrue(Objects.nonNull(response.service()));
+        serviceEndpoint.notify("textDocument/didClose",
+                new DidCloseTextDocumentParams(new TextDocumentIdentifier(filePath.toUri().toString())));
     }
 
     @Test
@@ -202,6 +210,8 @@ public class ServiceModelAPITests {
         CompletableFuture<?> result = serviceEndpoint.request("serviceDesign/getServiceModel", request);
         ServiceModelResponse response = (ServiceModelResponse) result.get();
         Assert.assertTrue(Objects.nonNull(response.service()));
+        serviceEndpoint.notify("textDocument/didClose",
+                new DidCloseTextDocumentParams(new TextDocumentIdentifier(filePath.toUri().toString())));
     }
 
     @Test
@@ -234,6 +244,8 @@ public class ServiceModelAPITests {
         CommonSourceResponse sourceResponse = (CommonSourceResponse) sourceResult.get();
         Assert.assertTrue(Objects.nonNull(sourceResponse.textEdits()));
         Assert.assertFalse(sourceResponse.textEdits().isEmpty());
+        serviceEndpoint.notify("textDocument/didClose",
+                new DidCloseTextDocumentParams(new TextDocumentIdentifier(filePath.toUri().toString())));
     }
 
     @Test
@@ -262,6 +274,8 @@ public class ServiceModelAPITests {
         CommonSourceResponse sourceResponse = (CommonSourceResponse) sourceResult.get();
         Assert.assertTrue(Objects.nonNull(sourceResponse.textEdits()));
         Assert.assertFalse(sourceResponse.textEdits().isEmpty());
+        serviceEndpoint.notify("textDocument/didClose",
+                new DidCloseTextDocumentParams(new TextDocumentIdentifier(filePath.toUri().toString())));
     }
     
     @Test
@@ -327,6 +341,8 @@ public class ServiceModelAPITests {
         CommonSourceResponse genResponse = (CommonSourceResponse) genResult.get();
         Assert.assertTrue(Objects.nonNull(genResponse.textEdits()));
         Assert.assertFalse(genResponse.textEdits().isEmpty());
+        serviceEndpoint.notify("textDocument/didClose",
+                new DidCloseTextDocumentParams(new TextDocumentIdentifier(filePath.toUri().toString())));
     }
 
     @Test
@@ -347,6 +363,8 @@ public class ServiceModelAPITests {
         CommonSourceResponse genResponse = (CommonSourceResponse) genResult.get();
         Assert.assertTrue(Objects.nonNull(genResponse.textEdits()));
         Assert.assertFalse(genResponse.textEdits().isEmpty());
+        serviceEndpoint.notify("textDocument/didClose",
+                new DidCloseTextDocumentParams(new TextDocumentIdentifier(filePath.toUri().toString())));
     }
 
     @Test
@@ -367,6 +385,8 @@ public class ServiceModelAPITests {
         CommonSourceResponse genResponse = (CommonSourceResponse) genResult.get();
         Assert.assertTrue(Objects.nonNull(genResponse.textEdits()));
         Assert.assertFalse(genResponse.textEdits().isEmpty());
+        serviceEndpoint.notify("textDocument/didClose",
+                new DidCloseTextDocumentParams(new TextDocumentIdentifier(filePath.toUri().toString())));
     }
 
     @Test
@@ -413,6 +433,8 @@ public class ServiceModelAPITests {
         CommonSourceResponse sourceResponse = (CommonSourceResponse) sourceResult.get();
         Assert.assertTrue(Objects.nonNull(sourceResponse.textEdits()));
         Assert.assertFalse(sourceResponse.textEdits().isEmpty());
+        serviceEndpoint.notify("textDocument/didClose",
+                new DidCloseTextDocumentParams(new TextDocumentIdentifier(filePath.toUri().toString())));
     }
 
     @Test(enabled = false)
@@ -433,6 +455,8 @@ public class ServiceModelAPITests {
         CommonSourceResponse genResponse = (CommonSourceResponse) genResult.get();
         Assert.assertTrue(Objects.nonNull(genResponse.textEdits()));
         Assert.assertFalse(genResponse.textEdits().isEmpty());
+        serviceEndpoint.notify("textDocument/didClose",
+                new DidCloseTextDocumentParams(new TextDocumentIdentifier(filePath.toUri().toString())));
     }
 
     @Test(enabled = false)
@@ -453,6 +477,8 @@ public class ServiceModelAPITests {
         CommonSourceResponse genResponse = (CommonSourceResponse) genResult.get();
         Assert.assertTrue(Objects.nonNull(genResponse.textEdits()));
         Assert.assertFalse(genResponse.textEdits().isEmpty());
+        serviceEndpoint.notify("textDocument/didClose",
+                new DidCloseTextDocumentParams(new TextDocumentIdentifier(filePath.toUri().toString())));
     }
 
     @Test
@@ -475,6 +501,8 @@ public class ServiceModelAPITests {
         Assert.assertTrue(Objects.nonNull(response.service()));
         serviceType = service.getServiceType();
         Assert.assertEquals(serviceType.getItems().size(), 11);
+        serviceEndpoint.notify("textDocument/didClose",
+                new DidCloseTextDocumentParams(new TextDocumentIdentifier(filePath.toUri().toString())));
     }
 
     @Test(enabled = false)
@@ -499,6 +527,8 @@ public class ServiceModelAPITests {
         CommonSourceResponse response = (CommonSourceResponse) result.get();
         Assert.assertTrue(Objects.nonNull(response.textEdits()));
         Assert.assertFalse(response.textEdits().isEmpty());
+        serviceEndpoint.notify("textDocument/didClose",
+                new DidCloseTextDocumentParams(new TextDocumentIdentifier(filePath.toUri().toString())));
     }
 
     @Test
@@ -526,6 +556,8 @@ public class ServiceModelAPITests {
         CommonSourceResponse updateResponse = (CommonSourceResponse) updateResult.get();
         Assert.assertTrue(Objects.nonNull(updateResponse.textEdits()));
         Assert.assertFalse(updateResponse.textEdits().isEmpty());
+        serviceEndpoint.notify("textDocument/didClose",
+                new DidCloseTextDocumentParams(new TextDocumentIdentifier(filePath.toUri().toString())));
     }
 
     @Test
@@ -549,6 +581,8 @@ public class ServiceModelAPITests {
         CommonSourceResponse updateResponse = (CommonSourceResponse) updateResult.get();
         Assert.assertTrue(Objects.nonNull(updateResponse.textEdits()));
         Assert.assertFalse(updateResponse.textEdits().isEmpty());
+        serviceEndpoint.notify("textDocument/didClose",
+                new DidCloseTextDocumentParams(new TextDocumentIdentifier(filePath.toUri().toString())));
     }
 
     @Test
@@ -581,5 +615,12 @@ public class ServiceModelAPITests {
         CommonSourceResponse updateResponse = (CommonSourceResponse) updateResult.get();
         Assert.assertTrue(Objects.nonNull(updateResponse.textEdits()));
         Assert.assertFalse(updateResponse.textEdits().isEmpty());
+        serviceEndpoint.notify("textDocument/didClose",
+                new DidCloseTextDocumentParams(new TextDocumentIdentifier(filePath.toUri().toString())));
+    }
+
+    @AfterClass
+    public void cleanupLanguageServer() {
+        this.languageServer.shutdown();
     }
 }

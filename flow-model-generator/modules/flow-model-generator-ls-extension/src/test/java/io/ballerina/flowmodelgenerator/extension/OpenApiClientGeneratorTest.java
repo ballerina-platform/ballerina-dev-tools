@@ -74,9 +74,6 @@ public class OpenApiClientGeneratorTest extends AbstractLSTest {
             if (!Files.exists(filePath)) {
                 Files.createFile(filePath);
             }
-            if (Files.exists(filePath)) {
-                log.info("File created successfully : " + filePath);
-            }
             StringBuilder content = new StringBuilder(Files.readString(filePath));
             List<TextEdit> edits = entry.getValue();
             for (TextEdit edit : edits) {

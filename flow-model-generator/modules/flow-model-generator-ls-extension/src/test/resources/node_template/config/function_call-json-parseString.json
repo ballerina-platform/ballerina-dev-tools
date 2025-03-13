@@ -90,7 +90,7 @@
         },
         "typeMembers": [
           {
-            "type": "jsondata:Options",
+            "type": "Options",
             "packageInfo": "ballerina:data.jsondata:0.2.0",
             "kind": "RECORD_TYPE",
             "selected": false

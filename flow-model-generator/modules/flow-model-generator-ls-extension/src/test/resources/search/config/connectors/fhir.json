@@ -21,7 +21,8 @@
         "module": "health.clients.fhir",
         "object": "FHIRConnector",
         "symbol": "init",
-        "version": "2.1.0"
+        "version": "2.1.0",
+        "isGenerated": false
       },
       "enabled": true
     }

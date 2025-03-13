@@ -27,6 +27,7 @@ import org.eclipse.lsp4j.TextEdit;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
@@ -50,7 +51,9 @@ public class UpdateServiceClassTest extends AbstractLSTest {
     @Test(dataProvider = "data-provider")
     public void test(Path config) throws IOException {
         Path configJsonPath = configDir.resolve(config);
-        TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
+        BufferedReader bufferedReader = Files.newBufferedReader(configJsonPath);
+        TestConfig testConfig = gson.fromJson(bufferedReader, TestConfig.class);
+        bufferedReader.close();
 
         ServiceClassSourceRequest request = new ServiceClassSourceRequest(
                 sourceDir.resolve(testConfig.filePath()).toAbsolutePath().toString(), testConfig.serviceClass());

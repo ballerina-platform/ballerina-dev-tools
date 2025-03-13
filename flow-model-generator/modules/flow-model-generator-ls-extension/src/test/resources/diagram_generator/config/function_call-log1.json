@@ -202,7 +202,7 @@
                         "selected": false
                       },
                       {
-                        "type": "error:StackFrame",
+                        "type": "StackFrame",
                         "packageInfo": "ballerina:lang.error:0.0.0",
                         "kind": "ARRAY_TYPE",
                         "selected": false
@@ -345,7 +345,7 @@
                 "selected": false
               },
               {
-                "type": "error:StackFrame",
+                "type": "StackFrame",
                 "packageInfo": "ballerina:lang.error:0.0.0",
                 "kind": "ARRAY_TYPE",
                 "selected": false
@@ -707,7 +707,7 @@
                         "selected": false
                       },
                       {
-                        "type": "error:StackFrame",
+                        "type": "StackFrame",
                         "packageInfo": "ballerina:lang.error:0.0.0",
                         "kind": "ARRAY_TYPE",
                         "selected": false
@@ -867,7 +867,7 @@
                         "selected": false
                       },
                       {
-                        "type": "error:StackFrame",
+                        "type": "StackFrame",
                         "packageInfo": "ballerina:lang.error:0.0.0",
                         "kind": "ARRAY_TYPE",
                         "selected": false

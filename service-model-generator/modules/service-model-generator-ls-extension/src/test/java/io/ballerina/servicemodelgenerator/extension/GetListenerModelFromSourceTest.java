@@ -28,6 +28,7 @@ import io.ballerina.tools.text.LineRange;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -43,8 +44,10 @@ public class GetListenerModelFromSourceTest extends AbstractLSTest {
     @Test(dataProvider = "data-provider")
     public void test(Path config) throws IOException {
         Path configJsonPath = configDir.resolve(config);
-        GetListenerModelFromSourceTest.TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath),
+        BufferedReader bufferedReader = Files.newBufferedReader(configJsonPath);
+        GetListenerModelFromSourceTest.TestConfig testConfig = gson.fromJson(bufferedReader,
                 GetListenerModelFromSourceTest.TestConfig.class);
+        bufferedReader.close();
 
         String sourcePath = sourceDir.resolve(testConfig.filePath()).toAbsolutePath().toString();
         Codedata codedata = new Codedata(LineRange.from(sourcePath, testConfig.start(), testConfig.end()));

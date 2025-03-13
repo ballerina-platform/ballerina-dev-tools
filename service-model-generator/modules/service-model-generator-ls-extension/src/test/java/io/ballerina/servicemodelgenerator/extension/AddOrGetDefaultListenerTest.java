@@ -24,8 +24,10 @@ import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import io.ballerina.servicemodelgenerator.extension.request.ListenerDiscoveryRequest;
 import org.eclipse.lsp4j.TextEdit;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
@@ -49,7 +51,9 @@ public class AddOrGetDefaultListenerTest extends AbstractLSTest {
     @Test(dataProvider = "data-provider")
     public void test(Path config) throws IOException {
         Path configJsonPath = configDir.resolve(config);
-        TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
+        BufferedReader bufferedReader = Files.newBufferedReader(configJsonPath);
+        TestConfig testConfig = gson.fromJson(bufferedReader, TestConfig.class);
+        bufferedReader.close();
 
         ListenerDiscoveryRequest request = new ListenerDiscoveryRequest(sourceDir.resolve(testConfig.filePath())
                 .toAbsolutePath().toString(), "ballerina", "http");
@@ -138,5 +142,10 @@ public class AddOrGetDefaultListenerTest extends AbstractLSTest {
         public String description() {
             return description == null ? "" : description;
         }
+    }
+
+    @AfterClass
+    public void cleanup() {
+
     }
 }

@@ -131,7 +131,7 @@ public class ClassInitBuilder extends CallBuilder {
             properties()
                     .custom()
                     .metadata()
-                    .label(MODEL_TYPE)
+                    .label("Model Type")
                     .description("The OpenAI model name as constant from OPEN_AI_MODEL_NAMES enum")
                     .stepOut()
                     .type(Property.ValueType.SINGLE_SELECT)
@@ -142,7 +142,7 @@ public class ClassInitBuilder extends CallBuilder {
                     .kind(REQUIRED)
                     .originalName(MODEL_TYPE)
                     .stepOut()
-                    .typeMembers(List.of(new ParameterMemberTypeData("type:OPEN_AI_MODEL_NAMES", "BASIC_TYPE",
+                    .typeMembers(List.of(new ParameterMemberTypeData("agent:OPEN_AI_MODEL_NAMES", "BASIC_TYPE",
                             codedata.org() + ":" + codedata.module() + ":" + codedata.version())))
                     .stepOut()
                     .addProperty(MODEL_TYPE);

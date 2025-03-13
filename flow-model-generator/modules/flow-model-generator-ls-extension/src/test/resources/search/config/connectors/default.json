@@ -8,6 +8,12 @@
   "categories": [
     {
       "metadata": {
+        "label": "Local"
+      },
+      "items": []
+    },
+    {
+      "metadata": {
         "label": "Network"
       },
       "items": [
@@ -26,7 +32,8 @@
             "module": "grpc",
             "object": "Client",
             "symbol": "init",
-            "version": "1.13.2"
+            "version": "1.13.2",
+            "isGenerated": false
           },
           "enabled": true
         },
@@ -45,7 +52,8 @@
             "module": "http",
             "object": "Client",
             "symbol": "init",
-            "version": "2.13.3"
+            "version": "2.13.3",
+            "isGenerated": false
           },
           "enabled": true
         },
@@ -64,7 +72,8 @@
             "module": "udp",
             "object": "Client",
             "symbol": "init",
-            "version": "1.12.1"
+            "version": "1.12.1",
+            "isGenerated": false
           },
           "enabled": true
         },
@@ -83,7 +92,8 @@
             "module": "ftp",
             "object": "Client",
             "symbol": "init",
-            "version": "2.12.0"
+            "version": "2.12.0",
+            "isGenerated": false
           },
           "enabled": true
         },
@@ -102,7 +112,8 @@
             "module": "websocket",
             "object": "Client",
             "symbol": "init",
-            "version": "2.13.1"
+            "version": "2.13.1",
+            "isGenerated": false
           },
           "enabled": true
         },
@@ -121,7 +132,8 @@
             "module": "graphql",
             "object": "Client",
             "symbol": "init",
-            "version": "1.15.0"
+            "version": "1.15.0",
+            "isGenerated": false
           },
           "enabled": true
         },
@@ -140,7 +152,8 @@
             "module": "tcp",
             "object": "Client",
             "symbol": "init",
-            "version": "1.12.1"
+            "version": "1.12.1",
+            "isGenerated": false
           },
           "enabled": true
         }
@@ -166,7 +179,8 @@
             "module": "mssql",
             "object": "Client",
             "symbol": "init",
-            "version": "1.14.0"
+            "version": "1.14.0",
+            "isGenerated": false
           },
           "enabled": true
         },
@@ -185,7 +199,8 @@
             "module": "mongodb",
             "object": "Client",
             "symbol": "init",
-            "version": "5.1.0"
+            "version": "5.1.0",
+            "isGenerated": false
           },
           "enabled": true
         },
@@ -204,7 +219,8 @@
             "module": "mysql",
             "object": "Client",
             "symbol": "init",
-            "version": "1.14.0"
+            "version": "1.14.0",
+            "isGenerated": false
           },
           "enabled": true
         },
@@ -223,7 +239,8 @@
             "module": "redis",
             "object": "Client",
             "symbol": "init",
-            "version": "3.1.0"
+            "version": "3.1.0",
+            "isGenerated": false
           },
           "enabled": true
         },
@@ -242,7 +259,8 @@
             "module": "postgresql",
             "object": "Client",
             "symbol": "init",
-            "version": "1.14.0"
+            "version": "1.14.0",
+            "isGenerated": false
           },
           "enabled": true
         }
@@ -268,7 +286,8 @@
             "module": "kafka",
             "object": "Caller",
             "symbol": "init",
-            "version": "4.4.1"
+            "version": "4.4.1",
+            "isGenerated": false
           },
           "enabled": true
         },
@@ -287,7 +306,8 @@
             "module": "kafka",
             "object": "Consumer",
             "symbol": "init",
-            "version": "4.4.1"
+            "version": "4.4.1",
+            "isGenerated": false
           },
           "enabled": true
         },
@@ -306,7 +326,8 @@
             "module": "kafka",
             "object": "Producer",
             "symbol": "init",
-            "version": "4.4.1"
+            "version": "4.4.1",
+            "isGenerated": false
           },
           "enabled": true
         },
@@ -325,7 +346,8 @@
             "module": "rabbitmq",
             "object": "Client",
             "symbol": "init",
-            "version": "3.2.0"
+            "version": "3.2.0",
+            "isGenerated": false
           },
           "enabled": true
         }
@@ -351,7 +373,8 @@
             "module": "aws.dynamodb",
             "object": "Client",
             "symbol": "init",
-            "version": "2.3.0"
+            "version": "2.3.0",
+            "isGenerated": false
           },
           "enabled": true
         },
@@ -370,7 +393,8 @@
             "module": "aws.sqs",
             "object": "Client",
             "symbol": "init",
-            "version": "3.1.0"
+            "version": "3.1.0",
+            "isGenerated": false
           },
           "enabled": true
         },
@@ -389,7 +413,8 @@
             "module": "aws.s3",
             "object": "Client",
             "symbol": "init",
-            "version": "3.5.0"
+            "version": "3.5.0",
+            "isGenerated": false
           },
           "enabled": true
         },
@@ -408,7 +433,8 @@
             "module": "googleapis.gmail",
             "object": "Client",
             "symbol": "init",
-            "version": "4.0.1"
+            "version": "4.0.1",
+            "isGenerated": false
           },
           "enabled": true
         },
@@ -427,7 +453,8 @@
             "module": "googleapis.gcalendar",
             "object": "Client",
             "symbol": "init",
-            "version": "4.0.1"
+            "version": "4.0.1",
+            "isGenerated": false
           },
           "enabled": true
         }
@@ -453,7 +480,8 @@
             "module": "stripe",
             "object": "Client",
             "symbol": "init",
-            "version": "2.0.0"
+            "version": "2.0.0",
+            "isGenerated": false
           },
           "enabled": true
         },
@@ -472,7 +500,8 @@
             "module": "slack",
             "object": "Client",
             "symbol": "init",
-            "version": "4.0.0"
+            "version": "4.0.0",
+            "isGenerated": false
           },
           "enabled": true
         },
@@ -491,7 +520,8 @@
             "module": "twilio",
             "object": "Client",
             "symbol": "init",
-            "version": "5.0.0"
+            "version": "5.0.0",
+            "isGenerated": false
           },
           "enabled": true
         },
@@ -510,7 +540,8 @@
             "module": "salesforce",
             "object": "Client",
             "symbol": "init",
-            "version": "8.1.0"
+            "version": "8.1.0",
+            "isGenerated": false
           },
           "enabled": true
         },
@@ -529,17 +560,12 @@
             "module": "github",
             "object": "Client",
             "symbol": "init",
-            "version": "5.1.0"
+            "version": "5.1.0",
+            "isGenerated": false
           },
           "enabled": true
         }
       ]
-    },
-    {
-      "metadata": {
-        "label": "Local"
-      },
-      "items": []
     }
   ]
 }
