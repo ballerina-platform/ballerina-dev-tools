@@ -22,6 +22,7 @@ import com.google.gson.JsonObject;
 import io.ballerina.flowmodelgenerator.extension.request.FunctionDefinitionRequest;
 import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -64,6 +65,7 @@ public class FunctionDefinitionTest extends AbstractLSTest {
     protected String getResourceDir() {
         return "function_definition";
     }
+
 
     @Override
     protected Class<? extends AbstractLSTest> clazz() {

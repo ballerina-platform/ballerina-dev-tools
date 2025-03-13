@@ -1,0 +1,240 @@
+{
+  "filePath": "np_functions",
+  "fileName": "functions.bal",
+  "functionName": "rateMovie",
+  "description": "",
+  "output": {
+    "id": "45901",
+    "metadata": {
+      "label": "Natural Function",
+      "description": "Define a natural function"
+    },
+    "codedata": {
+      "node": "NP_FUNCTION_DEFINITION",
+      "org": "ballerinax",
+      "module": "np",
+      "lineRange": {
+        "fileName": "functions.bal",
+        "startLine": {
+          "line": 14,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 22,
+          "offset": 21
+        }
+      }
+    },
+    "returning": false,
+    "properties": {
+      "functionName": {
+        "metadata": {
+          "label": "Name",
+          "description": "Name of the function"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "rateMovie",
+        "optional": false,
+        "editable": false,
+        "advanced": false,
+        "hidden": false,
+        "codedata": {
+          "lineRange": {
+            "fileName": "functions.bal",
+            "startLine": {
+              "line": 14,
+              "offset": 9
+            },
+            "endLine": {
+              "line": 14,
+              "offset": 18
+            }
+          }
+        }
+      },
+      "type": {
+        "metadata": {
+          "label": "Return Type",
+          "description": "Type of the return value"
+        },
+        "valueType": "TYPE",
+        "value": "int|error",
+        "optional": true,
+        "editable": true,
+        "advanced": false,
+        "hidden": false
+      },
+      "parameters": {
+        "metadata": {
+          "label": "Parameters",
+          "description": "Function parameters"
+        },
+        "valueType": "REPEATABLE_PROPERTY",
+        "valueTypeConstraint": {
+          "metadata": {
+            "label": "Parameter",
+            "description": "Function parameter"
+          },
+          "valueType": "FIXED_PROPERTY",
+          "value": {
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "TYPE",
+              "valueTypeConstraint": "anydata",
+              "value": "",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "variable": {
+              "metadata": {
+                "label": "Variable Name",
+                "description": "Name of the variable"
+              },
+              "valueType": "IDENTIFIER",
+              "value": "",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            }
+          },
+          "optional": false,
+          "editable": false,
+          "advanced": false,
+          "hidden": false
+        },
+        "value": {
+          "movieName": {
+            "metadata": {
+              "label": "Parameter",
+              "description": "Function parameter"
+            },
+            "valueType": "FIXED_PROPERTY",
+            "value": {
+              "type": {
+                "metadata": {
+                  "label": "Variable Type",
+                  "description": "Type of the variable"
+                },
+                "valueType": "TYPE",
+                "valueTypeConstraint": "anydata",
+                "value": "string",
+                "optional": false,
+                "editable": true,
+                "advanced": false,
+                "hidden": false
+              },
+              "variable": {
+                "metadata": {
+                  "label": "Variable Name",
+                  "description": "Name of the variable"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "movieName",
+                "optional": false,
+                "editable": false,
+                "advanced": false,
+                "hidden": false,
+                "codedata": {
+                  "lineRange": {
+                    "fileName": "functions.bal",
+                    "startLine": {
+                      "line": 14,
+                      "offset": 26
+                    },
+                    "endLine": {
+                      "line": 14,
+                      "offset": 35
+                    }
+                  }
+                }
+              }
+            },
+            "optional": false,
+            "editable": false,
+            "advanced": false,
+            "hidden": false
+          },
+          "enableModelContext": {
+            "metadata": {
+              "label": "Parameter",
+              "description": "Function parameter"
+            },
+            "valueType": "FIXED_PROPERTY",
+            "value": {
+              "enableModelContext": {
+                "metadata": {
+                  "label": "Enable Model Context",
+                  "description": "Enable model context for the function"
+                },
+                "valueType": "FLAG",
+                "value": true,
+                "optional": false,
+                "editable": true,
+                "advanced": true,
+                "hidden": false
+              }
+            },
+            "optional": false,
+            "editable": false,
+            "advanced": false,
+            "hidden": false
+          }
+        },
+        "optional": true,
+        "editable": false,
+        "advanced": false,
+        "hidden": false
+      },
+      "prompt": {
+        "metadata": {
+          "label": "Prompt",
+          "description": "Prompt for the function"
+        },
+        "valueType": "RAW_TEMPLATE",
+        "valueTypeConstraint": "np:Prompt",
+        "value": "`**Assumption**\nThink yourself as a movie expert\n\n**What to do**\nGive rating for the movie ${movieName} out of 10 based on your opinion\n\n**Output**\nint - number between 1 and 10 as the rating\n`",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "hidden": true,
+        "codedata": {
+          "kind": "REQUIRED"
+        }
+      },
+      "context": {
+        "metadata": {
+          "label": "Context",
+          "description": "Context for the function"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "np:Context",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "hidden": true,
+        "codedata": {
+          "kind": "REQUIRED"
+        }
+      },
+      "enableModelContext": {
+        "metadata": {
+          "label": "Enable Model Context",
+          "description": "Enable model context for the function"
+        },
+        "valueType": "FLAG",
+        "value": true,
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "hidden": false
+      }
+    },
+    "flags": 0
+  }
+}

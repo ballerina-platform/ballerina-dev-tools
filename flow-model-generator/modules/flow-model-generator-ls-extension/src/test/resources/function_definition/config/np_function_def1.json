@@ -1,0 +1,276 @@
+{
+  "filePath": "np_functions",
+  "fileName": "functions.bal",
+  "functionName": "suggestMovieName",
+  "description": "",
+  "output": {
+    "id": "34062",
+    "metadata": {
+      "label": "Natural Function",
+      "description": "Define a natural function"
+    },
+    "codedata": {
+      "node": "NP_FUNCTION_DEFINITION",
+      "org": "ballerinax",
+      "module": "np",
+      "lineRange": {
+        "fileName": "functions.bal",
+        "startLine": {
+          "line": 2,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 12,
+          "offset": 24
+        }
+      }
+    },
+    "returning": false,
+    "properties": {
+      "functionName": {
+        "metadata": {
+          "label": "Name",
+          "description": "Name of the function"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "suggestMovieName",
+        "optional": false,
+        "editable": false,
+        "advanced": false,
+        "hidden": false,
+        "codedata": {
+          "lineRange": {
+            "fileName": "functions.bal",
+            "startLine": {
+              "line": 2,
+              "offset": 9
+            },
+            "endLine": {
+              "line": 2,
+              "offset": 25
+            }
+          }
+        }
+      },
+      "type": {
+        "metadata": {
+          "label": "Return Type",
+          "description": "Type of the return value"
+        },
+        "valueType": "TYPE",
+        "value": "string|error",
+        "optional": true,
+        "editable": true,
+        "advanced": false,
+        "hidden": false
+      },
+      "parameters": {
+        "metadata": {
+          "label": "Parameters",
+          "description": "Function parameters"
+        },
+        "valueType": "REPEATABLE_PROPERTY",
+        "valueTypeConstraint": {
+          "metadata": {
+            "label": "Parameter",
+            "description": "Function parameter"
+          },
+          "valueType": "FIXED_PROPERTY",
+          "value": {
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "TYPE",
+              "valueTypeConstraint": "anydata",
+              "value": "",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "variable": {
+              "metadata": {
+                "label": "Variable Name",
+                "description": "Name of the variable"
+              },
+              "valueType": "IDENTIFIER",
+              "value": "",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            }
+          },
+          "optional": false,
+          "editable": false,
+          "advanced": false,
+          "hidden": false
+        },
+        "value": {
+          "genre": {
+            "metadata": {
+              "label": "Parameter",
+              "description": "Function parameter"
+            },
+            "valueType": "FIXED_PROPERTY",
+            "value": {
+              "type": {
+                "metadata": {
+                  "label": "Variable Type",
+                  "description": "Type of the variable"
+                },
+                "valueType": "TYPE",
+                "valueTypeConstraint": "anydata",
+                "value": "string",
+                "optional": false,
+                "editable": true,
+                "advanced": false,
+                "hidden": false
+              },
+              "variable": {
+                "metadata": {
+                  "label": "Variable Name",
+                  "description": "Name of the variable"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "genre",
+                "optional": false,
+                "editable": false,
+                "advanced": false,
+                "hidden": false,
+                "codedata": {
+                  "lineRange": {
+                    "fileName": "functions.bal",
+                    "startLine": {
+                      "line": 2,
+                      "offset": 33
+                    },
+                    "endLine": {
+                      "line": 2,
+                      "offset": 38
+                    }
+                  }
+                }
+              }
+            },
+            "optional": false,
+            "editable": false,
+            "advanced": false,
+            "hidden": false
+          },
+          "n": {
+            "metadata": {
+              "label": "Parameter",
+              "description": "Function parameter"
+            },
+            "valueType": "FIXED_PROPERTY",
+            "value": {
+              "type": {
+                "metadata": {
+                  "label": "Variable Type",
+                  "description": "Type of the variable"
+                },
+                "valueType": "TYPE",
+                "valueTypeConstraint": "anydata",
+                "value": "int",
+                "optional": false,
+                "editable": true,
+                "advanced": false,
+                "hidden": false
+              },
+              "variable": {
+                "metadata": {
+                  "label": "Variable Name",
+                  "description": "Name of the variable"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "n",
+                "optional": false,
+                "editable": false,
+                "advanced": false,
+                "hidden": false,
+                "codedata": {
+                  "lineRange": {
+                    "fileName": "functions.bal",
+                    "startLine": {
+                      "line": 2,
+                      "offset": 44
+                    },
+                    "endLine": {
+                      "line": 2,
+                      "offset": 45
+                    }
+                  }
+                }
+              }
+            },
+            "optional": false,
+            "editable": false,
+            "advanced": false,
+            "hidden": false
+          },
+          "enableModelContext": {
+            "metadata": {
+              "label": "Parameter",
+              "description": "Function parameter"
+            },
+            "valueType": "FIXED_PROPERTY",
+            "value": {
+              "enableModelContext": {
+                "metadata": {
+                  "label": "Enable Model Context",
+                  "description": "Enable model context for the function"
+                },
+                "valueType": "FLAG",
+                "value": false,
+                "optional": false,
+                "editable": true,
+                "advanced": true,
+                "hidden": false
+              }
+            },
+            "optional": false,
+            "editable": false,
+            "advanced": false,
+            "hidden": false
+          }
+        },
+        "optional": true,
+        "editable": false,
+        "advanced": false,
+        "hidden": false
+      },
+      "prompt": {
+        "metadata": {
+          "label": "Prompt",
+          "description": "Prompt for the function"
+        },
+        "valueType": "RAW_TEMPLATE",
+        "valueTypeConstraint": "np:Prompt",
+        "value": "`\n    **Assumption**\n    Think yourself as a movie expert\n\n    **What to do**\n    Suggest a movie name matching to the genre given:\n    ${genre}\n\n    **Output**\n    string - The suggested movie name\n`",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "hidden": true,
+        "codedata": {
+          "kind": "REQUIRED"
+        }
+      },
+      "enableModelContext": {
+        "metadata": {
+          "label": "Enable Model Context",
+          "description": "Enable model context for the function"
+        },
+        "valueType": "FLAG",
+        "value": false,
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "hidden": false
+      }
+    },
+    "flags": 0
+  }
+}
