@@ -50,8 +50,6 @@ import io.ballerina.compiler.syntax.tree.Token;
 import io.ballerina.compiler.syntax.tree.TypeDefinitionNode;
 import io.ballerina.compiler.syntax.tree.TypeDescriptorNode;
 import io.ballerina.flowmodelgenerator.core.TypesManager;
-import io.ballerina.projects.ModuleId;
-import io.ballerina.projects.Package;
 import io.ballerina.projects.Project;
 import org.apache.commons.lang3.StringUtils;
 import org.ballerinalang.formatter.core.Formatter;
@@ -179,12 +177,14 @@ public final class XMLToRecordConverter {
                 .setForceFormattingOptions(forceFormattingOptions).build();
         String typesSrc = Formatter.format(modulePartNode.syntaxTree(), formattingOptions).toSourceCode();
 
-        Package currentPackage = project.duplicate().currentPackage();
-        ModuleId moduleId = document.module().moduleId();
-        currentPackage.module(moduleId).document(document.documentId()).modify().withContent(typesSrc).apply();
+        // TODO: Check on how we can use package compilation here
+        io.ballerina.projects.Document newDoc =
+                project.duplicate().currentPackage().module(document.module().moduleId())
+                        .document(document.documentId()).modify().withContent(typesSrc).apply();
+        List<Symbol> moduleSymbols = newDoc.module().getCompilation().getSemanticModel().moduleSymbols();
 
         List<TypesManager.TypeDataWithRefs> typeDataList = new ArrayList<>();
-        for (Symbol symbol : currentPackage.getCompilation().getSemanticModel(moduleId).moduleSymbols()) {
+        for (Symbol symbol : moduleSymbols) {
             if (symbol.kind() == SymbolKind.TYPE_DEFINITION) {
                 TypeDefinitionSymbol typeDefSymbol = (TypeDefinitionSymbol) symbol;
                 if (typeNames.contains(typeDefSymbol.getName().get())) {
