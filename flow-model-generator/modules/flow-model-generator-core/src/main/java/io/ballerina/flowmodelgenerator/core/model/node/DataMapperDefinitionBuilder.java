@@ -24,6 +24,7 @@ import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.compiler.syntax.tree.Token;
 import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
@@ -67,15 +68,32 @@ public class DataMapperDefinitionBuilder extends NodeBuilder {
         codedata().node(NodeKind.DATA_MAPPER_DEFINITION);
     }
 
+    public static Property getParameterSchema() {
+        return ParameterSchemaHolder.PARAMETER_SCHEMA;
+    }
+
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
-        properties()
-                .functionNameTemplate("transform", context.getAllVisibleSymbolNames(),
-                        DATA_MAPPER_NAME_LABEL, DATA_MAPPER_NAME_DOC)
-                .returnType(null, RECORD_TYPE, false)
-                .nestedProperty()
+        properties().functionNameTemplate("transform", context.getAllVisibleSymbolNames(), DATA_MAPPER_NAME_LABEL,
+                DATA_MAPPER_NAME_DOC);
+        setMandatoryProperties(this, null);
+        setOptionalProperties(this);
+    }
+
+    public static void setMandatoryProperties(NodeBuilder nodeBuilder, String returnType) {
+        nodeBuilder.properties()
+                .returnType(returnType, RECORD_TYPE, false)
+                .nestedProperty();
+    }
+
+    public static void setProperty(FormBuilder<?> formBuilder, String type, String name, Token token) {
+        formBuilder.parameter(type, name, token, Property.ValueType.TYPE, TypeKind.ANYDATA.typeName());
+    }
+
+    public static void setOptionalProperties(NodeBuilder nodeBuilder) {
+        nodeBuilder.properties()
                 .endNestedProperty(Property.ValueType.REPEATABLE_PROPERTY, Property.PARAMETERS_KEY, PARAMETERS_LABEL,
-                        PARAMETERS_DOC, FunctionDefinitionBuilder.getParameterSchema(), false);
+                        PARAMETERS_DOC, getParameterSchema(), false, false);
     }
 
     @Override
@@ -154,5 +172,17 @@ public class DataMapperDefinitionBuilder extends NodeBuilder {
                     .textEdit(false);
         }
         return sourceBuilder.build();
+    }
+
+    private static class ParameterSchemaHolder {
+
+        private static final Property PARAMETER_SCHEMA = initParameterSchema();
+
+        private static Property initParameterSchema() {
+            FormBuilder<?> formBuilder = new FormBuilder<>(null, null, null, null);
+            setProperty(formBuilder, "", "", null);
+            Map<String, Property> nodeProperties = formBuilder.build();
+            return nodeProperties.get("");
+        }
     }
 }

@@ -20,6 +20,9 @@ package io.ballerina.servicemodelgenerator.extension.model;
 
 import io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants;
 
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.Comparator;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -180,6 +183,37 @@ public class Parameter {
             return graphQLParamSchema();
         }
         return functionParamSchema();
+    }
+
+    public static class RequiredParamSorter implements Comparator<Parameter>, Serializable {
+
+        @Serial
+        private static final long serialVersionUID = 1L; // Or any long value
+
+        @Override
+        public int compare(Parameter param1, Parameter param2) {
+            Value param1DefaultValue = param1.getDefaultValue();
+            Value param2DefaultValue = param2.getDefaultValue();
+            if (param1DefaultValue == null && param2DefaultValue == null) {
+                return 0;
+            } else if (param1DefaultValue == null) {
+                return -1;
+            } else if (param2DefaultValue == null) {
+                return 1;
+            }
+
+            boolean isEnabled1 = param1DefaultValue.isEnabledWithValue();
+            boolean isEnabled2 = param2DefaultValue.isEnabledWithValue();
+
+            if (isEnabled1 == isEnabled2) {
+                return 0; // Both have the same enabled state, consider them equal
+            } else if (isEnabled1) {
+                return 1;  // true comes after false
+            } else {
+                return -1; // false comes before true
+            }
+        }
+
     }
 
     public static class Builder {

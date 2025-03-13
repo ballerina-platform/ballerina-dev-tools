@@ -4,7 +4,7 @@
   "functionName": "complexFunction",
   "description": "",
   "output": {
-    "id": "56882",
+    "id": "56665",
     "metadata": {
       "label": "Function Definition",
       "description": "Define a function"
@@ -15,7 +15,7 @@
         "fileName": "function_def.bal",
         "startLine": {
           "line": 25,
-          "offset": 7
+          "offset": 0
         },
         "endLine": {
           "line": 25,
@@ -77,11 +77,10 @@
           "value": {
             "type": {
               "metadata": {
-                "label": "Variable Type",
-                "description": "Type of the variable"
+                "label": "Type",
+                "description": "Type of the parameter"
               },
               "valueType": "TYPE",
-              "valueTypeConstraint": "anydata",
               "value": "",
               "optional": false,
               "editable": true,
@@ -90,8 +89,8 @@
             },
             "variable": {
               "metadata": {
-                "label": "Variable Name",
-                "description": "Name of the variable"
+                "label": "Name",
+                "description": "Name of the parameter"
               },
               "valueType": "IDENTIFIER",
               "value": "",
@@ -116,11 +115,10 @@
             "value": {
               "type": {
                 "metadata": {
-                  "label": "Variable Type",
-                  "description": "Type of the variable"
+                  "label": "Type",
+                  "description": "Type of the parameter"
                 },
                 "valueType": "TYPE",
-                "valueTypeConstraint": "anydata",
                 "value": "int",
                 "optional": false,
                 "editable": true,
@@ -129,13 +127,13 @@
               },
               "variable": {
                 "metadata": {
-                  "label": "Variable Name",
-                  "description": "Name of the variable"
+                  "label": "Name",
+                  "description": "Name of the parameter"
                 },
                 "valueType": "IDENTIFIER",
                 "value": "required",
                 "optional": false,
-                "editable": false,
+                "editable": true,
                 "advanced": false,
                 "hidden": false,
                 "codedata": {
@@ -167,11 +165,10 @@
             "value": {
               "type": {
                 "metadata": {
-                  "label": "Variable Type",
-                  "description": "Type of the variable"
+                  "label": "Type",
+                  "description": "Type of the parameter"
                 },
                 "valueType": "TYPE",
-                "valueTypeConstraint": "anydata",
                 "value": "string",
                 "optional": false,
                 "editable": true,
@@ -180,13 +177,13 @@
               },
               "variable": {
                 "metadata": {
-                  "label": "Variable Name",
-                  "description": "Name of the variable"
+                  "label": "Name",
+                  "description": "Name of the parameter"
                 },
                 "valueType": "IDENTIFIER",
                 "value": "name",
                 "optional": false,
-                "editable": false,
+                "editable": true,
                 "advanced": false,
                 "hidden": false,
                 "codedata": {
@@ -218,11 +215,10 @@
             "value": {
               "type": {
                 "metadata": {
-                  "label": "Variable Type",
-                  "description": "Type of the variable"
+                  "label": "Type",
+                  "description": "Type of the parameter"
                 },
                 "valueType": "TYPE",
-                "valueTypeConstraint": "anydata",
                 "value": "boolean",
                 "optional": false,
                 "editable": true,
@@ -231,13 +227,13 @@
               },
               "variable": {
                 "metadata": {
-                  "label": "Variable Name",
-                  "description": "Name of the variable"
+                  "label": "Name",
+                  "description": "Name of the parameter"
                 },
                 "valueType": "IDENTIFIER",
                 "value": "flag",
                 "optional": false,
-                "editable": false,
+                "editable": true,
                 "advanced": false,
                 "hidden": false,
                 "codedata": {
@@ -269,11 +265,10 @@
             "value": {
               "type": {
                 "metadata": {
-                  "label": "Variable Type",
-                  "description": "Type of the variable"
+                  "label": "Type",
+                  "description": "Type of the parameter"
                 },
                 "valueType": "TYPE",
-                "valueTypeConstraint": "anydata",
                 "value": "int...",
                 "optional": false,
                 "editable": true,
@@ -282,13 +277,13 @@
               },
               "variable": {
                 "metadata": {
-                  "label": "Variable Name",
-                  "description": "Name of the variable"
+                  "label": "Name",
+                  "description": "Name of the parameter"
                 },
                 "valueType": "IDENTIFIER",
                 "value": "rest",
                 "optional": false,
-                "editable": false,
+                "editable": true,
                 "advanced": false,
                 "hidden": false,
                 "codedata": {

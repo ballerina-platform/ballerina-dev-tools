@@ -9,3 +9,14 @@ public function main() {
 function greet(string name) returns string {
     return "Hello, " + name + "!";
 }
+
+
+
+
+function sum2(int... numbers) returns int {
+    int total = 0;
+    foreach var num in numbers {
+        total += num;
+    }
+    return total;
+}

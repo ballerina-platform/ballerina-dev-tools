@@ -1,0 +1,673 @@
+{
+  "filePath": "sample1/main.bal",
+  "description": "Test adding a rabbitmq service",
+  "service": {
+    "id": "0",
+    "name": "HTTP Service",
+    "type": "http",
+    "displayAnnotation": {
+      "label": "HTTP Service",
+      "iconPath": "http://localhost:8080/icons/http.png"
+    },
+    "moduleName": "http",
+    "orgName": "ballerina",
+    "version": "2.12.0",
+    "packageName": "http",
+    "listenerProtocol": "http",
+    "icon": "http://localhost:8080/icons/http.png",
+    "properties": {
+      "listener": {
+        "metadata": {
+          "label": "Listeners",
+          "description": "The Listeners to be bound with the service"
+        },
+        "enabled": true,
+        "editable": true,
+        "value": "",
+        "values": [
+          "(+) Create and use the default HTTP listener (port: 8080)"
+        ],
+        "valueType": "MULTIPLE_SELECT",
+        "valueTypeConstraint": "http:Listener",
+        "isType": false,
+        "placeholder": "",
+        "optional": false,
+        "advanced": false,
+        "items": [
+          "(+) Create and use the default HTTP listener (port: 8080)"
+        ],
+        "codedata": {
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false,
+          "type": "LISTENER"
+        },
+        "addNewButton": true
+      },
+      "annotServiceConfig": {
+        "metadata": {
+          "label": "Service Configuration",
+          "description": "Configurations for the Http service"
+        },
+        "enabled": true,
+        "editable": true,
+        "value": "",
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "http:HttpServiceConfig",
+        "isType": false,
+        "placeholder": "{}",
+        "optional": true,
+        "advanced": true,
+        "codedata": {
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false,
+          "type": "ANNOTATION_ATTACHMENT",
+          "originalName": "ServiceConfig"
+        },
+        "addNewButton": false,
+        "typeMembers": [
+          {
+            "type": "HttpServiceConfig",
+            "packageInfo": "ballerina:http:2.12.2",
+            "kind": "RECORD_TYPE",
+            "selected": true
+          }
+        ]
+      },
+      "basePath": {
+        "metadata": {
+          "label": "Service Base Path",
+          "description": "The base path for the service"
+        },
+        "enabled": true,
+        "editable": true,
+        "value": "/",
+        "valueType": "IDENTIFIER",
+        "valueTypeConstraint": "string",
+        "isType": false,
+        "placeholder": "",
+        "optional": false,
+        "advanced": false,
+        "codedata": {
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false,
+          "type": "SERVICE_BASEPATH"
+        },
+        "addNewButton": false
+      }
+    },
+    "functions": [
+      {
+        "metadata": {
+          "label": "Get Greeting",
+          "description": "The get greeting reource"
+        },
+        "kind": "RESOURCE",
+        "accessor": {
+          "metadata": {
+            "label": "Resource Accessor",
+            "description": "The resource accessor"
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "GET",
+          "valueType": "SINGLE_SELECT",
+          "valueTypeConstraint": "http:Method",
+          "isType": false,
+          "placeholder": "GET",
+          "optional": false,
+          "advanced": false,
+          "items": [
+            "GET",
+            "POST",
+            "PUT",
+            "DELETE",
+            "PATCH",
+            "OPTIONS",
+            "HEAD"
+          ],
+          "addNewButton": false
+        },
+        "name": {
+          "metadata": {
+            "label": "Resource Path",
+            "description": "The resource path"
+          },
+          "enabled": true,
+          "editable": false,
+          "value": "greeting",
+          "valueType": "IDENTIFIER",
+          "valueTypeConstraint": "string",
+          "isType": false,
+          "placeholder": "",
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "parameters": [
+          {
+            "metadata": {
+              "label": "Request",
+              "description": "The HTTP Request"
+            },
+            "kind": "REQUIRED",
+            "type": {
+              "metadata": {
+                "label": "",
+                "description": ""
+              },
+              "enabled": true,
+              "editable": false,
+              "value": "",
+              "valueType": "TYPE",
+              "valueTypeConstraint": "http:Request",
+              "isType": true,
+              "placeholder": "string",
+              "optional": false,
+              "advanced": false,
+              "addNewButton": false
+            },
+            "name": {
+              "metadata": {
+                "label": "",
+                "description": ""
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "string",
+              "isType": false,
+              "placeholder": "request",
+              "optional": false,
+              "advanced": false,
+              "addNewButton": false
+            },
+            "enabled": false,
+            "editable": true,
+            "optional": true,
+            "advanced": true
+          },
+          {
+            "metadata": {
+              "label": "Caller",
+              "description": "The HTTP Caller"
+            },
+            "kind": "REQUIRED",
+            "type": {
+              "metadata": {
+                "label": "",
+                "description": ""
+              },
+              "enabled": true,
+              "editable": false,
+              "value": "",
+              "valueType": "TYPE",
+              "valueTypeConstraint": "http:Caller",
+              "isType": true,
+              "placeholder": "string",
+              "optional": false,
+              "advanced": false,
+              "addNewButton": false
+            },
+            "name": {
+              "metadata": {
+                "label": "",
+                "description": ""
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "string",
+              "isType": false,
+              "placeholder": "request",
+              "optional": false,
+              "advanced": false,
+              "addNewButton": false
+            },
+            "enabled": false,
+            "editable": true,
+            "optional": true,
+            "advanced": true
+          },
+          {
+            "metadata": {
+              "label": "Headers",
+              "description": "The HTTP Headers"
+            },
+            "kind": "REQUIRED",
+            "type": {
+              "metadata": {
+                "label": "",
+                "description": ""
+              },
+              "enabled": true,
+              "editable": false,
+              "value": "",
+              "valueType": "TYPE",
+              "valueTypeConstraint": "http:Headers",
+              "isType": true,
+              "placeholder": "string",
+              "optional": false,
+              "advanced": false,
+              "addNewButton": false
+            },
+            "name": {
+              "metadata": {
+                "label": "",
+                "description": ""
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "string",
+              "isType": false,
+              "placeholder": "request",
+              "optional": false,
+              "advanced": false,
+              "addNewButton": false
+            },
+            "enabled": false,
+            "editable": true,
+            "optional": true,
+            "advanced": true
+          }
+        ],
+        "schema": {
+          "payload": {
+            "metadata": {
+              "label": "Payload",
+              "description": "The Payload Parameter"
+            },
+            "kind": "REQUIRED",
+            "type": {
+              "metadata": {
+                "label": "",
+                "description": ""
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "TYPE",
+              "valueTypeConstraint": "anydata",
+              "isType": true,
+              "placeholder": "",
+              "optional": false,
+              "advanced": false,
+              "addNewButton": false
+            },
+            "name": {
+              "metadata": {
+                "label": "",
+                "description": ""
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "string",
+              "isType": false,
+              "placeholder": "",
+              "optional": false,
+              "advanced": false,
+              "addNewButton": false
+            },
+            "enabled": false,
+            "editable": true,
+            "optional": false,
+            "advanced": false,
+            "httpParamType": "PAYLOAD"
+          },
+          "query": {
+            "metadata": {
+              "label": "Query",
+              "description": "The Query Parameter"
+            },
+            "kind": "REQUIRED",
+            "type": {
+              "metadata": {
+                "label": "",
+                "description": ""
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "TYPE",
+              "valueTypeConstraint": "anydata",
+              "isType": true,
+              "placeholder": "",
+              "optional": false,
+              "advanced": false,
+              "addNewButton": false
+            },
+            "name": {
+              "metadata": {
+                "label": "",
+                "description": ""
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "string",
+              "isType": false,
+              "placeholder": "",
+              "optional": false,
+              "advanced": false,
+              "addNewButton": false
+            },
+            "enabled": false,
+            "editable": true,
+            "optional": false,
+            "advanced": false,
+            "httpParamType": "QUERY"
+          },
+          "header": {
+            "metadata": {
+              "label": "Header",
+              "description": "The Header Parameter"
+            },
+            "kind": "REQUIRED",
+            "type": {
+              "metadata": {
+                "label": "",
+                "description": ""
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "TYPE",
+              "valueTypeConstraint": "anydata",
+              "isType": true,
+              "placeholder": "string",
+              "optional": false,
+              "advanced": false,
+              "addNewButton": false
+            },
+            "name": {
+              "metadata": {
+                "label": "",
+                "description": ""
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "string",
+              "isType": false,
+              "placeholder": "name",
+              "optional": false,
+              "advanced": false,
+              "addNewButton": false
+            },
+            "enabled": false,
+            "editable": true,
+            "optional": false,
+            "advanced": false,
+            "httpParamType": "Header"
+          }
+        },
+        "returnType": {
+          "responses": [
+            {
+              "statusCode": {
+                "metadata": {
+                  "label": "Status Code",
+                  "description": "The status code"
+                },
+                "enabled": true,
+                "editable": false,
+                "value": "200",
+                "valueType": "SINGLE_SELECT",
+                "valueTypeConstraint": "http:StatusCode",
+                "isType": false,
+                "placeholder": "200",
+                "optional": false,
+                "advanced": false,
+                "items": [
+                  "200",
+                  "201",
+                  "202",
+                  "204",
+                  "400",
+                  "401",
+                  "403",
+                  "404",
+                  "405",
+                  "500"
+                ],
+                "addNewButton": false
+              },
+              "body": {
+                "metadata": {
+                  "label": "Body",
+                  "description": "The response body"
+                },
+                "enabled": true,
+                "editable": false,
+                "value": "json",
+                "valueType": "TYPE",
+                "valueTypeConstraint": "anydata",
+                "isType": true,
+                "placeholder": "json",
+                "optional": true,
+                "advanced": false,
+                "addNewButton": false
+              },
+              "enabled": true,
+              "editable": false,
+              "advanced": false,
+              "isHttpResponseType": false
+            },
+            {
+              "statusCode": {
+                "metadata": {
+                  "label": "Status Code",
+                  "description": "The status code"
+                },
+                "enabled": true,
+                "editable": false,
+                "value": "500",
+                "valueType": "SINGLE_SELECT",
+                "valueTypeConstraint": "http:StatusCode",
+                "isType": false,
+                "placeholder": "500",
+                "optional": false,
+                "advanced": false,
+                "items": [
+                  "200",
+                  "201",
+                  "202",
+                  "204",
+                  "400",
+                  "401",
+                  "403",
+                  "404",
+                  "405",
+                  "500"
+                ],
+                "addNewButton": false
+              },
+              "body": {
+                "metadata": {
+                  "label": "Body",
+                  "description": "The response body"
+                },
+                "enabled": true,
+                "editable": false,
+                "value": "anydata",
+                "valueType": "TYPE",
+                "valueTypeConstraint": "anydata",
+                "isType": true,
+                "placeholder": "anydata",
+                "optional": true,
+                "advanced": false,
+                "addNewButton": false
+              },
+              "enabled": true,
+              "editable": false,
+              "advanced": false,
+              "isHttpResponseType": false
+            }
+          ],
+          "schema": {
+            "statusCodeResponse": {
+              "statusCode": {
+                "metadata": {
+                  "label": "Status Code",
+                  "description": "The status code"
+                },
+                "enabled": true,
+                "editable": false,
+                "value": "",
+                "valueType": "SINGLE_SELECT",
+                "valueTypeConstraint": "http:StatusCode",
+                "isType": false,
+                "placeholder": "200",
+                "optional": false,
+                "advanced": false,
+                "items": [
+                  "200",
+                  "201",
+                  "202",
+                  "204",
+                  "400",
+                  "401",
+                  "403",
+                  "404",
+                  "405",
+                  "500"
+                ],
+                "addNewButton": false
+              },
+              "body": {
+                "metadata": {
+                  "label": "Body",
+                  "description": "Response Body"
+                },
+                "enabled": true,
+                "editable": true,
+                "value": "",
+                "valueType": "TYPE",
+                "isType": false,
+                "optional": true,
+                "advanced": false,
+                "addNewButton": false
+              },
+              "name": {
+                "metadata": {
+                  "label": "Name of the response",
+                  "description": "Create a new response type"
+                },
+                "enabled": true,
+                "editable": true,
+                "value": "",
+                "valueType": "IDENTIFIER",
+                "isType": false,
+                "optional": true,
+                "advanced": false,
+                "addNewButton": false
+              },
+              "type": {
+                "metadata": {
+                  "label": "Response Type",
+                  "description": "Select a response type"
+                },
+                "enabled": true,
+                "editable": true,
+                "value": "",
+                "valueType": "TYPE",
+                "isType": false,
+                "optional": false,
+                "advanced": false,
+                "addNewButton": false
+              },
+              "headers": {
+                "metadata": {
+                  "label": "Header types",
+                  "description": "Response header types"
+                },
+                "enabled": true,
+                "editable": true,
+                "value": "",
+                "valueType": "EXPRESSION_SET",
+                "isType": false,
+                "optional": true,
+                "advanced": false,
+                "addNewButton": false
+              },
+              "enabled": true,
+              "editable": false,
+              "advanced": false,
+              "isHttpResponseType": false
+            }
+          },
+          "metadata": {
+            "label": "Return type",
+            "description": "Return type of the function"
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "json|http:InternalServerError",
+          "valueType": "TYPE",
+          "valueTypeConstraint": "anydata|http:Response|http:StatusCodeResponse",
+          "isType": true,
+          "placeholder": "json|http:InternalServerError",
+          "optional": true,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "enabled": true,
+        "optional": false,
+        "editable": true
+      }
+    ]
+  },
+  "output": {
+    "sample1/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "\nimport ballerina/http;\n"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "\nlistener http:Listener httpDefaultListener = http:getDefaultListener();\n"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "\nservice / on httpDefaultListener {\n\tresource function get greeting() returns error|json|http:InternalServerError {\n\t\tdo {\n\t\t\treturn \"Hello, Greetings!\";\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t\treturn error(\"Not implemented\", err);\n\t\t}\n\t}\n}"
+      }
+    ]
+  }
+}

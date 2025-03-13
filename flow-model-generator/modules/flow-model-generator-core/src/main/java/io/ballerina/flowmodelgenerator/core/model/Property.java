@@ -63,6 +63,7 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
 
     public static final String VARIABLE_KEY = "variable";
     public static final String VARIABLE_NAME = "Variable Name";
+    public static final String PARAMETER_VARIABLE_DOC = "Name of the parameter";
     public static final String IMPLICIT_VARIABLE_LABEL = "Name";
     public static final String VARIABLE_DOC = "Name of the variable";
 
@@ -100,6 +101,7 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
 
     public static final String TYPE_KEY = "type";
     public static final String TYPE_LABEL = "Variable Type";
+    public static final String PARAMETER_TYPE_DOC = "Type of the parameter";
     public static final String IMPLICIT_TYPE_LABEL = "Type";
     public static final String TYPE_DOC = "Type of the variable";
 

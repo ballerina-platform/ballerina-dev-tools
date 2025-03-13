@@ -32,6 +32,7 @@ import java.util.List;
  * @param kind             the kind of the parameter
  * @param defaultValue     the default value of the parameter
  * @param description      the description of the parameter
+ * @param label            the label of the parameter
  * @param optional         whether the parameter is optional
  * @param importStatements import statements of the dependent types
  * @param typeMembers      the member types of the parameter
@@ -44,19 +45,26 @@ public record ParameterData(
         Kind kind,
         String defaultValue,
         String description,
+        String label,
         boolean optional,
         String importStatements,
         List<ParameterMemberTypeData> typeMembers) {
 
     public static ParameterData from(String name, String type, Kind kind, String defaultValue,
                                      String description, boolean optional) {
-        return new ParameterData(0, name, type, kind, defaultValue, description, optional,
+        return new ParameterData(0, name, type, kind, defaultValue, description, null, optional,
                 null, new ArrayList<>());
     }
 
     public static ParameterData from(String name, String description, String type, String defaultValue, Kind kind,
                                      boolean optional, String importStatements) {
-        return new ParameterData(0, name, type, kind, defaultValue, description, optional,
+        return new ParameterData(0, name, type, kind, defaultValue, description, null, optional,
+                importStatements, new ArrayList<>());
+    }
+
+    public static ParameterData from(String name, String description, String label, String type, String defaultValue,
+                                     Kind kind, boolean optional, String importStatements) {
+        return new ParameterData(0, name, type, kind, defaultValue, description, label, optional,
                 importStatements, new ArrayList<>());
     }
 

@@ -74,5 +74,5 @@ for idx, json_file in enumerate(json_files, 1):
 
 # Generate the config for the node template
 node_template_file = f"{output_file}.json"
-template_file = os.path.join(node_template_dir, output_file)
+template_file = os.path.join(node_template_dir, node_template_file)
 write_json_file(template_file, node_template_file)

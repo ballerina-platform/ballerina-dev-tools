@@ -47,7 +47,6 @@ import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.ModuleInfo;
 import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.langserver.common.utils.NameUtil;
-import org.ballerinalang.model.types.TypeKind;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -984,21 +983,18 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
         return this;
     }
 
-    public FormBuilder<T> parameter(String type, String name) {
-        return parameter(type, name, null);
-    }
-
-    public FormBuilder<T> parameter(String type, String name, Token token) {
+    public FormBuilder<T> parameter(String type, String name, Token token, Property.ValueType valueType,
+                                    Object typeConstraint) {
         nestedProperty();
 
         // Build the parameter type property
         propertyBuilder
                 .metadata()
-                    .label(Property.TYPE_LABEL)
-                    .description(Property.TYPE_DOC)
+                    .label(Property.IMPLICIT_TYPE_LABEL)
+                    .description(Property.PARAMETER_TYPE_DOC)
                     .stepOut()
-                .type(Property.ValueType.TYPE)
-                .typeConstraint(TypeKind.ANYDATA.typeName())
+                .type(valueType)
+                .typeConstraint(typeConstraint)
                 .value(type)
                 .editable();
         addProperty(Property.TYPE_KEY);
@@ -1006,10 +1002,11 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
         // Build the parameter name property
         propertyBuilder
                 .metadata()
-                    .label(Property.VARIABLE_NAME)
-                    .description(Property.VARIABLE_DOC)
+                    .label(Property.IMPLICIT_VARIABLE_LABEL)
+                    .description(Property.PARAMETER_VARIABLE_DOC)
                     .stepOut()
                 .type(Property.ValueType.IDENTIFIER)
+                .editable()
                 .value(name);
 
         if (token == null) {
@@ -1053,7 +1050,7 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
     }
 
     public FormBuilder<T> endNestedProperty(Property.ValueType valueType, String key, String label, String doc,
-                                            Object typeConstraint, boolean optional) {
+                                            Object typeConstraint, boolean optional, boolean advanced) {
         propertyBuilder
                 .metadata()
                     .label(label)
@@ -1062,7 +1059,8 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
                 .value(nodeProperties)
                 .typeConstraint(typeConstraint)
                 .type(valueType)
-                .optional(optional);
+                .optional(optional)
+                .advanced(advanced);
         if (!nodePropertiesStack.isEmpty()) {
             nodeProperties = nodePropertiesStack.pop();
         }
@@ -1071,7 +1069,7 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
     }
 
     public FormBuilder<T> endNestedProperty(Property.ValueType valueType, String key, String label, String doc) {
-        return endNestedProperty(valueType, key, label, doc, null, false);
+        return endNestedProperty(valueType, key, label, doc, null, false, false);
     }
 
     public final void addProperty(String key, Node node) {

@@ -55,6 +55,20 @@
             "symbol": "prefixSum"
           },
           "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "sum2",
+            "data": {
+              "isAgentTool": false,
+              "isDataMappedFunction": false
+            }
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "symbol": "sum2"
+          },
+          "enabled": true
         }
       ]
     },

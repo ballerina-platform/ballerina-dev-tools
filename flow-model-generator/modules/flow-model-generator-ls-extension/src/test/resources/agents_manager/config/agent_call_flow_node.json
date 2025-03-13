@@ -21,7 +21,8 @@
           "data": {
             "model": {
               "name": "myModel",
-              "path": "https://bcentral-packageicons.azureedge.net/images/agent_agent_0.1.0.png"
+              "path": "https://bcentral-packageicons.azureedge.net/images/agent_agent_0.1.0.png",
+              "type": "AzureOpenAiModel"
             },
             "tools": [
               {

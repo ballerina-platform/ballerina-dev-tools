@@ -32,7 +32,7 @@
             "label": "transform",
             "data": {
               "isAgentTool": false,
-              "isDataMappedFunction": false
+              "isDataMappedFunction": true
             }
           },
           "codedata": {
@@ -111,6 +111,20 @@
           "codedata": {
             "node": "FUNCTION_CALL",
             "symbol": "greet"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "sum2",
+            "data": {
+              "isAgentTool": false,
+              "isDataMappedFunction": false
+            }
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "symbol": "sum2"
           },
           "enabled": true
         }

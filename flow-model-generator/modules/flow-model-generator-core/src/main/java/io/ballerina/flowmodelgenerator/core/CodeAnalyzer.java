@@ -1506,13 +1506,18 @@ class CodeAnalyzer extends NodeVisitor {
         if (optSymbol.isEmpty()) {
             return null;
         }
+        Symbol symbol = optSymbol.get();
+        if (symbol.kind() != SymbolKind.VARIABLE) {
+            return null;
+        }
         Optional<ModuleSymbol> optModule = optSymbol.get().getModule();
         if (optModule.isEmpty()) {
             return null;
         }
         ModuleID id = optModule.get().id();
         return new ModelData(optSymbol.get().getName().orElseThrow(),
-                CommonUtils.generateIcon(id.moduleName(), id.packageName(), id.version()));
+                CommonUtils.generateIcon(id.moduleName(), id.packageName(), id.version()),
+                ((VariableSymbol) symbol).typeDescriptor().getName().orElse(""));
     }
 
     private static String getIdentifierName(NameReferenceNode nameReferenceNode) {
@@ -2058,7 +2063,7 @@ class CodeAnalyzer extends NodeVisitor {
 
     }
 
-    private record ModelData(String name, String path) {
+    private record ModelData(String name, String path, String type) {
 
     }
 }

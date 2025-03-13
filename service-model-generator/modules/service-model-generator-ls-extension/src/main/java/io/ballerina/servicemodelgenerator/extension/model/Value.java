@@ -29,7 +29,7 @@ public class Value {
     private boolean enabled;
     private boolean editable;
     private String value;
-    private List<Object> values;
+    private List<String> values;
     private String valueType;
     private String valueTypeConstraint;
     private boolean isType;
@@ -83,7 +83,7 @@ public class Value {
         this.codedata = codedata;
     }
 
-    public Value(MetaData metadata, boolean enabled, boolean editable, String value, List<Object> values,
+    public Value(MetaData metadata, boolean enabled, boolean editable, String value, List<String> values,
                  String valueType,
                  String valueTypeConstraint, boolean isType, String placeholder, boolean optional,
                  boolean advanced, Map<String, Value> properties, List<String> items, Codedata codedata,
@@ -136,7 +136,7 @@ public class Value {
     }
 
     public String getValue() {
-        List<Object> values = this.values;
+        List<String> values = this.values;
         if (Objects.nonNull(values) && !values.isEmpty()) {
             return String.join(", ", values.stream().map(Object::toString).toList());
         }
@@ -154,7 +154,7 @@ public class Value {
         this.value = value;
     }
 
-    public void setValues(List<Object> values) {
+    public void setValues(List<String> values) {
         this.values = values;
     }
 
@@ -299,7 +299,7 @@ public class Value {
         private boolean enabled;
         private boolean editable;
         private String value;
-        private List<Object> values;
+        private List<String> values;
         private String valueType;
         private String valueTypeConstraint;
         private boolean isType;
@@ -377,7 +377,7 @@ public class Value {
             return this;
         }
 
-        public ValueBuilder setValues(List<Object> values) {
+        public ValueBuilder setValues(List<String> values) {
             this.values = values;
             return this;
         }

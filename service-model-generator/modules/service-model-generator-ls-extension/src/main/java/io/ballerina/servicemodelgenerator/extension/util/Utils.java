@@ -459,20 +459,23 @@ public final class Utils {
         Parameter parameterModel = Parameter.getNewParameter(isGraphQL);
         parameterModel.setMetadata(new MetaData(paramName, paramName));
         parameterModel.setKind(paramKind);
-        if (isHttp) {
-            Optional<String> httpParameterType = getHttpParameterType(annotationNodes);
-            if (httpParameterType.isPresent()) {
-                parameterModel.setHttpParamType(httpParameterType.get());
-            } else {
-                parameterModel.setHttpParamType(ServiceModelGeneratorConstants.HTTP_PARAM_TYPE_QUERY);
-            }
-        }
         getHttpParameterType(annotationNodes).ifPresent(parameterModel::setHttpParamType);
         Value type = parameterModel.getType();
         type.setValue(typeName);
         type.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_TYPE);
         type.setType(true);
         type.setEnabled(true);
+        if (isHttp) {
+            Optional<String> httpParameterType = getHttpParameterType(annotationNodes);
+            if (httpParameterType.isPresent()) {
+                parameterModel.setHttpParamType(httpParameterType.get());
+            } else {
+                if (!(typeName.equals("http:Request") || typeName.equals("http:Caller")
+                        || typeName.equals("http:Headers"))) {
+                    parameterModel.setHttpParamType(ServiceModelGeneratorConstants.HTTP_PARAM_TYPE_QUERY);
+                }
+            }
+        }
         Value name = parameterModel.getName();
         name.setValue(paramName);
         name.setValueType(valueType);
@@ -637,8 +640,8 @@ public final class Utils {
         updateValue(functionModel.getReturnType(), commonFunction.getReturnType());
         List<Parameter> parameters = functionModel.getParameters();
         parameters.removeIf(parameter -> commonFunction.getParameters().stream()
-                .anyMatch(newParameter -> newParameter.getName().getValue()
-                        .equals(parameter.getName().getValue())));
+                .anyMatch(newParameter -> newParameter.getType().getValue()
+                        .equals(parameter.getType().getValue())));
         commonFunction.getParameters().forEach(functionModel::addParameter);
     }
 
@@ -776,13 +779,18 @@ public final class Utils {
         List<String> functions = new ArrayList<>();
         boolean isNewTcpService = Utils.isTcpService(service.getOrgName(), service.getPackageName())
                 && service.getProperties().containsKey("returningServiceClass");
+
+        boolean isAiAgent = Utils.isAiAgentModule(service.getOrgName(), service.getPackageName());
+
         if (isNewTcpService) {
             String serviceClassName = service.getProperties().get("returningServiceClass").getValue();
             String onConnectFunc = Utils.getTcpOnConnectTemplate().formatted(serviceClassName, serviceClassName);
             functions.add(onConnectFunc);
+        } else if (isAiAgent) {
+            String chatFunction = getAgentChatFunction();
+            functions.add(chatFunction);
         } else {
-            boolean isAiAgent = service.getModuleName().equals("ai.agent");
-            FunctionBodyKind kind = isAiAgent ? FunctionBodyKind.EMPTY : FunctionBodyKind.DO_BLOCK;
+            FunctionBodyKind kind = FunctionBodyKind.DO_BLOCK;
             service.getFunctions().forEach(function -> {
                 if (function.isEnabled()) {
                     String functionNode = "\t" + getFunction(function, new ArrayList<>(), kind, context)
@@ -795,6 +803,12 @@ public final class Utils {
         builder.append(System.lineSeparator());
         builder.append(ServiceModelGeneratorConstants.CLOSE_BRACE);
         return builder.toString();
+    }
+
+    private static String getAgentChatFunction() {
+        return "    resource function post chat(@http:Payload agent:ChatReqMessage request) " +
+                "returns agent:ChatRespMessage|error {" + System.lineSeparator() +
+                "    }";
     }
 
     private static List<String> getAnnotationEdits(Service service) {
@@ -909,7 +923,7 @@ public final class Utils {
             builder.append(" ");
         }
         builder.append(getValueString(function.getName()));
-        builder.append(getFunctionSignature(function, statusCodeResponses));
+        builder.append(getFunctionSignature(function, statusCodeResponses, true));
         builder.append("{");
         builder.append(System.lineSeparator());
         if (kind.equals(FunctionBodyKind.DO_BLOCK) || kind.equals(FunctionBodyKind.BLOCK_WITH_PANIC)) {
@@ -937,7 +951,7 @@ public final class Utils {
             builder.append(System.lineSeparator());
             builder.append("\t\t// handle error");
             builder.append(System.lineSeparator());
-            builder.append("\t\tpanic error(\"Unhandled error\");");
+            builder.append("\t\treturn error(\"Not implemented\", err);");
             builder.append(System.lineSeparator());
             builder.append("\t}");
             builder.append(System.lineSeparator());
@@ -952,10 +966,12 @@ public final class Utils {
         DO_BLOCK
     }
 
-    public static String getFunctionSignature(Function function, List<String> statusCodeResponses) {
+    public static String getFunctionSignature(Function function, List<String> statusCodeResponses, boolean isAdd) {
         StringBuilder builder = new StringBuilder();
         builder.append("(");
         List<String> params = new ArrayList<>();
+        // sort params list where required params come first
+        function.getParameters().sort(new Parameter.RequiredParamSorter());
         function.getParameters().forEach(param -> {
             if (param.isEnabled()) {
                 String paramDef;
@@ -980,14 +996,22 @@ public final class Utils {
         if (Objects.nonNull(returnType)) {
             if (returnType.isEnabledWithValue()) {
                 builder.append(" returns ");
-                builder.append(getValueString(returnType));
+                String returnTypeStr = getValueString(returnType);
+                if (isAdd && !returnTypeStr.contains("error")) {
+                    returnTypeStr = "error|" + returnTypeStr;
+                }
+                builder.append(returnTypeStr);
             } else if (returnType.isEnabled() && Objects.nonNull(returnType.getResponses()) &&
                     !returnType.getResponses().isEmpty()) {
-                List<String> responses = returnType.getResponses().stream()
+                List<String> responses = new ArrayList<>(returnType.getResponses().stream()
                         .filter(HttpResponse::isEnabled)
                         .map(response -> HttpUtil.getStatusCodeResponse(response, statusCodeResponses))
-                        .toList();
+                        .filter(Objects::nonNull)
+                        .toList());
                 if (!responses.isEmpty()) {
+                    if (isAdd && !statusCodeResponses.contains("error")) {
+                        responses.addFirst("error");
+                    }
                     builder.append(" returns ");
                     builder.append(String.join("|", responses));
                 }
@@ -1127,4 +1151,7 @@ public final class Utils {
         return input;
     }
 
+    public static boolean isAiAgentModule(String org, String module) {
+        return org.equals("ballerinax") && module.equals("ai.agent");
+    }
 }

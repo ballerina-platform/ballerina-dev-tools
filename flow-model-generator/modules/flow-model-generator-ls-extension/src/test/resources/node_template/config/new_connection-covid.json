@@ -30,31 +30,6 @@
     },
     "returning": false,
     "properties": {
-      "serviceUrl": {
-        "metadata": {
-          "label": "serviceUrl",
-          "description": "URL of the target service "
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "string",
-        "placeholder": "\"https://disease.sh\"",
-        "optional": true,
-        "editable": true,
-        "advanced": true,
-        "hidden": false,
-        "codedata": {
-          "kind": "DEFAULTABLE",
-          "originalName": "serviceUrl"
-        },
-        "typeMembers": [
-          {
-            "type": "string",
-            "packageInfo": "",
-            "kind": "BASIC_TYPE",
-            "selected": false
-          }
-        ]
-      },
       "config": {
         "metadata": {
           "label": "config",
@@ -76,6 +51,31 @@
             "type": "ConnectionConfig",
             "packageInfo": "ballerinax:covid19:1.5.1",
             "kind": "RECORD_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "serviceUrl": {
+        "metadata": {
+          "label": "serviceUrl",
+          "description": "URL of the target service "
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"https://disease.sh\"",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "hidden": false,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "serviceUrl"
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
             "selected": false
           }
         ]

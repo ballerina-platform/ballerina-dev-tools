@@ -1,0 +1,226 @@
+{
+  "filePath": "main2.bal",
+  "fileName": "main2.bal",
+  "functionName": "main",
+  "description": "",
+  "output": {
+    "id": "33772",
+    "metadata": {
+      "label": "Automation",
+      "description": "Define an automation"
+    },
+    "codedata": {
+      "node": "AUTOMATION",
+      "lineRange": {
+        "fileName": "main2.bal",
+        "startLine": {
+          "line": 2,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 2,
+          "offset": 44
+        }
+      }
+    },
+    "returning": false,
+    "properties": {
+      "functionName": {
+        "metadata": {
+          "label": "Name",
+          "description": "Name of the function"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "main",
+        "optional": false,
+        "editable": false,
+        "advanced": false,
+        "hidden": true
+      },
+      "parameters": {
+        "metadata": {
+          "label": "Startup Parameters",
+          "description": "Define the parameters to be passed to the automation at startup"
+        },
+        "valueType": "REPEATABLE_PROPERTY",
+        "valueTypeConstraint": {
+          "metadata": {
+            "label": "Parameter",
+            "description": "Function parameter"
+          },
+          "valueType": "FIXED_PROPERTY",
+          "value": {
+            "type": {
+              "metadata": {
+                "label": "Type",
+                "description": "Type of the parameter"
+              },
+              "valueType": "SINGLE_SELECT",
+              "valueTypeConstraint": [
+                "string",
+                "int",
+                "float",
+                "decimal",
+                "byte"
+              ],
+              "value": "",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "variable": {
+              "metadata": {
+                "label": "Name",
+                "description": "Name of the parameter"
+              },
+              "valueType": "IDENTIFIER",
+              "value": "",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            }
+          },
+          "optional": false,
+          "editable": false,
+          "advanced": false,
+          "hidden": false
+        },
+        "value": {
+          "name": {
+            "metadata": {
+              "label": "Parameter",
+              "description": "Function parameter"
+            },
+            "valueType": "FIXED_PROPERTY",
+            "value": {
+              "type": {
+                "metadata": {
+                  "label": "Type",
+                  "description": "Type of the parameter"
+                },
+                "valueType": "SINGLE_SELECT",
+                "valueTypeConstraint": [
+                  "string",
+                  "int",
+                  "float",
+                  "decimal",
+                  "byte"
+                ],
+                "value": "string",
+                "optional": false,
+                "editable": true,
+                "advanced": false,
+                "hidden": false
+              },
+              "variable": {
+                "metadata": {
+                  "label": "Name",
+                  "description": "Name of the parameter"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "name",
+                "optional": false,
+                "editable": true,
+                "advanced": false,
+                "hidden": false,
+                "codedata": {
+                  "lineRange": {
+                    "fileName": "main2.bal",
+                    "startLine": {
+                      "line": 2,
+                      "offset": 28
+                    },
+                    "endLine": {
+                      "line": 2,
+                      "offset": 32
+                    }
+                  }
+                }
+              }
+            },
+            "optional": false,
+            "editable": false,
+            "advanced": false,
+            "hidden": false
+          },
+          "age": {
+            "metadata": {
+              "label": "Parameter",
+              "description": "Function parameter"
+            },
+            "valueType": "FIXED_PROPERTY",
+            "value": {
+              "type": {
+                "metadata": {
+                  "label": "Type",
+                  "description": "Type of the parameter"
+                },
+                "valueType": "SINGLE_SELECT",
+                "valueTypeConstraint": [
+                  "string",
+                  "int",
+                  "float",
+                  "decimal",
+                  "byte"
+                ],
+                "value": "int?",
+                "optional": false,
+                "editable": true,
+                "advanced": false,
+                "hidden": false
+              },
+              "variable": {
+                "metadata": {
+                  "label": "Name",
+                  "description": "Name of the parameter"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "age",
+                "optional": false,
+                "editable": true,
+                "advanced": false,
+                "hidden": false,
+                "codedata": {
+                  "lineRange": {
+                    "fileName": "main2.bal",
+                    "startLine": {
+                      "line": 2,
+                      "offset": 39
+                    },
+                    "endLine": {
+                      "line": 2,
+                      "offset": 42
+                    }
+                  }
+                }
+              }
+            },
+            "optional": false,
+            "editable": false,
+            "advanced": false,
+            "hidden": false
+          }
+        },
+        "optional": true,
+        "editable": false,
+        "advanced": true,
+        "hidden": false
+      },
+      "returnError": {
+        "metadata": {
+          "label": "Return Error",
+          "description": "Indicate if the automation should exit with error"
+        },
+        "valueType": "FLAG",
+        "value": false,
+        "optional": false,
+        "editable": true,
+        "advanced": true,
+        "hidden": false
+      }
+    },
+    "flags": 0
+  }
+}

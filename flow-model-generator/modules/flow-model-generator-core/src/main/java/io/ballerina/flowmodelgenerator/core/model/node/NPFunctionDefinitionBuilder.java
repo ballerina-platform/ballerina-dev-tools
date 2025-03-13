@@ -23,6 +23,7 @@ import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.Constants;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
+import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
@@ -38,11 +39,12 @@ import java.util.Optional;
 import static io.ballerina.modelgenerator.commons.ParameterData.Kind.REQUIRED;
 
 /**
-* Represents the properties of a Natural programming function definition node.
+ * Represents the properties of a Natural programming function definition node.
  *
  * @since 2.0.0
  */
 public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
+
     public static final String LABEL = "Natural Function";
     public static final String DESCRIPTION = "Define a natural function";
     public static final String NATURAL_FUNCTION_PREFIX = "naturalFunction";
@@ -83,16 +85,12 @@ public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
-        properties()
-                .functionNameTemplate(NATURAL_FUNCTION_PREFIX,
-                        context.getAllVisibleSymbolNames(),
-                        NATURAL_FUNCTION_NAME_LABEL,
-                        NATURAL_FUNCTION_NAME_DESCRIPTION)
-                .returnType(null)
-                .nestedProperty()
-                .endNestedProperty(Property.ValueType.REPEATABLE_PROPERTY, Property.PARAMETERS_KEY, PARAMETERS_LABEL,
-                        PARAMETERS_DOC, getParameterSchema(), true);
-
+        properties().functionNameTemplate(NATURAL_FUNCTION_PREFIX,
+                context.getAllVisibleSymbolNames(),
+                NATURAL_FUNCTION_NAME_LABEL,
+                NATURAL_FUNCTION_NAME_DESCRIPTION);
+        setMandatoryProperties(this, null);
+        endOptionalProperties(this);
         // prompt
         properties().custom()
                     .metadata()
@@ -124,6 +122,18 @@ public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
                     .type(Property.ValueType.FLAG)
                     .stepOut()
                     .addProperty(Constants.NaturalFunctions.ENABLE_MODEL_CONTEXT);
+    }
+
+    public static void setMandatoryProperties(NodeBuilder nodeBuilder, String returnType) {
+        nodeBuilder.properties()
+                .returnType(returnType, null, true)
+                .nestedProperty();
+    }
+
+    public static void endOptionalProperties(NodeBuilder nodeBuilder) {
+        nodeBuilder.properties()
+                .endNestedProperty(Property.ValueType.REPEATABLE_PROPERTY, Property.PARAMETERS_KEY, PARAMETERS_LABEL,
+                        PARAMETERS_DOC, getParameterSchema(), true, false);
     }
 
     @Override
