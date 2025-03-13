@@ -42,7 +42,7 @@
         "items": [
           "httpListener",
           "githubListener",
-          "(+) Create and use the default HTTP listener (port: 8080)"
+          "(+) Create and use the default HTTP listener (port: 9090)"
         ],
         "codedata": {
           "inListenerInit": false,

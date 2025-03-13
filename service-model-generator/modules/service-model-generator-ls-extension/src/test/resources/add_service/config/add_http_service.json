@@ -25,7 +25,7 @@
         "editable": true,
         "value": "",
         "values": [
-          "(+) Create and use the default HTTP listener (port: 8080)"
+          "(+) Create and use the default HTTP listener (port: 9090)"
         ],
         "valueType": "MULTIPLE_SELECT",
         "valueTypeConstraint": "http:Listener",
@@ -34,7 +34,7 @@
         "optional": false,
         "advanced": false,
         "items": [
-          "(+) Create and use the default HTTP listener (port: 8080)"
+          "(+) Create and use the default HTTP listener (port: 9090)"
         ],
         "codedata": {
           "inListenerInit": false,
