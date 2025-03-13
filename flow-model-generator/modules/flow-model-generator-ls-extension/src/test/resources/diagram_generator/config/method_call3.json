@@ -123,7 +123,7 @@
         "properties": {
           "connection": {
             "metadata": {
-              "label": "connection",
+              "label": "Connection Type",
               "description": ""
             },
             "valueType": "EXPRESSION",
@@ -154,7 +154,7 @@
           },
           "connectionPooling": {
             "metadata": {
-              "label": "connectionPooling",
+              "label": "Connection Pooling Enabled",
               "description": ""
             },
             "valueType": "EXPRESSION",
@@ -179,7 +179,7 @@
           },
           "isClusterConnection": {
             "metadata": {
-              "label": "isClusterConnection",
+              "label": "Cluster Mode Enabled",
               "description": ""
             },
             "valueType": "EXPRESSION",
@@ -204,7 +204,7 @@
           },
           "secureSocket": {
             "metadata": {
-              "label": "secureSocket",
+              "label": "Secure Socket Configurations",
               "description": ""
             },
             "valueType": "EXPRESSION",

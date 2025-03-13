@@ -487,10 +487,11 @@ class CodeAnalyzer extends NodeVisitor {
             }
 
             String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
+            String label = paramResult.label();
             Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder = nodeBuilder.properties().custom();
             customPropBuilder
                     .metadata()
-                        .label(unescapedParamName)
+                        .label(label == null || label.isEmpty() ? unescapedParamName : label)
                         .description(paramResult.description())
                         .stepOut()
                     .codedata()
@@ -562,10 +563,11 @@ class CodeAnalyzer extends NodeVisitor {
                 }
 
                 String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
+                String label = paramResult.label();
                 Property.Builder<FormBuilder<NodeBuilder>> customPropBuilder = nodeBuilder.properties().custom();
                 customPropBuilder
                         .metadata()
-                            .label(unescapedParamName)
+                            .label(label == null || label.isEmpty() ? unescapedParamName : label)
                             .description(paramResult.description())
                             .stepOut()
                         .codedata()
@@ -639,9 +641,10 @@ class CodeAnalyzer extends NodeVisitor {
                             }
                         }
                     }
+                    String label = paramResult.label();
                     customPropBuilder
                             .metadata()
-                                .label(unescapedParamName)
+                                .label(label == null || label.isEmpty() ? unescapedParamName : label)
                                 .description(paramResult.description())
                                 .stepOut()
                             .type(getPropertyTypeFromParam(parameterSymbol, paramResult.kind()))
@@ -737,9 +740,10 @@ class CodeAnalyzer extends NodeVisitor {
                                     selectedType = CommonUtils.getTypeSignature(paramType.get(), null);
                                 }
                             }
+                            String label = paramResult.label();
                             customPropBuilder
                                     .metadata()
-                                        .label(unescapedParamName)
+                                        .label(label == null || label.isEmpty() ? unescapedParamName : label)
                                         .description(paramResult.description())
                                         .stepOut()
                                     .type(getPropertyTypeFromParam(parameterSymbol, paramResult.kind()))
@@ -783,9 +787,10 @@ class CodeAnalyzer extends NodeVisitor {
                                 }
 
                                 String unescapedParamName = ParamUtils.removeLeadingSingleQuote(paramResult.name());
+                                String label = paramResult.label();
                                 customPropBuilder
                                         .metadata()
-                                            .label(unescapedParamName)
+                                            .label(label == null || label.isEmpty() ? unescapedParamName : label)
                                             .description(paramResult.description())
                                             .stepOut()
                                         .type(getPropertyTypeFromParam(parameterSymbol, paramResult.kind()))
@@ -824,9 +829,10 @@ class CodeAnalyzer extends NodeVisitor {
                                     selectedType = CommonUtils.getTypeSignature(paramType.get(), null);
                                 }
                             }
+                            String label = paramResult.label();
                             customPropBuilder
                                     .metadata()
-                                        .label(unescapedParamName)
+                                        .label(label == null || label.isEmpty() ? unescapedParamName : label)
                                         .description(paramResult.description())
                                         .stepOut()
                                     .type(getPropertyTypeFromParam(parameterSymbol, paramResult.kind()))
@@ -870,9 +876,10 @@ class CodeAnalyzer extends NodeVisitor {
                         }
                     }
                 }
+                String label = paramResult.label();
                 customPropBuilder
                         .metadata()
-                            .label(unescapedParamName)
+                            .label(label == null || label.isEmpty() ? unescapedParamName : label)
                             .description(paramResult.description())
                             .stepOut()
                         .type(getPropertyTypeFromParam(parameterSymbol, paramResult.kind()))
@@ -918,9 +925,10 @@ class CodeAnalyzer extends NodeVisitor {
                         }
                     }
                 }
+                String label = paramResult.label();
                 customPropBuilder
                         .metadata()
-                        .label(unescapedParamName)
+                        .label(label == null || label.isEmpty() ? unescapedParamName : label)
                         .description(paramResult.description())
                         .stepOut()
                         .type(getPropertyTypeFromParam(null, paramResult.kind()))
