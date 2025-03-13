@@ -261,7 +261,7 @@
       {
         "id": "192589",
         "metadata": {
-          "label": "Variable",
+          "label": "Declare Variable",
           "description": "Assign a value to a variable"
         },
         "codedata": {

@@ -11,7 +11,7 @@
   "output": {
     "id": "31",
     "metadata": {
-      "label": "Variable",
+      "label": "Declare Variable",
       "description": "New variable with type"
     },
     "codedata": {
