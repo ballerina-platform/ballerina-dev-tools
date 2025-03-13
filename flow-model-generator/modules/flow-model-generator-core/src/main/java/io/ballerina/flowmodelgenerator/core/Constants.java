@@ -36,12 +36,25 @@ public class Constants {
         private NaturalFunctions() {}
 
         public static final String PROMPT = "prompt";
-        public static final String PROMPT_TYPE = "np:Prompt";
+        public static final String PROMPT_TYPE_NAME = "Prompt";
+        public static final String MODULE_PREFIXED_PROMPT_TYPE = "np:Prompt";
+        public static final String PROMPT_LABEL = "Prompt";
+        public static final String PROMPT_DESCRIPTION = "Prompt for the function";
+
         public static final String CONTEXT = "context";
-        public static final String CONTEXT_TYPE = "np:Context";
+        public static final String CONTEXT_TYPE_NAME = "Context";
+        public static final String MODULE_PREFIXED_CONTEXT_TYPE = "np:Context";
+        public static final String CONTEXT_LABEL = "Context";
+        public static final String CONTEXT_DESCRIPTION = "Context for the function";
+
+        public static final String ENABLE_MODEL_CONTEXT = "enableModelContext";
+        public static final String ENABLE_MODEL_CONTEXT_LABEL = "Enable Model Context";
+        public static final String ENABLE_MODEL_CONTEXT_DESCRIPTION = "Enable model context for the function";
+
         public static final String BALLERINAX_ORG = "ballerinax";
         public static final String NP_PACKAGE = "np";
         public static final String NP_PACKAGE_WITH_ORG = BALLERINAX_ORG + "/" + NP_PACKAGE;
+
         public static final String ICON =
                 "https://gist.github.com/user-attachments/assets/903c5c16-7d67-4af8-8113-ce7c59ccdaab";
     }

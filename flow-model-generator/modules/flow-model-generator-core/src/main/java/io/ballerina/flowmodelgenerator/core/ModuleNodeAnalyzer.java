@@ -49,10 +49,7 @@ import io.ballerina.modelgenerator.commons.ModuleInfo;
 import io.ballerina.modelgenerator.commons.ParameterData;
 import io.ballerina.tools.text.LineRange;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Analyzes the module level functions and generates the flow model.
@@ -134,12 +131,11 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
                         metadata.returnTypeConstraint == null)
                 .nestedProperty();
 
+        boolean isContextParamAvailable = false;
+        String npPromptDefaultValue = null;
+
         // Set the function parameters
         for (ParameterNode parameter : functionDefinitionNode.functionSignature().parameters()) {
-            if (isNpFunctionProperty(parameter)) {
-                continue;
-            }
-
             String paramType;
             Optional<Token> paramName;
             switch (parameter.kind()) {
@@ -162,9 +158,26 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
                     continue;
                 }
             }
+            if (isNpFunctionProperty(parameter)) {
+                if (Constants.NaturalFunctions.CONTEXT.equals(paramName.get().text())) {
+                    isContextParamAvailable = true;
+                } else if (Constants.NaturalFunctions.PROMPT.equals(paramName.get().text())) {
+                    npPromptDefaultValue = ((DefaultableParameterNode) parameter).expression().toSourceCode();
+                }
+
+                continue;
+            }
             nodeBuilder.properties().parameter(paramType, paramName.map(Token::text).orElse(""),
                     paramName.orElse(null));
         }
+
+        if (isNpFunction) {
+            // set `enableModuleContext` parameter
+            nodeBuilder.properties().parameter(Constants.NaturalFunctions.ENABLE_MODEL_CONTEXT_LABEL,
+                    Constants.NaturalFunctions.ENABLE_MODEL_CONTEXT_DESCRIPTION, Property.ValueType.FLAG,
+                    isContextParamAvailable, Constants.NaturalFunctions.ENABLE_MODEL_CONTEXT, true, true);
+        }
+
         nodeBuilder.properties().endNestedProperty(
                 Property.ValueType.REPEATABLE_PROPERTY,
                 Property.PARAMETERS_KEY,
@@ -174,70 +187,65 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
                 metadata.optionalParameters);
 
         if (isNpFunction) {
-            processNpFunctionDefinitionProperties(functionDefinitionNode, nodeBuilder);
+            processNpFunctionDefinitionProperties(nodeBuilder, npPromptDefaultValue, isContextParamAvailable);
         }
 
         // Build the definition node
         this.node = gson.toJsonTree(nodeBuilder.build());
     }
 
-    private void processNpFunctionDefinitionProperties(FunctionDefinitionNode functionDefinitionNode,
-                                                       NodeBuilder nodeBuilder) {
-        AtomicReference<String> npPromptDefaultValue = new AtomicReference<>();
-        AtomicReference<String> npModelDefaultValue = new AtomicReference<>();
-        AtomicBoolean isModelPropertyAvailable = new AtomicBoolean(false);
-
-        functionDefinitionNode.functionSignature().parameters().forEach(param -> {
-            if (param.kind() == SyntaxKind.DEFAULTABLE_PARAM) {
-                DefaultableParameterNode defParam = (DefaultableParameterNode) param;
-                if (defParam.paramName().isEmpty()) {
-                    return;
-                }
-                if (defParam.paramName().get().text().equals("model")) {
-                    isModelPropertyAvailable.set(true);
-                    npModelDefaultValue.set(defParam.expression().toSourceCode());
-                } else if (defParam.paramName().get().text().equals("prompt")) {
-                    npPromptDefaultValue.set(defParam.expression().toSourceCode());
-                }
-            }
-        });
-
-        // Set the NP function properties
+    private void processNpFunctionDefinitionProperties(NodeBuilder nodeBuilder, String promptDefaultValue,
+                                                       boolean isContextAvailable) {
+        // Set the 'prompt' property
         nodeBuilder.properties().custom()
                 .metadata()
-                    .label(NPFunctionDefinitionBuilder.PROMPT_LABEL)
-                    .description(NPFunctionDefinitionBuilder.PROMPT_DESCRIPTION)
+                    .label(Constants.NaturalFunctions.PROMPT_LABEL)
+                    .description(Constants.NaturalFunctions.PROMPT_DESCRIPTION)
                     .stepOut()
                 .codedata()
                     .kind(ParameterData.Kind.REQUIRED.name())
                     .stepOut()
-                .typeConstraint(NPFunctionDefinitionBuilder.PROMPT_TYPE)
-                .value(npPromptDefaultValue.get())
+                .typeConstraint(Constants.NaturalFunctions.MODULE_PREFIXED_PROMPT_TYPE)
+                .value(promptDefaultValue)
                 .editable()
                 .hidden()
                 .type(Property.ValueType.RAW_TEMPLATE)
                 .stepOut()
-                .addProperty(NPFunctionDefinitionBuilder.PROMPT);
+                .addProperty(Constants.NaturalFunctions.PROMPT);
 
-        if (isModelPropertyAvailable.get()) {
+        // Set the `context` property if enabled
+        if (isContextAvailable) {
             nodeBuilder.properties().custom()
                     .metadata()
-                        .label(NPFunctionDefinitionBuilder.MODEL_LABEL)
-                        .description(NPFunctionDefinitionBuilder.MODEL_DESCRIPTION)
+                        .label(Constants.NaturalFunctions.CONTEXT_LABEL)
+                        .description(Constants.NaturalFunctions.CONTEXT_DESCRIPTION)
                         .stepOut()
                     .codedata()
-                        .kind(ParameterData.Kind.DEFAULTABLE.name())
-                        .stepOut()
-                    .typeConstraint(NPFunctionDefinitionBuilder.MODEL_TYPE)
-                    .value(npModelDefaultValue.get())
+                        .kind(ParameterData.Kind.REQUIRED.name())
+                    .stepOut()
+                    .typeConstraint(Constants.NaturalFunctions.MODULE_PREFIXED_CONTEXT_TYPE)
                     .editable()
                     .optional(true)
                     .advanced(true)
+                    .hidden()
                     .type(Property.ValueType.EXPRESSION)
                     .stepOut()
-                    .addProperty(NPFunctionDefinitionBuilder.MODEL);
+                    .addProperty(Constants.NaturalFunctions.CONTEXT);
         }
 
+        // set the `enableModelContext` property
+        nodeBuilder.properties().custom()
+                .metadata()
+                    .label(Constants.NaturalFunctions.ENABLE_MODEL_CONTEXT_LABEL)
+                    .description(Constants.NaturalFunctions.ENABLE_MODEL_CONTEXT_DESCRIPTION)
+                    .stepOut()
+                .editable()
+                .value(isContextAvailable)
+                .optional(true)
+                .advanced(true)
+                .type(Property.ValueType.FLAG)
+                .stepOut()
+                .addProperty(Constants.NaturalFunctions.ENABLE_MODEL_CONTEXT);
     }
 
     private static String getNodeValue(Node node) {
@@ -282,10 +290,6 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
      * @return true if the function parameter is a NP function property else false
      */
     private boolean isNpFunctionProperty(ParameterNode parameterNode) {
-        List<String> npFunctionProperties = List.of(NPFunctionDefinitionBuilder.PROMPT,
-                NPFunctionDefinitionBuilder.MODEL);
-        List<String> npFunctionPropertyTypes = List.of("Prompt", "Model");
-
         Optional<Token> paramName;
         if (parameterNode.kind() == SyntaxKind.REQUIRED_PARAM) {
             RequiredParameterNode reqParam = (RequiredParameterNode) parameterNode;
@@ -297,7 +301,9 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
             return false;
         }
 
-        if (paramName.isEmpty() || !npFunctionProperties.contains(paramName.get().text())) {
+        if (paramName.isEmpty() ||
+                (!Constants.NaturalFunctions.PROMPT.equals(paramName.get().text())
+                        && !Constants.NaturalFunctions.CONTEXT.equals(paramName.get().text()))) {
             return false;
         }
 
@@ -308,6 +314,7 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
 
         TypeSymbol typeDesc = ((ParameterSymbol) paramSymbol.get()).typeDescriptor();
         return CommonUtils.isNpModule(typeDesc) && typeDesc.getName().isPresent()
-                && npFunctionPropertyTypes.contains(typeDesc.getName().get());
+                && (Constants.NaturalFunctions.PROMPT_TYPE_NAME.equals(typeDesc.getName().get())
+                    || Constants.NaturalFunctions.CONTEXT_TYPE_NAME.equals(typeDesc.getName().get()));
     }
 }
