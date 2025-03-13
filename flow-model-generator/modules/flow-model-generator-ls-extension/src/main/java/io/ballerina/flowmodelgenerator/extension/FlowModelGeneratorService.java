@@ -210,7 +210,8 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
                         newTextDocument.linePositionFrom(end + request.text().length()));
 
                 ModelGenerator suggestedModelGenerator =
-                        new ModelGenerator(newProject, newDoc.module().getCompilation().getSemanticModel(), filePath);
+                        new ModelGenerator(newProject, newProject.currentPackage().getCompilation()
+                                .getSemanticModel(newDoc.module().moduleId()), filePath);
                 JsonElement newFlowModel = suggestedModelGenerator.getFlowModel(newDoc,
                         endLineRange, newDataMappingsDoc.orElse(null));
 

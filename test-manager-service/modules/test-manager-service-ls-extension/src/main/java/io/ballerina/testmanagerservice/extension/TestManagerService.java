@@ -72,7 +72,6 @@ public class TestManagerService implements ExtendedLanguageServerService {
         return null;
     }
 
-
     /**
      * Discovers tests in a file.
      *
@@ -140,7 +139,8 @@ public class TestManagerService implements ExtendedLanguageServerService {
                 Path filePath = Path.of(request.filePath());
                 Project project = this.workspaceManager.loadProject(filePath);
                 Optional<Document> document = this.workspaceManager.document(filePath);
-                if (document.isEmpty()) {
+                Optional<SemanticModel> semanticModel = this.workspaceManager.semanticModel(filePath);
+                if (document.isEmpty() || semanticModel.isEmpty()) {
                     return GetTestFunctionResponse.get();
                 }
                 ModulePartNode modulePartNode = document.get().syntaxTree().rootNode();
@@ -150,15 +150,9 @@ public class TestManagerService implements ExtendedLanguageServerService {
                         .filter(mem -> mem.functionName().text().trim().equals(request.functionName()))
                         .findFirst();
 
-                if (matchingFunc.isEmpty()) {
-                    return GetTestFunctionResponse.get();
-                }
-
-                SemanticModel semanticModel = project.currentPackage()
-                        .module(document.get().module().moduleId())
-                        .getCompilation()
-                        .getSemanticModel();
-                return GetTestFunctionResponse.from(Utils.getTestFunctionModel(matchingFunc.get(), semanticModel));
+                return matchingFunc.map(functionDefinitionNode -> GetTestFunctionResponse.from(
+                                Utils.getTestFunctionModel(functionDefinitionNode, semanticModel.get())))
+                        .orElseGet(GetTestFunctionResponse::get);
             } catch (Throwable e) {
                 return GetTestFunctionResponse.from(e);
             }
@@ -214,7 +208,8 @@ public class TestManagerService implements ExtendedLanguageServerService {
                 }
                 TextDocument textDocument = document.get().syntaxTree().textDocument();
                 ModulePartNode modulePartNode = document.get().syntaxTree().rootNode();
-                LineRange lineRange = request.function().codedata().lineRange();
+                LineRange lineRange = request.function()
+                        .codedata().lineRange();
                 int start = textDocument.textPositionFrom(lineRange.startLine());
                 int end = textDocument.textPositionFrom(lineRange.endLine());
                 NonTerminalNode node = modulePartNode.findNode(TextRange.from(start, end - start), true);

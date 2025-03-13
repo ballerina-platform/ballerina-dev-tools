@@ -59,12 +59,12 @@ public class ConfigVariablesManager {
         this.gson = new Gson();
     }
 
-    public JsonElement get(List<Document> documents) {
+    public JsonElement get(Map<Document, SemanticModel> documentSemanticModelMap) {
         List<FlowNode> configVariables = new ArrayList<>();
-        for (Document document : documents) {
+        for (Document document : documentSemanticModelMap.keySet()) {
             SyntaxTree syntaxTree = document.syntaxTree();
             ModulePartNode modulePartNode = syntaxTree.rootNode();
-            SemanticModel semanticModel = document.module().getCompilation().getSemanticModel();
+            SemanticModel semanticModel = documentSemanticModelMap.get(document);
             for (Node node : modulePartNode.children()) {
                 if (node.kind() == SyntaxKind.MODULE_VAR_DECL) {
                     ModuleVariableDeclarationNode modVarDeclarationNode = (ModuleVariableDeclarationNode) node;

@@ -19,6 +19,7 @@
 package io.ballerina.flowmodelgenerator.core.converters.utils;
 
 import com.google.gson.JsonPrimitive;
+import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.syntax.tree.AbstractNodeFactory;
 import io.ballerina.compiler.syntax.tree.ArrayTypeDescriptorNode;
@@ -54,7 +55,8 @@ import static io.ballerina.flowmodelgenerator.core.converters.utils.Utils.unesca
  */
 public final class JsonToRecordMapperConverterUtils {
 
-    private JsonToRecordMapperConverterUtils() {}
+    private JsonToRecordMapperConverterUtils() {
+    }
 
     private static final String ARRAY_RECORD_SUFFIX = "Item";
     private static final String QUOTED_IDENTIFIER_PREFIX = "'";
@@ -87,10 +89,11 @@ public final class JsonToRecordMapperConverterUtils {
      * This method returns existing Types on a module/file(for single file projects).
      *
      * @param workspaceManager Workspace manager instance
-     * @param filePath FilePath URI of the/a file in a singleFileProject or module
+     * @param filePath         FilePath URI of the/a file in a singleFileProject or module
      * @return {@link List<String>} List of already existing Types
      */
-    public static List<String> getExistingTypeNames(WorkspaceManager workspaceManager, Path filePath) {
+    public static List<String> getExistingTypeNames(WorkspaceManager workspaceManager, Path filePath,
+                                                    SemanticModel semanticModel) {
         List<String> existingTypeNames = new ArrayList<>();
         if (filePath == null) {
             return existingTypeNames;
@@ -112,9 +115,7 @@ public final class JsonToRecordMapperConverterUtils {
             Path projectRoot = ProjectUtils.findProjectRoot(filePath);
             if (projectRoot == null) {
                 // Since the project-root cannot be found, the provided file is considered as SingleFileProject.
-                project = SingleFileProject.load(filePath);
-                moduleSymbols =
-                        project.currentPackage().getDefaultModule().getCompilation().getSemanticModel().moduleSymbols();
+                moduleSymbols = semanticModel.moduleSymbols();
                 moduleSymbols.forEach(symbol -> {
                     if (symbol.getName().isPresent()) {
                         existingTypeNames.add(symbol.getName().get());
@@ -122,9 +123,7 @@ public final class JsonToRecordMapperConverterUtils {
                 });
             } else {
                 project = BuildProject.load(projectRoot);
-                moduleSymbols = project.currentPackage()
-                        .module(project.documentId(filePath).moduleId())
-                        .getCompilation().getSemanticModel().moduleSymbols();
+                moduleSymbols = semanticModel.moduleSymbols();
                 moduleSymbols.forEach(symbol -> {
                     if (symbol.getName().isPresent()) {
                         existingTypeNames.add(symbol.getName().get());

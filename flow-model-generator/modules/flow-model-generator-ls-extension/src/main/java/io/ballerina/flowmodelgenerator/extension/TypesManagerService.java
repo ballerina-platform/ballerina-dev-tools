@@ -94,11 +94,12 @@ public class TypesManagerService implements ExtendedLanguageServerService {
                 Path filePath = Path.of(request.filePath());
                 this.workspaceManager.loadProject(filePath);
                 Optional<Document> document = this.workspaceManager.document(filePath);
-                if (document.isEmpty()) {
+                Optional<SemanticModel> semanticModel = this.workspaceManager.semanticModel(filePath);
+                if (document.isEmpty() || semanticModel.isEmpty()) {
                     return response;
                 }
                 TypesManager typesManager = new TypesManager(document.get());
-                JsonElement allTypes = typesManager.getAllTypes();
+                JsonElement allTypes = typesManager.getAllTypes(semanticModel.get());
                 response.setTypes(allTypes);
             } catch (Throwable e) {
                 throw new RuntimeException(e);
@@ -115,11 +116,12 @@ public class TypesManagerService implements ExtendedLanguageServerService {
                 Path filePath = Path.of(request.filePath());
                 this.workspaceManager.loadProject(filePath);
                 Optional<Document> document = this.workspaceManager.document(filePath);
-                if (document.isEmpty()) {
+                Optional<SemanticModel> semanticModel = this.workspaceManager.semanticModel(filePath);
+                if (document.isEmpty() || semanticModel.isEmpty()) {
                     return response;
                 }
                 TypesManager typesManager = new TypesManager(document.get());
-                JsonElement result = typesManager.getType(document.get(), request.linePosition());
+                JsonElement result = typesManager.getType(semanticModel.get(),document.get(), request.linePosition());
                 if (result == null) {
                     return response;
                 }

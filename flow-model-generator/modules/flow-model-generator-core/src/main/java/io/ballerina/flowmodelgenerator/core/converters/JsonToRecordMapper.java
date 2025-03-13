@@ -80,8 +80,8 @@ import static io.ballerina.flowmodelgenerator.core.converters.utils.JsonToRecord
 import static io.ballerina.flowmodelgenerator.core.converters.utils.JsonToRecordMapperConverterUtils.extractUnionTypeDescNode;
 import static io.ballerina.flowmodelgenerator.core.converters.utils.JsonToRecordMapperConverterUtils.getAndUpdateFieldNames;
 import static io.ballerina.flowmodelgenerator.core.converters.utils.JsonToRecordMapperConverterUtils.getExistingTypeNames;
-import static io.ballerina.flowmodelgenerator.core.converters.utils.JsonToRecordMapperConverterUtils.getPrimitiveTypeName;
 import static io.ballerina.flowmodelgenerator.core.converters.utils.JsonToRecordMapperConverterUtils.getNumberOfDimensions;
+import static io.ballerina.flowmodelgenerator.core.converters.utils.JsonToRecordMapperConverterUtils.getPrimitiveTypeName;
 import static io.ballerina.flowmodelgenerator.core.converters.utils.JsonToRecordMapperConverterUtils.sortTypeDescriptorNodes;
 import static io.ballerina.flowmodelgenerator.core.converters.utils.ListOperationUtils.difference;
 import static io.ballerina.flowmodelgenerator.core.converters.utils.ListOperationUtils.intersection;
@@ -100,15 +100,17 @@ public final class JsonToRecordMapper {
     private final Document document;
     private final Path filePath;
     private final TypesManager typesManager;
+    private final SemanticModel semanticModel;
 
     public JsonToRecordMapper(String recordName, String prefix, Project project, Document document, Path filePath,
-                              TypesManager typesManager) {
+                              TypesManager typesManager, SemanticModel semanticModel) {
         this.recordName = recordName;
         this.prefix = prefix;
         this.project = project;
         this.document = document;
         this.filePath = filePath;
         this.typesManager = typesManager;
+        this.semanticModel = semanticModel;
     }
 
     private static final String NEW_RECORD_NAME = "NewRecord";
@@ -130,7 +132,7 @@ public final class JsonToRecordMapper {
                                boolean forceFormatRecordFields, WorkspaceManager workspaceManager,
                                boolean isNullAsOptional)
             throws JsonToRecordConverterException, FormatterException {
-        List<String> existingFieldNames = getExistingTypeNames(workspaceManager, this.filePath);
+        List<String> existingFieldNames = getExistingTypeNames(workspaceManager, this.filePath, semanticModel);
         Map<String, String> updatedFieldNames = new HashMap<>();
         Map<String, NonTerminalNode> recordToTypeDescNodes = new LinkedHashMap<>();
         Map<String, JsonElement> jsonFieldToElements = new LinkedHashMap<>();
@@ -189,7 +191,6 @@ public final class JsonToRecordMapper {
         Document modifiedDoc =
                 project.duplicate().currentPackage().module(document.module().moduleId())
                         .document(document.documentId()).modify().withContent(str).apply();
-        SemanticModel semanticModel = modifiedDoc.module().getCompilation().getSemanticModel();
 
         List<TypesManager.TypeDataWithRefs> typeDataList = new ArrayList<>();
         for (Symbol symbol : semanticModel.moduleSymbols()) {

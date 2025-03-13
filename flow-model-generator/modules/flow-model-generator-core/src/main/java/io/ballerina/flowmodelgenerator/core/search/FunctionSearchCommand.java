@@ -32,6 +32,7 @@ import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.Item;
 import io.ballerina.flowmodelgenerator.core.model.Metadata;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
+import io.ballerina.flowmodelgenerator.core.model.node.AutomationBuilder;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.SearchResult;
 import io.ballerina.projects.Package;
@@ -124,9 +125,13 @@ class FunctionSearchCommand extends SearchCommand {
     }
 
     private void buildProjectNodes() {
-        List<Symbol> functionSymbols = project.currentPackage().getDefaultModule().getCompilation().
-                getSemanticModel().moduleSymbols().stream()
-                .filter(symbol -> symbol.kind().equals(SymbolKind.FUNCTION) && !symbol.nameEquals("main")).toList();
+        Package currentPackage = project.currentPackage();
+        List<Symbol> functionSymbols = currentPackage.getCompilation()
+                .getSemanticModel(currentPackage.getDefaultModule().moduleId())
+                .moduleSymbols().stream()
+                .filter(symbol -> symbol.kind().equals(SymbolKind.FUNCTION) &&
+                        !symbol.nameEquals(AutomationBuilder.MAIN_FUNCTION_NAME))
+                .toList();
         Category.Builder projectBuilder = rootBuilder.stepIn(Category.Name.CURRENT_INTEGRATION);
         Category.Builder agentToolsBuilder = rootBuilder.stepIn(Category.Name.AGENT_TOOLS);
 

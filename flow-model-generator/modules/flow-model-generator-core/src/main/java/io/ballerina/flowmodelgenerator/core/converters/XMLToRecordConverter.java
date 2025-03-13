@@ -77,7 +77,6 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -98,12 +97,15 @@ public final class XMLToRecordConverter {
     private static final Gson gson = new Gson();
     private final Project project;
     private final io.ballerina.projects.Document document;
+    private final SemanticModel semanticModel;
     private final TypesManager typesManager;
 
-    public XMLToRecordConverter(Project project, io.ballerina.projects.Document document, TypesManager typesManager) {
+    public XMLToRecordConverter(Project project, io.ballerina.projects.Document document, TypesManager typesManager,
+                                SemanticModel semanticModel) {
         this.project = project;
         this.document = document;
         this.typesManager = typesManager;
+        this.semanticModel = semanticModel;
     }
 
     private static final String XMLNS_PREFIX = "xmlns";
@@ -181,7 +183,6 @@ public final class XMLToRecordConverter {
         io.ballerina.projects.Document modifiedDoc =
                 project.duplicate().currentPackage().module(document.module().moduleId())
                         .document(document.documentId()).modify().withContent(typesSrc).apply();
-        SemanticModel semanticModel = modifiedDoc.module().getCompilation().getSemanticModel();
 
         List<TypesManager.TypeDataWithRefs> typeDataList = new ArrayList<>();
         for (Symbol symbol : semanticModel.moduleSymbols()) {
