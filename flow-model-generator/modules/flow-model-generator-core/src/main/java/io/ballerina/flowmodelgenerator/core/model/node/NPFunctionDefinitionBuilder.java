@@ -20,6 +20,8 @@ package io.ballerina.flowmodelgenerator.core.model.node;
 
 import com.google.gson.Gson;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.flowmodelgenerator.core.Constants;
+import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
@@ -33,7 +35,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import static io.ballerina.modelgenerator.commons.ParameterData.Kind.DEFAULTABLE;
 import static io.ballerina.modelgenerator.commons.ParameterData.Kind.REQUIRED;
 
 /**
@@ -95,45 +96,43 @@ public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
         // prompt
         properties().custom()
                     .metadata()
-                        .label(PROMPT_LABEL)
-                        .description(PROMPT_DESCRIPTION)
+                        .label(Constants.NaturalFunctions.PROMPT_LABEL)
+                        .description(Constants.NaturalFunctions.PROMPT_DESCRIPTION)
                         .stepOut()
                     .codedata()
                         .kind(REQUIRED.name())
                         .stepOut()
                     .placeholder("")
                     .typeConstraint(PROMPT_TYPE)
+                    .typeConstraint(Constants.NaturalFunctions.MODULE_PREFIXED_PROMPT_TYPE)
                     .editable()
                     .hidden()
                     .type(Property.ValueType.RAW_TEMPLATE)
                     .stepOut()
-                    .addProperty(PROMPT);
+                    .addProperty(Constants.NaturalFunctions.PROMPT);
 
-        // model
+        // enable model context
         properties().custom()
                     .metadata()
-                        .label(MODEL_LABEL)
-                        .description(MODEL_DESCRIPTION)
+                        .label(Constants.NaturalFunctions.ENABLE_MODEL_CONTEXT_LABEL)
+                        .description(Constants.NaturalFunctions.ENABLE_MODEL_CONTEXT_DESCRIPTION)
                         .stepOut()
-                    .codedata()
-                        .kind(DEFAULTABLE.name())
-                        .stepOut()
-                    .placeholder("")
-                    .typeConstraint(MODEL_TYPE)
                     .editable()
+                    .value(false)
                     .optional(true)
                     .advanced(true)
-                    .type(Property.ValueType.EXPRESSION)
+                    .type(Property.ValueType.FLAG)
                     .stepOut()
-                    .addProperty(MODEL);
+                    .addProperty(Constants.NaturalFunctions.ENABLE_MODEL_CONTEXT);
     }
 
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
         sourceBuilder.token().keyword(SyntaxKind.FUNCTION_KEYWORD);
+        FlowNode flowNode = sourceBuilder.flowNode;
 
         // Write the function name
-        Optional<Property> property = sourceBuilder.flowNode.getProperty(Property.FUNCTION_NAME_KEY);
+        Optional<Property> property = flowNode.getProperty(Property.FUNCTION_NAME_KEY);
         if (property.isEmpty()) {
             throw new IllegalStateException("Function name is not present");
         }
@@ -141,8 +140,18 @@ public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
                 .name(property.get().value().toString())
                 .keyword(SyntaxKind.OPEN_PAREN_TOKEN);
 
+        // Write the context parameter
+        Optional<Property> isModelContextEnabled =
+                flowNode.getProperty(Constants.NaturalFunctions.ENABLE_MODEL_CONTEXT);
+
+        if (isModelContextEnabled.isPresent() && (boolean) isModelContextEnabled.get().value()) {
+            sourceBuilder.token().name(Constants.NaturalFunctions.MODULE_PREFIXED_CONTEXT_TYPE +
+                    " " + Constants.NaturalFunctions.CONTEXT);
+            sourceBuilder.token().keyword(SyntaxKind.COMMA_TOKEN);
+        }
+
         // Write the function parameters
-        Optional<Property> parameters = sourceBuilder.flowNode.getProperty(Property.PARAMETERS_KEY);
+        Optional<Property> parameters = flowNode.getProperty(Property.PARAMETERS_KEY);
         if (parameters.isPresent() && parameters.get().value() instanceof Map<?, ?> paramMap) {
             List<String> paramList = new ArrayList<>();
             for (Object obj : paramMap.values()) {
@@ -164,14 +173,14 @@ public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
         }
 
         // Write prompt parameter
-        Optional<Property> promptProperty = sourceBuilder.flowNode.getProperty(PROMPT);
+        Optional<Property> promptProperty = flowNode.getProperty(PROMPT);
         String defaultValue = promptProperty.map(value -> " = " + value.value().toString()).orElse("");
         sourceBuilder.token().name(PROMPT_TYPE + " " + PROMPT + defaultValue);
 
         sourceBuilder.token().keyword(SyntaxKind.CLOSE_PAREN_TOKEN);
 
         // Write the return type
-        Optional<Property> returnType = sourceBuilder.flowNode.getProperty(Property.TYPE_KEY);
+        Optional<Property> returnType = flowNode.getProperty(Property.TYPE_KEY);
         if (returnType.isPresent() && !returnType.get().value().toString().isEmpty()) {
             if (returnType.get().value().toString().contains("error")) {
                 sourceBuilder.token()
@@ -188,7 +197,7 @@ public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
 
         // Generate text edits based on the line range. If a line range exists, update the signature of the existing
         // function. Otherwise, create a new function definition in "functions.bal".
-        LineRange lineRange = sourceBuilder.flowNode.codedata().lineRange();
+        LineRange lineRange = flowNode.codedata().lineRange();
         if (lineRange == null) {
             sourceBuilder
                     .token()
