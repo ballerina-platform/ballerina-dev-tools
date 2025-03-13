@@ -29,10 +29,7 @@ import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.Token;
 import io.ballerina.compiler.syntax.tree.TypeDescriptorNode;
 import io.ballerina.compiler.syntax.tree.UnionTypeDescriptorNode;
-import io.ballerina.projects.Project;
 import io.ballerina.projects.ProjectException;
-import io.ballerina.projects.directory.BuildProject;
-import io.ballerina.projects.directory.SingleFileProject;
 import io.ballerina.projects.util.ProjectUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
@@ -110,7 +107,6 @@ public final class JsonToRecordMapperConverterUtils {
         }
 
         try {
-            Project project;
             List<Symbol> moduleSymbols;
             Path projectRoot = ProjectUtils.findProjectRoot(filePath);
             if (projectRoot == null) {
@@ -122,7 +118,6 @@ public final class JsonToRecordMapperConverterUtils {
                     }
                 });
             } else {
-                project = BuildProject.load(projectRoot);
                 moduleSymbols = semanticModel.moduleSymbols();
                 moduleSymbols.forEach(symbol -> {
                     if (symbol.getName().isPresent()) {

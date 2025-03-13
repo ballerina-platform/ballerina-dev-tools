@@ -18,7 +18,6 @@
 
 package io.ballerina.flowmodelgenerator.extension;
 
-import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.flowmodelgenerator.core.TypesManager;
 import io.ballerina.flowmodelgenerator.core.converters.XMLToRecordConverter;
 import io.ballerina.flowmodelgenerator.extension.request.XMLToRecordRequest;
@@ -76,13 +75,13 @@ public class XMLToRecordConverterService implements ExtendedLanguageServerServic
                 Path filePath = Path.of(request.getFilePath());
                 Project project = this.workspaceManager.loadProject(filePath);
                 Optional<Document> document = this.workspaceManager.document(filePath);
-                Optional<SemanticModel> semanticModel = this.workspaceManager.semanticModel(filePath);
-                if (document.isEmpty() || semanticModel.isEmpty()) {
+                if (document.isEmpty()) {
                     return response;
                 }
                 TypesManager typesManager = new TypesManager(document.get());
 
-                XMLToRecordConverter converter = new XMLToRecordConverter(project, document.get(), typesManager, semanticModel.get());
+                XMLToRecordConverter converter =
+                        new XMLToRecordConverter(project, document.get(), typesManager);
                 response.setTypes(converter.convert(xmlValue, isRecordTypeDesc, isClosed, forceFormatRecordFields,
                         textFieldName, withNameSpace, withoutAttributes, withoutAttributeAnnot, prefix));
             } catch (Throwable e) {

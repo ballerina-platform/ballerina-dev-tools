@@ -20,7 +20,6 @@ package io.ballerina.flowmodelgenerator.core.converters;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
@@ -51,6 +50,8 @@ import io.ballerina.compiler.syntax.tree.Token;
 import io.ballerina.compiler.syntax.tree.TypeDefinitionNode;
 import io.ballerina.compiler.syntax.tree.TypeDescriptorNode;
 import io.ballerina.flowmodelgenerator.core.TypesManager;
+import io.ballerina.projects.ModuleId;
+import io.ballerina.projects.Package;
 import io.ballerina.projects.Project;
 import org.apache.commons.lang3.StringUtils;
 import org.ballerinalang.formatter.core.Formatter;
@@ -77,6 +78,7 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -97,15 +99,12 @@ public final class XMLToRecordConverter {
     private static final Gson gson = new Gson();
     private final Project project;
     private final io.ballerina.projects.Document document;
-    private final SemanticModel semanticModel;
     private final TypesManager typesManager;
 
-    public XMLToRecordConverter(Project project, io.ballerina.projects.Document document, TypesManager typesManager,
-                                SemanticModel semanticModel) {
+    public XMLToRecordConverter(Project project, io.ballerina.projects.Document document, TypesManager typesManager) {
         this.project = project;
         this.document = document;
         this.typesManager = typesManager;
-        this.semanticModel = semanticModel;
     }
 
     private static final String XMLNS_PREFIX = "xmlns";
@@ -180,12 +179,12 @@ public final class XMLToRecordConverter {
                 .setForceFormattingOptions(forceFormattingOptions).build();
         String typesSrc = Formatter.format(modulePartNode.syntaxTree(), formattingOptions).toSourceCode();
 
-        io.ballerina.projects.Document modifiedDoc =
-                project.duplicate().currentPackage().module(document.module().moduleId())
-                        .document(document.documentId()).modify().withContent(typesSrc).apply();
+        Package currentPackage = project.duplicate().currentPackage();
+        ModuleId moduleId = document.module().moduleId();
+        currentPackage.module(moduleId).document(document.documentId()).modify().withContent(typesSrc).apply();
 
         List<TypesManager.TypeDataWithRefs> typeDataList = new ArrayList<>();
-        for (Symbol symbol : semanticModel.moduleSymbols()) {
+        for (Symbol symbol : currentPackage.getCompilation().getSemanticModel(moduleId).moduleSymbols()) {
             if (symbol.kind() == SymbolKind.TYPE_DEFINITION) {
                 TypeDefinitionSymbol typeDefSymbol = (TypeDefinitionSymbol) symbol;
                 if (typeNames.contains(typeDefSymbol.getName().get())) {
