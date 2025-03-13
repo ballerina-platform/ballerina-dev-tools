@@ -22,6 +22,7 @@ import com.google.gson.JsonObject;
 import io.ballerina.flowmodelgenerator.extension.request.FunctionDefinitionRequest;
 import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -58,6 +59,15 @@ public class FunctionDefinitionTest extends AbstractLSTest {
             compareJsonElements(functionDefinition, testConfig.output());
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
+    }
+
+    @Override
+    protected String[] skipList() {
+        // TODO: Re-enable once the ballerinax/np module is available
+        return new String[] {
+                "np_function_def1.json",
+                "np_function_def2.json",
+        };
     }
 
     @Override
