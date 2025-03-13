@@ -88,9 +88,11 @@ public class VisibleVariableTypesGenerator {
                 } else if (functionLineRange.isPresent() &&
                         isInFunctionRange(variableSymbol, functionLineRange.get())) {
                     addCategoryValue(Category.LOCAL_CATEGORY, name, type);
-                } else {
-                    addCategoryValue(Category.MODULE_CATEGORY, name, type);
                 }
+                // TODO: Enable after resolving #723
+//                else {
+//                    addCategoryValue(Category.MODULE_CATEGORY, name, type);
+//                }
             } else if (symbol.kind() == SymbolKind.PARAMETER) {
                 String name = symbol.getName().orElse("");
                 Type type = Type.fromSemanticSymbol(symbol);
