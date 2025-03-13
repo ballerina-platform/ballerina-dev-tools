@@ -162,7 +162,9 @@ public class OpenApiServiceGenerator {
                 } else {
                     listenerDeclaringLoc = modulePartNode.lineRange().endLine();
                 }
-                SemanticModel semanticModel = document.get().module().getCompilation().getSemanticModel();
+                Package currentPackage = project.currentPackage();
+                Module module = document.get().module();
+                SemanticModel semanticModel = currentPackage.getCompilation().getSemanticModel(module.moduleId());
                 String listenerDeclarationStmt = ListenerUtil.getListenerDeclarationStmt(
                         semanticModel, document.get(), listenerDeclaringLoc);
                 textEdits.add(new TextEdit(Utils.toRange(listenerDeclaringLoc), listenerDeclarationStmt));

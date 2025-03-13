@@ -408,7 +408,9 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                     } else {
                         listenerDeclaringLoc = lineRange.endLine();
                     }
-                    semanticModel = document.get().module().getCompilation().getSemanticModel();
+                    Package currentPackage = project.currentPackage();
+                    Module module = document.get().module();
+                    semanticModel = currentPackage.getCompilation().getSemanticModel(module.moduleId());
                     String listenerDeclarationStmt = ListenerUtil.getListenerDeclarationStmt(
                             semanticModel, document.get(), listenerDeclaringLoc);
                     edits.add(new TextEdit(Utils.toRange(listenerDeclaringLoc), listenerDeclarationStmt));
@@ -418,7 +420,9 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                         service.getPackageName());
                 if (context.equals(Utils.FunctionAddContext.TCP_SERVICE_ADD)) {
                     if (semanticModel == null) {
-                        semanticModel = document.get().module().getCompilation().getSemanticModel();
+                        Package currentPackage = project.currentPackage();
+                        Module module = document.get().module();
+                        semanticModel = currentPackage.getCompilation().getSemanticModel(module.moduleId());
                     }
                     String serviceName = Utils.generateTypeIdentifier(semanticModel, document.get(),
                             lineRange.endLine(), "TcpEchoService");
