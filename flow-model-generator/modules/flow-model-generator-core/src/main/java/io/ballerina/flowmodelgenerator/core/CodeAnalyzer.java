@@ -356,7 +356,7 @@ class CodeAnalyzer extends NodeVisitor {
                         }
                     }
                 }
-                if (toolsArg == null || toolsArg.kind() != SyntaxKind.LIST_CONSTRUCTOR) {
+                if (toolsArg == null) {
                     throw new IllegalStateException("Tools argument not found for the new expression: " +
                             newExpressionNode);
                 }
@@ -364,39 +364,39 @@ class CodeAnalyzer extends NodeVisitor {
                     throw new IllegalStateException("Model argument not found for the new expression: " +
                             newExpressionNode);
                 }
-                if (systemPromptArg == null || systemPromptArg.kind() != SyntaxKind.MAPPING_CONSTRUCTOR) {
+                if (systemPromptArg == null) {
                     throw new IllegalStateException("SystemPrompt argument not found for the new expression: " +
                             newExpressionNode);
                 }
                 
-                List<ToolData> toolUrls = new ArrayList<>();
-                ListConstructorExpressionNode listCtrExprNode = (ListConstructorExpressionNode) toolsArg;
-                for (Node node : listCtrExprNode.expressions()) {
-                    if (node.kind() != SyntaxKind.SIMPLE_NAME_REFERENCE) {
-                        throw new IllegalStateException("Tool node is not a simple name reference: " + node);
+                if (toolsArg.kind() == SyntaxKind.LIST_CONSTRUCTOR) {
+                    List<ToolData> toolUrls = new ArrayList<>();
+                    ListConstructorExpressionNode listCtrExprNode = (ListConstructorExpressionNode) toolsArg;
+                    for (Node node : listCtrExprNode.expressions()) {
+                        if (node.kind() != SyntaxKind.SIMPLE_NAME_REFERENCE) {
+                            continue;
+                        }
+                        SimpleNameReferenceNode simpleNameReferenceNode = (SimpleNameReferenceNode) node;
+                        String toolName = simpleNameReferenceNode.name().text();
+                        toolUrls.add(new ToolData(toolName, getIcon(toolName), getToolDescription(toolName)));
                     }
-                    SimpleNameReferenceNode simpleNameReferenceNode = (SimpleNameReferenceNode) node;
-                    String toolName = simpleNameReferenceNode.name().text();
-                    toolUrls.add(new ToolData(toolName, getIcon(toolName), getToolDescription(toolName)));
-                }
-                if (!toolUrls.isEmpty()) {
                     nodeBuilder.metadata().addData("tools", toolUrls);
                 }
 
-                MappingConstructorExpressionNode mappingCtrExprNode =
-                        (MappingConstructorExpressionNode) systemPromptArg;
-                SeparatedNodeList<MappingFieldNode> fields = mappingCtrExprNode.fields();
-                Map<String, String> agentData = new HashMap<>();
-                for (MappingFieldNode field : fields) {
-                    SyntaxKind kind = field.kind();
-                    if (kind != SyntaxKind.SPECIFIC_FIELD) {
-                        continue;
+                if (systemPromptArg.kind() == SyntaxKind.MAPPING_CONSTRUCTOR) {
+                    MappingConstructorExpressionNode mappingCtrExprNode =
+                            (MappingConstructorExpressionNode) systemPromptArg;
+                    SeparatedNodeList<MappingFieldNode> fields = mappingCtrExprNode.fields();
+                    Map<String, String> agentData = new HashMap<>();
+                    for (MappingFieldNode field : fields) {
+                        SyntaxKind kind = field.kind();
+                        if (kind != SyntaxKind.SPECIFIC_FIELD) {
+                            continue;
+                        }
+                        SpecificFieldNode specificFieldNode = (SpecificFieldNode) field;
+                        agentData.put(specificFieldNode.fieldName().toString().trim(),
+                                specificFieldNode.valueExpr().orElseThrow().toSourceCode());
                     }
-                    SpecificFieldNode specificFieldNode = (SpecificFieldNode) field;
-                    agentData.put(specificFieldNode.fieldName().toString().trim(),
-                            specificFieldNode.valueExpr().orElseThrow().toSourceCode());
-                }
-                if (!agentData.isEmpty()) {
                     nodeBuilder.metadata().addData("agent", agentData);
                 }
 
