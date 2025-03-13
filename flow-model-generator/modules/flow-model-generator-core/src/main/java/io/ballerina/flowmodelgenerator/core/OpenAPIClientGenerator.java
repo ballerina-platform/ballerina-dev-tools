@@ -105,7 +105,7 @@ public class OpenAPIClientGenerator {
             for (KeyValueNode field : tableArrayNode.fields()) {
                 String identifier = field.identifier().toSourceCode();
                 if (identifier.trim().equals("targetModule")) {
-                    if (field.value().toSourceCode().trim().equals(module)) {
+                    if (field.value().toSourceCode().contains("\"" + module + "\"")) {
                         lineRange = tableArrayNode.lineRange();
                         break;
                     }

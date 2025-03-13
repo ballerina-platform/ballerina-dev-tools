@@ -21,7 +21,8 @@
         "module": "covid19",
         "object": "Client",
         "symbol": "init",
-        "version": "1.5.1"
+        "version": "1.5.1",
+        "isGenerated": false
       },
       "enabled": true
     }
