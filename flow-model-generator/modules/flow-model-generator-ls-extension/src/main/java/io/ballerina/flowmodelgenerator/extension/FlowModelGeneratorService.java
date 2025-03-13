@@ -29,12 +29,12 @@ import io.ballerina.flowmodelgenerator.core.DeleteNodeHandler;
 import io.ballerina.flowmodelgenerator.core.EnclosedNodeFinder;
 import io.ballerina.flowmodelgenerator.core.ErrorHandlerGenerator;
 import io.ballerina.flowmodelgenerator.core.ModelGenerator;
-import io.ballerina.flowmodelgenerator.core.ModuleNodeAnalyzer;
 import io.ballerina.flowmodelgenerator.core.NodeTemplateGenerator;
 import io.ballerina.flowmodelgenerator.core.OpenApiServiceGenerator;
 import io.ballerina.flowmodelgenerator.core.SourceGenerator;
 import io.ballerina.flowmodelgenerator.core.SuggestedComponentService;
 import io.ballerina.flowmodelgenerator.core.SuggestedModelGenerator;
+import io.ballerina.flowmodelgenerator.core.analyzers.function.ModuleNodeAnalyzer;
 import io.ballerina.flowmodelgenerator.core.search.SearchCommand;
 import io.ballerina.flowmodelgenerator.extension.request.ComponentDeleteRequest;
 import io.ballerina.flowmodelgenerator.extension.request.CopilotContextRequest;
@@ -500,9 +500,17 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
         return CompletableFuture.supplyAsync(() -> {
             FlowModelAvailableNodesResponse response = new FlowModelAvailableNodesResponse();
             try {
-                Project project = this.workspaceManager.loadProject(Path.of(request.filePath()));
+                Path filePath = Path.of(request.filePath());
+                Project project = this.workspaceManager.loadProject(filePath);
                 SearchCommand.Kind searchKind = SearchCommand.Kind.valueOf(request.searchKind());
-                SearchCommand command = SearchCommand.from(searchKind, project, request.position(), request.queryMap());
+                LineRange position = request.position();
+                if (request.position() != null) {
+                    position = LineRange.from(
+                            Optional.ofNullable(filePath.getFileName()).map(Path::toString).orElse(""),
+                            request.position().startLine(),
+                            request.position().endLine());
+                }
+                SearchCommand command = SearchCommand.from(searchKind, project, position, request.queryMap());
                 response.setCategories(command.execute());
             } catch (Throwable e) {
                 response.setError(e);

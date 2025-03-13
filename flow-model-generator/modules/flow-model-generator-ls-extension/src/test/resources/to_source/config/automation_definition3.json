@@ -1,25 +1,23 @@
 {
-  "filePath": "function_def.bal",
-  "fileName": "function_def.bal",
-  "functionName": "divide",
-  "description": "",
-  "output": {
-    "id": "65527",
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "33772",
     "metadata": {
-      "label": "Function Definition",
-      "description": "Define a function"
+      "label": "Automation",
+      "description": "Define an automation"
     },
     "codedata": {
-      "node": "FUNCTION_DEFINITION",
+      "node": "AUTOMATION",
       "lineRange": {
-        "fileName": "function_def.bal",
+        "fileName": "main2.bal",
         "startLine": {
-          "line": 34,
+          "line": 2,
           "offset": 0
         },
         "endLine": {
-          "line": 34,
-          "offset": 55
+          "line": 2,
+          "offset": 44
         }
       }
     },
@@ -31,41 +29,16 @@
           "description": "Name of the function"
         },
         "valueType": "IDENTIFIER",
-        "value": "divide",
+        "value": "main",
         "optional": false,
         "editable": false,
         "advanced": false,
-        "hidden": false,
-        "codedata": {
-          "lineRange": {
-            "fileName": "function_def.bal",
-            "startLine": {
-              "line": 34,
-              "offset": 16
-            },
-            "endLine": {
-              "line": 34,
-              "offset": 22
-            }
-          }
-        }
-      },
-      "type": {
-        "metadata": {
-          "label": "Return Type",
-          "description": "Type of the return value"
-        },
-        "valueType": "TYPE",
-        "value": "int|error",
-        "optional": true,
-        "editable": true,
-        "advanced": false,
-        "hidden": false
+        "hidden": true
       },
       "parameters": {
         "metadata": {
-          "label": "Parameters",
-          "description": "Function parameters"
+          "label": "Startup Parameters",
+          "description": "Define the parameters to be passed to the automation at startup"
         },
         "valueType": "REPEATABLE_PROPERTY",
         "valueTypeConstraint": {
@@ -77,10 +50,17 @@
           "value": {
             "type": {
               "metadata": {
-                "label": "Type",
-                "description": "Type of the parameter"
+                "label": "Variable Type",
+                "description": "Type of the variable"
               },
-              "valueType": "TYPE",
+              "valueType": "SINGLE_SELECT",
+              "valueTypeConstraint": [
+                "string",
+                "int",
+                "float",
+                "decimal",
+                "byte"
+              ],
               "value": "",
               "optional": false,
               "editable": true,
@@ -89,8 +69,8 @@
             },
             "variable": {
               "metadata": {
-                "label": "Name",
-                "description": "Name of the parameter"
+                "label": "Variable Name",
+                "description": "Name of the variable"
               },
               "valueType": "IDENTIFIER",
               "value": "",
@@ -106,7 +86,7 @@
           "hidden": false
         },
         "value": {
-          "a": {
+          "name": {
             "metadata": {
               "label": "Parameter",
               "description": "Function parameter"
@@ -115,11 +95,18 @@
             "value": {
               "type": {
                 "metadata": {
-                  "label": "Type",
-                  "description": "Type of the parameter"
+                  "label": "Variable Type",
+                  "description": "Type of the variable"
                 },
-                "valueType": "TYPE",
-                "value": "int",
+                "valueType": "SINGLE_SELECT",
+                "valueTypeConstraint": [
+                  "string",
+                  "int",
+                  "float",
+                  "decimal",
+                  "byte"
+                ],
+                "value": "string",
                 "optional": false,
                 "editable": true,
                 "advanced": false,
@@ -127,25 +114,25 @@
               },
               "variable": {
                 "metadata": {
-                  "label": "Name",
-                  "description": "Name of the parameter"
+                  "label": "Variable Name",
+                  "description": "Name of the variable"
                 },
                 "valueType": "IDENTIFIER",
-                "value": "a",
+                "value": "name",
                 "optional": false,
                 "editable": true,
                 "advanced": false,
                 "hidden": false,
                 "codedata": {
                   "lineRange": {
-                    "fileName": "function_def.bal",
+                    "fileName": "main2.bal",
                     "startLine": {
-                      "line": 34,
-                      "offset": 27
+                      "line": 2,
+                      "offset": 28
                     },
                     "endLine": {
-                      "line": 34,
-                      "offset": 28
+                      "line": 2,
+                      "offset": 32
                     }
                   }
                 }
@@ -156,7 +143,7 @@
             "advanced": false,
             "hidden": false
           },
-          "b": {
+          "age": {
             "metadata": {
               "label": "Parameter",
               "description": "Function parameter"
@@ -165,11 +152,18 @@
             "value": {
               "type": {
                 "metadata": {
-                  "label": "Type",
-                  "description": "Type of the parameter"
+                  "label": "Variable Type",
+                  "description": "Type of the variable"
                 },
-                "valueType": "TYPE",
-                "value": "int",
+                "valueType": "SINGLE_SELECT",
+                "valueTypeConstraint": [
+                  "string",
+                  "int",
+                  "float",
+                  "decimal",
+                  "byte"
+                ],
+                "value": "int?",
                 "optional": false,
                 "editable": true,
                 "advanced": false,
@@ -177,25 +171,25 @@
               },
               "variable": {
                 "metadata": {
-                  "label": "Name",
-                  "description": "Name of the parameter"
+                  "label": "Variable Name",
+                  "description": "Name of the variable"
                 },
                 "valueType": "IDENTIFIER",
-                "value": "b",
+                "value": "age",
                 "optional": false,
                 "editable": true,
                 "advanced": false,
                 "hidden": false,
                 "codedata": {
                   "lineRange": {
-                    "fileName": "function_def.bal",
+                    "fileName": "main2.bal",
                     "startLine": {
-                      "line": 34,
-                      "offset": 34
+                      "line": 2,
+                      "offset": 39
                     },
                     "endLine": {
-                      "line": 34,
-                      "offset": 35
+                      "line": 2,
+                      "offset": 42
                     }
                   }
                 }
@@ -211,8 +205,37 @@
         "editable": false,
         "advanced": false,
         "hidden": false
+      },
+      "returnError": {
+        "metadata": {
+          "label": "Return Error",
+          "description": "Indicate if the automation should exit with error"
+        },
+        "valueType": "FLAG",
+        "value": false,
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "hidden": false
       }
     },
     "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 2,
+            "character": 0
+          },
+          "end": {
+            "line": 2,
+            "character": 44
+          }
+        },
+        "newText": "public function main( string name, int? age) "
+      }
+    ]
   }
 }

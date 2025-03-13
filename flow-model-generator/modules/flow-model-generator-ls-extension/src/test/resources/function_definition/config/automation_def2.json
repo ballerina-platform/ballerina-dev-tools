@@ -1,25 +1,25 @@
 {
-  "filePath": "data_mapper",
-  "fileName": "data_mappings.bal",
-  "functionName": "transformToPerson",
+  "filePath": "main1.bal",
+  "fileName": "main1.bal",
+  "functionName": "main",
   "description": "",
   "output": {
-    "id": "31830",
+    "id": "33795",
     "metadata": {
-      "label": "Data Mapper",
-      "description": "Define a data mapper"
+      "label": "Automation",
+      "description": "Define an automation"
     },
     "codedata": {
-      "node": "DATA_MAPPER_DEFINITION",
+      "node": "AUTOMATION",
       "lineRange": {
-        "fileName": "data_mappings.bal",
+        "fileName": "main1.bal",
         "startLine": {
-          "line": 0,
+          "line": 2,
           "offset": 0
         },
         "endLine": {
-          "line": 0,
-          "offset": 86
+          "line": 2,
+          "offset": 67
         }
       }
     },
@@ -31,42 +31,16 @@
           "description": "Name of the function"
         },
         "valueType": "IDENTIFIER",
-        "value": "transformToPerson",
+        "value": "main",
         "optional": false,
         "editable": false,
         "advanced": false,
-        "hidden": false,
-        "codedata": {
-          "lineRange": {
-            "fileName": "data_mappings.bal",
-            "startLine": {
-              "line": 0,
-              "offset": 9
-            },
-            "endLine": {
-              "line": 0,
-              "offset": 26
-            }
-          }
-        }
-      },
-      "type": {
-        "metadata": {
-          "label": "Return Type",
-          "description": "Type of the return value"
-        },
-        "valueType": "TYPE",
-        "valueTypeConstraint": "record",
-        "value": "Person",
-        "optional": false,
-        "editable": true,
-        "advanced": false,
-        "hidden": false
+        "hidden": true
       },
       "parameters": {
         "metadata": {
-          "label": "Inputs",
-          "description": "Input variables of the data mapper function"
+          "label": "Startup Parameters",
+          "description": "Define the parameters to be passed to the automation at startup"
         },
         "valueType": "REPEATABLE_PROPERTY",
         "valueTypeConstraint": {
@@ -81,8 +55,14 @@
                 "label": "Type",
                 "description": "Type of the parameter"
               },
-              "valueType": "TYPE",
-              "valueTypeConstraint": "anydata",
+              "valueType": "SINGLE_SELECT",
+              "valueTypeConstraint": [
+                "string",
+                "int",
+                "float",
+                "decimal",
+                "byte"
+              ],
               "value": "",
               "optional": false,
               "editable": true,
@@ -108,7 +88,7 @@
           "hidden": false
         },
         "value": {
-          "name": {
+          "divisor": {
             "metadata": {
               "label": "Parameter",
               "description": "Function parameter"
@@ -120,9 +100,15 @@
                   "label": "Type",
                   "description": "Type of the parameter"
                 },
-                "valueType": "TYPE",
-                "valueTypeConstraint": "anydata",
-                "value": "string",
+                "valueType": "SINGLE_SELECT",
+                "valueTypeConstraint": [
+                  "string",
+                  "int",
+                  "float",
+                  "decimal",
+                  "byte"
+                ],
+                "value": "int",
                 "optional": false,
                 "editable": true,
                 "advanced": false,
@@ -134,21 +120,21 @@
                   "description": "Name of the parameter"
                 },
                 "valueType": "IDENTIFIER",
-                "value": "name",
+                "value": "divisor",
                 "optional": false,
                 "editable": true,
                 "advanced": false,
                 "hidden": false,
                 "codedata": {
                   "lineRange": {
-                    "fileName": "data_mappings.bal",
+                    "fileName": "main1.bal",
                     "startLine": {
-                      "line": 0,
-                      "offset": 34
+                      "line": 2,
+                      "offset": 25
                     },
                     "endLine": {
-                      "line": 0,
-                      "offset": 38
+                      "line": 2,
+                      "offset": 32
                     }
                   }
                 }
@@ -159,7 +145,7 @@
             "advanced": false,
             "hidden": false
           },
-          "email": {
+          "numbers": {
             "metadata": {
               "label": "Parameter",
               "description": "Function parameter"
@@ -171,9 +157,15 @@
                   "label": "Type",
                   "description": "Type of the parameter"
                 },
-                "valueType": "TYPE",
-                "valueTypeConstraint": "anydata",
-                "value": "string",
+                "valueType": "SINGLE_SELECT",
+                "valueTypeConstraint": [
+                  "string",
+                  "int",
+                  "float",
+                  "decimal",
+                  "byte"
+                ],
+                "value": "float...",
                 "optional": false,
                 "editable": true,
                 "advanced": false,
@@ -185,72 +177,21 @@
                   "description": "Name of the parameter"
                 },
                 "valueType": "IDENTIFIER",
-                "value": "email",
+                "value": "numbers",
                 "optional": false,
                 "editable": true,
                 "advanced": false,
                 "hidden": false,
                 "codedata": {
                   "lineRange": {
-                    "fileName": "data_mappings.bal",
+                    "fileName": "main1.bal",
                     "startLine": {
-                      "line": 0,
-                      "offset": 47
+                      "line": 2,
+                      "offset": 43
                     },
                     "endLine": {
-                      "line": 0,
-                      "offset": 52
-                    }
-                  }
-                }
-              }
-            },
-            "optional": false,
-            "editable": false,
-            "advanced": false,
-            "hidden": false
-          },
-          "address": {
-            "metadata": {
-              "label": "Parameter",
-              "description": "Function parameter"
-            },
-            "valueType": "FIXED_PROPERTY",
-            "value": {
-              "type": {
-                "metadata": {
-                  "label": "Type",
-                  "description": "Type of the parameter"
-                },
-                "valueType": "TYPE",
-                "valueTypeConstraint": "anydata",
-                "value": "Address",
-                "optional": false,
-                "editable": true,
-                "advanced": false,
-                "hidden": false
-              },
-              "variable": {
-                "metadata": {
-                  "label": "Name",
-                  "description": "Name of the parameter"
-                },
-                "valueType": "IDENTIFIER",
-                "value": "address",
-                "optional": false,
-                "editable": true,
-                "advanced": false,
-                "hidden": false,
-                "codedata": {
-                  "lineRange": {
-                    "fileName": "data_mappings.bal",
-                    "startLine": {
-                      "line": 0,
-                      "offset": 62
-                    },
-                    "endLine": {
-                      "line": 0,
-                      "offset": 69
+                      "line": 2,
+                      "offset": 50
                     }
                   }
                 }
@@ -262,9 +203,21 @@
             "hidden": false
           }
         },
-        "optional": false,
+        "optional": true,
         "editable": false,
-        "advanced": false,
+        "advanced": true,
+        "hidden": false
+      },
+      "returnError": {
+        "metadata": {
+          "label": "Return Error",
+          "description": "Indicate if the automation should exit with error"
+        },
+        "valueType": "FLAG",
+        "value": true,
+        "optional": false,
+        "editable": true,
+        "advanced": true,
         "hidden": false
       }
     },
