@@ -97,6 +97,7 @@
         },
         "valueType": "RAW_TEMPLATE",
         "valueTypeConstraint": "np:Prompt",
+        "value": "``",
         "placeholder": "",
         "optional": false,
         "editable": true,

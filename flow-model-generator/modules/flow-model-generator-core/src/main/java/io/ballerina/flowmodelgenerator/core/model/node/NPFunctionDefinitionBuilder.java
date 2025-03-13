@@ -20,7 +20,7 @@ package io.ballerina.flowmodelgenerator.core.model.node;
 
 import com.google.gson.Gson;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.Constants;
+import io.ballerina.flowmodelgenerator.core.Constants.NaturalFunctions;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
@@ -55,16 +55,6 @@ public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
     public static final String PARAMETERS_LABEL = "Parameters";
     public static final String PARAMETERS_DOC = "Function parameters";
 
-    public static final String PROMPT = "prompt";
-    public static final String PROMPT_LABEL = "Prompt";
-    public static final String PROMPT_DESCRIPTION = "Prompt for the function";
-    public static final String PROMPT_TYPE = "np:Prompt";
-
-    public static final String MODEL = "model";
-    public static final String MODEL_LABEL = "Model";
-    public static final String MODEL_DESCRIPTION = "Model to be used";
-    public static final String MODEL_TYPE = "np:Model";
-
     private static final String FUNCTIONS_BAL = "functions.bal";
 
     private static final String BALLERINAX_ORG = "ballerinax";
@@ -79,8 +69,8 @@ public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
         metadata().label(LABEL).description(DESCRIPTION);
         codedata()
                 .node(NodeKind.NP_FUNCTION_DEFINITION)
-                .org(BALLERINAX_ORG)
-                .module(NP_PACKAGE);
+                .org(NaturalFunctions.BALLERINAX_ORG)
+                .module(NaturalFunctions.NP_PACKAGE);
     }
 
     @Override
@@ -94,27 +84,26 @@ public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
         // prompt
         properties().custom()
                     .metadata()
-                        .label(Constants.NaturalFunctions.PROMPT_LABEL)
-                        .description(Constants.NaturalFunctions.PROMPT_DESCRIPTION)
+                        .label(NaturalFunctions.PROMPT_LABEL)
+                        .description(NaturalFunctions.PROMPT_DESCRIPTION)
                         .stepOut()
                     .codedata()
                         .kind(REQUIRED.name())
                         .stepOut()
                     .placeholder("")
                     .value("``")
-                    .typeConstraint(PROMPT_TYPE)
-                    .typeConstraint(Constants.NaturalFunctions.MODULE_PREFIXED_PROMPT_TYPE)
+                    .typeConstraint(NaturalFunctions.MODULE_PREFIXED_PROMPT_TYPE)
                     .editable()
                     .hidden()
                     .type(Property.ValueType.RAW_TEMPLATE)
                     .stepOut()
-                    .addProperty(Constants.NaturalFunctions.PROMPT);
+                    .addProperty(NaturalFunctions.PROMPT);
 
         // enable model context
         properties().custom()
                     .metadata()
-                        .label(Constants.NaturalFunctions.ENABLE_MODEL_CONTEXT_LABEL)
-                        .description(Constants.NaturalFunctions.ENABLE_MODEL_CONTEXT_DESCRIPTION)
+                        .label(NaturalFunctions.ENABLE_MODEL_CONTEXT_LABEL)
+                        .description(NaturalFunctions.ENABLE_MODEL_CONTEXT_DESCRIPTION)
                         .stepOut()
                     .editable()
                     .value(false)
@@ -122,7 +111,7 @@ public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
                     .advanced(true)
                     .type(Property.ValueType.FLAG)
                     .stepOut()
-                    .addProperty(Constants.NaturalFunctions.ENABLE_MODEL_CONTEXT);
+                    .addProperty(NaturalFunctions.ENABLE_MODEL_CONTEXT);
     }
 
     public static void setMandatoryProperties(NodeBuilder nodeBuilder, String returnType) {
@@ -153,11 +142,11 @@ public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
 
         // Write the context parameter
         Optional<Property> isModelContextEnabled =
-                flowNode.getProperty(Constants.NaturalFunctions.ENABLE_MODEL_CONTEXT);
+                flowNode.getProperty(NaturalFunctions.ENABLE_MODEL_CONTEXT);
 
         if (isModelContextEnabled.isPresent() && (boolean) isModelContextEnabled.get().value()) {
-            sourceBuilder.token().name(Constants.NaturalFunctions.MODULE_PREFIXED_CONTEXT_TYPE +
-                    " " + Constants.NaturalFunctions.CONTEXT);
+            sourceBuilder.token().name(NaturalFunctions.MODULE_PREFIXED_CONTEXT_TYPE +
+                    " " + NaturalFunctions.CONTEXT);
             sourceBuilder.token().keyword(SyntaxKind.COMMA_TOKEN);
         }
 
@@ -184,9 +173,10 @@ public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
         }
 
         // Write prompt parameter
-        Optional<Property> promptProperty = flowNode.getProperty(PROMPT);
+        Optional<Property> promptProperty = flowNode.getProperty(NaturalFunctions.PROMPT);
         String defaultValue = promptProperty.map(value -> " = " + value.value().toString()).orElse("");
-        sourceBuilder.token().name(PROMPT_TYPE + " " + PROMPT + defaultValue);
+        sourceBuilder.token().name(NaturalFunctions.MODULE_PREFIXED_PROMPT_TYPE + " "
+                + NaturalFunctions.PROMPT + defaultValue);
 
         sourceBuilder.token().keyword(SyntaxKind.CLOSE_PAREN_TOKEN);
 
@@ -203,7 +193,7 @@ public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
                         .name(returnType.get().value() + "|error");
             }
         } else {
-            sourceBuilder.token().keyword(SyntaxKind.RETURNS_KEYWORD).name("error");
+            sourceBuilder.token().keyword(SyntaxKind.RETURNS_KEYWORD).name("error?");
         }
 
         // Generate text edits based on the line range. If a line range exists, update the signature of the existing
