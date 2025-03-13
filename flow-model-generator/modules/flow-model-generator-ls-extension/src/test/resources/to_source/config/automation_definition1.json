@@ -1,21 +1,19 @@
 {
-  "filePath": "function_def",
-  "fileName": "main.bal",
-  "functionName": "main",
-  "description": "",
-  "output": {
-    "id": "33979",
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "33762",
     "metadata": {
-      "label": "Function Definition",
-      "description": "Define a function"
+      "label": "Automation",
+      "description": "Define an automation"
     },
     "codedata": {
-      "node": "FUNCTION_DEFINITION",
+      "node": "AUTOMATION",
       "lineRange": {
         "fileName": "main.bal",
         "startLine": {
           "line": 2,
-          "offset": 7
+          "offset": 0
         },
         "endLine": {
           "line": 2,
@@ -35,24 +33,12 @@
         "optional": false,
         "editable": false,
         "advanced": false,
-        "hidden": false
-      },
-      "type": {
-        "metadata": {
-          "label": "Return Type",
-          "description": "Type of the return value"
-        },
-        "valueType": "TYPE",
-        "value": "",
-        "optional": true,
-        "editable": true,
-        "advanced": false,
-        "hidden": false
+        "hidden": true
       },
       "parameters": {
         "metadata": {
-          "label": "Parameters",
-          "description": "Function parameters"
+          "label": "Startup Parameters",
+          "description": "Define the parameters to be passed to the automation at startup"
         },
         "valueType": "REPEATABLE_PROPERTY",
         "valueTypeConstraint": {
@@ -67,8 +53,14 @@
                 "label": "Variable Type",
                 "description": "Type of the variable"
               },
-              "valueType": "TYPE",
-              "valueTypeConstraint": "anydata",
+              "valueType": "SINGLE_SELECT",
+              "valueTypeConstraint": [
+                "string",
+                "int",
+                "float",
+                "decimal",
+                "byte"
+              ],
               "value": "",
               "optional": false,
               "editable": true,
@@ -106,8 +98,14 @@
                   "label": "Variable Type",
                   "description": "Type of the variable"
                 },
-                "valueType": "TYPE",
-                "valueTypeConstraint": "anydata",
+                "valueType": "SINGLE_SELECT",
+                "valueTypeConstraint": [
+                  "string",
+                  "int",
+                  "float",
+                  "decimal",
+                  "byte"
+                ],
                 "value": "string",
                 "optional": false,
                 "editable": true,
@@ -122,7 +120,7 @@
                 "valueType": "IDENTIFIER",
                 "value": "name",
                 "optional": false,
-                "editable": false,
+                "editable": true,
                 "advanced": false,
                 "hidden": false,
                 "codedata": {
@@ -150,8 +148,37 @@
         "editable": false,
         "advanced": false,
         "hidden": false
+      },
+      "returnError": {
+        "metadata": {
+          "label": "Return Error",
+          "description": "Indicate if the automation should exit with error"
+        },
+        "valueType": "FLAG",
+        "value": false,
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "hidden": false
       }
     },
     "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 2,
+            "character": 0
+          },
+          "end": {
+            "line": 2,
+            "character": 34
+          }
+        },
+        "newText": "public function main( string name) "
+      }
+    ]
   }
 }

@@ -27,6 +27,7 @@ import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.tools.text.LineRange;
+import org.ballerinalang.model.types.TypeKind;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
@@ -36,23 +37,33 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * Represents the properties of a function definition node.
+ * Represents the properties of an automation form.
  *
  * @since 2.0.0
  */
-public class FunctionDefinitionBuilder extends NodeBuilder {
+public class AutomationBuilder extends FunctionDefinitionBuilder {
 
-    public static final String LABEL = "Function Definition";
-    public static final String DESCRIPTION = "Define a function";
+    public static final String LABEL = "Automation";
+    public static final String DESCRIPTION = "Define an automation";
+    public static final String MAIN_FUNCTION_NAME = "main";
 
-    public static final String FUNCTION_NAME_LABEL = "Name";
-    public static final String FUNCTION_NAME_DOC = "Name of the function";
+    public static final String PARAMETERS_LABEL = "Startup Parameters";
+    public static final String PARAMETERS_DOC = "Define the parameters to be passed to the automation at startup";
 
-    public static final String PARAMETERS_LABEL = "Parameters";
-    public static final String PARAMETERS_DOC = "Function parameters";
+    public static final String RETURN_ERROR_KEY = "returnError";
+    public static final String RETURN_ERROR_LABEL = "Return Error";
+    public static final String RETURN_ERROR_DOC = "Indicate if the automation should exit with error";
 
-    private static final String FUNCTIONS_BAL = "functions.bal";
-
+    private static final String AUTOMATIONS_BAL = "automation.bal";
+    private static final String DEFAULT_BODY =
+            "do {\n} on fail error e {\n  log:printError(\"Error occurred\", 'error=e);\n   return e;\n}";
+    private static final List<String> TYPE_CONSTRAINT = List.of(
+            TypeKind.STRING.typeName(),
+            TypeKind.INT.typeName(),
+            TypeKind.FLOAT.typeName(),
+            TypeKind.DECIMAL.typeName(),
+            TypeKind.BYTE.typeName()
+    );
     private static final Gson gson = new Gson();
 
     public static Property getParameterSchema() {
@@ -62,46 +73,59 @@ public class FunctionDefinitionBuilder extends NodeBuilder {
     @Override
     public void setConcreteConstData() {
         metadata().label(LABEL).description(DESCRIPTION);
-        codedata().node(NodeKind.FUNCTION_DEFINITION);
+        codedata().node(NodeKind.AUTOMATION);
     }
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
-        properties().functionNameTemplate("function", context.getAllVisibleSymbolNames());
-        setMandatoryProperties(this, null);
-        setOptionalProperties(this);
+        sendMandatoryProperties(this);
+        setOptionalProperties(this, true);
     }
 
-    public static void setMandatoryProperties(NodeBuilder nodeBuilder, String returnType) {
-        nodeBuilder.properties()
-                .returnType(returnType, null, true)
-                .nestedProperty();
+    public static void sendMandatoryProperties(NodeBuilder nodeBuilder) {
+        nodeBuilder.properties().custom()
+                .metadata()
+                    .label(FUNCTION_NAME_LABEL)
+                    .description(FUNCTION_NAME_DOC)
+                    .stepOut()
+                .value(MAIN_FUNCTION_NAME)
+                .type(Property.ValueType.IDENTIFIER)
+                .hidden()
+                .stepOut()
+                .addProperty(Property.FUNCTION_NAME_KEY);
+        nodeBuilder.properties().nestedProperty();
     }
 
     public static void setProperty(FormBuilder<?> formBuilder, String type, String name, Token token) {
-        formBuilder.parameter(type, name, token, Property.ValueType.TYPE, null);
+        formBuilder.parameter(type, name, token, Property.ValueType.SINGLE_SELECT, TYPE_CONSTRAINT);
     }
 
-    public static void setOptionalProperties(NodeBuilder nodeBuilder) {
+    public static void setOptionalProperties(NodeBuilder nodeBuilder, boolean returnError) {
         nodeBuilder.properties()
                 .endNestedProperty(Property.ValueType.REPEATABLE_PROPERTY, Property.PARAMETERS_KEY, PARAMETERS_LABEL,
-                        PARAMETERS_DOC, getParameterSchema(), true, false);
+                        PARAMETERS_DOC, getParameterSchema(), true, true);
+        nodeBuilder.properties().custom()
+                .metadata()
+                    .label(RETURN_ERROR_LABEL)
+                    .description(RETURN_ERROR_DOC)
+                    .stepOut()
+                .value(returnError)
+                .editable(true)
+                .type(Property.ValueType.FLAG)
+                .advanced(true)
+                .stepOut()
+                .addProperty(RETURN_ERROR_KEY);
     }
 
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
-        sourceBuilder.token().keyword(SyntaxKind.FUNCTION_KEYWORD);
-
-        // Write the function name
-        Optional<Property> property = sourceBuilder.flowNode.getProperty(Property.FUNCTION_NAME_KEY);
-        if (property.isEmpty()) {
-            throw new IllegalStateException("Function name is not present");
-        }
         sourceBuilder.token()
-                .name(property.get().value().toString())
+                .keyword(SyntaxKind.PUBLIC_KEYWORD)
+                .keyword(SyntaxKind.FUNCTION_KEYWORD)
+                .name(MAIN_FUNCTION_NAME)
                 .keyword(SyntaxKind.OPEN_PAREN_TOKEN);
 
-        // WRite the function parameters
+        // Write the automation parameters
         Optional<Property> parameters = sourceBuilder.flowNode.getProperty(Property.PARAMETERS_KEY);
         if (parameters.isPresent() && parameters.get().value() instanceof Map<?, ?> paramMap) {
             List<String> paramList = new ArrayList<>();
@@ -122,23 +146,26 @@ public class FunctionDefinitionBuilder extends NodeBuilder {
         sourceBuilder.token().keyword(SyntaxKind.CLOSE_PAREN_TOKEN);
 
         // Write the return type
-        Optional<Property> returnType = sourceBuilder.flowNode.getProperty(Property.TYPE_KEY);
-        if (returnType.isPresent() && !returnType.get().value().toString().isEmpty()) {
+        Optional<Property> returnError = sourceBuilder.flowNode.getProperty(RETURN_ERROR_KEY);
+        boolean hasReturnError = returnError.isPresent() && returnError.get().value().equals(true);
+        if (hasReturnError) {
             sourceBuilder.token()
                     .keyword(SyntaxKind.RETURNS_KEYWORD)
-                    .name(returnType.get().value().toString());
+                    .name("error?");
         }
 
-        // Generate text edits based on the line range. If a line range exists, update the signature of the existing
-        // function. Otherwise, create a new function definition in "functions.bal".
+        // Generate text edits based on the line range
         LineRange lineRange = sourceBuilder.flowNode.codedata().lineRange();
         if (lineRange == null) {
-            sourceBuilder
-                    .token()
-                        .openBrace()
-                        .closeBrace()
-                        .stepOut()
-                    .textEdit(false, FUNCTIONS_BAL);
+            sourceBuilder.token().openBrace();
+            if (hasReturnError) {
+                sourceBuilder.token().name(DEFAULT_BODY);
+            }
+            sourceBuilder.token().closeBrace()
+                    .stepOut()
+                    .textEdit(false, AUTOMATIONS_BAL);
+            Path path = sourceBuilder.workspaceManager.projectRoot(sourceBuilder.filePath).resolve(AUTOMATIONS_BAL);
+            sourceBuilder.acceptImport(path, "ballerina", "log");
         } else {
             sourceBuilder
                     .token().skipFormatting().stepOut()
@@ -154,6 +181,7 @@ public class FunctionDefinitionBuilder extends NodeBuilder {
         private static Property initParameterSchema() {
             FormBuilder<?> formBuilder = new FormBuilder<>(null, null, null, null);
             setProperty(formBuilder, "", "", null);
+            formBuilder.parameter("", "", null, Property.ValueType.SINGLE_SELECT, TYPE_CONSTRAINT);
             Map<String, Property> nodeProperties = formBuilder.build();
             return nodeProperties.get("");
         }

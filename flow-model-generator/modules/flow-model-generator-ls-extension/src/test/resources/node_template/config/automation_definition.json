@@ -1,16 +1,16 @@
 {
   "description": "Sample diagram node",
   "codedata": {
-    "node": "FUNCTION_DEFINITION"
+    "node": "AUTOMATION"
   },
   "output": {
     "id": "31",
     "metadata": {
-      "label": "Function Definition",
-      "description": "Define a function"
+      "label": "Automation",
+      "description": "Define an automation"
     },
     "codedata": {
-      "node": "FUNCTION_DEFINITION",
+      "node": "AUTOMATION",
       "isNew": true
     },
     "returning": false,
@@ -21,28 +21,16 @@
           "description": "Name of the function"
         },
         "valueType": "IDENTIFIER",
-        "value": "function1",
+        "value": "main",
         "optional": false,
-        "editable": true,
+        "editable": false,
         "advanced": false,
-        "hidden": false
-      },
-      "type": {
-        "metadata": {
-          "label": "Return Type",
-          "description": "Type of the return value"
-        },
-        "valueType": "TYPE",
-        "value": "",
-        "optional": true,
-        "editable": true,
-        "advanced": false,
-        "hidden": false
+        "hidden": true
       },
       "parameters": {
         "metadata": {
-          "label": "Parameters",
-          "description": "Function parameters"
+          "label": "Startup Parameters",
+          "description": "Define the parameters to be passed to the automation at startup"
         },
         "valueType": "REPEATABLE_PROPERTY",
         "valueTypeConstraint": {
@@ -57,7 +45,14 @@
                 "label": "Type",
                 "description": "Type of the parameter"
               },
-              "valueType": "TYPE",
+              "valueType": "SINGLE_SELECT",
+              "valueTypeConstraint": [
+                "string",
+                "int",
+                "float",
+                "decimal",
+                "byte"
+              ],
               "value": "",
               "optional": false,
               "editable": true,
@@ -85,7 +80,19 @@
         "value": {},
         "optional": true,
         "editable": false,
-        "advanced": false,
+        "advanced": true,
+        "hidden": false
+      },
+      "returnError": {
+        "metadata": {
+          "label": "Return Error",
+          "description": "Indicate if the automation should exit with error"
+        },
+        "valueType": "FLAG",
+        "value": true,
+        "optional": false,
+        "editable": true,
+        "advanced": true,
         "hidden": false
       }
     },
