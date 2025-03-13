@@ -21,7 +21,8 @@
         "module": "http",
         "object": "Client",
         "symbol": "init",
-        "version": "2.13.3"
+        "version": "2.13.3",
+        "isGenerated": false
       },
       "enabled": true
     },
@@ -40,7 +41,8 @@
         "module": "extpose",
         "object": "Client",
         "symbol": "init",
-        "version": "1.5.1"
+        "version": "1.5.1",
+        "isGenerated": false
       },
       "enabled": true
     },
@@ -59,7 +61,8 @@
         "module": "discord",
         "object": "Client",
         "symbol": "init",
-        "version": "1.0.0"
+        "version": "1.0.0",
+        "isGenerated": false
       },
       "enabled": true
     },
@@ -78,7 +81,8 @@
         "module": "flatapi",
         "object": "Client",
         "symbol": "init",
-        "version": "1.5.1"
+        "version": "1.5.1",
+        "isGenerated": false
       },
       "enabled": true
     },
@@ -97,7 +101,8 @@
         "module": "sakari",
         "object": "Client",
         "symbol": "init",
-        "version": "1.5.1"
+        "version": "1.5.1",
+        "isGenerated": false
       },
       "enabled": true
     },
@@ -116,7 +121,8 @@
         "module": "ynab",
         "object": "Client",
         "symbol": "init",
-        "version": "1.5.1"
+        "version": "1.5.1",
+        "isGenerated": false
       },
       "enabled": true
     },
@@ -135,7 +141,8 @@
         "module": "dracoon.public",
         "object": "Client",
         "symbol": "init",
-        "version": "1.5.1"
+        "version": "1.5.1",
+        "isGenerated": false
       },
       "enabled": true
     },
@@ -154,7 +161,8 @@
         "module": "sap",
         "object": "Client",
         "symbol": "init",
-        "version": "1.1.0"
+        "version": "1.1.0",
+        "isGenerated": false
       },
       "enabled": true
     },
@@ -173,7 +181,8 @@
         "module": "zoom",
         "object": "Client",
         "symbol": "init",
-        "version": "1.7.1"
+        "version": "1.7.1",
+        "isGenerated": false
       },
       "enabled": true
     },
@@ -192,7 +201,8 @@
         "module": "elmah",
         "object": "Client",
         "symbol": "init",
-        "version": "1.5.1"
+        "version": "1.5.1",
+        "isGenerated": false
       },
       "enabled": true
     },
@@ -211,7 +221,8 @@
         "module": "asana",
         "object": "Client",
         "symbol": "init",
-        "version": "2.0.0"
+        "version": "2.0.0",
+        "isGenerated": false
       },
       "enabled": true
     },
@@ -230,7 +241,8 @@
         "module": "cdata.connect",
         "object": "Client",
         "symbol": "init",
-        "version": "1.2.0"
+        "version": "1.2.0",
+        "isGenerated": false
       },
       "enabled": true
     },
@@ -249,7 +261,8 @@
         "module": "openweathermap",
         "object": "Client",
         "symbol": "init",
-        "version": "1.5.1"
+        "version": "1.5.1",
+        "isGenerated": false
       },
       "enabled": true
     },
@@ -268,7 +281,8 @@
         "module": "commercetools.customer",
         "object": "Client",
         "symbol": "init",
-        "version": "1.4.1"
+        "version": "1.4.1",
+        "isGenerated": false
       },
       "enabled": true
     },
@@ -287,7 +301,8 @@
         "module": "commercetools.cartsordershoppinglists",
         "object": "Client",
         "symbol": "init",
-        "version": "1.4.1"
+        "version": "1.4.1",
+        "isGenerated": false
       },
       "enabled": true
     },
@@ -306,7 +321,8 @@
         "module": "websubhub",
         "object": "HubClient",
         "symbol": "init",
-        "version": "1.13.0"
+        "version": "1.13.0",
+        "isGenerated": false
       },
       "enabled": true
     },
@@ -325,7 +341,8 @@
         "module": "websub",
         "object": "SubscriptionClient",
         "symbol": "init",
-        "version": "2.13.0"
+        "version": "2.13.0",
+        "isGenerated": false
       },
       "enabled": true
     },
@@ -344,7 +361,8 @@
         "module": "box",
         "object": "Client",
         "symbol": "init",
-        "version": "1.5.1"
+        "version": "1.5.1",
+        "isGenerated": false
       },
       "enabled": true
     },
@@ -363,7 +381,8 @@
         "module": "mathtools.numbers",
         "object": "Client",
         "symbol": "init",
-        "version": "1.5.1"
+        "version": "1.5.1",
+        "isGenerated": false
       },
       "enabled": true
     },
@@ -382,7 +401,8 @@
         "module": "bisstats",
         "object": "Client",
         "symbol": "init",
-        "version": "1.5.1"
+        "version": "1.5.1",
+        "isGenerated": false
       },
       "enabled": true
     }

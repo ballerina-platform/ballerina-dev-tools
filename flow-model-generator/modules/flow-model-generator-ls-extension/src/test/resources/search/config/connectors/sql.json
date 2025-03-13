@@ -21,7 +21,8 @@
         "module": "persist.sql",
         "object": "SQLClient",
         "symbol": "init",
-        "version": "1.5.0"
+        "version": "1.5.0",
+        "isGenerated": false
       },
       "enabled": true
     },
@@ -40,7 +41,8 @@
         "module": "azure.sqldb",
         "object": "Client",
         "symbol": "init",
-        "version": "1.5.1"
+        "version": "1.5.1",
+        "isGenerated": false
       },
       "enabled": true
     },
@@ -59,7 +61,8 @@
         "module": "cdata.connect",
         "object": "Client",
         "symbol": "init",
-        "version": "1.2.0"
+        "version": "1.2.0",
+        "isGenerated": false
       },
       "enabled": true
     },
@@ -78,7 +81,8 @@
         "module": "azure_cosmosdb",
         "object": "DataPlaneClient",
         "symbol": "init",
-        "version": "4.2.0"
+        "version": "4.2.0",
+        "isGenerated": false
       },
       "enabled": true
     },
@@ -97,7 +101,8 @@
         "module": "azure_cosmosdb",
         "object": "ManagementClient",
         "symbol": "init",
-        "version": "4.2.0"
+        "version": "4.2.0",
+        "isGenerated": false
       },
       "enabled": true
     }

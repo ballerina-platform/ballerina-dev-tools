@@ -77,26 +77,26 @@ public class ConnectorSearchCommand extends SearchCommand {
 
     @Override
     protected List<Item> defaultView() {
+        List<SearchResult> localConnectors = getLocalConnectors();
+        Category.Builder localCategoryBuilder = rootBuilder.stepIn("Local", null, null);
+        localConnectors.forEach(connection -> localCategoryBuilder.node(generateAvailableNode(connection, true)));
+
         Map<String, List<SearchResult>> categories = fetchPopularItems();
         for (Map.Entry<String, List<SearchResult>> entry : categories.entrySet()) {
             Category.Builder categoryBuilder = rootBuilder.stepIn(entry.getKey(), null, null);
             entry.getValue().forEach(searchResult -> categoryBuilder.node(generateAvailableNode(searchResult)));
         }
 
-        List<SearchResult> localConnectors = getLocalConnectors();
-        Category.Builder categoryBuilder = rootBuilder.stepIn("Local", null, null);
-        localConnectors.forEach(connection -> categoryBuilder.node(generateAvailableNode(connection)));
-
         return rootBuilder.build().items();
     }
 
     @Override
     protected List<Item> search() {
+        List<SearchResult> localConnectors = getLocalConnectors();
+        localConnectors.forEach(connector -> rootBuilder.node(generateAvailableNode(connector, true)));
+
         List<SearchResult> searchResults = dbManager.searchConnectors(query, limit, offset);
         searchResults.forEach(searchResult -> rootBuilder.node(generateAvailableNode(searchResult)));
-
-        List<SearchResult> localConnectors = getLocalConnectors();
-        localConnectors.forEach(connector -> rootBuilder.node(generateAvailableNode(connector)));
 
         return rootBuilder.build().items();
     }
@@ -115,6 +115,10 @@ public class ConnectorSearchCommand extends SearchCommand {
     }
 
     private static AvailableNode generateAvailableNode(SearchResult searchResult) {
+        return generateAvailableNode(searchResult, false);
+    }
+
+    private static AvailableNode generateAvailableNode(SearchResult searchResult, boolean isGenerated) {
         SearchResult.Package packageInfo = searchResult.packageInfo();
         Metadata metadata = new Metadata.Builder<>(null)
                 .label(getConnectorName(searchResult, packageInfo))
@@ -131,6 +135,7 @@ public class ConnectorSearchCommand extends SearchCommand {
                 .object(searchResult.name())
                 .symbol(NewConnectionBuilder.INIT_SYMBOL)
                 .version(packageInfo.version())
+                .isGenerated(isGenerated)
                 .build();
         return new AvailableNode(metadata, codedata, true);
     }

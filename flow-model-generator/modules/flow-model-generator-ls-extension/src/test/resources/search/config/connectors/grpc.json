@@ -21,7 +21,8 @@
         "module": "grpc",
         "object": "StreamingClient",
         "symbol": "init",
-        "version": "1.13.2"
+        "version": "1.13.2",
+        "isGenerated": false
       },
       "enabled": true
     },
@@ -40,7 +41,8 @@
         "module": "grpc",
         "object": "Client",
         "symbol": "init",
-        "version": "1.13.2"
+        "version": "1.13.2",
+        "isGenerated": false
       },
       "enabled": true
     },
@@ -59,7 +61,8 @@
         "module": "grpc",
         "object": "Caller",
         "symbol": "init",
-        "version": "1.13.2"
+        "version": "1.13.2",
+        "isGenerated": false
       },
       "enabled": true
     }
