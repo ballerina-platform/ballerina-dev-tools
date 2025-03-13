@@ -484,6 +484,11 @@ class IndexGenerator {
             kind = "ERROR_TYPE";
         }
 
+        String[] typeParts = type.split(":");
+        if (typeParts.length > 1) {
+            type = typeParts[1];
+        }
+
         DatabaseManager.insertParameterMemberType(parameterId, type, kind, packageIdentifier);
     }
 
