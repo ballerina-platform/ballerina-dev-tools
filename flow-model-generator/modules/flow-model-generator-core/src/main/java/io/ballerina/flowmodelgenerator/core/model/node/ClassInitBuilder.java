@@ -113,17 +113,6 @@ public class ClassInitBuilder extends CallBuilder {
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
         super.setConcreteTemplateData(context);
-        properties()
-                .custom()
-                .metadata()
-                .label("Name")
-                .description("Name of the variable")
-                .stepOut()
-                .value(DEFAULT_MODEL_NAME)
-                .type(Property.ValueType.IDENTIFIER)
-                .editable()
-                .stepOut()
-                .addProperty(Property.VARIABLE_KEY);
 
         Codedata codedata = context.codedata();
         if (codedata.org().equals(BALLERINAX) && codedata.module().equals(AI_AGENT) && codedata.object().equals(
