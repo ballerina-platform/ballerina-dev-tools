@@ -51,7 +51,7 @@
       "choices": [
         {
           "metadata": {
-            "label": "Design from Scratch",
+            "label": "Design from scratch",
             "description": "Design the service from scratch"
           },
           "enabled": true,
@@ -85,7 +85,7 @@
         },
         {
           "metadata": {
-            "label": "Import from OpenAPI Specification",
+            "label": "Import from OpenAPI specification",
             "description": "Implement the service from an OpenAPI specification"
           },
           "enabled": false,
