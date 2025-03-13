@@ -162,7 +162,7 @@ public class AvailableNodesGenerator {
                 new Metadata.Builder<>(null)
                         .label(NPFunctionCall.LABEL)
                         .description(NPFunctionCall.DESCRIPTION)
-                        .icon(NPFunctionCall.ICON)
+                        .icon(Constants.NaturalFunctions.ICON)
                         .build(),
                 new Codedata.Builder<>(null)
                         .node(NodeKind.NP_FUNCTION)

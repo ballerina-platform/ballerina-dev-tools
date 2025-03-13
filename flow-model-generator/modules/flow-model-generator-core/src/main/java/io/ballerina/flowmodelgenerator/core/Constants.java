@@ -30,4 +30,19 @@ public class Constants {
     public static final String CHECKPANIC = "checkpanic";
 
     public static final String MAIN_FUNCTION_NAME = "main";
+
+    // Constants used for Natural functions
+    public static final class NaturalFunctions {
+        private NaturalFunctions() {}
+
+        public static final String PROMPT = "prompt";
+        public static final String PROMPT_TYPE = "np:Prompt";
+        public static final String CONTEXT = "context";
+        public static final String CONTEXT_TYPE = "np:Context";
+        public static final String BALLERINAX_ORG = "ballerinax";
+        public static final String NP_PACKAGE = "np";
+        public static final String NP_PACKAGE_WITH_ORG = BALLERINAX_ORG + "/" + NP_PACKAGE;
+        public static final String ICON =
+                "https://gist.github.com/user-attachments/assets/903c5c16-7d67-4af8-8113-ce7c59ccdaab";
+    }
 }

@@ -24,13 +24,13 @@ import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.ModuleSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
+import io.ballerina.flowmodelgenerator.core.Constants;
 import io.ballerina.flowmodelgenerator.core.model.AvailableNode;
 import io.ballerina.flowmodelgenerator.core.model.Category;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.Item;
 import io.ballerina.flowmodelgenerator.core.model.Metadata;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
-import io.ballerina.flowmodelgenerator.core.model.node.NPFunctionCall;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.SearchResult;
 import io.ballerina.projects.Project;
@@ -92,7 +92,7 @@ class NPFunctionSearchCommand extends SearchCommand {
 
             Metadata metadata = new Metadata.Builder<>(null)
                     .label(symbol.getName().get())
-                    .icon(NPFunctionCall.ICON)
+                    .icon(Constants.NaturalFunctions.ICON)
                     .description(functionSymbol.documentation()
                             .flatMap(Documentation::description)
                             .orElse(null))

@@ -1,6 +1,7 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.flowmodelgenerator.core.Constants;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
@@ -19,8 +20,6 @@ public class NPFunctionCall extends FunctionCall {
 
     public static final String LABEL = "Call Natural Function";
     public static final String DESCRIPTION = "Call a natural programming function";
-    public static final String ICON =
-            "https://gist.github.com/user-attachments/assets/903c5c16-7d67-4af8-8113-ce7c59ccdaab";
 
     @Override
     protected NodeKind getFunctionNodeKind() {
@@ -38,6 +37,10 @@ public class NPFunctionCall extends FunctionCall {
         for (ParameterData paramResult : function.parameters().values()) {
             if (paramResult.kind().equals(ParameterData.Kind.PARAM_FOR_TYPE_INFER)
                     || paramResult.kind().equals(ParameterData.Kind.INCLUDED_RECORD)) {
+                continue;
+            }
+
+            if (isPromptParam(paramResult)) {
                 continue;
             }
 
@@ -72,13 +75,7 @@ public class NPFunctionCall extends FunctionCall {
                     }
                     customPropBuilder.type(Property.ValueType.EXPRESSION_SET);
                 }
-                default -> {
-                    if (paramResult.type().equals("np:Prompt")) {
-                        customPropBuilder.type(Property.ValueType.RAW_TEMPLATE);
-                    } else {
-                        customPropBuilder.type(Property.ValueType.EXPRESSION);
-                    }
-                }
+                default -> customPropBuilder.type(Property.ValueType.EXPRESSION);
             }
 
             customPropBuilder
@@ -96,10 +93,6 @@ public class NPFunctionCall extends FunctionCall {
                 .moduleInfo(new ModuleInfo(codedata.org(), codedata.module(), codedata.module(), codedata.version()))
                 .functionResultKind(getFunctionResultKind())
                 .userModuleInfo(moduleInfo);
-
-        if (getFunctionNodeKind() != NodeKind.FUNCTION_CALL || getFunctionNodeKind() != NodeKind.NP_FUNCTION_CALL) {
-            functionDataBuilder.parentSymbolType(codedata.object());
-        }
 
         // Set the semantic model if the function is local
         boolean isLocalFunction = isLocalFunction(context.workspaceManager(), context.filePath(), codedata);
@@ -136,5 +129,11 @@ public class NPFunctionCall extends FunctionCall {
         if (functionData.returnError()) {
             properties().checkError(true);
         }
+    }
+
+    public static boolean isPromptParam(ParameterData parameterData) {
+        return parameterData.name().equals(Constants.NaturalFunctions.PROMPT)
+                && parameterData.type().equals(Constants.NaturalFunctions.PROMPT_TYPE)
+                && parameterData.importStatements().equals(Constants.NaturalFunctions.NP_PACKAGE_WITH_ORG);
     }
 }
