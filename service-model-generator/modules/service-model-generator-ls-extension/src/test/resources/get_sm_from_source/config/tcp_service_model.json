@@ -55,7 +55,7 @@
       "serviceType": {
         "metadata": {
           "label": "TCP Service Type",
-          "description": "The name of the service contract type"
+          "description": ""
         },
         "enabled": false,
         "editable": true,

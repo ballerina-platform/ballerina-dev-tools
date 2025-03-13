@@ -27,7 +27,7 @@
       "listener": {
         "metadata": {
           "label": "Listeners",
-          "description": "The Listeners to be bound with the service"
+          "description": ""
         },
         "enabled": true,
         "editable": false,
@@ -42,7 +42,7 @@
         "items": [
           "httpListener",
           "githubListener",
-          "(+) Create and use the default HTTP listener (port: 8080)"
+          "(+) Create and use the default HTTP listener (port: 9090)"
         ],
         "codedata": {
           "inListenerInit": false,
@@ -55,7 +55,7 @@
       "annotServiceConfig": {
         "metadata": {
           "label": "Service Configuration",
-          "description": "Configurations for the Http service"
+          "description": "Define advanced configurations like service level security, etc."
         },
         "enabled": true,
         "editable": true,
@@ -86,7 +86,7 @@
       "basePath": {
         "metadata": {
           "label": "Service Base Path",
-          "description": "The base path for the service"
+          "description": ""
         },
         "enabled": true,
         "editable": true,

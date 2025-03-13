@@ -379,11 +379,10 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
 
                 if (Objects.nonNull(service.getOpenAPISpec())) {
                     Path contractPath = Path.of(service.getOpenAPISpec().getValue());
-                    String serviceContractTypeName = service.getServiceContractTypeName();
                     OpenApiServiceGenerator oasSvcGenerator = new OpenApiServiceGenerator(contractPath,
                             project.sourceRoot(), workspaceManager);
-                    return new CommonSourceResponse(oasSvcGenerator.generateService(serviceContractTypeName,
-                            service.getListener().getValue(), isDefaultListenerCreationRequired));
+                    return new CommonSourceResponse(oasSvcGenerator.generateService(service,
+                            isDefaultListenerCreationRequired));
                 }
 
                 List<String> importStmts = new ArrayList<>();

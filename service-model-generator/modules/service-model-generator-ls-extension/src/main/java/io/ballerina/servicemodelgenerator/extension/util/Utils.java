@@ -811,7 +811,7 @@ public final class Utils {
                 "    }";
     }
 
-    private static List<String> getAnnotationEdits(Service service) {
+    public static List<String> getAnnotationEdits(Service service) {
         Map<String, Value> properties = service.getProperties();
         List<String> annots = new ArrayList<>();
         for (Map.Entry<String, Value> property : properties.entrySet()) {
@@ -832,11 +832,11 @@ public final class Utils {
 
         List<String> annots = getAnnotationEdits(service);
         String annotEdit = String.join(System.lineSeparator(), annots);
-        annotEdit += System.lineSeparator();
 
         Optional<MetadataNode> metadata = serviceNode.metadata();
         if (metadata.isEmpty()) { // metadata is empty and service model has annotations
             if (!annotEdit.isEmpty()) {
+                annotEdit += System.lineSeparator();
                 edits.add(new TextEdit(toRange(serviceKeyword.lineRange().startLine()), annotEdit));
             }
             return annots.size();
@@ -844,6 +844,7 @@ public final class Utils {
         NodeList<AnnotationNode> annotations = metadata.get().annotations();
         if (annotations.isEmpty()) { // metadata is present but no annotations
             if (!annotEdit.isEmpty()) {
+                annotEdit += System.lineSeparator();
                 edits.add(new TextEdit(toRange(metadata.get().lineRange()), annotEdit));
             }
             return annots.size();

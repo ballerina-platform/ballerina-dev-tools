@@ -11,12 +11,12 @@
   },
   "response": {
     "id": "9",
-    "name": "Kafka Service",
+    "name": "Kafka Event Handler",
     "type": "kafka",
-    "displayName": "Kafka Service",
+    "displayName": "Kafka Event Handler",
     "description": "Add the service documentation",
     "displayAnnotation": {
-      "label": "Kafka Service",
+      "label": "Kafka Event Handler",
       "iconPath": "https://bcentral-packageicons.azureedge.net/images/ballerinax_kafka_4.2.0.png"
     },
     "moduleName": "kafka",
