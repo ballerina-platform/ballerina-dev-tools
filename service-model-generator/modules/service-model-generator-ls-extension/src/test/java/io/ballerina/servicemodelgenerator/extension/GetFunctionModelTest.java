@@ -26,6 +26,7 @@ import io.ballerina.servicemodelgenerator.extension.response.FunctionModelRespon
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -41,8 +42,10 @@ public class GetFunctionModelTest extends AbstractLSTest {
     @Test(dataProvider = "data-provider")
     public void test(Path config) throws IOException {
         Path configJsonPath = configDir.resolve(config);
-        GetFunctionModelTest.TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath),
+        BufferedReader bufferedReader = Files.newBufferedReader(configJsonPath);
+        GetFunctionModelTest.TestConfig testConfig = gson.fromJson(bufferedReader,
                 GetFunctionModelTest.TestConfig.class);
+        bufferedReader.close();
 
         FunctionModelRequest request = new FunctionModelRequest(testConfig.type(), testConfig.functionName());
         JsonObject jsonMap = getResponse(request);

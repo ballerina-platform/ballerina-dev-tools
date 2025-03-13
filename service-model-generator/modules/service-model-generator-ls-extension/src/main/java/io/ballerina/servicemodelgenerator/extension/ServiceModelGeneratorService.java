@@ -162,6 +162,8 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
             try (JsonReader reader = new JsonReader(new InputStreamReader(newPropertiesStream,
                     StandardCharsets.UTF_8))) {
                 newTriggerProperties = new Gson().fromJson(reader, propertyMapType);
+                reader.close();
+                newPropertiesStream.close();
             } catch (IOException e) {
                 // Ignore
             }

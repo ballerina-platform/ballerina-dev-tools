@@ -25,6 +25,7 @@ import io.ballerina.servicemodelgenerator.extension.request.ListenerModelRequest
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -40,8 +41,10 @@ public class GetListenerModelTest extends AbstractLSTest {
     @Test(dataProvider = "data-provider")
     public void test(Path config) throws IOException {
         Path configJsonPath = configDir.resolve(config);
-        GetListenerModelTest.TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath),
+        BufferedReader bufferedReader = Files.newBufferedReader(configJsonPath);
+        GetListenerModelTest.TestConfig testConfig = gson.fromJson(bufferedReader,
                 GetListenerModelTest.TestConfig.class);
+        bufferedReader.close();
 
         ListenerModelRequest request = new ListenerModelRequest(testConfig.orgName(), testConfig.pkgName(),
                 testConfig.moduleName());

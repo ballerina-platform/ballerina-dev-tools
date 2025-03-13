@@ -75,7 +75,7 @@
             "selected": false
           },
           {
-            "type": "dsadmin:OAuth2RefreshTokenGrantConfig",
+            "type": "OAuth2RefreshTokenGrantConfig",
             "packageInfo": "ballerinax:docusign.dsadmin:2.0.0",
             "kind": "RECORD_TYPE",
             "selected": false
@@ -126,7 +126,7 @@
         },
         "typeMembers": [
           {
-            "type": "dsadmin:ClientHttp1Settings",
+            "type": "ClientHttp1Settings",
             "packageInfo": "ballerinax:docusign.dsadmin:2.0.0",
             "kind": "RECORD_TYPE",
             "selected": false

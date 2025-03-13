@@ -1,0 +1,365 @@
+{
+  "filePath": "proj",
+  "typeMembers": [
+    {
+      "type": "ListenerSecureSocket",
+      "packageInfo": "ballerina:http:2.12.2",
+      "kind": "RECORD_TYPE",
+      "selected": false
+    }
+  ],
+  "expr": "{key: {certFile: \"\", keyFile: \"\"}}",
+  "output": {
+    "recordConfig": {
+      "fields": [
+        {
+          "members": [
+            {
+              "fields": [
+                {
+                  "name": "path",
+                  "typeName": "string",
+                  "optional": false,
+                  "defaultable": false,
+                  "isRestType": false,
+                  "value": "",
+                  "selected": false
+                },
+                {
+                  "name": "password",
+                  "typeName": "string",
+                  "optional": false,
+                  "defaultable": false,
+                  "isRestType": false,
+                  "value": "",
+                  "selected": false
+                }
+              ],
+              "hasRestType": false,
+              "name": "KeyStore",
+              "typeName": "record",
+              "optional": false,
+              "typeInfo": {
+                "name": "KeyStore",
+                "orgName": "ballerina",
+                "moduleName": "crypto",
+                "version": "2.7.2"
+              },
+              "defaultable": false,
+              "isRestType": false,
+              "value": "",
+              "selected": false
+            },
+            {
+              "fields": [
+                {
+                  "name": "certFile",
+                  "typeName": "string",
+                  "optional": false,
+                  "defaultable": false,
+                  "isRestType": false,
+                  "value": "\"\"",
+                  "selected": true
+                },
+                {
+                  "name": "keyFile",
+                  "typeName": "string",
+                  "optional": false,
+                  "defaultable": false,
+                  "isRestType": false,
+                  "value": "\"\"",
+                  "selected": true
+                },
+                {
+                  "name": "keyPassword",
+                  "typeName": "string",
+                  "optional": true,
+                  "defaultable": false,
+                  "isRestType": false,
+                  "selected": false
+                }
+              ],
+              "hasRestType": false,
+              "name": "CertKey",
+              "typeName": "record",
+              "optional": false,
+              "typeInfo": {
+                "name": "CertKey",
+                "orgName": "ballerina",
+                "moduleName": "http",
+                "version": "2.12.2"
+              },
+              "defaultable": false,
+              "isRestType": false,
+              "selected": true
+            }
+          ],
+          "name": "key",
+          "typeName": "union",
+          "optional": false,
+          "defaultable": false,
+          "isRestType": false,
+          "selected": true
+        },
+        {
+          "fields": [
+            {
+              "members": [
+                {
+                  "typeName": "OPTIONAL",
+                  "optional": false,
+                  "defaultable": false,
+                  "isRestType": false,
+                  "selected": false
+                },
+                {
+                  "typeName": "REQUIRE",
+                  "optional": false,
+                  "defaultable": false,
+                  "isRestType": false,
+                  "selected": false
+                }
+              ],
+              "name": "verifyClient",
+              "typeName": "enum",
+              "optional": false,
+              "typeInfo": {
+                "name": "VerifyClient",
+                "orgName": "ballerina",
+                "moduleName": "http",
+                "version": "2.12.2"
+              },
+              "defaultable": true,
+              "isRestType": false,
+              "selected": false
+            },
+            {
+              "members": [
+                {
+                  "fields": [
+                    {
+                      "name": "path",
+                      "typeName": "string",
+                      "optional": false,
+                      "defaultable": false,
+                      "isRestType": false,
+                      "selected": false
+                    },
+                    {
+                      "name": "password",
+                      "typeName": "string",
+                      "optional": false,
+                      "defaultable": false,
+                      "isRestType": false,
+                      "selected": false
+                    }
+                  ],
+                  "hasRestType": false,
+                  "name": "TrustStore",
+                  "typeName": "record",
+                  "optional": false,
+                  "typeInfo": {
+                    "name": "TrustStore",
+                    "orgName": "ballerina",
+                    "moduleName": "crypto",
+                    "version": "2.7.2"
+                  },
+                  "defaultable": false,
+                  "isRestType": false,
+                  "selected": false
+                },
+                {
+                  "typeName": "string",
+                  "optional": false,
+                  "defaultable": false,
+                  "isRestType": false,
+                  "selected": false
+                }
+              ],
+              "name": "cert",
+              "typeName": "union",
+              "optional": false,
+              "defaultable": false,
+              "isRestType": false,
+              "selected": false
+            }
+          ],
+          "hasRestType": false,
+          "name": "mutualSsl",
+          "typeName": "record",
+          "optional": true,
+          "defaultable": false,
+          "isRestType": false,
+          "selected": false
+        },
+        {
+          "fields": [
+            {
+              "members": [
+                {
+                  "typeName": "DTLS",
+                  "optional": false,
+                  "defaultable": false,
+                  "isRestType": false,
+                  "selected": false
+                },
+                {
+                  "typeName": "TLS",
+                  "optional": false,
+                  "defaultable": false,
+                  "isRestType": false,
+                  "selected": false
+                },
+                {
+                  "typeName": "SSL",
+                  "optional": false,
+                  "defaultable": false,
+                  "isRestType": false,
+                  "selected": false
+                }
+              ],
+              "name": "name",
+              "typeName": "enum",
+              "optional": false,
+              "typeInfo": {
+                "name": "Protocol",
+                "orgName": "ballerina",
+                "moduleName": "http",
+                "version": "2.12.2"
+              },
+              "defaultable": false,
+              "isRestType": false,
+              "selected": false
+            },
+            {
+              "memberType": {
+                "typeName": "string",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false,
+                "selected": false
+              },
+              "name": "versions",
+              "typeName": "array",
+              "optional": false,
+              "defaultable": true,
+              "isRestType": false,
+              "selected": false
+            }
+          ],
+          "hasRestType": false,
+          "name": "protocol",
+          "typeName": "record",
+          "optional": true,
+          "defaultable": false,
+          "isRestType": false,
+          "selected": false
+        },
+        {
+          "fields": [
+            {
+              "members": [
+                {
+                  "typeName": "OCSP_STAPLING",
+                  "optional": false,
+                  "defaultable": false,
+                  "isRestType": false,
+                  "selected": false
+                },
+                {
+                  "typeName": "OCSP_CRL",
+                  "optional": false,
+                  "defaultable": false,
+                  "isRestType": false,
+                  "selected": false
+                }
+              ],
+              "name": "type",
+              "typeName": "enum",
+              "optional": false,
+              "typeInfo": {
+                "name": "CertValidationType",
+                "orgName": "ballerina",
+                "moduleName": "http",
+                "version": "2.12.2"
+              },
+              "defaultable": true,
+              "isRestType": false,
+              "selected": false
+            },
+            {
+              "name": "cacheSize",
+              "typeName": "int",
+              "optional": false,
+              "defaultable": false,
+              "isRestType": false,
+              "selected": false
+            },
+            {
+              "name": "cacheValidityPeriod",
+              "typeName": "int",
+              "optional": false,
+              "defaultable": false,
+              "isRestType": false,
+              "selected": false
+            }
+          ],
+          "hasRestType": false,
+          "name": "certValidation",
+          "typeName": "record",
+          "optional": true,
+          "defaultable": false,
+          "isRestType": false,
+          "selected": false
+        },
+        {
+          "memberType": {
+            "typeName": "string",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          "name": "ciphers",
+          "typeName": "array",
+          "optional": false,
+          "defaultable": true,
+          "isRestType": false,
+          "selected": false
+        },
+        {
+          "name": "shareSession",
+          "typeName": "boolean",
+          "optional": false,
+          "defaultable": true,
+          "isRestType": false,
+          "selected": false
+        },
+        {
+          "name": "handshakeTimeout",
+          "typeName": "decimal",
+          "optional": true,
+          "defaultable": false,
+          "isRestType": false,
+          "selected": false
+        },
+        {
+          "name": "sessionTimeout",
+          "typeName": "decimal",
+          "optional": true,
+          "defaultable": false,
+          "isRestType": false,
+          "selected": false
+        }
+      ],
+      "hasRestType": false,
+      "name": "ListenerSecureSocket",
+      "typeName": "record",
+      "optional": false,
+      "defaultable": false,
+      "isRestType": false,
+      "selected": true
+    },
+    "typeName": "ListenerSecureSocket"
+  }
+}

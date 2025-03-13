@@ -118,6 +118,7 @@ public class ServiceDatabaseManager {
                         false,
                         null);
                 functionData.setPackageId(rs.getString("package_id"));
+                conn.close();
                 return Optional.of(functionData);
             }
             return Optional.empty();
@@ -195,6 +196,7 @@ public class ServiceDatabaseManager {
             for (ParameterDataBuilder builder : builders.values()) {
                 parameterResults.put(builder.name, builder.build());
             }
+            conn.close();
             return parameterResults;
 
         } catch (SQLException e) {
@@ -261,9 +263,10 @@ public class ServiceDatabaseManager {
                         rs.getString("listener_kind"),
                         rs.getString("kind")
                 );
-
+                conn.close();
                 return Optional.of(serviceDeclaration);
             }
+            conn.close();
             return Optional.empty();
         } catch (SQLException e) {
             Logger.getGlobal().severe("Error executing query: " + e.getMessage());
@@ -282,6 +285,7 @@ public class ServiceDatabaseManager {
             while (rs.next()) {
                 serviceTypes.add(rs.getString("name"));
             }
+            conn.close();
             return serviceTypes;
         } catch (SQLException e) {
             Logger.getGlobal().severe("Error executing query: " + e.getMessage());
@@ -319,6 +323,7 @@ public class ServiceDatabaseManager {
                         rs.getString("package")
                 ));
             }
+            conn.close();
             return annotations;
         } catch (SQLException e) {
             Logger.getGlobal().severe("Error executing query: " + e.getMessage());
@@ -365,6 +370,7 @@ public class ServiceDatabaseManager {
                         params
                 ));
             }
+            conn.close();
             return functions;
         } catch (SQLException e) {
             Logger.getGlobal().severe("Error executing query: " + e.getMessage());
@@ -403,6 +409,7 @@ public class ServiceDatabaseManager {
                         rs.getString("import_statements")
                 ));
             }
+            conn.close();
             return parameters;
         } catch (SQLException e) {
             Logger.getGlobal().severe("Error executing query: " + e.getMessage());
