@@ -31,7 +31,8 @@
                 "symbol": "get",
                 "version": "2.14.0",
                 "parentSymbol": "moduleClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -49,7 +50,8 @@
                 "symbol": "post",
                 "version": "2.14.0",
                 "parentSymbol": "moduleClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -67,7 +69,8 @@
                 "symbol": "put",
                 "version": "2.14.0",
                 "parentSymbol": "moduleClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -85,7 +88,8 @@
                 "symbol": "delete",
                 "version": "2.14.0",
                 "parentSymbol": "moduleClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -103,7 +107,8 @@
                 "symbol": "patch",
                 "version": "2.14.0",
                 "parentSymbol": "moduleClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -121,7 +126,8 @@
                 "symbol": "head",
                 "version": "2.14.0",
                 "parentSymbol": "moduleClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -139,7 +145,8 @@
                 "symbol": "options",
                 "version": "2.14.0",
                 "parentSymbol": "moduleClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -157,7 +164,8 @@
                 "symbol": "execute",
                 "version": "2.14.0",
                 "parentSymbol": "moduleClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -175,7 +183,8 @@
                 "symbol": "forward",
                 "version": "2.14.0",
                 "parentSymbol": "moduleClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -193,7 +202,8 @@
                 "symbol": "submit",
                 "version": "2.14.0",
                 "parentSymbol": "moduleClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -211,7 +221,8 @@
                 "symbol": "getResponse",
                 "version": "2.14.0",
                 "parentSymbol": "moduleClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -229,7 +240,8 @@
                 "symbol": "hasPromise",
                 "version": "2.14.0",
                 "parentSymbol": "moduleClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -247,7 +259,8 @@
                 "symbol": "getNextPromise",
                 "version": "2.14.0",
                 "parentSymbol": "moduleClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -265,7 +278,8 @@
                 "symbol": "getPromisedResponse",
                 "version": "2.14.0",
                 "parentSymbol": "moduleClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -283,7 +297,8 @@
                 "symbol": "rejectPromise",
                 "version": "2.14.0",
                 "parentSymbol": "moduleClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -301,7 +316,8 @@
                 "symbol": "getCookieStore",
                 "version": "2.14.0",
                 "parentSymbol": "moduleClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -319,7 +335,8 @@
                 "symbol": "circuitBreakerForceClose",
                 "version": "2.14.0",
                 "parentSymbol": "moduleClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -337,7 +354,8 @@
                 "symbol": "circuitBreakerForceOpen",
                 "version": "2.14.0",
                 "parentSymbol": "moduleClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -355,7 +373,8 @@
                 "symbol": "getCircuitBreakerCurrentState",
                 "version": "2.14.0",
                 "parentSymbol": "moduleClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             }
@@ -380,7 +399,8 @@
                 "symbol": "append",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -398,7 +418,8 @@
                 "symbol": "bitCount",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -416,7 +437,8 @@
                 "symbol": "bitOpAnd",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -434,7 +456,8 @@
                 "symbol": "bitOpOr",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -452,7 +475,8 @@
                 "symbol": "bitOpNot",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -470,7 +494,8 @@
                 "symbol": "bitOpXor",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -488,7 +513,8 @@
                 "symbol": "decr",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -506,7 +532,8 @@
                 "symbol": "decrBy",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -524,7 +551,8 @@
                 "symbol": "getBit",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -542,7 +570,8 @@
                 "symbol": "getRange",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -560,7 +589,8 @@
                 "symbol": "getSet",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -578,7 +608,8 @@
                 "symbol": "get",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -596,7 +627,8 @@
                 "symbol": "incr",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -614,7 +646,8 @@
                 "symbol": "incrBy",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -632,7 +665,8 @@
                 "symbol": "incrByFloat",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -650,7 +684,8 @@
                 "symbol": "mGet",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -668,7 +703,8 @@
                 "symbol": "mSet",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -686,7 +722,8 @@
                 "symbol": "mSetNx",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -704,7 +741,8 @@
                 "symbol": "pSetEx",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -722,7 +760,8 @@
                 "symbol": "set",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -740,7 +779,8 @@
                 "symbol": "setBit",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -758,7 +798,8 @@
                 "symbol": "setEx",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -776,7 +817,8 @@
                 "symbol": "setNx",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -794,7 +836,8 @@
                 "symbol": "setRange",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -812,7 +855,8 @@
                 "symbol": "strLen",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -830,7 +874,8 @@
                 "symbol": "lPush",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -848,7 +893,8 @@
                 "symbol": "lPop",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -866,7 +912,8 @@
                 "symbol": "lPushX",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -884,7 +931,8 @@
                 "symbol": "bLPop",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -902,7 +950,8 @@
                 "symbol": "bRPop",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -920,7 +969,8 @@
                 "symbol": "lIndex",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -938,7 +988,8 @@
                 "symbol": "lInsert",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -956,7 +1007,8 @@
                 "symbol": "lLen",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -974,7 +1026,8 @@
                 "symbol": "lRange",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -992,7 +1045,8 @@
                 "symbol": "lRem",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1010,7 +1064,8 @@
                 "symbol": "lSet",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1028,7 +1083,8 @@
                 "symbol": "lTrim",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1046,7 +1102,8 @@
                 "symbol": "rPop",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1064,7 +1121,8 @@
                 "symbol": "rPopLPush",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1082,7 +1140,8 @@
                 "symbol": "rPush",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1100,7 +1159,8 @@
                 "symbol": "rPushX",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1118,7 +1178,8 @@
                 "symbol": "sAdd",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1136,7 +1197,8 @@
                 "symbol": "sCard",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1154,7 +1216,8 @@
                 "symbol": "sDiff",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1172,7 +1235,8 @@
                 "symbol": "sDiffStore",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1190,7 +1254,8 @@
                 "symbol": "sInter",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1208,7 +1273,8 @@
                 "symbol": "sInterStore",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1226,7 +1292,8 @@
                 "symbol": "sIsMember",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1244,7 +1311,8 @@
                 "symbol": "sMembers",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1262,7 +1330,8 @@
                 "symbol": "sMove",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1280,7 +1349,8 @@
                 "symbol": "sPop",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1298,7 +1368,8 @@
                 "symbol": "sRandMember",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1316,7 +1387,8 @@
                 "symbol": "sRem",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1334,7 +1406,8 @@
                 "symbol": "sUnion",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1352,7 +1425,8 @@
                 "symbol": "sUnionStore",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1370,7 +1444,8 @@
                 "symbol": "zAdd",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1388,7 +1463,8 @@
                 "symbol": "zCard",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1406,7 +1482,8 @@
                 "symbol": "zCount",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1424,7 +1501,8 @@
                 "symbol": "zIncrBy",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1442,7 +1520,8 @@
                 "symbol": "zInterStore",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1460,7 +1539,8 @@
                 "symbol": "zLexCount",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1478,7 +1558,8 @@
                 "symbol": "zRange",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1496,7 +1577,8 @@
                 "symbol": "zRangeByLex",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1514,7 +1596,8 @@
                 "symbol": "zRevRangeByLex",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1532,7 +1615,8 @@
                 "symbol": "zRangeByScore",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1550,7 +1634,8 @@
                 "symbol": "zRank",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1568,7 +1653,8 @@
                 "symbol": "zRem",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1586,7 +1672,8 @@
                 "symbol": "zRemRangeByLex",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1604,7 +1691,8 @@
                 "symbol": "zRemRangeByRank",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1622,7 +1710,8 @@
                 "symbol": "zRemRangeByScore",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1640,7 +1729,8 @@
                 "symbol": "zRevRange",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1658,7 +1748,8 @@
                 "symbol": "zRevRangeByScore",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1676,7 +1767,8 @@
                 "symbol": "zRevRank",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1694,7 +1786,8 @@
                 "symbol": "zScore",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1712,7 +1805,8 @@
                 "symbol": "zUnionStore",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1730,7 +1824,8 @@
                 "symbol": "hDel",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1748,7 +1843,8 @@
                 "symbol": "hExists",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1766,7 +1862,8 @@
                 "symbol": "hGet",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1784,7 +1881,8 @@
                 "symbol": "hGetAll",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1802,7 +1900,8 @@
                 "symbol": "hIncrBy",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1820,7 +1919,8 @@
                 "symbol": "hIncrByFloat",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1838,7 +1938,8 @@
                 "symbol": "hKeys",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1856,7 +1957,8 @@
                 "symbol": "hLen",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1874,7 +1976,8 @@
                 "symbol": "hMGet",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1892,7 +1995,8 @@
                 "symbol": "hMSet",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1910,7 +2014,8 @@
                 "symbol": "hSet",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1928,7 +2033,8 @@
                 "symbol": "hSetNx",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1946,7 +2052,8 @@
                 "symbol": "hStrLen",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1964,7 +2071,8 @@
                 "symbol": "hVals",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -1982,7 +2090,8 @@
                 "symbol": "del",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2000,7 +2109,8 @@
                 "symbol": "exists",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2018,7 +2128,8 @@
                 "symbol": "expire",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2036,7 +2147,8 @@
                 "symbol": "keys",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2054,7 +2166,8 @@
                 "symbol": "move",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2072,7 +2185,8 @@
                 "symbol": "persist",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2090,7 +2204,8 @@
                 "symbol": "pExpire",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2108,7 +2223,8 @@
                 "symbol": "pTtl",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2126,7 +2242,8 @@
                 "symbol": "randomKey",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2144,7 +2261,8 @@
                 "symbol": "rename",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2162,7 +2280,8 @@
                 "symbol": "renameNx",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2180,7 +2299,8 @@
                 "symbol": "sort",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2198,7 +2318,8 @@
                 "symbol": "ttl",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2216,7 +2337,8 @@
                 "symbol": "redisType",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2234,7 +2356,8 @@
                 "symbol": "clusterInfo",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2252,7 +2375,8 @@
                 "symbol": "ping",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2270,7 +2394,8 @@
                 "symbol": "auth",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2288,7 +2413,8 @@
                 "symbol": "echo",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2306,7 +2432,8 @@
                 "symbol": "close",
                 "version": "3.1.0",
                 "parentSymbol": "redisClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             }
@@ -2331,7 +2458,8 @@
                 "symbol": "append",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2349,7 +2477,8 @@
                 "symbol": "bitCount",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2367,7 +2496,8 @@
                 "symbol": "bitOpAnd",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2385,7 +2515,8 @@
                 "symbol": "bitOpOr",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2403,7 +2534,8 @@
                 "symbol": "bitOpNot",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2421,7 +2553,8 @@
                 "symbol": "bitOpXor",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2439,7 +2572,8 @@
                 "symbol": "decr",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2457,7 +2591,8 @@
                 "symbol": "decrBy",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2475,7 +2610,8 @@
                 "symbol": "getBit",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2493,7 +2629,8 @@
                 "symbol": "getRange",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2511,7 +2648,8 @@
                 "symbol": "getSet",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2529,7 +2667,8 @@
                 "symbol": "get",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2547,7 +2686,8 @@
                 "symbol": "incr",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2565,7 +2705,8 @@
                 "symbol": "incrBy",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2583,7 +2724,8 @@
                 "symbol": "incrByFloat",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2601,7 +2743,8 @@
                 "symbol": "mGet",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2619,7 +2762,8 @@
                 "symbol": "mSet",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2637,7 +2781,8 @@
                 "symbol": "mSetNx",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2655,7 +2800,8 @@
                 "symbol": "pSetEx",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2673,7 +2819,8 @@
                 "symbol": "set",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2691,7 +2838,8 @@
                 "symbol": "setBit",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2709,7 +2857,8 @@
                 "symbol": "setEx",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2727,7 +2876,8 @@
                 "symbol": "setNx",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2745,7 +2895,8 @@
                 "symbol": "setRange",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2763,7 +2914,8 @@
                 "symbol": "strLen",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2781,7 +2933,8 @@
                 "symbol": "lPush",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2799,7 +2952,8 @@
                 "symbol": "lPop",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2817,7 +2971,8 @@
                 "symbol": "lPushX",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2835,7 +2990,8 @@
                 "symbol": "bLPop",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2853,7 +3009,8 @@
                 "symbol": "bRPop",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2871,7 +3028,8 @@
                 "symbol": "lIndex",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2889,7 +3047,8 @@
                 "symbol": "lInsert",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2907,7 +3066,8 @@
                 "symbol": "lLen",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2925,7 +3085,8 @@
                 "symbol": "lRange",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2943,7 +3104,8 @@
                 "symbol": "lRem",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2961,7 +3123,8 @@
                 "symbol": "lSet",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2979,7 +3142,8 @@
                 "symbol": "lTrim",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -2997,7 +3161,8 @@
                 "symbol": "rPop",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3015,7 +3180,8 @@
                 "symbol": "rPopLPush",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3033,7 +3199,8 @@
                 "symbol": "rPush",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3051,7 +3218,8 @@
                 "symbol": "rPushX",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3069,7 +3237,8 @@
                 "symbol": "sAdd",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3087,7 +3256,8 @@
                 "symbol": "sCard",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3105,7 +3275,8 @@
                 "symbol": "sDiff",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3123,7 +3294,8 @@
                 "symbol": "sDiffStore",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3141,7 +3313,8 @@
                 "symbol": "sInter",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3159,7 +3332,8 @@
                 "symbol": "sInterStore",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3177,7 +3351,8 @@
                 "symbol": "sIsMember",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3195,7 +3370,8 @@
                 "symbol": "sMembers",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3213,7 +3389,8 @@
                 "symbol": "sMove",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3231,7 +3408,8 @@
                 "symbol": "sPop",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3249,7 +3427,8 @@
                 "symbol": "sRandMember",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3267,7 +3446,8 @@
                 "symbol": "sRem",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3285,7 +3465,8 @@
                 "symbol": "sUnion",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3303,7 +3484,8 @@
                 "symbol": "sUnionStore",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3321,7 +3503,8 @@
                 "symbol": "zAdd",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3339,7 +3522,8 @@
                 "symbol": "zCard",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3357,7 +3541,8 @@
                 "symbol": "zCount",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3375,7 +3560,8 @@
                 "symbol": "zIncrBy",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3393,7 +3579,8 @@
                 "symbol": "zInterStore",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3411,7 +3598,8 @@
                 "symbol": "zLexCount",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3429,7 +3617,8 @@
                 "symbol": "zRange",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3447,7 +3636,8 @@
                 "symbol": "zRangeByLex",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3465,7 +3655,8 @@
                 "symbol": "zRevRangeByLex",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3483,7 +3674,8 @@
                 "symbol": "zRangeByScore",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3501,7 +3693,8 @@
                 "symbol": "zRank",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3519,7 +3712,8 @@
                 "symbol": "zRem",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3537,7 +3731,8 @@
                 "symbol": "zRemRangeByLex",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3555,7 +3750,8 @@
                 "symbol": "zRemRangeByRank",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3573,7 +3769,8 @@
                 "symbol": "zRemRangeByScore",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3591,7 +3788,8 @@
                 "symbol": "zRevRange",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3609,7 +3807,8 @@
                 "symbol": "zRevRangeByScore",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3627,7 +3826,8 @@
                 "symbol": "zRevRank",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3645,7 +3845,8 @@
                 "symbol": "zScore",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3663,7 +3864,8 @@
                 "symbol": "zUnionStore",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3681,7 +3883,8 @@
                 "symbol": "hDel",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3699,7 +3902,8 @@
                 "symbol": "hExists",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3717,7 +3921,8 @@
                 "symbol": "hGet",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3735,7 +3940,8 @@
                 "symbol": "hGetAll",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3753,7 +3959,8 @@
                 "symbol": "hIncrBy",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3771,7 +3978,8 @@
                 "symbol": "hIncrByFloat",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3789,7 +3997,8 @@
                 "symbol": "hKeys",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3807,7 +4016,8 @@
                 "symbol": "hLen",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3825,7 +4035,8 @@
                 "symbol": "hMGet",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3843,7 +4054,8 @@
                 "symbol": "hMSet",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3861,7 +4073,8 @@
                 "symbol": "hSet",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3879,7 +4092,8 @@
                 "symbol": "hSetNx",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3897,7 +4111,8 @@
                 "symbol": "hStrLen",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3915,7 +4130,8 @@
                 "symbol": "hVals",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3933,7 +4149,8 @@
                 "symbol": "del",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3951,7 +4168,8 @@
                 "symbol": "exists",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3969,7 +4187,8 @@
                 "symbol": "expire",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -3987,7 +4206,8 @@
                 "symbol": "keys",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -4005,7 +4225,8 @@
                 "symbol": "move",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -4023,7 +4244,8 @@
                 "symbol": "persist",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -4041,7 +4263,8 @@
                 "symbol": "pExpire",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -4059,7 +4282,8 @@
                 "symbol": "pTtl",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -4077,7 +4301,8 @@
                 "symbol": "randomKey",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -4095,7 +4320,8 @@
                 "symbol": "rename",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -4113,7 +4339,8 @@
                 "symbol": "renameNx",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -4131,7 +4358,8 @@
                 "symbol": "sort",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -4149,7 +4377,8 @@
                 "symbol": "ttl",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -4167,7 +4396,8 @@
                 "symbol": "redisType",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -4185,7 +4415,8 @@
                 "symbol": "clusterInfo",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -4203,7 +4434,8 @@
                 "symbol": "ping",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -4221,7 +4453,8 @@
                 "symbol": "auth",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -4239,7 +4472,8 @@
                 "symbol": "echo",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -4257,7 +4491,8 @@
                 "symbol": "close",
                 "version": "3.1.0",
                 "parentSymbol": "redisClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             }

@@ -48,6 +48,9 @@ import io.ballerina.modelgenerator.commons.FunctionData;
 import io.ballerina.modelgenerator.commons.FunctionDataBuilder;
 import io.ballerina.modelgenerator.commons.ModuleInfo;
 import io.ballerina.projects.Document;
+import io.ballerina.projects.Module;
+import io.ballerina.projects.ModuleName;
+import io.ballerina.projects.Package;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.TextRange;
 
@@ -66,6 +69,7 @@ public class AvailableNodesGenerator {
     private final Category.Builder rootBuilder;
     private final SemanticModel semanticModel;
     private final Document document;
+    private final Package pkg;
     private final Gson gson;
     private static final String BALLERINA_ORG = "ballerina";
     private static final String HTTP_MODULE = "http";
@@ -75,11 +79,12 @@ public class AvailableNodesGenerator {
     public static final String AI_AGENT = "ai.agent";
     public static final String AI_AGENT_VERSION = "0.7.16";
 
-    public AvailableNodesGenerator(SemanticModel semanticModel, Document document) {
+    public AvailableNodesGenerator(SemanticModel semanticModel, Document document, Package pkg) {
         this.rootBuilder = new Category.Builder(null).name(Category.Name.ROOT);
         this.gson = new Gson();
         this.semanticModel = semanticModel;
         this.document = document;
+        this.pkg = pkg;
     }
 
     public JsonArray getAvailableNodes(LinePosition position) {
@@ -260,14 +265,30 @@ public class AvailableNodesGenerator {
                     .map(moduleSymbol -> ModuleInfo.from(moduleSymbol.id()))
                     .orElse(null);
 
-            // Obtain methods of the connector
-            List<FunctionData> methodFunctionsData = new FunctionDataBuilder()
+            SemanticModel localSemanticModel = null;
+            if (moduleInfo != null) {
+                for (Module module : pkg.modules()) {
+                    ModuleName modName = module.moduleName();
+                    if (moduleInfo.moduleName()
+                            .equals(modName.packageName().value() + "." + modName.moduleNamePart())) {
+                        localSemanticModel = pkg.getCompilation().getSemanticModel(module.moduleId());
+                    }
+                }
+            }
+
+            FunctionDataBuilder functionDataBuilder = new FunctionDataBuilder()
                     .parentSymbol(classSymbol)
                     .parentSymbolType(className)
-                    .moduleInfo(moduleInfo)
-                    .buildChildNodes();
+                    .moduleInfo(moduleInfo);
+            if (localSemanticModel != null) {
+                functionDataBuilder.semanticModel(localSemanticModel);
+            }
+
+            // Obtain methods of the connector
+            List<FunctionData> methodFunctionsData = functionDataBuilder.buildChildNodes();
 
             boolean isAgentCall = isAgentCall(classSymbol);
+            boolean isLocal = localSemanticModel != null;
             List<Item> methods = new ArrayList<>();
             for (FunctionData methodFunction : methodFunctionsData) {
                 String org = methodFunction.org();
@@ -314,6 +335,7 @@ public class AvailableNodesGenerator {
                             .version(version)
                             .parentSymbol(parentSymbolName)
                             .resourcePath(methodFunction.resourcePath())
+                            .isGenerated(isLocal)
                             .stepOut()
                         .buildAvailableNode();
                 methods.add(node);

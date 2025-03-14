@@ -276,7 +276,7 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
             FlowModelAvailableNodesResponse response = new FlowModelAvailableNodesResponse();
             try {
                 Path filePath = Path.of(request.filePath());
-                this.workspaceManager.loadProject(filePath);
+                Project project = this.workspaceManager.loadProject(filePath);
                 Optional<SemanticModel> semanticModel = this.workspaceManager.semanticModel(filePath);
                 Optional<Document> document = this.workspaceManager.document(filePath);
                 if (semanticModel.isEmpty() || document.isEmpty()) {
@@ -284,7 +284,7 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
                 }
 
                 AvailableNodesGenerator availableNodesGenerator =
-                        new AvailableNodesGenerator(semanticModel.get(), document.get());
+                        new AvailableNodesGenerator(semanticModel.get(), document.get(), project.currentPackage());
                 response.setCategories(
                         availableNodesGenerator.getAvailableNodes(request.position()));
             } catch (Throwable e) {
