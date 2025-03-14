@@ -1,6 +1,6 @@
 {
   "description": "",
-  "source": "data_mapper",
+  "source": "data_mapper/main.bal",
   "typeConstraint": "record",
   "completions": [
     {

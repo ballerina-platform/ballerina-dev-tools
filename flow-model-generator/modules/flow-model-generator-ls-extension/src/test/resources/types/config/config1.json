@@ -69,24 +69,6 @@
       "insertText": "Admission"
     },
     {
-      "label": "any",
-      "labelDetails": {
-        "detail": "Other Types",
-        "description": "Any"
-      },
-      "kind": "TypeParameter",
-      "insertText": "any"
-    },
-    {
-      "label": "readonly",
-      "labelDetails": {
-        "detail": "Other Types",
-        "description": "Readonly"
-      },
-      "kind": "TypeParameter",
-      "insertText": "readonly"
-    },
-    {
       "label": "string",
       "labelDetails": {
         "detail": "Primitive Types",
@@ -132,13 +114,13 @@
       "insertText": "boolean"
     },
     {
-      "label": "null",
+      "label": "()",
       "labelDetails": {
         "detail": "Primitive Types",
         "description": "Nil"
       },
       "kind": "TypeParameter",
-      "insertText": "null"
+      "insertText": "()"
     },
     {
       "label": "byte",
@@ -184,6 +166,15 @@
       },
       "kind": "TypeParameter",
       "insertText": "json[]"
+    },
+    {
+      "label": "record",
+      "labelDetails": {
+        "detail": "Structural Types",
+        "description": "Record"
+      },
+      "kind": "Struct",
+      "insertText": "record"
     },
     {
       "label": "function",
@@ -265,6 +256,24 @@
       },
       "kind": "TypeParameter",
       "insertText": "anydata"
+    },
+    {
+      "label": "any",
+      "labelDetails": {
+        "detail": "Other Types",
+        "description": "Any"
+      },
+      "kind": "TypeParameter",
+      "insertText": "any"
+    },
+    {
+      "label": "readonly",
+      "labelDetails": {
+        "detail": "Other Types",
+        "description": "Readonly"
+      },
+      "kind": "TypeParameter",
+      "insertText": "readonly"
     }
   ]
 }

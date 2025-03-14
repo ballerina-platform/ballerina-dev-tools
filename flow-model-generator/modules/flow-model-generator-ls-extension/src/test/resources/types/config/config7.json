@@ -97,13 +97,13 @@
       "insertText": "int"
     },
     {
-      "label": "null",
+      "label": "()",
       "labelDetails": {
         "detail": "Primitive Types",
         "description": "Nil"
       },
       "kind": "TypeParameter",
-      "insertText": "null"
+      "insertText": "()"
     },
     {
       "label": "float",
@@ -213,7 +213,15 @@
       "kind": "TypeParameter",
       "insertText": "stream"
     },
-    null,
+    {
+      "label": "record",
+      "labelDetails": {
+        "detail": "Structural Types",
+        "description": "Record"
+      },
+      "kind": "Struct",
+      "insertText": "record"
+    },
     {
       "label": "map<json>",
       "labelDetails": {
