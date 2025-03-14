@@ -48,6 +48,7 @@ public class TypesGenerator {
     private final Map<String, TypeSymbol> typeSymbolMap;
     private final Map<TypeSymbol, CompletionItem> completionItemMap;
     private final Map<TypeSymbol, List<CompletionItem>> subtypeItemsMap;
+    private volatile boolean initialized = false;
 
     private static final String USER_DEFINED_TYPE = "User-Defined";
     private static final List<SymbolKind> TYPE_SYMBOL_KINDS = List.of(SymbolKind.TYPE_DEFINITION, SymbolKind.CLASS,
@@ -147,52 +148,60 @@ public class TypesGenerator {
     }
 
     private void initializeBuiltinTypes(SemanticModel semanticModel) {
-        if (!typeSymbolMap.isEmpty()) {
+        if (initialized) {
             return;
         }
 
-        // Obtain the type symbols for the builtin types
-        Types types = semanticModel.types();
-        typeSymbolMap.put(TYPE_STRING, types.STRING);
-        typeSymbolMap.put(TYPE_BOOLEAN, types.BOOLEAN);
-        typeSymbolMap.put(TYPE_INT, types.INT);
-        typeSymbolMap.put(TYPE_NIL, types.NIL);
-        typeSymbolMap.put(TYPE_FLOAT, types.FLOAT);
-        typeSymbolMap.put(TYPE_DECIMAL, types.DECIMAL);
-        typeSymbolMap.put(TYPE_XML, types.XML);
-        typeSymbolMap.put(TYPE_BYTE, types.BYTE);
-        typeSymbolMap.put(TYPE_ERROR, types.ERROR);
-        typeSymbolMap.put(TYPE_JSON, types.JSON);
-        typeSymbolMap.put(TYPE_ANY, types.ANY);
-        typeSymbolMap.put(TYPE_ANYDATA, types.ANYDATA);
-        typeSymbolMap.put(TYPE_FUNCTION, types.FUNCTION);
-        typeSymbolMap.put(TYPE_FUTURE, types.FUTURE);
-        typeSymbolMap.put(TYPE_TYPEDESC, types.TYPEDESC);
-        typeSymbolMap.put(TYPE_HANDLE, types.HANDLE);
-        typeSymbolMap.put(TYPE_STREAM, types.STREAM);
-        typeSymbolMap.put(TYPE_READONLY, types.READONLY);
-        typeSymbolMap.put(TYPE_RECORD, types.builder().RECORD_TYPE.withRestField(types.ANYDATA).build());
-        typeSymbolMap.put(TYPE_MAP_JSON, types.builder().MAP_TYPE.withTypeParam(types.JSON).build());
-        typeSymbolMap.put(TYPE_MAP_STRING, types.builder().MAP_TYPE.withTypeParam(types.STRING).build());
-        typeSymbolMap.put(TYPE_JSON_ARRAY, types.builder().ARRAY_TYPE.withType(types.JSON).build());
-        typeSymbolMap.put(TYPE_BYTE_ARRAY, types.builder().ARRAY_TYPE.withType(types.BYTE).build());
+        synchronized (this) {
+            if (initialized) {
+                return;
+            }
 
-        // Build the completion items for the builtin types
-        categoryMap.forEach((category, typeNames) -> {
-            typeNames.forEach(typeName -> {
-                TypeSymbol symbol = typeSymbolMap.get(typeName);
-                completionItemMap.put(symbol, TypeCompletionItemBuilder.build(symbol, typeName, category));
+            // Obtain the type symbols for the builtin types
+            Types types = semanticModel.types();
+            typeSymbolMap.put(TYPE_STRING, types.STRING);
+            typeSymbolMap.put(TYPE_BOOLEAN, types.BOOLEAN);
+            typeSymbolMap.put(TYPE_INT, types.INT);
+            typeSymbolMap.put(TYPE_NIL, types.NIL);
+            typeSymbolMap.put(TYPE_FLOAT, types.FLOAT);
+            typeSymbolMap.put(TYPE_DECIMAL, types.DECIMAL);
+            typeSymbolMap.put(TYPE_XML, types.XML);
+            typeSymbolMap.put(TYPE_BYTE, types.BYTE);
+            typeSymbolMap.put(TYPE_ERROR, types.ERROR);
+            typeSymbolMap.put(TYPE_JSON, types.JSON);
+            typeSymbolMap.put(TYPE_ANY, types.ANY);
+            typeSymbolMap.put(TYPE_ANYDATA, types.ANYDATA);
+            typeSymbolMap.put(TYPE_FUNCTION, types.FUNCTION);
+            typeSymbolMap.put(TYPE_FUTURE, types.FUTURE);
+            typeSymbolMap.put(TYPE_TYPEDESC, types.TYPEDESC);
+            typeSymbolMap.put(TYPE_HANDLE, types.HANDLE);
+            typeSymbolMap.put(TYPE_STREAM, types.STREAM);
+            typeSymbolMap.put(TYPE_READONLY, types.READONLY);
+            typeSymbolMap.put(TYPE_RECORD, types.builder().RECORD_TYPE.withRestField(types.ANYDATA).build());
+            typeSymbolMap.put(TYPE_MAP_JSON, types.builder().MAP_TYPE.withTypeParam(types.JSON).build());
+            typeSymbolMap.put(TYPE_MAP_STRING, types.builder().MAP_TYPE.withTypeParam(types.STRING).build());
+            typeSymbolMap.put(TYPE_JSON_ARRAY, types.builder().ARRAY_TYPE.withType(types.JSON).build());
+            typeSymbolMap.put(TYPE_BYTE_ARRAY, types.builder().ARRAY_TYPE.withType(types.BYTE).build());
+
+            // Build the completion items for the builtin types
+            categoryMap.forEach((category, typeNames) -> {
+                typeNames.forEach(typeName -> {
+                    TypeSymbol symbol = typeSymbolMap.get(typeName);
+                    completionItemMap.put(symbol, TypeCompletionItemBuilder.build(symbol, typeName, category));
+                });
             });
-        });
 
-        // Build the subtype items for the builtin types
-        typeSymbolMap.forEach((name, symbol) -> {
-            List<CompletionItem> completionsList = typeSymbolMap.values().parallelStream()
-                    .filter(typeSymbol -> typeSymbol.subtypeOf(symbol))
-                    .map(completionItemMap::get)
-                    .toList();
-            subtypeItemsMap.put(symbol, completionsList);
-        });
+            // Build the subtype items for the builtin types
+            typeSymbolMap.forEach((name, symbol) -> {
+                List<CompletionItem> completionsList = typeSymbolMap.values().parallelStream()
+                        .filter(typeSymbol -> typeSymbol.subtypeOf(symbol))
+                        .map(completionItemMap::get)
+                        .toList();
+                subtypeItemsMap.put(symbol, completionsList);
+            });
+
+            initialized = true;
+        }
     }
 
     public static TypesGenerator getInstance() {
