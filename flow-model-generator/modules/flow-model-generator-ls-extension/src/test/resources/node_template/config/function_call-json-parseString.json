@@ -10,21 +10,21 @@
     "org": "ballerina",
     "module": "data.jsondata",
     "symbol": "parseString",
-    "version": "0.2.0"
+    "version": "1.1.0"
   },
   "output": {
     "id": "31",
     "metadata": {
       "label": "parseString",
       "description": "Converts JSON string to subtype of anydata.\n",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.jsondata_0.2.0.png"
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.jsondata_1.1.0.png"
     },
     "codedata": {
       "node": "FUNCTION_CALL",
       "org": "ballerina",
       "module": "data.jsondata",
       "symbol": "parseString",
-      "version": "0.2.0",
+      "version": "1.1.0",
       "isNew": true,
       "inferredReturnType": "t"
     },
@@ -91,7 +91,7 @@
         "typeMembers": [
           {
             "type": "Options",
-            "packageInfo": "ballerina:data.jsondata:0.2.0",
+            "packageInfo": "ballerina:data.jsondata:1.1.0",
             "kind": "RECORD_TYPE",
             "selected": false
           }

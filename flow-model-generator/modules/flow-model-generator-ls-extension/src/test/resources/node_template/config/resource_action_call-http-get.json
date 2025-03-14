@@ -20,7 +20,7 @@
     "metadata": {
       "label": "get",
       "description": "The client resource function to send HTTP GET requests to HTTP endpoints.\n",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png"
     },
     "codedata": {
       "node": "RESOURCE_ACTION_CALL",

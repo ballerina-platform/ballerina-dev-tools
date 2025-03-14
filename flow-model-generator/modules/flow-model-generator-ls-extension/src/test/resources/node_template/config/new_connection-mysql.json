@@ -39,7 +39,7 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "placeholder": "\"localhost\"",
+        "placeholder": "\"\"",
         "optional": true,
         "editable": true,
         "advanced": true,
@@ -64,7 +64,7 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string|()",
-        "placeholder": "\"root\"",
+        "placeholder": "()",
         "optional": true,
         "editable": true,
         "advanced": true,
@@ -75,13 +75,13 @@
         },
         "typeMembers": [
           {
-            "type": "()",
+            "type": "string",
             "packageInfo": "",
             "kind": "BASIC_TYPE",
             "selected": false
           },
           {
-            "type": "string",
+            "type": "()",
             "packageInfo": "",
             "kind": "BASIC_TYPE",
             "selected": false
@@ -106,13 +106,13 @@
         },
         "typeMembers": [
           {
-            "type": "()",
+            "type": "string",
             "packageInfo": "",
             "kind": "BASIC_TYPE",
             "selected": false
           },
           {
-            "type": "string",
+            "type": "()",
             "packageInfo": "",
             "kind": "BASIC_TYPE",
             "selected": false
@@ -137,13 +137,13 @@
         },
         "typeMembers": [
           {
-            "type": "()",
+            "type": "string",
             "packageInfo": "",
             "kind": "BASIC_TYPE",
             "selected": false
           },
           {
-            "type": "string",
+            "type": "()",
             "packageInfo": "",
             "kind": "BASIC_TYPE",
             "selected": false
@@ -157,7 +157,7 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "int",
-        "placeholder": "3306",
+        "placeholder": "0",
         "optional": true,
         "editable": true,
         "advanced": true,
@@ -193,15 +193,15 @@
         },
         "typeMembers": [
           {
-            "type": "()",
-            "packageInfo": "",
-            "kind": "BASIC_TYPE",
-            "selected": false
-          },
-          {
             "type": "Options",
             "packageInfo": "ballerinax:mysql:1.13.1",
             "kind": "RECORD_TYPE",
+            "selected": false
+          },
+          {
+            "type": "()",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
             "selected": false
           }
         ]
@@ -225,15 +225,15 @@
         },
         "typeMembers": [
           {
-            "type": "()",
-            "packageInfo": "",
-            "kind": "BASIC_TYPE",
-            "selected": false
-          },
-          {
             "type": "ConnectionPool",
             "packageInfo": "ballerina:sql:1.14.0",
             "kind": "RECORD_TYPE",
+            "selected": false
+          },
+          {
+            "type": "()",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
             "selected": false
           }
         ]
