@@ -168,5 +168,9 @@
         "newText": "final mod1:Client mod1Client = check new ({auth: {token: \"\"}});"
       }
     ]
-  }
+  },
+  "modules": [
+    "mod5",
+    "mod1"
+  ]
 }

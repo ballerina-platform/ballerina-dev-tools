@@ -18,12 +18,14 @@
 
 package io.ballerina.flowmodelgenerator.extension;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelNodeTemplateRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelSourceGeneratorRequest;
 import io.ballerina.flowmodelgenerator.extension.request.OpenAPIClientGenerationRequest;
+import io.ballerina.flowmodelgenerator.extension.request.OpenAPIGeneratedModulesRequest;
 import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import io.ballerina.tools.text.LinePosition;
 import org.eclipse.lsp4j.TextEdit;
@@ -116,13 +118,18 @@ public class OpenApiClientGeneratorTest extends AbstractLSTest {
             newMap.put(relativePath, entry.getValue());
         }
 
+        OpenAPIGeneratedModulesRequest modulesRequest = new OpenAPIGeneratedModulesRequest(projectPath);
+        JsonArray modules =
+                getResponse(modulesRequest, getServiceName() + "/getModules").getAsJsonArray("modules");
+        boolean moduleAssertFailure = !modules.equals(testConfig.modules());
+
         deleteFolder(project.toFile());
-        if (!nodeTemplate.equals(testConfig.output()) || assertFailure) {
+        if (!nodeTemplate.equals(testConfig.output()) || assertFailure || moduleAssertFailure) {
             TestConfig updatedConfig =
                     new TestConfig(testConfig.contractFile(), testConfig.balToml(), testConfig.module(),
                             testConfig.source(), testConfig.position(), testConfig.description(),
-                            testConfig.codedata(), nodeTemplate, newMap);
-//            updateConfig(configJsonPath, updatedConfig);
+                            testConfig.codedata(), nodeTemplate, newMap, modules);
+            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
     }
@@ -172,11 +179,12 @@ public class OpenApiClientGeneratorTest extends AbstractLSTest {
      * @param codedata     Codedata of the node
      * @param output       Expected output
      * @param textEdits    Text edits
+     * @param modules      Available modules
      * @since 1.4.0
      */
     private record TestConfig(String contractFile, String balToml, String module, String source,
                               LinePosition position, String description, JsonObject codedata, JsonElement output,
-                              Map<String, List<TextEdit>> textEdits) {
+                              Map<String, List<TextEdit>> textEdits, JsonArray modules) {
 
     }
 }

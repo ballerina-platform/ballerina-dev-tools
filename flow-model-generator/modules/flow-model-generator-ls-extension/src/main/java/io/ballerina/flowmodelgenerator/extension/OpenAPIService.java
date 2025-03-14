@@ -20,7 +20,9 @@ package io.ballerina.flowmodelgenerator.extension;
 
 import io.ballerina.flowmodelgenerator.core.OpenAPIClientGenerator;
 import io.ballerina.flowmodelgenerator.extension.request.OpenAPIClientGenerationRequest;
+import io.ballerina.flowmodelgenerator.extension.request.OpenAPIGeneratedModulesRequest;
 import io.ballerina.flowmodelgenerator.extension.response.OpenAPIClientGenerationResponse;
+import io.ballerina.flowmodelgenerator.extension.response.OpenAPIGeneratedModulesResponse;
 import org.ballerinalang.annotation.JavaSPIService;
 import org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
@@ -52,6 +54,21 @@ public class OpenAPIService implements ExtendedLanguageServerService {
                 OpenAPIClientGenerator openAPIClientGenerator =
                         new OpenAPIClientGenerator(Path.of(req.openApiContractPath()), Path.of(req.projectPath()));
                 response.setSource(openAPIClientGenerator.genClient(req.module()));
+            } catch (Throwable e) {
+                response.setError(e);
+            }
+            return response;
+        });
+    }
+
+    @JsonRequest
+    public CompletableFuture<OpenAPIGeneratedModulesResponse> getModules(OpenAPIGeneratedModulesRequest req) {
+        return CompletableFuture.supplyAsync(() -> {
+            OpenAPIGeneratedModulesResponse response = new OpenAPIGeneratedModulesResponse();
+            try {
+                OpenAPIClientGenerator openAPIClientGenerator =
+                        new OpenAPIClientGenerator(null, Path.of(req.projectPath()));
+                response.setModules(openAPIClientGenerator.getModules());
             } catch (Throwable e) {
                 response.setError(e);
             }
