@@ -10,21 +10,21 @@
     "org": "ballerina",
     "module": "log",
     "symbol": "printInfo",
-    "version": "2.10.0"
+    "version": "2.12.0"
   },
   "output": {
     "id": "31",
     "metadata": {
       "label": "printInfo",
       "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.12.0.png"
     },
     "codedata": {
       "node": "FUNCTION_CALL",
       "org": "ballerina",
       "module": "log",
       "symbol": "printInfo",
-      "version": "2.10.0",
+      "version": "2.12.0",
       "isNew": true
     },
     "returning": false,
@@ -35,7 +35,7 @@
           "description": "The message to be logged"
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "string",
+        "valueTypeConstraint": "string|log:PrintableRawTemplate",
         "placeholder": "\"\"",
         "optional": false,
         "editable": true,
@@ -46,6 +46,12 @@
           "originalName": "msg"
         },
         "typeMembers": [
+          {
+            "type": "PrintableRawTemplate",
+            "packageInfo": "ballerina:log:2.12.0",
+            "kind": "OBJECT_TYPE",
+            "selected": false
+          },
           {
             "type": "string",
             "packageInfo": "",

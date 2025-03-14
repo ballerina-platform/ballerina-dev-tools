@@ -2,297 +2,301 @@
   "ballerina": [
     {
       "name": "http",
-      "version": "2.12.2"
-    },
-    {
-      "name": "time",
-      "version": "2.5.0"
+      "version": "2.14.0"
     },
     {
       "name": "crypto",
-      "version": "2.7.2"
+      "version": "2.9.0"
+    },
+    {
+      "name": "time",
+      "version": "2.7.0"
     },
     {
       "name": "observe",
-      "version": "1.3.0"
+      "version": "1.5.0"
     },
     {
       "name": "log",
-      "version": "2.10.0"
-    },
-    {
-      "name": "oauth2",
       "version": "2.12.0"
     },
     {
       "name": "io",
-      "version": "1.6.1"
+      "version": "1.8.0"
     },
     {
-      "name": "jwt",
-      "version": "2.13.0"
+      "name": "oauth2",
+      "version": "2.14.0"
     },
     {
       "name": "url",
-      "version": "2.4.0"
+      "version": "2.6.0"
+    },
+    {
+      "name": "jwt",
+      "version": "2.15.0"
     },
     {
       "name": "auth",
-      "version": "2.12.0"
+      "version": "2.14.0"
     },
     {
       "name": "file",
-      "version": "1.10.0"
-    },
-    {
-      "name": "mime",
-      "version": "2.10.1"
-    },
-    {
-      "name": "constraint",
-      "version": "1.5.0"
-    },
-    {
-      "name": "task",
-      "version": "2.5.0"
-    },
-    {
-      "name": "cache",
-      "version": "3.8.0"
-    },
-    {
-      "name": "os",
-      "version": "1.8.0"
-    },
-    {
-      "name": "cloud",
-      "version": "3.1.0"
-    },
-    {
-      "name": "protobuf",
-      "version": "1.6.1"
-    },
-    {
-      "name": "sql",
-      "version": "1.14.1"
-    },
-    {
-      "name": "graphql",
-      "version": "1.14.0"
-    },
-    {
-      "name": "websocket",
-      "version": "2.12.0"
-    },
-    {
-      "name": "grpc",
-      "version": "1.12.1"
-    },
-    {
-      "name": "websubhub",
       "version": "1.12.0"
     },
     {
-      "name": "openapi",
-      "version": "2.1.0"
+      "name": "constraint",
+      "version": "1.7.0"
     },
     {
-      "name": "random",
-      "version": "1.5.0"
-    },
-    {
-      "name": "uuid",
-      "version": "1.8.0"
-    },
-    {
-      "name": "websub",
-      "version": "2.12.0"
-    },
-    {
-      "name": "tcp",
-      "version": "1.11.1"
-    },
-    {
-      "name": "email",
-      "version": "2.10.0"
-    },
-    {
-      "name": "udp",
-      "version": "1.11.0"
-    },
-    {
-      "name": "ftp",
-      "version": "2.11.0"
-    },
-    {
-      "name": "yaml",
-      "version": "0.6.0"
-    },
-    {
-      "name": "persist",
-      "version": "1.4.0"
-    },
-    {
-      "name": "avro",
-      "version": "1.0.2"
-    },
-    {
-      "name": "jballerina.java.arrays",
-      "version": "1.4.0"
-    },
-    {
-      "name": "data.xmldata",
-      "version": "1.0.0"
-    },
-    {
-      "name": "xslt",
+      "name": "task",
       "version": "2.7.0"
     },
     {
-      "name": "soap",
-      "version": "2.0.1"
+      "name": "mime",
+      "version": "2.12.0"
+    },
+    {
+      "name": "cache",
+      "version": "3.10.0"
+    },
+    {
+      "name": "os",
+      "version": "1.10.0"
+    },
+    {
+      "name": "cloud",
+      "version": "3.3.0"
+    },
+    {
+      "name": "protobuf",
+      "version": "1.8.0"
+    },
+    {
+      "name": "sql",
+      "version": "1.16.0"
+    },
+    {
+      "name": "websocket",
+      "version": "2.14.0"
+    },
+    {
+      "name": "graphql",
+      "version": "1.16.0"
+    },
+    {
+      "name": "grpc",
+      "version": "1.14.0"
+    },
+    {
+      "name": "websubhub",
+      "version": "1.15.0"
+    },
+    {
+      "name": "random",
+      "version": "1.7.0"
+    },
+    {
+      "name": "openapi",
+      "version": "2.3.0"
+    },
+    {
+      "name": "uuid",
+      "version": "1.10.0"
+    },
+    {
+      "name": "websub",
+      "version": "2.14.0"
+    },
+    {
+      "name": "tcp",
+      "version": "1.13.0"
+    },
+    {
+      "name": "email",
+      "version": "2.12.0"
     },
     {
       "name": "data.jsondata",
-      "version": "0.2.0"
-    },
-    {
-      "name": "data.csv",
-      "version": "0.1.0"
-    },
-    {
-      "name": "toml",
-      "version": "0.6.0"
-    },
-    {
-      "name": "edi",
-      "version": "1.3.0"
-    },
-    {
-      "name": "ldap",
       "version": "1.1.0"
     },
     {
-      "name": "mqtt",
+      "name": "udp",
+      "version": "1.13.0"
+    },
+    {
+      "name": "ftp",
+      "version": "2.13.0"
+    },
+    {
+      "name": "data.xmldata",
+      "version": "1.3.0"
+    },
+    {
+      "name": "yaml",
+      "version": "0.8.0"
+    },
+    {
+      "name": "persist",
+      "version": "1.6.0"
+    },
+    {
+      "name": "avro",
       "version": "1.2.0"
     },
     {
+      "name": "data.csv",
+      "version": "0.8.0"
+    },
+    {
+      "name": "jballerina.java.arrays",
+      "version": "1.6.0"
+    },
+    {
+      "name": "xslt",
+      "version": "2.9.1"
+    },
+    {
+      "name": "soap",
+      "version": "2.3.0"
+    },
+    {
+      "name": "ldap",
+      "version": "1.3.0"
+    },
+    {
+      "name": "toml",
+      "version": "0.8.0"
+    },
+    {
+      "name": "edi",
+      "version": "1.5.0"
+    },
+    {
+      "name": "mqtt",
+      "version": "1.4.0"
+    },
+    {
       "name": "math.vector",
-      "version": "1.0.2"
+      "version": "1.2.0"
     },
     {
       "name": "copybook",
-      "version": "1.0.0"
+      "version": "1.1.1"
     },
     {
       "name": "editoolspackage",
-      "version": "2.0.3"
-    },
-    {
-      "name": "wsdltool",
-      "version": "0.1.0"
-    },
-    {
-      "name": "data.yaml",
-      "version": "0.1.0"
-    },
-    {
-      "name": "lang.array",
-      "version": "2201.10.2"
-    },
-    {
-      "name": "lang.boolean",
-      "version": "2201.10.2"
-    },
-    {
-      "name": "lang.decimal",
-      "version": "2201.10.2"
-    },
-    {
-      "name": "lang.error",
-      "version": "2201.10.2"
-    },
-    {
-      "name": "lang.float",
-      "version": "2201.10.2"
-    },
-    {
-      "name": "lang.function",
-      "version": "2201.10.2"
-    },
-    {
-      "name": "lang.future",
-      "version": "2201.10.2"
-    },
-    {
-      "name": "lang.int",
-      "version": "2201.10.2"
-    },
-    {
-      "name": "lang.map",
-      "version": "2201.10.2"
-    },
-    {
-      "name": "lang.object",
-      "version": "2201.10.2"
-    },
-    {
-      "name": "lang.query",
-      "version": "2201.10.2"
-    },
-    {
-      "name": "lang.regexp",
-      "version": "2201.10.2"
-    },
-    {
-      "name": "lang.runtime",
-      "version": "2201.10.2"
-    },
-    {
-      "name": "lang.stream",
-      "version": "2201.10.2"
-    },
-    {
-      "name": "lang.string",
-      "version": "2201.10.2"
-    },
-    {
-      "name": "lang.table",
-      "version": "2201.10.2"
-    },
-    {
-      "name": "lang.transaction",
-      "version": "2201.10.2"
-    },
-    {
-      "name": "lang.typedesc",
-      "version": "2201.10.2"
-    },
-    {
-      "name": "lang.value",
-      "version": "2201.10.2"
-    },
-    {
-      "name": "lang.xml",
-      "version": "2201.10.2"
-    },
-    {
-      "name": "test",
-      "version": "2201.10.2"
-    },
-    {
-      "name": "jballerina.java",
-      "version": "2201.10.2"
+      "version": "2.1.0"
     },
     {
       "name": "tool_scan",
       "version": "0.5.0"
+    },
+    {
+      "name": "wsdltool",
+      "version": "1.0.1"
+    },
+    {
+      "name": "data.yaml",
+      "version": "0.8.0"
+    },
+    {
+      "name": "xsdtool",
+      "version": "1.0.4"
+    },
+    {
+      "name": "test",
+      "version": "2201.10.4"
+    },
+    {
+      "name": "lang.array",
+      "version": "2201.11.0"
+    },
+    {
+      "name": "lang.boolean",
+      "version": "2201.11.0"
+    },
+    {
+      "name": "lang.decimal",
+      "version": "2201.11.0"
+    },
+    {
+      "name": "lang.error",
+      "version": "2201.11.0"
+    },
+    {
+      "name": "lang.float",
+      "version": "2201.11.0"
+    },
+    {
+      "name": "lang.function",
+      "version": "2201.11.0"
+    },
+    {
+      "name": "lang.future",
+      "version": "2201.11.0"
+    },
+    {
+      "name": "lang.int",
+      "version": "2201.11.0"
+    },
+    {
+      "name": "lang.map",
+      "version": "2201.11.0"
+    },
+    {
+      "name": "lang.object",
+      "version": "2201.11.0"
+    },
+    {
+      "name": "lang.query",
+      "version": "2201.11.0"
+    },
+    {
+      "name": "lang.regexp",
+      "version": "2201.11.0"
+    },
+    {
+      "name": "lang.runtime",
+      "version": "2201.11.0"
+    },
+    {
+      "name": "lang.stream",
+      "version": "2201.11.0"
+    },
+    {
+      "name": "lang.string",
+      "version": "2201.11.0"
+    },
+    {
+      "name": "lang.table",
+      "version": "2201.11.0"
+    },
+    {
+      "name": "lang.transaction",
+      "version": "2201.11.0"
+    },
+    {
+      "name": "lang.typedesc",
+      "version": "2201.11.0"
+    },
+    {
+      "name": "lang.value",
+      "version": "2201.11.0"
+    },
+    {
+      "name": "lang.xml",
+      "version": "2201.11.0"
+    },
+    {
+      "name": "jballerina.java",
+      "version": "2201.11.0"
     }
   ],
   "ballerinax": [
     {
       "name": "github",
-      "version": "5.0.2"
+      "version": "5.1.0"
     },
     {
       "name": "googleapis.sheets",
@@ -304,7 +308,7 @@
     },
     {
       "name": "java.jdbc",
-      "version": "1.12.1"
+      "version": "1.14.0"
     },
     {
       "name": "java.jms",
@@ -312,43 +316,43 @@
     },
     {
       "name": "kafka",
-      "version": "4.2.0"
+      "version": "4.5.0"
     },
     {
       "name": "mongodb",
-      "version": "5.0.0"
+      "version": "5.1.0"
     },
     {
       "name": "mssql",
-      "version": "1.13.1"
+      "version": "1.15.0"
     },
     {
       "name": "mysql",
-      "version": "1.13.1"
+      "version": "1.15.0"
     },
     {
       "name": "nats",
-      "version": "3.1.0"
+      "version": "3.2.0"
     },
     {
       "name": "oracledb",
-      "version": "1.11.1"
+      "version": "1.14.0"
     },
     {
       "name": "postgresql",
-      "version": "1.13.1"
+      "version": "1.15.0"
     },
     {
       "name": "rabbitmq",
-      "version": "3.1.0"
+      "version": "3.2.0"
     },
     {
       "name": "redis",
-      "version": "3.0.2"
+      "version": "3.1.0"
     },
     {
       "name": "salesforce",
-      "version": "8.1.0"
+      "version": "8.2.0"
     },
     {
       "name": "sap",
@@ -356,7 +360,7 @@
     },
     {
       "name": "snowflake",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     {
       "name": "covid19",

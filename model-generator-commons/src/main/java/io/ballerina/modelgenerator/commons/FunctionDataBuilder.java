@@ -520,8 +520,7 @@ public class FunctionDataBuilder {
 
     private List<FunctionData> getMethodsFromIndex() {
         DatabaseManager dbManager = DatabaseManager.getInstance();
-        List<FunctionData> methods = dbManager.getMethods(parentSymbolType, moduleInfo.org(),
-                moduleInfo.packageName(), moduleInfo.version());
+        List<FunctionData> methods = dbManager.getMethods(parentSymbolType, moduleInfo.org(), moduleInfo.packageName());
         if (methods.isEmpty()) {
             return new ArrayList<>();
         }

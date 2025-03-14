@@ -445,7 +445,7 @@
                     "typeMembers": [
                       {
                         "type": "Printable",
-                        "packageInfo": "ballerina:io:1.6.1",
+                        "packageInfo": "ballerina:io:1.8.0",
                         "kind": "ARRAY_TYPE",
                         "selected": false
                       }
@@ -565,7 +565,7 @@
                     "typeMembers": [
                       {
                         "type": "Printable",
-                        "packageInfo": "ballerina:io:1.6.1",
+                        "packageInfo": "ballerina:io:1.8.0",
                         "kind": "ARRAY_TYPE",
                         "selected": false
                       }

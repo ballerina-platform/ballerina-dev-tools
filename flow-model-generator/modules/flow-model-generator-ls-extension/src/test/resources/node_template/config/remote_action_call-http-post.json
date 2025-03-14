@@ -19,7 +19,7 @@
     "metadata": {
       "label": "post",
       "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png"
     },
     "codedata": {
       "node": "REMOTE_ACTION_CALL",
@@ -107,7 +107,7 @@
         "typeMembers": [
           {
             "type": "RequestMessage",
-            "packageInfo": "ballerina:http:2.12.2",
+            "packageInfo": "ballerina:http:2.14.0",
             "kind": "OTHER",
             "selected": false
           }

@@ -18,7 +18,7 @@
     "metadata": {
       "label": "New Connection",
       "description": "Represents a OracleDB client.",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_oracledb_1.11.1.png"
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_oracledb_1.14.0.png"
     },
     "codedata": {
       "node": "NEW_CONNECTION",
@@ -26,7 +26,7 @@
       "module": "oracledb",
       "object": "Client",
       "symbol": "init",
-      "version": "1.11.1",
+      "version": "1.14.0",
       "isNew": true
     },
     "returning": false,
@@ -199,7 +199,7 @@
           },
           {
             "type": "Options",
-            "packageInfo": "ballerinax:oracledb:1.11.1",
+            "packageInfo": "ballerinax:oracledb:1.14.0",
             "kind": "RECORD_TYPE",
             "selected": false
           }
@@ -231,7 +231,7 @@
           },
           {
             "type": "ConnectionPool",
-            "packageInfo": "ballerina:sql:1.11.0",
+            "packageInfo": "ballerina:sql:1.16.0",
             "kind": "RECORD_TYPE",
             "selected": false
           }

@@ -529,12 +529,13 @@ public class DatabaseManager {
         }
     }
 
-    public List<FunctionData> getMethods(String connectorName, String org, String packageName, String version) {
+    public List<FunctionData> getMethods(String connectorName, String org, String packageName) {
         String sql = "SELECT " +
                 "f.function_id, " +
                 "f.name AS function_name, " +
                 "f.description, " +
                 "f.kind, " +
+                "p.version, " +
                 "f.return_type, " +
                 "f.resource_path, " +
                 "f.return_error, " +
@@ -547,7 +548,6 @@ public class DatabaseManager {
                 "WHERE c.name = ? " +
                 "AND p.org = ? " +
                 "AND p.name = ? " +
-                "AND p.version = ? " +
                 "AND c.kind = 'CONNECTOR';";
 
         try (Connection conn = DriverManager.getConnection(dbPath);
@@ -555,7 +555,6 @@ public class DatabaseManager {
             stmt.setString(1, connectorName);
             stmt.setString(2, org);
             stmt.setString(3, packageName);
-            stmt.setString(4, version);
             ResultSet rs = stmt.executeQuery();
             List<FunctionData> functionDataList = new ArrayList<>();
             while (rs.next()) {
@@ -566,7 +565,7 @@ public class DatabaseManager {
                         rs.getString("return_type"),
                         packageName,
                         org,
-                        version,
+                        rs.getString("version"),
                         rs.getString("resource_path"),
                         FunctionData.Kind.valueOf(rs.getString("kind")),
                         rs.getBoolean("return_error"),

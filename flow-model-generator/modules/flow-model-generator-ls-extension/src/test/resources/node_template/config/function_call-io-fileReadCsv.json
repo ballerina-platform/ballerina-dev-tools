@@ -10,21 +10,21 @@
     "org": "ballerina",
     "module": "io",
     "symbol": "fileReadCsv",
-    "version": "1.6.1"
+    "version": "1.8.0"
   },
   "output": {
     "id": "31",
     "metadata": {
       "label": "fileReadCsv",
       "description": "Read file content as a CSV.\nWhen the expected data type is record[], the first entry of the csv file should contain matching headers.\n```ballerina\nstring[][]|io:Error content = io:fileReadCsv(\"./resources/myfile.csv\");\nrecord{}[]|io:Error content = io:fileReadCsv(\"./resources/myfile.csv\");\n```",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.1.png"
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.8.0.png"
     },
     "codedata": {
       "node": "FUNCTION_CALL",
       "org": "ballerina",
       "module": "io",
       "symbol": "fileReadCsv",
-      "version": "1.6.1",
+      "version": "1.8.0",
       "isNew": true,
       "inferredReturnType": "returnType[]"
     },

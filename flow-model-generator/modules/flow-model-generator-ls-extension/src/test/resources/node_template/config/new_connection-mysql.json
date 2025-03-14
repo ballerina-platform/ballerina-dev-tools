@@ -19,7 +19,7 @@
     "metadata": {
       "label": "New Connection",
       "description": "Represents a MySQL database client.",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mysql_1.13.1.png"
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mysql_1.15.0.png"
     },
     "codedata": {
       "node": "NEW_CONNECTION",
@@ -27,7 +27,7 @@
       "module": "mysql",
       "object": "Client",
       "symbol": "init",
-      "version": "1.13.1",
+      "version": "1.15.0",
       "isNew": true
     },
     "returning": false,
@@ -200,7 +200,7 @@
           },
           {
             "type": "Options",
-            "packageInfo": "ballerinax:mysql:1.13.1",
+            "packageInfo": "ballerinax:mysql:1.15.0",
             "kind": "RECORD_TYPE",
             "selected": false
           }
@@ -232,7 +232,7 @@
           },
           {
             "type": "ConnectionPool",
-            "packageInfo": "ballerina:sql:1.14.0",
+            "packageInfo": "ballerina:sql:1.16.0",
             "kind": "RECORD_TYPE",
             "selected": false
           }
