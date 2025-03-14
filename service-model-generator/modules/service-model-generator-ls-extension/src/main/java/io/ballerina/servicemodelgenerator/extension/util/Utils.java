@@ -437,11 +437,6 @@ public final class Utils {
             Parameter parameterModel = createParameter(paramName, ServiceModelGeneratorConstants.KIND_REQUIRED,
                     ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER, parameter.typeName().toString().trim(),
                     parameter.annotations(), isHttp, isGraphQL);
-            if (parameter.paramName().isPresent()) {
-                Value name = parameterModel.getName();
-                name.setCodedata(new Codedata(parameter.paramName().get().lineRange()));
-                name.setEditable(false);
-            }
             return Optional.of(parameterModel);
         } else if (parameterNode instanceof DefaultableParameterNode parameter) {
             String paramName = parameter.paramName().get().toString().trim();
@@ -452,11 +447,6 @@ public final class Utils {
             defaultValue.setValue(parameter.expression().toString().trim());
             defaultValue.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_EXPRESSION);
             defaultValue.setEnabled(true);
-            if (parameter.paramName().isPresent()) {
-                Value name = parameterModel.getName();
-                name.setCodedata(new Codedata(parameter.paramName().get().lineRange()));
-                name.setEditable(false);
-            }
             return Optional.of(parameterModel);
         }
         return Optional.empty();
@@ -483,6 +473,7 @@ public final class Utils {
                 if (!(typeName.equals("http:Request") || typeName.equals("http:Caller")
                         || typeName.equals("http:Headers"))) {
                     parameterModel.setHttpParamType(ServiceModelGeneratorConstants.HTTP_PARAM_TYPE_QUERY);
+                    parameterModel.setEditable(true);
                 }
             }
         }
@@ -712,13 +703,6 @@ public final class Utils {
         target.setEnabled(source.isEnabledWithValue());
         target.setValue(source.getValue());
         target.setValueType(source.getValueType());
-        if (Objects.nonNull(source.getCodedata())) {
-            if (Objects.nonNull(target.getCodedata())) {
-                target.getCodedata().setLineRange(source.getCodedata().getLineRange());
-            } else {
-                target.setCodedata(source.getCodedata());
-            }
-        }
     }
 
     public static void updateValue(FunctionReturnType target, FunctionReturnType source) {
