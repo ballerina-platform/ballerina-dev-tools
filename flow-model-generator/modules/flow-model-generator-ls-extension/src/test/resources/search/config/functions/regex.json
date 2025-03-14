@@ -1,0 +1,413 @@
+{
+  "description": "Sample flow model",
+  "kind": "FUNCTION",
+  "source": "empty.bal",
+  "position": {
+    "startLine": {
+      "line": 1,
+      "offset": 1
+    },
+    "endLine": {
+      "line": 1,
+      "offset": 1
+    }
+  },
+  "queryMap": {
+    "q": "regex",
+    "limit": "50",
+    "offset": "0"
+  },
+  "categories": [
+    {
+      "metadata": {
+        "label": "Current Integration",
+        "description": "Functions defined within the current integration",
+        "keywords": [
+          "Project",
+          "Local",
+          "Function"
+        ]
+      },
+      "items": []
+    },
+    {
+      "metadata": {
+        "label": "Agent Tools",
+        "description": "Functions used as agent tools",
+        "keywords": [
+          "Project",
+          "Local",
+          "Function"
+        ]
+      },
+      "items": []
+    },
+    {
+      "metadata": {
+        "label": "Imported Functions",
+        "description": "Functions imported from other integrations",
+        "keywords": [
+          "Imported",
+          "Function",
+          "Library"
+        ]
+      },
+      "items": []
+    },
+    {
+      "metadata": {
+        "label": "Available Functions",
+        "description": "Functions available in the library",
+        "keywords": [
+          "Available",
+          "Function",
+          "Library"
+        ]
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "lang.regexp",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "find",
+                "description": "Returns the first match of a regular expression within a string.\n\n```ballerina\nstring:RegExp r = re `World`;\nr.find(\"Not A Match\") is () ⇒ true\nr.find(\"Hello World\") is regexp:Span ⇒ true\nr.find(\"Hello World\", 6) is regexp:Span ⇒ true\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.regexp_0.0.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "lang.regexp",
+                "symbol": "find",
+                "version": "0.0.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "matchAt",
+                "description": "Tests whether there is a match of a regular expression at a specific index in the string.\n\n```ballerina\nstring:RegExp r = re `World`;\nr.matchAt(\"Hello World\") is () ⇒ true\nr.matchAt(\"Hello World\", 6) is regexp:Span ⇒ true\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.regexp_0.0.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "lang.regexp",
+                "symbol": "matchAt",
+                "version": "0.0.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "fromString",
+                "description": "Constructs a regular expression from a string.\nThe syntax of the regular expression is the same as accepted by the `re` tagged data template expression.\n\n```ballerina\nregexp:fromString(\"AB+C*D{1,4}\") ⇒ re `AB+C*D{1,4}`\nregexp:fromString(\"AB+^*\") ⇒ error\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.regexp_0.0.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "lang.regexp",
+                "symbol": "fromString",
+                "version": "0.0.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "findGroups",
+                "description": "Returns the `Groups` for the first match of a regular expression within a string.\n\n```ballerina\nstring:RegExp r = re `([bB].tt[a-z]*)`;\nr.findGroups(\"Not A Match\") is () ⇒ true\nr.findGroups(\"Butter was bought by Betty but the butter was bitter.\") is regexp:Groups ⇒ true\nr.findGroups(\"Butter was bought by Betty but the butter was bitter.\", 7) is regexp:Groups ⇒ true\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.regexp_0.0.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "lang.regexp",
+                "symbol": "findGroups",
+                "version": "0.0.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "replace",
+                "description": "Replaces the first match of a regular expression.\n\n```ballerina\nstring:RegExp r = re `0+`;\nr.replace(\"10010011\", \"*\") ⇒ 1*10011\nr.replace(\"10010011\", \"*\", 4) ⇒ 1001*11\nr.replace(\"122111\", \"*\") ⇒ 122111\nr.replace(\"10010011\", replaceFunction) ⇒ 1*10011\nr.replace(\"10010011\", replaceFunction, 4) ⇒ 1001*11\nisolated function replaceFunction(regexp:Groups groups) returns string => \"*\";\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.regexp_0.0.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "lang.regexp",
+                "symbol": "replace",
+                "version": "0.0.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "matchGroupsAt",
+                "description": "Returns the `Groups` of the match of a regular expression at a specific index in the string.\n\n```ballerina\nstring:RegExp r = re `([01][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])?`;\nr.matchGroupsAt(\"time: 14:35:59\") is () ⇒ true\nr.matchGroupsAt(\"time: 14:35:59\", 6) is regexp:Groups ⇒ true\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.regexp_0.0.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "lang.regexp",
+                "symbol": "matchGroupsAt",
+                "version": "0.0.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "fullMatchGroups",
+                "description": "Returns the `Groups` of the match of a regular expression that is a full match of a string.\nA match of the regular expression in a string is a full match if it\nstarts at index 0 and ends at index `n`, where `n` is the length of the string.\n\n```ballerina\nstring:RegExp r = re `([0-9]+)×([0-9]+)`;\nr.fullMatchGroups(\"test: 1440×900\") is () ⇒ true\nr.fullMatchGroups(\"1440×900\") is regexp:Groups ⇒ true\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.regexp_0.0.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "lang.regexp",
+                "symbol": "fullMatchGroups",
+                "version": "0.0.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "replaceAll",
+                "description": "Replaces all matches of a regular expression.\nAfter one match is found, it looks for the next match starting where the previous\nmatch ended, so the matches will be non-overlapping.\n\n```ballerina\nstring:RegExp r = re `0+`;\nr.replaceAll(\"10010011\", \"*\") ⇒ 1*1*11\nr.replaceAll(\"10010011\", \"*\", 4) ⇒ 1001*11\nr.replaceAll(\"122111\", \"*\") ⇒ 122111\nr.replaceAll(\"10010011\", replaceFunction) ⇒ 121211\nr.replaceAll(\"10010011\", replaceFunction, 4) ⇒ 1001211\nisolated function replaceFunction(regexp:Groups groups) returns string => groups[0].substring().length().toString();\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.regexp_0.0.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "lang.regexp",
+                "symbol": "replaceAll",
+                "version": "0.0.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "isFullMatch",
+                "description": "Tests whether there is full match of regular expression with a string.\nA match of a regular expression in a string is a full match if it\nstarts at index 0 and ends at index `n`, where `n` is the length of the string.\n\n```ballerina\nstring:RegExp r = re `A|Th.*ch|^`;\nr.isFullMatch(\"This is a Match\") ⇒ true\nr.isFullMatch(\"Not a complete Match\") ⇒ false\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.regexp_0.0.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "lang.regexp",
+                "symbol": "isFullMatch",
+                "version": "0.0.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "findAllGroups",
+                "description": "Returns the `Groups` of all the matches of a regular expression within a string.\nAfter one match is found, it looks for the next match starting where the previous\nmatch ended, so the list of matches will be non-overlapping.\n\n```ballerina\nstring:RegExp r = re `(([a-z]u)(bble))`;\nr.findAllGroups(\"Not A Match\").length() ⇒ 0\nr.findAllGroups(\"rubble, trouble, bubble, hubble\").length() ⇒ 3\nr.findAllGroups(\"rubble, trouble, bubble, hubble\", 7).length() ⇒ 2\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.regexp_0.0.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "lang.regexp",
+                "symbol": "findAllGroups",
+                "version": "0.0.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "split",
+                "description": "Splits a string into substrings separated by matches of a regular expression.\nThis finds the the non-overlapping matches of a regular expression and\nreturns a list of substrings of `str` that occur before the first match,\nbetween matches, or after the last match.  If there are no matches, then\n`[str]` will be returned.\n\n```ballerina\nstring:RegExp r = re `,`;\nr.split(\"abc,cde,efg\") ⇒ [\"abc\",\"cde\",\"efg\"]\nr.split(\"abc cde efg\") ⇒ [\"abc cde efg\"]\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.regexp_0.0.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "lang.regexp",
+                "symbol": "split",
+                "version": "0.0.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "findAll",
+                "description": "Returns a list of all the matches of a regular expression within a string.\nAfter one match is found, it looks for the next match starting where the previous\nmatch ended, so the list of matches will be non-overlapping.\n\n```ballerina\nstring:RegExp r = re `[bB].tt[a-z]*`;\nr.findAll(\"Not A Match\").length() ⇒ 0\nr.findAll(\"Butter was bought by Betty but the butter was bitter.\").length() ⇒ 4\nr.findAll(\"Butter was bought by Betty but the butter was bitter.\", 7).length() ⇒ 3\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.regexp_0.0.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "lang.regexp",
+                "symbol": "findAll",
+                "version": "0.0.0"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "regex",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "searchAll",
+                "description": "Returns all substrings in string that match the regex.\nNote that `\\\\` is used as for escape sequence and `\\\\\\\\` is used to insert a backslash\ncharacter in the string or regular expression. The following special characters should be escaped\nin the regex definition.\nSpecial Characters: `.`, `+`, `*`, `?`, `^`, `$`, `(`, `)`, `[`, `]`,` {`, `}`\n\n```ballerina\nregex:Match[] result = regex:searchAll(\"Betty Botter bought some butter but she said the butter’s bitter.\",\n                                     \"\\\\b[bB].tt[a-z]*\");\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_regex_1.3.2.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "regex",
+                "symbol": "searchAll",
+                "version": "1.3.2"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "matches",
+                "description": "Checks whether the given string matches the provided regex.\nNote that `\\\\` is used as for escape sequence and `\\\\\\\\` is used to insert a backslash\ncharacter in the string or regular expression. The following special characters should be escaped\nin the regex definition.\nSpecial Characters: `.`, `+`, `*`, `?`, `^`, `$`, `(`, `)`, `[`, `]`,` {`, `}`\n\n```ballerina\nboolean isMatched = regex:matches(\"Ballerina is great\", \"Ba[a-z ]+\");\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_regex_1.3.2.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "regex",
+                "symbol": "matches",
+                "version": "1.3.2"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "search",
+                "description": "Returns the first substring in str that matches the regex.\nNote that `\\\\` is used as for escape sequence and `\\\\\\\\` is used to insert a backslash\ncharacter in the string or regular expression. The following special characters should be escaped\nin the regex definition.\nSpecial Characters: `.`, `+`, `*`, `?`, `^`, `$`, `(`, `)`, `[`, `]`,` {`, `}`\n\n```ballerina\nregex:Match? result = regex:search(\"Betty Botter bought some butter but she said the butter’s bitter.\",\n                                   \"\\\\b[bB].tt[a-z]*\");\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_regex_1.3.2.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "regex",
+                "symbol": "search",
+                "version": "1.3.2"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "replaceFirst",
+                "description": "Replaces the first substring that matches the given regex with\nthe provided replacement string.\nNote that `\\\\` is used as for escape sequence and `\\\\\\\\` is used to insert a backslash\ncharacter in the string or regular expression. The following special characters should be escaped\nin the regex definition.\nSpecial Characters: `.`, `+`, `*`, `?`, `^`, `$`, `(`, `)`, `[`, `]`,` {`, `}`\n\n```ballerina\nstring result = regex:replaceFirst(\"Ballerina is great\", \"\\\\s+\", \"_\");\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_regex_1.3.2.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "regex",
+                "symbol": "replaceFirst",
+                "version": "1.3.2"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "split",
+                "description": "Returns an array of strings by splitting a string using the provided\nregex as the delimiter.\nNote that `\\\\` is used as for escape sequence and `\\\\\\\\` is used to insert a backslash\ncharacter in the string or regular expression. The following special characters should be escaped\nin the regex definition.\nSpecial Characters: `.`, `+`, `*`, `?`, `^`, `$`, `(`, `)`, `[`, `]`,` {`, `}`\n\n```ballerina\nstring[] result = regex:split(\"Ballerina is great\", \" \");\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_regex_1.3.2.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "regex",
+                "symbol": "split",
+                "version": "1.3.2"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "replace",
+                "description": "Replaces the first substring that matches the given regex with\nthe provided replacement string or string returned by the provided function.\nNote that `\\\\` is used as for escape sequence and `\\\\\\\\` is used to insert a backslash\ncharacter in the string or regular expression. The following special characters should be escaped\nin the regex definition.\nSpecial Characters: `.`, `+`, `*`, `?`, `^`, `$`, `(`, `)`, `[`, `]`,` {`, `}`\n\n```ballerina\nstring result = regex:replace(\"Ballerina is great\", \"\\\\s+\", \"_\");\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_regex_1.3.2.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "regex",
+                "symbol": "replace",
+                "version": "1.3.2"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "replaceAll",
+                "description": "Replaces each occurrence of the substrings, which match the provided\nregex from the given original string value with the provided replacement string.\nNote that `\\\\` is used as for escape sequence and `\\\\\\\\` is used to insert a backslash\ncharacter in the string or regular expression. The following special characters should be escaped\nin the regex definition.\nSpecial Characters: `.`, `+`, `*`, `?`, `^`, `$`, `(`, `)`, `[`, `]`,` {`, `}`\n\n```ballerina\nstring result = regex:replaceAll(\"Ballerina is great\", \"\\\\s+\", \"_\");\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_regex_1.3.2.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "regex",
+                "symbol": "replaceAll",
+                "version": "1.3.2"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "lang.string",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "includesMatch",
+                "description": "Tests whether there is a match of a regular expression somewhere within a string.\nThis is equivalent to `regexp:find(re, str, startIndex) != ()`.\n\n```ballerina\n\"This will match\".includesMatch(re `Th.*ch`) ⇒ true\n\"Will this match\".includesMatch(re `th.*ch`, 5) ⇒ true\n\"Not a match\".includesMatch(re `Th.*ch`) ⇒ false\n\"Will this match\".includesMatch(re `Th.*ch`, 5) ⇒ false\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.string_0.0.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "lang.string",
+                "symbol": "includesMatch",
+                "version": "0.0.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "matches",
+                "description": "Tests whether there is a full match of a regular expression with a string.\nA match of a regular expression in a string is a full match if it\nstarts at index 0 and ends at index `n`, where `n` is the length of the string.\nThis is equivalent to `regex:isFullMatch(re, str)`.\n\n```ballerina\n\"This is a Match\".matches(re `A|Th.*ch|^`) ⇒ true\n\"Not a Match\".matches(re `A|Th.*ch|^`) ⇒ false\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.string_0.0.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "lang.string",
+                "symbol": "matches",
+                "version": "0.0.0"
+              },
+              "enabled": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
