@@ -152,6 +152,7 @@
         "refs": [],
         "type": "int",
         "name": "year",
+        "optional": false,
         "docs": "Year of manufacturing."
       },
       {
@@ -159,6 +160,7 @@
         "refs": [],
         "type": "string",
         "name": "make",
+        "optional": false,
         "docs": ""
       },
       {
@@ -166,6 +168,7 @@
         "refs": [],
         "type": "string",
         "name": "model",
+        "optional": false,
         "docs": ""
       }
     ],
@@ -234,7 +237,8 @@
             "kind": "FIELD",
             "refs": [],
             "type": "string",
-            "name": "time"
+            "name": "time",
+            "optional": false
           }
         ],
         "kind": "FUNCTION",
@@ -291,7 +295,8 @@
             "kind": "FIELD",
             "refs": [],
             "type": "int",
-            "name": "year"
+            "name": "year",
+            "optional": false
           }
         ],
         "kind": "FUNCTION",
@@ -484,6 +489,7 @@
           "refs": [],
           "type": "string",
           "name": "make",
+          "optional": false,
           "docs": ""
         },
         {
@@ -491,6 +497,7 @@
           "refs": [],
           "type": "string",
           "name": "model",
+          "optional": false,
           "docs": ""
         }
       ],
@@ -556,7 +563,8 @@
               "kind": "FIELD",
               "refs": [],
               "type": "int",
-              "name": "year"
+              "name": "year",
+              "optional": false
             }
           ],
           "kind": "FUNCTION",

@@ -168,13 +168,14 @@ public class SourceCodeGenerator {
 
         // Build the rest field (if present).
         String restField = "";
-        if (typeData.restMember() != null) {
-            String typeDescriptor = generateTypeDescriptor(typeData.restMember().type());
-            restField = LS + "\t" + typeDescriptor + " ...;";
-        }
+        // TODO: Add support for rest field with closed records
+//        if (typeData.restMember() != null) {
+//            String typeDescriptor = generateTypeDescriptor(typeData.restMember().type());
+//            restField = LS + "\t" + typeDescriptor + " ...;";
+//        }
 
         // The template assumes that the dynamic parts already include their needed newlines and indentation.
-        String template = "record {|%s%s%s%n|}";
+        String template = "record {%s%s%s%n}";
 
         return template.formatted(
                 inclusionsBuilder.toString(),
@@ -339,8 +340,13 @@ public class SourceCodeGenerator {
 
         String template = "%s %s%s"; // <type descriptor> <identifier> [= <default value>]
 
+        String fieldName = CommonUtil.escapeReservedKeyword(member.name());
+        if (member.optional()) {
+            fieldName = fieldName + "?";
+        }
+
         return template.formatted(typeDescriptor,
-                CommonUtil.escapeReservedKeyword(member.name()),
+                fieldName,
                 (withDefaultValue && member.defaultValue() != null && !member.defaultValue().isEmpty()) ?
                         " = " + member.defaultValue() : "");
     }

@@ -95,7 +95,8 @@
           "Address"
         ],
         "type": "Address",
-        "name": "rowType"
+        "name": "rowType",
+        "optional": false
       },
       {
         "kind": "TYPE",
@@ -136,17 +137,20 @@
               "kind": "TYPE",
               "refs": [],
               "type": "string",
-              "name": "string"
+              "name": "string",
+              "optional": false
             },
             {
               "kind": "TYPE",
               "refs": [],
               "type": "int",
-              "name": "int"
+              "name": "int",
+              "optional": false
             }
           ]
         },
-        "name": "keyConstraintType"
+        "name": "keyConstraintType",
+        "optional": false
       }
     ]
   },
@@ -240,6 +244,7 @@
           "refs": [],
           "type": "string",
           "name": "houseNo",
+          "optional": false,
           "docs": ""
         },
         {
@@ -247,6 +252,7 @@
           "refs": [],
           "type": "string",
           "name": "line1",
+          "optional": false,
           "docs": ""
         },
         {
@@ -254,6 +260,7 @@
           "refs": [],
           "type": "string",
           "name": "line2",
+          "optional": false,
           "docs": ""
         },
         {
@@ -261,6 +268,7 @@
           "refs": [],
           "type": "string",
           "name": "city",
+          "optional": false,
           "docs": ""
         },
         {
@@ -268,6 +276,7 @@
           "refs": [],
           "type": "string",
           "name": "country",
+          "optional": false,
           "docs": ""
         }
       ],

@@ -130,11 +130,13 @@
                 "ballerina/time:Utc"
               ],
               "type": "time:Utc",
-              "name": "time:Utc"
+              "name": "time:Utc",
+              "optional": false
             }
           ]
         },
-        "name": "time:Utc[]"
+        "name": "time:Utc[]",
+        "optional": false
       }
     ]
   },
@@ -227,7 +229,8 @@
           "kind": "TYPE",
           "refs": [],
           "type": "readonly",
-          "name": "readonly"
+          "name": "readonly",
+          "optional": false
         },
         {
           "kind": "TYPE",
@@ -268,17 +271,20 @@
                 "kind": "TYPE",
                 "refs": [],
                 "type": "int",
-                "name": "int"
+                "name": "int",
+                "optional": false
               },
               {
                 "kind": "TYPE",
                 "refs": [],
                 "type": "decimal",
-                "name": "decimal"
+                "name": "decimal",
+                "optional": false
               }
             ]
           },
-          "name": "[int, decimal]"
+          "name": "[int, decimal]",
+          "optional": false
         }
       ]
     }

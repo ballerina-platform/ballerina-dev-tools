@@ -98,6 +98,7 @@
         "refs": [],
         "type": "string",
         "name": "make",
+        "optional": false,
         "docs": ""
       },
       {
@@ -105,6 +106,7 @@
         "refs": [],
         "type": "string",
         "name": "model",
+        "optional": false,
         "docs": ""
       }
     ],
@@ -170,7 +172,8 @@
             "kind": "FIELD",
             "refs": [],
             "type": "int",
-            "name": "year"
+            "name": "year",
+            "optional": false
           }
         ],
         "kind": "FUNCTION",

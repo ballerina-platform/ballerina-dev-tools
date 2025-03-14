@@ -81,19 +81,22 @@
         "kind": "NAME",
         "refs": [],
         "type": "\"RED\"",
-        "name": "RED"
+        "name": "RED",
+        "optional": false
       },
       {
         "kind": "NAME",
         "refs": [],
         "type": "\"YELLOW\"",
-        "name": "YELLOW"
+        "name": "YELLOW",
+        "optional": false
       },
       {
         "kind": "NAME",
         "refs": [],
         "type": "\"GREEN\"",
-        "name": "GREEN"
+        "name": "GREEN",
+        "optional": false
       }
     ]
   },

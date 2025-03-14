@@ -150,6 +150,7 @@
         "refs": [],
         "type": "string",
         "name": "name",
+        "optional": false,
         "docs": ""
       }
     ],
