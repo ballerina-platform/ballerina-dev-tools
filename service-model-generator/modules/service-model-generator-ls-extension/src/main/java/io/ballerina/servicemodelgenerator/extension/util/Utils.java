@@ -441,7 +441,7 @@ public final class Utils {
         } else if (parameterNode instanceof DefaultableParameterNode parameter) {
             String paramName = parameter.paramName().get().toString().trim();
             Parameter parameterModel = createParameter(paramName, ServiceModelGeneratorConstants.KIND_DEFAULTABLE,
-                    ServiceModelGeneratorConstants.VALUE_TYPE_EXPRESSION, parameter.typeName().toString().trim(),
+                    ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER, parameter.typeName().toString().trim(),
                     parameter.annotations(), isHttp, isGraphQL);
             Value defaultValue = parameterModel.getDefaultValue();
             defaultValue.setValue(parameter.expression().toString().trim());
@@ -480,6 +480,7 @@ public final class Utils {
         name.setValue(paramName);
         name.setValueType(valueType);
         name.setEnabled(true);
+        name.setEditable(false);
         parameterModel.setEnabled(true);
         return parameterModel;
     }
