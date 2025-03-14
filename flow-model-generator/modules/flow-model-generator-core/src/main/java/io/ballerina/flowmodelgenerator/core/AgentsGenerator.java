@@ -319,6 +319,18 @@ public class AgentsGenerator {
                 paramList.add(paramType + " " + key);
             }
 
+            Optional<Property> optReturnType = flowNode.getProperty(Property.TYPE_KEY);
+            String returnType = "";
+            if (optReturnType.isPresent()) {
+                Property returnProperty = optReturnType.get();
+                if (flowNode.getProperty(TARGET_TYPE).isPresent()) {
+                    returnType = "json";
+                } else {
+                    returnType = returnProperty.value().toString();
+                }
+                sourceBuilder.token().returnDoc(returnProperty.metadata().description());
+            }
+
             sourceBuilder.token()
                     .name("@agent:Tool").
                     name(System.lineSeparator());
@@ -335,15 +347,6 @@ public class AgentsGenerator {
             sourceBuilder.token().name(String.join(", ", paramList));
             sourceBuilder.token().keyword(SyntaxKind.CLOSE_PAREN_TOKEN);
 
-            Optional<Property> optReturnType = flowNode.getProperty(Property.TYPE_KEY);
-            String returnType = "";
-            if (optReturnType.isPresent()) {
-                if (flowNode.getProperty(TARGET_TYPE).isPresent()) {
-                    returnType = "json";
-                } else {
-                    returnType = optReturnType.get().value().toString();
-                }
-            }
 
             if (!returnType.isEmpty()) {
                 sourceBuilder.token()

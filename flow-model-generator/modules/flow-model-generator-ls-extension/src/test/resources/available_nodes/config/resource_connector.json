@@ -16336,6 +16336,19 @@
             "node": "NP_FUNCTION"
           },
           "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Call Agent",
+            "description": "Call agent"
+          },
+          "codedata": {
+            "node": "AGENT",
+            "org": "ballerinax",
+            "module": "ai.agent",
+            "version": "0.7.16"
+          },
+          "enabled": true
         }
       ]
     },
