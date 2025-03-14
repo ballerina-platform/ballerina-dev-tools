@@ -99,6 +99,9 @@ public class NPFunctionCall extends FunctionCall {
         if (isLocalFunction) {
             WorkspaceManager workspaceManager = context.workspaceManager();
             PackageUtil.loadProject(context.workspaceManager(), context.filePath());
+            context.workspaceManager().module(context.filePath())
+                    .map(module -> ModuleInfo.from(module.descriptor()))
+                    .ifPresent(functionDataBuilder::userModuleInfo);
             SemanticModel semanticModel = workspaceManager.semanticModel(context.filePath()).orElseThrow();
             functionDataBuilder.semanticModel(semanticModel);
         }

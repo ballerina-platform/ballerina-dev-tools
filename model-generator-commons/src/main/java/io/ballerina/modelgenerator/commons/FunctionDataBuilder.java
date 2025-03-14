@@ -108,6 +108,7 @@ public class FunctionDataBuilder {
     private ObjectTypeSymbol parentSymbol;
     private String parentSymbolType;
     private LSClientLogger lsClientLogger;
+    private boolean isCurrentModule;
 
     public static final String REST_RESOURCE_PATH = "/path/to/subdirectory";
     public static final String REST_PARAM_PATH = "/path/to/resource";
@@ -224,6 +225,9 @@ public class FunctionDataBuilder {
         if (moduleInfo == null) {
             throw new IllegalStateException("Module information not found");
         }
+
+        // Check if this is a local symbol
+        isCurrentModule = userModuleInfo != null && (!moduleInfo.isComplete() || userModuleInfo.equals(moduleInfo));
 
         // Defaulting the function result kind to FUNCTION if not provided
         if (functionKind == null) {
@@ -390,8 +394,8 @@ public class FunctionDataBuilder {
             }
         }
 
-        String importStatements = returnTypeSymbol.flatMap(
-                typeSymbol -> CommonUtils.getImportStatements(returnTypeSymbol.get(), moduleInfo)).orElse(null);
+        String importStatements = returnTypeSymbol.map(
+                typeSymbol -> getImportStatements(returnTypeSymbol.get())).orElse(null);
 
         boolean returnError = returnTypeSymbol
                 .map(returnTypeDesc -> CommonUtils.subTypeOf(returnTypeDesc, errorTypeSymbol)).orElse(false);
@@ -538,7 +542,7 @@ public class FunctionDataBuilder {
         boolean optional = true;
         String defaultValue;
         TypeSymbol typeSymbol = paramSymbol.typeDescriptor();
-        String importStatements = CommonUtils.getImportStatements(typeSymbol, moduleInfo).orElse(null);
+        String importStatements = getImportStatements(typeSymbol);
         if (parameterKind == ParameterData.Kind.REST_PARAMETER) {
             defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(
                     ((ArrayTypeSymbol) typeSymbol).memberTypeDescriptor());
@@ -683,7 +687,7 @@ public class FunctionDataBuilder {
             ParameterData parameterData = ParameterData.from(paramName, documentationMap.get(paramName),
                     getLabel(recordFieldSymbol.annotAttachments()),
                     paramType, defaultValue, ParameterData.Kind.INCLUDED_FIELD, optional,
-                    CommonUtils.getImportStatements(typeSymbol, moduleInfo).orElse(null));
+                    getImportStatements(typeSymbol));
             parameters.put(paramName, parameterData);
             addParameterMemberTypes(typeSymbol, parameterData, union);
         }
@@ -693,7 +697,7 @@ public class FunctionDataBuilder {
             parameters.put("Additional Values", ParameterData.from("Additional Values",
                     "Capture key value pairs", paramType, defaultValue,
                     ParameterData.Kind.INCLUDED_RECORD_REST, true,
-                    CommonUtils.getImportStatements(typeSymbol, moduleInfo).orElse(null)));
+                    getImportStatements(typeSymbol)));
         });
         return parameters;
     }
@@ -869,6 +873,13 @@ public class FunctionDataBuilder {
 
     private String getDescription(Documentable documentable) {
         return documentable.documentation().flatMap(Documentation::description).orElse("");
+    }
+
+    private String getImportStatements(TypeSymbol typeSymbol) {
+        if (!isCurrentModule) {
+            return CommonUtils.getImportStatements(typeSymbol, moduleInfo).orElse(null);
+        }
+        return null;
     }
 
     private void notifyClient(MessageType messageType, String message) {
