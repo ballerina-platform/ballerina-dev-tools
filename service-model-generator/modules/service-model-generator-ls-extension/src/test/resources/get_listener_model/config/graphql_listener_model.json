@@ -12,14 +12,14 @@
       "description": "Represents a Graphql listener endpoint.",
       "displayAnnotation": {
         "label": "Graphql",
-        "iconPath": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.15.0.png"
+        "iconPath": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.16.0.png"
       },
       "moduleName": "graphql",
       "orgName": "ballerina",
-      "version": "1.15.0",
+      "version": "1.16.0",
       "packageName": "graphql",
       "listenerProtocol": "graphql",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.15.0.png",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.16.0.png",
       "properties": {
         "name": {
           "metadata": {
@@ -67,7 +67,7 @@
           "typeMembers": [
             {
               "type": "Listener",
-              "packageInfo": "ballerina:http:2.13.0",
+              "packageInfo": "ballerina:http:2.14.0",
               "kind": "OBJECT_TYPE",
               "selected": false
             },
@@ -135,7 +135,7 @@
           "typeMembers": [
             {
               "type": "ListenerHttp1Settings",
-              "packageInfo": "ballerina:http:2.13.0",
+              "packageInfo": "ballerina:http:2.14.0",
               "kind": "RECORD_TYPE",
               "selected": false
             }
@@ -172,7 +172,7 @@
             },
             {
               "type": "ListenerSecureSocket",
-              "packageInfo": "ballerina:http:2.13.0",
+              "packageInfo": "ballerina:http:2.14.0",
               "kind": "RECORD_TYPE",
               "selected": false
             }
@@ -203,7 +203,7 @@
           "typeMembers": [
             {
               "type": "HttpVersion",
-              "packageInfo": "ballerina:http:2.13.0",
+              "packageInfo": "ballerina:http:2.14.0",
               "kind": "BASIC_TYPE",
               "selected": false
             }
@@ -302,7 +302,7 @@
           "typeMembers": [
             {
               "type": "RequestLimitConfigs",
-              "packageInfo": "ballerina:http:2.13.0",
+              "packageInfo": "ballerina:http:2.14.0",
               "kind": "RECORD_TYPE",
               "selected": false
             }
@@ -364,7 +364,7 @@
           "typeMembers": [
             {
               "type": "ServerSocketConfig",
-              "packageInfo": "ballerina:http:2.13.0",
+              "packageInfo": "ballerina:http:2.14.0",
               "kind": "RECORD_TYPE",
               "selected": false
             }
