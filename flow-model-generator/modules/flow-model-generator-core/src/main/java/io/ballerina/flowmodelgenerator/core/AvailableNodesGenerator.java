@@ -41,6 +41,7 @@ import io.ballerina.flowmodelgenerator.core.model.Item;
 import io.ballerina.flowmodelgenerator.core.model.Metadata;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
+import io.ballerina.flowmodelgenerator.core.model.node.AgentBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.NPFunctionCall;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.FunctionData;
@@ -71,7 +72,8 @@ public class AvailableNodesGenerator {
     private static final List<String> HTTP_REMOTE_METHOD_SKIP_LIST = List.of("get", "put", "post", "head",
             "delete", "patch", "options");
     private static final String BALLERINAX = "ballerinax";
-    private static final String AI_AGENT = "ai.agent";
+    public static final String AI_AGENT = "ai.agent";
+    public static final String AI_AGENT_VERSION = "0.7.16";
 
     public AvailableNodesGenerator(SemanticModel semanticModel, Document document) {
         this.rootBuilder = new Category.Builder(null).name(Category.Name.ROOT);
@@ -170,12 +172,27 @@ public class AvailableNodesGenerator {
                 true
         );
 
+        AvailableNode agentCall = new AvailableNode(
+                new Metadata.Builder<>(null)
+                        .label(AgentBuilder.LABEL)
+                        .description(AgentBuilder.DESCRIPTION)
+                        .build(),
+                new Codedata.Builder<>(null)
+                        .node(NodeKind.AGENT)
+                        .org(BALLERINAX)
+                        .module(AI_AGENT)
+                        .version(AI_AGENT_VERSION)
+                        .build(),
+                true
+        );
+
         this.rootBuilder.stepIn(Category.Name.STATEMENT)
                 .node(NodeKind.VARIABLE)
                 .node(NodeKind.ASSIGN)
                 .node(function)
                 .node(NodeKind.DATA_MAPPER_CALL)
-                .node(npFunction);
+                .node(npFunction)
+                .node(agentCall);
 
         this.rootBuilder.stepIn(Category.Name.CONTROL)
                 .node(NodeKind.IF)
