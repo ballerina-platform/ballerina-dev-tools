@@ -43,8 +43,8 @@ public class AgentBuilder extends CallBuilder {
     public static final String MODEL = "model";
     public static final String TYPE = "type";
     public static final String TOOLS = "tools";
-    public static final String LABEL = "Call Agent";
-    public static final String DESCRIPTION = "Call agent";
+    public static final String LABEL = "Agent";
+    public static final String DESCRIPTION = "Create new agent";
 
     @Override
     protected NodeKind getFunctionNodeKind() {

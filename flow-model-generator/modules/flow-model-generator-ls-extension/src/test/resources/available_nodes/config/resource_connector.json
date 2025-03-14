@@ -17180,13 +17180,6 @@
     },
     {
       "metadata": {
-        "label": "Agents",
-        "description": "The agents used in the flow"
-      },
-      "items": []
-    },
-    {
-      "metadata": {
         "label": "Statement",
         "description": "Fundamental executable units in a program"
       },
@@ -17242,13 +17235,15 @@
         },
         {
           "metadata": {
-            "label": "Call Agent",
-            "description": "Call agent"
+            "label": "Agent",
+            "description": "Create new agent"
           },
           "codedata": {
-            "node": "AGENT",
+            "node": "AGENT_CALL",
             "org": "ballerinax",
             "module": "ai.agent",
+            "object": "Agent",
+            "symbol": "run",
             "version": "0.7.16"
           },
           "enabled": true
