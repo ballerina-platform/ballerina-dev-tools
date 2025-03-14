@@ -217,8 +217,30 @@ public class ICPEnablerService implements ExtendedLanguageServerService {
                 Path filePath = Path.of(request.projectPath());
                 Project project = this.workspaceManager.loadProject(filePath);
                 Package pkg = project.currentPackage();
+                Module defaultModule = pkg.getDefaultModule();
+                Collection<DocumentId> documentIds = defaultModule.documentIds();
+                boolean hasCorrectImport = false;
                 Map<String, List<TextEdit>> textEdits = new HashMap<>();
                 response.setTextEdits(textEdits);
+                for (DocumentId documentId : documentIds) {
+                    if (hasCorrectImport) {
+                        break;
+                    }
+                    Document document = defaultModule.document(documentId);
+                    ModulePartNode root = document.syntaxTree().rootNode();
+                    NodeList<ImportDeclarationNode> imports = root.imports();
+                    for (ImportDeclarationNode importNode : imports) {
+                        if (validOrg(importNode) && validModuleName(importNode) && validPrefix(importNode)) {
+                            hasCorrectImport = true;
+                            Path path = project.sourceRoot().resolve(importNode.lineRange().fileName());
+                            textEdits.put(path.toString(), List.of(new TextEdit(PositionUtil.toRange(
+                                    importNode.location().lineRange()), "")
+                            ));
+                            break;
+                        }
+                    }
+                }
+
                 Optional<BallerinaToml> ballerinaToml = pkg.ballerinaToml();
                 if (ballerinaToml.isEmpty()) {
                     throw new RuntimeException("Ballerina.toml not found");
