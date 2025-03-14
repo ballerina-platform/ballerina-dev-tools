@@ -159,7 +159,15 @@
       "kind": "TypeParameter",
       "insertText": "anydata"
     },
-    null,
+    {
+      "label": "record",
+      "labelDetails": {
+        "detail": "Structural Types",
+        "description": "Record"
+      },
+      "kind": "Struct",
+      "insertText": "record"
+    },
     {
       "label": "map<json>",
       "labelDetails": {

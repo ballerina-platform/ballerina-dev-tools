@@ -168,6 +168,15 @@
       "insertText": "json[]"
     },
     {
+      "label": "record",
+      "labelDetails": {
+        "detail": "Structural Types",
+        "description": "Record"
+      },
+      "kind": "Struct",
+      "insertText": "record"
+    },
+    {
       "label": "function",
       "labelDetails": {
         "detail": "Behaviour Types",
