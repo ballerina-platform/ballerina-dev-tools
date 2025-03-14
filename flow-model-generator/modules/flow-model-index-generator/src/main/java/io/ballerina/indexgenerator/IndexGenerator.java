@@ -118,6 +118,16 @@ class IndexGenerator {
 
         // TODO: Remove this once thw raw parameter property type is introduced
         DatabaseManager.executeQuery("UPDATE Parameter SET default_value = '``' WHERE type = 'sql:ParameterizedQuery'");
+
+        // TODO: Remove this once the package index is introduced
+        DatabaseManager.executeQuery("UPDATE Parameter SET type= 'anydata', default_value= 'anydata' \n" +
+                "WHERE parameter_id IN (\n" +
+                "    SELECT p.parameter_id\n" +
+                "    FROM Parameter p\n" +
+                "    INNER JOIN Function f ON f.function_id = p.function_id\n" +
+                "    INNER JOIN Package pack ON pack.package_id = f.package_id\n" +
+                "    WHERE pack.name = 'http' AND p.name = 'targetType'\n" +
+                ");");
     }
 
     private static void resolvePackage(BuildProject buildProject, String org,
