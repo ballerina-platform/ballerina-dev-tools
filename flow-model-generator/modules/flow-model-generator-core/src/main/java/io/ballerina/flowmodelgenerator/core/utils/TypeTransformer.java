@@ -309,6 +309,7 @@ public class TypeTransformer {
                     .name(fieldName)
                     .kind(Member.MemberKind.FIELD)
                     .type(transformedFieldType)
+                    .optional(fieldSymbol.isOptional())
                     .refs(getTypeRefs(transformedFieldType, fieldSymbol.typeDescriptor()))
                     .docs(getDocumentString(fieldSymbol))
                     .defaultValue(getDefaultValueOfField(typeDataBuilder.name(), fieldName).orElse(null))
