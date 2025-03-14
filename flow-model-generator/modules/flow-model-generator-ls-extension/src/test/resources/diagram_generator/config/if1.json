@@ -96,7 +96,7 @@
               {
                 "id": "48010",
                 "metadata": {
-                  "label": "Variable",
+                  "label": "Declare Variable",
                   "description": "Assign a value to a variable"
                 },
                 "codedata": {
@@ -195,7 +195,7 @@
               {
                 "id": "49994",
                 "metadata": {
-                  "label": "Variable",
+                  "label": "Declare Variable",
                   "description": "Assign a value to a variable"
                 },
                 "codedata": {
@@ -272,7 +272,7 @@
               {
                 "id": "50992",
                 "metadata": {
-                  "label": "Variable",
+                  "label": "Declare Variable",
                   "description": "Assign a value to a variable"
                 },
                 "codedata": {

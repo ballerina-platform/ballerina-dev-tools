@@ -102,7 +102,7 @@
       {
         "id": "33869",
         "metadata": {
-          "label": "Variable",
+          "label": "Declare Variable",
           "description": "Assign a value to a variable"
         },
         "codedata": {
@@ -191,7 +191,7 @@
       {
         "id": "34864",
         "metadata": {
-          "label": "Variable",
+          "label": "Declare Variable",
           "description": "Assign a value to a variable"
         },
         "codedata": {
@@ -450,7 +450,7 @@
       {
         "id": "37835",
         "metadata": {
-          "label": "Variable",
+          "label": "Declare Variable",
           "description": "Assign a value to a variable"
         },
         "codedata": {
@@ -527,7 +527,7 @@
       {
         "id": "38828",
         "metadata": {
-          "label": "Variable",
+          "label": "Declare Variable",
           "description": "Assign a value to a variable"
         },
         "codedata": {
@@ -616,7 +616,7 @@
       {
         "id": "40819",
         "metadata": {
-          "label": "Variable",
+          "label": "Declare Variable",
           "description": "Assign a value to a variable"
         },
         "codedata": {
@@ -899,7 +899,7 @@
       {
         "id": "49760",
         "metadata": {
-          "label": "Variable",
+          "label": "Declare Variable",
           "description": "Assign a value to a variable"
         },
         "codedata": {
@@ -1100,7 +1100,7 @@
       {
         "id": "53707",
         "metadata": {
-          "label": "Variable",
+          "label": "Declare Variable",
           "description": "Assign a value to a variable"
         },
         "codedata": {
@@ -1189,7 +1189,7 @@
       {
         "id": "54700",
         "metadata": {
-          "label": "Variable",
+          "label": "Declare Variable",
           "description": "Assign a value to a variable"
         },
         "codedata": {

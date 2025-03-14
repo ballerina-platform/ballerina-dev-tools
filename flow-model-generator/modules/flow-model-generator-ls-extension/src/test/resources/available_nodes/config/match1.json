@@ -28,7 +28,7 @@
       "items": [
         {
           "metadata": {
-            "label": "Variable"
+            "label": "Declare Variable"
           },
           "codedata": {
             "node": "VARIABLE"
@@ -47,7 +47,7 @@
         },
         {
           "metadata": {
-            "label": "Function Call",
+            "label": "Call Function",
             "description": "Both project and utility functions"
           },
           "codedata": {
