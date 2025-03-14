@@ -70,13 +70,13 @@
       "insertText": "int"
     },
     {
-      "label": "null",
+      "label": "()",
       "labelDetails": {
         "detail": "Primitive Types",
         "description": "Nil"
       },
       "kind": "TypeParameter",
-      "insertText": "null"
+      "insertText": "()"
     },
     {
       "label": "float",

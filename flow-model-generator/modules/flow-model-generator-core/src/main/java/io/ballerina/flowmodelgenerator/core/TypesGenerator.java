@@ -58,7 +58,7 @@ public class TypesGenerator {
     public static final String TYPE_DECIMAL = TypeKind.DECIMAL.typeName();
     public static final String TYPE_FLOAT = TypeKind.FLOAT.typeName();
     public static final String TYPE_INT = TypeKind.INT.typeName();
-    public static final String TYPE_NIL = TypeKind.NIL.typeName();
+    public static final String TYPE_NIL = "()";
 
     // Basic sequence types
     public static final String TYPE_STRING = TypeKind.STRING.typeName();

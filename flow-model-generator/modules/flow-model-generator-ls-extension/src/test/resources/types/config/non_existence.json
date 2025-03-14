@@ -1,200 +1,200 @@
 {
-    "description": "",
-    "source": "data_mapper",
-    "typeConstraint": "anydata",
-    "completions": [
-      {
-        "label": "Input",
-        "labelDetails": {
-          "detail": "User-Defined",
-          "description": "Record"
-        },
-        "kind": "Struct",
-        "insertText": "Input"
+  "description": "",
+  "source": "data_mapper",
+  "typeConstraint": "anydata",
+  "completions": [
+    {
+      "label": "Input",
+      "labelDetails": {
+        "detail": "User-Defined",
+        "description": "Record"
       },
-      {
-        "label": "Output",
-        "labelDetails": {
-          "detail": "User-Defined",
-          "description": "Record"
-        },
-        "kind": "Struct",
-        "insertText": "Output"
+      "kind": "Struct",
+      "insertText": "Input"
+    },
+    {
+      "label": "Output",
+      "labelDetails": {
+        "detail": "User-Defined",
+        "description": "Record"
       },
-      {
-        "label": "Location",
-        "labelDetails": {
-          "detail": "User-Defined",
-          "description": "Record"
-        },
-        "kind": "Struct",
-        "documentation": {
-          "left": "Represents a geographical location.\n"
-        },
-        "insertText": "Location"
+      "kind": "Struct",
+      "insertText": "Output"
+    },
+    {
+      "label": "Location",
+      "labelDetails": {
+        "detail": "User-Defined",
+        "description": "Record"
       },
-      {
-        "label": "Address",
-        "labelDetails": {
-          "detail": "User-Defined",
-          "description": "Record"
-        },
-        "kind": "Struct",
-        "insertText": "Address"
+      "kind": "Struct",
+      "documentation": {
+        "left": "Represents a geographical location.\n"
       },
-      {
-        "label": "Employee",
-        "labelDetails": {
-          "detail": "User-Defined",
-          "description": "Record"
-        },
-        "kind": "Struct",
-        "insertText": "Employee"
+      "insertText": "Location"
+    },
+    {
+      "label": "Address",
+      "labelDetails": {
+        "detail": "User-Defined",
+        "description": "Record"
       },
-      {
-        "label": "Person",
-        "labelDetails": {
-          "detail": "User-Defined",
-          "description": "Record"
-        },
-        "kind": "Struct",
-        "insertText": "Person"
+      "kind": "Struct",
+      "insertText": "Address"
+    },
+    {
+      "label": "Employee",
+      "labelDetails": {
+        "detail": "User-Defined",
+        "description": "Record"
       },
-      {
-        "label": "Admission",
-        "labelDetails": {
-          "detail": "User-Defined",
-          "description": "Record"
-        },
-        "kind": "Struct",
-        "insertText": "Admission"
+      "kind": "Struct",
+      "insertText": "Employee"
+    },
+    {
+      "label": "Person",
+      "labelDetails": {
+        "detail": "User-Defined",
+        "description": "Record"
       },
-      {
-        "label": "string",
-        "labelDetails": {
-          "detail": "Primitive Types",
-          "description": "String"
-        },
-        "kind": "TypeParameter",
-        "insertText": "string"
+      "kind": "Struct",
+      "insertText": "Person"
+    },
+    {
+      "label": "Admission",
+      "labelDetails": {
+        "detail": "User-Defined",
+        "description": "Record"
       },
-      {
-        "label": "boolean",
-        "labelDetails": {
-          "detail": "Primitive Types",
-          "description": "Boolean"
-        },
-        "kind": "TypeParameter",
-        "insertText": "boolean"
+      "kind": "Struct",
+      "insertText": "Admission"
+    },
+    {
+      "label": "string",
+      "labelDetails": {
+        "detail": "Primitive Types",
+        "description": "String"
       },
-      {
-        "label": "int",
-        "labelDetails": {
-          "detail": "Primitive Types",
-          "description": "Int"
-        },
-        "kind": "TypeParameter",
-        "insertText": "int"
+      "kind": "TypeParameter",
+      "insertText": "string"
+    },
+    {
+      "label": "boolean",
+      "labelDetails": {
+        "detail": "Primitive Types",
+        "description": "Boolean"
       },
-      {
-        "label": "null",
-        "labelDetails": {
-          "detail": "Primitive Types",
-          "description": "Nil"
-        },
-        "kind": "TypeParameter",
-        "insertText": "null"
+      "kind": "TypeParameter",
+      "insertText": "boolean"
+    },
+    {
+      "label": "int",
+      "labelDetails": {
+        "detail": "Primitive Types",
+        "description": "Int"
       },
-      {
-        "label": "float",
-        "labelDetails": {
-          "detail": "Primitive Types",
-          "description": "Float"
-        },
-        "kind": "TypeParameter",
-        "insertText": "float"
+      "kind": "TypeParameter",
+      "insertText": "int"
+    },
+    {
+      "label": "()",
+      "labelDetails": {
+        "detail": "Primitive Types",
+        "description": "Nil"
       },
-      {
-        "label": "decimal",
-        "labelDetails": {
-          "detail": "Primitive Types",
-          "description": "Decimal"
-        },
-        "kind": "TypeParameter",
-        "insertText": "decimal"
+      "kind": "TypeParameter",
+      "insertText": "()"
+    },
+    {
+      "label": "float",
+      "labelDetails": {
+        "detail": "Primitive Types",
+        "description": "Float"
       },
-      {
-        "label": "xml",
-        "labelDetails": {
-          "detail": "Data Types",
-          "description": "Xml"
-        },
-        "kind": "TypeParameter",
-        "insertText": "xml"
+      "kind": "TypeParameter",
+      "insertText": "float"
+    },
+    {
+      "label": "decimal",
+      "labelDetails": {
+        "detail": "Primitive Types",
+        "description": "Decimal"
       },
-      {
-        "label": "byte",
-        "labelDetails": {
-          "detail": "Primitive Types",
-          "description": "Byte"
-        },
-        "kind": "TypeParameter",
-        "insertText": "byte"
+      "kind": "TypeParameter",
+      "insertText": "decimal"
+    },
+    {
+      "label": "xml",
+      "labelDetails": {
+        "detail": "Data Types",
+        "description": "Xml"
       },
-      {
-        "label": "json",
-        "labelDetails": {
-          "detail": "Data Types",
-          "description": "Json"
-        },
-        "kind": "TypeParameter",
-        "insertText": "json"
+      "kind": "TypeParameter",
+      "insertText": "xml"
+    },
+    {
+      "label": "byte",
+      "labelDetails": {
+        "detail": "Primitive Types",
+        "description": "Byte"
       },
-      {
-        "label": "anydata",
-        "labelDetails": {
-          "detail": "Data Types",
-          "description": "Anydata"
-        },
-        "kind": "TypeParameter",
-        "insertText": "anydata"
+      "kind": "TypeParameter",
+      "insertText": "byte"
+    },
+    {
+      "label": "json",
+      "labelDetails": {
+        "detail": "Data Types",
+        "description": "Json"
       },
-      null,
-      {
-        "label": "map<json>",
-        "labelDetails": {
-          "detail": "Structural Types",
-          "description": "Map"
-        },
-        "kind": "TypeParameter",
-        "insertText": "map<json>"
+      "kind": "TypeParameter",
+      "insertText": "json"
+    },
+    {
+      "label": "anydata",
+      "labelDetails": {
+        "detail": "Data Types",
+        "description": "Anydata"
       },
-      {
-        "label": "map<string>",
-        "labelDetails": {
-          "detail": "Structural Types",
-          "description": "Map"
-        },
-        "kind": "TypeParameter",
-        "insertText": "map<string>"
+      "kind": "TypeParameter",
+      "insertText": "anydata"
+    },
+    null,
+    {
+      "label": "map<json>",
+      "labelDetails": {
+        "detail": "Structural Types",
+        "description": "Map"
       },
-      {
-        "label": "json[]",
-        "labelDetails": {
-          "detail": "Structural Types",
-          "description": "Array"
-        },
-        "kind": "TypeParameter",
-        "insertText": "json[]"
+      "kind": "TypeParameter",
+      "insertText": "map<json>"
+    },
+    {
+      "label": "map<string>",
+      "labelDetails": {
+        "detail": "Structural Types",
+        "description": "Map"
       },
-      {
-        "label": "byte[]",
-        "labelDetails": {
-          "detail": "Structural Types",
-          "description": "Array"
-        },
-        "kind": "TypeParameter",
-        "insertText": "byte[]"
-      }
-    ]
-  }
+      "kind": "TypeParameter",
+      "insertText": "map<string>"
+    },
+    {
+      "label": "json[]",
+      "labelDetails": {
+        "detail": "Structural Types",
+        "description": "Array"
+      },
+      "kind": "TypeParameter",
+      "insertText": "json[]"
+    },
+    {
+      "label": "byte[]",
+      "labelDetails": {
+        "detail": "Structural Types",
+        "description": "Array"
+      },
+      "kind": "TypeParameter",
+      "insertText": "byte[]"
+    }
+  ]
+}
