@@ -150,7 +150,7 @@
                       "description": "The message to be logged"
                     },
                     "valueType": "EXPRESSION",
-                    "valueTypeConstraint": "string",
+                    "valueTypeConstraint": "string|log:PrintableRawTemplate",
                     "value": "\"Error: \"",
                     "placeholder": "\"\"",
                     "optional": false,
@@ -162,6 +162,12 @@
                       "originalName": "msg"
                     },
                     "typeMembers": [
+                      {
+                        "type": "PrintableRawTemplate",
+                        "packageInfo": "ballerina:log:2.12.0",
+                        "kind": "OBJECT_TYPE",
+                        "selected": false
+                      },
                       {
                         "type": "string",
                         "packageInfo": "",
