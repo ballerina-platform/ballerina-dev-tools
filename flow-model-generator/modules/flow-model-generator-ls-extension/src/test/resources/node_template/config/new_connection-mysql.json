@@ -19,7 +19,7 @@
     "metadata": {
       "label": "New Connection",
       "description": "Represents a MySQL database client.",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mysql_1.13.1.png"
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mysql_1.15.0.png"
     },
     "codedata": {
       "node": "NEW_CONNECTION",
@@ -27,7 +27,7 @@
       "module": "mysql",
       "object": "Client",
       "symbol": "init",
-      "version": "1.13.1",
+      "version": "1.15.0",
       "isNew": true
     },
     "returning": false,
@@ -39,7 +39,7 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "placeholder": "\"\"",
+        "placeholder": "\"localhost\"",
         "optional": true,
         "editable": true,
         "advanced": true,
@@ -64,7 +64,7 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string|()",
-        "placeholder": "()",
+        "placeholder": "\"root\"",
         "optional": true,
         "editable": true,
         "advanced": true,
@@ -75,13 +75,13 @@
         },
         "typeMembers": [
           {
-            "type": "string",
+            "type": "()",
             "packageInfo": "",
             "kind": "BASIC_TYPE",
             "selected": false
           },
           {
-            "type": "()",
+            "type": "string",
             "packageInfo": "",
             "kind": "BASIC_TYPE",
             "selected": false
@@ -106,13 +106,13 @@
         },
         "typeMembers": [
           {
-            "type": "string",
+            "type": "()",
             "packageInfo": "",
             "kind": "BASIC_TYPE",
             "selected": false
           },
           {
-            "type": "()",
+            "type": "string",
             "packageInfo": "",
             "kind": "BASIC_TYPE",
             "selected": false
@@ -137,13 +137,13 @@
         },
         "typeMembers": [
           {
-            "type": "string",
+            "type": "()",
             "packageInfo": "",
             "kind": "BASIC_TYPE",
             "selected": false
           },
           {
-            "type": "()",
+            "type": "string",
             "packageInfo": "",
             "kind": "BASIC_TYPE",
             "selected": false
@@ -157,7 +157,7 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "int",
-        "placeholder": "0",
+        "placeholder": "3306",
         "optional": true,
         "editable": true,
         "advanced": true,
@@ -193,15 +193,15 @@
         },
         "typeMembers": [
           {
-            "type": "Options",
-            "packageInfo": "ballerinax:mysql:1.13.1",
-            "kind": "RECORD_TYPE",
-            "selected": false
-          },
-          {
             "type": "()",
             "packageInfo": "",
             "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "Options",
+            "packageInfo": "ballerinax:mysql:1.15.0",
+            "kind": "RECORD_TYPE",
             "selected": false
           }
         ]
@@ -225,15 +225,15 @@
         },
         "typeMembers": [
           {
-            "type": "ConnectionPool",
-            "packageInfo": "ballerina:sql:1.14.0",
-            "kind": "RECORD_TYPE",
-            "selected": false
-          },
-          {
             "type": "()",
             "packageInfo": "",
             "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "ConnectionPool",
+            "packageInfo": "ballerina:sql:1.16.0",
+            "kind": "RECORD_TYPE",
             "selected": false
           }
         ]

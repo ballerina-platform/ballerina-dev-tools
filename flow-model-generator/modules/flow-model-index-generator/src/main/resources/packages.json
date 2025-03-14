@@ -324,11 +324,11 @@
     },
     {
       "name": "mssql",
-      "version": "1.15.1"
+      "version": "1.15.0"
     },
     {
       "name": "mysql",
-      "version": "1.15.1"
+      "version": "1.15.0"
     },
     {
       "name": "nats",
