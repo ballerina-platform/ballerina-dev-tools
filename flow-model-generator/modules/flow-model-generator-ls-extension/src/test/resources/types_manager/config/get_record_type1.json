@@ -95,6 +95,7 @@
         "type": "int",
         "name": "id",
         "defaultValue": "12",
+        "optional": false,
         "docs": "id of the person"
       },
       {
@@ -103,6 +104,7 @@
         "type": "string",
         "name": "name",
         "defaultValue": "\"John\"",
+        "optional": false,
         "docs": "name of the person"
       },
       {
@@ -146,12 +148,14 @@
                 "Address"
               ],
               "type": "Address",
-              "name": "Address"
+              "name": "Address",
+              "optional": false
             }
           ]
         },
         "name": "addresses",
         "defaultValue": "[\n        {\n            houseNo: \"10\",\n            line1: \"5th Ave\",\n            line2: \"4th St\",\n            city: \"New York City\",\n            country: \"USA\"\n        }\n    ]",
+        "optional": false,
         "docs": "addresses of the person"
       },
       {
@@ -162,6 +166,7 @@
         "type": "time:Utc",
         "name": "dob",
         "defaultValue": "getDefaultDob()",
+        "optional": false,
         "docs": "date of birth"
       }
     ],
@@ -257,6 +262,7 @@
           "refs": [],
           "type": "string",
           "name": "houseNo",
+          "optional": false,
           "docs": ""
         },
         {
@@ -264,6 +270,7 @@
           "refs": [],
           "type": "string",
           "name": "line1",
+          "optional": false,
           "docs": ""
         },
         {
@@ -271,6 +278,7 @@
           "refs": [],
           "type": "string",
           "name": "line2",
+          "optional": false,
           "docs": ""
         },
         {
@@ -278,6 +286,7 @@
           "refs": [],
           "type": "string",
           "name": "city",
+          "optional": false,
           "docs": ""
         },
         {
@@ -285,6 +294,7 @@
           "refs": [],
           "type": "string",
           "name": "country",
+          "optional": false,
           "docs": ""
         }
       ],
@@ -378,7 +388,8 @@
           "kind": "TYPE",
           "refs": [],
           "type": "readonly",
-          "name": "readonly"
+          "name": "readonly",
+          "optional": false
         },
         {
           "kind": "TYPE",
@@ -419,17 +430,20 @@
                 "kind": "TYPE",
                 "refs": [],
                 "type": "int",
-                "name": "int"
+                "name": "int",
+                "optional": false
               },
               {
                 "kind": "TYPE",
                 "refs": [],
                 "type": "decimal",
-                "name": "decimal"
+                "name": "decimal",
+                "optional": false
               }
             ]
           },
-          "name": "[int, decimal]"
+          "name": "[int, decimal]",
+          "optional": false
         }
       ]
     }

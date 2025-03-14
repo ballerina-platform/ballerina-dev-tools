@@ -4,5 +4,5 @@
   "prefix": "prefix",
   "isClosed": false,
   "isRecordTypeDesc": false,
-  "records": "\ntype PrefixItem record {|\n\tint|string ItemCode;\n\tanydata ...;\n|};\n\ntype PrefixOtherItem record {|\n\tstring ItemCode;\n\tanydata ...;\n|};\n\ntype PrefixCodes record {|\n\tPrefixItem|decimal|int|string[] item;\n\tPrefixOtherItem otherItem;\n\tanydata ...;\n|};\n\ntype Bookstore record {|\n\tstring storeName;\n\tint postalCode;\n\tboolean isOpen;\n\tPrefixCodes codes;\n\tstring status;\n\tanydata ...;\n|};\n"
+  "records": "\ntype PrefixItem record {\n\tint|string ItemCode;\n};\n\ntype PrefixOtherItem record {\n\tstring ItemCode;\n};\n\ntype PrefixCodes record {\n\tPrefixItem|decimal|int|string[] item;\n\tPrefixOtherItem otherItem;\n};\n\ntype Bookstore record {\n\tstring storeName;\n\tint postalCode;\n\tboolean isOpen;\n\tPrefixCodes codes;\n\tstring status;\n};\n"
 }

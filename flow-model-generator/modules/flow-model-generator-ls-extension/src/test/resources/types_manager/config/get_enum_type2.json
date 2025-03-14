@@ -82,14 +82,16 @@
         "refs": [],
         "type": "\"male\"",
         "name": "MALE",
-        "defaultValue": "\"male\""
+        "defaultValue": "\"male\"",
+        "optional": false
       },
       {
         "kind": "NAME",
         "refs": [],
         "type": "\"female\"",
         "name": "FEMALE",
-        "defaultValue": "\"female\""
+        "defaultValue": "\"female\"",
+        "optional": false
       }
     ]
   },

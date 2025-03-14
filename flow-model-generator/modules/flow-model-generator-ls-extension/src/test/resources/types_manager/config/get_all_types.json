@@ -91,6 +91,7 @@
           "refs": [],
           "type": "string",
           "name": "houseNo",
+          "optional": false,
           "docs": ""
         },
         {
@@ -98,6 +99,7 @@
           "refs": [],
           "type": "string",
           "name": "line1",
+          "optional": false,
           "docs": ""
         },
         {
@@ -105,6 +107,7 @@
           "refs": [],
           "type": "string",
           "name": "line2",
+          "optional": false,
           "docs": ""
         },
         {
@@ -112,6 +115,7 @@
           "refs": [],
           "type": "string",
           "name": "city",
+          "optional": false,
           "docs": ""
         },
         {
@@ -119,6 +123,7 @@
           "refs": [],
           "type": "string",
           "name": "country",
+          "optional": false,
           "docs": ""
         }
       ],
@@ -212,7 +217,8 @@
           "kind": "TYPE",
           "refs": [],
           "type": "int",
-          "name": "int"
+          "name": "int",
+          "optional": false
         },
         {
           "kind": "TYPE",
@@ -220,7 +226,8 @@
             "Person"
           ],
           "type": "Person",
-          "name": "Person"
+          "name": "Person",
+          "optional": false
         }
       ]
     },
@@ -300,19 +307,22 @@
           "kind": "NAME",
           "refs": [],
           "type": "\"RED\"",
-          "name": "RED"
+          "name": "RED",
+          "optional": false
         },
         {
           "kind": "NAME",
           "refs": [],
           "type": "\"YELLOW\"",
-          "name": "YELLOW"
+          "name": "YELLOW",
+          "optional": false
         },
         {
           "kind": "NAME",
           "refs": [],
           "type": "\"GREEN\"",
-          "name": "GREEN"
+          "name": "GREEN",
+          "optional": false
         }
       ]
     },
@@ -409,6 +419,7 @@
           "refs": [],
           "type": "string",
           "name": "make",
+          "optional": false,
           "docs": ""
         },
         {
@@ -416,6 +427,7 @@
           "refs": [],
           "type": "string",
           "name": "model",
+          "optional": false,
           "docs": ""
         }
       ],
@@ -481,7 +493,8 @@
               "kind": "FIELD",
               "refs": [],
               "type": "int",
-              "name": "year"
+              "name": "year",
+              "optional": false
             }
           ],
           "kind": "FUNCTION",
@@ -618,7 +631,8 @@
           "kind": "TYPE",
           "refs": [],
           "type": "readonly",
-          "name": "readonly"
+          "name": "readonly",
+          "optional": false
         },
         {
           "kind": "TYPE",
@@ -659,17 +673,20 @@
                 "kind": "TYPE",
                 "refs": [],
                 "type": "int",
-                "name": "int"
+                "name": "int",
+                "optional": false
               },
               {
                 "kind": "TYPE",
                 "refs": [],
                 "type": "decimal",
-                "name": "decimal"
+                "name": "decimal",
+                "optional": false
               }
             ]
           },
-          "name": "[int, decimal]"
+          "name": "[int, decimal]",
+          "optional": false
         }
       ]
     },
@@ -763,7 +780,8 @@
             "Person"
           ],
           "type": "Person",
-          "name": "Person"
+          "name": "Person",
+          "optional": false
         },
         {
           "kind": "TYPE",
@@ -771,7 +789,8 @@
             "Employees"
           ],
           "type": "Employees",
-          "name": "Employees"
+          "name": "Employees",
+          "optional": false
         },
         {
           "kind": "TYPE",
@@ -779,7 +798,8 @@
             "Color"
           ],
           "type": "Color",
-          "name": "Color"
+          "name": "Color",
+          "optional": false
         }
       ]
     },
@@ -907,6 +927,7 @@
                 "refs": [],
                 "type": "int",
                 "name": "id",
+                "optional": false,
                 "docs": ""
               },
               {
@@ -914,6 +935,7 @@
                 "refs": [],
                 "type": "string",
                 "name": "name",
+                "optional": false,
                 "docs": ""
               },
               {
@@ -923,12 +945,14 @@
                 ],
                 "type": "Names",
                 "name": "otherNames",
+                "optional": false,
                 "docs": ""
               }
             ],
             "includes": []
           },
-          "name": "record {|int id; string name; Names otherNames;|}"
+          "name": "record {|int id; string name; Names otherNames;|}",
+          "optional": false
         }
       ]
     },
@@ -1057,7 +1081,8 @@
                   "ballerina/time:Utc"
                 ],
                 "type": "time:Utc",
-                "name": "time:Utc"
+                "name": "time:Utc",
+                "optional": false
               },
               {
                 "kind": "TYPE",
@@ -1065,7 +1090,8 @@
                   "Person"
                 ],
                 "type": "Person",
-                "name": "Person"
+                "name": "Person",
+                "optional": false
               },
               {
                 "kind": "TYPE",
@@ -1073,11 +1099,13 @@
                   "Address"
                 ],
                 "type": "Address",
-                "name": "Address"
+                "name": "Address",
+                "optional": false
               }
             ]
           },
           "name": "mixField1",
+          "optional": false,
           "docs": ""
         },
         {
@@ -1121,7 +1149,8 @@
                   "Address"
                 ],
                 "type": "Address",
-                "name": "Address"
+                "name": "Address",
+                "optional": false
               },
               {
                 "kind": "TYPE",
@@ -1129,17 +1158,20 @@
                   "Person"
                 ],
                 "type": "Person",
-                "name": "Person"
+                "name": "Person",
+                "optional": false
               },
               {
                 "kind": "TYPE",
                 "refs": [],
                 "type": "int",
-                "name": "int"
+                "name": "int",
+                "optional": false
               }
             ]
           },
           "name": "mixField2",
+          "optional": false,
           "docs": ""
         },
         {
@@ -1183,11 +1215,13 @@
                   "Address"
                 ],
                 "type": "Address",
-                "name": "Address"
+                "name": "Address",
+                "optional": false
               }
             ]
           },
           "name": "mixField3",
+          "optional": false,
           "docs": ""
         }
       ],
@@ -1270,14 +1304,16 @@
           "refs": [],
           "type": "\"male\"",
           "name": "MALE",
-          "defaultValue": "\"male\""
+          "defaultValue": "\"male\"",
+          "optional": false
         },
         {
           "kind": "NAME",
           "refs": [],
           "type": "\"female\"",
           "name": "FEMALE",
-          "defaultValue": "\"female\""
+          "defaultValue": "\"female\"",
+          "optional": false
         }
       ]
     },
@@ -1371,6 +1407,7 @@
           "type": "int",
           "name": "studentId",
           "defaultValue": "22",
+          "optional": false,
           "docs": ""
         },
         {
@@ -1378,6 +1415,7 @@
           "refs": [],
           "type": "int",
           "name": "id",
+          "optional": false,
           "docs": ""
         },
         {
@@ -1385,6 +1423,7 @@
           "refs": [],
           "type": "string",
           "name": "name",
+          "optional": false,
           "docs": ""
         },
         {
@@ -1428,11 +1467,13 @@
                   "Address"
                 ],
                 "type": "Address",
-                "name": "Address"
+                "name": "Address",
+                "optional": false
               }
             ]
           },
           "name": "addresses",
+          "optional": false,
           "docs": ""
         },
         {
@@ -1442,6 +1483,7 @@
           ],
           "type": "time:Utc",
           "name": "dob",
+          "optional": false,
           "docs": ""
         }
       ],
@@ -1539,7 +1581,8 @@
             "Person"
           ],
           "type": "Person",
-          "name": "Person"
+          "name": "Person",
+          "optional": false
         }
       ]
     },
@@ -1631,7 +1674,8 @@
           "kind": "TYPE",
           "refs": [],
           "type": "string",
-          "name": "string"
+          "name": "string",
+          "optional": false
         }
       ]
     },
@@ -1782,6 +1826,7 @@
           "refs": [],
           "type": "int",
           "name": "year",
+          "optional": false,
           "docs": "Year of manufacturing."
         },
         {
@@ -1789,6 +1834,7 @@
           "refs": [],
           "type": "string",
           "name": "make",
+          "optional": false,
           "docs": ""
         },
         {
@@ -1796,6 +1842,7 @@
           "refs": [],
           "type": "string",
           "name": "model",
+          "optional": false,
           "docs": ""
         }
       ],
@@ -1864,7 +1911,8 @@
               "kind": "FIELD",
               "refs": [],
               "type": "string",
-              "name": "time"
+              "name": "time",
+              "optional": false
             }
           ],
           "kind": "FUNCTION",
@@ -1921,7 +1969,8 @@
               "kind": "FIELD",
               "refs": [],
               "type": "int",
-              "name": "year"
+              "name": "year",
+              "optional": false
             }
           ],
           "kind": "FUNCTION",
@@ -2110,7 +2159,8 @@
             "Address"
           ],
           "type": "Address",
-          "name": "rowType"
+          "name": "rowType",
+          "optional": false
         },
         {
           "kind": "TYPE",
@@ -2151,17 +2201,20 @@
                 "kind": "TYPE",
                 "refs": [],
                 "type": "string",
-                "name": "string"
+                "name": "string",
+                "optional": false
               },
               {
                 "kind": "TYPE",
                 "refs": [],
                 "type": "int",
-                "name": "int"
+                "name": "int",
+                "optional": false
               }
             ]
           },
-          "name": "keyConstraintType"
+          "name": "keyConstraintType",
+          "optional": false
         }
       ]
     },
@@ -2256,6 +2309,7 @@
           ],
           "type": "string:Char",
           "name": "code",
+          "optional": false,
           "docs": ""
         },
         {
@@ -2263,6 +2317,7 @@
           "refs": [],
           "type": "int",
           "name": "studentId",
+          "optional": false,
           "docs": ""
         },
         {
@@ -2270,6 +2325,7 @@
           "refs": [],
           "type": "int",
           "name": "id",
+          "optional": false,
           "docs": ""
         },
         {
@@ -2277,6 +2333,7 @@
           "refs": [],
           "type": "string",
           "name": "name",
+          "optional": false,
           "docs": ""
         },
         {
@@ -2320,11 +2377,13 @@
                   "Address"
                 ],
                 "type": "Address",
-                "name": "Address"
+                "name": "Address",
+                "optional": false
               }
             ]
           },
           "name": "addresses",
+          "optional": false,
           "docs": ""
         },
         {
@@ -2334,6 +2393,7 @@
           ],
           "type": "time:Utc",
           "name": "dob",
+          "optional": false,
           "docs": ""
         }
       ],
@@ -2431,6 +2491,7 @@
           "type": "int",
           "name": "id",
           "defaultValue": "12",
+          "optional": false,
           "docs": "id of the person"
         },
         {
@@ -2439,6 +2500,7 @@
           "type": "string",
           "name": "name",
           "defaultValue": "\"John\"",
+          "optional": false,
           "docs": "name of the person"
         },
         {
@@ -2482,12 +2544,14 @@
                   "Address"
                 ],
                 "type": "Address",
-                "name": "Address"
+                "name": "Address",
+                "optional": false
               }
             ]
           },
           "name": "addresses",
           "defaultValue": "[\n        {\n            houseNo: \"10\",\n            line1: \"5th Ave\",\n            line2: \"4th St\",\n            city: \"New York City\",\n            country: \"USA\"\n        }\n    ]",
+          "optional": false,
           "docs": "addresses of the person"
         },
         {
@@ -2498,6 +2562,7 @@
           "type": "time:Utc",
           "name": "dob",
           "defaultValue": "getDefaultDob()",
+          "optional": false,
           "docs": "date of birth"
         }
       ],

@@ -149,6 +149,7 @@
         "refs": [],
         "type": "string",
         "name": "name",
+        "optional": false,
         "docs": ""
       },
       {
@@ -156,6 +157,7 @@
         "refs": [],
         "type": "string",
         "name": "subject",
+        "optional": false,
         "docs": ""
       }
     ],

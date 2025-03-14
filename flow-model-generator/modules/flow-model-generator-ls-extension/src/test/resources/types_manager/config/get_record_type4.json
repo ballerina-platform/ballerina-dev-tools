@@ -94,6 +94,7 @@
         "refs": [],
         "type": "string",
         "name": "name",
+        "optional": false,
         "docs": "Name of the employee"
       },
       {
@@ -101,6 +102,7 @@
         "refs": [],
         "type": "int",
         "name": "age",
+        "optional": false,
         "docs": "Age of the employee"
       },
       {
@@ -142,7 +144,8 @@
               "kind": "TYPE",
               "refs": [],
               "type": "xml",
-              "name": "xml"
+              "name": "xml",
+              "optional": false
             },
             {
               "kind": "TYPE",
@@ -150,7 +153,8 @@
                 "City"
               ],
               "type": "City",
-              "name": "City"
+              "name": "City",
+              "optional": false
             },
             {
               "kind": "TYPE",
@@ -158,11 +162,13 @@
                 "UserAddress"
               ],
               "type": "UserAddress",
-              "name": "UserAddress"
+              "name": "UserAddress",
+              "optional": false
             }
           ]
         },
         "name": "address",
+        "optional": false,
         "docs": "Union of of type-refs and a built-in type"
       },
       {
@@ -205,6 +211,7 @@
               "refs": [],
               "type": "int",
               "name": "iA",
+              "optional": false,
               "docs": ""
             },
             {
@@ -247,25 +254,29 @@
                     "refs": [],
                     "type": "int",
                     "name": "iiA",
+                    "optional": false,
                     "docs": ""
                   }
                 ],
                 "includes": []
               },
               "name": "iB",
+              "optional": false,
               "docs": ""
             }
           ],
           "includes": []
         },
         "name": "field1",
+        "optional": false,
         "docs": "Anonymous nested record type"
       }
     ],
     "restMember": {
       "kind": "FIELD",
       "refs": [],
-      "type": "anydata"
+      "type": "anydata",
+      "optional": false
     },
     "includes": []
   },
@@ -393,17 +404,20 @@
                 "kind": "TYPE",
                 "refs": [],
                 "type": "string",
-                "name": "string"
+                "name": "string",
+                "optional": false
               },
               {
                 "kind": "TYPE",
                 "refs": [],
                 "type": "int",
-                "name": "int"
+                "name": "int",
+                "optional": false
               }
             ]
           },
           "name": "no",
+          "optional": false,
           "docs": "Union of built-in types"
         },
         {
@@ -411,6 +425,7 @@
           "refs": [],
           "type": "string",
           "name": "street",
+          "optional": false,
           "docs": ""
         },
         {
@@ -418,6 +433,7 @@
           "refs": [],
           "type": "string",
           "name": "city",
+          "optional": false,
           "docs": ""
         },
         {
@@ -425,13 +441,15 @@
           "refs": [],
           "type": "string",
           "name": "country",
+          "optional": false,
           "docs": ""
         }
       ],
       "restMember": {
         "kind": "FIELD",
         "refs": [],
-        "type": "string"
+        "type": "string",
+        "optional": false
       },
       "includes": [
         "City"
@@ -526,6 +544,7 @@
           "refs": [],
           "type": "string",
           "name": "city",
+          "optional": false,
           "docs": ""
         },
         {
@@ -533,6 +552,7 @@
           "refs": [],
           "type": "string",
           "name": "country",
+          "optional": false,
           "docs": ""
         }
       ],
