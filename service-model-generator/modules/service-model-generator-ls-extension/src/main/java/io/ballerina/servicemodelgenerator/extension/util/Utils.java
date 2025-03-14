@@ -437,6 +437,11 @@ public final class Utils {
             Parameter parameterModel = createParameter(paramName, ServiceModelGeneratorConstants.KIND_REQUIRED,
                     ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER, parameter.typeName().toString().trim(),
                     parameter.annotations(), isHttp, isGraphQL);
+            if (parameter.paramName().isPresent()) {
+                Value name = parameterModel.getName();
+                name.setCodedata(new Codedata(parameter.paramName().get().lineRange()));
+                name.setEditable(false);
+            }
             return Optional.of(parameterModel);
         } else if (parameterNode instanceof DefaultableParameterNode parameter) {
             String paramName = parameter.paramName().get().toString().trim();
@@ -447,6 +452,11 @@ public final class Utils {
             defaultValue.setValue(parameter.expression().toString().trim());
             defaultValue.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_EXPRESSION);
             defaultValue.setEnabled(true);
+            if (parameter.paramName().isPresent()) {
+                Value name = parameterModel.getName();
+                name.setCodedata(new Codedata(parameter.paramName().get().lineRange()));
+                name.setEditable(false);
+            }
             return Optional.of(parameterModel);
         }
         return Optional.empty();
@@ -480,7 +490,6 @@ public final class Utils {
         name.setValue(paramName);
         name.setValueType(valueType);
         name.setEnabled(true);
-        name.setEditable(false);
         parameterModel.setEnabled(true);
         return parameterModel;
     }

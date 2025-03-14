@@ -19,7 +19,7 @@
     },
     "moduleName": "http",
     "orgName": "ballerina",
-    "version": "2.12.0",
+    "version": "2.14.0",
     "packageName": "http",
     "listenerProtocol": "http",
     "icon": "http://localhost:8080/icons/http.png",
@@ -76,7 +76,7 @@
         "typeMembers": [
           {
             "type": "HttpServiceConfig",
-            "packageInfo": "ballerina:http:2.12.2",
+            "packageInfo": "ballerina:http:2.14.0",
             "kind": "RECORD_TYPE",
             "selected": true
           }
@@ -393,12 +393,28 @@
                 "description": "The name of the parameter"
               },
               "enabled": true,
-              "editable": true,
+              "editable": false,
               "value": "header",
               "valueType": "IDENTIFIER",
               "isType": false,
               "optional": false,
               "advanced": false,
+              "codedata": {
+                "lineRange": {
+                  "fileName": "main.bal",
+                  "startLine": {
+                    "line": 10,
+                    "offset": 69
+                  },
+                  "endLine": {
+                    "line": 10,
+                    "offset": 75
+                  }
+                },
+                "inListenerInit": false,
+                "isBasePath": false,
+                "inDisplayAnnotation": false
+              },
               "addNewButton": false
             },
             "defaultValue": {
@@ -445,12 +461,28 @@
                 "description": "The name of the parameter"
               },
               "enabled": true,
-              "editable": true,
+              "editable": false,
               "value": "id",
-              "valueType": "EXPRESSION",
+              "valueType": "IDENTIFIER",
               "isType": false,
               "optional": false,
               "advanced": false,
+              "codedata": {
+                "lineRange": {
+                  "fileName": "main.bal",
+                  "startLine": {
+                    "line": 10,
+                    "offset": 81
+                  },
+                  "endLine": {
+                    "line": 10,
+                    "offset": 83
+                  }
+                },
+                "inListenerInit": false,
+                "isBasePath": false,
+                "inDisplayAnnotation": false
+              },
               "addNewButton": false
             },
             "defaultValue": {

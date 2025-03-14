@@ -17,14 +17,14 @@
     "description": "Add the service documentation",
     "displayAnnotation": {
       "label": "GraphQL Service",
-      "iconPath": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.15.0.png"
+      "iconPath": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.16.0.png"
     },
     "moduleName": "graphql",
     "orgName": "ballerina",
-    "version": "1.15.0",
+    "version": "1.16.0",
     "packageName": "graphql",
     "listenerProtocol": "graphql",
-    "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.15.0.png",
+    "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.16.0.png",
     "properties": {
       "listener": {
         "metadata": {
@@ -127,7 +127,7 @@
         "typeMembers": [
           {
             "type": "GraphqlServiceConfig",
-            "packageInfo": "ballerina:graphql:1.15.0",
+            "packageInfo": "ballerina:graphql:1.16.0",
             "kind": "RECORD_TYPE",
             "selected": true
           }
@@ -327,12 +327,28 @@
                 "description": "The name of the argument"
               },
               "enabled": true,
-              "editable": true,
+              "editable": false,
               "value": "name",
               "valueType": "IDENTIFIER",
               "isType": false,
               "optional": false,
               "advanced": false,
+              "codedata": {
+                "lineRange": {
+                  "fileName": "main.bal",
+                  "startLine": {
+                    "line": 32,
+                    "offset": 42
+                  },
+                  "endLine": {
+                    "line": 32,
+                    "offset": 46
+                  }
+                },
+                "inListenerInit": false,
+                "isBasePath": false,
+                "inDisplayAnnotation": false
+              },
               "addNewButton": false
             },
             "defaultValue": {
@@ -491,12 +507,28 @@
                 "description": "The name of the argument"
               },
               "enabled": true,
-              "editable": true,
+              "editable": false,
               "value": "id",
               "valueType": "IDENTIFIER",
               "isType": false,
               "optional": false,
               "advanced": false,
+              "codedata": {
+                "lineRange": {
+                  "fileName": "main.bal",
+                  "startLine": {
+                    "line": 37,
+                    "offset": 35
+                  },
+                  "endLine": {
+                    "line": 37,
+                    "offset": 37
+                  }
+                },
+                "inListenerInit": false,
+                "isBasePath": false,
+                "inDisplayAnnotation": false
+              },
               "addNewButton": false
             },
             "defaultValue": {
@@ -542,12 +574,28 @@
                 "description": "The name of the argument"
               },
               "enabled": true,
-              "editable": true,
+              "editable": false,
               "value": "name",
               "valueType": "IDENTIFIER",
               "isType": false,
               "optional": false,
               "advanced": false,
+              "codedata": {
+                "lineRange": {
+                  "fileName": "main.bal",
+                  "startLine": {
+                    "line": 37,
+                    "offset": 46
+                  },
+                  "endLine": {
+                    "line": 37,
+                    "offset": 50
+                  }
+                },
+                "inListenerInit": false,
+                "isBasePath": false,
+                "inDisplayAnnotation": false
+              },
               "addNewButton": false
             },
             "defaultValue": {
