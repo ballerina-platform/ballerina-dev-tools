@@ -143,12 +143,28 @@
                 "description": "The name of the parameter"
               },
               "enabled": true,
-              "editable": true,
+              "editable": false,
               "value": "name",
               "valueType": "IDENTIFIER",
               "isType": false,
               "optional": false,
               "advanced": false,
+              "codedata": {
+                "lineRange": {
+                  "fileName": "main.bal",
+                  "startLine": {
+                    "line": 5,
+                    "offset": 25
+                  },
+                  "endLine": {
+                    "line": 5,
+                    "offset": 29
+                  }
+                },
+                "inListenerInit": false,
+                "isBasePath": false,
+                "inDisplayAnnotation": false
+              },
               "addNewButton": false
             },
             "defaultValue": {
@@ -461,12 +477,28 @@
                 "description": "The name of the parameter"
               },
               "enabled": true,
-              "editable": true,
+              "editable": false,
               "value": "author",
               "valueType": "IDENTIFIER",
               "isType": false,
               "optional": false,
               "advanced": false,
+              "codedata": {
+                "lineRange": {
+                  "fileName": "main.bal",
+                  "startLine": {
+                    "line": 30,
+                    "offset": 37
+                  },
+                  "endLine": {
+                    "line": 30,
+                    "offset": 43
+                  }
+                },
+                "inListenerInit": false,
+                "isBasePath": false,
+                "inDisplayAnnotation": false
+              },
               "addNewButton": false
             },
             "defaultValue": {
