@@ -38,7 +38,7 @@
     "designApproach": {
       "metadata": {
         "label": "Contract",
-        "description": "The Contract Of The Service"
+        "description": "Service Contract"
       },
       "enabled": true,
       "editable": true,

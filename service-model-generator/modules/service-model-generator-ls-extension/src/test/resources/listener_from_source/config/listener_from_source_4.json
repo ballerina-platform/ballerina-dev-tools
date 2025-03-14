@@ -18,14 +18,14 @@
       "description": "This is used for creating HTTP server endpoints. An HTTP server endpoint is capable of responding to\nremote callers. The `Listener` is responsible for initializing the endpoint using the provided configurations.",
       "displayAnnotation": {
         "label": "Http",
-        "iconPath": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+        "iconPath": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png"
       },
       "moduleName": "http",
       "orgName": "ballerina",
-      "version": "2.12.2",
+      "version": "2.14.0",
       "packageName": "http",
       "listenerProtocol": "http",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
       "properties": {
         "name": {
           "metadata": {
@@ -114,7 +114,7 @@
           "typeMembers": [
             {
               "type": "ServerSocketConfig",
-              "packageInfo": "ballerina:http:2.12.2",
+              "packageInfo": "ballerina:http:2.14.0",
               "kind": "RECORD_TYPE",
               "selected": false
             }
@@ -213,7 +213,7 @@
           "typeMembers": [
             {
               "type": "ListenerHttp1Settings",
-              "packageInfo": "ballerina:http:2.12.2",
+              "packageInfo": "ballerina:http:2.14.0",
               "kind": "RECORD_TYPE",
               "selected": false
             }
@@ -250,7 +250,7 @@
             },
             {
               "type": "ListenerSecureSocket",
-              "packageInfo": "ballerina:http:2.12.2",
+              "packageInfo": "ballerina:http:2.14.0",
               "kind": "RECORD_TYPE",
               "selected": false
             }
@@ -281,7 +281,7 @@
           "typeMembers": [
             {
               "type": "HttpVersion",
-              "packageInfo": "ballerina:http:2.12.2",
+              "packageInfo": "ballerina:http:2.14.0",
               "kind": "BASIC_TYPE",
               "selected": false
             }
@@ -343,7 +343,7 @@
           "typeMembers": [
             {
               "type": "RequestLimitConfigs",
-              "packageInfo": "ballerina:http:2.12.2",
+              "packageInfo": "ballerina:http:2.14.0",
               "kind": "RECORD_TYPE",
               "selected": false
             }
