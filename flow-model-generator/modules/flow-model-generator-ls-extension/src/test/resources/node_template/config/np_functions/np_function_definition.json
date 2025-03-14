@@ -110,7 +110,7 @@
       "enableModelContext": {
         "metadata": {
           "label": "Enable Model Context",
-          "description": "Enable model context for the function"
+          "description": "Allow specifying Large Language Model (LLM) choice"
         },
         "valueType": "FLAG",
         "value": false,
