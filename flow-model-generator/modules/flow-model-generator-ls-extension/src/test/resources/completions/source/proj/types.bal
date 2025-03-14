@@ -35,3 +35,6 @@ type MyOk record {|
     *http:Ok;
     string message;
 |};
+
+const string firstVal = "first";
+final string secondVal = "second";
