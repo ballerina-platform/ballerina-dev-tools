@@ -162,17 +162,6 @@
               "optional": false,
               "advanced": false,
               "codedata": {
-                "lineRange": {
-                  "fileName": "tcp.bal",
-                  "startLine": {
-                    "line": 5,
-                    "offset": 41
-                  },
-                  "endLine": {
-                    "line": 5,
-                    "offset": 47
-                  }
-                },
                 "inListenerInit": false,
                 "isBasePath": false,
                 "inDisplayAnnotation": false,

@@ -159,7 +159,7 @@
             "description": "The resource path"
           },
           "enabled": true,
-          "editable": false,
+          "editable": true,
           "value": "response",
           "valueType": "IDENTIFIER",
           "valueTypeConstraint": "string",
@@ -718,7 +718,7 @@
             "description": "The resource path"
           },
           "enabled": true,
-          "editable": false,
+          "editable": true,
           "value": "intResult",
           "valueType": "IDENTIFIER",
           "valueTypeConstraint": "string",
@@ -1353,7 +1353,7 @@
             "description": "The resource path"
           },
           "enabled": true,
-          "editable": false,
+          "editable": true,
           "value": "httpOk",
           "valueType": "IDENTIFIER",
           "valueTypeConstraint": "string",
@@ -1988,7 +1988,7 @@
             "description": "The resource path"
           },
           "enabled": true,
-          "editable": false,
+          "editable": true,
           "value": "httpOkWithType",
           "valueType": "IDENTIFIER",
           "valueTypeConstraint": "string",
@@ -2623,7 +2623,7 @@
             "description": "The resource path"
           },
           "enabled": true,
-          "editable": false,
+          "editable": true,
           "value": "anonReturn",
           "valueType": "IDENTIFIER",
           "valueTypeConstraint": "string",
@@ -3258,7 +3258,7 @@
             "description": "The resource path"
           },
           "enabled": true,
-          "editable": false,
+          "editable": true,
           "value": "allUnion",
           "valueType": "IDENTIFIER",
           "valueTypeConstraint": "string",
@@ -4121,7 +4121,7 @@
             "description": "The resource path"
           },
           "enabled": true,
-          "editable": false,
+          "editable": true,
           "value": "noReturn",
           "valueType": "IDENTIFIER",
           "valueTypeConstraint": "string",

@@ -165,7 +165,7 @@
             "description": "The resource path"
           },
           "enabled": true,
-          "editable": false,
+          "editable": true,
           "value": "path",
           "valueType": "IDENTIFIER",
           "valueTypeConstraint": "string",
@@ -288,28 +288,12 @@
                 "description": "The name of the parameter"
               },
               "enabled": true,
-              "editable": false,
+              "editable": true,
               "value": "request",
               "valueType": "IDENTIFIER",
               "isType": false,
               "optional": false,
               "advanced": false,
-              "codedata": {
-                "lineRange": {
-                  "fileName": "main.bal",
-                  "startLine": {
-                    "line": 6,
-                    "offset": 44
-                  },
-                  "endLine": {
-                    "line": 6,
-                    "offset": 51
-                  }
-                },
-                "inListenerInit": false,
-                "isBasePath": false,
-                "inDisplayAnnotation": false
-              },
               "addNewButton": false
             },
             "defaultValue": {

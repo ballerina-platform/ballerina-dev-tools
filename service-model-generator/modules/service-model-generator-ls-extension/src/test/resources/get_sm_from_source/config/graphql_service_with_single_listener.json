@@ -327,28 +327,12 @@
                 "description": "The name of the argument"
               },
               "enabled": true,
-              "editable": false,
+              "editable": true,
               "value": "name",
               "valueType": "IDENTIFIER",
               "isType": false,
               "optional": false,
               "advanced": false,
-              "codedata": {
-                "lineRange": {
-                  "fileName": "main.bal",
-                  "startLine": {
-                    "line": 32,
-                    "offset": 42
-                  },
-                  "endLine": {
-                    "line": 32,
-                    "offset": 46
-                  }
-                },
-                "inListenerInit": false,
-                "isBasePath": false,
-                "inDisplayAnnotation": false
-              },
               "addNewButton": false
             },
             "defaultValue": {
@@ -507,28 +491,12 @@
                 "description": "The name of the argument"
               },
               "enabled": true,
-              "editable": false,
+              "editable": true,
               "value": "id",
               "valueType": "IDENTIFIER",
               "isType": false,
               "optional": false,
               "advanced": false,
-              "codedata": {
-                "lineRange": {
-                  "fileName": "main.bal",
-                  "startLine": {
-                    "line": 37,
-                    "offset": 35
-                  },
-                  "endLine": {
-                    "line": 37,
-                    "offset": 37
-                  }
-                },
-                "inListenerInit": false,
-                "isBasePath": false,
-                "inDisplayAnnotation": false
-              },
               "addNewButton": false
             },
             "defaultValue": {
@@ -574,28 +542,12 @@
                 "description": "The name of the argument"
               },
               "enabled": true,
-              "editable": false,
+              "editable": true,
               "value": "name",
               "valueType": "IDENTIFIER",
               "isType": false,
               "optional": false,
               "advanced": false,
-              "codedata": {
-                "lineRange": {
-                  "fileName": "main.bal",
-                  "startLine": {
-                    "line": 37,
-                    "offset": 46
-                  },
-                  "endLine": {
-                    "line": 37,
-                    "offset": 50
-                  }
-                },
-                "inListenerInit": false,
-                "isBasePath": false,
-                "inDisplayAnnotation": false
-              },
               "addNewButton": false
             },
             "defaultValue": {
