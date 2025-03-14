@@ -17,14 +17,14 @@
     "description": "Add the service documentation",
     "displayAnnotation": {
       "label": "GraphQL Service",
-      "iconPath": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.15.0.png"
+      "iconPath": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.16.0.png"
     },
     "moduleName": "graphql",
     "orgName": "ballerina",
-    "version": "1.15.0",
+    "version": "1.16.0",
     "packageName": "graphql",
     "listenerProtocol": "graphql",
-    "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.15.0.png",
+    "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.16.0.png",
     "properties": {
       "listener": {
         "metadata": {
@@ -127,7 +127,7 @@
         "typeMembers": [
           {
             "type": "GraphqlServiceConfig",
-            "packageInfo": "ballerina:graphql:1.15.0",
+            "packageInfo": "ballerina:graphql:1.16.0",
             "kind": "RECORD_TYPE",
             "selected": true
           }

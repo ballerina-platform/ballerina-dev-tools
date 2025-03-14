@@ -19,7 +19,7 @@
     },
     "moduleName": "http",
     "orgName": "ballerina",
-    "version": "2.12.0",
+    "version": "2.14.0",
     "packageName": "http",
     "listenerProtocol": "http",
     "icon": "http://localhost:8080/icons/http.png",
@@ -84,7 +84,7 @@
         "typeMembers": [
           {
             "type": "HttpServiceConfig",
-            "packageInfo": "ballerina:http:2.12.2",
+            "packageInfo": "ballerina:http:2.14.0",
             "kind": "RECORD_TYPE",
             "selected": true
           }
@@ -235,7 +235,7 @@
             "description": "The resource path"
           },
           "enabled": true,
-          "editable": false,
+          "editable": true,
           "value": "path",
           "valueType": "IDENTIFIER",
           "valueTypeConstraint": "string",

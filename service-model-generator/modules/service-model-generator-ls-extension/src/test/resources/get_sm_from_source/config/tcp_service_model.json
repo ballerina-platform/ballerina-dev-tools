@@ -17,14 +17,14 @@
     "description": "Add the service documentation",
     "displayAnnotation": {
       "label": "TCP Service",
-      "iconPath": "https://bcentral-packageicons.azureedge.net/images/ballerina_tcp_1.12.1.png"
+      "iconPath": "https://bcentral-packageicons.azureedge.net/images/ballerina_tcp_1.13.0.png"
     },
     "moduleName": "tcp",
     "orgName": "ballerina",
-    "version": "1.12.1",
+    "version": "1.13.0",
     "packageName": "tcp",
     "listenerProtocol": "tcp",
-    "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_tcp_1.12.1.png",
+    "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_tcp_1.13.0.png",
     "properties": {
       "listener": {
         "metadata": {
