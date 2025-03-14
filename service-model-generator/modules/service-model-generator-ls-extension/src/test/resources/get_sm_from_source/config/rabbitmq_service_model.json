@@ -185,6 +185,17 @@
               "optional": false,
               "advanced": false,
               "codedata": {
+                "lineRange": {
+                  "fileName": "main.bal",
+                  "startLine": {
+                    "line": 5,
+                    "offset": 54
+                  },
+                  "endLine": {
+                    "line": 5,
+                    "offset": 61
+                  }
+                },
                 "inListenerInit": false,
                 "isBasePath": false,
                 "inDisplayAnnotation": false,

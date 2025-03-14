@@ -712,6 +712,13 @@ public final class Utils {
         target.setEnabled(source.isEnabledWithValue());
         target.setValue(source.getValue());
         target.setValueType(source.getValueType());
+        if (Objects.nonNull(source.getCodedata())) {
+            if (Objects.nonNull(target.getCodedata())) {
+                target.getCodedata().setLineRange(source.getCodedata().getLineRange());
+            } else {
+                target.setCodedata(source.getCodedata());
+            }
+        }
     }
 
     public static void updateValue(FunctionReturnType target, FunctionReturnType source) {
