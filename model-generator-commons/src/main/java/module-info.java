@@ -17,6 +17,8 @@
  */
 
 module io.ballerina.model.generator.commons {
+
+    requires io.ballerina.centralconnector;
     requires io.ballerina.language.server.core;
     requires io.ballerina.language.server.commons;
     requires org.eclipse.lsp4j;

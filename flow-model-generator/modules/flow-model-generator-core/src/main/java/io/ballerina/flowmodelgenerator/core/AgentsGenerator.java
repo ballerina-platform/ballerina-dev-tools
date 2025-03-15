@@ -201,6 +201,10 @@ public class AgentsGenerator {
             }
 
             FunctionSymbol functionSymbol = (FunctionSymbol) moduleSymbol;
+            if (!functionSymbol.qualifiers().contains(Qualifier.ISOLATED)) {
+                continue;
+            }
+
             FunctionTypeSymbol functionTypeSymbol = functionSymbol.typeDescriptor();
             Optional<List<ParameterSymbol>> optParams = functionTypeSymbol.params();
             if (optParams.isPresent()) {
@@ -271,14 +275,15 @@ public class AgentsGenerator {
             sourceBuilder.token().keyword(SyntaxKind.CLOSE_PAREN_TOKEN);
 
             Optional<Property> returnType = flowNode.getProperty(Property.TYPE_KEY);
-            if (returnType.isPresent() && !returnType.get().value().toString().isEmpty()) {
+            boolean hasReturn = returnType.isPresent() && !returnType.get().value().toString().isEmpty();
+            if (hasReturn) {
                 sourceBuilder.token()
                         .keyword(SyntaxKind.RETURNS_KEYWORD)
                         .name(returnType.get().value().toString());
             }
 
             sourceBuilder.token().keyword(SyntaxKind.OPEN_BRACE_TOKEN);
-            if (returnType.isPresent() && !returnType.get().value().toString().isEmpty()) {
+            if (hasReturn) {
                 sourceBuilder.token()
                         .name(returnType.get().value().toString())
                         .whiteSpace()
@@ -296,6 +301,14 @@ public class AgentsGenerator {
             sourceBuilder.token()
                     .name(String.join(", ", args))
                     .keyword(SyntaxKind.CLOSE_PAREN_TOKEN).endOfStatement();
+
+            if (hasReturn) {
+                sourceBuilder.token()
+                        .keyword(SyntaxKind.RETURN_KEYWORD)
+                        .name("result")
+                        .endOfStatement();
+            }
+
             sourceBuilder.token()
                     .keyword(SyntaxKind.CLOSE_BRACE_TOKEN);
             sourceBuilder.textEdit(false, AGENT_FILE);

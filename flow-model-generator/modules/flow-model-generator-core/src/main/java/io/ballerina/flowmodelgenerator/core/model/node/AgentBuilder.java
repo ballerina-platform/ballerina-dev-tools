@@ -43,8 +43,8 @@ public class AgentBuilder extends CallBuilder {
     public static final String MODEL = "model";
     public static final String TYPE = "type";
     public static final String TOOLS = "tools";
-    public static final String LABEL = "Call Agent";
-    public static final String DESCRIPTION = "Call agent";
+    public static final String LABEL = "Agent";
+    public static final String DESCRIPTION = "Create new agent";
 
     @Override
     protected NodeKind getFunctionNodeKind() {
@@ -71,10 +71,9 @@ public class AgentBuilder extends CallBuilder {
         sourceBuilder.token()
                 .keyword(SyntaxKind.CHECK_KEYWORD)
                 .keyword(SyntaxKind.NEW_KEYWORD)
-                .name(System.lineSeparator())
                 .stepOut()
                 .functionParameters(sourceBuilder.flowNode, Set.of(Property.VARIABLE_KEY, Property.TYPE_KEY,
-                        Property.SCOPE_KEY, Property.CHECK_ERROR_KEY));
+                        Property.SCOPE_KEY, Property.CHECK_ERROR_KEY), true);
 
         return sourceBuilder.textEdit(false, AGENT_FILE).build();
     }
