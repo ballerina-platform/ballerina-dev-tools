@@ -162,8 +162,7 @@
             "org": "ballerinax",
             "module": "ai.agent",
             "object": "Agent",
-            "symbol": "run",
-            "version": "0.7.16"
+            "symbol": "run"
           },
           "enabled": true
         }
