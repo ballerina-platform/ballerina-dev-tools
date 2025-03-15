@@ -273,7 +273,7 @@
                   "label": "The File watch event",
                   "description": "The File watch event",
                   "kind": "REQUIRED",
-                  "type": "ftp:WatchEvent & readonly|ftp:WatchEvent",
+                  "type": "ftp:WatchEvent & readonly",
                   "defaultValue": "",
                   "importStatements": ""
                 },
