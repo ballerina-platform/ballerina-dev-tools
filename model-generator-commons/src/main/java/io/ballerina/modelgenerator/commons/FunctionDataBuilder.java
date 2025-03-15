@@ -18,6 +18,8 @@
 
 package io.ballerina.modelgenerator.commons;
 
+import io.ballerina.centralconnector.CentralAPI;
+import io.ballerina.centralconnector.RemoteCentral;
 import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.TypeBuilder;
@@ -235,16 +237,24 @@ public class FunctionDataBuilder {
         }
 
         // Check if the package is pulled
-        if (semanticModel == null && moduleInfo.isComplete() &&
-                PackageUtil.isModuleUnresolved(moduleInfo.org(), moduleInfo.packageName(), moduleInfo.version())) {
-            notifyClient(MessageType.Info, PULLING_THE_MODULE_MESSAGE);
-            if (semanticModel == null) {
-                deriveSemanticModel();
+        if (semanticModel == null) {
+            if (moduleInfo.version() == null) {
+                CentralAPI centralApi = RemoteCentral.getInstance();
+                moduleInfo = new ModuleInfo(moduleInfo.org(), moduleInfo.packageName(), moduleInfo.moduleName(),
+                        centralApi.latestPackageVersion(moduleInfo.org(), moduleInfo.packageName()));
             }
-            if (semanticModel == null) {
-                notifyClient(MessageType.Error, MODULE_PULLING_FAILED_MESSAGE);
-            } else {
-                notifyClient(MessageType.Info, MODULE_PULLING_SUCCESS_MESSAGE);
+
+            if (moduleInfo.isComplete() &&
+                    PackageUtil.isModuleUnresolved(moduleInfo.org(), moduleInfo.packageName(), moduleInfo.version())) {
+                notifyClient(MessageType.Info, PULLING_THE_MODULE_MESSAGE);
+                if (semanticModel == null) {
+                    deriveSemanticModel();
+                }
+                if (semanticModel == null) {
+                    notifyClient(MessageType.Error, MODULE_PULLING_FAILED_MESSAGE);
+                } else {
+                    notifyClient(MessageType.Info, MODULE_PULLING_SUCCESS_MESSAGE);
+                }
             }
         }
 
