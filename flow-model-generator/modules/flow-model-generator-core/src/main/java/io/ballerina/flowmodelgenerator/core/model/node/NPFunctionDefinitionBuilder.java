@@ -21,12 +21,16 @@ package io.ballerina.flowmodelgenerator.core.model.node;
 import com.google.gson.Gson;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.Constants.NaturalFunctions;
+import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import io.ballerina.modelgenerator.commons.FunctionData;
+import io.ballerina.modelgenerator.commons.FunctionDataBuilder;
+import io.ballerina.modelgenerator.commons.ModuleInfo;
 import io.ballerina.tools.text.LineRange;
 import org.eclipse.lsp4j.TextEdit;
 
@@ -60,6 +64,8 @@ public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
     private static final String BALLERINAX_ORG = "ballerinax";
     private static final String NP_PACKAGE = "np";
 
+    private static final String CALL_LLM_FUNCTION = "callLlm";
+
     private static final String NP_NATURAL_FUNCTION_BODY = "@np:NaturalFunction external";
 
     private static final Gson gson = new Gson();
@@ -75,6 +81,18 @@ public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
+        Codedata codedata = context.codedata();
+
+        FunctionDataBuilder functionDataBuilder = new FunctionDataBuilder()
+                .parentSymbolType(codedata.object())
+                .name(CALL_LLM_FUNCTION)
+                .moduleInfo(new ModuleInfo(BALLERINAX_ORG, NP_PACKAGE, NP_PACKAGE, "0.2.0"))
+                .lsClientLogger(context.lsClientLogger())
+                .functionResultKind(FunctionData.Kind.FUNCTION)
+                .userModuleInfo(moduleInfo);
+
+        functionDataBuilder.build();
+
         properties().functionNameTemplate(NATURAL_FUNCTION_PREFIX,
                 context.getAllVisibleSymbolNames(),
                 NATURAL_FUNCTION_NAME_LABEL,
