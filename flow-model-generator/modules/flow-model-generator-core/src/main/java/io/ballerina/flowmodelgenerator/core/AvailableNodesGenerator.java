@@ -75,7 +75,6 @@ public class AvailableNodesGenerator {
             "delete", "patch", "options");
     private static final String BALLERINAX = "ballerinax";
     public static final String AI_AGENT = "ai.agent";
-    public static final String AI_AGENT_VERSION = "0.7.16";
 
     public AvailableNodesGenerator(SemanticModel semanticModel, Document document, Package pkg) {
         this.rootBuilder = new Category.Builder(null).name(Category.Name.ROOT);
@@ -175,7 +174,6 @@ public class AvailableNodesGenerator {
                         .node(NodeKind.AGENT_CALL)
                         .org(BALLERINAX)
                         .module(AI_AGENT)
-                        .version(AI_AGENT_VERSION)
                         .symbol("run")
                         .object("Agent")
                         .build(),

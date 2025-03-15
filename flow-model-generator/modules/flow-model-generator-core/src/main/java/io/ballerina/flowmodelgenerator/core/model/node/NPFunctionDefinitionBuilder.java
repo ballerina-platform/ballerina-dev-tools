@@ -86,7 +86,7 @@ public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
         FunctionDataBuilder functionDataBuilder = new FunctionDataBuilder()
                 .parentSymbolType(codedata.object())
                 .name(CALL_LLM_FUNCTION)
-                .moduleInfo(new ModuleInfo(BALLERINAX_ORG, NP_PACKAGE, NP_PACKAGE, "0.2.0"))
+                .moduleInfo(new ModuleInfo(BALLERINAX_ORG, NP_PACKAGE, NP_PACKAGE, null))
                 .lsClientLogger(context.lsClientLogger())
                 .functionResultKind(FunctionData.Kind.FUNCTION)
                 .userModuleInfo(moduleInfo);
