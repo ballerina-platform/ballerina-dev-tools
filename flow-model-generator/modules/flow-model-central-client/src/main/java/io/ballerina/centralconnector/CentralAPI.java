@@ -47,4 +47,6 @@ public interface CentralAPI {
     ConnectorResponse connector(String id);
 
     ConnectorResponse connector(String organization, String name, String version, String clientName);
+
+    String latestPackageVersion(String org, String name);
 }

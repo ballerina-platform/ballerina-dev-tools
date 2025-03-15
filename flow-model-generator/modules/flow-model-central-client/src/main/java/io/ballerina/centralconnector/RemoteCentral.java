@@ -86,4 +86,9 @@ public class RemoteCentral implements CentralAPI {
     public ConnectorResponse connector(String organization, String name, String version, String clientName) {
         return restClient.connector(organization, name, version, clientName);
     }
+
+    @Override
+    public String latestPackageVersion(String org, String name) {
+        return restClient.latestPackageVersion(org, name);
+    }
 }

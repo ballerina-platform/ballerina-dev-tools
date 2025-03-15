@@ -25,6 +25,8 @@ import io.ballerina.centralconnector.response.ConnectorResponse;
 import io.ballerina.centralconnector.response.ConnectorsResponse;
 import io.ballerina.centralconnector.response.PackageResponse;
 import io.ballerina.centralconnector.response.SymbolResponse;
+import io.ballerina.projects.JvmTarget;
+import io.ballerina.projects.SemanticVersion;
 import io.ballerina.projects.Settings;
 import io.ballerina.projects.internal.model.Central;
 import io.ballerina.projects.internal.model.Proxy;
@@ -38,7 +40,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static io.ballerina.projects.util.ProjectUtils.getAccessTokenOfCLI;
 import static io.ballerina.projects.util.ProjectUtils.initializeProxy;
@@ -56,6 +61,10 @@ class RestClient {
     private static final String CONNECTOR = "connector";
     private final Gson gson;
     private final CentralAPIClient centralClient;
+
+    private static final String supportedPlatform = Arrays.stream(JvmTarget.values())
+            .map(JvmTarget::code)
+            .collect(Collectors.joining(","));
 
     public RestClient() {
         gson = new Gson();
@@ -105,6 +114,26 @@ class RestClient {
         String queryMapString = getQueryMapString(queryMap);
         String response = query(SEARCH_SYMBOLS, queryMapString);
         return gson.fromJson(response, SymbolResponse.class);
+    }
+
+    public String latestPackageVersion(String org, String name) {
+        try {
+            List<String> packageVersions =
+                    centralClient.getPackageVersions(org, name, supportedPlatform, RepoUtils.getBallerinaVersion());
+            if (packageVersions.isEmpty()) {
+                throw new RuntimeException("No versions found for the package");
+            }
+
+            String latestVersion = packageVersions.getFirst();
+            for (String version : packageVersions) {
+                if (SemanticVersion.from(version).greaterThan(SemanticVersion.from(latestVersion))) {
+                    latestVersion = version;
+                }
+            }
+            return latestVersion;
+        } catch (CentralClientException e) {
+            throw new RuntimeException("Package versions cannot be pulled: " + e.getMessage(), e);
+        }
     }
 
     private String getQueryMapString(Map<String, String> queryMap) {
