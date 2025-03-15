@@ -136,7 +136,6 @@ public class NPFunctionCall extends FunctionCall {
 
     public static boolean isPromptParam(ParameterData parameterData) {
         return parameterData.name().equals(Constants.NaturalFunctions.PROMPT)
-                && parameterData.type().equals(Constants.NaturalFunctions.MODULE_PREFIXED_PROMPT_TYPE)
-                && parameterData.importStatements().equals(Constants.NaturalFunctions.NP_PACKAGE_WITH_ORG);
+                && parameterData.type().equals(Constants.NaturalFunctions.MODULE_PREFIXED_PROMPT_TYPE);
     }
 }
