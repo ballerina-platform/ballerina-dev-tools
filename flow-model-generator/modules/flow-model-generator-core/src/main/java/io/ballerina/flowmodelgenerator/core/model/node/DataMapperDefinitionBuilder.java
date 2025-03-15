@@ -82,7 +82,7 @@ public class DataMapperDefinitionBuilder extends NodeBuilder {
 
     public static void setMandatoryProperties(NodeBuilder nodeBuilder, String returnType) {
         nodeBuilder.properties()
-                .returnType(returnType, TypeKind.RECORD.typeName(), false)
+                .returnType(returnType, ANYDATA_TYPE, false)
                 .nestedProperty();
     }
 
