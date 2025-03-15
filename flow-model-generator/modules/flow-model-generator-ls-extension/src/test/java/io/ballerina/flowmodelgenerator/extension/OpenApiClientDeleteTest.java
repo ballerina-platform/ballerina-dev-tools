@@ -34,7 +34,9 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -96,16 +98,37 @@ public class OpenApiClientDeleteTest extends AbstractLSTest {
         }.getType());
 
         List<String> fileNames = new ArrayList<>();
+        List<String> files = testConfig.files();
+        boolean isNotExist = false;
         for (String path : paths) {
-            fileNames.add(Path.of(path).getFileName().toString());
+            String fileName = Path.of(path).getFileName().toString();
+            if (!files.contains(fileName)) {
+                isNotExist = true;
+            }
+            fileNames.add(fileName);
+        }
+        
+        Map<String, List<TextEdit>> actualTextEdits =
+                gson.fromJson(response.getAsJsonObject("textEditsMap"), textEditListType);
+        Map<String, List<TextEdit>> newMap = new HashMap<>();
+        boolean textEditFailure = false;
+        for (Map.Entry<String, List<TextEdit>> entry : actualTextEdits.entrySet()) {
+            Path fullPath = Paths.get(entry.getKey());
+            String relativePath = sourceDir.relativize(fullPath).toString();
+
+            List<TextEdit> te = testConfig.textEdits().get(relativePath.replace("\\", "/"));
+            if (te == null) {
+                log.info("No text edits found for the file: " + relativePath);
+                textEditFailure = true;
+            }
+            newMap.put(relativePath, entry.getValue());
         }
 
         deleteFolder(project.toFile());
-        if (!fileNames.equals(testConfig.files)) {
+        if (textEditFailure || isNotExist) {
             TestConfig updatedConfig = new TestConfig(testConfig.contractFile(), testConfig.balToml(),
-                    testConfig.module(), testConfig.source(),
-                    gson.fromJson(response.getAsJsonObject("textEditsMap"), textEditListType), fileNames);
-            updateConfig(configJsonPath, updatedConfig);
+                    testConfig.module(), testConfig.source(), newMap, fileNames);
+//            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: (%s)", configJsonPath));
         }
     }

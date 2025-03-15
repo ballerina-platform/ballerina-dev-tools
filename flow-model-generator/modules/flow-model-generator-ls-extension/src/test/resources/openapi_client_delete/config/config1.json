@@ -1,18 +1,18 @@
 {
   "contractFile": "petstore.yaml",
-  "balToml": "[package]\norg = \"oas\"\nname = \"client1\"\nversion = \"0.1.0\"\n[[tool.openapi]]\nid = \"cl1\"\ntargetModule = \"mod5\"",
+  "balToml": "[package]\norg = \"oas\"\nname = \"client1\"\nversion = \"0.1.0\"\n",
   "module": "mod1",
   "source": "main.bal",
   "textEdits": {
-    "/Users/kavindu/GIT/ballerina-dev-tools/flow-model-generator/modules/flow-model-generator-ls-extension/src/test/resources/openapi_client_delete/config/config1/Ballerina.toml": [
+    "config/config1/Ballerina.toml": [
       {
         "range": {
           "start": {
-            "line": 7,
+            "line": 5,
             "character": 0
           },
           "end": {
-            "line": 10,
+            "line": 8,
             "character": 179
           }
         },

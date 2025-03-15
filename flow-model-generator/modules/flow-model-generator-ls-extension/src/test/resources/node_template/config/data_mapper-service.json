@@ -38,7 +38,7 @@
           "description": "Type of the return value"
         },
         "valueType": "TYPE",
-        "valueTypeConstraint": "record",
+        "valueTypeConstraint": "anydata",
         "value": "",
         "optional": false,
         "editable": true,

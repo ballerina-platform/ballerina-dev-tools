@@ -1,0 +1,136 @@
+{
+  "source": "data_mapper/main.bal",
+  "position": {
+    "line": 14,
+    "offset": 0
+  },
+  "description": "Sample diagram node",
+  "codedata": {
+    "node": "FUNCTION_CALL",
+    "org": "ballerina",
+    "module": "lang.array",
+    "symbol": "lastIndexOf",
+    "version": "0.0.0"
+  },
+  "output": {
+    "id": "31",
+    "metadata": {
+      "label": "lastIndexOf",
+      "description": "Returns the index of last member of an array that is equal to a given value if there is one.\nReturns `()` if not found.\nEquality is tested using `==`.\n\n```ballerina\nstring[] strings = [\"a\", \"b\", \"d\", \"b\", \"d\", \"b\"];\nstrings.lastIndexOf(\"e\") is () ⇒ true\nstrings.lastIndexOf(\"b\") ⇒ 5\nstrings.lastIndexOf(\"b\", strings.length() - 2) ⇒ 3\n```\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.array_0.0.0.png"
+    },
+    "codedata": {
+      "node": "FUNCTION_CALL",
+      "org": "ballerina",
+      "module": "lang.array",
+      "symbol": "lastIndexOf",
+      "version": "0.0.0",
+      "isNew": true
+    },
+    "returning": false,
+    "properties": {
+      "arr": {
+        "metadata": {
+          "label": "arr",
+          "description": "the array"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "(anydata|error)[]",
+        "placeholder": "[]",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "hidden": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "arr"
+        },
+        "typeMembers": [
+          {
+            "type": "AnydataType",
+            "packageInfo": "ballerina:lang.array:0.0.0",
+            "kind": "ARRAY_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "val": {
+        "metadata": {
+          "label": "val",
+          "description": "member to search for"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "(anydata|error)",
+        "placeholder": "{}",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "hidden": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "val"
+        },
+        "typeMembers": [
+          {
+            "type": "AnydataType",
+            "packageInfo": "ballerina:lang.array:0.0.0",
+            "kind": "OTHER",
+            "selected": false
+          }
+        ]
+      },
+      "startIndex": {
+        "metadata": {
+          "label": "startIndex",
+          "description": "index to start searching backwards from"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "int",
+        "placeholder": "arr.length() - 1",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "hidden": false,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "startIndex"
+        },
+        "typeMembers": [
+          {
+            "type": "int",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "type": {
+        "metadata": {
+          "label": "Variable Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "int|()",
+        "placeholder": "var",
+        "optional": false,
+        "editable": false,
+        "advanced": false,
+        "hidden": false,
+        "codedata": {}
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "intResult",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "hidden": false
+      }
+    },
+    "flags": 0
+  }
+}
