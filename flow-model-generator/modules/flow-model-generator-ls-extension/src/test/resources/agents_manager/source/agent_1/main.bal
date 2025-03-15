@@ -27,12 +27,12 @@ public function main() {
 }
 
 @agent:Tool
-function fn(int x) returns int {
+isolated function fn(int x) returns int {
     return x + 1;
 }
 
 @agent:Tool
-function fn2(int x, error? err) returns int? {
+isolated function fn2(int x, error? err) returns int? {
     return x + 1;
 }
 
