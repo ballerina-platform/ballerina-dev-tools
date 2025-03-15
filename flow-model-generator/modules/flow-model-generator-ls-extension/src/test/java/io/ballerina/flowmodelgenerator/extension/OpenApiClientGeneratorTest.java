@@ -30,6 +30,7 @@ import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import io.ballerina.tools.text.LinePosition;
 import org.eclipse.lsp4j.TextEdit;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.File;
@@ -46,6 +47,14 @@ public class OpenApiClientGeneratorTest extends AbstractLSTest {
 
     private static final Type textEditListType = new TypeToken<Map<String, List<TextEdit>>>() {
     }.getType();
+
+    @DataProvider(name = "data-provider")
+    @Override
+    protected Object[] getConfigsList() {
+        return new Object[][]{
+                {Path.of("config1.json")},
+        };
+    }
 
     @Override
     @Test(dataProvider = "data-provider")
@@ -87,7 +96,7 @@ public class OpenApiClientGeneratorTest extends AbstractLSTest {
         String filePath = project.resolve(testConfig.source()).toAbsolutePath().toString();
 
         FlowModelNodeTemplateRequest nodeTemplateRequest =
-                new FlowModelNodeTemplateRequest(filePath, testConfig.position(), testConfig.codedata());
+                new FlowModelNodeTemplateRequest(projectPath, null, testConfig.codedata());
         JsonElement nodeTemplate = getResponse(nodeTemplateRequest, "flowDesignService/getNodeTemplate").get(
                 "flowNode");
 
