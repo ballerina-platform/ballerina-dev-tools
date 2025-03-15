@@ -88,6 +88,7 @@ public class ResourceActionCallBuilder extends CallBuilder {
                 if ((module.moduleName().packageName() + "." + module.moduleName().moduleNamePart())
                         .equals(codedata.module())) {
                     semanticModel = project.currentPackage().getCompilation().getSemanticModel(module.moduleId());
+                    break;
                 }
             }
             if (semanticModel == null) {

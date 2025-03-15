@@ -29,6 +29,8 @@ import io.ballerina.modelgenerator.commons.FunctionData;
 import io.ballerina.modelgenerator.commons.FunctionDataBuilder;
 import io.ballerina.modelgenerator.commons.ModuleInfo;
 import io.ballerina.modelgenerator.commons.PackageUtil;
+import io.ballerina.projects.Module;
+import io.ballerina.projects.Project;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.TextEdit;
 
@@ -131,11 +133,19 @@ public class NewConnectionBuilder extends CallBuilder {
             if (projectPath == null) {
                 throw new IllegalStateException("Project path not found");
             }
-            Path clientPath = projectPath.resolve("generated").resolve(codedata.module()).resolve("client.bal");
             WorkspaceManager workspaceManager = context.workspaceManager();
-            PackageUtil.loadProject(workspaceManager, context.filePath());
-            SemanticModel semanticModel = workspaceManager.semanticModel(clientPath)
-                    .orElseThrow(() -> new IllegalStateException("Semantic model not found"));
+            Project project = PackageUtil.loadProject(workspaceManager, context.filePath());
+            SemanticModel semanticModel = null;
+            for (Module module : project.currentPackage().modules()) {
+                String moduleNamePath = module.moduleName().moduleNamePart();
+                if (moduleNamePath != null && moduleNamePath.equals(codedata.module())) {
+                    semanticModel = project.currentPackage().getCompilation().getSemanticModel(module.moduleId());
+                    break;
+                }
+            }
+            if (semanticModel == null) {
+                throw new IllegalStateException("Semantic model not found");
+            }
             functionDataBuilder.semanticModel(semanticModel);
         }
 

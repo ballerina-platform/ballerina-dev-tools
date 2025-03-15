@@ -18,16 +18,12 @@
 
 package io.ballerina.flowmodelgenerator.extension;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import io.ballerina.flowmodelgenerator.extension.request.FlowModelNodeTemplateRequest;
-import io.ballerina.flowmodelgenerator.extension.request.FlowModelSourceGeneratorRequest;
+import io.ballerina.flowmodelgenerator.extension.request.OpenAPIClientDeleteRequest;
 import io.ballerina.flowmodelgenerator.extension.request.OpenAPIClientGenerationRequest;
-import io.ballerina.flowmodelgenerator.extension.request.OpenAPIGeneratedModulesRequest;
 import io.ballerina.modelgenerator.commons.AbstractLSTest;
-import io.ballerina.tools.text.LinePosition;
 import org.eclipse.lsp4j.TextEdit;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
@@ -39,11 +35,12 @@ import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class OpenApiClientGeneratorTest extends AbstractLSTest {
+public class OpenApiClientDeleteTest extends AbstractLSTest {
 
     private static final Type textEditListType = new TypeToken<Map<String, List<TextEdit>>>() {
     }.getType();
@@ -73,7 +70,8 @@ public class OpenApiClientGeneratorTest extends AbstractLSTest {
         OpenAPIClientGenerationRequest openAPIClientReq =
                 new OpenAPIClientGenerationRequest(contractPath.toAbsolutePath().toString(), projectPath, module);
         JsonElement openAPIClientSource =
-                getResponse(openAPIClientReq).getAsJsonObject("source").get("textEditsMap");
+                getResponse(openAPIClientReq, getServiceName() + "/genClient")
+                        .getAsJsonObject("source").get("textEditsMap");
 
         Path modulePath = project.resolve("generated").resolve(module);
         Files.createDirectories(modulePath);
@@ -93,53 +91,45 @@ public class OpenApiClientGeneratorTest extends AbstractLSTest {
             Files.writeString(filePath, content);
         }
 
-        String filePath = project.resolve(testConfig.source()).toAbsolutePath().toString();
+        OpenAPIClientDeleteRequest openAPIClientDeleteRequest = new OpenAPIClientDeleteRequest(projectPath, module);
+        JsonObject response = getResponse(openAPIClientDeleteRequest).getAsJsonObject("deleteData");
+        response.getAsJsonArray("filesToDelete");
+        List<String> paths = gson.fromJson(response.getAsJsonArray("filesToDelete"), new TypeToken<List<String>>() {
+        }.getType());
 
-        FlowModelNodeTemplateRequest nodeTemplateRequest =
-                new FlowModelNodeTemplateRequest(projectPath, null, testConfig.codedata());
-        JsonElement nodeTemplate = getResponse(nodeTemplateRequest, "flowDesignService/getNodeTemplate").get(
-                "flowNode");
-
-        FlowModelSourceGeneratorRequest sourceRequest = new FlowModelSourceGeneratorRequest(filePath, nodeTemplate);
-        JsonObject connectionSource =
-                getResponse(sourceRequest, "flowDesignService/getSourceCode").getAsJsonObject("textEdits");
-
-        Map<String, List<TextEdit>> actualTextEdits = gson.fromJson(connectionSource, textEditListType);
-        boolean assertFailure = false;
-        if (actualTextEdits.size() != testConfig.textEdits().size()) {
-            log.info("The number of text edits does not match the expected output.");
-            assertFailure = true;
+        List<String> fileNames = new ArrayList<>();
+        List<String> files = testConfig.files();
+        boolean isNotExist = false;
+        for (String path : paths) {
+            String fileName = Path.of(path).getFileName().toString();
+            if (!files.contains(fileName)) {
+                isNotExist = true;
+            }
+            fileNames.add(fileName);
         }
-
+        
+        Map<String, List<TextEdit>> actualTextEdits =
+                gson.fromJson(response.getAsJsonObject("textEditsMap"), textEditListType);
         Map<String, List<TextEdit>> newMap = new HashMap<>();
+        boolean textEditFailure = false;
         for (Map.Entry<String, List<TextEdit>> entry : actualTextEdits.entrySet()) {
             Path fullPath = Paths.get(entry.getKey());
-            String relativePath = project.relativize(fullPath).toString();
+            String relativePath = sourceDir.relativize(fullPath).toString();
 
-            List<TextEdit> newTextEdits = testConfig.textEdits().get(relativePath.replace("\\", "/"));
-            if (newTextEdits == null) {
+            List<TextEdit> te = testConfig.textEdits().get(relativePath.replace("\\", "/"));
+            if (te == null) {
                 log.info("No text edits found for the file: " + relativePath);
-                assertFailure = true;
-            } else if (!assertArray("text edits", entry.getValue(), newTextEdits)) {
-                assertFailure = true;
+                textEditFailure = true;
             }
-
             newMap.put(relativePath, entry.getValue());
         }
 
-        OpenAPIGeneratedModulesRequest modulesRequest = new OpenAPIGeneratedModulesRequest(projectPath);
-        JsonArray modules =
-                getResponse(modulesRequest, getServiceName() + "/getModules").getAsJsonArray("modules");
-        boolean moduleAssertFailure = !modules.equals(testConfig.modules());
-
         deleteFolder(project.toFile());
-        if (!nodeTemplate.equals(testConfig.output()) || assertFailure || moduleAssertFailure) {
-            TestConfig updatedConfig =
-                    new TestConfig(testConfig.contractFile(), testConfig.balToml(), testConfig.module(),
-                            testConfig.source(), testConfig.position(), testConfig.description(),
-                            testConfig.codedata(), nodeTemplate, newMap, modules);
+        if (textEditFailure || isNotExist) {
+            TestConfig updatedConfig = new TestConfig(testConfig.contractFile(), testConfig.balToml(),
+                    testConfig.module(), testConfig.source(), newMap, fileNames);
 //            updateConfig(configJsonPath, updatedConfig);
-            Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
+            Assert.fail(String.format("Failed test: (%s)", configJsonPath));
         }
     }
 
@@ -158,17 +148,17 @@ public class OpenApiClientGeneratorTest extends AbstractLSTest {
 
     @Override
     protected String getResourceDir() {
-        return "openapi_client_gen";
+        return "openapi_client_delete";
     }
 
     @Override
     protected Class<? extends AbstractLSTest> clazz() {
-        return OpenApiClientGeneratorTest.class;
+        return OpenApiClientDeleteTest.class;
     }
 
     @Override
     protected String getApiName() {
-        return "genClient";
+        return "deleteModule";
     }
 
     @Override
@@ -177,23 +167,18 @@ public class OpenApiClientGeneratorTest extends AbstractLSTest {
     }
 
     /**
-     * Represents the test configuration for the service generation.
+     * Represents the test configuration for open api client generation.
      *
      * @param contractFile OpenAPI contract file
      * @param balToml      Ballerina.toml content
      * @param module       Module name
      * @param source       Source file name
-     * @param position     Line position
-     * @param description  Test description
-     * @param codedata     Codedata of the node
-     * @param output       Expected output
      * @param textEdits    Text edits
-     * @param modules      Available modules
+     * @param files        Files to delete
      * @since 1.4.0
      */
     private record TestConfig(String contractFile, String balToml, String module, String source,
-                              LinePosition position, String description, JsonObject codedata, JsonElement output,
-                              Map<String, List<TextEdit>> textEdits, JsonArray modules) {
+                              Map<String, List<TextEdit>> textEdits, List<String> files) {
 
     }
 }
