@@ -17,7 +17,7 @@
     "metadata": {
       "label": "utcFromCivil",
       "description": "Converts a given `Civil` value to an `Utc` timestamp.\n```ballerina\ntime:Civil civil = time:utcToCivil(time:utcNow());\ntime:Utc utc = time:utcFromCivil(civil);\n```",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.5.0.png"
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.7.0.png"
     },
     "codedata": {
       "node": "FUNCTION_CALL",
@@ -48,7 +48,7 @@
         "typeMembers": [
           {
             "type": "Civil",
-            "packageInfo": "ballerina:time:2.5.0",
+            "packageInfo": "ballerina:time:2.7.0",
             "kind": "RECORD_TYPE",
             "selected": false
           }

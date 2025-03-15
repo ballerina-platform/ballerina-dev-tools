@@ -49,7 +49,8 @@ public class Constants {
 
         public static final String ENABLE_MODEL_CONTEXT = "enableModelContext";
         public static final String ENABLE_MODEL_CONTEXT_LABEL = "Enable Model Context";
-        public static final String ENABLE_MODEL_CONTEXT_DESCRIPTION = "Enable model context for the function";
+        public static final String ENABLE_MODEL_CONTEXT_DESCRIPTION =
+                "Allow specifying Large Language Model (LLM) choice";
 
         public static final String BALLERINAX_ORG = "ballerinax";
         public static final String NP_PACKAGE = "np";

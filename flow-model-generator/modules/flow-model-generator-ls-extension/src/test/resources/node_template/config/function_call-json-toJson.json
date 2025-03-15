@@ -10,21 +10,21 @@
     "org": "ballerina",
     "module": "data.jsondata",
     "symbol": "toJson",
-    "version": "0.2.0"
+    "version": "1.1.0"
   },
   "output": {
     "id": "31",
     "metadata": {
       "label": "toJson",
       "description": "Converts a value of type `anydata` to `json`.\n",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.jsondata_0.2.0.png"
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.jsondata_1.1.0.png"
     },
     "codedata": {
       "node": "FUNCTION_CALL",
       "org": "ballerina",
       "module": "data.jsondata",
       "symbol": "toJson",
-      "version": "0.2.0",
+      "version": "1.1.0",
       "isNew": true
     },
     "returning": false,
@@ -78,18 +78,6 @@
         "optional": false,
         "editable": true,
         "advanced": false,
-        "hidden": false
-      },
-      "checkError": {
-        "metadata": {
-          "label": "Check Error",
-          "description": "Trigger error flow"
-        },
-        "valueType": "FLAG",
-        "value": true,
-        "optional": false,
-        "editable": true,
-        "advanced": true,
         "hidden": false
       }
     },

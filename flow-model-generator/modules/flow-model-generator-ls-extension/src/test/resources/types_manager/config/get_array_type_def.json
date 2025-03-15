@@ -129,6 +129,7 @@
               "refs": [],
               "type": "int",
               "name": "id",
+              "optional": false,
               "docs": ""
             },
             {
@@ -136,6 +137,7 @@
               "refs": [],
               "type": "string",
               "name": "name",
+              "optional": false,
               "docs": ""
             },
             {
@@ -145,12 +147,14 @@
               ],
               "type": "Names",
               "name": "otherNames",
+              "optional": false,
               "docs": ""
             }
           ],
           "includes": []
         },
-        "name": "record {|int id; string name; Names otherNames;|}"
+        "name": "record {|int id; string name; Names otherNames;|}",
+        "optional": false
       }
     ]
   },
@@ -243,7 +247,8 @@
           "kind": "TYPE",
           "refs": [],
           "type": "string",
-          "name": "string"
+          "name": "string",
+          "optional": false
         }
       ]
     }

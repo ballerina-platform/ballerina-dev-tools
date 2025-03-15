@@ -1,0 +1,100 @@
+{
+  "description": "",
+  "source": "data_mapper/main.bal",
+  "typeConstraint": "record",
+  "completions": [
+    {
+      "label": "Input",
+      "labelDetails": {
+        "detail": "User-Defined",
+        "description": "Record"
+      },
+      "kind": "Struct",
+      "insertText": "Input"
+    },
+    {
+      "label": "Output",
+      "labelDetails": {
+        "detail": "User-Defined",
+        "description": "Record"
+      },
+      "kind": "Struct",
+      "insertText": "Output"
+    },
+    {
+      "label": "Location",
+      "labelDetails": {
+        "detail": "User-Defined",
+        "description": "Record"
+      },
+      "kind": "Struct",
+      "documentation": {
+        "left": "Represents a geographical location.\n"
+      },
+      "insertText": "Location"
+    },
+    {
+      "label": "Address",
+      "labelDetails": {
+        "detail": "User-Defined",
+        "description": "Record"
+      },
+      "kind": "Struct",
+      "insertText": "Address"
+    },
+    {
+      "label": "Employee",
+      "labelDetails": {
+        "detail": "User-Defined",
+        "description": "Record"
+      },
+      "kind": "Struct",
+      "insertText": "Employee"
+    },
+    {
+      "label": "Person",
+      "labelDetails": {
+        "detail": "User-Defined",
+        "description": "Record"
+      },
+      "kind": "Struct",
+      "insertText": "Person"
+    },
+    {
+      "label": "Admission",
+      "labelDetails": {
+        "detail": "User-Defined",
+        "description": "Record"
+      },
+      "kind": "Struct",
+      "insertText": "Admission"
+    },
+    {
+      "label": "record",
+      "labelDetails": {
+        "detail": "Structural Types",
+        "description": "Record"
+      },
+      "kind": "Struct",
+      "insertText": "record"
+    },
+    {
+      "label": "map<json>",
+      "labelDetails": {
+        "detail": "Structural Types",
+        "description": "Map"
+      },
+      "kind": "TypeParameter",
+      "insertText": "map<json>"
+    },
+    {
+      "label": "map<string>",
+      "labelDetails": {
+        "detail": "Structural Types",
+        "description": "Map"
+      },
+      "kind": "TypeParameter",
+      "insertText": "map<string>"
+    }
+  ]
+}

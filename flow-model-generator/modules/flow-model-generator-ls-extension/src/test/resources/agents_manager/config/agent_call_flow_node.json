@@ -17,7 +17,7 @@
         "metadata": {
           "label": "run",
           "description": "Executes the agent for a given user query.\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.7.15.png",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.7.16.png",
           "data": {
             "agent": {
               "instructions": "\"Help the students with their questions.\"",
@@ -53,7 +53,7 @@
           "module": "ai.agent",
           "object": "Agent",
           "symbol": "run",
-          "version": "0.7.15",
+          "version": "0.7.16",
           "lineRange": {
             "fileName": "agents.bal",
             "startLine": {
@@ -193,7 +193,7 @@
         "metadata": {
           "label": "Agent",
           "description": "Represents an agent.",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.7.15.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.7.16.png"
         },
         "codedata": {
           "node": "AGENT",
@@ -236,7 +236,7 @@
             "typeMembers": [
               {
                 "type": "Model",
-                "packageInfo": "ballerinax:ai.agent:0.7.15",
+                "packageInfo": "ballerinax:ai.agent:0.7.16",
                 "kind": "OBJECT_TYPE",
                 "selected": false
               }
@@ -262,7 +262,7 @@
             "typeMembers": [
               {
                 "type": "SystemPrompt",
-                "packageInfo": "ballerinax:ai.agent:0.7.15",
+                "packageInfo": "ballerinax:ai.agent:0.7.16",
                 "kind": "RECORD_TYPE",
                 "selected": false
               }
@@ -288,7 +288,7 @@
             "typeMembers": [
               {
                 "type": "AgentType",
-                "packageInfo": "ballerinax:ai.agent:0.7.15",
+                "packageInfo": "ballerinax:ai.agent:0.7.16",
                 "kind": "BASIC_TYPE",
                 "selected": false
               }
@@ -389,7 +389,7 @@
             "typeMembers": [
               {
                 "type": "MemoryManager",
-                "packageInfo": "ballerinax:ai.agent:0.7.15",
+                "packageInfo": "ballerinax:ai.agent:0.7.16",
                 "kind": "OBJECT_TYPE",
                 "selected": false
               }
@@ -1824,7 +1824,7 @@
         "metadata": {
           "label": "Class",
           "description": "AzureOpenAiModel is a client class that provides an interface for interacting with Azure-hosted OpenAI language models.",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.7.15.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.7.16.png"
         },
         "codedata": {
           "node": "CLASS_INIT",

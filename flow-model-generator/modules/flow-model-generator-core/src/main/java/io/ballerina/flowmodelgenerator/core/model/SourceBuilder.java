@@ -358,7 +358,14 @@ public class SourceBuilder {
      * @param ignoredProperties A set of property keys to be ignored during the processing.
      */
     public SourceBuilder functionParameters(FlowNode nodeTemplate, Set<String> ignoredProperties) {
+        return functionParameters(nodeTemplate, ignoredProperties, false);
+    }
+
+    public SourceBuilder functionParameters(FlowNode nodeTemplate, Set<String> ignoredProperties, boolean setFormat) {
         tokenBuilder.keyword(SyntaxKind.OPEN_PAREN_TOKEN);
+        if (setFormat) {
+            tokenBuilder.name(System.lineSeparator());
+        }
         Map<String, Property> properties = nodeTemplate.properties();
         Set<String> keys = new LinkedHashSet<>(properties != null ? properties.keySet() : Set.of());
         keys.removeAll(ignoredProperties);
@@ -668,6 +675,20 @@ public class SourceBuilder {
                     .append("-")
                     .append(WHITE_SPACE)
                     .append(description)
+                    .append(System.lineSeparator());
+            return this;
+        }
+
+        public TokenBuilder returnDoc(String returnDescription) {
+            sb.append(SyntaxKind.HASH_TOKEN.stringValue())
+                    .append(WHITE_SPACE)
+                    .append(SyntaxKind.PLUS_TOKEN.stringValue())
+                    .append(WHITE_SPACE)
+                    .append(SyntaxKind.RETURN_KEYWORD.stringValue())
+                    .append(WHITE_SPACE)
+                    .append("-")
+                    .append(WHITE_SPACE)
+                    .append(returnDescription)
                     .append(System.lineSeparator());
             return this;
         }

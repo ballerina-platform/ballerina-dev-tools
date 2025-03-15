@@ -2,11 +2,11 @@
   "filePath": "sample1/main.bal",
   "description": "Test the generation of service model for a service with a single listener",
   "start": {
-    "line": 10,
+    "line": 8,
     "offset": 0
   },
   "end": {
-    "line": 24,
+    "line": 22,
     "offset": 0
   },
   "response": {
@@ -19,7 +19,7 @@
     },
     "moduleName": "http",
     "orgName": "ballerina",
-    "version": "2.12.0",
+    "version": "2.14.0",
     "packageName": "http",
     "listenerProtocol": "http",
     "icon": "http://localhost:8080/icons/http.png",
@@ -77,7 +77,7 @@
         "typeMembers": [
           {
             "type": "HttpServiceConfig",
-            "packageInfo": "ballerina:http:2.12.2",
+            "packageInfo": "ballerina:http:2.14.0",
             "kind": "RECORD_TYPE",
             "selected": true
           }
@@ -110,11 +110,11 @@
       "lineRange": {
         "fileName": "main.bal",
         "startLine": {
-          "line": 7,
+          "line": 5,
           "offset": 0
         },
         "endLine": {
-          "line": 24,
+          "line": 22,
           "offset": 1
         }
       },
@@ -178,11 +178,11 @@
           "lineRange": {
             "fileName": "main.bal",
             "startLine": {
-              "line": 11,
+              "line": 9,
               "offset": 4
             },
             "endLine": {
-              "line": 16,
+              "line": 14,
               "offset": 5
             }
           },
@@ -228,7 +228,7 @@
             "description": "The resource path"
           },
           "enabled": true,
-          "editable": false,
+          "editable": true,
           "value": "greeting/[string name]",
           "valueType": "IDENTIFIER",
           "valueTypeConstraint": "string",
@@ -448,7 +448,7 @@
               "enabled": true,
               "editable": true,
               "value": "id",
-              "valueType": "EXPRESSION",
+              "valueType": "IDENTIFIER",
               "isType": false,
               "optional": false,
               "advanced": false,
@@ -469,7 +469,7 @@
               "addNewButton": false
             },
             "enabled": true,
-            "editable": false,
+            "editable": true,
             "optional": false,
             "advanced": false,
             "httpParamType": "QUERY"
@@ -919,11 +919,11 @@
           "lineRange": {
             "fileName": "main.bal",
             "startLine": {
-              "line": 18,
+              "line": 16,
               "offset": 4
             },
             "endLine": {
-              "line": 23,
+              "line": 21,
               "offset": 5
             }
           },

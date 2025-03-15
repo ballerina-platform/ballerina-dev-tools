@@ -12,14 +12,14 @@
       "description": "Represents a Kafka consumer endpoint.\n",
       "displayAnnotation": {
         "label": "Kafka",
-        "iconPath": "https://bcentral-packageicons.azureedge.net/images/ballerinax_kafka_4.2.0.png"
+        "iconPath": "https://bcentral-packageicons.azureedge.net/images/ballerinax_kafka_4.5.0.png"
       },
       "moduleName": "kafka",
       "orgName": "ballerinax",
-      "version": "4.2.0",
+      "version": "4.5.0",
       "packageName": "kafka",
       "listenerProtocol": "kafka",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_kafka_4.2.0.png",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_kafka_4.5.0.png",
       "properties": {
         "name": {
           "metadata": {
@@ -172,7 +172,7 @@
           "typeMembers": [
             {
               "type": "OffsetResetMethod",
-              "packageInfo": "ballerinax:kafka:4.2.0",
+              "packageInfo": "ballerinax:kafka:4.5.0",
               "kind": "BASIC_TYPE",
               "selected": false
             }
@@ -358,7 +358,7 @@
           "typeMembers": [
             {
               "type": "IsolationLevel",
-              "packageInfo": "ballerinax:kafka:4.2.0",
+              "packageInfo": "ballerinax:kafka:4.5.0",
               "kind": "BASIC_TYPE",
               "selected": false
             }
@@ -390,6 +390,99 @@
             {
               "type": "string",
               "packageInfo": "",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "schemaRegistryConfig": {
+          "metadata": {
+            "label": "schemaRegistryConfig",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "map<anydata> & readonly",
+          "isType": false,
+          "placeholder": "{}",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "schemaRegistryConfig"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "map<anydata> & readonly",
+              "packageInfo": "",
+              "kind": "MAP_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "keyDeserializerType": {
+          "metadata": {
+            "label": "keyDeserializerType",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "kafka:DeserializerType",
+          "isType": false,
+          "placeholder": "kafka:DES_BYTE_ARRAY",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "keyDeserializerType"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "DeserializerType",
+              "packageInfo": "ballerinax:kafka:4.5.0",
+              "kind": "BASIC_TYPE",
+              "selected": false
+            }
+          ]
+        },
+        "valueDeserializerType": {
+          "metadata": {
+            "label": "valueDeserializerType",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "kafka:DeserializerType",
+          "isType": false,
+          "placeholder": "kafka:DES_BYTE_ARRAY",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER_INIT_PARAM",
+            "originalName": "valueDeserializerType"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "DeserializerType",
+              "packageInfo": "ballerinax:kafka:4.5.0",
               "kind": "BASIC_TYPE",
               "selected": false
             }
@@ -1350,7 +1443,7 @@
           "typeMembers": [
             {
               "type": "SecureSocket",
-              "packageInfo": "ballerinax:kafka:4.2.0",
+              "packageInfo": "ballerinax:kafka:4.5.0",
               "kind": "RECORD_TYPE",
               "selected": false
             }
@@ -1381,7 +1474,7 @@
           "typeMembers": [
             {
               "type": "AuthenticationConfiguration",
-              "packageInfo": "ballerinax:kafka:4.2.0",
+              "packageInfo": "ballerinax:kafka:4.5.0",
               "kind": "RECORD_TYPE",
               "selected": false
             }
@@ -1412,7 +1505,7 @@
           "typeMembers": [
             {
               "type": "SecurityProtocol",
-              "packageInfo": "ballerinax:kafka:4.2.0",
+              "packageInfo": "ballerinax:kafka:4.5.0",
               "kind": "BASIC_TYPE",
               "selected": false
             }

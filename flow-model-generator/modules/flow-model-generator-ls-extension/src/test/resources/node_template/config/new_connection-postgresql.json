@@ -19,7 +19,7 @@
     "metadata": {
       "label": "New Connection",
       "description": "Represents a PostgreSQL database client.",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_postgresql_1.13.1.png"
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_postgresql_1.15.0.png"
     },
     "codedata": {
       "node": "NEW_CONNECTION",
@@ -27,7 +27,7 @@
       "module": "postgresql",
       "object": "Client",
       "symbol": "init",
-      "version": "1.13.1",
+      "version": "1.15.0",
       "isNew": true
     },
     "returning": false,
@@ -199,7 +199,7 @@
           },
           {
             "type": "Options",
-            "packageInfo": "ballerinax:postgresql:1.13.1",
+            "packageInfo": "ballerinax:postgresql:1.15.0",
             "kind": "RECORD_TYPE",
             "selected": false
           }
@@ -231,7 +231,7 @@
           },
           {
             "type": "ConnectionPool",
-            "packageInfo": "ballerina:sql:1.14.0",
+            "packageInfo": "ballerina:sql:1.16.0",
             "kind": "RECORD_TYPE",
             "selected": false
           }

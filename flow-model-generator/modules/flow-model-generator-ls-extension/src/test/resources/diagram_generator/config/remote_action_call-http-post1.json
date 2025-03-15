@@ -83,9 +83,9 @@
               "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
             },
             "valueType": "TYPE",
-            "valueTypeConstraint": "http:Response|anydata|stream<http:SseEvent, error?>",
+            "valueTypeConstraint": "anydata",
             "value": "json|error",
-            "placeholder": "http:Response|anydata|stream<http:SseEvent, error?>",
+            "placeholder": "anydata",
             "optional": false,
             "editable": true,
             "advanced": false,
@@ -141,7 +141,7 @@
             "typeMembers": [
               {
                 "type": "RequestMessage",
-                "packageInfo": "ballerina:http:2.12.2",
+                "packageInfo": "ballerina:http:2.14.0",
                 "kind": "OTHER",
                 "selected": false
               }
@@ -340,9 +340,9 @@
               "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
             },
             "valueType": "TYPE",
-            "valueTypeConstraint": "http:Response|anydata|stream<http:SseEvent, error?>",
+            "valueTypeConstraint": "anydata",
             "value": "json|http:ClientError",
-            "placeholder": "http:Response|anydata|stream<http:SseEvent, error?>",
+            "placeholder": "anydata",
             "optional": false,
             "editable": true,
             "advanced": false,
@@ -372,7 +372,7 @@
             "typeMembers": [
               {
                 "type": "RequestMessage",
-                "packageInfo": "ballerina:http:2.12.2",
+                "packageInfo": "ballerina:http:2.14.0",
                 "kind": "OTHER",
                 "selected": false
               }

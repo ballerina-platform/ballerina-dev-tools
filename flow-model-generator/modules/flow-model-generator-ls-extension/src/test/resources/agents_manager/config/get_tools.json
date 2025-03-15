@@ -3,7 +3,6 @@
   "description": "Sample diagram node",
   "functions": [
     "fn",
-    "fn1",
     "fn2"
   ]
 }

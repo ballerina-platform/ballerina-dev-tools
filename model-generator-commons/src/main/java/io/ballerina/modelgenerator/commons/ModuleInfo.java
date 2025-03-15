@@ -20,6 +20,7 @@ package io.ballerina.modelgenerator.commons;
 
 import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.projects.ModuleDescriptor;
+import io.ballerina.projects.PackageDescriptor;
 
 /**
  * Represents information about a module.
@@ -38,6 +39,12 @@ public record ModuleInfo(String org, String packageName, String moduleName, Stri
     public static ModuleInfo from(ModuleDescriptor moduleDescriptor) {
         return new ModuleInfo(moduleDescriptor.org().value(), moduleDescriptor.packageName().value(),
                 moduleDescriptor.name().toString(), moduleDescriptor.version().value().toString());
+    }
+
+    public static ModuleInfo from(PackageDescriptor packageDescriptor) {
+        String packageName = packageDescriptor.name().value();
+        return new ModuleInfo(packageDescriptor.org().value(), packageName, packageName,
+                packageDescriptor.version().value().toString());
     }
 
     public boolean isComplete() {

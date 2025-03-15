@@ -69,7 +69,15 @@
       "kind": "Struct",
       "insertText": "Admission"
     },
-    null,
+    {
+      "label": "record",
+      "labelDetails": {
+        "detail": "Structural Types",
+        "description": "Record"
+      },
+      "kind": "Struct",
+      "insertText": "record"
+    },
     {
       "label": "map<json>",
       "labelDetails": {

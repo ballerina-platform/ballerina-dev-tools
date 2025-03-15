@@ -32,3 +32,10 @@ http:Client httpClientResult = check new ("http://localhost:9091");
 
 final Address[] addresses = [];
 final Address var1 = {country: "", city: "", houseNo: "", line2: "", line1: ""};
+
+function customFn(Address address, Person Person) returns Location {
+    return {
+        country: "",
+        city: ""
+    };
+};

@@ -31,7 +31,8 @@
                 "symbol": "send",
                 "version": "1.14.0",
                 "parentSymbol": "moduleClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -49,7 +50,8 @@
                 "symbol": "complete",
                 "version": "1.14.0",
                 "parentSymbol": "moduleClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -67,7 +69,8 @@
                 "symbol": "sendError",
                 "version": "1.14.0",
                 "parentSymbol": "moduleClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -85,20 +88,14 @@
                 "symbol": "receive",
                 "version": "1.14.0",
                 "parentSymbol": "moduleClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             }
           ]
         }
       ]
-    },
-    {
-      "metadata": {
-        "label": "Agents",
-        "description": "The agents used in the flow"
-      },
-      "items": []
     },
     {
       "metadata": {
@@ -152,6 +149,21 @@
           },
           "codedata": {
             "node": "NP_FUNCTION"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Agent",
+            "description": "Create new agent"
+          },
+          "codedata": {
+            "node": "AGENT_CALL",
+            "org": "ballerinax",
+            "module": "ai.agent",
+            "object": "Agent",
+            "symbol": "run",
+            "version": "0.7.16"
           },
           "enabled": true
         }

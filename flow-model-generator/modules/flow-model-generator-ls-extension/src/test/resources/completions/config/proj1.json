@@ -71,7 +71,7 @@
       "label": "error",
       "kind": "Event",
       "detail": "Error",
-      "sortText": "P",
+      "sortText": "AL",
       "insertText": "error",
       "insertTextFormat": "Snippet"
     },
@@ -473,6 +473,20 @@
       }
     },
     {
+      "label": "firstVal",
+      "kind": "Variable",
+      "detail": "\"first\"",
+      "documentation": {
+        "right": {
+          "kind": "markdown",
+          "value": ""
+        }
+      },
+      "sortText": "AB",
+      "insertText": "firstVal",
+      "insertTextFormat": "Snippet"
+    },
+    {
       "label": "greet(string name)",
       "kind": "Function",
       "detail": "string",
@@ -535,7 +549,7 @@
           "value": "**Package:** _nipunaf/proj:0.1.0_  \n  \nPerforms a safe division operation.\n\nThis function divides the given numerator by the denominator and returns the result.\nIf the denominator is zero, it returns an error indicating a division by zero.\n  \n**Params**  \n- `float` a: The numerator of type `float`.  \n- `float` b: The denominator of type `float`.\n\n# Returns\n- `float` - The result of the division if the denominator is not zero.\n- `error` - An error indicating division by zero if the denominator is zero.\n  \n  \n**Return** `float|error`   \n- The result of the division or an error.  \n  \n"
         }
       },
-      "sortText": "G",
+      "sortText": "AC",
       "filterText": "safeDivide",
       "insertText": "safeDivide(${1})",
       "insertTextFormat": "Snippet",
@@ -543,6 +557,14 @@
         "title": "editor.action.triggerParameterHints",
         "command": "editor.action.triggerParameterHints"
       }
+    },
+    {
+      "label": "secondVal",
+      "kind": "Variable",
+      "detail": "string",
+      "sortText": "AB",
+      "insertText": "secondVal",
+      "insertTextFormat": "Snippet"
     },
     {
       "label": "sum(int... numbers)",

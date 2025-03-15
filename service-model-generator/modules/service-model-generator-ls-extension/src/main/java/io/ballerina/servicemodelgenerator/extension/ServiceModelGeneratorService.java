@@ -539,18 +539,18 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
     public CompletableFuture<ServiceFromSourceResponse> getServiceFromSource(CommonModelFromSourceRequest request) {
         return CompletableFuture.supplyAsync(() -> {
             Path filePath = Path.of(request.filePath());
+            Optional<SemanticModel> semanticModel;
+            Optional<Document> document;
             Project project;
             try {
                 project = this.workspaceManager.loadProject(filePath);
+                semanticModel = this.workspaceManager.semanticModel(filePath);
+                document = this.workspaceManager.document(filePath);
             } catch (Exception e) {
                 return new ServiceFromSourceResponse(e);
             }
-            Package currentPackage = project.currentPackage();
-            Module module = currentPackage.module(ModuleName.from(currentPackage.packageName()));
-            ModuleId moduleId = module.moduleId();
-            SemanticModel semanticModel = currentPackage.getCompilation().getSemanticModel(moduleId);
-            Optional<Document> document = this.workspaceManager.document(filePath);
-            if (document.isEmpty() || Objects.isNull(semanticModel)) {
+
+            if (Objects.isNull(project) || document.isEmpty() || semanticModel.isEmpty()) {
                 return new ServiceFromSourceResponse();
             }
             SyntaxTree syntaxTree = document.get().syntaxTree();
@@ -564,7 +564,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 return new ServiceFromSourceResponse();
             }
             ServiceDeclarationNode serviceNode = (ServiceDeclarationNode) node;
-            ModuleAndServiceType moduleAndServiceType = deriveServiceType(serviceNode, semanticModel);
+            ModuleAndServiceType moduleAndServiceType = deriveServiceType(serviceNode, semanticModel.get());
             if (Objects.isNull(moduleAndServiceType.moduleName())) {
                 return new ServiceFromSourceResponse();
             }
@@ -577,13 +577,14 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 Service serviceModel = service.get();
                 serviceModel.setFunctions(new ArrayList<>());
                 Optional<TypeDescriptorNode> serviceTypeDesc = serviceNode.typeDescriptor();
-                if (serviceTypeDesc.isPresent() && isHttpServiceContractType(semanticModel, serviceTypeDesc.get())) {
+                if (serviceTypeDesc.isPresent() && isHttpServiceContractType(semanticModel.get(),
+                        serviceTypeDesc.get())) {
                     String serviceContractName = serviceTypeDesc.get().toString().trim();
                     Path contractPath = project.sourceRoot().toAbsolutePath()
                             .resolve(String.format("service_contract_%s.bal", serviceContractName));
                     Optional<Document> contractDoc = this.workspaceManager.document(contractPath);
                     if (contractDoc.isEmpty()) {
-                        updateServiceModel(serviceModel, serviceNode, semanticModel);
+                        updateServiceModel(serviceModel, serviceNode, semanticModel.get());
                     } else {
                         SyntaxTree contractSyntaxTree = contractDoc.get().syntaxTree();
                         ModulePartNode contractModulePartNode = contractSyntaxTree.rootNode();
@@ -593,16 +594,16 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                                 .filter(member -> member.typeDescriptor().kind().equals(SyntaxKind.OBJECT_TYPE_DESC))
                                 .findFirst();
                         if (serviceContractType.isEmpty()) {
-                            updateServiceModel(serviceModel, serviceNode, semanticModel);
+                            updateServiceModel(serviceModel, serviceNode, semanticModel.get());
                         } else {
                             updateServiceContractModel(serviceModel, serviceContractType.get(), serviceNode,
-                                    semanticModel);
+                                    semanticModel.get());
                         }
                     }
                 } else {
-                    updateServiceModel(serviceModel, serviceNode, semanticModel);
+                    updateServiceModel(serviceModel, serviceNode, semanticModel.get());
                 }
-                updateListenerItems(moduleName, semanticModel, project, serviceModel);
+                updateListenerItems(moduleName, semanticModel.get(), project, serviceModel);
                 return new ServiceFromSourceResponse(serviceModel);
             }
             String serviceType = serviceTypeWithoutPrefix(moduleAndServiceType);
@@ -611,8 +612,8 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 return new ServiceFromSourceResponse();
             }
             Service serviceModel = service.get();
-            updateGenericServiceModel(serviceModel, serviceNode, semanticModel);
-            updateListenerItems(moduleName, semanticModel, project, serviceModel);
+            updateGenericServiceModel(serviceModel, serviceNode, semanticModel.get());
+            updateListenerItems(moduleName, semanticModel.get(), project, serviceModel);
             return new ServiceFromSourceResponse(serviceModel);
         });
     }

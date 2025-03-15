@@ -152,7 +152,7 @@ public class ExpressionEditorContext {
      * @return the line range of the generated statement.
      */
     public LineRange generateStatement() {
-        String prefix = "var __reserved__ = ";
+        String prefix = "any|error __reserved__ = ";
         List<TextEdit> textEdits = new ArrayList<>();
         int lineOffset = 0;
 
@@ -321,12 +321,12 @@ public class ExpressionEditorContext {
             }
             if (property == null) {
                 value = "";
-                typeConstraint = "any";
+                typeConstraint = null;
             } else {
                 value = property.has(VALUE_KEY) ? property.get(VALUE_KEY).getAsString() : "";
                 valueType = property.has(VALUE_TYPE_KEY) ? property.get(VALUE_TYPE_KEY).getAsString() : "";
                 typeConstraint =
-                        property.has(TYPE_CONSTRAINT_KEY) ? property.get(TYPE_CONSTRAINT_KEY).getAsString() : "any";
+                        property.has(TYPE_CONSTRAINT_KEY) ? property.get(TYPE_CONSTRAINT_KEY).getAsString() : null;
                 JsonObject propertyCodedata =
                         property.has(CODEDATA_KEY) ? property.getAsJsonObject(CODEDATA_KEY) : null;
                 if (propertyCodedata != null) {

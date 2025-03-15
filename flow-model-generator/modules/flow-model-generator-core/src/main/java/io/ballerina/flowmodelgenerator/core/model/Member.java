@@ -29,6 +29,7 @@ import java.util.List;
  * @param type          Display name for the type.
  * @param name          Name of the member.
  * @param defaultValue  Default value of the member.
+ * @param optional      Whether the member is optional.
  * @param docs          Documentation of the member
  * @param annotations   Annotations of the member.
  * @since 2.0.0
@@ -39,6 +40,7 @@ public record Member(
         Object type,
         String name,
         String defaultValue,
+        boolean optional,
         String docs,
         List<TypeData.Annotation> annotations
 ) {
@@ -48,6 +50,7 @@ public record Member(
         private Object type;
         private String name;
         private String defaultValue;
+        private boolean optional = false;
         private String docs;
         private List<TypeData.Annotation> annotations;
 
@@ -79,6 +82,11 @@ public record Member(
             return this;
         }
 
+        public MemberBuilder optional(boolean optional) {
+            this.optional = optional;
+            return this;
+        }
+
         public MemberBuilder docs(String docs) {
             this.docs = docs;
             return this;
@@ -90,13 +98,14 @@ public record Member(
         }
 
         public Member build() {
-            Member member = new Member(kind, List.copyOf(refs), type, name, defaultValue,
+            Member member = new Member(kind, List.copyOf(refs), type, name, defaultValue, optional,
                     docs, annotations != null ? List.copyOf(annotations) : null);
             this.kind = null;
             this.refs = null;
             this.type = null;
             this.name = null;
             this.defaultValue = null;
+            this.optional = false;
             this.docs = null;
             this.annotations = null;
             return member;

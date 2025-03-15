@@ -427,6 +427,20 @@
       }
     },
     {
+      "label": "firstVal",
+      "kind": "Variable",
+      "detail": "\"first\"",
+      "documentation": {
+        "right": {
+          "kind": "markdown",
+          "value": ""
+        }
+      },
+      "sortText": "BB",
+      "insertText": "firstVal",
+      "insertTextFormat": "Snippet"
+    },
+    {
       "label": "greet(string name)",
       "kind": "Function",
       "detail": "string",
@@ -505,6 +519,14 @@
         "title": "editor.action.triggerParameterHints",
         "command": "editor.action.triggerParameterHints"
       }
+    },
+    {
+      "label": "secondVal",
+      "kind": "Variable",
+      "detail": "string",
+      "sortText": "AABB",
+      "insertText": "secondVal",
+      "insertTextFormat": "Snippet"
     },
     {
       "label": "sum(int... numbers)",

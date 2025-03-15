@@ -20,11 +20,9 @@ package io.ballerina.flowmodelgenerator.core;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
-import io.ballerina.compiler.api.symbols.ModuleSymbol;
 import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
@@ -41,12 +39,16 @@ import io.ballerina.flowmodelgenerator.core.model.Item;
 import io.ballerina.flowmodelgenerator.core.model.Metadata;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
+import io.ballerina.flowmodelgenerator.core.model.node.AgentBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.NPFunctionCall;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.FunctionData;
 import io.ballerina.modelgenerator.commons.FunctionDataBuilder;
 import io.ballerina.modelgenerator.commons.ModuleInfo;
 import io.ballerina.projects.Document;
+import io.ballerina.projects.Module;
+import io.ballerina.projects.ModuleName;
+import io.ballerina.projects.Package;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.TextRange;
 
@@ -65,42 +67,36 @@ public class AvailableNodesGenerator {
     private final Category.Builder rootBuilder;
     private final SemanticModel semanticModel;
     private final Document document;
+    private final Package pkg;
     private final Gson gson;
     private static final String BALLERINA_ORG = "ballerina";
     private static final String HTTP_MODULE = "http";
     private static final List<String> HTTP_REMOTE_METHOD_SKIP_LIST = List.of("get", "put", "post", "head",
             "delete", "patch", "options");
     private static final String BALLERINAX = "ballerinax";
-    private static final String AI_AGENT = "ai.agent";
+    public static final String AI_AGENT = "ai.agent";
+    public static final String AI_AGENT_VERSION = "0.7.16";
 
-    public AvailableNodesGenerator(SemanticModel semanticModel, Document document) {
+    public AvailableNodesGenerator(SemanticModel semanticModel, Document document, Package pkg) {
         this.rootBuilder = new Category.Builder(null).name(Category.Name.ROOT);
         this.gson = new Gson();
         this.semanticModel = semanticModel;
         this.document = document;
+        this.pkg = pkg;
     }
 
     public JsonArray getAvailableNodes(LinePosition position) {
         List<Category> connections = new ArrayList<>();
-        List<Category> agents = new ArrayList<>();
         List<Symbol> symbols = semanticModel.visibleSymbols(document, position);
         for (Symbol symbol : symbols) {
-            Optional<ConnectionCategory> optConnectionCategory = getConnection(symbol);
-            if (optConnectionCategory.isEmpty()) {
+            Optional<Category> connection = getConnection(symbol);
+            if (connection.isEmpty()) {
                 continue;
             }
-            ConnectionCategory connectionCategory = optConnectionCategory.get();
-            if (connectionCategory.isAgent()) {
-                agents.add(connectionCategory.category());
-            } else {
-                connections.add(connectionCategory.category());
-            }
+            connections.add(connection.get());
         }
         connections.sort(Comparator.comparing(connection -> connection.metadata().label()));
-        agents.sort(Comparator.comparing(agent -> agent.metadata().label()));
-
         this.rootBuilder.stepIn(Category.Name.CONNECTIONS).items(new ArrayList<>(connections)).stepOut();
-        this.rootBuilder.stepIn(Category.Name.AGENTS).items(new ArrayList<>(agents)).stepOut();
 
         List<Item> items = new ArrayList<>();
         items.addAll(getAvailableFlowNodes(position));
@@ -170,12 +166,29 @@ public class AvailableNodesGenerator {
                 true
         );
 
+        AvailableNode agentCall = new AvailableNode(
+                new Metadata.Builder<>(null)
+                        .label(AgentBuilder.LABEL)
+                        .description(AgentBuilder.DESCRIPTION)
+                        .build(),
+                new Codedata.Builder<>(null)
+                        .node(NodeKind.AGENT_CALL)
+                        .org(BALLERINAX)
+                        .module(AI_AGENT)
+                        .version(AI_AGENT_VERSION)
+                        .symbol("run")
+                        .object("Agent")
+                        .build(),
+                true
+        );
+
         this.rootBuilder.stepIn(Category.Name.STATEMENT)
                 .node(NodeKind.VARIABLE)
                 .node(NodeKind.ASSIGN)
                 .node(function)
                 .node(NodeKind.DATA_MAPPER_CALL)
-                .node(npFunction);
+                .node(npFunction)
+                .node(agentCall);
 
         this.rootBuilder.stepIn(Category.Name.CONTROL)
                 .node(NodeKind.IF)
@@ -229,7 +242,7 @@ public class AvailableNodesGenerator {
         return typeSymbol.isEmpty() || typeSymbol.get().subtypeOf(semanticModel.types().NIL);
     }
 
-    private Optional<ConnectionCategory> getConnection(Symbol symbol) {
+    private Optional<Category> getConnection(Symbol symbol) {
         try {
             TypeReferenceTypeSymbol typeDescriptorSymbol =
                     (TypeReferenceTypeSymbol) ((VariableSymbol) symbol).typeDescriptor();
@@ -243,14 +256,29 @@ public class AvailableNodesGenerator {
                     .map(moduleSymbol -> ModuleInfo.from(moduleSymbol.id()))
                     .orElse(null);
 
-            // Obtain methods of the connector
-            List<FunctionData> methodFunctionsData = new FunctionDataBuilder()
+            SemanticModel localSemanticModel = null;
+            if (moduleInfo != null) {
+                for (Module module : pkg.modules()) {
+                    ModuleName modName = module.moduleName();
+                    if (moduleInfo.moduleName()
+                            .equals(modName.packageName().value() + "." + modName.moduleNamePart())) {
+                        localSemanticModel = pkg.getCompilation().getSemanticModel(module.moduleId());
+                    }
+                }
+            }
+
+            FunctionDataBuilder functionDataBuilder = new FunctionDataBuilder()
                     .parentSymbol(classSymbol)
                     .parentSymbolType(className)
-                    .moduleInfo(moduleInfo)
-                    .buildChildNodes();
+                    .moduleInfo(moduleInfo);
+            if (localSemanticModel != null) {
+                functionDataBuilder.semanticModel(localSemanticModel);
+            }
 
-            boolean isAgentCall = isAgentCall(classSymbol);
+            // Obtain methods of the connector
+            List<FunctionData> methodFunctionsData = functionDataBuilder.buildChildNodes();
+
+            boolean isLocal = localSemanticModel != null;
             List<Item> methods = new ArrayList<>();
             for (FunctionData methodFunction : methodFunctionsData) {
                 String org = methodFunction.org();
@@ -271,11 +299,7 @@ public class AvailableNodesGenerator {
                     label = methodFunction.name();
                     FunctionData.Kind kind = methodFunction.kind();
                     if (kind == FunctionData.Kind.REMOTE) {
-                        if (isAgentCall) {
-                            nodeBuilder = NodeBuilder.getNodeFromKind(NodeKind.AGENT_CALL);
-                        } else {
-                            nodeBuilder = NodeBuilder.getNodeFromKind(NodeKind.REMOTE_ACTION_CALL);
-                        }
+                        nodeBuilder = NodeBuilder.getNodeFromKind(NodeKind.REMOTE_ACTION_CALL);
                     } else if (kind == FunctionData.Kind.FUNCTION) {
                         nodeBuilder = NodeBuilder.getNodeFromKind(NodeKind.METHOD_CALL);
                     } else {
@@ -297,6 +321,7 @@ public class AvailableNodesGenerator {
                             .version(version)
                             .parentSymbol(parentSymbolName)
                             .resourcePath(methodFunction.resourcePath())
+                            .isGenerated(isLocal)
                             .stepOut()
                         .buildAvailableNode();
                 methods.add(node);
@@ -305,27 +330,9 @@ public class AvailableNodesGenerator {
             Metadata metadata = new Metadata.Builder<>(null)
                     .label(parentSymbolName)
                     .build();
-            return Optional.of(new ConnectionCategory(new Category(metadata, methods), isAgentCall));
+            return Optional.of(new Category(metadata, methods));
         } catch (RuntimeException ignored) {
             return Optional.empty();
         }
-    }
-
-    private boolean isAgentCall(Symbol symbol) {
-        Optional<ModuleSymbol> optModule = symbol.getModule();
-        if (optModule.isEmpty()) {
-            return false;
-        }
-        ModuleID id = optModule.get().id();
-        boolean isAIModule = id.orgName().equals(BALLERINAX) && id.packageName().equals(AI_AGENT);
-        if (!isAIModule) {
-            return false;
-        }
-
-        return symbol.getName().isPresent() && symbol.getName().get().equals("Agent");
-    }
-
-    private record ConnectionCategory(Category category, boolean isAgent) {
-
     }
 }

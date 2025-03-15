@@ -56,11 +56,33 @@
       "insertTextFormat": "Snippet"
     },
     {
+      "label": "firstVal",
+      "kind": "Variable",
+      "detail": "\"first\"",
+      "documentation": {
+        "right": {
+          "kind": "markdown",
+          "value": ""
+        }
+      },
+      "sortText": "F",
+      "insertText": "firstVal",
+      "insertTextFormat": "Snippet"
+    },
+    {
       "label": "person",
       "kind": "Variable",
       "detail": "Person",
       "sortText": "F",
       "insertText": "person",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "secondVal",
+      "kind": "Variable",
+      "detail": "string",
+      "sortText": "F",
+      "insertText": "secondVal",
       "insertTextFormat": "Snippet"
     }
   ]

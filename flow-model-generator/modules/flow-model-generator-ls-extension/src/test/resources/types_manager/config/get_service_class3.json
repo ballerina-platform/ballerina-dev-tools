@@ -196,7 +196,8 @@
               "UserName"
             ],
             "type": "UserName",
-            "name": "userName"
+            "name": "userName",
+            "optional": false
           }
         ],
         "kind": "REMOTE",
@@ -337,6 +338,7 @@
           "refs": [],
           "type": "string",
           "name": "value",
+          "optional": false,
           "docs": ""
         }
       ],
@@ -431,6 +433,7 @@
           "refs": [],
           "type": "string",
           "name": "number",
+          "optional": false,
           "docs": ""
         },
         {
@@ -438,6 +441,7 @@
           "refs": [],
           "type": "string",
           "name": "street",
+          "optional": false,
           "docs": ""
         },
         {
@@ -445,6 +449,7 @@
           "refs": [],
           "type": "string",
           "name": "city",
+          "optional": false,
           "docs": ""
         }
       ],
@@ -594,6 +599,7 @@
           "refs": [],
           "type": "string",
           "name": "name",
+          "optional": false,
           "docs": ""
         },
         {
@@ -601,6 +607,7 @@
           "refs": [],
           "type": "int",
           "name": "age",
+          "optional": false,
           "docs": ""
         }
       ],
@@ -850,6 +857,7 @@
           "refs": [],
           "type": "string",
           "name": "name",
+          "optional": false,
           "docs": ""
         },
         {
@@ -857,6 +865,7 @@
           "refs": [],
           "type": "int",
           "name": "age",
+          "optional": false,
           "docs": ""
         },
         {
@@ -866,6 +875,7 @@
           ],
           "type": "Address",
           "name": "address",
+          "optional": false,
           "docs": ""
         }
       ],

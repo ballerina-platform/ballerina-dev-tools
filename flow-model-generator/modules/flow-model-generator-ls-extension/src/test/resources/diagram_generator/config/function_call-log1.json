@@ -127,7 +127,7 @@
                       "description": "The message to be logged"
                     },
                     "valueType": "EXPRESSION",
-                    "valueTypeConstraint": "string",
+                    "valueTypeConstraint": "string|log:PrintableRawTemplate",
                     "value": "\"Count is greater than 20\"",
                     "placeholder": "\"\"",
                     "optional": false,
@@ -139,6 +139,12 @@
                       "originalName": "msg"
                     },
                     "typeMembers": [
+                      {
+                        "type": "PrintableRawTemplate",
+                        "packageInfo": "ballerina:log:2.12.0",
+                        "kind": "OBJECT_TYPE",
+                        "selected": false
+                      },
                       {
                         "type": "string",
                         "packageInfo": "",
@@ -270,7 +276,7 @@
               "description": "The message to be logged"
             },
             "valueType": "EXPRESSION",
-            "valueTypeConstraint": "string",
+            "valueTypeConstraint": "string|log:PrintableRawTemplate",
             "value": "\"Getting apples\"",
             "placeholder": "\"\"",
             "optional": false,
@@ -282,6 +288,12 @@
               "originalName": "msg"
             },
             "typeMembers": [
+              {
+                "type": "PrintableRawTemplate",
+                "packageInfo": "ballerina:log:2.12.0",
+                "kind": "OBJECT_TYPE",
+                "selected": false
+              },
               {
                 "type": "string",
                 "packageInfo": "",
@@ -429,9 +441,9 @@
               "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
             },
             "valueType": "TYPE",
-            "valueTypeConstraint": "http:Response|anydata|stream<http:SseEvent, error?>",
+            "valueTypeConstraint": "anydata",
             "value": "json|error",
-            "placeholder": "http:Response|anydata|stream<http:SseEvent, error?>",
+            "placeholder": "anydata",
             "optional": false,
             "editable": true,
             "advanced": false,
@@ -632,7 +644,7 @@
                       "description": "The message to be logged"
                     },
                     "valueType": "EXPRESSION",
-                    "valueTypeConstraint": "string",
+                    "valueTypeConstraint": "string|log:PrintableRawTemplate",
                     "value": "\"Failed to get the response\"",
                     "placeholder": "\"\"",
                     "optional": false,
@@ -644,6 +656,12 @@
                       "originalName": "msg"
                     },
                     "typeMembers": [
+                      {
+                        "type": "PrintableRawTemplate",
+                        "packageInfo": "ballerina:log:2.12.0",
+                        "kind": "OBJECT_TYPE",
+                        "selected": false
+                      },
                       {
                         "type": "string",
                         "packageInfo": "",
@@ -792,7 +810,7 @@
                       "description": "The message to be logged"
                     },
                     "valueType": "EXPRESSION",
-                    "valueTypeConstraint": "string",
+                    "valueTypeConstraint": "string|log:PrintableRawTemplate",
                     "value": "\"Response: \"",
                     "placeholder": "\"\"",
                     "optional": false,
@@ -804,6 +822,12 @@
                       "originalName": "msg"
                     },
                     "typeMembers": [
+                      {
+                        "type": "PrintableRawTemplate",
+                        "packageInfo": "ballerina:log:2.12.0",
+                        "kind": "OBJECT_TYPE",
+                        "selected": false
+                      },
                       {
                         "type": "string",
                         "packageInfo": "",
