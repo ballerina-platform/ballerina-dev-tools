@@ -129,7 +129,7 @@ public class OpenApiClientGeneratorTest extends AbstractLSTest {
                     new TestConfig(testConfig.contractFile(), testConfig.balToml(), testConfig.module(),
                             testConfig.source(), testConfig.position(), testConfig.description(),
                             testConfig.codedata(), nodeTemplate, newMap, modules);
-            updateConfig(configJsonPath, updatedConfig);
+//            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
     }

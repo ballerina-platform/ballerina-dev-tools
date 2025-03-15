@@ -66,6 +66,7 @@ import static io.ballerina.openapi.core.generators.common.GeneratorConstants.UTI
  * @since 2.0.0
  */
 public class OpenAPIClientGenerator {
+    public static final String BALLERINA_TOML = "Ballerina.toml";
     private final Gson gson;
     private final Path oAContractPath;
     private final Path projectPath;
@@ -88,7 +89,7 @@ public class OpenAPIClientGenerator {
     }
 
     public JsonArray getModules() throws IOException {
-        Path tomlPath = this.projectPath.resolve("Ballerina.toml");
+        Path tomlPath = this.projectPath.resolve(BALLERINA_TOML);
         TextDocument configDocument = TextDocuments.from(Files.readString(tomlPath));
         SyntaxTree syntaxTree = SyntaxTree.from(configDocument);
         DocumentNode rootNode = syntaxTree.rootNode();
@@ -106,7 +107,7 @@ public class OpenAPIClientGenerator {
             for (KeyValueNode field : tableArrayNode.fields()) {
                 String identifier = field.identifier().toSourceCode();
                 if (identifier.trim().equals("targetModule")) {
-                    String fieldValue = field.value().toSourceCode();
+                    String fieldValue = field.value().toSourceCode().trim();
                     int endCharIndex = fieldValue.length() - 1;
                     if (fieldValue.endsWith(System.lineSeparator())) {
                         endCharIndex = endCharIndex - 1;
@@ -119,7 +120,7 @@ public class OpenAPIClientGenerator {
     }
 
     private boolean genBalTomlTableEntry(String module, Map<Path, List<TextEdit>> textEditsMap) throws IOException {
-        Path tomlPath = this.projectPath.resolve("Ballerina.toml");
+        Path tomlPath = this.projectPath.resolve(BALLERINA_TOML);
         TextDocument configDocument = TextDocuments.from(Files.readString(tomlPath));
         SyntaxTree syntaxTree = SyntaxTree.from(configDocument);
         DocumentNode rootNode = syntaxTree.rootNode();
