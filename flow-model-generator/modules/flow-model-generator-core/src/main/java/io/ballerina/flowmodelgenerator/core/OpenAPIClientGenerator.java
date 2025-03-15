@@ -19,6 +19,7 @@
 package io.ballerina.flowmodelgenerator.core;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import io.ballerina.compiler.syntax.tree.TypeDefinitionNode;
 import io.ballerina.modelgenerator.commons.CommonUtils;
@@ -65,6 +66,7 @@ import static io.ballerina.openapi.core.generators.common.GeneratorConstants.UTI
  * @since 2.0.0
  */
 public class OpenAPIClientGenerator {
+    public static final String BALLERINA_TOML = "Ballerina.toml";
     private final Gson gson;
     private final Path oAContractPath;
     private final Path projectPath;
@@ -86,8 +88,39 @@ public class OpenAPIClientGenerator {
         return gson.toJsonTree(clientSource);
     }
 
+    public JsonArray getModules() throws IOException {
+        Path tomlPath = this.projectPath.resolve(BALLERINA_TOML);
+        TextDocument configDocument = TextDocuments.from(Files.readString(tomlPath));
+        SyntaxTree syntaxTree = SyntaxTree.from(configDocument);
+        DocumentNode rootNode = syntaxTree.rootNode();
+
+        List<String> modules = new ArrayList<>();
+        for (DocumentMemberDeclarationNode node : rootNode.members()) {
+            if (node.kind() != SyntaxKind.TABLE_ARRAY) {
+                continue;
+            }
+            TableArrayNode tableArrayNode = (TableArrayNode) node;
+            if (!tableArrayNode.identifier().toSourceCode().equals("tool.openapi")) {
+                continue;
+            }
+
+            for (KeyValueNode field : tableArrayNode.fields()) {
+                String identifier = field.identifier().toSourceCode();
+                if (identifier.trim().equals("targetModule")) {
+                    String fieldValue = field.value().toSourceCode().trim();
+                    int endCharIndex = fieldValue.length() - 1;
+                    if (fieldValue.endsWith(System.lineSeparator())) {
+                        endCharIndex = endCharIndex - 1;
+                    }
+                    modules.add(fieldValue.substring(1, endCharIndex));
+                }
+            }
+        }
+        return gson.toJsonTree(modules).getAsJsonArray();
+    }
+
     private boolean genBalTomlTableEntry(String module, Map<Path, List<TextEdit>> textEditsMap) throws IOException {
-        Path tomlPath = this.projectPath.resolve("Ballerina.toml");
+        Path tomlPath = this.projectPath.resolve(BALLERINA_TOML);
         TextDocument configDocument = TextDocuments.from(Files.readString(tomlPath));
         SyntaxTree syntaxTree = SyntaxTree.from(configDocument);
         DocumentNode rootNode = syntaxTree.rootNode();

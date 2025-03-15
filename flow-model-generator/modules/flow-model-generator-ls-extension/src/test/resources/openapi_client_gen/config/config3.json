@@ -168,5 +168,9 @@
         "newText": "final mod2:Client mod2Client = check new ();"
       }
     ]
-  }
+  },
+  "modules": [
+    "mod5",
+    "mod2"
+  ]
 }
