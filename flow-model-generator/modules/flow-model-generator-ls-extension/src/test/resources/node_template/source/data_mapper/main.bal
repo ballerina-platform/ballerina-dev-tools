@@ -39,3 +39,7 @@ function customFn(Address address, Person Person) returns Location {
         city: ""
     };
 };
+
+function customFnWithImportedType(http:ClientConfiguration config, Address address) returns http:HttpServiceConfig {
+    return {};
+}

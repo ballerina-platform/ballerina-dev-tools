@@ -1,0 +1,106 @@
+{
+  "source": "data_mapper/main.bal",
+  "position": {
+    "line": 14,
+    "offset": 0
+  },
+  "description": "Sample diagram node",
+  "codedata": {
+    "node": "FUNCTION_CALL",
+    "symbol": "customFnWithImportedType"
+  },
+  "output": {
+    "id": "31",
+    "metadata": {
+      "label": "customFnWithImportedType",
+      "description": "",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/null_null_null.png"
+    },
+    "codedata": {
+      "node": "FUNCTION_CALL",
+      "symbol": "customFnWithImportedType",
+      "isNew": true
+    },
+    "returning": false,
+    "properties": {
+      "config": {
+        "metadata": {
+          "label": "config"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "http:ClientConfiguration",
+        "placeholder": "{}",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "hidden": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "config",
+          "importStatements": "ballerina/http"
+        },
+        "typeMembers": [
+          {
+            "type": "ClientConfiguration",
+            "packageInfo": "ballerina:http:2.14.0",
+            "kind": "RECORD_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "address": {
+        "metadata": {
+          "label": "address"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "Address",
+        "placeholder": "{houseNo: \"\", line1: \"\", line2: \"\", city: \"\", country: \"\"}",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "hidden": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "address"
+        },
+        "typeMembers": [
+          {
+            "type": "Address",
+            "packageInfo": "nipunaf:new_connection1:0.1.0",
+            "kind": "RECORD_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "type": {
+        "metadata": {
+          "label": "Variable Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "http:HttpServiceConfig",
+        "placeholder": "var",
+        "optional": false,
+        "editable": false,
+        "advanced": false,
+        "hidden": false,
+        "codedata": {
+          "importStatements": "ballerina/http"
+        }
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "httpHttpserviceconfig",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "hidden": false
+      }
+    },
+    "flags": 0
+  }
+}
