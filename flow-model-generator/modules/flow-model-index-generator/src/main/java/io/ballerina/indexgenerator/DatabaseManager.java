@@ -126,4 +126,52 @@ class DatabaseManager {
         String sql = "INSERT INTO FunctionConnector (function_id, connector_id) VALUES (?, ?)";
         insertEntry(sql, new Object[]{actionId, connectorId});
     }
+
+    public static void updateTypeParameter(String packageName, String oldType, String newType) {
+        String sql1 = "UPDATE Parameter " +
+                "SET type = REPLACE(type, ?, ?) " +
+                "WHERE parameter_id IN (" +
+                "    SELECT pa.parameter_id" +
+                "    FROM Package p" +
+                "    JOIN Function f ON p.package_id = f.package_id" +
+                "    JOIN Parameter pa ON f.function_id = pa.function_id" +
+                "    WHERE p.name = ?" +
+                "    AND pa.type LIKE ?" +
+                ")";
+
+        try (Connection conn = DriverManager.getConnection(dbPath);
+             PreparedStatement stmt = conn.prepareStatement(sql1)) {
+            stmt.setString(1, oldType);
+            stmt.setString(2, newType);
+            stmt.setString(3, packageName);
+            stmt.setString(4, "%" + oldType + "%");
+
+            int rowsUpdated = stmt.executeUpdate();
+            LOGGER.info(rowsUpdated + " parameter records updated for " + packageName);
+        } catch (SQLException e) {
+            LOGGER.severe("Error updating parameter types: " + e.getMessage());
+        }
+
+        String sql2 = "UPDATE Function " +
+                "SET return_type = REPLACE(return_type, ?, ?) " +
+                "WHERE package_id IN (" +
+                "    SELECT package_id" +
+                "    FROM Package" +
+                "    WHERE name = ?" +
+                "    AND return_type LIKE ?" +
+                ")";
+
+        try (Connection conn = DriverManager.getConnection(dbPath);
+             PreparedStatement stmt = conn.prepareStatement(sql2)) {
+            stmt.setString(1, oldType);
+            stmt.setString(2, newType);
+            stmt.setString(3, packageName);
+            stmt.setString(4, "%" + oldType + "%");
+
+            int rowsUpdated = stmt.executeUpdate();
+            LOGGER.info(rowsUpdated + " return type records updated for " + packageName);
+        } catch (SQLException e) {
+            LOGGER.severe("Error updating return types: " + e.getMessage());
+        }
+    }
 }
