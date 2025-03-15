@@ -1,0 +1,148 @@
+{
+  "source": "data_mapper/main.bal",
+  "position": {
+    "line": 14,
+    "offset": 0
+  },
+  "description": "Sample diagram node",
+  "codedata": {
+    "node": "FUNCTION_CALL",
+    "org": "ballerina",
+    "module": "lang.table",
+    "symbol": "reduce",
+    "version": "0.0.0"
+  },
+  "output": {
+    "id": "31",
+    "metadata": {
+      "label": "reduce",
+      "description": "Combines the members of a table using a combining function.\n\nThe combining function takes the combined value so far and a member of the table,\nand returns a new combined value.\n\n```ballerina\ntable<record {int id; int salary;}> employees = table [\n    {id: 1, salary: 1200},\n    {id: 2, salary: 1100},\n    {id: 3, salary: 800}\n];\nemployees.reduce(isolated function (int total, record {int id; int salary;} next) returns int => total + next.salary, 0) ⇒ 3100\n```\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.table_0.0.0.png"
+    },
+    "codedata": {
+      "node": "FUNCTION_CALL",
+      "org": "ballerina",
+      "module": "lang.table",
+      "symbol": "reduce",
+      "version": "0.0.0",
+      "isNew": true
+    },
+    "returning": false,
+    "properties": {
+      "t": {
+        "metadata": {
+          "label": "t",
+          "description": "the table"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "table<map<any|error>>",
+        "placeholder": "table []",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "hidden": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "t"
+        },
+        "typeMembers": [
+          {
+            "type": "MapType>",
+            "packageInfo": "ballerina:lang.table:0.0.0",
+            "kind": "TABLE_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "func": {
+        "metadata": {
+          "label": "func",
+          "description": "combining function"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "function ((any|error) accum, map<any|error> val) returns (any|error)",
+        "placeholder": "",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "hidden": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "func"
+        },
+        "typeMembers": [
+          {
+            "type": "Type accum, table",
+            "packageInfo": "",
+            "kind": "FUNCTION_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "initial": {
+        "metadata": {
+          "label": "initial",
+          "description": "initial value for the first argument of combining parameter `func`"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "(any|error)",
+        "placeholder": "()",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "hidden": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "initial"
+        },
+        "typeMembers": [
+          {
+            "type": "Type",
+            "packageInfo": "ballerina:lang.table:0.0.0",
+            "kind": "OTHER",
+            "selected": false
+          }
+        ]
+      },
+      "type": {
+        "metadata": {
+          "label": "Variable Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "(any|error)",
+        "placeholder": "var",
+        "optional": false,
+        "editable": false,
+        "advanced": false,
+        "hidden": false,
+        "codedata": {}
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "anyError",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "hidden": false
+      },
+      "checkError": {
+        "metadata": {
+          "label": "Check Error",
+          "description": "Trigger error flow"
+        },
+        "valueType": "FLAG",
+        "value": true,
+        "optional": false,
+        "editable": true,
+        "advanced": true,
+        "hidden": false
+      }
+    },
+    "flags": 0
+  }
+}

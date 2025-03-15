@@ -1,0 +1,148 @@
+{
+  "source": "data_mapper/main.bal",
+  "position": {
+    "line": 14,
+    "offset": 0
+  },
+  "description": "Sample diagram node",
+  "codedata": {
+    "node": "FUNCTION_CALL",
+    "org": "ballerina",
+    "module": "lang.stream",
+    "symbol": "reduce",
+    "version": "0.0.0"
+  },
+  "output": {
+    "id": "31",
+    "metadata": {
+      "label": "reduce",
+      "description": "Combines the members of a stream using a combining function.\n\nThe combining function takes the combined value so far and a member of the stream,\nand returns a new combined value.\n\n```ballerina\nstream<int> scores = [45, 60, 75, 30, 90].toStream();\nscores.reduce(isolated function (int total, int score) returns int => total + score, 0) ⇒ 300\n```\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.stream_0.0.0.png"
+    },
+    "codedata": {
+      "node": "FUNCTION_CALL",
+      "org": "ballerina",
+      "module": "lang.stream",
+      "symbol": "reduce",
+      "version": "0.0.0",
+      "isNew": true
+    },
+    "returning": false,
+    "properties": {
+      "stm": {
+        "metadata": {
+          "label": "stm",
+          "description": "the stream"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "stream<(any|error), error?>",
+        "placeholder": "new ()",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "hidden": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "stm"
+        },
+        "typeMembers": [
+          {
+            "type": "Type, stream",
+            "packageInfo": "",
+            "kind": "STREAM_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "func": {
+        "metadata": {
+          "label": "func",
+          "description": "combining function"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "function ((any|error) accum, (any|error) val) returns (any|error)",
+        "placeholder": "",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "hidden": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "func"
+        },
+        "typeMembers": [
+          {
+            "type": "Type1 accum, stream",
+            "packageInfo": "",
+            "kind": "FUNCTION_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "initial": {
+        "metadata": {
+          "label": "initial",
+          "description": "initial value for the first argument of combining parameter `func`"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "(any|error)",
+        "placeholder": "()",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "hidden": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "initial"
+        },
+        "typeMembers": [
+          {
+            "type": "Type1",
+            "packageInfo": "ballerina:lang.stream:0.0.0",
+            "kind": "OTHER",
+            "selected": false
+          }
+        ]
+      },
+      "type": {
+        "metadata": {
+          "label": "Variable Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "(any|error)",
+        "placeholder": "var",
+        "optional": false,
+        "editable": false,
+        "advanced": false,
+        "hidden": false,
+        "codedata": {}
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "anyError",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "hidden": false
+      },
+      "checkError": {
+        "metadata": {
+          "label": "Check Error",
+          "description": "Trigger error flow"
+        },
+        "valueType": "FLAG",
+        "value": true,
+        "optional": false,
+        "editable": true,
+        "advanced": true,
+        "hidden": false
+      }
+    },
+    "flags": 0
+  }
+}

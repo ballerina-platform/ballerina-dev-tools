@@ -118,7 +118,7 @@ class IndexGenerator {
 
         // TODO: Remove this once thw raw parameter property type is introduced
         DatabaseManager.executeQuery("UPDATE Parameter SET default_value = '``' WHERE type = 'sql:ParameterizedQuery'");
-
+//
         // TODO: Remove this once the package index is introduced
         DatabaseManager.executeQuery("UPDATE Parameter SET type= 'anydata', default_value= 'anydata' \n" +
                 "WHERE parameter_id IN (\n" +
@@ -128,6 +128,27 @@ class IndexGenerator {
                 "    INNER JOIN Package pack ON pack.package_id = f.package_id\n" +
                 "    WHERE pack.name = 'http' AND p.name = 'targetType'\n" +
                 ");");
+
+        // TODO: Need to improve how we handle lang lib functions
+        DatabaseManager.updateTypeParameter("lang.array", "array:Type1", "(any|error)");
+        DatabaseManager.updateTypeParameter("lang.array", "array:Type", "(any|error)");
+        DatabaseManager.updateTypeParameter("lang.array", "array:AnydataType", "(anydata|error)");
+        DatabaseManager.updateTypeParameter("lang.error", "error:DetailType", "error:Detail");
+        DatabaseManager.updateTypeParameter("lang.map", "map:Type1", "map<any|error>");
+        DatabaseManager.updateTypeParameter("lang.map", "map:Type", "map<any|error>");
+        DatabaseManager.updateTypeParameter("lang.stream", "stream:Type1", "(any|error)");
+        DatabaseManager.updateTypeParameter("lang.stream", "stream:Type", "(any|error)");
+        DatabaseManager.updateTypeParameter("lang.stream", "stream:ErrorType", "error");
+        DatabaseManager.updateTypeParameter("lang.stream", "stream:CompletionType", "error");
+        DatabaseManager.updateTypeParameter("lang.xml", "xml:XmlType", "xml");
+        DatabaseManager.updateTypeParameter("lang.xml", "xml:ItemType",
+                "(xml:Element|xml:Comment|xml:ProcessingInstruction|xml:Text)");
+        DatabaseManager.updateTypeParameter("lang.table", "table:MapType1", "map<any|error>");
+        DatabaseManager.updateTypeParameter("lang.table", "table:MapType", "map<any|error>");
+        DatabaseManager.updateTypeParameter("lang.table", "table:KeyType", "anydata");
+        DatabaseManager.updateTypeParameter("lang.table", "table:Type", "(any|error)");
+        DatabaseManager.updateTypeParameter("lang.value", "value:AnydataType", "anydata");
+        DatabaseManager.updateTypeParameter("lang.value", "value:Type", "(any|error)");
     }
 
     private static void resolvePackage(BuildProject buildProject, String org,
@@ -277,7 +298,6 @@ class IndexGenerator {
 
         int returnError = returnTypeSymbol
                 .map(returnTypeDesc -> CommonUtils.subTypeOf(returnTypeDesc, errorTypeSymbol) ? 1 : 0).orElse(0);
-
         ParamUtils.ResourcePathTemplate resourcePathTemplate = null;
         if (functionType == FunctionType.RESOURCE) {
             resourcePathTemplate = ParamUtils.buildResourcePathTemplate(semanticModel, functionSymbol,

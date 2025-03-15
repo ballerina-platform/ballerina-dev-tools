@@ -1,0 +1,87 @@
+{
+  "source": "data_mapper/main.bal",
+  "position": {
+    "line": 14,
+    "offset": 0
+  },
+  "description": "Sample diagram node",
+  "codedata": {
+    "node": "FUNCTION_CALL",
+    "org": "ballerina",
+    "module": "lang.error",
+    "symbol": "detail",
+    "version": "0.0.0",
+    "isNew": true
+  },
+  "output": {
+    "id": "31",
+    "metadata": {
+      "label": "detail",
+      "description": "Returns the error's detail record.\n\n```ballerina\nerror(\"file not found\", file = \"test.bal\").detail() ⇒ {\"file\":\"test.bal\"}\n```\n\nThe returned value will be immutable.",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.error_0.0.0.png"
+    },
+    "codedata": {
+      "node": "FUNCTION_CALL",
+      "org": "ballerina",
+      "module": "lang.error",
+      "symbol": "detail",
+      "version": "0.0.0",
+      "isNew": true
+    },
+    "returning": false,
+    "properties": {
+      "e": {
+        "metadata": {
+          "label": "e",
+          "description": "the error value"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "error:error<error:Detail>",
+        "placeholder": "error(\"\")",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "hidden": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "e"
+        },
+        "typeMembers": [
+          {
+            "type": "error<error",
+            "packageInfo": "ballerina:lang.error:0.0.0",
+            "kind": "ERROR_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "type": {
+        "metadata": {
+          "label": "Variable Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "error:Detail & readonly",
+        "placeholder": "var",
+        "optional": false,
+        "editable": false,
+        "advanced": false,
+        "hidden": false,
+        "codedata": {}
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "errorDetailReadonly",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "hidden": false
+      }
+    },
+    "flags": 0
+  }
+}
