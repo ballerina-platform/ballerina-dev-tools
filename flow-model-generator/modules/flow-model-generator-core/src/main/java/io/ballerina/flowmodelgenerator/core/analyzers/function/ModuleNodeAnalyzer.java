@@ -130,6 +130,9 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
         boolean isContextParamAvailable = false;
         String npPromptDefaultValue = null;
 
+        // TODO: Check how we can do this in a cleaner way
+        LineRange promptLineRange = null;
+
         // Set the function parameters
         for (ParameterNode parameter : functionDefinitionNode.functionSignature().parameters()) {
             String paramType;
@@ -159,6 +162,7 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
                     isContextParamAvailable = true;
                 } else if (Constants.NaturalFunctions.PROMPT.equals(paramName.get().text())) {
                     npPromptDefaultValue = ((DefaultableParameterNode) parameter).expression().toSourceCode();
+                    promptLineRange = parameter.lineRange();
                 }
 
                 continue;
@@ -182,7 +186,8 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
             case AUTOMATION -> AutomationBuilder.setOptionalProperties(nodeBuilder, !returnType.isEmpty());
             case NP_FUNCTION_DEFINITION -> {
                 NPFunctionDefinitionBuilder.endOptionalProperties(nodeBuilder);
-                processNpFunctionDefinitionProperties(nodeBuilder, npPromptDefaultValue, isContextParamAvailable);
+                processNpFunctionDefinitionProperties(nodeBuilder, npPromptDefaultValue, promptLineRange,
+                        isContextParamAvailable);
             }
             default -> FunctionDefinitionBuilder.setOptionalProperties(nodeBuilder);
         }
@@ -192,7 +197,7 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
     }
 
     private void processNpFunctionDefinitionProperties(NodeBuilder nodeBuilder, String promptDefaultValue,
-                                                       boolean isContextAvailable) {
+                                                       LineRange promptLineRange, boolean isContextAvailable) {
         // Set the 'prompt' property
         nodeBuilder.properties().custom()
                 .metadata()
@@ -201,6 +206,7 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
                     .stepOut()
                 .codedata()
                     .kind(ParameterData.Kind.REQUIRED.name())
+                    .lineRange(promptLineRange)
                     .stepOut()
                 .typeConstraint(Constants.NaturalFunctions.MODULE_PREFIXED_PROMPT_TYPE)
                 .value(promptDefaultValue)
