@@ -187,7 +187,13 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                         return response;
                     }
                 }
-                response.setTemplate(template + "(${1})");
+                // TODO: Fix this after revamping the API
+                if (request.searchKind() != null && request.searchKind().equals("TYPE")) {
+                    response.setTemplate(template);
+                } else {
+                    response.setTemplate(template + "(${1})");
+                }
+
             } catch (Exception e) {
                 response.setError(e);
             }

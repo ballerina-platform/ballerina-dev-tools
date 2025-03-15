@@ -23,16 +23,18 @@ import io.ballerina.flowmodelgenerator.core.model.Codedata;
 /**
  * Represents a request for function call template.
  *
- * @param filePath  The file path which contains the expression
- * @param codedata  The code data containing function information
- * @param kind      The kind of template to generate (CURRENT/IMPORT/AVAILABLE)
+ * @param filePath   The file path which contains the expression
+ * @param codedata   The code data containing function information
+ * @param kind       The kind of template to generate (CURRENT/IMPORT/AVAILABLE)
+ * @param searchKind The kind of search to perform (corresponds to SearchCommand.Kind)
  * @since 2.0.0
  */
-public record FunctionCallTemplateRequest(String filePath, Codedata codedata, FunctionCallTemplateKind kind) {
-    
+public record FunctionCallTemplateRequest(String filePath, Codedata codedata, FunctionCallTemplateKind kind,
+                                          String searchKind) {
+
     /**
      * Represents the kind of function call template.
-     * 
+     *
      * @since 2.0.0
      */
     public enum FunctionCallTemplateKind {

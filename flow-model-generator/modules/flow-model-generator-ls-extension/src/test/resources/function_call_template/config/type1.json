@@ -1,0 +1,12 @@
+{
+    "description": "",
+    "filePath": "source.bal",
+    "codedata": {
+      "node": "FUNCTION_CALL",
+      "symbol": "Address"
+    },
+    "kind": "CURRENT",
+    "searchKind": "TYPE",
+    "functionCall": "Address"
+  }
+  

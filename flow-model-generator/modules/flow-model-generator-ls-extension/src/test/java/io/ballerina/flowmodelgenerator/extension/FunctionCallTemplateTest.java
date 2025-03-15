@@ -60,14 +60,14 @@ public class FunctionCallTemplateTest extends AbstractLSTest {
 
         notifyDidOpen(sourcePath);
         FunctionCallTemplateRequest request = new FunctionCallTemplateRequest(sourcePath, testConfig.codedata(),
-                testConfig.kind());
+                testConfig.kind(), testConfig.searchKind());
         String template = getResponse(request).getAsJsonPrimitive("template").getAsString();
         notifyDidClose(sourcePath);
 
         if (!template.equals(testConfig.functionCall())) {
             TestConfig updatedConfig = new TestConfig(testConfig.description(), testConfig.filePath(),
                     testConfig.codedata(),
-                    testConfig.kind(), template);
+                    testConfig.kind(), testConfig.searchKind(), template);
             // updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
@@ -82,7 +82,7 @@ public class FunctionCallTemplateTest extends AbstractLSTest {
         // Call the function call template API
         notifyDidOpen(sourcePath);
         FunctionCallTemplateRequest request = new FunctionCallTemplateRequest(sourcePath, testConfig.codedata(),
-                testConfig.kind());
+                testConfig.kind(), testConfig.searchKind());
         String template = getResponse(request).getAsJsonPrimitive("template").getAsString();
 
         // Call the diagnostics API 
@@ -130,7 +130,8 @@ public class FunctionCallTemplateTest extends AbstractLSTest {
     }
 
     private record TestConfig(String description, String filePath, Codedata codedata,
-                              FunctionCallTemplateRequest.FunctionCallTemplateKind kind, String functionCall) {
+                              FunctionCallTemplateRequest.FunctionCallTemplateKind kind, String searchKind,
+                              String functionCall) {
 
     }
 }
