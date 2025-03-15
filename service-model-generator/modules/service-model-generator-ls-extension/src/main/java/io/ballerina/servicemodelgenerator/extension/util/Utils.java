@@ -925,7 +925,8 @@ public final class Utils {
             builder.append(" ");
         }
         builder.append(getValueString(function.getName()));
-        builder.append(getFunctionSignature(function, statusCodeResponses, true));
+        String functionSignature = getFunctionSignature(function, statusCodeResponses, true);
+        builder.append(functionSignature);
         builder.append("{");
         builder.append(System.lineSeparator());
         if (kind.equals(FunctionBodyKind.DO_BLOCK) || kind.equals(FunctionBodyKind.BLOCK_WITH_PANIC)) {
@@ -953,7 +954,10 @@ public final class Utils {
             builder.append(System.lineSeparator());
             builder.append("\t\t// handle error");
             builder.append(System.lineSeparator());
-            builder.append("\t\treturn error(\"Not implemented\", err);");
+            FunctionReturnType returnType = function.getReturnType();
+            if (returnType.isEnabledWithValue() || Objects.nonNull(returnType.getResponses())) {
+                builder.append("\t\treturn error(\"Not implemented\", err);");
+            }
             builder.append(System.lineSeparator());
             builder.append("\t}");
             builder.append(System.lineSeparator());
