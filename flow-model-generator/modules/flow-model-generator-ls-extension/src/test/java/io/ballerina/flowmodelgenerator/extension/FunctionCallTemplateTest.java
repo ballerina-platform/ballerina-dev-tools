@@ -91,9 +91,12 @@ public class FunctionCallTemplateTest extends AbstractLSTest {
         if (offset > -1) {
             template = template.replace("${1}", " ");
         }
+
+        String propertyType = testConfig.searchKind() != null && testConfig.searchKind().equals("TYPE") ?
+                "type" : "expression";
         ExpressionEditorContext.Info info = new ExpressionEditorContext.Info(template, startPosition, offset,
                 variableNode.get("codedata").getAsJsonObject(),
-                variableNode.getAsJsonObject("properties").getAsJsonObject("expression"));
+                variableNode.getAsJsonObject("properties").getAsJsonObject(propertyType));
         ExpressionEditorDiagnosticsRequest diagnosticsRequest =
                 new ExpressionEditorDiagnosticsRequest(sourcePath, info);
         JsonObject response = getResponse(diagnosticsRequest, "expressionEditor/diagnostics");
