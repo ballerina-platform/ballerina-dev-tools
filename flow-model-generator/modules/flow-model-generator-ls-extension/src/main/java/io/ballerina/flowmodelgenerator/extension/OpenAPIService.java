@@ -19,8 +19,10 @@
 package io.ballerina.flowmodelgenerator.extension;
 
 import io.ballerina.flowmodelgenerator.core.OpenAPIClientGenerator;
+import io.ballerina.flowmodelgenerator.extension.request.OpenAPIClientDeleteRequest;
 import io.ballerina.flowmodelgenerator.extension.request.OpenAPIClientGenerationRequest;
 import io.ballerina.flowmodelgenerator.extension.request.OpenAPIGeneratedModulesRequest;
+import io.ballerina.flowmodelgenerator.extension.response.OpenAPIClientDeleteResponse;
 import io.ballerina.flowmodelgenerator.extension.response.OpenAPIClientGenerationResponse;
 import io.ballerina.flowmodelgenerator.extension.response.OpenAPIGeneratedModulesResponse;
 import org.ballerinalang.annotation.JavaSPIService;
@@ -69,6 +71,21 @@ public class OpenAPIService implements ExtendedLanguageServerService {
                 OpenAPIClientGenerator openAPIClientGenerator =
                         new OpenAPIClientGenerator(null, Path.of(req.projectPath()));
                 response.setModules(openAPIClientGenerator.getModules());
+            } catch (Throwable e) {
+                response.setError(e);
+            }
+            return response;
+        });
+    }
+
+    @JsonRequest
+    public CompletableFuture<OpenAPIClientDeleteResponse> deleteModule(OpenAPIClientDeleteRequest req) {
+        return CompletableFuture.supplyAsync(() -> {
+            OpenAPIClientDeleteResponse response = new OpenAPIClientDeleteResponse();
+            try {
+                OpenAPIClientGenerator openAPIClientGenerator =
+                        new OpenAPIClientGenerator(null, Path.of(req.projectPath()));
+                response.setDeleteData(openAPIClientGenerator.deleteModule(req.module()));
             } catch (Throwable e) {
                 response.setError(e);
             }

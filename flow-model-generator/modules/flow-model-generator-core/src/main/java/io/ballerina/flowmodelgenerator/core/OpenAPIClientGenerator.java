@@ -48,6 +48,7 @@ import org.ballerinalang.formatter.core.Formatter;
 import org.ballerinalang.formatter.core.FormatterException;
 import org.eclipse.lsp4j.TextEdit;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -117,6 +118,54 @@ public class OpenAPIClientGenerator {
             }
         }
         return gson.toJsonTree(modules).getAsJsonArray();
+    }
+
+    public JsonElement deleteModule(String module) throws IOException {
+        File dir = new File(projectPath.resolve("generated").resolve(module).toUri());
+        File[] files = dir.listFiles();
+        List<String> filesToDelete = new ArrayList<>();
+        if (files != null) {
+            for (File file : files) {
+                filesToDelete.add(file.getAbsolutePath());
+            }
+        }
+
+        Path tomlPath = this.projectPath.resolve(BALLERINA_TOML);
+        TextDocument configDocument = TextDocuments.from(Files.readString(tomlPath));
+        SyntaxTree syntaxTree = SyntaxTree.from(configDocument);
+        DocumentNode rootNode = syntaxTree.rootNode();
+
+        LineRange lineRange = null;
+        for (DocumentMemberDeclarationNode node : rootNode.members()) {
+            if (node.kind() != SyntaxKind.TABLE_ARRAY) {
+                continue;
+            }
+            TableArrayNode tableArrayNode = (TableArrayNode) node;
+            if (!tableArrayNode.identifier().toSourceCode().equals("tool.openapi")) {
+                continue;
+            }
+
+            for (KeyValueNode field : tableArrayNode.fields()) {
+                String identifier = field.identifier().toSourceCode();
+                if (identifier.trim().equals("targetModule")) {
+                    if (field.value().toSourceCode().contains("\"" + module + "\"")) {
+                        lineRange = tableArrayNode.lineRange();
+                        break;
+                    }
+                }
+            }
+        }
+
+        Map<Path, List<TextEdit>> textEditsMap = new HashMap<>();
+        if (lineRange != null) {
+            textEditsMap.put(tomlPath, List.of(new TextEdit(CommonUtils.toRange(lineRange), "")));
+        }
+
+        return gson.toJsonTree(new DeleteData(filesToDelete, textEditsMap));
+    }
+
+    private record DeleteData(List<String> filesToDelete, Map<Path, List<TextEdit>> textEditsMap) {
+
     }
 
     private boolean genBalTomlTableEntry(String module, Map<Path, List<TextEdit>> textEditsMap) throws IOException {

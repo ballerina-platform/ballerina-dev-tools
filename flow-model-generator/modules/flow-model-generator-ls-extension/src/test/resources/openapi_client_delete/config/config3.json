@@ -1,0 +1,176 @@
+{
+  "contractFile": "response.yaml",
+  "balToml": "[package]\norg = \"oas\"\nname = \"client2\"\nversion = \"0.1.0\"\n[[tool.openapi]]\nid = \"cl1\"\ntargetModule = \"mod5\"",
+  "module": "mod2",
+  "source": "main.bal",
+  "position": {
+    "line": 0,
+    "offset": 0
+  },
+  "description": "Sample diagram node",
+  "codedata": {
+    "node": "NEW_CONNECTION",
+    "org": "",
+    "module": "mod2",
+    "object": "Client",
+    "symbol": "init",
+    "isGenerated": true,
+    "isNew": true
+  },
+  "output": {
+    "id": "31",
+    "metadata": {
+      "label": "New Connection",
+      "description": "",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/_mod2_null.png"
+    },
+    "codedata": {
+      "node": "NEW_CONNECTION",
+      "org": "",
+      "module": "mod2",
+      "object": "Client",
+      "symbol": "init",
+      "isNew": true,
+      "isGenerated": true
+    },
+    "returning": false,
+    "properties": {
+      "config": {
+        "metadata": {
+          "label": "config",
+          "description": "The configurations to be used when initializing the `connector` "
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "mod2:ConnectionConfig",
+        "placeholder": "{}",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "hidden": false,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "config",
+          "importStatements": "oas/client2.client2.mod2"
+        },
+        "typeMembers": [
+          {
+            "type": "ConnectionConfig",
+            "packageInfo": "oas:client2.mod2:0.1.0",
+            "kind": "RECORD_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "serviceUrl": {
+        "metadata": {
+          "label": "serviceUrl",
+          "description": "URL of the target service "
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"\"",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "hidden": false,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "serviceUrl"
+        },
+        "typeMembers": [
+          {
+            "type": "string",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "type": {
+        "metadata": {
+          "label": "Variable Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "mod2:Client",
+        "placeholder": "var",
+        "optional": false,
+        "editable": false,
+        "advanced": false,
+        "hidden": false,
+        "codedata": {}
+      },
+      "variable": {
+        "metadata": {
+          "label": "Connection Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "mod2Client",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "hidden": false
+      },
+      "scope": {
+        "metadata": {
+          "label": "Connection Scope",
+          "description": "Scope of the connection, Global or Local"
+        },
+        "valueType": "ENUM",
+        "value": "Global",
+        "optional": false,
+        "editable": true,
+        "advanced": true,
+        "hidden": false
+      },
+      "checkError": {
+        "metadata": {
+          "label": "Check Error",
+          "description": "Terminate on error"
+        },
+        "valueType": "FLAG",
+        "value": true,
+        "optional": false,
+        "editable": false,
+        "advanced": true,
+        "hidden": false
+      }
+    },
+    "flags": 0
+  },
+  "textEdits": {
+    "connections.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import client2.mod2;"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "final mod2:Client mod2Client = check new ();"
+      }
+    ]
+  },
+  "modules": [
+    "mod5",
+    "mod2"
+  ]
+}
