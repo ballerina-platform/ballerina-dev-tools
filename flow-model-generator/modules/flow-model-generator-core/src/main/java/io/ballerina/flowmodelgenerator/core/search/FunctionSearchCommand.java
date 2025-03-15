@@ -24,6 +24,7 @@ import io.ballerina.compiler.api.symbols.AnnotationSymbol;
 import io.ballerina.compiler.api.symbols.Documentation;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.ModuleSymbol;
+import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.flowmodelgenerator.core.model.AvailableNode;
@@ -162,6 +163,7 @@ class FunctionSearchCommand extends SearchCommand {
             }
 
             boolean isAgentTool = isAgentTool(functionSymbol);
+            boolean isIsolatedFunction = functionSymbol.qualifiers().contains(Qualifier.ISOLATED);
             Metadata metadata = new Metadata.Builder<>(null)
                     .label(symbol.getName().get())
                     .description(functionSymbol.documentation()
@@ -169,6 +171,7 @@ class FunctionSearchCommand extends SearchCommand {
                             .orElse(null))
                     .addData("isDataMappedFunction", isDataMappedFunction)
                     .addData("isAgentTool", isAgentTool)
+                    .addData("isIsolatedFunction", isIsolatedFunction)
                     .build();
 
             Codedata.Builder<Object> codedata = new Codedata.Builder<>(null)
