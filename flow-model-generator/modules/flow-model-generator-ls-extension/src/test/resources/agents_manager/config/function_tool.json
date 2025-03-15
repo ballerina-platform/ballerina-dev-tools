@@ -181,7 +181,7 @@
             "character": 0
           }
         },
-        "newText": "@agent:Tool\n@display {label: \"\", iconPath: \"\"}\nisolated function toolFunc(string foo, int...bar) returns string{ string result = foo( foo, bar) ;\n}"
+        "newText": "@agent:Tool\n@display {label: \"\", iconPath: \"\"}\nisolated function toolFunc(string foo, int...bar) returns string{ string result = foo( foo, bar) ;\nreturn result;\n}"
       }
     ]
   }

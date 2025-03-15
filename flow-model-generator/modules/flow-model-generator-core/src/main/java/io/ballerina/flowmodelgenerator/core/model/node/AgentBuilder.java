@@ -71,10 +71,9 @@ public class AgentBuilder extends CallBuilder {
         sourceBuilder.token()
                 .keyword(SyntaxKind.CHECK_KEYWORD)
                 .keyword(SyntaxKind.NEW_KEYWORD)
-                .name(System.lineSeparator())
                 .stepOut()
                 .functionParameters(sourceBuilder.flowNode, Set.of(Property.VARIABLE_KEY, Property.TYPE_KEY,
-                        Property.SCOPE_KEY, Property.CHECK_ERROR_KEY));
+                        Property.SCOPE_KEY, Property.CHECK_ERROR_KEY), true);
 
         return sourceBuilder.textEdit(false, AGENT_FILE).build();
     }

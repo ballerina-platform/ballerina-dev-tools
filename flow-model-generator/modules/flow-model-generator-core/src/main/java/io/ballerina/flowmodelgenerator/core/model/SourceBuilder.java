@@ -358,7 +358,14 @@ public class SourceBuilder {
      * @param ignoredProperties A set of property keys to be ignored during the processing.
      */
     public SourceBuilder functionParameters(FlowNode nodeTemplate, Set<String> ignoredProperties) {
+        return functionParameters(nodeTemplate, ignoredProperties, false);
+    }
+
+    public SourceBuilder functionParameters(FlowNode nodeTemplate, Set<String> ignoredProperties, boolean setFormat) {
         tokenBuilder.keyword(SyntaxKind.OPEN_PAREN_TOKEN);
+        if (setFormat) {
+            tokenBuilder.name(System.lineSeparator());
+        }
         Map<String, Property> properties = nodeTemplate.properties();
         Set<String> keys = new LinkedHashSet<>(properties != null ? properties.keySet() : Set.of());
         keys.removeAll(ignoredProperties);
