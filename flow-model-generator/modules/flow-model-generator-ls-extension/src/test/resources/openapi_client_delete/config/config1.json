@@ -1,0 +1,28 @@
+{
+  "contractFile": "petstore.yaml",
+  "balToml": "[package]\norg = \"oas\"\nname = \"client1\"\nversion = \"0.1.0\"\n",
+  "module": "mod1",
+  "source": "main.bal",
+  "textEdits": {
+    "config/config1/Ballerina.toml": [
+      {
+        "range": {
+          "start": {
+            "line": 5,
+            "character": 0
+          },
+          "end": {
+            "line": 8,
+            "character": 179
+          }
+        },
+        "newText": ""
+      }
+    ]
+  },
+  "files": [
+    "client.bal",
+    "types.bal",
+    "utils.bal"
+  ]
+}
