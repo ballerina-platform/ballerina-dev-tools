@@ -76,6 +76,8 @@ public class TypeTransformer {
     private final ModuleInfo moduleInfo;
     private Map<String, RecordTypeDescriptorNode> recordTypeDescNodes;
 
+    private static final String BUILT_IN_ERROR = "error";
+
     public TypeTransformer(Module module) {
         this.module = module;
         this.moduleInfo = ModuleInfo.from(module.descriptor());
@@ -331,7 +333,7 @@ public class TypeTransformer {
                     .arraySize("", false, false, false);
 
         Member.MemberBuilder memberBuilder = new Member.MemberBuilder();
-       List<Member> memberTypes = new ArrayList<>();
+        List<Member> memberTypes = new ArrayList<>();
         unionTypeSymbol.userSpecifiedMemberTypes().forEach(memberTypeSymbol -> {
             String name = CommonUtils.getTypeSignature(memberTypeSymbol, this.moduleInfo);
             Member member = transformTypeAsMember(name, memberTypeSymbol, memberBuilder);
@@ -424,6 +426,9 @@ public class TypeTransformer {
     }
 
     public Object transform(ErrorTypeSymbol errorTypeSymbol, TypeData.TypeDataBuilder typeDataBuilder) {
+        if (errorTypeSymbol.signature().equals(BUILT_IN_ERROR)) {
+            return BUILT_IN_ERROR;
+        }
         return transformTypesWithConstraintType(errorTypeSymbol, NodeKind.ERROR, typeDataBuilder);
     }
 
