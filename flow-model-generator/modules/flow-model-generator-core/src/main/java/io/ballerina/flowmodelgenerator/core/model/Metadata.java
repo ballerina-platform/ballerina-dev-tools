@@ -22,7 +22,7 @@ package io.ballerina.flowmodelgenerator.core.model;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -95,7 +95,7 @@ public record Metadata(String label, String description, List<String> keywords, 
 
         public Builder<T> addData(String key, Object value) {
             if (data == null) {
-                data = new HashMap<>();
+                data = new LinkedHashMap<>();
             }
             data.put(key, value);
             return this;

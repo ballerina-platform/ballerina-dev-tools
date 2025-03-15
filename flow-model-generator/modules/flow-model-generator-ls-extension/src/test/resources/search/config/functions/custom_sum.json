@@ -31,9 +31,9 @@
           "metadata": {
             "label": "sum",
             "data": {
-              "isIsolatedFunction": false,
+              "isDataMappedFunction": false,
               "isAgentTool": false,
-              "isDataMappedFunction": false
+              "isIsolatedFunction": true
             }
           },
           "codedata": {
@@ -47,9 +47,9 @@
             "label": "prefixSum",
             "description": "Computes the prefix sum of an array of integers.\n\nThe prefix sum of an array is a new array where each element at index `i` is the sum of the elements\nfrom the start of the array up to index `i`.\n",
             "data": {
-              "isIsolatedFunction": false,
+              "isDataMappedFunction": false,
               "isAgentTool": false,
-              "isDataMappedFunction": false
+              "isIsolatedFunction": true
             }
           },
           "codedata": {
@@ -62,9 +62,9 @@
           "metadata": {
             "label": "sum2",
             "data": {
-              "isIsolatedFunction": false,
+              "isDataMappedFunction": false,
               "isAgentTool": false,
-              "isDataMappedFunction": false
+              "isIsolatedFunction": true
             }
           },
           "codedata": {
