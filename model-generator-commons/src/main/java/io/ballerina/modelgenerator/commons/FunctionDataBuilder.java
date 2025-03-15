@@ -885,10 +885,11 @@ public class FunctionDataBuilder {
     }
 
     private String getImportStatements(TypeSymbol typeSymbol) {
-        if (!isCurrentModule) {
-            return CommonUtils.getImportStatements(typeSymbol, moduleInfo).orElse(null);
+        if (isCurrentModule && typeSymbol.getModule()
+                .map(moduleSymbol -> ModuleInfo.from(moduleSymbol.id()).equals(userModuleInfo)).orElse(false)) {
+            return null;
         }
-        return null;
+        return CommonUtils.getImportStatements(typeSymbol, moduleInfo).orElse(null);
     }
 
     private void notifyClient(MessageType messageType, String message) {
