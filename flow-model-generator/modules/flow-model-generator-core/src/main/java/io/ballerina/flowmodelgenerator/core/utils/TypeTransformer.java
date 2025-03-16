@@ -76,7 +76,7 @@ public class TypeTransformer {
     private final ModuleInfo moduleInfo;
     private Map<String, RecordTypeDescriptorNode> recordTypeDescNodes;
 
-    private static final String BUILT_IN_ERROR = "error";
+    public static final String BUILT_IN_ERROR = "error";
     public static final String BUILT_IN_ANYDATA = "anydata";
 
     public TypeTransformer(Module module) {
