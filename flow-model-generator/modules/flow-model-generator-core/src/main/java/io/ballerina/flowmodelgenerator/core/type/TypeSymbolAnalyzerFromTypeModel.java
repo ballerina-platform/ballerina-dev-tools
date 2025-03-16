@@ -117,6 +117,10 @@ public class TypeSymbolAnalyzerFromTypeModel {
                     matchingType.selected = true;
                 }
                 requiredFields.remove(fieldName);
+            } else {
+                matchingType.value = fieldName;
+                matchingType.selected = true;
+                requiredFields.remove(fieldName);
             }
         }
         if (!requiredFields.values().isEmpty() || !matched) {
