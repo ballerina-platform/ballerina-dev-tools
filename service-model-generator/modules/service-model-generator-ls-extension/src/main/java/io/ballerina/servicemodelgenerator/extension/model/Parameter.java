@@ -162,20 +162,24 @@ public class Parameter {
 
     public static Parameter graphQLParamSchema() {
         return new Parameter(null, null,
-                new Value(ServiceModelGeneratorConstants.ARGUMENT_TYPE_METADATA),
-                new Value(ServiceModelGeneratorConstants.ARGUMENT_NAME_METADATA),
-                new Value(ServiceModelGeneratorConstants.ARGUMENT_DEFAULT_VALUE_METADATA),
-                false, false, false, false, null);
+                new Value(ServiceModelGeneratorConstants.ARGUMENT_TYPE_METADATA,
+                        ServiceModelGeneratorConstants.VALUE_TYPE_TYPE, true, false),
+                new Value(ServiceModelGeneratorConstants.ARGUMENT_NAME_METADATA,
+                        ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER, true, false),
+                new Value(ServiceModelGeneratorConstants.ARGUMENT_DEFAULT_VALUE_METADATA,
+                        ServiceModelGeneratorConstants.VALUE_TYPE_EXPRESSION, true, true),
+                true, false, false, false, null);
     }
 
     public static Parameter functionParamSchema() {
         return new Parameter(null, null,
                 new Value(ServiceModelGeneratorConstants.PARAMETER_TYPE_METADATA,
-                        ServiceModelGeneratorConstants.VALUE_TYPE_TYPE, true),
+                        ServiceModelGeneratorConstants.VALUE_TYPE_TYPE, true, false),
                 new Value(ServiceModelGeneratorConstants.PARAMETER_NAME_METADATA,
-                        ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER, true),
-                new Value(ServiceModelGeneratorConstants.PARAMETER_DEFAULT_VALUE_METADATA),
-                false, false, false, false, null);
+                        ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER, true, false),
+                new Value(ServiceModelGeneratorConstants.PARAMETER_DEFAULT_VALUE_METADATA,
+                        ServiceModelGeneratorConstants.VALUE_TYPE_EXPRESSION, true, true),
+                true, false, false, false, null);
     }
 
     public static Parameter getNewParameter(boolean isGraphQL) {

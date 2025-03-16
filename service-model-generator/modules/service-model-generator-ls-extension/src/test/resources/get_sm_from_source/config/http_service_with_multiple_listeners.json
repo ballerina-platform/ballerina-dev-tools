@@ -301,10 +301,11 @@
                 "label": "Default Value",
                 "description": "The default value of the parameter"
               },
-              "enabled": false,
+              "enabled": true,
               "editable": true,
+              "valueType": "EXPRESSION",
               "isType": false,
-              "optional": false,
+              "optional": true,
               "advanced": false,
               "addNewButton": false
             },
