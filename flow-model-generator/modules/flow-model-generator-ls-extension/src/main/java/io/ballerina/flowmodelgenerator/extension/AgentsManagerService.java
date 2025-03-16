@@ -157,7 +157,7 @@ public class AgentsManagerService implements ExtendedLanguageServerService {
                     return response;
                 }
 
-                AgentsGenerator agentsGenerator = new AgentsGenerator();
+                AgentsGenerator agentsGenerator = new AgentsGenerator(semanticModel.get());
                 response.setTextEdits(agentsGenerator.genTool(request.flowNode(), request.toolName(),
                         request.connection(), request.description(), filePath, this.workspaceManager));
             } catch (Throwable e) {
