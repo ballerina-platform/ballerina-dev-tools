@@ -192,7 +192,7 @@
                 "label": "Parameter Type",
                 "description": "The type of the parameter"
               },
-              "enabled": false,
+              "enabled": true,
               "editable": true,
               "valueType": "TYPE",
               "isType": false,
@@ -205,7 +205,7 @@
                 "label": "Parameter Name",
                 "description": "The name of the parameter"
               },
-              "enabled": false,
+              "enabled": true,
               "editable": true,
               "valueType": "IDENTIFIER",
               "isType": false,
@@ -218,14 +218,15 @@
                 "label": "Default Value",
                 "description": "The default value of the parameter"
               },
-              "enabled": false,
+              "enabled": true,
               "editable": true,
+              "valueType": "EXPRESSION",
               "isType": false,
-              "optional": false,
+              "optional": true,
               "advanced": false,
               "addNewButton": false
             },
-            "enabled": false,
+            "enabled": true,
             "editable": false,
             "optional": false,
             "advanced": false
@@ -340,10 +341,11 @@
                 "label": "Default Value",
                 "description": "The default value of the argument"
               },
-              "enabled": false,
+              "enabled": true,
               "editable": true,
+              "valueType": "EXPRESSION",
               "isType": false,
-              "optional": false,
+              "optional": true,
               "advanced": false,
               "addNewButton": false
             },
@@ -360,8 +362,9 @@
                 "label": "Argument Type",
                 "description": "The type of the argument"
               },
-              "enabled": false,
+              "enabled": true,
               "editable": true,
+              "valueType": "TYPE",
               "isType": false,
               "optional": false,
               "advanced": false,
@@ -372,8 +375,9 @@
                 "label": "Argument Name",
                 "description": "The name of the argument"
               },
-              "enabled": false,
+              "enabled": true,
               "editable": true,
+              "valueType": "IDENTIFIER",
               "isType": false,
               "optional": false,
               "advanced": false,
@@ -384,14 +388,15 @@
                 "label": "Default Value",
                 "description": "The default value of the argument"
               },
-              "enabled": false,
+              "enabled": true,
               "editable": true,
+              "valueType": "EXPRESSION",
               "isType": false,
-              "optional": false,
+              "optional": true,
               "advanced": false,
               "addNewButton": false
             },
-            "enabled": false,
+            "enabled": true,
             "editable": false,
             "optional": false,
             "advanced": false
@@ -504,10 +509,11 @@
                 "label": "Default Value",
                 "description": "The default value of the argument"
               },
-              "enabled": false,
+              "enabled": true,
               "editable": true,
+              "valueType": "EXPRESSION",
               "isType": false,
-              "optional": false,
+              "optional": true,
               "advanced": false,
               "addNewButton": false
             },
@@ -555,10 +561,11 @@
                 "label": "Default Value",
                 "description": "The default value of the argument"
               },
-              "enabled": false,
+              "enabled": true,
               "editable": true,
+              "valueType": "EXPRESSION",
               "isType": false,
-              "optional": false,
+              "optional": true,
               "advanced": false,
               "addNewButton": false
             },
@@ -575,8 +582,9 @@
                 "label": "Argument Type",
                 "description": "The type of the argument"
               },
-              "enabled": false,
+              "enabled": true,
               "editable": true,
+              "valueType": "TYPE",
               "isType": false,
               "optional": false,
               "advanced": false,
@@ -587,8 +595,9 @@
                 "label": "Argument Name",
                 "description": "The name of the argument"
               },
-              "enabled": false,
+              "enabled": true,
               "editable": true,
+              "valueType": "IDENTIFIER",
               "isType": false,
               "optional": false,
               "advanced": false,
@@ -599,14 +608,15 @@
                 "label": "Default Value",
                 "description": "The default value of the argument"
               },
-              "enabled": false,
+              "enabled": true,
               "editable": true,
+              "valueType": "EXPRESSION",
               "isType": false,
-              "optional": false,
+              "optional": true,
               "advanced": false,
               "addNewButton": false
             },
-            "enabled": false,
+            "enabled": true,
             "editable": false,
             "optional": false,
             "advanced": false
@@ -689,8 +699,9 @@
                 "label": "Argument Type",
                 "description": "The type of the argument"
               },
-              "enabled": false,
+              "enabled": true,
               "editable": true,
+              "valueType": "TYPE",
               "isType": false,
               "optional": false,
               "advanced": false,
@@ -701,8 +712,9 @@
                 "label": "Argument Name",
                 "description": "The name of the argument"
               },
-              "enabled": false,
+              "enabled": true,
               "editable": true,
+              "valueType": "IDENTIFIER",
               "isType": false,
               "optional": false,
               "advanced": false,
@@ -713,14 +725,15 @@
                 "label": "Default Value",
                 "description": "The default value of the argument"
               },
-              "enabled": false,
+              "enabled": true,
               "editable": true,
+              "valueType": "EXPRESSION",
               "isType": false,
-              "optional": false,
+              "optional": true,
               "advanced": false,
               "addNewButton": false
             },
-            "enabled": false,
+            "enabled": true,
             "editable": false,
             "optional": false,
             "advanced": false

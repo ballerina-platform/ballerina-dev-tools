@@ -43,9 +43,9 @@ public class Value {
     private boolean addNewButton = false;
     private List<PropertyTypeMemberInfo> typeMembers;
 
-    public Value(MetaData metadata, String valueType, boolean editable) {
-        this(metadata, false, editable, null, valueType,
-                null, false, null, false, false,
+    public Value(MetaData metadata, String valueType, boolean editable, boolean optional) {
+        this(metadata, true, editable, null, valueType,
+                null, false, null, optional, false,
                 null, null, null);
     }
 
