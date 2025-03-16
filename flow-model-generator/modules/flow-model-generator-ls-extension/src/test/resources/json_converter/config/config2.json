@@ -6,5 +6,5 @@
   "prefix": "",
   "isClosed": false,
   "isRecordTypeDesc": false,
-  "records": "\ntype PeopleItem record {\n\tstring firstName;\n\tstring lastName;\n\tstring gender;\n\tint age;\n\tstring number;\n};\n\ntype Rec record {\n\tPeopleItem[] people;\n};\n"
+  "records": "\ntype PeopleItem record {|\n\tstring firstName;\n\tstring lastName;\n\tstring gender;\n\tint age;\n\tstring number;\n|};\n\ntype Rec record {|\n\tPeopleItem[] people;\n|};\n"
 }
