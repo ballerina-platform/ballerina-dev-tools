@@ -77,6 +77,7 @@ public class TypeTransformer {
     private Map<String, RecordTypeDescriptorNode> recordTypeDescNodes;
 
     private static final String BUILT_IN_ERROR = "error";
+    public static final String BUILT_IN_ANYDATA = "anydata";
 
     public TypeTransformer(Module module) {
         this.module = module;
@@ -294,6 +295,9 @@ public class TypeTransformer {
         if (restTypeSymbol.isPresent()) {
             TypeData.TypeDataBuilder restTypeDataBuilder = new TypeData.TypeDataBuilder();
             Object transformedRestType = transform(restTypeSymbol.get(), restTypeDataBuilder);
+            if (transformedRestType.equals(BUILT_IN_ANYDATA)) {
+                typeDataBuilder.allowAdditionalFields(true);
+            }
             Member restMember = memberBuilder
                     .kind(Member.MemberKind.FIELD)
                     .type(transformedRestType)
