@@ -101,7 +101,7 @@
             "character": 3
           }
         },
-        "newText": "\ntype Employee record {\n\tPerson user;\n\tint id;\n};"
+        "newText": "\ntype Employee record {|\n\tPerson user;\n\tint id;\n|};"
       }
     ]
   }

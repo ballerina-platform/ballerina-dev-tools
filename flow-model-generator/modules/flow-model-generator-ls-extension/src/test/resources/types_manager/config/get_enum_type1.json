@@ -98,7 +98,8 @@
         "name": "GREEN",
         "optional": false
       }
-    ]
+    ],
+    "allowAdditionalFields": false
   },
   "refs": []
 }

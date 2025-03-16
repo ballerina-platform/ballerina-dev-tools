@@ -151,12 +151,14 @@
               "docs": ""
             }
           ],
-          "includes": []
+          "includes": [],
+          "allowAdditionalFields": false
         },
         "name": "record {|int id; string name; Names otherNames;|}",
         "optional": false
       }
-    ]
+    ],
+    "allowAdditionalFields": false
   },
   "refs": [
     {
@@ -250,7 +252,8 @@
           "name": "string",
           "optional": false
         }
-      ]
+      ],
+      "allowAdditionalFields": false
     }
   ]
 }

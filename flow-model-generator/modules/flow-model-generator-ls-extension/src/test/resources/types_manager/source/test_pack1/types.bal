@@ -29,11 +29,11 @@ type Person record {|
     time:Utc dob = getDefaultDob();
 |};
 
-type MixRecord record {|
+type MixRecord record {
     time:Utc|Person|Address mixField1;
     Address|Person|int mixField2;
     map<Address> mixField3;
-|};
+};
 
 type Student record {|
     *Person;

@@ -127,7 +127,8 @@
           "docs": ""
         }
       ],
-      "includes": []
+      "includes": [],
+      "allowAdditionalFields": false
     },
     {
       "name": "PersonWithId",
@@ -229,7 +230,8 @@
           "name": "Person",
           "optional": false
         }
-      ]
+      ],
+      "allowAdditionalFields": false
     },
     {
       "name": "Color",
@@ -324,7 +326,8 @@
           "name": "GREEN",
           "optional": false
         }
-      ]
+      ],
+      "allowAdditionalFields": false
     },
     {
       "name": "VehicleType",
@@ -541,7 +544,8 @@
             }
           }
         }
-      ]
+      ],
+      "allowAdditionalFields": false
     },
     {
       "name": "ballerina/time:Utc",
@@ -683,12 +687,14 @@
                 "name": "decimal",
                 "optional": false
               }
-            ]
+            ],
+            "allowAdditionalFields": false
           },
           "name": "[int, decimal]",
           "optional": false
         }
-      ]
+      ],
+      "allowAdditionalFields": false
     },
     {
       "name": "Misc",
@@ -801,7 +807,8 @@
           "name": "Color",
           "optional": false
         }
-      ]
+      ],
+      "allowAdditionalFields": false
     },
     {
       "name": "Employees",
@@ -949,12 +956,14 @@
                 "docs": ""
               }
             ],
-            "includes": []
+            "includes": [],
+            "allowAdditionalFields": false
           },
           "name": "record {|int id; string name; Names otherNames;|}",
           "optional": false
         }
-      ]
+      ],
+      "allowAdditionalFields": false
     },
     {
       "name": "MixRecord",
@@ -1102,7 +1111,8 @@
                 "name": "Address",
                 "optional": false
               }
-            ]
+            ],
+            "allowAdditionalFields": false
           },
           "name": "mixField1",
           "optional": false,
@@ -1168,7 +1178,8 @@
                 "name": "int",
                 "optional": false
               }
-            ]
+            ],
+            "allowAdditionalFields": false
           },
           "name": "mixField2",
           "optional": false,
@@ -1218,14 +1229,22 @@
                 "name": "Address",
                 "optional": false
               }
-            ]
+            ],
+            "allowAdditionalFields": false
           },
           "name": "mixField3",
           "optional": false,
           "docs": ""
         }
       ],
-      "includes": []
+      "restMember": {
+        "kind": "FIELD",
+        "refs": [],
+        "type": "anydata",
+        "optional": false
+      },
+      "includes": [],
+      "allowAdditionalFields": true
     },
     {
       "name": "Gender",
@@ -1315,7 +1334,8 @@
           "defaultValue": "\"female\"",
           "optional": false
         }
-      ]
+      ],
+      "allowAdditionalFields": false
     },
     {
       "name": "Student",
@@ -1470,7 +1490,8 @@
                 "name": "Address",
                 "optional": false
               }
-            ]
+            ],
+            "allowAdditionalFields": false
           },
           "name": "addresses",
           "optional": false,
@@ -1489,7 +1510,8 @@
       ],
       "includes": [
         "Person"
-      ]
+      ],
+      "allowAdditionalFields": false
     },
     {
       "name": "PersonError",
@@ -1584,7 +1606,8 @@
           "name": "Person",
           "optional": false
         }
-      ]
+      ],
+      "allowAdditionalFields": false
     },
     {
       "name": "Names",
@@ -1677,7 +1700,8 @@
           "name": "string",
           "optional": false
         }
-      ]
+      ],
+      "allowAdditionalFields": false
     },
     {
       "name": "Vehicle",
@@ -2067,7 +2091,8 @@
             }
           }
         }
-      ]
+      ],
+      "allowAdditionalFields": false
     },
     {
       "name": "AddressTable",
@@ -2211,12 +2236,14 @@
                 "name": "int",
                 "optional": false
               }
-            ]
+            ],
+            "allowAdditionalFields": false
           },
           "name": "keyConstraintType",
           "optional": false
         }
-      ]
+      ],
+      "allowAdditionalFields": false
     },
     {
       "name": "PartTimeStudent",
@@ -2380,7 +2407,8 @@
                 "name": "Address",
                 "optional": false
               }
-            ]
+            ],
+            "allowAdditionalFields": false
           },
           "name": "addresses",
           "optional": false,
@@ -2399,7 +2427,8 @@
       ],
       "includes": [
         "Student"
-      ]
+      ],
+      "allowAdditionalFields": false
     },
     {
       "name": "Person",
@@ -2547,7 +2576,8 @@
                 "name": "Address",
                 "optional": false
               }
-            ]
+            ],
+            "allowAdditionalFields": false
           },
           "name": "addresses",
           "defaultValue": "[\n        {\n            houseNo: \"10\",\n            line1: \"5th Ave\",\n            line2: \"4th St\",\n            city: \"New York City\",\n            country: \"USA\"\n        }\n    ]",
@@ -2566,7 +2596,8 @@
           "docs": "date of birth"
         }
       ],
-      "includes": []
+      "includes": [],
+      "allowAdditionalFields": false
     }
   ]
 }

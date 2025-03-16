@@ -93,7 +93,8 @@
         "defaultValue": "\"female\"",
         "optional": false
       }
-    ]
+    ],
+    "allowAdditionalFields": false
   },
   "refs": []
 }

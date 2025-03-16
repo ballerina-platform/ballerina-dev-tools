@@ -147,12 +147,14 @@
               "name": "int",
               "optional": false
             }
-          ]
+          ],
+          "allowAdditionalFields": false
         },
         "name": "keyConstraintType",
         "optional": false
       }
-    ]
+    ],
+    "allowAdditionalFields": false
   },
   "refs": [
     {
@@ -280,7 +282,8 @@
           "docs": ""
         }
       ],
-      "includes": []
+      "includes": [],
+      "allowAdditionalFields": false
     }
   ]
 }

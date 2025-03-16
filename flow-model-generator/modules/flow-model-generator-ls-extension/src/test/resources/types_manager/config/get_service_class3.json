@@ -246,7 +246,8 @@
           }
         }
       }
-    ]
+    ],
+    "allowAdditionalFields": false
   },
   "refs": [
     {
@@ -342,7 +343,8 @@
           "docs": ""
         }
       ],
-      "includes": []
+      "includes": [],
+      "allowAdditionalFields": false
     },
     {
       "name": "Address",
@@ -453,7 +455,8 @@
           "docs": ""
         }
       ],
-      "includes": []
+      "includes": [],
+      "allowAdditionalFields": false
     },
     {
       "name": "UserProfile",
@@ -766,7 +769,8 @@
             }
           }
         }
-      ]
+      ],
+      "allowAdditionalFields": false
     },
     {
       "name": "AbstractProfile",
@@ -879,7 +883,8 @@
           "docs": ""
         }
       ],
-      "includes": []
+      "includes": [],
+      "allowAdditionalFields": false
     }
   ]
 }

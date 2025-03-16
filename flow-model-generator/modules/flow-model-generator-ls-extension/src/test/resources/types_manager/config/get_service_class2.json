@@ -209,7 +209,8 @@
           }
         }
       }
-    ]
+    ],
+    "allowAdditionalFields": false
   },
   "refs": [
     {
@@ -352,7 +353,8 @@
             }
           }
         }
-      ]
+      ],
+      "allowAdditionalFields": false
     }
   ]
 }

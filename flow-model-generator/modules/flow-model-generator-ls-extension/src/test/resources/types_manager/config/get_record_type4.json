@@ -165,7 +165,8 @@
               "name": "UserAddress",
               "optional": false
             }
-          ]
+          ],
+          "allowAdditionalFields": false
         },
         "name": "address",
         "optional": false,
@@ -258,14 +259,16 @@
                     "docs": ""
                   }
                 ],
-                "includes": []
+                "includes": [],
+                "allowAdditionalFields": false
               },
               "name": "iB",
               "optional": false,
               "docs": ""
             }
           ],
-          "includes": []
+          "includes": [],
+          "allowAdditionalFields": false
         },
         "name": "field1",
         "optional": false,
@@ -278,7 +281,8 @@
       "type": "anydata",
       "optional": false
     },
-    "includes": []
+    "includes": [],
+    "allowAdditionalFields": true
   },
   "refs": [
     {
@@ -414,7 +418,8 @@
                 "name": "int",
                 "optional": false
               }
-            ]
+            ],
+            "allowAdditionalFields": false
           },
           "name": "no",
           "optional": false,
@@ -453,7 +458,8 @@
       },
       "includes": [
         "City"
-      ]
+      ],
+      "allowAdditionalFields": false
     },
     {
       "name": "City",
@@ -556,7 +562,8 @@
           "docs": ""
         }
       ],
-      "includes": []
+      "includes": [],
+      "allowAdditionalFields": false
     }
   ]
 }
