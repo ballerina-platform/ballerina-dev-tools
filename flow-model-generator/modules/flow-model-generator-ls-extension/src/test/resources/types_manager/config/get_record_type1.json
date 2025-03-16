@@ -151,7 +151,8 @@
               "name": "Address",
               "optional": false
             }
-          ]
+          ],
+          "allowAdditionalFields": false
         },
         "name": "addresses",
         "defaultValue": "[\n        {\n            houseNo: \"10\",\n            line1: \"5th Ave\",\n            line2: \"4th St\",\n            city: \"New York City\",\n            country: \"USA\"\n        }\n    ]",
@@ -170,7 +171,8 @@
         "docs": "date of birth"
       }
     ],
-    "includes": []
+    "includes": [],
+    "allowAdditionalFields": false
   },
   "refs": [
     {
@@ -298,7 +300,8 @@
           "docs": ""
         }
       ],
-      "includes": []
+      "includes": [],
+      "allowAdditionalFields": false
     },
     {
       "name": "ballerina/time:Utc",
@@ -440,12 +443,14 @@
                 "name": "decimal",
                 "optional": false
               }
-            ]
+            ],
+            "allowAdditionalFields": false
           },
           "name": "[int, decimal]",
           "optional": false
         }
-      ]
+      ],
+      "allowAdditionalFields": false
     }
   ]
 }

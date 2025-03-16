@@ -11,6 +11,7 @@
     "codedata": {
       "node": "RECORD"
     },
+    "allowAdditionalFields": true,
     "properties": {
       "name": {
         "metadata": {
@@ -66,6 +67,7 @@
           "codedata": {
             "node": "RECORD"
           },
+          "allowAdditionalFields": true,
           "properties": {
             "isArray": {
               "metadata": {
@@ -106,6 +108,7 @@
                 "codedata": {
                   "node": "RECORD"
                 },
+                "allowAdditionalFields": true,
                 "properties": {
                   "isArray": {
                     "metadata": {

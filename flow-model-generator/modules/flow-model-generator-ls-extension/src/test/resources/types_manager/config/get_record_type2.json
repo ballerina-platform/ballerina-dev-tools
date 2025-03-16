@@ -130,7 +130,8 @@
         "docs": ""
       }
     ],
-    "includes": []
+    "includes": [],
+    "allowAdditionalFields": false
   },
   "refs": []
 }

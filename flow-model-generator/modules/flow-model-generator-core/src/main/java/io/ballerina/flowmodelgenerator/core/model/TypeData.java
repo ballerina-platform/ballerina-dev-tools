@@ -36,6 +36,7 @@ import java.util.Map;
  * @param includes      type inclusions of the type
  * @param functions     functions of a class or object
  * @param annotations   annotations of the type
+ * @param allowAdditionalFields allow additional fields
  */
 public record TypeData(
         String name,
@@ -47,7 +48,8 @@ public record TypeData(
         Member restMember,
         List<String> includes,
         List<Function> functions,
-        List<Annotation> annotations
+        List<Annotation> annotations,
+        boolean allowAdditionalFields
 ) {
 
     public static class TypeDataBuilder {
@@ -64,6 +66,7 @@ public record TypeData(
         protected FormBuilder<TypeDataBuilder> formBuilder;
         protected ModuleInfo moduleInfo;
         protected SemanticModel semanticModel;
+        protected boolean allowAdditionalFields;
         protected DiagnosticHandler diagnosticHandler;
 
         public TypeDataBuilder() {
@@ -129,6 +132,11 @@ public record TypeData(
             return this;
         }
 
+        public TypeDataBuilder allowAdditionalFields(boolean allowAdditionalFields) {
+            this.allowAdditionalFields = allowAdditionalFields;
+            return this;
+        }
+
         public TypeDataBuilder semanticModel(SemanticModel semanticModel) {
             this.semanticModel = semanticModel;
             return this;
@@ -155,7 +163,8 @@ public record TypeData(
                     restMember,
                     includes,
                     functions,
-                    annotations
+                    annotations,
+                    allowAdditionalFields
             );
         }
     }

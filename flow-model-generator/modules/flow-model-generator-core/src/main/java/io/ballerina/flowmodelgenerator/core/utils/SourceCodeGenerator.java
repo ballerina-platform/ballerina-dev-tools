@@ -175,7 +175,10 @@ public class SourceCodeGenerator {
 //        }
 
         // The template assumes that the dynamic parts already include their needed newlines and indentation.
-        String template = "record {%s%s%s%n}";
+        String template = "record {|%s%s%s%n|}";
+        if (typeData.allowAdditionalFields()) {
+            template = "record {%s%s%s%n}";
+        }
 
         return template.formatted(
                 inclusionsBuilder.toString(),

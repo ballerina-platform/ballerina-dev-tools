@@ -33,7 +33,7 @@ type UserAddress record {|
 type ApartmentAddress record {|
     *City;
     string apartmentName;
-    record {|int houseNo; string floor;|}...;
+    record {int houseNo; string floor;}...;
 |};
 
 # Record type with default values

@@ -220,7 +220,8 @@
           }
         }
       }
-    ]
+    ],
+    "allowAdditionalFields": false
   },
   "refs": []
 }

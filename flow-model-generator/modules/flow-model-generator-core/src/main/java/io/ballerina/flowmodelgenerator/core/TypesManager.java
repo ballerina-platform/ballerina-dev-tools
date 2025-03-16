@@ -67,6 +67,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static io.ballerina.flowmodelgenerator.core.utils.TypeTransformer.BUILT_IN_ERROR;
+
 /**
  * Manage creation, retrieving and updating operations related to types.
  *
@@ -348,7 +350,11 @@ public class TypesManager {
                 });
             }
             case ERROR -> {
-                addDependencyTypes(((ErrorTypeSymbol) typeSymbol).detailTypeDescriptor(), references);
+                ErrorTypeSymbol errorTypeSymbol = (ErrorTypeSymbol) typeSymbol;
+                if (errorTypeSymbol.signature().equals(BUILT_IN_ERROR)) {
+                    return;
+                }
+                addDependencyTypes((errorTypeSymbol).detailTypeDescriptor(), references);
             }
             case FUTURE -> {
                 Optional<TypeSymbol> typeParam = ((FutureTypeSymbol) typeSymbol).typeParameter();
@@ -457,7 +463,8 @@ public class TypesManager {
                 typeData.restMember(),
                 typeData.includes(),
                 typeData.functions(),
-                typeData.annotations()
+                typeData.annotations(),
+                typeData.allowAdditionalFields()
         );
     }
 

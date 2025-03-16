@@ -133,12 +133,14 @@
               "name": "time:Utc",
               "optional": false
             }
-          ]
+          ],
+          "allowAdditionalFields": false
         },
         "name": "time:Utc[]",
         "optional": false
       }
-    ]
+    ],
+    "allowAdditionalFields": false
   },
   "refs": [
     {
@@ -281,12 +283,14 @@
                 "name": "decimal",
                 "optional": false
               }
-            ]
+            ],
+            "allowAdditionalFields": false
           },
           "name": "[int, decimal]",
           "optional": false
         }
-      ]
+      ],
+      "allowAdditionalFields": false
     }
   ]
 }
