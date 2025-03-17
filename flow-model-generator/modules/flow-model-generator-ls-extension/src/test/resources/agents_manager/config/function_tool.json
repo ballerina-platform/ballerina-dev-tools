@@ -169,6 +169,21 @@
     "flags": 0
   },
   "output": {
+    "agent_1/types.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 33,
+            "character": 1
+          },
+          "end": {
+            "line": 33,
+            "character": 1
+          }
+        },
+        "newText": "isolated "
+      }
+    ],
     "agent_1/agents.bal": [
       {
         "range": {

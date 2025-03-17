@@ -56,11 +56,13 @@ import io.ballerina.projects.Document;
 import io.ballerina.projects.Project;
 import io.ballerina.tools.diagnostics.Location;
 import io.ballerina.tools.text.LinePosition;
+import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextDocumentChange;
 import io.ballerina.tools.text.TextRange;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.Position;
+import org.eclipse.lsp4j.Range;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
@@ -312,7 +314,13 @@ public class AgentsGenerator {
             sourceBuilder.token()
                     .keyword(SyntaxKind.CLOSE_BRACE_TOKEN);
             sourceBuilder.textEdit(false, AGENT_FILE);
-            return gson.toJsonTree(sourceBuilder.build());
+            Map<Path, List<TextEdit>> textEdits = sourceBuilder.build();
+            List<TextEdit> te = new ArrayList<>();
+            Path p = addIsolateKeyword(optFuncName.get().value().toString().trim(), filePath, te);
+            if (p != null) {
+                textEdits.put(p, te);
+            }
+            return gson.toJsonTree(textEdits);
         } else if (nodeKind == NodeKind.REMOTE_ACTION_CALL) {
             boolean hasDescription = genDescription(description, flowNode, sourceBuilder);
             Map<String, Property> properties = flowNode.properties();
@@ -684,5 +692,33 @@ public class AgentsGenerator {
             break;
         }
         return gson.toJsonTree(textEditsMap);
+    }
+
+    private Path addIsolateKeyword(String name, Path filePath, List<TextEdit> textEdits) {
+        for (Symbol symbol : semanticModel.moduleSymbols()) {
+            if (symbol.kind() != SymbolKind.FUNCTION) {
+                continue;
+            }
+            FunctionSymbol functionSymbol = (FunctionSymbol) symbol;
+            if (!functionSymbol.getName().orElseThrow().equals(name)) {
+                continue;
+            }
+            if (functionSymbol.qualifiers().contains(Qualifier.ISOLATED)) {
+                break;
+            }
+            Location location = functionSymbol.getLocation().orElseThrow();
+            LineRange lineRange = location.lineRange();
+            LinePosition startLine = lineRange.startLine();
+            int offset = startLine.offset() - SyntaxKind.FUNCTION_KEYWORD.stringValue().length() - 1;
+            int line = startLine.line();
+            Position position = new Position(line, offset);
+            textEdits.add(new TextEdit(new Range(position, position), "isolated "));
+            Path parent = filePath.getParent();
+            if (parent != null) {
+                return parent.resolve(lineRange.fileName());
+            }
+            break;
+        }
+        return null;
     }
 }

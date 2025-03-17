@@ -30,3 +30,5 @@ type Admission record {
 };
 
 type Persons Person[];
+
+ function foo(string s) returns string {}
