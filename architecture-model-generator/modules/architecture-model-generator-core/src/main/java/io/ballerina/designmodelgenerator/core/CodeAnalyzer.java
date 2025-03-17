@@ -374,9 +374,9 @@ public class CodeAnalyzer extends NodeVisitor {
                     }
                     if (expressionNode instanceof NewExpressionNode newExpressionNode) {
                         SeparatedNodeList<FunctionArgumentNode> argList = getArgList(newExpressionNode);
-                        List<Connection.Arguments> argExprs = getInitMethodArgExprs(argList);
-                        for (Connection.Arguments arg : argExprs) {
-                            handleInitMethodListArgs(connection, arg.node());
+                        List<ExpressionNode> argExprs = getInitMethodArgExprs(argList);
+                        for (ExpressionNode argExpr : argExprs) {
+                            handleInitMethodListArgs(connection, argExpr);
                         }
                     }
                 }
@@ -421,21 +421,19 @@ public class CodeAnalyzer extends NodeVisitor {
         }
     }
 
-    private List<Connection.Arguments> getInitMethodArgExprs(SeparatedNodeList<FunctionArgumentNode> argumentNodes) {
-        List<Connection.Arguments> arguments = new ArrayList<>();
+    private List<ExpressionNode> getInitMethodArgExprs(SeparatedNodeList<FunctionArgumentNode> argumentNodes) {
+        List<ExpressionNode> arguments = new ArrayList<>();
 
         for (int argIdx = 0; argIdx < argumentNodes.size(); argIdx++) {
             Node argument = argumentNodes.get(argIdx);
             if (argument == null) {
-                return Collections.emptyList();
+                continue;
             }
             SyntaxKind argKind = argument.kind();
             if (argKind == SyntaxKind.NAMED_ARG) {
-                arguments.add(new Connection.Arguments(((NamedArgumentNode) argument).expression()));
+                arguments.add(((NamedArgumentNode) argument).expression());
             } else if (argKind == SyntaxKind.POSITIONAL_ARG) {
-                arguments.add(new Connection.Arguments(((PositionalArgumentNode) argument).expression()));
-            } else {
-                return Collections.emptyList();
+                arguments.add(((PositionalArgumentNode) argument).expression());
             }
         }
         return arguments;

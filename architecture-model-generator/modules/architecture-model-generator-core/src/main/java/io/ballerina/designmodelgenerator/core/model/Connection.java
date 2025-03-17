@@ -18,8 +18,6 @@
 
 package io.ballerina.designmodelgenerator.core.model;
 
-import io.ballerina.compiler.syntax.tree.ExpressionNode;
-
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -111,8 +109,5 @@ public class Connection extends DesignGraphNode {
             return false;
         }
         return Objects.equals(connection.getUuid(), this.getUuid());
-    }
-
-    public record Arguments(ExpressionNode node) {
     }
 }
