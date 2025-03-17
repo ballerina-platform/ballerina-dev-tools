@@ -78,7 +78,6 @@ public class AgentCallBuilder extends CallBuilder {
                         Set.of(Property.CONNECTION_KEY, Property.VARIABLE_KEY, Property.TYPE_KEY,
                                 Property.CHECK_ERROR_KEY))
                 .textEdit(false)
-                .acceptImportWithVariableType()
                 .build();
     }
 }
