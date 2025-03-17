@@ -36,7 +36,10 @@ import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
+import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
+import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.compiler.syntax.tree.Token;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
@@ -60,6 +63,7 @@ import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextDocumentChange;
 import io.ballerina.tools.text.TextRange;
+import org.ballerinalang.langserver.common.utils.CommonUtil;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.Position;
 import org.eclipse.lsp4j.Range;
@@ -316,7 +320,7 @@ public class AgentsGenerator {
             sourceBuilder.textEdit(false, AGENT_FILE);
             Map<Path, List<TextEdit>> textEdits = sourceBuilder.build();
             List<TextEdit> te = new ArrayList<>();
-            Path p = addIsolateKeyword(optFuncName.get().value().toString().trim(), filePath, te);
+            Path p = addIsolateKeyword(optFuncName.get().value().toString().trim(), filePath, te, workspaceManager);
             if (p != null) {
                 textEdits.put(p, te);
             }
@@ -694,7 +698,8 @@ public class AgentsGenerator {
         return gson.toJsonTree(textEditsMap);
     }
 
-    private Path addIsolateKeyword(String name, Path filePath, List<TextEdit> textEdits) {
+    private Path addIsolateKeyword(String name, Path filePath, List<TextEdit> textEdits,
+                                   WorkspaceManager workspaceManager) {
         for (Symbol symbol : semanticModel.moduleSymbols()) {
             if (symbol.kind() != SymbolKind.FUNCTION) {
                 continue;
@@ -703,21 +708,43 @@ public class AgentsGenerator {
             if (!functionSymbol.getName().orElseThrow().equals(name)) {
                 continue;
             }
-            if (functionSymbol.qualifiers().contains(Qualifier.ISOLATED)) {
-                break;
-            }
+            Path parent = filePath.getParent();
             Location location = functionSymbol.getLocation().orElseThrow();
             LineRange lineRange = location.lineRange();
+            if (parent == null) {
+                break;
+            }
+            Path functionFile = parent.resolve(lineRange.fileName());
+            Optional<Document> optDocument = workspaceManager.document(functionFile);
+            if (optDocument.isEmpty()) {
+                break;
+            }
+            Document document = optDocument.get();
+            Optional<NonTerminalNode> optNode = CommonUtil.findNode(functionSymbol, document.syntaxTree());
+            if (optNode.isEmpty()) {
+                break;
+            }
+            NonTerminalNode node = optNode.get();
+            if (node.kind() != SyntaxKind.FUNCTION_DEFINITION) {
+                break;
+            }
+            FunctionDefinitionNode functionDefinitionNode = (FunctionDefinitionNode) node;
+            boolean isIsolated = false;
+            for (Token token : functionDefinitionNode.qualifierList()) {
+                if (token.text().trim().equals("isolated")) {
+                    isIsolated = true;
+                }
+            }
+
+            if (isIsolated) {
+                break;
+            }
             LinePosition startLine = lineRange.startLine();
             int offset = startLine.offset() - SyntaxKind.FUNCTION_KEYWORD.stringValue().length() - 1;
             int line = startLine.line();
             Position position = new Position(line, offset);
             textEdits.add(new TextEdit(new Range(position, position), "isolated "));
-            Path parent = filePath.getParent();
-            if (parent != null) {
-                return parent.resolve(lineRange.fileName());
-            }
-            break;
+            return functionFile;
         }
         return null;
     }
