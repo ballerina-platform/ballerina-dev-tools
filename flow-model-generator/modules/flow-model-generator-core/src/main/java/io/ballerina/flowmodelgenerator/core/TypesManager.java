@@ -42,8 +42,10 @@ import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
+import io.ballerina.compiler.syntax.tree.MetadataNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
+import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.TypeData;
@@ -108,6 +110,41 @@ public class TypesManager {
         List<Object> allTypes = symbolMap.values().stream().map(this::getTypeData).toList();
 
         return gson.toJsonTree(allTypes);
+    }
+
+    public JsonElement getGraphqlType(SemanticModel semanticModel, Document document, LinePosition linePosition) {
+        NonTerminalNode node = CommonUtil.findNode(CommonUtils.toRange(linePosition), document.syntaxTree());
+
+        Optional<Symbol> optSymbol = Optional.empty();
+        // TODO: This needs to be applied for other type definitions when adding annotation support
+        if (SyntaxKind.ANNOTATION == node.kind() && node.parent().kind() == SyntaxKind.METADATA) {
+            MetadataNode metadata = (MetadataNode) node.parent();
+            NonTerminalNode parentNode = metadata.parent();
+            if (SyntaxKind.SERVICE_DECLARATION == parentNode.kind()) {
+                optSymbol = semanticModel.symbol(parentNode);
+            }
+        } else {
+            optSymbol = semanticModel.symbol(document, linePosition);
+        }
+
+        if (optSymbol.isEmpty() || !supportedGraphqlSymbolKinds.contains(optSymbol.get().kind())) {
+            return null;
+        }
+
+        Object type = getTypeData(optSymbol.get());
+
+        Map<String, Object> refs = new HashMap<>();
+        if (optSymbol.get().kind() == SymbolKind.SERVICE_DECLARATION) {
+            addDependencyTypes((ServiceDeclarationSymbol) optSymbol.get(), refs);
+        } else {
+            TypeSymbol typeDescriptor = getTypeDescriptor(optSymbol.get());
+            if (typeDescriptor != null) {
+                addDependencyTypes(typeDescriptor, refs);
+            }
+        }
+
+        return gson.toJsonTree(new TypeDataWithRefs(type, refs.values().stream().toList()));
+
     }
 
     public JsonElement getType(SemanticModel semanticModel, Document document, LinePosition linePosition) {
