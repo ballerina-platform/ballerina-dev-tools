@@ -36,6 +36,7 @@ import io.ballerina.flowmodelgenerator.core.SuggestedComponentService;
 import io.ballerina.flowmodelgenerator.core.SuggestedModelGenerator;
 import io.ballerina.flowmodelgenerator.core.analyzers.function.ModuleNodeAnalyzer;
 import io.ballerina.flowmodelgenerator.core.search.SearchCommand;
+import io.ballerina.flowmodelgenerator.core.utils.FileSystemUtils;
 import io.ballerina.flowmodelgenerator.extension.request.ComponentDeleteRequest;
 import io.ballerina.flowmodelgenerator.extension.request.CopilotContextRequest;
 import io.ballerina.flowmodelgenerator.extension.request.EnclosedFuncDefRequest;
@@ -322,8 +323,7 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
 
                 // Obtain the semantic model and the document
                 Project project = this.workspaceManager.loadProject(filePath);
-                SemanticModel semanticModel = this.workspaceManager.semanticModel(filePath).orElse(
-                        project.currentPackage().getDefaultModule().getCompilation().getSemanticModel());
+                SemanticModel semanticModel = FileSystemUtils.getSemanticModel(workspaceManager, filePath);
 
                 // Generate the flow design model
                 ModelGenerator modelGenerator = new ModelGenerator(project, semanticModel, filePath);
