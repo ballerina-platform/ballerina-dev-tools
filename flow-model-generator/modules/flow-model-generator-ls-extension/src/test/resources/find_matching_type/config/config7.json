@@ -1,0 +1,649 @@
+{
+  "filePath": "proj",
+  "typeMembers": [
+    {
+      "type": "ConnectionConfig",
+      "packageInfo": "ballerinax:mongodb:5.1.0",
+      "kind": "RECORD_TYPE",
+      "selected": false
+    }
+  ],
+  "expr": "{\nconnection: {\nserverAddress: {\nhost,\nport\n}\n}\n}",
+  "output": {
+    "recordConfig": {
+      "fields": [
+        {
+          "members": [
+            {
+              "fields": [
+                {
+                  "members": [
+                    {
+                      "fields": [
+                        {
+                          "name": "host",
+                          "typeName": "string",
+                          "optional": false,
+                          "defaultable": true,
+                          "isRestType": false,
+                          "value": "host",
+                          "selected": true
+                        },
+                        {
+                          "name": "port",
+                          "typeName": "int",
+                          "optional": false,
+                          "defaultable": true,
+                          "isRestType": false,
+                          "value": "port",
+                          "selected": true
+                        }
+                      ],
+                      "hasRestType": false,
+                      "name": "ServerAddress",
+                      "typeName": "record",
+                      "optional": false,
+                      "typeInfo": {
+                        "name": "ServerAddress",
+                        "orgName": "ballerinax",
+                        "moduleName": "mongodb",
+                        "version": "5.1.0"
+                      },
+                      "defaultable": false,
+                      "isRestType": false,
+                      "selected": true
+                    },
+                    {
+                      "memberType": {
+                        "fields": [
+                          {
+                            "name": "host",
+                            "typeName": "string",
+                            "optional": false,
+                            "defaultable": true,
+                            "isRestType": false,
+                            "value": "host",
+                            "selected": true
+                          },
+                          {
+                            "name": "port",
+                            "typeName": "int",
+                            "optional": false,
+                            "defaultable": true,
+                            "isRestType": false,
+                            "value": "port",
+                            "selected": true
+                          }
+                        ],
+                        "hasRestType": false,
+                        "name": "ServerAddress",
+                        "typeName": "record",
+                        "optional": false,
+                        "typeInfo": {
+                          "name": "ServerAddress",
+                          "orgName": "ballerinax",
+                          "moduleName": "mongodb",
+                          "version": "5.1.0"
+                        },
+                        "defaultable": false,
+                        "isRestType": false,
+                        "selected": false
+                      },
+                      "typeName": "array",
+                      "optional": false,
+                      "defaultable": false,
+                      "isRestType": false,
+                      "selected": false
+                    }
+                  ],
+                  "name": "serverAddress",
+                  "typeName": "union",
+                  "optional": false,
+                  "defaultable": true,
+                  "isRestType": false,
+                  "selected": true
+                },
+                {
+                  "members": [
+                    {
+                      "fields": [
+                        {
+                          "name": "authMechanism",
+                          "typeName": "PLAIN",
+                          "optional": false,
+                          "defaultable": true,
+                          "isRestType": false,
+                          "selected": false
+                        },
+                        {
+                          "name": "username",
+                          "typeName": "string",
+                          "optional": false,
+                          "defaultable": false,
+                          "isRestType": false,
+                          "selected": false
+                        },
+                        {
+                          "name": "password",
+                          "typeName": "string",
+                          "optional": false,
+                          "defaultable": false,
+                          "isRestType": false,
+                          "selected": false
+                        },
+                        {
+                          "name": "database",
+                          "typeName": "string",
+                          "optional": false,
+                          "defaultable": false,
+                          "isRestType": false,
+                          "selected": false
+                        }
+                      ],
+                      "hasRestType": false,
+                      "name": "BasicAuthCredential",
+                      "typeName": "record",
+                      "optional": false,
+                      "typeInfo": {
+                        "name": "BasicAuthCredential",
+                        "orgName": "ballerinax",
+                        "moduleName": "mongodb",
+                        "version": "5.1.0"
+                      },
+                      "defaultable": false,
+                      "isRestType": false,
+                      "selected": false
+                    },
+                    {
+                      "fields": [
+                        {
+                          "name": "authMechanism",
+                          "typeName": "SCRAM_SHA_1",
+                          "optional": false,
+                          "defaultable": true,
+                          "isRestType": false,
+                          "selected": false
+                        },
+                        {
+                          "name": "username",
+                          "typeName": "string",
+                          "optional": false,
+                          "defaultable": false,
+                          "isRestType": false,
+                          "selected": false
+                        },
+                        {
+                          "name": "password",
+                          "typeName": "string",
+                          "optional": false,
+                          "defaultable": false,
+                          "isRestType": false,
+                          "selected": false
+                        },
+                        {
+                          "name": "database",
+                          "typeName": "string",
+                          "optional": false,
+                          "defaultable": false,
+                          "isRestType": false,
+                          "selected": false
+                        }
+                      ],
+                      "hasRestType": false,
+                      "name": "ScramSha1AuthCredential",
+                      "typeName": "record",
+                      "optional": false,
+                      "typeInfo": {
+                        "name": "ScramSha1AuthCredential",
+                        "orgName": "ballerinax",
+                        "moduleName": "mongodb",
+                        "version": "5.1.0"
+                      },
+                      "defaultable": false,
+                      "isRestType": false,
+                      "selected": false
+                    },
+                    {
+                      "fields": [
+                        {
+                          "name": "authMechanism",
+                          "typeName": "SCRAM_SHA_256",
+                          "optional": false,
+                          "defaultable": true,
+                          "isRestType": false,
+                          "selected": false
+                        },
+                        {
+                          "name": "username",
+                          "typeName": "string",
+                          "optional": false,
+                          "defaultable": false,
+                          "isRestType": false,
+                          "selected": false
+                        },
+                        {
+                          "name": "password",
+                          "typeName": "string",
+                          "optional": false,
+                          "defaultable": false,
+                          "isRestType": false,
+                          "selected": false
+                        },
+                        {
+                          "name": "database",
+                          "typeName": "string",
+                          "optional": false,
+                          "defaultable": false,
+                          "isRestType": false,
+                          "selected": false
+                        }
+                      ],
+                      "hasRestType": false,
+                      "name": "ScramSha256AuthCredential",
+                      "typeName": "record",
+                      "optional": false,
+                      "typeInfo": {
+                        "name": "ScramSha256AuthCredential",
+                        "orgName": "ballerinax",
+                        "moduleName": "mongodb",
+                        "version": "5.1.0"
+                      },
+                      "defaultable": false,
+                      "isRestType": false,
+                      "selected": false
+                    },
+                    {
+                      "fields": [
+                        {
+                          "name": "authMechanism",
+                          "typeName": "MONGODB_X509",
+                          "optional": false,
+                          "defaultable": true,
+                          "isRestType": false,
+                          "selected": false
+                        },
+                        {
+                          "name": "username",
+                          "typeName": "string",
+                          "optional": true,
+                          "defaultable": false,
+                          "isRestType": false,
+                          "selected": false
+                        }
+                      ],
+                      "hasRestType": false,
+                      "name": "X509Credential",
+                      "typeName": "record",
+                      "optional": false,
+                      "typeInfo": {
+                        "name": "X509Credential",
+                        "orgName": "ballerinax",
+                        "moduleName": "mongodb",
+                        "version": "5.1.0"
+                      },
+                      "defaultable": false,
+                      "isRestType": false,
+                      "selected": false
+                    },
+                    {
+                      "fields": [
+                        {
+                          "name": "authMechanism",
+                          "typeName": "GSSAPI",
+                          "optional": false,
+                          "defaultable": true,
+                          "isRestType": false,
+                          "selected": false
+                        },
+                        {
+                          "name": "username",
+                          "typeName": "string",
+                          "optional": false,
+                          "defaultable": false,
+                          "isRestType": false,
+                          "selected": false
+                        },
+                        {
+                          "name": "serviceName",
+                          "typeName": "string",
+                          "optional": true,
+                          "defaultable": false,
+                          "isRestType": false,
+                          "selected": false
+                        }
+                      ],
+                      "hasRestType": false,
+                      "name": "GssApiCredential",
+                      "typeName": "record",
+                      "optional": false,
+                      "typeInfo": {
+                        "name": "GssApiCredential",
+                        "orgName": "ballerinax",
+                        "moduleName": "mongodb",
+                        "version": "5.1.0"
+                      },
+                      "defaultable": false,
+                      "isRestType": false,
+                      "selected": false
+                    }
+                  ],
+                  "name": "auth",
+                  "typeName": "union",
+                  "optional": true,
+                  "defaultable": false,
+                  "isRestType": false,
+                  "selected": false
+                }
+              ],
+              "hasRestType": false,
+              "name": "ConnectionParameters",
+              "typeName": "record",
+              "optional": false,
+              "typeInfo": {
+                "name": "ConnectionParameters",
+                "orgName": "ballerinax",
+                "moduleName": "mongodb",
+                "version": "5.1.0"
+              },
+              "defaultable": false,
+              "isRestType": false,
+              "selected": true
+            },
+            {
+              "typeName": "string",
+              "optional": false,
+              "defaultable": false,
+              "isRestType": false,
+              "selected": false
+            }
+          ],
+          "name": "connection",
+          "typeName": "union",
+          "optional": false,
+          "defaultable": false,
+          "isRestType": false,
+          "selected": true
+        },
+        {
+          "fields": [
+            {
+              "members": [
+                {
+                  "typeName": "snapshot",
+                  "optional": false,
+                  "defaultable": false,
+                  "isRestType": false,
+                  "selected": false
+                },
+                {
+                  "typeName": "linearizable",
+                  "optional": false,
+                  "defaultable": false,
+                  "isRestType": false,
+                  "selected": false
+                },
+                {
+                  "typeName": "majority",
+                  "optional": false,
+                  "defaultable": false,
+                  "isRestType": false,
+                  "selected": false
+                },
+                {
+                  "typeName": "available",
+                  "optional": false,
+                  "defaultable": false,
+                  "isRestType": false,
+                  "selected": false
+                },
+                {
+                  "typeName": "local",
+                  "optional": false,
+                  "defaultable": false,
+                  "isRestType": false,
+                  "selected": false
+                }
+              ],
+              "name": "readConcern",
+              "typeName": "enum",
+              "optional": true,
+              "typeInfo": {
+                "name": "ReadConcern",
+                "orgName": "ballerinax",
+                "moduleName": "mongodb",
+                "version": "5.1.0"
+              },
+              "defaultable": false,
+              "isRestType": false,
+              "selected": false
+            },
+            {
+              "name": "writeConcern",
+              "typeName": "string",
+              "optional": true,
+              "defaultable": false,
+              "isRestType": false,
+              "selected": false
+            },
+            {
+              "name": "readPreference",
+              "typeName": "string",
+              "optional": true,
+              "defaultable": false,
+              "isRestType": false,
+              "selected": false
+            },
+            {
+              "name": "replicaSet",
+              "typeName": "string",
+              "optional": true,
+              "defaultable": false,
+              "isRestType": false,
+              "selected": false
+            },
+            {
+              "name": "sslEnabled",
+              "typeName": "boolean",
+              "optional": false,
+              "defaultable": true,
+              "isRestType": false,
+              "selected": false
+            },
+            {
+              "name": "invalidHostNameAllowed",
+              "typeName": "boolean",
+              "optional": false,
+              "defaultable": true,
+              "isRestType": false,
+              "selected": false
+            },
+            {
+              "fields": [
+                {
+                  "fields": [
+                    {
+                      "name": "path",
+                      "typeName": "string",
+                      "optional": false,
+                      "defaultable": false,
+                      "isRestType": false,
+                      "selected": false
+                    },
+                    {
+                      "name": "password",
+                      "typeName": "string",
+                      "optional": false,
+                      "defaultable": false,
+                      "isRestType": false,
+                      "selected": false
+                    }
+                  ],
+                  "hasRestType": false,
+                  "name": "trustStore",
+                  "typeName": "record",
+                  "optional": false,
+                  "typeInfo": {
+                    "name": "TrustStore",
+                    "orgName": "ballerina",
+                    "moduleName": "crypto",
+                    "version": "2.8.0"
+                  },
+                  "defaultable": false,
+                  "isRestType": false,
+                  "selected": false
+                },
+                {
+                  "fields": [
+                    {
+                      "name": "path",
+                      "typeName": "string",
+                      "optional": false,
+                      "defaultable": false,
+                      "isRestType": false,
+                      "selected": false
+                    },
+                    {
+                      "name": "password",
+                      "typeName": "string",
+                      "optional": false,
+                      "defaultable": false,
+                      "isRestType": false,
+                      "selected": false
+                    }
+                  ],
+                  "hasRestType": false,
+                  "name": "keyStore",
+                  "typeName": "record",
+                  "optional": false,
+                  "typeInfo": {
+                    "name": "KeyStore",
+                    "orgName": "ballerina",
+                    "moduleName": "crypto",
+                    "version": "2.8.0"
+                  },
+                  "defaultable": false,
+                  "isRestType": false,
+                  "selected": false
+                },
+                {
+                  "name": "protocol",
+                  "typeName": "string",
+                  "optional": false,
+                  "defaultable": false,
+                  "isRestType": false,
+                  "selected": false
+                }
+              ],
+              "hasRestType": false,
+              "name": "secureSocket",
+              "typeName": "record",
+              "optional": true,
+              "typeInfo": {
+                "name": "SecureSocket",
+                "orgName": "ballerinax",
+                "moduleName": "mongodb",
+                "version": "5.1.0"
+              },
+              "defaultable": false,
+              "isRestType": false,
+              "selected": false
+            },
+            {
+              "name": "retryWrites",
+              "typeName": "boolean",
+              "optional": true,
+              "defaultable": false,
+              "isRestType": false,
+              "selected": false
+            },
+            {
+              "name": "socketTimeout",
+              "typeName": "int",
+              "optional": true,
+              "defaultable": false,
+              "isRestType": false,
+              "selected": false
+            },
+            {
+              "name": "connectionTimeout",
+              "typeName": "int",
+              "optional": true,
+              "defaultable": false,
+              "isRestType": false,
+              "selected": false
+            },
+            {
+              "name": "maxPoolSize",
+              "typeName": "int",
+              "optional": true,
+              "defaultable": false,
+              "isRestType": false,
+              "selected": false
+            },
+            {
+              "name": "maxIdleTime",
+              "typeName": "int",
+              "optional": true,
+              "defaultable": false,
+              "isRestType": false,
+              "selected": false
+            },
+            {
+              "name": "maxLifeTime",
+              "typeName": "int",
+              "optional": true,
+              "defaultable": false,
+              "isRestType": false,
+              "selected": false
+            },
+            {
+              "name": "minPoolSize",
+              "typeName": "int",
+              "optional": true,
+              "defaultable": false,
+              "isRestType": false,
+              "selected": false
+            },
+            {
+              "name": "localThreshold",
+              "typeName": "int",
+              "optional": true,
+              "defaultable": false,
+              "isRestType": false,
+              "selected": false
+            },
+            {
+              "name": "heartbeatFrequency",
+              "typeName": "int",
+              "optional": true,
+              "defaultable": false,
+              "isRestType": false,
+              "selected": false
+            }
+          ],
+          "hasRestType": false,
+          "name": "options",
+          "typeName": "record",
+          "optional": true,
+          "typeInfo": {
+            "name": "ConnectionProperties",
+            "orgName": "ballerinax",
+            "moduleName": "mongodb",
+            "version": "5.1.0"
+          },
+          "defaultable": false,
+          "isRestType": false,
+          "selected": false
+        }
+      ],
+      "hasRestType": false,
+      "name": "ConnectionConfig",
+      "typeName": "record",
+      "optional": false,
+      "defaultable": false,
+      "isRestType": false,
+      "selected": true
+    },
+    "typeName": "ConnectionConfig"
+  }
+}

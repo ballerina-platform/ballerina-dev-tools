@@ -137,7 +137,29 @@ public class TypesManagerService implements ExtendedLanguageServerService {
     @JsonRequest
     public CompletableFuture<TypeResponse> getGraphqlType(GetTypeRequest request) {
         // TODO: Different implementation may be needed with future requirements
-        return getType(request);
+        return CompletableFuture.supplyAsync(() -> {
+            TypeResponse response = new TypeResponse();
+            try {
+                Path filePath = Path.of(request.filePath());
+                this.workspaceManager.loadProject(filePath);
+                Optional<Document> document = this.workspaceManager.document(filePath);
+                Optional<SemanticModel> semanticModel = this.workspaceManager.semanticModel(filePath);
+                if (document.isEmpty() || semanticModel.isEmpty()) {
+                    return response;
+                }
+                TypesManager typesManager = new TypesManager(document.get());
+                JsonElement result =
+                        typesManager.getGraphqlType(semanticModel.get(), document.get(), request.linePosition());
+                if (result == null) {
+                    return response;
+                }
+                response.setType(result.getAsJsonObject().get("type").getAsJsonObject());
+                response.setRefs(result.getAsJsonObject().get("refs").getAsJsonArray());
+            } catch (Throwable e) {
+                throw new RuntimeException(e);
+            }
+            return response;
+        });
     }
 
     @JsonRequest
