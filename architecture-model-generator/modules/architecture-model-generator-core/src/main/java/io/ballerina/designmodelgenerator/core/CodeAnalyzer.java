@@ -77,6 +77,7 @@ import io.ballerina.compiler.syntax.tree.RollbackStatementNode;
 import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.ServiceDeclarationNode;
 import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
+import io.ballerina.compiler.syntax.tree.SpecificFieldNode;
 import io.ballerina.compiler.syntax.tree.StartActionNode;
 import io.ballerina.compiler.syntax.tree.StatementNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
@@ -361,8 +362,83 @@ public class CodeAnalyzer extends NodeVisitor {
             if (this.intermediateModel.connectionMap.containsKey(hashCode)) {
                 Connection connection = this.intermediateModel.connectionMap.get(hashCode);
                 connection.setLocation(getLocation(moduleVariableDeclarationNode.lineRange()));
+                TypeSymbol rawType = CommonUtils.getRawType(((VariableSymbol) symbol.get()).typeDescriptor());
+                if (rawType instanceof ClassSymbol classSymbol) {
+                    Optional<ExpressionNode> initializer = moduleVariableDeclarationNode.initializer();
+                    if (initializer.isEmpty()) {
+                        return;
+                    }
+                    ExpressionNode expressionNode = initializer.get();
+                    if (expressionNode instanceof CheckExpressionNode checkExpressionNode) {
+                        expressionNode = checkExpressionNode.expression();
+                    }
+                    if (expressionNode instanceof NewExpressionNode newExpressionNode) {
+                        SeparatedNodeList<FunctionArgumentNode> argList = getArgList(newExpressionNode);
+                        List<Connection.Arguments> argExprs = getInitMethodArgExprs(argList);
+                        for (Connection.Arguments arg : argExprs) {
+                            handleInitMethodListArgs(connection, arg.node());
+                        }
+                    }
+                }
             }
         }
+    }
+
+    private void handleInitMethodListArgs(Connection connection, ExpressionNode expressionNode) {
+        if (expressionNode instanceof ListConstructorExpressionNode listConstructorExpressionNode) {
+            for (Node expr : listConstructorExpressionNode.expressions()) {
+                Optional<Symbol> symbol = this.semanticModel.symbol(expr);
+                if (symbol.isEmpty()) {
+                    continue;
+                }
+                if (symbol.get() instanceof FunctionSymbol functionSymbol) {
+                    connection.addDependentFunction(functionSymbol.getName().orElse(""));
+                }
+            }
+        } else if (expressionNode instanceof MappingConstructorExpressionNode mappingConstructorExpressionNode) {
+            for (Node expr : mappingConstructorExpressionNode.fields()) {
+                if (expr instanceof SpecificFieldNode specificFieldNode) {
+                    if (specificFieldNode.valueExpr().isPresent()) {
+                        handleInitMethodListArgs(connection, specificFieldNode.valueExpr().get());
+                    }
+                }
+            }
+        } else if (expressionNode instanceof SimpleNameReferenceNode varRef) {
+            Optional<Symbol> symbol = this.semanticModel.symbol(varRef);
+            if (symbol.isPresent() && symbol.get() instanceof VariableSymbol variableSymbol) {
+                TypeSymbol rawType = CommonUtils.getRawType(variableSymbol.typeDescriptor());
+                if (rawType instanceof ClassSymbol classSymbol) {
+                    if (classSymbol.qualifiers().contains(Qualifier.CLIENT)) {
+                        if (intermediateModel.connectionMap.containsKey(String.valueOf(symbol.get()
+                                .getLocation().get().hashCode()))) {
+                            Connection dependentConnection = intermediateModel.connectionMap.get(String.valueOf(
+                                    symbol.get().getLocation().get().hashCode()));
+                            connection.addDependentConnection(dependentConnection.getUuid());
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private List<Connection.Arguments> getInitMethodArgExprs(SeparatedNodeList<FunctionArgumentNode> argumentNodes) {
+        List<Connection.Arguments> arguments = new ArrayList<>();
+
+        for (int argIdx = 0; argIdx < argumentNodes.size(); argIdx++) {
+            Node argument = argumentNodes.get(argIdx);
+            if (argument == null) {
+                return Collections.emptyList();
+            }
+            SyntaxKind argKind = argument.kind();
+            if (argKind == SyntaxKind.NAMED_ARG) {
+                arguments.add(new Connection.Arguments(((NamedArgumentNode) argument).expression()));
+            } else if (argKind == SyntaxKind.POSITIONAL_ARG) {
+                arguments.add(new Connection.Arguments(((PositionalArgumentNode) argument).expression()));
+            } else {
+                return Collections.emptyList();
+            }
+        }
+        return arguments;
     }
 
     @Override

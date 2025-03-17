@@ -108,6 +108,16 @@ public class DesignModelGenerator {
             List<Function> remoteFunctions = new ArrayList<>();
             serviceModel.remoteFunctions.forEach(remoteFunction -> {
                 buildConnectionGraph(intermediateModel, remoteFunction);
+                remoteFunction.connections.forEach(connection -> {
+                    Connection conn = intermediateModel.uuidToConnectionMap.get(connection);
+                    if (conn != null) {
+                        remoteFunction.dependentFuncs.clear();
+                        remoteFunction.dependentFuncs.addAll(conn.getDependentFunctions());
+                        remoteFunction.allDependentConnections.addAll(conn.getDependentConnection());
+                    }
+                });
+                remoteFunction.analyzed = false;
+                remoteFunction.visited = false;
                 remoteFunctions.add(new Function(remoteFunction.name, remoteFunction.location,
                         remoteFunction.allDependentConnections));
                 connections.addAll(remoteFunction.allDependentConnections);
@@ -115,6 +125,17 @@ public class DesignModelGenerator {
 
             List<ResourceFunction> resourceFunctions = new ArrayList<>();
             serviceModel.resourceFunctions.forEach(resourceFunction -> {
+                buildConnectionGraph(intermediateModel, resourceFunction);
+                resourceFunction.connections.forEach(connection -> {
+                    Connection conn = intermediateModel.uuidToConnectionMap.get(connection);
+                    if (conn != null) {
+                        resourceFunction.dependentFuncs.clear();
+                        resourceFunction.dependentFuncs.addAll(conn.getDependentFunctions());
+                        resourceFunction.allDependentConnections.addAll(conn.getDependentConnection());
+                    }
+                });
+                resourceFunction.analyzed = false;
+                resourceFunction.visited = false;
                 buildConnectionGraph(intermediateModel, resourceFunction);
                 resourceFunctions.add(new ResourceFunction(resourceFunction.name, resourceFunction.path,
                         resourceFunction.location, resourceFunction.allDependentConnections));
@@ -160,6 +181,7 @@ public class DesignModelGenerator {
                                 getLocation(lineRange), Connection.Scope.GLOBAL, icon, true);
                         intermediateModel.connectionMap.put(
                                 String.valueOf(variableSymbol.getLocation().get().hashCode()), connection);
+                        intermediateModel.uuidToConnectionMap.put(connection.getUuid(), connection);
                     }
                 }
             }
@@ -178,6 +200,7 @@ public class DesignModelGenerator {
                     buildConnectionGraph(intermediateModel, dependentFunctionModel);
                 }
                 connections.addAll(dependentFunctionModel.allDependentConnections);
+                connections.addAll(dependentFunctionModel.connections);
             });
         }
         functionModel.visited = true;

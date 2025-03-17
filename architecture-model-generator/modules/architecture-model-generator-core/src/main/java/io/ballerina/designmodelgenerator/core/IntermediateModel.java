@@ -40,12 +40,14 @@ public class IntermediateModel {
     protected final Map<String, ServiceModel> serviceModelMap;
     protected final Map<String, Listener> listeners;
     protected final Map<String, Connection> connectionMap;
+    protected final Map<String, Connection> uuidToConnectionMap;
 
     public IntermediateModel() {
         this.functionModelMap = new HashMap<>();
         this.serviceModelMap = new HashMap<>();
         this.listeners = new HashMap<>();
         this.connectionMap = new HashMap<>();
+        this.uuidToConnectionMap = new HashMap<>();
     }
 
     public static class ServiceModel {

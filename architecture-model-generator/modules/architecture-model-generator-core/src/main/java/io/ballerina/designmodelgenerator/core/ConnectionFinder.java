@@ -69,6 +69,7 @@ public class ConnectionFinder {
             Connection connection = this.intermediateModel.connectionMap.get(hashKey);
             for (String refLocation : referenceLocations) {
                 intermediateModel.connectionMap.put(refLocation, connection);
+                intermediateModel.uuidToConnectionMap.put(connection.getUuid(), connection);
             }
         }
         if (symbol instanceof ClassFieldSymbol classFieldSymbol) {
@@ -85,6 +86,7 @@ public class ConnectionFinder {
                                 sortText, getLocation(lineRange), Connection.Scope.LOCAL, icon);
                         for (String refLocation : referenceLocations) {
                             intermediateModel.connectionMap.put(String.valueOf(refLocation), connection);
+                            intermediateModel.uuidToConnectionMap.put(connection.getUuid(), connection);
                         }
                     } else {
                         Optional<Symbol> valueSymbol = semanticModel.symbol(objectFieldNode.expression().get());
@@ -107,6 +109,7 @@ public class ConnectionFinder {
                                     getLocation(lineRange), Connection.Scope.LOCAL, icon);
                             for (String refLocation : referenceLocations) {
                                 intermediateModel.connectionMap.put(String.valueOf(refLocation), connection);
+                                intermediateModel.uuidToConnectionMap.put(connection.getUuid(), connection);
                             }
                         } else {
                             Optional<Symbol> valueSymbol = semanticModel.symbol(assignmentStatementNode.expression());
@@ -122,6 +125,7 @@ public class ConnectionFinder {
                 Connection connection = this.intermediateModel.connectionMap.get(hashKey);
                 for (String refLocation : referenceLocations) {
                     intermediateModel.connectionMap.put(refLocation, connection);
+                    intermediateModel.uuidToConnectionMap.put(connection.getUuid(), connection);
                 }
             } else {
                 List<Location> references = this.semanticModel.references(variableSymbol);
@@ -137,6 +141,7 @@ public class ConnectionFinder {
                                     getLocation(lineRange), Connection.Scope.LOCAL, icon, true);
                             for (String refLocation : referenceLocations) {
                                 intermediateModel.connectionMap.put(String.valueOf(refLocation), connection);
+                                intermediateModel.uuidToConnectionMap.put(connection.getUuid(), connection);
                             }
                         } else {
                             if (variableDeclarationNode.initializer().isPresent()) {
@@ -155,6 +160,7 @@ public class ConnectionFinder {
                                     getLocation(lineRange), Connection.Scope.LOCAL, "");
                             for (String refLocation : referenceLocations) {
                                 intermediateModel.connectionMap.put(String.valueOf(refLocation), connection);
+                                intermediateModel.uuidToConnectionMap.put(connection.getUuid(), connection);
                             }
                         } else {
                             Optional<Symbol> valueSymbol = semanticModel.symbol(assignmentStatementNode.expression());
