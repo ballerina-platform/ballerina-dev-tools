@@ -18,7 +18,9 @@
 
 package io.ballerina.designmodelgenerator.core.model;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * Represents a module client declaration node.
@@ -31,6 +33,8 @@ public class Connection extends DesignGraphNode {
     private Location location;
     private final Scope scope;
     private final String icon;
+    private final Set<String> dependentFunctions;
+    private final Set<String> dependentConnection;
 
     public Connection(String symbol, String sortText, Location location, Scope scope, String icon) {
         super(sortText);
@@ -38,6 +42,8 @@ public class Connection extends DesignGraphNode {
         this.location = location;
         this.scope = scope;
         this.icon = icon;
+        this.dependentFunctions = new HashSet<>();
+        this.dependentConnection = new HashSet<>();
     }
 
     public Connection(String symbol, String sortText, Location location, Scope scope, String icon,
@@ -47,6 +53,8 @@ public class Connection extends DesignGraphNode {
         this.location = location;
         this.scope = scope;
         this.icon = icon;
+        this.dependentFunctions = new HashSet<>();
+        this.dependentConnection = new HashSet<>();
     }
 
     public enum Scope {
@@ -72,6 +80,22 @@ public class Connection extends DesignGraphNode {
 
     public Scope getScope() {
         return scope;
+    }
+
+    public Set<String> getDependentFunctions() {
+        return dependentFunctions;
+    }
+
+    public void addDependentFunction(String dependentFunction) {
+        dependentFunctions.add(dependentFunction);
+    }
+
+    public Set<String> getDependentConnection() {
+        return dependentConnection;
+    }
+
+    public void addDependentConnection(String dependentConnection) {
+        this.dependentConnection.add(dependentConnection);
     }
 
     @Override
