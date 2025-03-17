@@ -100,12 +100,12 @@ public class PackageUtil {
      */
     public static Optional<SemanticModel> getSemanticModel(String org, String name, String version) {
         return getModulePackage(getSampleProject(), org, name, version).map(
-                pkg -> pkg.getDefaultModule().getCompilation().getSemanticModel());
+                pkg -> pkg.getCompilation().getSemanticModel(pkg.getDefaultModule().moduleId()));
     }
 
     public static Optional<SemanticModel> getSemanticModel(String org, String name) {
         return getModulePackage(getSampleProject(), org, name).map(
-                pkg -> pkg.getDefaultModule().getCompilation().getSemanticModel());
+                pkg -> pkg.getCompilation().getSemanticModel(pkg.getDefaultModule().moduleId()));
     }
 
     /**
@@ -216,14 +216,14 @@ public class PackageUtil {
                                                                     String version) {
         try {
             Project project = workspaceManager.loadProject(filePath);
-            PackageDescriptor descriptor = project.currentPackage().descriptor();
+            Package currentPackage = project.currentPackage();
+            PackageDescriptor descriptor = currentPackage.descriptor();
             if (descriptor.org().value().equals(orgName) &&
                     descriptor.name().value().equals(packageName) &&
                     descriptor.version().value().toString().equals(version)) {
-                return Optional.of(project.currentPackage()
-                        .getDefaultModule()
+                return Optional.of(currentPackage
                         .getCompilation()
-                        .getSemanticModel());
+                        .getSemanticModel(currentPackage.getDefaultModule().moduleId()));
             }
         } catch (WorkspaceDocumentException | EventSyncException e) {
         }
