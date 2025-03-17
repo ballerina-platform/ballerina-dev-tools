@@ -363,7 +363,7 @@ public class CodeAnalyzer extends NodeVisitor {
                 Connection connection = this.intermediateModel.connectionMap.get(hashCode);
                 connection.setLocation(getLocation(moduleVariableDeclarationNode.lineRange()));
                 TypeSymbol rawType = CommonUtils.getRawType(((VariableSymbol) symbol.get()).typeDescriptor());
-                if (rawType instanceof ClassSymbol classSymbol) {
+                if (rawType instanceof ClassSymbol) {
                     Optional<ExpressionNode> initializer = moduleVariableDeclarationNode.initializer();
                     if (initializer.isEmpty()) {
                         return;
