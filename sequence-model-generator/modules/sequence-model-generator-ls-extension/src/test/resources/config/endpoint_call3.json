@@ -1,0 +1,143 @@
+{
+  "source": "endpoint_call3.bal",
+  "description": "Tests a simple diagram flow",
+  "start": {
+    "line": 3,
+    "offset": 0
+  },
+  "end": {
+    "line": 7,
+    "offset": 1
+  },
+  "diagram": {
+    "location": {
+      "fileName": "endpoint_call3.bal",
+      "startLine": {
+        "line": 3,
+        "offset": 0
+      },
+      "endLine": {
+        "line": 7,
+        "offset": 1
+      }
+    },
+    "participants": [
+      {
+        "id": "35893",
+        "name": "cl",
+        "kind": "ENDPOINT",
+        "moduleName": ".",
+        "location": {
+          "fileName": "endpoint_call3.bal",
+          "startLine": {
+            "line": 4,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 4,
+            "offset": 57
+          }
+        }
+      },
+      {
+        "id": "34845",
+        "name": "getCall",
+        "kind": "FUNCTION",
+        "moduleName": ".",
+        "nodes": [
+          {
+            "interactionType": "ENDPOINT_CALL",
+            "targetId": "35893",
+            "kind": "INTERACTION",
+            "properties": {
+              "name": {
+                "type": "string",
+                "value": "get"
+              },
+              "expr": {
+                "type": "http:Client",
+                "value": "cl"
+              },
+              "params": [
+                {
+                  "type": "string",
+                  "value": "\"/hello\""
+                }
+              ],
+              "value": {
+                "type": "json|http:ClientError",
+                "value": "getRes"
+              }
+            },
+            "location": {
+              "fileName": "endpoint_call3.bal",
+              "startLine": {
+                "line": 5,
+                "offset": 24
+              },
+              "endLine": {
+                "line": 5,
+                "offset": 41
+              }
+            }
+          },
+          {
+            "interactionType": "ENDPOINT_CALL",
+            "targetId": "35893",
+            "kind": "INTERACTION",
+            "properties": {
+              "name": {
+                "type": "string",
+                "value": "post"
+              },
+              "expr": {
+                "type": "http:Client",
+                "value": "cl"
+              },
+              "params": [
+                {
+                  "type": "string",
+                  "value": "\"/hello\""
+                },
+                {
+                  "type": "string",
+                  "value": "\"Hello Ballerina\""
+                },
+                {
+                  "type": "map<string|string[]>",
+                  "value": "{\"Content-Type\": \"text/plain\"}"
+                }
+              ],
+              "value": {
+                "type": "http:Response|http:ClientError",
+                "value": "postRes"
+              }
+            },
+            "location": {
+              "fileName": "endpoint_call3.bal",
+              "startLine": {
+                "line": 6,
+                "offset": 34
+              },
+              "endLine": {
+                "line": 6,
+                "offset": 103
+              }
+            }
+          }
+        ],
+        "location": {
+          "fileName": "endpoint_call3.bal",
+          "startLine": {
+            "line": 3,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 7,
+            "offset": 1
+          }
+        }
+      }
+    ]
+  }
+}

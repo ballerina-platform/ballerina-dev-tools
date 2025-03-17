@@ -23,6 +23,7 @@ import io.ballerina.compiler.syntax.tree.CaptureBindingPatternNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.ModuleVariableDeclarationNode;
 import io.ballerina.compiler.syntax.tree.NodeVisitor;
+import io.ballerina.compiler.syntax.tree.VariableDeclarationNode;
 import io.ballerina.sequencemodelgenerator.core.model.Participant;
 import io.ballerina.sequencemodelgenerator.core.model.SequenceNode;
 import io.ballerina.tools.text.LineRange;
@@ -64,6 +65,12 @@ public class ParticipantAnalyzer extends NodeVisitor {
     public void visit(ModuleVariableDeclarationNode moduleVariableDeclarationNode) {
         kind = Participant.ParticipantKind.ENDPOINT;
         location = moduleVariableDeclarationNode.location().lineRange();
+    }
+
+    @Override
+    public void visit(VariableDeclarationNode variableDeclarationNode) {
+        kind = Participant.ParticipantKind.ENDPOINT;
+        location = variableDeclarationNode.location().lineRange();
     }
 
     @Override
