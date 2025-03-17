@@ -313,7 +313,7 @@ public class AvailableNodesGenerator {
                             .stepOut()
                         .codedata()
                             .org(org)
-                            .module(packageName)
+                            .module(localSemanticModel == null ? packageName : moduleInfo.moduleName())
                             .object(className)
                             .symbol(methodFunction.name())
                             .version(version)
