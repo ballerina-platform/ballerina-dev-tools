@@ -57,3 +57,26 @@ service /graphql on new graphql:Listener(9090) {
         return new (userName.value, 51);
     }
 }
+
+@graphql:ServiceConfig {maxQueryDepth: 334, auth: []}
+service /graphql2 on new graphql:Listener(9090) {
+    resource function get profile21() returns AbstractProfile {
+        return {
+            name: "Walter White",
+            age: 51,
+            address: {
+                number: "308",
+                street: "Negra Arroyo Lane",
+                city: "Albuquerque"
+            }
+        };
+    }
+
+    resource function get profile() returns UserProfile {
+        return new ("Walter White", 51);
+    }
+
+    remote function updateName(UserName userName) returns UserProfile {
+        return new (userName.value, 51);
+    }
+}
