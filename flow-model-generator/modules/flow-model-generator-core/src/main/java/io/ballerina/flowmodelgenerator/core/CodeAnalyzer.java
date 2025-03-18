@@ -142,6 +142,7 @@ import io.ballerina.modelgenerator.commons.FunctionData;
 import io.ballerina.modelgenerator.commons.FunctionDataBuilder;
 import io.ballerina.modelgenerator.commons.ModuleInfo;
 import io.ballerina.modelgenerator.commons.ParameterData;
+import io.ballerina.modelgenerator.commons.ParameterMemberTypeData;
 import io.ballerina.projects.Project;
 import io.ballerina.tools.diagnostics.Location;
 import io.ballerina.tools.text.LinePosition;
@@ -161,6 +162,15 @@ import java.util.Optional;
 import java.util.Queue;
 import java.util.Stack;
 import java.util.stream.Collectors;
+
+import static io.ballerina.flowmodelgenerator.core.model.node.ClassInitBuilder.ANTHROPIC_MODEL;
+import static io.ballerina.flowmodelgenerator.core.model.node.ClassInitBuilder.ANTHROPIC_MODEL_TYPES;
+import static io.ballerina.flowmodelgenerator.core.model.node.ClassInitBuilder.MISTRAL_AI_MODEL;
+import static io.ballerina.flowmodelgenerator.core.model.node.ClassInitBuilder.MISTRAL_AI_MODEL_TYPES;
+import static io.ballerina.flowmodelgenerator.core.model.node.ClassInitBuilder.MODEL_TYPE;
+import static io.ballerina.flowmodelgenerator.core.model.node.ClassInitBuilder.OPEN_AI_MODEL;
+import static io.ballerina.flowmodelgenerator.core.model.node.ClassInitBuilder.OPEN_AI_MODEL_TYPES;
+import static io.ballerina.flowmodelgenerator.core.model.node.ClassInitBuilder.REQUIRED;
 
 /**
  * Analyzes the source code and generates the flow model.
@@ -1114,6 +1124,7 @@ class CodeAnalyzer extends NodeVisitor {
 
         String org = functionData.org();
         String packageName = functionData.packageName();
+        String name = classSymbol.getName().orElse("");
         nodeBuilder
                 .metadata()
                     .label(packageName)
@@ -1123,12 +1134,54 @@ class CodeAnalyzer extends NodeVisitor {
                 .codedata()
                     .org(org)
                     .module(packageName)
-                    .object(classSymbol.getName().orElse(""))
+                    .object(name)
                     .symbol(NewConnectionBuilder.INIT_SYMBOL)
                     .stepOut()
                 .properties()
                 .scope(connectionScope)
                 .checkError(true, NewConnectionBuilder.CHECK_ERROR_DOC, false);
+
+        if (!org.equals(BALLERINAX) || !packageName.equals(AI_AGENT)) {
+            return;
+        }
+        switch (name) {
+            case OPEN_AI_MODEL ->
+                    setAIModelType(OPEN_AI_MODEL_TYPES,
+                            "The OpenAI model name as constant from OPEN_AI_MODEL_NAMES enum",
+                            "agent:OPEN_AI_MODEL_NAMES", "\"gpt-3.5-turbo-16k-0613\"");
+            case ANTHROPIC_MODEL ->
+                    setAIModelType(ANTHROPIC_MODEL_TYPES,
+                            "The OpenAI model name as constant from ANTHROPIC_MODEL_NAMES enum",
+                            "agent:ANTHROPIC_MODEL_NAMES", "\"claude-3-haiku-20240307\"");
+            case MISTRAL_AI_MODEL ->
+                    setAIModelType(MISTRAL_AI_MODEL_TYPES,
+                            "The OpenAI model name as constant from MISTRAL_AI_MODEL_NAMES enum",
+                            "agent:MISTRAL_AI_MODEL_NAMES", "\"mistral-large-latest\"");
+            default -> {
+                return;
+            }
+        }
+    }
+
+    private void setAIModelType(List<String> modelType, String description, String kind, String defaultValue) {
+        nodeBuilder.properties()
+                .custom()
+                .metadata()
+                .label("Model Type")
+                .description(description)
+                .stepOut()
+                .type(Property.ValueType.SINGLE_SELECT)
+                .typeConstraint(modelType)
+                .placeholder(defaultValue)
+                .editable()
+                .codedata()
+                .kind(REQUIRED)
+                .originalName(MODEL_TYPE)
+                .stepOut()
+                .typeMembers(List.of(new ParameterMemberTypeData(kind, "BASIC_TYPE",
+                        moduleInfo.org() + ":" + moduleInfo.moduleName() + ":" + moduleInfo.version())))
+                .stepOut()
+                .addProperty(MODEL_TYPE);
     }
 
     private Optional<ClassSymbol> getClassSymbol(ExpressionNode newExpressionNode) {
