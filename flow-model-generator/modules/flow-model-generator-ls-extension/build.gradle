@@ -102,13 +102,13 @@ task copyStdlibs() {
     }
 }
 
-test.dependsOn rootProject.pullBallerinaModule('redis', '3.1.0')
-test.dependsOn rootProject.pullBallerinaModule('trigger.salesforce', '0.10.0')
-test.dependsOn rootProject.pullBallerinaModule('github', '5.1.0')
-test.dependsOn rootProject.pullBallerinaModule('snowflake', '2.2.0')
-test.dependsOn rootProject.pullBallerinaModule('docusign.dsadmin', '2.0.0')
-test.dependsOn rootProject.pullBallerinaModule('mysql', '1.14.0')
-test.dependsOn rootProject.pullBallerinaModule('wso2.controlplane', '1.0.0')
+test.dependsOn rootProject.pullBallerinaModule('redis', ballerinaxRedisVersion)
+test.dependsOn rootProject.pullBallerinaModule('trigger.salesforce', ballerinaxTriggerSalesforceVersion)
+test.dependsOn rootProject.pullBallerinaModule('github', ballerinaxGithubVersion)
+test.dependsOn rootProject.pullBallerinaModule('snowflake', ballerinaxSnowflakeVersion)
+test.dependsOn rootProject.pullBallerinaModule('docusign.dsadmin', ballerinaxDocusignDsadminVersion)
+test.dependsOn rootProject.pullBallerinaModule('mysql', ballerinaxMysqlVersion)
+test.dependsOn rootProject.pullBallerinaModule('wso2.controlplane', ballerinaxWso2ControlplaneVersion)
 // TODO: Re-enable this once the `np` module is available on central
 //test.dependsOn rootProject.pullBallerinaModule('np')
 
