@@ -9,7 +9,7 @@
       "module": "ai.agent",
       "object": "OpenAiModel",
       "symbol": "init",
-      "version": "0.7.9"
+      "version": "0.9.2"
     },
     {
       "node": "CLASS_INIT",
@@ -17,7 +17,31 @@
       "module": "ai.agent",
       "object": "AzureOpenAiModel",
       "symbol": "init",
-      "version": "0.7.9"
+      "version": "0.9.2"
+    },
+    {
+      "node": "CLASS_INIT",
+      "org": "ballerinax",
+      "module": "ai.agent",
+      "object": "AnthropicModel",
+      "symbol": "init",
+      "version": "0.9.2"
+    },
+    {
+      "node": "CLASS_INIT",
+      "org": "ballerinax",
+      "module": "ai.agent",
+      "object": "MistralAiModel",
+      "symbol": "init",
+      "version": "0.9.2"
+    },
+    {
+      "node": "CLASS_INIT",
+      "org": "ballerinax",
+      "module": "ai.agent",
+      "object": "OllamaModel",
+      "symbol": "init",
+      "version": "0.9.2"
     }
   ]
 }
