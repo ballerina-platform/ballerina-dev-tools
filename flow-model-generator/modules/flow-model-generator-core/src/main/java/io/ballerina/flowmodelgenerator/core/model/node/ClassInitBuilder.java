@@ -114,6 +114,11 @@ public class ClassInitBuilder extends CallBuilder {
     public static final String REQUIRED = "REQUIRED";
     public static final String BALLERINAX = "ballerinax";
     public static final String AI_AGENT = "ai.agent";
+    public static final String OPEN_AI_MODEL_DESC = "The OpenAI model name as constant from OPEN_AI_MODEL_NAMES enum";
+    public static final String ANTHROPIC_MODEL_DESC =
+            "The Anthropic model name as constant from ANTHROPIC_MODEL_NAMES enum";
+    public static final String MISTRAL_AI_MODEL_DESC =
+            "The Mistral AI model name as constant from MISTRAL_AI_MODEL_NAMES enum";
 
     @Override
     protected NodeKind getFunctionNodeKind() {
@@ -159,14 +164,11 @@ public class ClassInitBuilder extends CallBuilder {
         }
         switch (codedata.object()) {
             case OPEN_AI_MODEL -> setAIModelType(OPEN_AI_MODEL_TYPES,
-                    "The OpenAI model name as constant from OPEN_AI_MODEL_NAMES enum",
-                    "agent:OPEN_AI_MODEL_NAMES", "\"gpt-3.5-turbo-16k-0613\"", codedata);
+                    OPEN_AI_MODEL_DESC, "agent:OPEN_AI_MODEL_NAMES", "\"gpt-3.5-turbo-16k-0613\"", codedata);
             case ANTHROPIC_MODEL -> setAIModelType(ANTHROPIC_MODEL_TYPES,
-                    "The OpenAI model name as constant from ANTHROPIC_MODEL_NAMES enum",
-                    "agent:ANTHROPIC_MODEL_NAMES", "\"claude-3-haiku-20240307\"", codedata);
+                    ANTHROPIC_MODEL_DESC, "agent:ANTHROPIC_MODEL_NAMES", "\"claude-3-haiku-20240307\"", codedata);
             case MISTRAL_AI_MODEL -> setAIModelType(MISTRAL_AI_MODEL_TYPES,
-                    "The OpenAI model name as constant from MISTRAL_AI_MODEL_NAMES enum",
-                    "agent:MISTRAL_AI_MODEL_NAMES", "\"mistral-large-latest\"", codedata);
+                    MISTRAL_AI_MODEL_DESC, "agent:MISTRAL_AI_MODEL_NAMES", "\"mistral-large-latest\"", codedata);
             default -> {
                 return;
             }
