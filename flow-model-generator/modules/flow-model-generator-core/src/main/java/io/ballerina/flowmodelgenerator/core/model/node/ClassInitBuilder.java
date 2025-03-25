@@ -39,8 +39,8 @@ import java.util.Set;
  */
 public class ClassInitBuilder extends CallBuilder {
     private static final String CLASS_LABEL = "Class";
-    private static final String DEFAULT_MODEL_NAME = "model";
-    private static final List<String> OPEN_AI_MODEL_TYPES = List.of(
+    public static final String OPEN_AI_MODEL = "OpenAiModel";
+    public static final List<String> OPEN_AI_MODEL_TYPES = List.of(
             "agent:O3_MINI",
             "agent:O3_MINI_2025_01_31",
             "agent:O1",
@@ -71,11 +71,54 @@ public class ClassInitBuilder extends CallBuilder {
             "agent:GPT_3_5_TURBO_0125",
             "agent:GPT_3_5_TURBO_16K_0613"
     );
+
+    public static final String ANTHROPIC_MODEL = "AnthropicModel";
+    public static final List<String> ANTHROPIC_MODEL_TYPES = List.of(
+            "agent:CLAUDE_3_7_SONNET_20250219",
+            "agent:CLAUDE_3_5_HAIKU_20241022",
+            "agent:CLAUDE_3_5_SONNET_20241022",
+            "agent:CLAUDE_3_5_SONNET_20240620",
+            "agent:CLAUDE_3_OPUS_20240229",
+            "agent:CLAUDE_3_SONNET_20240229",
+            "agent:CLAUDE_3_HAIKU_20240307"
+    );
+
+    public static final String MISTRAL_AI_MODEL = "MistralAiModel";
+
+    public static final List<String> MISTRAL_AI_MODEL_TYPES = List.of(
+            "agent:MINISTRAL_3B_2410",
+            "agent:MINISTRAL_8B_2410",
+            "agent:OPEN_MISTRAL_7B ",
+            "agent:OPEN_MISTRAL_NEMO",
+            "agent:OPEN_MIXTRAL_8X7B",
+            "agent:OPEN_MIXTRAL_8X22B",
+            "agent:MISTRAL_SMALL_2402",
+            "agent:MISTRAL_SMALL_2409",
+            "agent:MISTRAL_SMALL_2501",
+            "agent:MISTRAL_MEDIUM_2312",
+            "agent:MISTRAL_LARGE_2402",
+            "agent:MISTRAL_LARGE_2407",
+            "agent:MISTRAL_LARGE_2411",
+            "agent:PIXTRAL_LARGE_2411",
+            "agent:CODESTRAL_2405",
+            "agent:CODESTRAL_2501",
+            "agent:CODESTRAL_MAMBA_2407",
+            "agent:PIXTRAL_12B_2409",
+            "agent:MISTRAL_SABA_2502 ",
+            "agent:MISTRAL_SMALL_MODEL ",
+            "agent:MISTRAL_MEDIUM_MODEL",
+            "agent:MISTRAL_LARGE_MODEL"
+    );
+
     public static final String MODEL_TYPE = "modelType";
     public static final String REQUIRED = "REQUIRED";
     public static final String BALLERINAX = "ballerinax";
     public static final String AI_AGENT = "ai.agent";
-    public static final String OPEN_AI_MODEL = "OpenAiModel";
+    public static final String OPEN_AI_MODEL_DESC = "The OpenAI model name as constant from OPEN_AI_MODEL_NAMES enum";
+    public static final String ANTHROPIC_MODEL_DESC =
+            "The Anthropic model name as constant from ANTHROPIC_MODEL_NAMES enum";
+    public static final String MISTRAL_AI_MODEL_DESC =
+            "The Mistral AI model name as constant from MISTRAL_AI_MODEL_NAMES enum";
 
     @Override
     protected NodeKind getFunctionNodeKind() {
@@ -115,26 +158,42 @@ public class ClassInitBuilder extends CallBuilder {
         super.setConcreteTemplateData(context);
 
         Codedata codedata = context.codedata();
-        if (codedata.org().equals(BALLERINAX) && codedata.module().equals(AI_AGENT) && codedata.object().equals(
-                OPEN_AI_MODEL)) {
-            properties()
-                    .custom()
-                    .metadata()
-                    .label("Model Type")
-                    .description("The OpenAI model name as constant from OPEN_AI_MODEL_NAMES enum")
-                    .stepOut()
-                    .type(Property.ValueType.SINGLE_SELECT)
-                    .typeConstraint(OPEN_AI_MODEL_TYPES)
-                    .placeholder("\"gpt-3.5-turbo-16k-0613\"")
-                    .editable()
-                    .codedata()
-                    .kind(REQUIRED)
-                    .originalName(MODEL_TYPE)
-                    .stepOut()
-                    .typeMembers(List.of(new ParameterMemberTypeData("agent:OPEN_AI_MODEL_NAMES", "BASIC_TYPE",
-                            codedata.org() + ":" + codedata.module() + ":" + codedata.version())))
-                    .stepOut()
-                    .addProperty(MODEL_TYPE);
+
+        if (!codedata.org().equals(BALLERINAX) || !codedata.module().equals(AI_AGENT)) {
+            return;
         }
+        switch (codedata.object()) {
+            case OPEN_AI_MODEL -> setAIModelType(OPEN_AI_MODEL_TYPES,
+                    OPEN_AI_MODEL_DESC, "agent:OPEN_AI_MODEL_NAMES", "\"gpt-3.5-turbo-16k-0613\"", codedata);
+            case ANTHROPIC_MODEL -> setAIModelType(ANTHROPIC_MODEL_TYPES,
+                    ANTHROPIC_MODEL_DESC, "agent:ANTHROPIC_MODEL_NAMES", "\"claude-3-haiku-20240307\"", codedata);
+            case MISTRAL_AI_MODEL -> setAIModelType(MISTRAL_AI_MODEL_TYPES,
+                    MISTRAL_AI_MODEL_DESC, "agent:MISTRAL_AI_MODEL_NAMES", "\"mistral-large-latest\"", codedata);
+            default -> {
+                return;
+            }
+        }
+    }
+
+    private void setAIModelType(List<String> modelType, String description, String kind, String defaultValue,
+                                Codedata codedata) {
+        properties()
+                .custom()
+                .metadata()
+                .label("Model Type")
+                .description(description)
+                .stepOut()
+                .type(Property.ValueType.SINGLE_SELECT)
+                .typeConstraint(modelType)
+                .placeholder(defaultValue)
+                .editable()
+                .codedata()
+                .kind(REQUIRED)
+                .originalName(MODEL_TYPE)
+                .stepOut()
+                .typeMembers(List.of(new ParameterMemberTypeData(kind, "BASIC_TYPE",
+                        codedata.org() + ":" + codedata.module() + ":" + codedata.version())))
+                .stepOut()
+                .addProperty(MODEL_TYPE);
     }
 }
