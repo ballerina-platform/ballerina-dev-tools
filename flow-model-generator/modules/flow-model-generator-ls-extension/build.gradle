@@ -109,6 +109,7 @@ test.dependsOn rootProject.pullBallerinaModule('snowflake', ballerinaxSnowflakeV
 test.dependsOn rootProject.pullBallerinaModule('docusign.dsadmin', ballerinaxDocusignDsadminVersion)
 test.dependsOn rootProject.pullBallerinaModule('mysql', ballerinaxMysqlVersion)
 test.dependsOn rootProject.pullBallerinaModule('wso2.controlplane', ballerinaxWso2ControlplaneVersion)
+test.dependsOn rootProject.pullBallerinaModule('sql', ballerinaSqlVersion, 'ballerina')
 // TODO: Re-enable this once the `np` module is available on central
 //test.dependsOn rootProject.pullBallerinaModule('np')
 
