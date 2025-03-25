@@ -81,6 +81,12 @@ public class RecordValueGenerator {
     }
 
     public static void generateUnionValue(JsonObject union, StringBuilder builder) {
+        if (union.has("selected") && union.get("selected").getAsBoolean() &&
+                union.has("value") && !union.get("value").getAsString().isEmpty()) {
+            builder.append(union.get("value").getAsString());
+            return;
+        }
+
         if (union.has("members")) {
             JsonElement members = union.get("members");
             if (members.isJsonArray()) {

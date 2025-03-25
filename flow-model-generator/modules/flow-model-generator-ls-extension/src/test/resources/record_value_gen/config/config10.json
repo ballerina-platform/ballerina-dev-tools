@@ -1,0 +1,1608 @@
+{
+  "filePath": "proj",
+  "type": {
+    "name": "CreateChatCompletionRequest",
+    "fields": [
+      {
+        "memberType": {
+          "members": [
+            {
+              "fields": [
+                {
+                  "name": "content",
+                  "typeName": "string",
+                  "optional": false,
+                  "defaultable": false,
+                  "isRestType": false,
+                  "selected": false
+                },
+                {
+                  "name": "role",
+                  "typeName": "system",
+                  "optional": false,
+                  "defaultable": false,
+                  "isRestType": false,
+                  "selected": false
+                },
+                {
+                  "name": "name",
+                  "typeName": "string",
+                  "optional": true,
+                  "defaultable": false,
+                  "isRestType": false,
+                  "selected": false
+                }
+              ],
+              "hasRestType": true,
+              "restType": {
+                "typeName": "anydata",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false,
+                "selected": false
+              },
+              "name": "ChatCompletionRequestSystemMessage",
+              "typeName": "record",
+              "optional": false,
+              "typeInfo": {
+                "name": "ChatCompletionRequestSystemMessage",
+                "orgName": "ballerinax",
+                "moduleName": "openai.chat",
+                "version": "3.0.0"
+              },
+              "defaultable": false,
+              "isRestType": false,
+              "selected": false
+            },
+            {
+              "fields": [
+                {
+                  "members": [
+                    {
+                      "typeName": "string",
+                      "optional": false,
+                      "defaultable": false,
+                      "isRestType": false,
+                      "selected": false
+                    },
+                    {
+                      "memberType": {
+                        "members": [
+                          {
+                            "fields": [
+                              {
+                                "name": "type",
+                                "typeName": "text",
+                                "optional": false,
+                                "defaultable": false,
+                                "isRestType": false,
+                                "selected": false
+                              },
+                              {
+                                "name": "text",
+                                "typeName": "string",
+                                "optional": false,
+                                "defaultable": false,
+                                "isRestType": false,
+                                "selected": false
+                              }
+                            ],
+                            "hasRestType": true,
+                            "restType": {
+                              "typeName": "anydata",
+                              "optional": false,
+                              "defaultable": false,
+                              "isRestType": false,
+                              "selected": false
+                            },
+                            "name": "ChatCompletionRequestMessageContentPartText",
+                            "typeName": "record",
+                            "optional": false,
+                            "typeInfo": {
+                              "name": "ChatCompletionRequestMessageContentPartText",
+                              "orgName": "ballerinax",
+                              "moduleName": "openai.chat",
+                              "version": "3.0.0"
+                            },
+                            "defaultable": false,
+                            "isRestType": false,
+                            "selected": false
+                          },
+                          {
+                            "fields": [
+                              {
+                                "name": "type",
+                                "typeName": "image_url",
+                                "optional": false,
+                                "defaultable": false,
+                                "isRestType": false,
+                                "selected": false
+                              },
+                              {
+                                "fields": [
+                                  {
+                                    "name": "url",
+                                    "typeName": "string",
+                                    "optional": false,
+                                    "defaultable": false,
+                                    "isRestType": false,
+                                    "selected": false
+                                  },
+                                  {
+                                    "members": [
+                                      {
+                                        "typeName": "auto",
+                                        "optional": false,
+                                        "defaultable": false,
+                                        "isRestType": false,
+                                        "selected": false
+                                      },
+                                      {
+                                        "typeName": "low",
+                                        "optional": false,
+                                        "defaultable": false,
+                                        "isRestType": false,
+                                        "selected": false
+                                      },
+                                      {
+                                        "typeName": "high",
+                                        "optional": false,
+                                        "defaultable": false,
+                                        "isRestType": false,
+                                        "selected": false
+                                      }
+                                    ],
+                                    "name": "detail",
+                                    "typeName": "union",
+                                    "optional": false,
+                                    "defaultable": true,
+                                    "isRestType": false,
+                                    "selected": false
+                                  }
+                                ],
+                                "hasRestType": true,
+                                "restType": {
+                                  "typeName": "anydata",
+                                  "optional": false,
+                                  "defaultable": false,
+                                  "isRestType": false,
+                                  "selected": false
+                                },
+                                "name": "image_url",
+                                "typeName": "record",
+                                "optional": false,
+                                "typeInfo": {
+                                  "name": "ChatCompletionRequestMessageContentPartImage_image_url",
+                                  "orgName": "ballerinax",
+                                  "moduleName": "openai.chat",
+                                  "version": "3.0.0"
+                                },
+                                "defaultable": false,
+                                "isRestType": false,
+                                "selected": false
+                              }
+                            ],
+                            "hasRestType": true,
+                            "restType": {
+                              "typeName": "anydata",
+                              "optional": false,
+                              "defaultable": false,
+                              "isRestType": false,
+                              "selected": false
+                            },
+                            "name": "ChatCompletionRequestMessageContentPartImage",
+                            "typeName": "record",
+                            "optional": false,
+                            "typeInfo": {
+                              "name": "ChatCompletionRequestMessageContentPartImage",
+                              "orgName": "ballerinax",
+                              "moduleName": "openai.chat",
+                              "version": "3.0.0"
+                            },
+                            "defaultable": false,
+                            "isRestType": false,
+                            "selected": false
+                          }
+                        ],
+                        "name": "ChatCompletionRequestMessageContentPart",
+                        "typeName": "union",
+                        "optional": false,
+                        "typeInfo": {
+                          "name": "ChatCompletionRequestMessageContentPart",
+                          "orgName": "ballerinax",
+                          "moduleName": "openai.chat",
+                          "version": "3.0.0"
+                        },
+                        "defaultable": false,
+                        "isRestType": false,
+                        "selected": false
+                      },
+                      "typeName": "array",
+                      "optional": false,
+                      "defaultable": false,
+                      "isRestType": false,
+                      "selected": false
+                    }
+                  ],
+                  "name": "content",
+                  "typeName": "union",
+                  "optional": false,
+                  "defaultable": false,
+                  "isRestType": false,
+                  "selected": false
+                },
+                {
+                  "name": "role",
+                  "typeName": "user",
+                  "optional": false,
+                  "defaultable": false,
+                  "isRestType": false,
+                  "selected": false
+                },
+                {
+                  "name": "name",
+                  "typeName": "string",
+                  "optional": true,
+                  "defaultable": false,
+                  "isRestType": false,
+                  "selected": false
+                }
+              ],
+              "hasRestType": true,
+              "restType": {
+                "typeName": "anydata",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false,
+                "selected": false
+              },
+              "name": "ChatCompletionRequestUserMessage",
+              "typeName": "record",
+              "optional": false,
+              "typeInfo": {
+                "name": "ChatCompletionRequestUserMessage",
+                "orgName": "ballerinax",
+                "moduleName": "openai.chat",
+                "version": "3.0.0"
+              },
+              "defaultable": false,
+              "isRestType": false,
+              "selected": false
+            },
+            {
+              "fields": [
+                {
+                  "members": [
+                    {
+                      "typeName": "string",
+                      "optional": false,
+                      "defaultable": false,
+                      "isRestType": false,
+                      "selected": false
+                    },
+                    {
+                      "typeName": "()",
+                      "optional": false,
+                      "defaultable": false,
+                      "isRestType": false,
+                      "selected": false
+                    }
+                  ],
+                  "name": "content",
+                  "typeName": "union",
+                  "optional": true,
+                  "defaultable": false,
+                  "isRestType": false,
+                  "selected": false
+                },
+                {
+                  "name": "role",
+                  "typeName": "assistant",
+                  "optional": false,
+                  "defaultable": false,
+                  "isRestType": false,
+                  "selected": false
+                },
+                {
+                  "name": "name",
+                  "typeName": "string",
+                  "optional": true,
+                  "defaultable": false,
+                  "isRestType": false,
+                  "selected": false
+                },
+                {
+                  "memberType": {
+                    "fields": [
+                      {
+                        "name": "id",
+                        "typeName": "string",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false,
+                        "selected": false
+                      },
+                      {
+                        "name": "type",
+                        "typeName": "function",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false,
+                        "selected": false
+                      },
+                      {
+                        "fields": [
+                          {
+                            "name": "name",
+                            "typeName": "string",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false,
+                            "selected": false
+                          },
+                          {
+                            "name": "arguments",
+                            "typeName": "string",
+                            "optional": false,
+                            "defaultable": false,
+                            "isRestType": false,
+                            "selected": false
+                          }
+                        ],
+                        "hasRestType": true,
+                        "restType": {
+                          "typeName": "anydata",
+                          "optional": false,
+                          "defaultable": false,
+                          "isRestType": false,
+                          "selected": false
+                        },
+                        "name": "function",
+                        "typeName": "record",
+                        "optional": false,
+                        "typeInfo": {
+                          "name": "ChatCompletionMessageToolCall_function",
+                          "orgName": "ballerinax",
+                          "moduleName": "openai.chat",
+                          "version": "3.0.0"
+                        },
+                        "defaultable": false,
+                        "isRestType": false,
+                        "selected": false
+                      }
+                    ],
+                    "hasRestType": true,
+                    "restType": {
+                      "typeName": "anydata",
+                      "optional": false,
+                      "defaultable": false,
+                      "isRestType": false,
+                      "selected": false
+                    },
+                    "name": "ChatCompletionMessageToolCall",
+                    "typeName": "record",
+                    "optional": false,
+                    "typeInfo": {
+                      "name": "ChatCompletionMessageToolCall",
+                      "orgName": "ballerinax",
+                      "moduleName": "openai.chat",
+                      "version": "3.0.0"
+                    },
+                    "defaultable": false,
+                    "isRestType": false,
+                    "selected": false
+                  },
+                  "name": "tool_calls",
+                  "typeName": "array",
+                  "optional": true,
+                  "typeInfo": {
+                    "name": "ChatCompletionMessageToolCalls",
+                    "orgName": "ballerinax",
+                    "moduleName": "openai.chat",
+                    "version": "3.0.0"
+                  },
+                  "defaultable": false,
+                  "isRestType": false,
+                  "selected": false
+                },
+                {
+                  "members": [
+                    {
+                      "fields": [
+                        {
+                          "name": "arguments",
+                          "typeName": "string",
+                          "optional": false,
+                          "defaultable": false,
+                          "isRestType": false,
+                          "selected": false
+                        },
+                        {
+                          "name": "name",
+                          "typeName": "string",
+                          "optional": false,
+                          "defaultable": false,
+                          "isRestType": false,
+                          "selected": false
+                        }
+                      ],
+                      "hasRestType": true,
+                      "restType": {
+                        "typeName": "anydata",
+                        "optional": false,
+                        "defaultable": false,
+                        "isRestType": false,
+                        "selected": false
+                      },
+                      "name": "ChatCompletionRequestAssistantMessage_function_call",
+                      "typeName": "record",
+                      "optional": false,
+                      "typeInfo": {
+                        "name": "ChatCompletionRequestAssistantMessage_function_call",
+                        "orgName": "ballerinax",
+                        "moduleName": "openai.chat",
+                        "version": "3.0.0"
+                      },
+                      "defaultable": false,
+                      "isRestType": false,
+                      "selected": false
+                    },
+                    {
+                      "typeName": "()",
+                      "optional": false,
+                      "defaultable": false,
+                      "isRestType": false,
+                      "selected": false
+                    }
+                  ],
+                  "name": "function_call",
+                  "typeName": "union",
+                  "optional": true,
+                  "defaultable": false,
+                  "isRestType": false,
+                  "selected": false
+                }
+              ],
+              "hasRestType": true,
+              "restType": {
+                "typeName": "anydata",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false,
+                "selected": false
+              },
+              "name": "ChatCompletionRequestAssistantMessage",
+              "typeName": "record",
+              "optional": false,
+              "typeInfo": {
+                "name": "ChatCompletionRequestAssistantMessage",
+                "orgName": "ballerinax",
+                "moduleName": "openai.chat",
+                "version": "3.0.0"
+              },
+              "defaultable": false,
+              "isRestType": false,
+              "selected": false
+            },
+            {
+              "fields": [
+                {
+                  "name": "role",
+                  "typeName": "tool",
+                  "optional": false,
+                  "defaultable": false,
+                  "isRestType": false,
+                  "selected": false
+                },
+                {
+                  "name": "content",
+                  "typeName": "string",
+                  "optional": false,
+                  "defaultable": false,
+                  "isRestType": false,
+                  "selected": false
+                },
+                {
+                  "name": "tool_call_id",
+                  "typeName": "string",
+                  "optional": false,
+                  "defaultable": false,
+                  "isRestType": false,
+                  "selected": false
+                }
+              ],
+              "hasRestType": true,
+              "restType": {
+                "typeName": "anydata",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false,
+                "selected": false
+              },
+              "name": "ChatCompletionRequestToolMessage",
+              "typeName": "record",
+              "optional": false,
+              "typeInfo": {
+                "name": "ChatCompletionRequestToolMessage",
+                "orgName": "ballerinax",
+                "moduleName": "openai.chat",
+                "version": "3.0.0"
+              },
+              "defaultable": false,
+              "isRestType": false,
+              "selected": false
+            },
+            {
+              "fields": [
+                {
+                  "name": "role",
+                  "typeName": "function",
+                  "optional": false,
+                  "defaultable": false,
+                  "isRestType": false,
+                  "selected": false
+                },
+                {
+                  "members": [
+                    {
+                      "typeName": "string",
+                      "optional": false,
+                      "defaultable": false,
+                      "isRestType": false,
+                      "selected": false
+                    },
+                    {
+                      "typeName": "()",
+                      "optional": false,
+                      "defaultable": false,
+                      "isRestType": false,
+                      "selected": false
+                    }
+                  ],
+                  "name": "content",
+                  "typeName": "union",
+                  "optional": false,
+                  "defaultable": false,
+                  "isRestType": false,
+                  "selected": false
+                },
+                {
+                  "name": "name",
+                  "typeName": "string",
+                  "optional": false,
+                  "defaultable": false,
+                  "isRestType": false,
+                  "selected": false
+                }
+              ],
+              "hasRestType": true,
+              "restType": {
+                "typeName": "anydata",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false,
+                "selected": false
+              },
+              "name": "ChatCompletionRequestFunctionMessage",
+              "typeName": "record",
+              "optional": false,
+              "typeInfo": {
+                "name": "ChatCompletionRequestFunctionMessage",
+                "orgName": "ballerinax",
+                "moduleName": "openai.chat",
+                "version": "3.0.0"
+              },
+              "defaultable": false,
+              "isRestType": false,
+              "selected": false
+            }
+          ],
+          "name": "ChatCompletionRequestMessage",
+          "typeName": "union",
+          "optional": false,
+          "typeInfo": {
+            "name": "ChatCompletionRequestMessage",
+            "orgName": "ballerinax",
+            "moduleName": "openai.chat",
+            "version": "3.0.0"
+          },
+          "defaultable": false,
+          "isRestType": false,
+          "selected": false
+        },
+        "name": "messages",
+        "typeName": "array",
+        "optional": false,
+        "defaultable": false,
+        "isRestType": false,
+        "value": "[]",
+        "selected": true
+      },
+      {
+        "members": [
+          {
+            "typeName": "string",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": true
+          },
+          {
+            "typeName": "gpt-4o",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "gpt-4o-2024-05-13",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "gpt-4o-mini",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "gpt-4o-mini-2024-07-18",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "gpt-4-turbo",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "gpt-4-turbo-2024-04-09",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "gpt-4-0125-preview",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "gpt-4-turbo-preview",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "gpt-4-1106-preview",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "gpt-4-vision-preview",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "gpt-4",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "gpt-4-0314",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "gpt-4-0613",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "gpt-4-32k",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "gpt-4-32k-0314",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "gpt-4-32k-0613",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "gpt-3.5-turbo",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "gpt-3.5-turbo-16k",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "gpt-3.5-turbo-0301",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "gpt-3.5-turbo-0613",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "gpt-3.5-turbo-1106",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "gpt-3.5-turbo-0125",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "gpt-3.5-turbo-16k-0613",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          }
+        ],
+        "name": "model",
+        "typeName": "union",
+        "optional": false,
+        "defaultable": false,
+        "isRestType": false,
+        "value": "\"ss\"",
+        "selected": true
+      },
+      {
+        "members": [
+          {
+            "typeName": "decimal",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "()",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          }
+        ],
+        "name": "frequency_penalty",
+        "typeName": "union",
+        "optional": false,
+        "defaultable": true,
+        "isRestType": false,
+        "selected": false
+      },
+      {
+        "members": [
+          {
+            "fields": [],
+            "hasRestType": true,
+            "restType": {
+              "typeName": "int",
+              "optional": false,
+              "defaultable": false,
+              "isRestType": false,
+              "selected": false
+            },
+            "typeName": "record",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "()",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          }
+        ],
+        "name": "logit_bias",
+        "typeName": "union",
+        "optional": true,
+        "defaultable": false,
+        "isRestType": false,
+        "selected": false
+      },
+      {
+        "members": [
+          {
+            "typeName": "boolean",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "()",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          }
+        ],
+        "name": "logprobs",
+        "typeName": "union",
+        "optional": false,
+        "defaultable": true,
+        "isRestType": false,
+        "selected": false
+      },
+      {
+        "members": [
+          {
+            "typeName": "int",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "()",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          }
+        ],
+        "name": "top_logprobs",
+        "typeName": "union",
+        "optional": true,
+        "defaultable": false,
+        "isRestType": false,
+        "selected": false
+      },
+      {
+        "members": [
+          {
+            "typeName": "int",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "()",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          }
+        ],
+        "name": "max_tokens",
+        "typeName": "union",
+        "optional": true,
+        "defaultable": false,
+        "isRestType": false,
+        "selected": false
+      },
+      {
+        "members": [
+          {
+            "typeName": "int",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "()",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          }
+        ],
+        "name": "n",
+        "typeName": "union",
+        "optional": false,
+        "defaultable": true,
+        "isRestType": false,
+        "selected": false
+      },
+      {
+        "members": [
+          {
+            "typeName": "decimal",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "()",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          }
+        ],
+        "name": "presence_penalty",
+        "typeName": "union",
+        "optional": false,
+        "defaultable": true,
+        "isRestType": false,
+        "selected": false
+      },
+      {
+        "fields": [
+          {
+            "members": [
+              {
+                "typeName": "text",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false,
+                "selected": false
+              },
+              {
+                "typeName": "json_object",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false,
+                "selected": false
+              }
+            ],
+            "name": "type",
+            "typeName": "union",
+            "optional": false,
+            "defaultable": true,
+            "isRestType": false,
+            "selected": false
+          }
+        ],
+        "hasRestType": true,
+        "restType": {
+          "typeName": "anydata",
+          "optional": false,
+          "defaultable": false,
+          "isRestType": false,
+          "selected": false
+        },
+        "name": "response_format",
+        "typeName": "record",
+        "optional": true,
+        "typeInfo": {
+          "name": "CreateChatCompletionRequest_response_format",
+          "orgName": "ballerinax",
+          "moduleName": "openai.chat",
+          "version": "3.0.0"
+        },
+        "defaultable": false,
+        "isRestType": false,
+        "selected": false
+      },
+      {
+        "members": [
+          {
+            "typeName": "int",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "()",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          }
+        ],
+        "name": "seed",
+        "typeName": "union",
+        "optional": true,
+        "defaultable": false,
+        "isRestType": false,
+        "selected": false
+      },
+      {
+        "members": [
+          {
+            "typeName": "default",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "()",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "auto",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          }
+        ],
+        "name": "service_tier",
+        "typeName": "union",
+        "optional": true,
+        "defaultable": false,
+        "isRestType": false,
+        "selected": false
+      },
+      {
+        "members": [
+          {
+            "typeName": "string",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "memberType": {
+              "typeName": "string",
+              "optional": false,
+              "defaultable": false,
+              "isRestType": false,
+              "selected": false
+            },
+            "typeName": "array",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "()",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          }
+        ],
+        "name": "stop",
+        "typeName": "union",
+        "optional": true,
+        "defaultable": false,
+        "isRestType": false,
+        "selected": false
+      },
+      {
+        "members": [
+          {
+            "typeName": "boolean",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "()",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          }
+        ],
+        "name": "stream",
+        "typeName": "union",
+        "optional": false,
+        "defaultable": true,
+        "isRestType": false,
+        "selected": false
+      },
+      {
+        "members": [
+          {
+            "fields": [
+              {
+                "name": "include_usage",
+                "typeName": "boolean",
+                "optional": true,
+                "defaultable": false,
+                "isRestType": false,
+                "selected": false
+              }
+            ],
+            "hasRestType": true,
+            "restType": {
+              "typeName": "anydata",
+              "optional": false,
+              "defaultable": false,
+              "isRestType": false,
+              "selected": false
+            },
+            "name": "ChatCompletionStreamOptions",
+            "typeName": "record",
+            "optional": false,
+            "typeInfo": {
+              "name": "ChatCompletionStreamOptions",
+              "orgName": "ballerinax",
+              "moduleName": "openai.chat",
+              "version": "3.0.0"
+            },
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "()",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          }
+        ],
+        "name": "stream_options",
+        "typeName": "union",
+        "optional": true,
+        "defaultable": false,
+        "isRestType": false,
+        "selected": false
+      },
+      {
+        "members": [
+          {
+            "typeName": "decimal",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "()",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          }
+        ],
+        "name": "temperature",
+        "typeName": "union",
+        "optional": false,
+        "defaultable": true,
+        "isRestType": false,
+        "selected": false
+      },
+      {
+        "members": [
+          {
+            "typeName": "decimal",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "()",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          }
+        ],
+        "name": "top_p",
+        "typeName": "union",
+        "optional": false,
+        "defaultable": true,
+        "isRestType": false,
+        "selected": false
+      },
+      {
+        "memberType": {
+          "fields": [
+            {
+              "name": "type",
+              "typeName": "function",
+              "optional": false,
+              "defaultable": false,
+              "isRestType": false,
+              "selected": false
+            },
+            {
+              "fields": [
+                {
+                  "name": "description",
+                  "typeName": "string",
+                  "optional": true,
+                  "defaultable": false,
+                  "isRestType": false,
+                  "selected": false
+                },
+                {
+                  "name": "name",
+                  "typeName": "string",
+                  "optional": false,
+                  "defaultable": false,
+                  "isRestType": false,
+                  "selected": false
+                },
+                {
+                  "fields": [],
+                  "hasRestType": true,
+                  "restType": {
+                    "typeName": "anydata",
+                    "optional": false,
+                    "defaultable": false,
+                    "isRestType": false,
+                    "selected": false
+                  },
+                  "name": "parameters",
+                  "typeName": "record",
+                  "optional": true,
+                  "typeInfo": {
+                    "name": "FunctionParameters",
+                    "orgName": "ballerinax",
+                    "moduleName": "openai.chat",
+                    "version": "3.0.0"
+                  },
+                  "defaultable": false,
+                  "isRestType": false,
+                  "selected": false
+                }
+              ],
+              "hasRestType": true,
+              "restType": {
+                "typeName": "anydata",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false,
+                "selected": false
+              },
+              "name": "function",
+              "typeName": "record",
+              "optional": false,
+              "typeInfo": {
+                "name": "FunctionObject",
+                "orgName": "ballerinax",
+                "moduleName": "openai.chat",
+                "version": "3.0.0"
+              },
+              "defaultable": false,
+              "isRestType": false,
+              "selected": false
+            }
+          ],
+          "hasRestType": true,
+          "restType": {
+            "typeName": "anydata",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          "name": "ChatCompletionTool",
+          "typeName": "record",
+          "optional": false,
+          "typeInfo": {
+            "name": "ChatCompletionTool",
+            "orgName": "ballerinax",
+            "moduleName": "openai.chat",
+            "version": "3.0.0"
+          },
+          "defaultable": false,
+          "isRestType": false,
+          "selected": false
+        },
+        "name": "tools",
+        "typeName": "array",
+        "optional": true,
+        "defaultable": false,
+        "isRestType": false,
+        "selected": false
+      },
+      {
+        "members": [
+          {
+            "fields": [
+              {
+                "name": "type",
+                "typeName": "function",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false,
+                "selected": false
+              },
+              {
+                "fields": [
+                  {
+                    "name": "name",
+                    "typeName": "string",
+                    "optional": false,
+                    "defaultable": false,
+                    "isRestType": false,
+                    "selected": false
+                  }
+                ],
+                "hasRestType": true,
+                "restType": {
+                  "typeName": "anydata",
+                  "optional": false,
+                  "defaultable": false,
+                  "isRestType": false,
+                  "selected": false
+                },
+                "name": "function",
+                "typeName": "record",
+                "optional": false,
+                "typeInfo": {
+                  "name": "ChatCompletionNamedToolChoice_function",
+                  "orgName": "ballerinax",
+                  "moduleName": "openai.chat",
+                  "version": "3.0.0"
+                },
+                "defaultable": false,
+                "isRestType": false,
+                "selected": false
+              }
+            ],
+            "hasRestType": true,
+            "restType": {
+              "typeName": "anydata",
+              "optional": false,
+              "defaultable": false,
+              "isRestType": false,
+              "selected": false
+            },
+            "name": "ChatCompletionNamedToolChoice",
+            "typeName": "record",
+            "optional": false,
+            "typeInfo": {
+              "name": "ChatCompletionNamedToolChoice",
+              "orgName": "ballerinax",
+              "moduleName": "openai.chat",
+              "version": "3.0.0"
+            },
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "none",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "auto",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "required",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          }
+        ],
+        "name": "tool_choice",
+        "typeName": "union",
+        "optional": true,
+        "typeInfo": {
+          "name": "ChatCompletionToolChoiceOption",
+          "orgName": "ballerinax",
+          "moduleName": "openai.chat",
+          "version": "3.0.0"
+        },
+        "defaultable": false,
+        "isRestType": false,
+        "selected": false
+      },
+      {
+        "name": "parallel_tool_calls",
+        "typeName": "boolean",
+        "optional": true,
+        "typeInfo": {
+          "name": "ParallelToolCalls",
+          "orgName": "ballerinax",
+          "moduleName": "openai.chat",
+          "version": "3.0.0"
+        },
+        "defaultable": false,
+        "isRestType": false,
+        "selected": false
+      },
+      {
+        "name": "user",
+        "typeName": "string",
+        "optional": true,
+        "defaultable": false,
+        "isRestType": false,
+        "selected": false
+      },
+      {
+        "members": [
+          {
+            "fields": [
+              {
+                "name": "name",
+                "typeName": "string",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false,
+                "selected": false
+              }
+            ],
+            "hasRestType": true,
+            "restType": {
+              "typeName": "anydata",
+              "optional": false,
+              "defaultable": false,
+              "isRestType": false,
+              "selected": false
+            },
+            "name": "ChatCompletionFunctionCallOption",
+            "typeName": "record",
+            "optional": false,
+            "typeInfo": {
+              "name": "ChatCompletionFunctionCallOption",
+              "orgName": "ballerinax",
+              "moduleName": "openai.chat",
+              "version": "3.0.0"
+            },
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "none",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "auto",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          }
+        ],
+        "name": "function_call",
+        "typeName": "union",
+        "optional": true,
+        "defaultable": false,
+        "isRestType": false,
+        "selected": false
+      },
+      {
+        "memberType": {
+          "fields": [
+            {
+              "name": "description",
+              "typeName": "string",
+              "optional": true,
+              "defaultable": false,
+              "isRestType": false,
+              "selected": false
+            },
+            {
+              "name": "name",
+              "typeName": "string",
+              "optional": false,
+              "defaultable": false,
+              "isRestType": false,
+              "selected": false
+            },
+            {
+              "fields": [],
+              "hasRestType": true,
+              "restType": {
+                "typeName": "anydata",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false,
+                "selected": false
+              },
+              "name": "parameters",
+              "typeName": "record",
+              "optional": true,
+              "typeInfo": {
+                "name": "FunctionParameters",
+                "orgName": "ballerinax",
+                "moduleName": "openai.chat",
+                "version": "3.0.0"
+              },
+              "defaultable": false,
+              "isRestType": false,
+              "selected": false
+            }
+          ],
+          "hasRestType": true,
+          "restType": {
+            "typeName": "anydata",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          "name": "ChatCompletionFunctions",
+          "typeName": "record",
+          "optional": false,
+          "typeInfo": {
+            "name": "ChatCompletionFunctions",
+            "orgName": "ballerinax",
+            "moduleName": "openai.chat",
+            "version": "3.0.0"
+          },
+          "defaultable": false,
+          "isRestType": false,
+          "selected": false
+        },
+        "name": "functions",
+        "typeName": "array",
+        "optional": true,
+        "defaultable": false,
+        "isRestType": false,
+        "selected": false
+      }
+    ],
+    "hasRestType": true,
+    "restType": {
+      "typeName": "anydata",
+      "optional": false,
+      "defaultable": false,
+      "isRestType": false,
+      "selected": false
+    },
+    "typeName": "record",
+    "optional": false,
+    "defaultable": false,
+    "isRestType": false,
+    "selected": true
+  },
+  "output": "{messages: [], model: \"ss\"}"
+}
