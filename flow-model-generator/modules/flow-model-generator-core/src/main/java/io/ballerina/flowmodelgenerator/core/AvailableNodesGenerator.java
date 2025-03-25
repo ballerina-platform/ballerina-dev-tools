@@ -46,8 +46,6 @@ import io.ballerina.modelgenerator.commons.FunctionData;
 import io.ballerina.modelgenerator.commons.FunctionDataBuilder;
 import io.ballerina.modelgenerator.commons.ModuleInfo;
 import io.ballerina.projects.Document;
-import io.ballerina.projects.Module;
-import io.ballerina.projects.ModuleName;
 import io.ballerina.projects.Package;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.TextRange;
@@ -254,29 +252,15 @@ public class AvailableNodesGenerator {
                     .map(moduleSymbol -> ModuleInfo.from(moduleSymbol.id()))
                     .orElse(null);
 
-            SemanticModel localSemanticModel = null;
-            if (moduleInfo != null) {
-                for (Module module : pkg.modules()) {
-                    ModuleName modName = module.moduleName();
-                    if (moduleInfo.moduleName()
-                            .equals(modName.packageName().value() + "." + modName.moduleNamePart())) {
-                        localSemanticModel = pkg.getCompilation().getSemanticModel(module.moduleId());
-                    }
-                }
-            }
-
             FunctionDataBuilder functionDataBuilder = new FunctionDataBuilder()
                     .parentSymbol(classSymbol)
                     .parentSymbolType(className)
+                    .project(pkg.project())
                     .moduleInfo(moduleInfo);
-            if (localSemanticModel != null) {
-                functionDataBuilder.semanticModel(localSemanticModel);
-            }
 
             // Obtain methods of the connector
             List<FunctionData> methodFunctionsData = functionDataBuilder.buildChildNodes();
 
-            boolean isLocal = localSemanticModel != null;
             List<Item> methods = new ArrayList<>();
             for (FunctionData methodFunction : methodFunctionsData) {
                 String org = methodFunction.org();
@@ -313,13 +297,12 @@ public class AvailableNodesGenerator {
                             .stepOut()
                         .codedata()
                             .org(org)
-                            .module(localSemanticModel == null ? packageName : moduleInfo.moduleName())
+                            .module(functionDataBuilder.isLocal() ? moduleInfo.moduleName() : packageName)
                             .object(className)
                             .symbol(methodFunction.name())
                             .version(version)
                             .parentSymbol(parentSymbolName)
                             .resourcePath(methodFunction.resourcePath())
-                            .isGenerated(isLocal)
                             .stepOut()
                         .buildAvailableNode();
                 methods.add(node);

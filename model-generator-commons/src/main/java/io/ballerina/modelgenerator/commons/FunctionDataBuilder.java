@@ -66,7 +66,9 @@ import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.DocumentId;
 import io.ballerina.projects.Module;
+import io.ballerina.projects.ModuleName;
 import io.ballerina.projects.Package;
+import io.ballerina.projects.PackageDescriptor;
 import io.ballerina.projects.Project;
 import io.ballerina.tools.diagnostics.Location;
 import io.ballerina.tools.text.LinePosition;
@@ -110,6 +112,7 @@ public class FunctionDataBuilder {
     private ObjectTypeSymbol parentSymbol;
     private String parentSymbolType;
     private LSClientLogger lsClientLogger;
+    private Project project;
     private boolean isCurrentModule;
 
     public static final String REST_RESOURCE_PATH = "/path/to/subdirectory";
@@ -204,6 +207,11 @@ public class FunctionDataBuilder {
         return this;
     }
 
+    public FunctionDataBuilder project(Project project) {
+        this.project = project;
+        return this;
+    }
+
     private void setParentSymbol(Stream<Symbol> symbolStream, String parentSymbolName) {
         this.parentSymbol = symbolStream
                 .filter(symbol -> symbol.kind() == SymbolKind.VARIABLE && symbol.nameEquals(parentSymbolName))
@@ -235,6 +243,8 @@ public class FunctionDataBuilder {
         if (functionKind == null) {
             functionKind = FunctionData.Kind.FUNCTION;
         }
+
+        checkLocalModule();
 
         // Check if the package is pulled
         if (semanticModel == null) {
@@ -371,6 +381,27 @@ public class FunctionDataBuilder {
         return functionData;
     }
 
+    private void checkLocalModule() {
+        if (project != null && moduleInfo != null && isLocal()) {
+            for (Module module : project.currentPackage().modules()) {
+                ModuleName moduleName = module.moduleName();
+                if ((moduleName.packageName() + "." + moduleName.moduleNamePart()).equals(moduleInfo.moduleName())) {
+                    semanticModel(project.currentPackage().getCompilation().getSemanticModel(module.moduleId()));
+                    break;
+                }
+            }
+        }
+    }
+
+    public boolean isLocal() {
+        if (project != null && moduleInfo != null) {
+            PackageDescriptor descriptor = project.currentPackage().descriptor();
+            return moduleInfo.org().equals(descriptor.org().value()) &&
+                    moduleInfo.packageName().startsWith(descriptor.name().value());
+        }
+        return false;
+    }
+
     private ReturnData getReturnData(FunctionSymbol symbol) {
         FunctionTypeSymbol functionTypeSymbol = symbol.typeDescriptor();
         Optional<TypeSymbol> returnTypeSymbol = functionTypeSymbol.returnTypeDescriptor();
@@ -458,6 +489,8 @@ public class FunctionDataBuilder {
         if (this.parentSymbol == null && this.parentSymbolType == null) {
             throw new IllegalStateException("Parent symbol must be provided");
         }
+
+        checkLocalModule();
 
         // Derive if the semantic model is not provided
         if (semanticModel == null) {
