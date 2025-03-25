@@ -969,5 +969,5 @@
     "isRestType": false,
     "selected": true
   },
-  "output": "{tokenUrl: \"\", clientId: \"\", clientSecret: \"\", scopes: \"jhg\"}"
+  "output": "{\n    tokenUrl: \"\",\n    clientId: \"\",\n    clientSecret: \"\",\n    scopes: \"jhg\"\n}"
 }

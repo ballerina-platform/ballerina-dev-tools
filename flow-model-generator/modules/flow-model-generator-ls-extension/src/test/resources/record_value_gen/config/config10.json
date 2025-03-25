@@ -1604,5 +1604,5 @@
     "isRestType": false,
     "selected": true
   },
-  "output": "{messages: [], model: \"ss\"}"
+  "output": "{\n    messages: [],\n    model: \"ss\"\n}"
 }

@@ -4541,5 +4541,5 @@
     "isRestType": false,
     "selected": true
   },
-  "output": "{tokenUrl: \"http://localhost:9090/token\", clientId: \"my-client-id\", clientSecret: \"secret\"}"
+  "output": "{\n    tokenUrl: \"\",\n    clientId: \"\",\n    clientSecret: \"\"\n}"
 }
