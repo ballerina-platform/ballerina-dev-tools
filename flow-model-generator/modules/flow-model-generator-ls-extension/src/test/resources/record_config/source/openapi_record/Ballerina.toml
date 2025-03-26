@@ -1,0 +1,9 @@
+[package]
+org = "ballerina_integrator"
+name = "openapi_client"
+version = "0.1.0"
+
+[[tool.openapi]]
+id = "PizzaShop"
+targetModule = "PizzaShop"
+filePath = "pizzashop.yaml"
