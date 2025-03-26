@@ -4538,5 +4538,5 @@
     "isRestType": false,
     "selected": true
   },
-  "output": "{tokenUrl: \"\", username: \"\", password: \"\"}"
+  "output": "{\n    tokenUrl: \"\",\n    username: \"\",\n    password: \"\"\n}"
 }

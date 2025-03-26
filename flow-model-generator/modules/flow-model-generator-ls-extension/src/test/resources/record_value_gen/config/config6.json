@@ -151,5 +151,5 @@
     "isRestType": false,
     "selected": true
   },
-  "output": "{keepAlive: \"AUTO\"}"
+  "output": "{\n    keepAlive: \"AUTO\"\n}"
 }
