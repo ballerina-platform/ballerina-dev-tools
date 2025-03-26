@@ -7,4 +7,5 @@ final github:Client githubClient = check new ({
 function foo(int threadId) returns error? {
     github:ManifestConversions manifestConversions = check githubClient->/app\-manifests/["code-123"]/conversions.post;
     http:Response response = check githubClient->/notifications/threads/[threadId]/subscription.delete;
+    github:MinimalRepository[] githubMinimalrepository = check githubClient->/orgs/["lakshan"]/repos.get();
 }
