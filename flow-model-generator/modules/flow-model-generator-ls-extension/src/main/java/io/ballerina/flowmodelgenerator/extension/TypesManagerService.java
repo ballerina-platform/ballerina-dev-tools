@@ -362,7 +362,8 @@ public class TypesManagerService implements ExtendedLanguageServerService {
         PackageNameModulePartName packageNameModulePartName = PackageNameModulePartName.from(packageName);
         // Try to load via filePath-specific method
         Optional<SemanticModel> model = PackageUtil.getSemanticModelIfMatched(
-                workspaceManager, filePath, org, packageNameModulePartName.packageName(), packageNameModulePartName.modulePartName(),
+                workspaceManager, filePath, org, packageNameModulePartName.packageName(),
+                packageNameModulePartName.modulePartName(),
                 version
         );
         if (model.isPresent()) {
