@@ -33,6 +33,7 @@ dependencies {
     implementation "org.ballerinalang:ballerina-lang:${ballerinaLangVersion}"
     implementation "org.ballerinalang:ballerina-parser:${ballerinaLangVersion}"
     implementation "org.ballerinalang:ballerina-tools-api:${ballerinaLangVersion}"
+    implementation "org.ballerinalang:ballerina-runtime:${ballerinaLangVersion}"
     implementation "com.google.code.gson:gson:${gsonVersion}"
 
     testImplementation "org.testng:testng:${testngVersion}"

@@ -19,6 +19,7 @@
 package io.ballerina.artifactsgenerator;
 
 import io.ballerina.compiler.syntax.tree.Node;
+import io.ballerina.runtime.api.utils.IdentifierUtils;
 import io.ballerina.tools.text.LineRange;
 
 import java.util.Collections;
@@ -63,14 +64,8 @@ public record Artifact(String id, LineRange location, Type type, String name, St
         SERVICE,
         AUTOMATION,
         FUNCTION,
-        CLASS,
-        RECORD,
-        ENUM,
-        VARIABLE,
-        CONSTANT,
-        MODULE,
-        ENDPOINT,
-        TYPE_DEFINITION,
+        RESOURCE,
+        REMOTE,
         DATA_MAPPER,
     }
 
@@ -103,6 +98,10 @@ public record Artifact(String id, LineRange location, Type type, String name, St
         private Scope scope = Scope.GLOBAL;
         private String icon;
         private final Map<String, Artifact> children = new HashMap<>();
+
+        public Builder(Node node) {
+            this.location = node.lineRange();
+        }
 
         public Builder node(Node node) {
             this.location = node.lineRange();
@@ -144,9 +143,11 @@ public record Artifact(String id, LineRange location, Type type, String name, St
         public Artifact build() {
             if (accessor != null) {
                 id = accessor + "#" + name;
+                accessor = IdentifierUtils.unescapeBallerina(accessor);
             } else {
                 id = name;
             }
+            name = IdentifierUtils.unescapeBallerina(name);
             // TODO: Process the name
             return new Artifact(id, location, type, name, accessor, scope.getValue(), icon, new HashMap<>(children));
         }

@@ -27,11 +27,15 @@ import io.ballerina.compiler.api.symbols.ModuleSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.Node;
+import io.ballerina.compiler.syntax.tree.NodeList;
 import io.ballerina.compiler.syntax.tree.NodeTransformer;
+import io.ballerina.compiler.syntax.tree.ServiceDeclarationNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Transforms module nodes into artifacts based on the syntax node.
@@ -54,7 +58,7 @@ public class ModuleNodeTransformer extends NodeTransformer<Optional<Artifact>> {
 
     @Override
     public Optional<Artifact> transform(FunctionDefinitionNode functionDefinitionNode) {
-        Artifact.Builder artifactBuilder = new Artifact.Builder().node(functionDefinitionNode);
+        Artifact.Builder artifactBuilder = new Artifact.Builder(functionDefinitionNode);
         String functionName = functionDefinitionNode.functionName().text();
 
         if (functionName.equals(MAIN_FUNCTION_NAME)) {
@@ -74,6 +78,43 @@ public class ModuleNodeTransformer extends NodeTransformer<Optional<Artifact>> {
     }
 
     @Override
+    public Optional<Artifact> transform(ServiceDeclarationNode serviceDeclarationNode) {
+        Artifact.Builder serviceBuilder = new Artifact.Builder(serviceDeclarationNode);
+
+        // Generate the service path
+        String absolutePath = getPathString(serviceDeclarationNode.absoluteResourcePath());
+        serviceBuilder
+                .name(absolutePath)
+                .type(Artifact.Type.SERVICE);
+
+        // Check for the child functions
+        NodeList<Node> members = serviceDeclarationNode.members();
+        for (Node member : members) {
+            FunctionDefinitionNode functionDefinitionNode = (FunctionDefinitionNode) member;
+            Artifact.Builder functionBuilder = new Artifact.Builder(functionDefinitionNode);
+            if (Objects.requireNonNull(member.kind()) == SyntaxKind.RESOURCE_ACCESSOR_DEFINITION) {
+                functionBuilder
+                        .accessor(functionDefinitionNode.functionName().text())
+                        .name(getPathString(functionDefinitionNode.relativeResourcePath()))
+                        .type(Artifact.Type.RESOURCE);
+            } else {
+                functionBuilder
+                        .name(functionDefinitionNode.functionName().text())
+                        .type(Artifact.Type.FUNCTION);
+            }
+            serviceBuilder.child(functionBuilder.build());
+        }
+
+        return Optional.of(serviceBuilder.build());
+    }
+
+    private static String getPathString(NodeList<Node> nodes) {
+        return nodes.stream()
+                .map(node -> node.toString().trim())
+                .collect(Collectors.joining());
+    }
+
+    @Override
     protected Optional<Artifact> transformSyntaxNode(Node node) {
         return Optional.empty();
     }
@@ -90,12 +131,11 @@ public class ModuleNodeTransformer extends NodeTransformer<Optional<Artifact>> {
             return false;
         }
 
-        List<AnnotationAttachmentSymbol> annotAttachments =
-                ((ExternalFunctionSymbol) funcSymbol.get()).annotAttachmentsOnExternal();
-        return annotAttachments.stream().anyMatch(annot ->
-                isNpModule(annot.typeDescriptor())
-                        && annot.getName().isPresent()
-                        && annot.getName().get().equals(LLM_CALL));
+        List<AnnotationAttachmentSymbol> annotAttachments = ((ExternalFunctionSymbol) funcSymbol.get())
+                .annotAttachmentsOnExternal();
+        return annotAttachments.stream().anyMatch(annot -> isNpModule(annot.typeDescriptor())
+                && annot.getName().isPresent()
+                && annot.getName().get().equals(LLM_CALL));
     }
 
     private boolean isNpModule(Symbol symbol) {
