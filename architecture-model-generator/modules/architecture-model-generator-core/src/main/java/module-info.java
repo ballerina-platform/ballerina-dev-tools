@@ -34,4 +34,5 @@ module io.ballerina.architecturemodelgenerator {
     exports io.ballerina.architecturemodelgenerator.core.generators.entity;
     exports io.ballerina.designmodelgenerator.core;
     exports io.ballerina.designmodelgenerator.core.model;
+    exports io.ballerina.artifactsgenerator;
 }

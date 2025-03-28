@@ -66,7 +66,7 @@ public abstract class AbstractLSTest {
     protected final Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 
     protected Endpoint serviceEndpoint;
-    private BallerinaLanguageServer languageServer;
+    protected BallerinaLanguageServer languageServer;
     protected static final List<String> UNDEFINED_DIAGNOSTICS_CODES = List.of("BCE2000", "BCE2011");
 
     @BeforeClass
@@ -177,18 +177,25 @@ public abstract class AbstractLSTest {
     }
 
     protected void notifyDidOpen(String sourcePath) throws IOException {
+        TextDocumentItem textDocumentItem = getDocumentIdentifier(sourcePath, CommonUtils.getExprUri(sourcePath));
+        sendNotification("textDocument/didOpen", new DidOpenTextDocumentParams(textDocumentItem));
+    }
+
+    protected TextDocumentItem getDocumentIdentifier(String sourcePath, String fileUri) {
         TextDocumentItem textDocumentItem = new TextDocumentItem();
-        String text;
-        try (FileInputStream fis = new FileInputStream(sourcePath)) {
-            text = new String(fis.readAllBytes(), StandardCharsets.UTF_8);
-        } catch (Throwable e) {
-            text = "";
-        }
-        textDocumentItem.setUri(CommonUtils.getExprUri(sourcePath));
-        textDocumentItem.setText(text);
+        textDocumentItem.setUri(fileUri);
+        textDocumentItem.setText(getText(sourcePath));
         textDocumentItem.setLanguageId("ballerina");
         textDocumentItem.setVersion(1);
-        sendNotification("textDocument/didOpen", new DidOpenTextDocumentParams(textDocumentItem));
+        return textDocumentItem;
+    }
+
+    protected String getText(String sourcePath) {
+        try (FileInputStream fis = new FileInputStream(sourcePath)) {
+            return new String(fis.readAllBytes(), StandardCharsets.UTF_8);
+        } catch (Throwable e) {
+            return "";
+        }
     }
 
     protected void notifyDidClose(String sourcePath) {

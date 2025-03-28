@@ -1,0 +1,166 @@
+{
+  "source": "functions1.bal",
+  "description": "",
+  "output": [
+    {
+      "id": "sayHello",
+      "location": {
+        "fileName": "functions1.bal",
+        "startLine": {
+          "line": 3,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 5,
+          "offset": 1
+        }
+      },
+      "type": "FUNCTION",
+      "name": "sayHello",
+      "scope": "Global",
+      "children": {}
+    },
+    {
+      "id": "greet",
+      "location": {
+        "fileName": "functions1.bal",
+        "startLine": {
+          "line": 8,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 10,
+          "offset": 1
+        }
+      },
+      "type": "FUNCTION",
+      "name": "greet",
+      "scope": "Global",
+      "children": {}
+    },
+    {
+      "id": "add",
+      "location": {
+        "fileName": "functions1.bal",
+        "startLine": {
+          "line": 13,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 15,
+          "offset": 1
+        }
+      },
+      "type": "FUNCTION",
+      "name": "add",
+      "scope": "Global",
+      "children": {}
+    },
+    {
+      "id": "divideAndRemainder",
+      "location": {
+        "fileName": "functions1.bal",
+        "startLine": {
+          "line": 18,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 22,
+          "offset": 1
+        }
+      },
+      "type": "FUNCTION",
+      "name": "divideAndRemainder",
+      "scope": "Global",
+      "children": {}
+    },
+    {
+      "id": "calculateInterest",
+      "location": {
+        "fileName": "functions1.bal",
+        "startLine": {
+          "line": 25,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 27,
+          "offset": 1
+        }
+      },
+      "type": "FUNCTION",
+      "name": "calculateInterest",
+      "scope": "Global",
+      "children": {}
+    },
+    {
+      "id": "sum",
+      "location": {
+        "fileName": "functions1.bal",
+        "startLine": {
+          "line": 30,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 36,
+          "offset": 1
+        }
+      },
+      "type": "FUNCTION",
+      "name": "sum",
+      "scope": "Global",
+      "children": {}
+    },
+    {
+      "id": "divide",
+      "location": {
+        "fileName": "functions1.bal",
+        "startLine": {
+          "line": 39,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 44,
+          "offset": 1
+        }
+      },
+      "type": "FUNCTION",
+      "name": "divide",
+      "scope": "Global",
+      "children": {}
+    },
+    {
+      "id": "fn\\#with\\-Identifiers",
+      "location": {
+        "fileName": "functions1.bal",
+        "startLine": {
+          "line": 47,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 49,
+          "offset": 1
+        }
+      },
+      "type": "FUNCTION",
+      "name": "fn\\#with\\-Identifiers",
+      "scope": "Global",
+      "children": {}
+    },
+    {
+      "location": {
+        "fileName": "functions1.bal",
+        "startLine": {
+          "line": 52,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 71,
+          "offset": 1
+        }
+      },
+      "type": "AUTOMATION",
+      "scope": "Global",
+      "children": {}
+    }
+  ]
+}
