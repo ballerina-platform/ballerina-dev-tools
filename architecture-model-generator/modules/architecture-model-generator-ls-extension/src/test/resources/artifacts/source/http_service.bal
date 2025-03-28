@@ -64,15 +64,15 @@ service / on securedEP, securedEP, new http:Listener(9092) {
     }
 }
 
-// service /api/v1 on refListener {
+service /api/v1 on refListener {
 
-//     resource function get path() returns json|http:InternalServerError {
-//         do {
-//             return 0;
-//         } on fail error e {
-//             log:printError("Error: ", 'error = e);
-//             return http:INTERNAL_SERVER_ERROR;
-//         }
-//     }
-// }
+    resource function get path() returns json|http:InternalServerError {
+        do {
+            return 0;
+        } on fail error e {
+            log:printError("Error: ", 'error = e);
+            return http:INTERNAL_SERVER_ERROR;
+        }
+    }
+}
 

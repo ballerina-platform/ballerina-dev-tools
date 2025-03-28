@@ -117,6 +117,44 @@
       }
     },
     {
+      "id": "securedEP",
+      "location": {
+        "fileName": "http_service.bal",
+        "startLine": {
+          "line": 34,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 41,
+          "offset": 2
+        }
+      },
+      "type": "LISTENER",
+      "name": "securedEP",
+      "scope": "Global",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
+      "children": {}
+    },
+    {
+      "id": "refListener",
+      "location": {
+        "fileName": "http_service.bal",
+        "startLine": {
+          "line": 43,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 43,
+          "offset": 47
+        }
+      },
+      "type": "LISTENER",
+      "name": "refListener",
+      "scope": "Global",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
+      "children": {}
+    },
+    {
       "id": "/",
       "location": {
         "fileName": "http_service.bal",
@@ -166,6 +204,44 @@
           },
           "type": "RESOURCE",
           "name": "greeting",
+          "accessor": "get",
+          "scope": "Global",
+          "children": {}
+        }
+      }
+    },
+    {
+      "id": "/api/v1",
+      "location": {
+        "fileName": "http_service.bal",
+        "startLine": {
+          "line": 66,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 76,
+          "offset": 1
+        }
+      },
+      "type": "SERVICE",
+      "name": "/api/v1",
+      "scope": "Global",
+      "children": {
+        "get#path": {
+          "id": "get#path",
+          "location": {
+            "fileName": "http_service.bal",
+            "startLine": {
+              "line": 68,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 75,
+              "offset": 5
+            }
+          },
+          "type": "RESOURCE",
+          "name": "path",
           "accessor": "get",
           "scope": "Global",
           "children": {}
