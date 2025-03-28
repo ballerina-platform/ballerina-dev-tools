@@ -1499,6 +1499,11 @@ class CodeAnalyzer extends NodeVisitor {
                 // Skip if `prompt` param of a np function
                 return;
             }
+            if (paramResult.kind() == ParameterData.Kind.PATH_PARAM) {
+                // Skip if `path` param
+                return;
+            }
+
             if (paramResult.kind() != ParameterData.Kind.PARAM_FOR_TYPE_INFER) {
                 funcParamMap.put(key, paramResult);
                 return;
