@@ -39,6 +39,7 @@ import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.ServiceDeclarationNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.Token;
+import io.ballerina.compiler.syntax.tree.TypeDefinitionNode;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 
 import java.util.List;
@@ -150,6 +151,14 @@ public class ModuleNodeTransformer extends NodeTransformer<Optional<Artifact>> {
         }
 
         return Optional.of(variableBuilder.build());
+    }
+
+    @Override
+    public Optional<Artifact> transform(TypeDefinitionNode typeDefinitionNode) {
+        Artifact.Builder typeBuilder = new Artifact.Builder(typeDefinitionNode)
+                .name(typeDefinitionNode.typeName().text())
+                .type(Artifact.Type.TYPE);
+        return Optional.of(typeBuilder.build());
     }
 
     private void setIcon(Artifact.Builder builder, Node node) {
