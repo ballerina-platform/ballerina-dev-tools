@@ -73,6 +73,7 @@ public record Artifact(String id, LineRange location, Type type, String name, St
         LISTENER,
         CONFIGURABLE,
         TYPE,
+        CONNECTION,
     }
 
     public enum Scope {

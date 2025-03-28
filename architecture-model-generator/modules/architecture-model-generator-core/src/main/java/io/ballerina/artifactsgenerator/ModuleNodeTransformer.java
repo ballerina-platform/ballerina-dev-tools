@@ -21,13 +21,17 @@ package io.ballerina.artifactsgenerator;
 import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.AnnotationAttachmentSymbol;
+import io.ballerina.compiler.api.symbols.ClassSymbol;
 import io.ballerina.compiler.api.symbols.ExternalFunctionSymbol;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.ModuleSymbol;
+import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
+import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
+import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.ListenerDeclarationNode;
@@ -99,10 +103,6 @@ public class ModuleNodeTransformer extends NodeTransformer<Optional<Artifact>> {
         return Optional.of(functionBuilder.build());
     }
 
-    private static boolean hasQualifier(NodeList<Token> qualifierList, SyntaxKind kind) {
-        return qualifierList.stream().anyMatch(qualifier -> qualifier.kind() == kind);
-    }
-
     @Override
     public Optional<Artifact> transform(ServiceDeclarationNode serviceDeclarationNode) {
         Artifact.Builder serviceBuilder = new Artifact.Builder(serviceDeclarationNode);
@@ -148,6 +148,11 @@ public class ModuleNodeTransformer extends NodeTransformer<Optional<Artifact>> {
 
         if (hasQualifier(moduleVariableDeclarationNode.qualifiers(), SyntaxKind.CONFIGURABLE_KEYWORD)) {
             variableBuilder.type(Artifact.Type.CONFIGURABLE);
+        } else {
+            Optional<ClassSymbol> connection = getConnection(moduleVariableDeclarationNode);
+            connection.ifPresent(classSymbol -> variableBuilder
+                    .type(Artifact.Type.CONNECTION)
+                    .icon(classSymbol));
         }
 
         return Optional.of(variableBuilder.build());
@@ -159,6 +164,11 @@ public class ModuleNodeTransformer extends NodeTransformer<Optional<Artifact>> {
                 .name(typeDefinitionNode.typeName().text())
                 .type(Artifact.Type.TYPE);
         return Optional.of(typeBuilder.build());
+    }
+
+    @Override
+    protected Optional<Artifact> transformSyntaxNode(Node node) {
+        return Optional.empty();
     }
 
     private void setIcon(Artifact.Builder builder, Node node) {
@@ -177,15 +187,29 @@ public class ModuleNodeTransformer extends NodeTransformer<Optional<Artifact>> {
         builder.icon(typeSymbol.get());
     }
 
+    private Optional<ClassSymbol> getConnection(Node node) {
+        try {
+            Symbol symbol = semanticModel.symbol(node).orElseThrow();
+            TypeReferenceTypeSymbol typeDescriptorSymbol =
+                    (TypeReferenceTypeSymbol) ((VariableSymbol) symbol).typeDescriptor();
+            ClassSymbol classSymbol = (ClassSymbol) typeDescriptorSymbol.typeDescriptor();
+            if (classSymbol.qualifiers().contains(Qualifier.CLIENT)) {
+                return Optional.of(classSymbol);
+            }
+        } catch (Throwable e) {
+            // Ignore
+        }
+        return Optional.empty();
+    }
+
     private static String getPathString(NodeList<Node> nodes) {
         return nodes.stream()
                 .map(node -> node.toString().trim())
                 .collect(Collectors.joining());
     }
 
-    @Override
-    protected Optional<Artifact> transformSyntaxNode(Node node) {
-        return Optional.empty();
+    private static boolean hasQualifier(NodeList<Token> qualifierList, SyntaxKind kind) {
+        return qualifierList.stream().anyMatch(qualifier -> qualifier.kind() == kind);
     }
 
     private boolean isPromptAsCodeFunction(FunctionDefinitionNode functionDefinitionNode) {
