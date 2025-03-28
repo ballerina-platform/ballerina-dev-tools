@@ -18,7 +18,6 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
-import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
@@ -34,9 +33,6 @@ import io.ballerina.modelgenerator.commons.FunctionDataBuilder;
 import io.ballerina.modelgenerator.commons.ModuleInfo;
 import io.ballerina.modelgenerator.commons.PackageUtil;
 import io.ballerina.modelgenerator.commons.ParameterData;
-import io.ballerina.projects.Module;
-import io.ballerina.projects.Project;
-import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
@@ -74,28 +70,8 @@ public class ResourceActionCallBuilder extends CallBuilder {
                 .lsClientLogger(context.lsClientLogger())
                 .parentSymbolType(codedata.object())
                 .resourcePath(codedata.resourcePath())
+                .project(PackageUtil.loadProject(context.workspaceManager(), context.filePath()))
                 .functionResultKind(FunctionData.Kind.RESOURCE);
-
-        if (Boolean.TRUE.equals(codedata.isGenerated())) {
-            Path projectPath = context.filePath().getParent();
-            if (projectPath == null) {
-                throw new IllegalStateException("Project path not found");
-            }
-            WorkspaceManager workspaceManager = context.workspaceManager();
-            Project project = PackageUtil.loadProject(workspaceManager, context.filePath());
-            SemanticModel semanticModel = null;
-            for (Module module : project.currentPackage().modules()) {
-                if ((module.moduleName().packageName() + "." + module.moduleName().moduleNamePart())
-                        .equals(codedata.module())) {
-                    semanticModel = project.currentPackage().getCompilation().getSemanticModel(module.moduleId());
-                    break;
-                }
-            }
-            if (semanticModel == null) {
-                throw new IllegalStateException("Semantic model not found");
-            }
-            functionDataBuilder.semanticModel(semanticModel);
-        }
 
         FunctionData functionData = functionDataBuilder.build();
 

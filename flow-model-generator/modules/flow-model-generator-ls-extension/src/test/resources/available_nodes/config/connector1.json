@@ -31,8 +31,7 @@
                 "symbol": "get",
                 "version": "2.14.0",
                 "parentSymbol": "moduleClient",
-                "resourcePath": "",
-                "isGenerated": false
+                "resourcePath": ""
               },
               "enabled": true
             },
@@ -50,8 +49,7 @@
                 "symbol": "post",
                 "version": "2.14.0",
                 "parentSymbol": "moduleClient",
-                "resourcePath": "",
-                "isGenerated": false
+                "resourcePath": ""
               },
               "enabled": true
             },
@@ -69,8 +67,7 @@
                 "symbol": "put",
                 "version": "2.14.0",
                 "parentSymbol": "moduleClient",
-                "resourcePath": "",
-                "isGenerated": false
+                "resourcePath": ""
               },
               "enabled": true
             },
@@ -88,8 +85,7 @@
                 "symbol": "delete",
                 "version": "2.14.0",
                 "parentSymbol": "moduleClient",
-                "resourcePath": "",
-                "isGenerated": false
+                "resourcePath": ""
               },
               "enabled": true
             },
@@ -107,8 +103,7 @@
                 "symbol": "patch",
                 "version": "2.14.0",
                 "parentSymbol": "moduleClient",
-                "resourcePath": "",
-                "isGenerated": false
+                "resourcePath": ""
               },
               "enabled": true
             },
@@ -126,8 +121,7 @@
                 "symbol": "head",
                 "version": "2.14.0",
                 "parentSymbol": "moduleClient",
-                "resourcePath": "",
-                "isGenerated": false
+                "resourcePath": ""
               },
               "enabled": true
             },
@@ -145,8 +139,7 @@
                 "symbol": "options",
                 "version": "2.14.0",
                 "parentSymbol": "moduleClient",
-                "resourcePath": "",
-                "isGenerated": false
+                "resourcePath": ""
               },
               "enabled": true
             },
@@ -164,8 +157,7 @@
                 "symbol": "execute",
                 "version": "2.14.0",
                 "parentSymbol": "moduleClient",
-                "resourcePath": "",
-                "isGenerated": false
+                "resourcePath": ""
               },
               "enabled": true
             },
@@ -183,8 +175,7 @@
                 "symbol": "forward",
                 "version": "2.14.0",
                 "parentSymbol": "moduleClient",
-                "resourcePath": "",
-                "isGenerated": false
+                "resourcePath": ""
               },
               "enabled": true
             },
@@ -202,8 +193,7 @@
                 "symbol": "submit",
                 "version": "2.14.0",
                 "parentSymbol": "moduleClient",
-                "resourcePath": "",
-                "isGenerated": false
+                "resourcePath": ""
               },
               "enabled": true
             },
@@ -221,8 +211,7 @@
                 "symbol": "getResponse",
                 "version": "2.14.0",
                 "parentSymbol": "moduleClient",
-                "resourcePath": "",
-                "isGenerated": false
+                "resourcePath": ""
               },
               "enabled": true
             },
@@ -240,8 +229,7 @@
                 "symbol": "hasPromise",
                 "version": "2.14.0",
                 "parentSymbol": "moduleClient",
-                "resourcePath": "",
-                "isGenerated": false
+                "resourcePath": ""
               },
               "enabled": true
             },
@@ -259,8 +247,7 @@
                 "symbol": "getNextPromise",
                 "version": "2.14.0",
                 "parentSymbol": "moduleClient",
-                "resourcePath": "",
-                "isGenerated": false
+                "resourcePath": ""
               },
               "enabled": true
             },
@@ -278,8 +265,7 @@
                 "symbol": "getPromisedResponse",
                 "version": "2.14.0",
                 "parentSymbol": "moduleClient",
-                "resourcePath": "",
-                "isGenerated": false
+                "resourcePath": ""
               },
               "enabled": true
             },
@@ -297,8 +283,7 @@
                 "symbol": "rejectPromise",
                 "version": "2.14.0",
                 "parentSymbol": "moduleClient",
-                "resourcePath": "",
-                "isGenerated": false
+                "resourcePath": ""
               },
               "enabled": true
             },
@@ -316,8 +301,7 @@
                 "symbol": "getCookieStore",
                 "version": "2.14.0",
                 "parentSymbol": "moduleClient",
-                "resourcePath": "",
-                "isGenerated": false
+                "resourcePath": ""
               },
               "enabled": true
             },
@@ -335,8 +319,7 @@
                 "symbol": "circuitBreakerForceClose",
                 "version": "2.14.0",
                 "parentSymbol": "moduleClient",
-                "resourcePath": "",
-                "isGenerated": false
+                "resourcePath": ""
               },
               "enabled": true
             },
@@ -354,8 +337,7 @@
                 "symbol": "circuitBreakerForceOpen",
                 "version": "2.14.0",
                 "parentSymbol": "moduleClient",
-                "resourcePath": "",
-                "isGenerated": false
+                "resourcePath": ""
               },
               "enabled": true
             },
@@ -373,8 +355,7 @@
                 "symbol": "getCircuitBreakerCurrentState",
                 "version": "2.14.0",
                 "parentSymbol": "moduleClient",
-                "resourcePath": "",
-                "isGenerated": false
+                "resourcePath": ""
               },
               "enabled": true
             }
