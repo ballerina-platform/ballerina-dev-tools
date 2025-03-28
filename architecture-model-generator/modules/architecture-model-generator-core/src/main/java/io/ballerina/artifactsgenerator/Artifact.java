@@ -18,7 +18,9 @@
 
 package io.ballerina.artifactsgenerator;
 
+import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.syntax.tree.Node;
+import io.ballerina.designmodelgenerator.core.CommonUtils;
 import io.ballerina.runtime.api.utils.IdentifierUtils;
 import io.ballerina.tools.text.LineRange;
 
@@ -68,6 +70,7 @@ public record Artifact(String id, LineRange location, Type type, String name, St
         REMOTE,
         DATA_MAPPER,
         NP_FUNCTION,
+        LISTENER,
     }
 
     public enum Scope {
@@ -129,8 +132,8 @@ public record Artifact(String id, LineRange location, Type type, String name, St
             return this;
         }
 
-        public Builder icon(String icon) {
-            this.icon = icon;
+        public Builder icon(Symbol symbol) {
+            symbol.getModule().ifPresent(module -> this.icon = CommonUtils.generateIcon(module.id()));
             return this;
         }
 
@@ -149,7 +152,6 @@ public record Artifact(String id, LineRange location, Type type, String name, St
                 id = name;
             }
             name = IdentifierUtils.unescapeBallerina(name);
-            // TODO: Process the name
             return new Artifact(id, location, type, name, accessor, scope.getValue(), icon, new HashMap<>(children));
         }
     }

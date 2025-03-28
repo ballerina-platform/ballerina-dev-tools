@@ -26,6 +26,7 @@ import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.ModuleSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
+import io.ballerina.compiler.syntax.tree.ListenerDeclarationNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeList;
 import io.ballerina.compiler.syntax.tree.NodeTransformer;
@@ -106,6 +107,25 @@ public class ModuleNodeTransformer extends NodeTransformer<Optional<Artifact>> {
         });
 
         return Optional.of(serviceBuilder.build());
+    }
+
+    @Override
+    public Optional<Artifact> transform(ListenerDeclarationNode listenerDeclarationNode) {
+        Artifact.Builder listenerBuilder = new Artifact.Builder(listenerDeclarationNode)
+                .name(listenerDeclarationNode.variableName().text())
+                .type(Artifact.Type.LISTENER);
+
+        // TODO: This does not work for declarations that does not have a type descriptor node such as
+        //  `listener httpListener = new http:Listener(9090);`
+        //  Need to fix the semantic model APIs to support listener nodes, as they currently return empty values
+        listenerDeclarationNode.typeDescriptor().ifPresent(typeDescriptorNode -> {
+            setIcon(listenerBuilder, typeDescriptorNode);
+        });
+        return Optional.of(listenerBuilder.build());
+    }
+
+    private void setIcon(Artifact.Builder builder, Node node) {
+        semanticModel.symbol(node).ifPresent(builder::icon);
     }
 
     private static String getPathString(NodeList<Node> nodes) {
