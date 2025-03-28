@@ -33,7 +33,6 @@ import io.ballerina.compiler.syntax.tree.ServiceDeclarationNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -58,23 +57,28 @@ public class ModuleNodeTransformer extends NodeTransformer<Optional<Artifact>> {
 
     @Override
     public Optional<Artifact> transform(FunctionDefinitionNode functionDefinitionNode) {
-        Artifact.Builder artifactBuilder = new Artifact.Builder(functionDefinitionNode);
+        Artifact.Builder functionBuilder = new Artifact.Builder(functionDefinitionNode);
         String functionName = functionDefinitionNode.functionName().text();
 
         if (functionName.equals(MAIN_FUNCTION_NAME)) {
-            artifactBuilder
+            functionBuilder
                     .name(AUTOMATION_FUNCTION_NAME)
                     .type(Artifact.Type.AUTOMATION);
         } else if (functionDefinitionNode.functionBody().kind() == SyntaxKind.EXPRESSION_FUNCTION_BODY) {
-            artifactBuilder
+            functionBuilder
                     .name(functionName)
                     .type(Artifact.Type.DATA_MAPPER);
+        } else if (functionDefinitionNode.kind() == SyntaxKind.RESOURCE_ACCESSOR_DEFINITION) {
+            functionBuilder
+                    .accessor(functionName)
+                    .name(getPathString(functionDefinitionNode.relativeResourcePath()))
+                    .type(Artifact.Type.RESOURCE);
         } else {
-            artifactBuilder
+            functionBuilder
                     .name(functionName)
                     .type(Artifact.Type.FUNCTION);
         }
-        return Optional.of(artifactBuilder.build());
+        return Optional.of(functionBuilder.build());
     }
 
     @Override
@@ -88,22 +92,9 @@ public class ModuleNodeTransformer extends NodeTransformer<Optional<Artifact>> {
                 .type(Artifact.Type.SERVICE);
 
         // Check for the child functions
-        NodeList<Node> members = serviceDeclarationNode.members();
-        for (Node member : members) {
-            FunctionDefinitionNode functionDefinitionNode = (FunctionDefinitionNode) member;
-            Artifact.Builder functionBuilder = new Artifact.Builder(functionDefinitionNode);
-            if (Objects.requireNonNull(member.kind()) == SyntaxKind.RESOURCE_ACCESSOR_DEFINITION) {
-                functionBuilder
-                        .accessor(functionDefinitionNode.functionName().text())
-                        .name(getPathString(functionDefinitionNode.relativeResourcePath()))
-                        .type(Artifact.Type.RESOURCE);
-            } else {
-                functionBuilder
-                        .name(functionDefinitionNode.functionName().text())
-                        .type(Artifact.Type.FUNCTION);
-            }
-            serviceBuilder.child(functionBuilder.build());
-        }
+        serviceDeclarationNode.members().stream().parallel().forEach(member -> {
+            member.apply(this).ifPresent(serviceBuilder::child);
+        });
 
         return Optional.of(serviceBuilder.build());
     }
