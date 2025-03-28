@@ -47,6 +47,7 @@ public class PublishArtifactsSubscriber implements EventSubscriber {
 
     @Override
     public void onEvent(ExtendedLanguageClient client, DocumentServiceContext context,
+                        LanguageServerContext serverContext) {
         Optional<SyntaxTree> syntaxTree = context.currentSyntaxTree();
         Optional<SemanticModel> semanticModel = context.currentSemanticModel();
         if (syntaxTree.isEmpty() || semanticModel.isEmpty()) {

@@ -28,20 +28,22 @@ import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeTransformer;
+import io.ballerina.compiler.syntax.tree.SyntaxKind;
 
 import java.util.List;
 import java.util.Optional;
 
 /**
  * Transforms module nodes into artifacts based on the syntax node.
- * 
+ *
  * @since 2.3.0
  */
 public class ModuleNodeTransformer extends NodeTransformer<Optional<Artifact>> {
 
     private final SemanticModel semanticModel;
 
-    private static final String AUTOMATION_FUNCTION_NAME = "main";
+    private static final String AUTOMATION_FUNCTION_NAME = "automation";
+    private static final String MAIN_FUNCTION_NAME = "main";
     private static final String BALLERINAX_ORG_NAME = "ballerinax";
     private static final String NP_MODULE_NAME = "np";
     private static final String LLM_CALL = "LlmCall";
@@ -55,14 +57,19 @@ public class ModuleNodeTransformer extends NodeTransformer<Optional<Artifact>> {
         Artifact.Builder artifactBuilder = new Artifact.Builder().node(functionDefinitionNode);
         String functionName = functionDefinitionNode.functionName().text();
 
-        if (functionName.equals(AUTOMATION_FUNCTION_NAME)) {
-            artifactBuilder.type(Artifact.Type.AUTOMATION);
+        if (functionName.equals(MAIN_FUNCTION_NAME)) {
+            artifactBuilder
+                    .name(AUTOMATION_FUNCTION_NAME)
+                    .type(Artifact.Type.AUTOMATION);
+        } else if (functionDefinitionNode.functionBody().kind() == SyntaxKind.EXPRESSION_FUNCTION_BODY) {
+            artifactBuilder
+                    .name(functionName)
+                    .type(Artifact.Type.DATA_MAPPER);
         } else {
             artifactBuilder
                     .name(functionName)
                     .type(Artifact.Type.FUNCTION);
         }
-
         return Optional.of(artifactBuilder.build());
     }
 

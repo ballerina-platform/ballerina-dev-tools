@@ -71,7 +71,7 @@ public record Artifact(String id, LineRange location, Type type, String name, St
         MODULE,
         ENDPOINT,
         TYPE_DEFINITION,
-        OTHER
+        DATA_MAPPER,
     }
 
     public enum Scope {
