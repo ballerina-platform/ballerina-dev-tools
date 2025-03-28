@@ -31,7 +31,8 @@ script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cat > "$script_dir/config/${name}.json" << EOF
 {
     "source": "${name}.bal",
-    "output": {}
+    "description": "",
+    "output": []
 }
 EOF
 

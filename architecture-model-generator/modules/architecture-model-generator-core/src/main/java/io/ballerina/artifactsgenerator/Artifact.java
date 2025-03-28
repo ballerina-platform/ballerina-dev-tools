@@ -67,6 +67,7 @@ public record Artifact(String id, LineRange location, Type type, String name, St
         RESOURCE,
         REMOTE,
         DATA_MAPPER,
+        NP_FUNCTION,
     }
 
     public enum Scope {

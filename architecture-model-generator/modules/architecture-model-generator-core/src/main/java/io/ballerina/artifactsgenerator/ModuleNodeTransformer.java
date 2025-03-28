@@ -49,7 +49,7 @@ public class ModuleNodeTransformer extends NodeTransformer<Optional<Artifact>> {
     private static final String MAIN_FUNCTION_NAME = "main";
     private static final String BALLERINAX_ORG_NAME = "ballerinax";
     private static final String NP_MODULE_NAME = "np";
-    private static final String LLM_CALL = "LlmCall";
+    private static final String NP_FUNCTION_ANNOTATION = "NaturalFunction";
 
     public ModuleNodeTransformer(SemanticModel semanticModel) {
         this.semanticModel = semanticModel;
@@ -73,6 +73,10 @@ public class ModuleNodeTransformer extends NodeTransformer<Optional<Artifact>> {
                     .accessor(functionName)
                     .name(getPathString(functionDefinitionNode.relativeResourcePath()))
                     .type(Artifact.Type.RESOURCE);
+        } else if (isPromptAsCodeFunction(functionDefinitionNode)) {
+            functionBuilder
+                    .name(functionName)
+                    .type(Artifact.Type.NP_FUNCTION);
         } else {
             functionBuilder
                     .name(functionName)
@@ -124,9 +128,9 @@ public class ModuleNodeTransformer extends NodeTransformer<Optional<Artifact>> {
 
         List<AnnotationAttachmentSymbol> annotAttachments = ((ExternalFunctionSymbol) funcSymbol.get())
                 .annotAttachmentsOnExternal();
-        return annotAttachments.stream().anyMatch(annot -> isNpModule(annot.typeDescriptor())
-                && annot.getName().isPresent()
-                && annot.getName().get().equals(LLM_CALL));
+        return annotAttachments.stream()
+                .map(AnnotationAttachmentSymbol::typeDescriptor)
+                .anyMatch(annot -> isNpModule(annot) && annot.nameEquals(NP_FUNCTION_ANNOTATION));
     }
 
     private boolean isNpModule(Symbol symbol) {
