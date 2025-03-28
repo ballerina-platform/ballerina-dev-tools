@@ -1,0 +1,43 @@
+{
+  "source": "rabbitmq.bal",
+  "description": "",
+  "output": [
+    {
+      "id": "\"queueName\"",
+      "location": {
+        "fileName": "rabbitmq.bal",
+        "startLine": {
+          "line": 4,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 11,
+          "offset": 1
+        }
+      },
+      "type": "SERVICE",
+      "name": "\"queueName\"",
+      "scope": "Global",
+      "children": {
+        "onMessage": {
+          "id": "onMessage",
+          "location": {
+            "fileName": "rabbitmq.bal",
+            "startLine": {
+              "line": 5,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 10,
+              "offset": 5
+            }
+          },
+          "type": "REMOTE",
+          "name": "onMessage",
+          "scope": "Global",
+          "children": {}
+        }
+      }
+    }
+  ]
+}

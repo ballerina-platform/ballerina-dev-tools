@@ -73,6 +73,11 @@ public class ModuleNodeTransformer extends NodeTransformer<Optional<Artifact>> {
                     .accessor(functionName)
                     .name(getPathString(functionDefinitionNode.relativeResourcePath()))
                     .type(Artifact.Type.RESOURCE);
+        } else if (functionDefinitionNode.qualifierList().stream()
+                .anyMatch(qualifier -> qualifier.kind() == SyntaxKind.REMOTE_KEYWORD)) {
+            functionBuilder
+                    .name(functionName)
+                    .type(Artifact.Type.REMOTE);
         } else if (isPromptAsCodeFunction(functionDefinitionNode)) {
             functionBuilder
                     .name(functionName)
@@ -114,12 +119,6 @@ public class ModuleNodeTransformer extends NodeTransformer<Optional<Artifact>> {
         return Optional.empty();
     }
 
-    /**
-     * Check whether the given function is a prompt as code function.
-     *
-     * @param functionDefinitionNode Function definition node
-     * @return true if the function is a prompt as code function else false
-     */
     private boolean isPromptAsCodeFunction(FunctionDefinitionNode functionDefinitionNode) {
         Optional<Symbol> funcSymbol = this.semanticModel.symbol(functionDefinitionNode);
         if (funcSymbol.isEmpty() || !((FunctionSymbol) funcSymbol.get()).external()) {
