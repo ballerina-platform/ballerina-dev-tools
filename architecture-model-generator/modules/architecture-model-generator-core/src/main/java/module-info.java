@@ -23,6 +23,7 @@ module io.ballerina.architecturemodelgenerator {
     requires io.ballerina.tools.api;
     requires io.ballerina.language.server.commons;
     requires java.desktop;
+    requires io.ballerina.model.generator.commons;
     requires io.ballerina.runtime;
 
     exports io.ballerina.architecturemodelgenerator.core;

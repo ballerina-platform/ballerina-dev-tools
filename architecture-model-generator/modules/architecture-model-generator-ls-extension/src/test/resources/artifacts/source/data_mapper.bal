@@ -39,8 +39,8 @@ function concatenateStrings(string first, string last) returns string => string 
 
 // Record mappers
 function personToEmployee(Person person) returns Employee => {
-    firstName: person.name.split(" ")[0],
-    lastName: person.name.split(" ").length() > 1 ? person.name.split(" ")[1] : "",
+    firstName: person.name,
+    lastName: person.name,
     age: person.age,
     department: "Not Assigned",
     salary: 0.0
@@ -74,7 +74,7 @@ public function main() {
     
     string num = "42";
     var intValue = stringToInt(num);
-    io:println("Converted string to int: " + intValue.toString());
+    io:println("Converted string to int: ", intValue);
     
     // Test record mappers
     Person person = {

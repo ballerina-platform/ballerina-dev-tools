@@ -31,12 +31,15 @@ import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.ListenerDeclarationNode;
+import io.ballerina.compiler.syntax.tree.ModuleVariableDeclarationNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeList;
 import io.ballerina.compiler.syntax.tree.NodeTransformer;
 import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.ServiceDeclarationNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.compiler.syntax.tree.Token;
+import io.ballerina.modelgenerator.commons.CommonUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -79,8 +82,7 @@ public class ModuleNodeTransformer extends NodeTransformer<Optional<Artifact>> {
                     .accessor(functionName)
                     .name(getPathString(functionDefinitionNode.relativeResourcePath()))
                     .type(Artifact.Type.RESOURCE);
-        } else if (functionDefinitionNode.qualifierList().stream()
-                .anyMatch(qualifier -> qualifier.kind() == SyntaxKind.REMOTE_KEYWORD)) {
+        } else if (hasQualifier(functionDefinitionNode.qualifierList(), SyntaxKind.REMOTE_KEYWORD)) {
             functionBuilder
                     .name(functionName)
                     .type(Artifact.Type.REMOTE);
@@ -94,6 +96,10 @@ public class ModuleNodeTransformer extends NodeTransformer<Optional<Artifact>> {
                     .type(Artifact.Type.FUNCTION);
         }
         return Optional.of(functionBuilder.build());
+    }
+
+    private static boolean hasQualifier(NodeList<Token> qualifierList, SyntaxKind kind) {
+        return qualifierList.stream().anyMatch(qualifier -> qualifier.kind() == kind);
     }
 
     @Override
@@ -131,6 +137,19 @@ public class ModuleNodeTransformer extends NodeTransformer<Optional<Artifact>> {
         //  Need to fix the semantic model APIs to support listener nodes, as they currently return empty values
         listenerDeclarationNode.typeDescriptor().flatMap(semanticModel::symbol).ifPresent(listenerBuilder::icon);
         return Optional.of(listenerBuilder.build());
+    }
+
+    @Override
+    public Optional<Artifact> transform(ModuleVariableDeclarationNode moduleVariableDeclarationNode) {
+        Artifact.Builder variableBuilder = new Artifact.Builder(moduleVariableDeclarationNode)
+                .name(CommonUtils.getVariableName(
+                        moduleVariableDeclarationNode.typedBindingPattern().bindingPattern()));
+
+        if (hasQualifier(moduleVariableDeclarationNode.qualifiers(), SyntaxKind.CONFIGURABLE_KEYWORD)) {
+            variableBuilder.type(Artifact.Type.CONFIGURABLE);
+        }
+
+        return Optional.of(variableBuilder.build());
     }
 
     private void setIcon(Artifact.Builder builder, Node node) {
