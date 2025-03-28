@@ -19,6 +19,9 @@
 package io.ballerina.modelgenerator.commons;
 
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.projects.Module;
+import io.ballerina.projects.ModuleId;
+import io.ballerina.projects.ModuleName;
 import io.ballerina.projects.Package;
 import io.ballerina.projects.PackageDescriptor;
 import io.ballerina.projects.PackageName;
@@ -208,11 +211,14 @@ public class PackageUtil {
      * @param filePath         the path to the file from which the project should be loaded
      * @param orgName          the organization name that must match the package descriptor's organization value
      * @param packageName      the package name that must match the package descriptor's name value
+     * @param modulePartName   the module part name that must match the package descriptor's submodule part name value
      * @param version          the version that must match the package descriptor's version value
+     *
      * @return an Optional containing the semantic model
      */
     public static Optional<SemanticModel> getSemanticModelIfMatched(WorkspaceManager workspaceManager, Path filePath,
                                                                     String orgName, String packageName,
+                                                                    String modulePartName,
                                                                     String version) {
         try {
             Project project = workspaceManager.loadProject(filePath);
@@ -221,9 +227,18 @@ public class PackageUtil {
             if (descriptor.org().value().equals(orgName) &&
                     descriptor.name().value().equals(packageName) &&
                     descriptor.version().value().toString().equals(version)) {
+                ModuleId moduleId = currentPackage.getDefaultModule().moduleId();
+                if (Objects.nonNull(modulePartName) && !modulePartName.isEmpty()) {
+                    ModuleName subModuleName = ModuleName.from(PackageName.from(packageName), modulePartName);
+                    Module module = currentPackage.module(subModuleName);
+                    if (module == null) {
+                        return Optional.empty();
+                    }
+                    moduleId = module.moduleId();
+                }
                 return Optional.of(currentPackage
                         .getCompilation()
-                        .getSemanticModel(currentPackage.getDefaultModule().moduleId()));
+                        .getSemanticModel(moduleId));
             }
         } catch (WorkspaceDocumentException | EventSyncException e) {
         }

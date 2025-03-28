@@ -235,9 +235,11 @@ public class TypesManagerService implements ExtendedLanguageServerService {
                 String versionName = codedata.version();
                 Path filePath = Path.of(request.filePath());
 
+                PackageNameModulePartName packageNameModulePartName = PackageNameModulePartName.from(packageName);
                 // Find the semantic model
                 Optional<SemanticModel> semanticModel = PackageUtil.getSemanticModelIfMatched(workspaceManager,
-                        filePath, orgName, packageName, versionName);
+                        filePath, orgName, packageNameModulePartName.packageName(),
+                        packageNameModulePartName.modulePartName(), versionName);
                 if (semanticModel.isEmpty()) {
                     semanticModel = PackageUtil.getSemanticModel(orgName, packageName, versionName);
                 }
@@ -357,10 +359,12 @@ public class TypesManagerService implements ExtendedLanguageServerService {
         if (cachedModel != null) {
             return Optional.of(cachedModel);
         }
-
+        PackageNameModulePartName packageNameModulePartName = PackageNameModulePartName.from(packageName);
         // Try to load via filePath-specific method
         Optional<SemanticModel> model = PackageUtil.getSemanticModelIfMatched(
-                workspaceManager, filePath, org, packageName, version
+                workspaceManager, filePath, org, packageNameModulePartName.packageName(),
+                packageNameModulePartName.modulePartName(),
+                version
         );
         if (model.isPresent()) {
             semanticModelCache.put(keyWithPath, model.get());
@@ -401,5 +405,18 @@ public class TypesManagerService implements ExtendedLanguageServerService {
                 .filter(symbol -> symbol.kind() == SymbolKind.TYPE_DEFINITION && symbol.nameEquals(type))
                 .map(symbol -> ((TypeDefinitionSymbol) symbol).typeDescriptor())
                 .findFirst();
+    }
+
+    private record PackageNameModulePartName(String packageName, String modulePartName) {
+
+        public static PackageNameModulePartName from(String packageNameStr) {
+            String[] parts = packageNameStr.split("\\.");
+            if (parts.length > 1) {
+                return new PackageNameModulePartName(parts[0], parts[1]);
+            } else if (parts.length == 1) {
+                return new PackageNameModulePartName(parts[0], null);
+            }
+            return new PackageNameModulePartName(null, null);
+        }
     }
 }

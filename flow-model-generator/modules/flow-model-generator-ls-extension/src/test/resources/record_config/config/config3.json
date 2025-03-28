@@ -1,0 +1,1035 @@
+{
+  "filePath": "openapi_record",
+  "codedata": {
+    "org": "ballerina_integrator",
+    "module": "openapi_client.PizzaShop",
+    "version": "0.1.0"
+  },
+  "typeConstraint": "ConnectionConfig",
+  "output": {
+    "fields": [
+      {
+        "members": [
+          {
+            "typeName": "2.0",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "1.1",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "1.0",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          }
+        ],
+        "name": "httpVersion",
+        "typeName": "enum",
+        "optional": false,
+        "typeInfo": {
+          "name": "HttpVersion",
+          "orgName": "ballerina",
+          "moduleName": "http",
+          "version": "2.14.0"
+        },
+        "defaultable": true,
+        "isRestType": false,
+        "selected": false
+      },
+      {
+        "fields": [
+          {
+            "members": [
+              {
+                "typeName": "AUTO",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false,
+                "selected": false
+              },
+              {
+                "typeName": "ALWAYS",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false,
+                "selected": false
+              },
+              {
+                "typeName": "NEVER",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false,
+                "selected": false
+              }
+            ],
+            "name": "keepAlive",
+            "typeName": "union",
+            "optional": false,
+            "typeInfo": {
+              "name": "KeepAlive",
+              "orgName": "ballerina",
+              "moduleName": "http",
+              "version": "2.14.0"
+            },
+            "defaultable": true,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "members": [
+              {
+                "typeName": "AUTO",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false,
+                "selected": false
+              },
+              {
+                "typeName": "ALWAYS",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false,
+                "selected": false
+              },
+              {
+                "typeName": "NEVER",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false,
+                "selected": false
+              }
+            ],
+            "name": "chunking",
+            "typeName": "union",
+            "optional": false,
+            "typeInfo": {
+              "name": "Chunking",
+              "orgName": "ballerina",
+              "moduleName": "http",
+              "version": "2.14.0"
+            },
+            "defaultable": true,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "fields": [
+              {
+                "name": "host",
+                "typeName": "string",
+                "optional": false,
+                "defaultable": true,
+                "isRestType": false,
+                "selected": false
+              },
+              {
+                "name": "port",
+                "typeName": "int",
+                "optional": false,
+                "defaultable": true,
+                "isRestType": false,
+                "selected": false
+              },
+              {
+                "name": "userName",
+                "typeName": "string",
+                "optional": false,
+                "defaultable": true,
+                "isRestType": false,
+                "selected": false
+              },
+              {
+                "name": "password",
+                "typeName": "string",
+                "optional": false,
+                "defaultable": true,
+                "isRestType": false,
+                "selected": false
+              }
+            ],
+            "hasRestType": false,
+            "name": "proxy",
+            "typeName": "record",
+            "optional": true,
+            "typeInfo": {
+              "name": "ProxyConfig",
+              "orgName": "ballerina_integrator",
+              "moduleName": "openapi_client.PizzaShop",
+              "version": "0.1.0"
+            },
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          }
+        ],
+        "hasRestType": false,
+        "name": "http1Settings",
+        "typeName": "record",
+        "optional": true,
+        "typeInfo": {
+          "name": "ClientHttp1Settings",
+          "orgName": "ballerina_integrator",
+          "moduleName": "openapi_client.PizzaShop",
+          "version": "0.1.0"
+        },
+        "defaultable": false,
+        "isRestType": false,
+        "selected": false
+      },
+      {
+        "fields": [
+          {
+            "name": "http2PriorKnowledge",
+            "typeName": "boolean",
+            "optional": false,
+            "defaultable": true,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "name": "http2InitialWindowSize",
+            "typeName": "int",
+            "optional": false,
+            "defaultable": true,
+            "isRestType": false,
+            "selected": false
+          }
+        ],
+        "hasRestType": false,
+        "name": "http2Settings",
+        "typeName": "record",
+        "optional": true,
+        "typeInfo": {
+          "name": "ClientHttp2Settings",
+          "orgName": "ballerina",
+          "moduleName": "http",
+          "version": "2.14.0"
+        },
+        "defaultable": false,
+        "isRestType": false,
+        "selected": false
+      },
+      {
+        "name": "timeout",
+        "typeName": "decimal",
+        "optional": false,
+        "defaultable": true,
+        "isRestType": false,
+        "selected": false
+      },
+      {
+        "name": "forwarded",
+        "typeName": "string",
+        "optional": false,
+        "defaultable": true,
+        "isRestType": false,
+        "selected": false
+      },
+      {
+        "fields": [
+          {
+            "name": "maxActiveConnections",
+            "typeName": "int",
+            "optional": false,
+            "defaultable": true,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "name": "maxIdleConnections",
+            "typeName": "int",
+            "optional": false,
+            "defaultable": true,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "name": "waitTime",
+            "typeName": "decimal",
+            "optional": false,
+            "defaultable": true,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "name": "maxActiveStreamsPerConnection",
+            "typeName": "int",
+            "optional": false,
+            "defaultable": true,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "name": "minEvictableIdleTime",
+            "typeName": "decimal",
+            "optional": false,
+            "defaultable": true,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "name": "timeBetweenEvictionRuns",
+            "typeName": "decimal",
+            "optional": false,
+            "defaultable": true,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "name": "minIdleTimeInStaleState",
+            "typeName": "decimal",
+            "optional": false,
+            "defaultable": true,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "name": "timeBetweenStaleEviction",
+            "typeName": "decimal",
+            "optional": false,
+            "defaultable": true,
+            "isRestType": false,
+            "selected": false
+          }
+        ],
+        "hasRestType": false,
+        "name": "poolConfig",
+        "typeName": "record",
+        "optional": true,
+        "typeInfo": {
+          "name": "PoolConfiguration",
+          "orgName": "ballerina",
+          "moduleName": "http",
+          "version": "2.14.0"
+        },
+        "defaultable": false,
+        "isRestType": false,
+        "selected": false
+      },
+      {
+        "fields": [
+          {
+            "name": "enabled",
+            "typeName": "boolean",
+            "optional": false,
+            "defaultable": true,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "name": "isShared",
+            "typeName": "boolean",
+            "optional": false,
+            "defaultable": true,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "name": "capacity",
+            "typeName": "int",
+            "optional": false,
+            "defaultable": true,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "name": "evictionFactor",
+            "typeName": "float",
+            "optional": false,
+            "defaultable": true,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "members": [
+              {
+                "typeName": "CACHE_CONTROL_AND_VALIDATORS",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false,
+                "selected": false
+              },
+              {
+                "typeName": "RFC_7234",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false,
+                "selected": false
+              }
+            ],
+            "name": "policy",
+            "typeName": "union",
+            "optional": false,
+            "typeInfo": {
+              "name": "CachingPolicy",
+              "orgName": "ballerina",
+              "moduleName": "http",
+              "version": "2.14.0"
+            },
+            "defaultable": true,
+            "isRestType": false,
+            "selected": false
+          }
+        ],
+        "hasRestType": false,
+        "name": "cache",
+        "typeName": "record",
+        "optional": true,
+        "typeInfo": {
+          "name": "CacheConfig",
+          "orgName": "ballerina",
+          "moduleName": "http",
+          "version": "2.14.0"
+        },
+        "defaultable": false,
+        "isRestType": false,
+        "selected": false
+      },
+      {
+        "members": [
+          {
+            "typeName": "AUTO",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "ALWAYS",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "typeName": "NEVER",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          }
+        ],
+        "name": "compression",
+        "typeName": "union",
+        "optional": false,
+        "typeInfo": {
+          "name": "Compression",
+          "orgName": "ballerina",
+          "moduleName": "http",
+          "version": "2.14.0"
+        },
+        "defaultable": true,
+        "isRestType": false,
+        "selected": false
+      },
+      {
+        "fields": [
+          {
+            "fields": [
+              {
+                "name": "requestVolumeThreshold",
+                "typeName": "int",
+                "optional": false,
+                "defaultable": true,
+                "isRestType": false,
+                "selected": false
+              },
+              {
+                "name": "timeWindow",
+                "typeName": "decimal",
+                "optional": false,
+                "defaultable": true,
+                "isRestType": false,
+                "selected": false
+              },
+              {
+                "name": "bucketSize",
+                "typeName": "decimal",
+                "optional": false,
+                "defaultable": true,
+                "isRestType": false,
+                "selected": false
+              }
+            ],
+            "hasRestType": false,
+            "name": "rollingWindow",
+            "typeName": "record",
+            "optional": false,
+            "typeInfo": {
+              "name": "RollingWindow",
+              "orgName": "ballerina",
+              "moduleName": "http",
+              "version": "2.14.0"
+            },
+            "defaultable": true,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "name": "failureThreshold",
+            "typeName": "float",
+            "optional": false,
+            "defaultable": true,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "name": "resetTime",
+            "typeName": "decimal",
+            "optional": false,
+            "defaultable": true,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "memberType": {
+              "typeName": "int",
+              "optional": false,
+              "defaultable": false,
+              "isRestType": false,
+              "selected": false
+            },
+            "name": "statusCodes",
+            "typeName": "array",
+            "optional": false,
+            "defaultable": true,
+            "isRestType": false,
+            "selected": false
+          }
+        ],
+        "hasRestType": false,
+        "name": "circuitBreaker",
+        "typeName": "record",
+        "optional": true,
+        "typeInfo": {
+          "name": "CircuitBreakerConfig",
+          "orgName": "ballerina",
+          "moduleName": "http",
+          "version": "2.14.0"
+        },
+        "defaultable": false,
+        "isRestType": false,
+        "selected": false
+      },
+      {
+        "fields": [
+          {
+            "name": "count",
+            "typeName": "int",
+            "optional": false,
+            "defaultable": true,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "name": "interval",
+            "typeName": "decimal",
+            "optional": false,
+            "defaultable": true,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "name": "backOffFactor",
+            "typeName": "float",
+            "optional": false,
+            "defaultable": true,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "name": "maxWaitInterval",
+            "typeName": "decimal",
+            "optional": false,
+            "defaultable": true,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "memberType": {
+              "typeName": "int",
+              "optional": false,
+              "defaultable": false,
+              "isRestType": false,
+              "selected": false
+            },
+            "name": "statusCodes",
+            "typeName": "array",
+            "optional": false,
+            "defaultable": true,
+            "isRestType": false,
+            "selected": false
+          }
+        ],
+        "hasRestType": false,
+        "name": "retryConfig",
+        "typeName": "record",
+        "optional": true,
+        "typeInfo": {
+          "name": "RetryConfig",
+          "orgName": "ballerina",
+          "moduleName": "http",
+          "version": "2.14.0"
+        },
+        "defaultable": false,
+        "isRestType": false,
+        "selected": false
+      },
+      {
+        "fields": [
+          {
+            "name": "maxStatusLineLength",
+            "typeName": "int",
+            "optional": false,
+            "defaultable": true,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "name": "maxHeaderSize",
+            "typeName": "int",
+            "optional": false,
+            "defaultable": true,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "name": "maxEntityBodySize",
+            "typeName": "int",
+            "optional": false,
+            "defaultable": true,
+            "isRestType": false,
+            "selected": false
+          }
+        ],
+        "hasRestType": false,
+        "name": "responseLimits",
+        "typeName": "record",
+        "optional": true,
+        "typeInfo": {
+          "name": "ResponseLimitConfigs",
+          "orgName": "ballerina",
+          "moduleName": "http",
+          "version": "2.14.0"
+        },
+        "defaultable": false,
+        "isRestType": false,
+        "selected": false
+      },
+      {
+        "fields": [
+          {
+            "name": "enable",
+            "typeName": "boolean",
+            "optional": false,
+            "defaultable": true,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "members": [
+              {
+                "fields": [
+                  {
+                    "name": "path",
+                    "typeName": "string",
+                    "optional": false,
+                    "defaultable": false,
+                    "isRestType": false,
+                    "selected": false
+                  },
+                  {
+                    "name": "password",
+                    "typeName": "string",
+                    "optional": false,
+                    "defaultable": false,
+                    "isRestType": false,
+                    "selected": false
+                  }
+                ],
+                "hasRestType": false,
+                "name": "TrustStore",
+                "typeName": "record",
+                "optional": false,
+                "typeInfo": {
+                  "name": "TrustStore",
+                  "orgName": "ballerina",
+                  "moduleName": "crypto",
+                  "version": "2.9.0"
+                },
+                "defaultable": false,
+                "isRestType": false,
+                "selected": false
+              },
+              {
+                "typeName": "string",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false,
+                "selected": false
+              }
+            ],
+            "name": "cert",
+            "typeName": "union",
+            "optional": true,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "members": [
+              {
+                "fields": [
+                  {
+                    "name": "path",
+                    "typeName": "string",
+                    "optional": false,
+                    "defaultable": false,
+                    "isRestType": false,
+                    "selected": false
+                  },
+                  {
+                    "name": "password",
+                    "typeName": "string",
+                    "optional": false,
+                    "defaultable": false,
+                    "isRestType": false,
+                    "selected": false
+                  }
+                ],
+                "hasRestType": false,
+                "name": "KeyStore",
+                "typeName": "record",
+                "optional": false,
+                "typeInfo": {
+                  "name": "KeyStore",
+                  "orgName": "ballerina",
+                  "moduleName": "crypto",
+                  "version": "2.9.0"
+                },
+                "defaultable": false,
+                "isRestType": false,
+                "selected": false
+              },
+              {
+                "fields": [
+                  {
+                    "name": "certFile",
+                    "typeName": "string",
+                    "optional": false,
+                    "defaultable": false,
+                    "isRestType": false,
+                    "selected": false
+                  },
+                  {
+                    "name": "keyFile",
+                    "typeName": "string",
+                    "optional": false,
+                    "defaultable": false,
+                    "isRestType": false,
+                    "selected": false
+                  },
+                  {
+                    "name": "keyPassword",
+                    "typeName": "string",
+                    "optional": true,
+                    "defaultable": false,
+                    "isRestType": false,
+                    "selected": false
+                  }
+                ],
+                "hasRestType": false,
+                "name": "CertKey",
+                "typeName": "record",
+                "optional": false,
+                "typeInfo": {
+                  "name": "CertKey",
+                  "orgName": "ballerina",
+                  "moduleName": "http",
+                  "version": "2.14.0"
+                },
+                "defaultable": false,
+                "isRestType": false,
+                "selected": false
+              }
+            ],
+            "name": "key",
+            "typeName": "union",
+            "optional": true,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "fields": [
+              {
+                "members": [
+                  {
+                    "typeName": "DTLS",
+                    "optional": false,
+                    "defaultable": false,
+                    "isRestType": false,
+                    "selected": false
+                  },
+                  {
+                    "typeName": "TLS",
+                    "optional": false,
+                    "defaultable": false,
+                    "isRestType": false,
+                    "selected": false
+                  },
+                  {
+                    "typeName": "SSL",
+                    "optional": false,
+                    "defaultable": false,
+                    "isRestType": false,
+                    "selected": false
+                  }
+                ],
+                "name": "name",
+                "typeName": "enum",
+                "optional": false,
+                "typeInfo": {
+                  "name": "Protocol",
+                  "orgName": "ballerina",
+                  "moduleName": "http",
+                  "version": "2.14.0"
+                },
+                "defaultable": false,
+                "isRestType": false,
+                "selected": false
+              },
+              {
+                "memberType": {
+                  "typeName": "string",
+                  "optional": false,
+                  "defaultable": false,
+                  "isRestType": false,
+                  "selected": false
+                },
+                "name": "versions",
+                "typeName": "array",
+                "optional": false,
+                "defaultable": true,
+                "isRestType": false,
+                "selected": false
+              }
+            ],
+            "hasRestType": false,
+            "name": "protocol",
+            "typeName": "record",
+            "optional": true,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "fields": [
+              {
+                "members": [
+                  {
+                    "typeName": "OCSP_STAPLING",
+                    "optional": false,
+                    "defaultable": false,
+                    "isRestType": false,
+                    "selected": false
+                  },
+                  {
+                    "typeName": "OCSP_CRL",
+                    "optional": false,
+                    "defaultable": false,
+                    "isRestType": false,
+                    "selected": false
+                  }
+                ],
+                "name": "type",
+                "typeName": "enum",
+                "optional": false,
+                "typeInfo": {
+                  "name": "CertValidationType",
+                  "orgName": "ballerina",
+                  "moduleName": "http",
+                  "version": "2.14.0"
+                },
+                "defaultable": true,
+                "isRestType": false,
+                "selected": false
+              },
+              {
+                "name": "cacheSize",
+                "typeName": "int",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false,
+                "selected": false
+              },
+              {
+                "name": "cacheValidityPeriod",
+                "typeName": "int",
+                "optional": false,
+                "defaultable": false,
+                "isRestType": false,
+                "selected": false
+              }
+            ],
+            "hasRestType": false,
+            "name": "certValidation",
+            "typeName": "record",
+            "optional": true,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "memberType": {
+              "typeName": "string",
+              "optional": false,
+              "defaultable": false,
+              "isRestType": false,
+              "selected": false
+            },
+            "name": "ciphers",
+            "typeName": "array",
+            "optional": true,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "name": "verifyHostName",
+            "typeName": "boolean",
+            "optional": false,
+            "defaultable": true,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "name": "shareSession",
+            "typeName": "boolean",
+            "optional": false,
+            "defaultable": true,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "name": "handshakeTimeout",
+            "typeName": "decimal",
+            "optional": true,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "name": "sessionTimeout",
+            "typeName": "decimal",
+            "optional": true,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "name": "serverName",
+            "typeName": "string",
+            "optional": true,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          }
+        ],
+        "hasRestType": false,
+        "name": "secureSocket",
+        "typeName": "record",
+        "optional": true,
+        "typeInfo": {
+          "name": "ClientSecureSocket",
+          "orgName": "ballerina",
+          "moduleName": "http",
+          "version": "2.14.0"
+        },
+        "defaultable": false,
+        "isRestType": false,
+        "selected": false
+      },
+      {
+        "fields": [
+          {
+            "name": "host",
+            "typeName": "string",
+            "optional": false,
+            "defaultable": true,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "name": "port",
+            "typeName": "int",
+            "optional": false,
+            "defaultable": true,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "name": "userName",
+            "typeName": "string",
+            "optional": false,
+            "defaultable": true,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "name": "password",
+            "typeName": "string",
+            "optional": false,
+            "defaultable": true,
+            "isRestType": false,
+            "selected": false
+          }
+        ],
+        "hasRestType": false,
+        "name": "proxy",
+        "typeName": "record",
+        "optional": true,
+        "typeInfo": {
+          "name": "ProxyConfig",
+          "orgName": "ballerina",
+          "moduleName": "http",
+          "version": "2.14.0"
+        },
+        "defaultable": false,
+        "isRestType": false,
+        "selected": false
+      },
+      {
+        "name": "validation",
+        "typeName": "boolean",
+        "optional": false,
+        "defaultable": true,
+        "isRestType": false,
+        "selected": false
+      },
+      {
+        "name": "laxDataBinding",
+        "typeName": "boolean",
+        "optional": false,
+        "defaultable": true,
+        "isRestType": false,
+        "selected": false
+      }
+    ],
+    "hasRestType": false,
+    "typeName": "record",
+    "optional": false,
+    "defaultable": false,
+    "isRestType": false,
+    "selected": false
+  }
+}
