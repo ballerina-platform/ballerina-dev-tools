@@ -3,6 +3,24 @@
   "description": "",
   "output": [
     {
+      "id": "rateMovie",
+      "location": {
+        "fileName": "np.bal",
+        "startLine": {
+          "line": 37,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 46,
+          "offset": 52
+        }
+      },
+      "type": "NP_FUNCTION",
+      "name": "rateMovie",
+      "scope": "Global",
+      "children": {}
+    },
+    {
       "id": "suggestMovieGenre",
       "location": {
         "fileName": "np.bal",
@@ -17,24 +35,6 @@
       },
       "type": "NP_FUNCTION",
       "name": "suggestMovieGenre",
-      "scope": "Global",
-      "children": {}
-    },
-    {
-      "id": "suggestMovieName1",
-      "location": {
-        "fileName": "np.bal",
-        "startLine": {
-          "line": 14,
-          "offset": 0
-        },
-        "endLine": {
-          "line": 24,
-          "offset": 55
-        }
-      },
-      "type": "NP_FUNCTION",
-      "name": "suggestMovieName1",
       "scope": "Global",
       "children": {}
     },
@@ -57,20 +57,20 @@
       "children": {}
     },
     {
-      "id": "rateMovie",
+      "id": "suggestMovieName1",
       "location": {
         "fileName": "np.bal",
         "startLine": {
-          "line": 37,
+          "line": 14,
           "offset": 0
         },
         "endLine": {
-          "line": 46,
-          "offset": 52
+          "line": 24,
+          "offset": 55
         }
       },
       "type": "NP_FUNCTION",
-      "name": "rateMovie",
+      "name": "suggestMovieName1",
       "scope": "Global",
       "children": {}
     }

@@ -1,11 +1,29 @@
 {
-  "source": "functions1.bal",
+  "source": "functions.bal",
   "description": "",
   "output": [
     {
+      "id": "divide",
+      "location": {
+        "fileName": "functions.bal",
+        "startLine": {
+          "line": 39,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 44,
+          "offset": 1
+        }
+      },
+      "type": "FUNCTION",
+      "name": "divide",
+      "scope": "Global",
+      "children": {}
+    },
+    {
       "id": "sayHello",
       "location": {
-        "fileName": "functions1.bal",
+        "fileName": "functions.bal",
         "startLine": {
           "line": 3,
           "offset": 0
@@ -21,27 +39,45 @@
       "children": {}
     },
     {
-      "id": "greet",
+      "id": "automation",
       "location": {
-        "fileName": "functions1.bal",
+        "fileName": "functions.bal",
         "startLine": {
-          "line": 8,
+          "line": 52,
           "offset": 0
         },
         "endLine": {
-          "line": 10,
+          "line": 71,
+          "offset": 1
+        }
+      },
+      "type": "AUTOMATION",
+      "name": "automation",
+      "scope": "Global",
+      "children": {}
+    },
+    {
+      "id": "sum",
+      "location": {
+        "fileName": "functions.bal",
+        "startLine": {
+          "line": 30,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 36,
           "offset": 1
         }
       },
       "type": "FUNCTION",
-      "name": "greet",
+      "name": "sum",
       "scope": "Global",
       "children": {}
     },
     {
       "id": "add",
       "location": {
-        "fileName": "functions1.bal",
+        "fileName": "functions.bal",
         "startLine": {
           "line": 13,
           "offset": 0
@@ -57,9 +93,27 @@
       "children": {}
     },
     {
+      "id": "greet",
+      "location": {
+        "fileName": "functions.bal",
+        "startLine": {
+          "line": 8,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 10,
+          "offset": 1
+        }
+      },
+      "type": "FUNCTION",
+      "name": "greet",
+      "scope": "Global",
+      "children": {}
+    },
+    {
       "id": "divideAndRemainder",
       "location": {
-        "fileName": "functions1.bal",
+        "fileName": "functions.bal",
         "startLine": {
           "line": 18,
           "offset": 0
@@ -77,7 +131,7 @@
     {
       "id": "calculateInterest",
       "location": {
-        "fileName": "functions1.bal",
+        "fileName": "functions.bal",
         "startLine": {
           "line": 25,
           "offset": 0
@@ -93,45 +147,9 @@
       "children": {}
     },
     {
-      "id": "sum",
-      "location": {
-        "fileName": "functions1.bal",
-        "startLine": {
-          "line": 30,
-          "offset": 0
-        },
-        "endLine": {
-          "line": 36,
-          "offset": 1
-        }
-      },
-      "type": "FUNCTION",
-      "name": "sum",
-      "scope": "Global",
-      "children": {}
-    },
-    {
-      "id": "divide",
-      "location": {
-        "fileName": "functions1.bal",
-        "startLine": {
-          "line": 39,
-          "offset": 0
-        },
-        "endLine": {
-          "line": 44,
-          "offset": 1
-        }
-      },
-      "type": "FUNCTION",
-      "name": "divide",
-      "scope": "Global",
-      "children": {}
-    },
-    {
       "id": "fn\\#with\\-Identifiers",
       "location": {
-        "fileName": "functions1.bal",
+        "fileName": "functions.bal",
         "startLine": {
           "line": 47,
           "offset": 0
@@ -142,23 +160,7 @@
         }
       },
       "type": "FUNCTION",
-      "name": "fn\\#with\\-Identifiers",
-      "scope": "Global",
-      "children": {}
-    },
-    {
-      "location": {
-        "fileName": "functions1.bal",
-        "startLine": {
-          "line": 52,
-          "offset": 0
-        },
-        "endLine": {
-          "line": 71,
-          "offset": 1
-        }
-      },
-      "type": "AUTOMATION",
+      "name": "fn#with-Identifiers",
       "scope": "Global",
       "children": {}
     }

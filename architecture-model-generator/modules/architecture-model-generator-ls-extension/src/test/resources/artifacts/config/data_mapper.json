@@ -1,119 +1,11 @@
 {
-  "source": "data_mapper1.bal",
+  "source": "data_mapper.bal",
   "description": "",
   "output": [
     {
-      "id": "celsiusToFahrenheit",
-      "location": {
-        "fileName": "data_mapper1.bal",
-        "startLine": {
-          "line": 31,
-          "offset": 0
-        },
-        "endLine": {
-          "line": 31,
-          "offset": 80
-        }
-      },
-      "type": "DATA_MAPPER",
-      "name": "celsiusToFahrenheit",
-      "scope": "Global",
-      "children": {}
-    },
-    {
-      "id": "fahrenheitToCelsius",
-      "location": {
-        "fileName": "data_mapper1.bal",
-        "startLine": {
-          "line": 33,
-          "offset": 0
-        },
-        "endLine": {
-          "line": 33,
-          "offset": 88
-        }
-      },
-      "type": "DATA_MAPPER",
-      "name": "fahrenheitToCelsius",
-      "scope": "Global",
-      "children": {}
-    },
-    {
-      "id": "stringToInt",
-      "location": {
-        "fileName": "data_mapper1.bal",
-        "startLine": {
-          "line": 35,
-          "offset": 0
-        },
-        "endLine": {
-          "line": 35,
-          "offset": 78
-        }
-      },
-      "type": "DATA_MAPPER",
-      "name": "stringToInt",
-      "scope": "Global",
-      "children": {}
-    },
-    {
-      "id": "concatenateStrings",
-      "location": {
-        "fileName": "data_mapper1.bal",
-        "startLine": {
-          "line": 37,
-          "offset": 0
-        },
-        "endLine": {
-          "line": 37,
-          "offset": 99
-        }
-      },
-      "type": "DATA_MAPPER",
-      "name": "concatenateStrings",
-      "scope": "Global",
-      "children": {}
-    },
-    {
-      "id": "personToEmployee",
-      "location": {
-        "fileName": "data_mapper1.bal",
-        "startLine": {
-          "line": 40,
-          "offset": 0
-        },
-        "endLine": {
-          "line": 46,
-          "offset": 2
-        }
-      },
-      "type": "DATA_MAPPER",
-      "name": "personToEmployee",
-      "scope": "Global",
-      "children": {}
-    },
-    {
-      "id": "customerToCustomerSummary",
-      "location": {
-        "fileName": "data_mapper1.bal",
-        "startLine": {
-          "line": 48,
-          "offset": 0
-        },
-        "endLine": {
-          "line": 52,
-          "offset": 2
-        }
-      },
-      "type": "DATA_MAPPER",
-      "name": "customerToCustomerSummary",
-      "scope": "Global",
-      "children": {}
-    },
-    {
       "id": "createPerson",
       "location": {
-        "fileName": "data_mapper1.bal",
+        "fileName": "data_mapper.bal",
         "startLine": {
           "line": 54,
           "offset": 0
@@ -129,9 +21,27 @@
       "children": {}
     },
     {
+      "id": "personToEmployee",
+      "location": {
+        "fileName": "data_mapper.bal",
+        "startLine": {
+          "line": 40,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 46,
+          "offset": 2
+        }
+      },
+      "type": "DATA_MAPPER",
+      "name": "personToEmployee",
+      "scope": "Global",
+      "children": {}
+    },
+    {
       "id": "doubleAllValues",
       "location": {
-        "fileName": "data_mapper1.bal",
+        "fileName": "data_mapper.bal",
         "startLine": {
           "line": 61,
           "offset": 0
@@ -147,9 +57,45 @@
       "children": {}
     },
     {
+      "id": "concatenateStrings",
+      "location": {
+        "fileName": "data_mapper.bal",
+        "startLine": {
+          "line": 37,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 37,
+          "offset": 99
+        }
+      },
+      "type": "DATA_MAPPER",
+      "name": "concatenateStrings",
+      "scope": "Global",
+      "children": {}
+    },
+    {
+      "id": "fahrenheitToCelsius",
+      "location": {
+        "fileName": "data_mapper.bal",
+        "startLine": {
+          "line": 33,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 33,
+          "offset": 88
+        }
+      },
+      "type": "DATA_MAPPER",
+      "name": "fahrenheitToCelsius",
+      "scope": "Global",
+      "children": {}
+    },
+    {
       "id": "extractNames",
       "location": {
-        "fileName": "data_mapper1.bal",
+        "fileName": "data_mapper.bal",
         "startLine": {
           "line": 65,
           "offset": 0
@@ -165,9 +111,45 @@
       "children": {}
     },
     {
+      "id": "celsiusToFahrenheit",
+      "location": {
+        "fileName": "data_mapper.bal",
+        "startLine": {
+          "line": 31,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 31,
+          "offset": 80
+        }
+      },
+      "type": "DATA_MAPPER",
+      "name": "celsiusToFahrenheit",
+      "scope": "Global",
+      "children": {}
+    },
+    {
+      "id": "customerToCustomerSummary",
+      "location": {
+        "fileName": "data_mapper.bal",
+        "startLine": {
+          "line": 48,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 52,
+          "offset": 2
+        }
+      },
+      "type": "DATA_MAPPER",
+      "name": "customerToCustomerSummary",
+      "scope": "Global",
+      "children": {}
+    },
+    {
       "id": "automation",
       "location": {
-        "fileName": "data_mapper1.bal",
+        "fileName": "data_mapper.bal",
         "startLine": {
           "line": 69,
           "offset": 0
@@ -179,6 +161,24 @@
       },
       "type": "AUTOMATION",
       "name": "automation",
+      "scope": "Global",
+      "children": {}
+    },
+    {
+      "id": "stringToInt",
+      "location": {
+        "fileName": "data_mapper.bal",
+        "startLine": {
+          "line": 35,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 35,
+          "offset": 78
+        }
+      },
+      "type": "DATA_MAPPER",
+      "name": "stringToInt",
       "scope": "Global",
       "children": {}
     }

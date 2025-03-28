@@ -25,11 +25,16 @@ import io.ballerina.compiler.api.symbols.ExternalFunctionSymbol;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.ModuleSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
+import io.ballerina.compiler.api.symbols.TypeDescKind;
+import io.ballerina.compiler.api.symbols.TypeSymbol;
+import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
+import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.ListenerDeclarationNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeList;
 import io.ballerina.compiler.syntax.tree.NodeTransformer;
+import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.ServiceDeclarationNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 
@@ -95,6 +100,12 @@ public class ModuleNodeTransformer extends NodeTransformer<Optional<Artifact>> {
     public Optional<Artifact> transform(ServiceDeclarationNode serviceDeclarationNode) {
         Artifact.Builder serviceBuilder = new Artifact.Builder(serviceDeclarationNode);
 
+        // Set the icon using the listener
+        SeparatedNodeList<ExpressionNode> expressions = serviceDeclarationNode.expressions();
+        if (!expressions.isEmpty()) {
+            setIcon(serviceBuilder, expressions.get(0));
+        }
+
         // Generate the service path
         String absolutePath = getPathString(serviceDeclarationNode.absoluteResourcePath());
         serviceBuilder
@@ -118,14 +129,24 @@ public class ModuleNodeTransformer extends NodeTransformer<Optional<Artifact>> {
         // TODO: This does not work for declarations that does not have a type descriptor node such as
         //  `listener httpListener = new http:Listener(9090);`
         //  Need to fix the semantic model APIs to support listener nodes, as they currently return empty values
-        listenerDeclarationNode.typeDescriptor().ifPresent(typeDescriptorNode -> {
-            setIcon(listenerBuilder, typeDescriptorNode);
-        });
+        listenerDeclarationNode.typeDescriptor().flatMap(semanticModel::symbol).ifPresent(listenerBuilder::icon);
         return Optional.of(listenerBuilder.build());
     }
 
     private void setIcon(Artifact.Builder builder, Node node) {
-        semanticModel.symbol(node).ifPresent(builder::icon);
+        Optional<TypeSymbol> typeSymbol = semanticModel.typeOf(node);
+        if (typeSymbol.isEmpty()) {
+            return;
+        }
+        if (typeSymbol.get().typeKind() == TypeDescKind.UNION) {
+            UnionTypeSymbol unionTypeSymbol = (UnionTypeSymbol) typeSymbol.get();
+            Optional<TypeSymbol> listenerSymbol = unionTypeSymbol.memberTypeDescriptors().stream()
+                    .filter(member -> !member.subtypeOf(semanticModel.types().ERROR))
+                    .findFirst();
+            listenerSymbol.ifPresent(builder::icon);
+            return;
+        }
+        builder.icon(typeSymbol.get());
     }
 
     private static String getPathString(NodeList<Node> nodes) {
