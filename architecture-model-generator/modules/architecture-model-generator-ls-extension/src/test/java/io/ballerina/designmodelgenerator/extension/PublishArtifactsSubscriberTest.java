@@ -18,6 +18,7 @@
 
 package io.ballerina.designmodelgenerator.extension;
 
+import io.ballerina.artifactsgenerator.Artifact;
 import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import org.ballerinalang.langserver.LSContextOperation;
 import org.ballerinalang.langserver.commons.DocumentServiceContext;
@@ -39,6 +40,7 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -98,13 +100,16 @@ public class PublishArtifactsSubscriberTest extends AbstractLSTest {
         // Capture the artifacts published to the client - they are Object[] arrays
         ArgumentCaptor<Object[]> artifactsCaptor = ArgumentCaptor.forClass(Object[].class);
         Mockito.verify(mockClient).publishArtifacts(artifactsCaptor.capture());
-        List<Object> publishedArtifacts = Arrays.asList(artifactsCaptor.getValue());
-        List<Object> expectedArtifacts = testConfig.output();
+        List<Artifact> publishedArtifacts = Arrays.stream(artifactsCaptor.getValue())
+                .map(obj -> (Artifact) obj)
+                .sorted(Comparator.comparing(Artifact::id))
+                .toList();
+        List<Artifact> expectedArtifacts = testConfig.output();
 
         // Assert the published artifacts
         if (!assertArray("publish artifacts", expectedArtifacts, publishedArtifacts)) {
-            updateConfig(configJsonPath,
-                    new TestConfig(testConfig.source(), testConfig.description(), publishedArtifacts));
+//            updateConfig(configJsonPath,
+//                    new TestConfig(testConfig.source(), testConfig.description(), publishedArtifacts));
             compareJsonElements(gson.toJsonTree(publishedArtifacts), gson.toJsonTree(expectedArtifacts));
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.source(), configJsonPath));
         }
@@ -113,7 +118,7 @@ public class PublishArtifactsSubscriberTest extends AbstractLSTest {
 
     @Override
     protected String getResourceDir() {
-        return "artifacts";
+        return "publish_artifacts";
     }
 
     @Override
@@ -132,7 +137,7 @@ public class PublishArtifactsSubscriberTest extends AbstractLSTest {
      * @param source      The source file
      * @param description The description of the test
      */
-    private record TestConfig(String source, String description, List<Object> output) {
+    private record TestConfig(String source, String description, List<Artifact> output) {
 
         public String description() {
             return description == null ? "" : description;

@@ -3,6 +3,24 @@
   "description": "",
   "output": [
     {
+      "id": "User",
+      "location": {
+        "fileName": "configurable.bal",
+        "startLine": {
+          "line": 13,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 17,
+          "offset": 2
+        }
+      },
+      "type": "TYPE",
+      "name": "User",
+      "scope": "Global",
+      "children": {}
+    },
+    {
       "id": "apiUrl",
       "location": {
         "fileName": "configurable.bal",
