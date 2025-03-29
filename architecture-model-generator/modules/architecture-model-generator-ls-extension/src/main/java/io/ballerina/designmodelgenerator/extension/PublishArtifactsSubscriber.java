@@ -53,7 +53,7 @@ public class PublishArtifactsSubscriber implements EventSubscriber {
         if (syntaxTree.isEmpty() || semanticModel.isEmpty()) {
             return;
         }
-        client.publishArtifacts(EventGenerator.artifactChanges(syntaxTree.get(), semanticModel.get()).toArray());
+        client.publishArtifacts(EventGenerator.artifactChanges(syntaxTree.get(), semanticModel.get()));
     }
 
     @Override

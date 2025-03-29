@@ -63,17 +63,27 @@ public record Artifact(String id, LineRange location, Type type, String name, St
      * Represents the different types of artifacts.
      */
     public enum Type {
-        SERVICE,
-        AUTOMATION,
-        FUNCTION,
-        RESOURCE,
-        REMOTE,
-        DATA_MAPPER,
-        NP_FUNCTION,
-        LISTENER,
-        CONFIGURABLE,
-        TYPE,
-        CONNECTION,
+        SERVICE("Entry Points"),
+        AUTOMATION("Entry Points"),
+        RESOURCE("Resources"),
+        REMOTE("Remote Methods"),
+        FUNCTION("Functions"),
+        NP_FUNCTION("Natural Functions"),
+        DATA_MAPPER("Data Mappers"),
+        LISTENER("Listeners"),
+        CONFIGURABLE("Configurations"),
+        TYPE("Types"),
+        CONNECTION("Connections");
+
+        private final String category;
+
+        Type(String category) {
+            this.category = category;
+        }
+
+        public String getCategory() {
+            return category;
+        }
     }
 
     public enum Scope {

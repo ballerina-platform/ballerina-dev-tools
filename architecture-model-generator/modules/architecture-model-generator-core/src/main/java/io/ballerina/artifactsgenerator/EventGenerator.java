@@ -23,12 +23,13 @@ import io.ballerina.compiler.syntax.tree.ModuleMemberDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.NodeList;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
-import io.ballerina.projects.Module;
 import io.ballerina.projects.Project;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Generator class responsible for creating artifacts from a Ballerina syntax tree. This class analyzes the module
@@ -38,27 +39,35 @@ import java.util.Optional;
  */
 public class EventGenerator {
 
-    public static List<Artifact> artifactChanges(SyntaxTree syntaxTree, SemanticModel semanticModel) {
+    public static Map<String, Map<String, Artifact>> artifactChanges(SyntaxTree syntaxTree,
+                                                                     SemanticModel semanticModel) {
         if (!syntaxTree.containsModulePart()) {
-            return List.of();
+            return Map.of();
         }
         ModulePartNode rootNode = syntaxTree.rootNode();
         NodeList<ModuleMemberDeclarationNode> members = rootNode.members();
         ModuleNodeTransformer moduleNodeTransformer = new ModuleNodeTransformer(semanticModel);
-        return members.stream().parallel()
+        Map<String, Map<String, Artifact>> categoryMap = new ConcurrentHashMap<>();
+        members.stream().parallel()
                 .map(member -> member.apply(moduleNodeTransformer))
                 .flatMap(Optional::stream)
-                .toList();
+                .forEach(artifact -> {
+                    String category = artifact.type().getCategory();
+                    categoryMap.computeIfAbsent(category, k -> new HashMap<>()).put(artifact.id(), artifact);
+                });
+        return categoryMap;
     }
 
     public static List<Artifact> artifacts(Project project) {
-        List<Artifact> artifacts = new ArrayList<>();
-        Module defaultModule = project.currentPackage().getDefaultModule();
-        defaultModule.documentIds().stream().parallel().forEach(documentId -> {
-            SyntaxTree syntaxTree = defaultModule.document(documentId).syntaxTree();
-            artifacts.addAll(artifactChanges(syntaxTree,
-                    project.currentPackage().getCompilation().getSemanticModel(defaultModule.moduleId())));
-        });
-        return artifacts;
+//        List<Artifact> artifacts = new ArrayList<>();
+//        Module defaultModule = project.currentPackage().getDefaultModule();
+//
+//        defaultModule.documentIds().stream().parallel().forEach(documentId -> {
+//            SyntaxTree syntaxTree = defaultModule.document(documentId).syntaxTree();
+//            artifacts.addAll(artifactChanges(syntaxTree,
+//                    project.currentPackage().getCompilation().getSemanticModel(defaultModule.moduleId())));
+//        });
+//        return artifacts;
+        return List.of();
     }
 }
