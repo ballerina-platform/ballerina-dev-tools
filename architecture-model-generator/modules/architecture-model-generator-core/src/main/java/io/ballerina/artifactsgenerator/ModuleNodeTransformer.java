@@ -105,7 +105,7 @@ public class ModuleNodeTransformer extends NodeTransformer<Optional<Artifact>> {
 
     @Override
     public Optional<Artifact> transform(ServiceDeclarationNode serviceDeclarationNode) {
-        Artifact.Builder serviceBuilder = new Artifact.Builder(serviceDeclarationNode);
+        Artifact.Builder serviceBuilder = new Artifact.Builder(serviceDeclarationNode).locationId();
 
         // Set the icon using the listener
         SeparatedNodeList<ExpressionNode> expressions = serviceDeclarationNode.expressions();
@@ -120,7 +120,7 @@ public class ModuleNodeTransformer extends NodeTransformer<Optional<Artifact>> {
                 .type(Artifact.Type.SERVICE);
 
         // Check for the child functions
-        serviceDeclarationNode.members().stream().parallel().forEach(member -> {
+        serviceDeclarationNode.members().forEach(member -> {
             member.apply(this).ifPresent(serviceBuilder::child);
         });
 

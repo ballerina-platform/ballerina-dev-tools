@@ -32,6 +32,7 @@ import org.eclipse.lsp4j.VersionedTextDocumentIdentifier;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -39,9 +40,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Test cases for publishing artifacts.
@@ -98,18 +98,18 @@ public class PublishArtifactsSubscriberTest extends AbstractLSTest {
                 languageServer.getServerContext());
 
         // Capture the artifacts published to the client - they are Object[] arrays
-        ArgumentCaptor<Object[]> artifactsCaptor = ArgumentCaptor.forClass(Object[].class);
+        ArgumentCaptor<Object> artifactsCaptor = ArgumentCaptor.forClass(Object.class);
         Mockito.verify(mockClient).publishArtifacts(artifactsCaptor.capture());
-        List<Artifact> publishedArtifacts = Arrays.stream(artifactsCaptor.getValue())
-                .map(obj -> (Artifact) obj)
-                .sorted(Comparator.comparing(Artifact::id))
-                .toList();
-        List<Artifact> expectedArtifacts = testConfig.output();
+        Object capturedValue = artifactsCaptor.getValue();
+        @SuppressWarnings("unchecked")
+        Map<String, Map<String, Artifact>> publishedArtifacts = (Map<String, Map<String, Artifact>>) capturedValue;
+        Map<String, Map<String, Artifact>> expectedArtifacts = testConfig.output();
 
         // Assert the published artifacts
-        if (!assertArray("publish artifacts", expectedArtifacts, publishedArtifacts)) {
-//            updateConfig(configJsonPath,
-//                    new TestConfig(testConfig.source(), testConfig.description(), publishedArtifacts));
+        if (!publishedArtifacts.equals(expectedArtifacts)) {
+            TestConfig updatedConfig =
+                    new TestConfig(testConfig.source(), testConfig.description(), publishedArtifacts);
+            updateConfig(configJsonPath, updatedConfig);
             compareJsonElements(gson.toJsonTree(publishedArtifacts), gson.toJsonTree(expectedArtifacts));
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.source(), configJsonPath));
         }
@@ -132,12 +132,12 @@ public class PublishArtifactsSubscriberTest extends AbstractLSTest {
     }
 
     /**
-     * Represents the test configuration for the publish artifacts test.
+     * Represents the test configuration for the publishing artifacts.
      *
      * @param source      The source file
      * @param description The description of the test
      */
-    private record TestConfig(String source, String description, List<Artifact> output) {
+    private record TestConfig(String source, String description, Map<String, Map<String, Artifact>> output) {
 
         public String description() {
             return description == null ? "" : description;

@@ -27,6 +27,7 @@ import io.ballerina.tools.text.LineRange;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -125,6 +126,14 @@ public record Artifact(String id, LineRange location, Type type, String name, St
             return this;
         }
 
+        public Builder locationId() {
+            if (location == null) {
+                return this;
+            }
+            this.id = String.valueOf(Objects.hash(location.fileName(), location.startLine(), location.endLine()));
+            return this;
+        }
+
         public Builder type(Type type) {
             this.type = type;
             return this;
@@ -159,10 +168,10 @@ public record Artifact(String id, LineRange location, Type type, String name, St
 
         public Artifact build() {
             if (accessor != null) {
-                id = accessor + "#" + name;
+                id = id == null ? accessor + "#" + name : id;
                 accessor = IdentifierUtils.unescapeBallerina(accessor);
             } else {
-                id = name;
+                id = id == null ? name : id;
             }
             name = IdentifierUtils.unescapeBallerina(name);
             return new Artifact(id, location, type, name, accessor, scope.getValue(), icon, new HashMap<>(children));

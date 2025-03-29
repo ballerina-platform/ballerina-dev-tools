@@ -23,10 +23,11 @@ import io.ballerina.compiler.syntax.tree.ModuleMemberDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.NodeList;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
+import io.ballerina.projects.Module;
+import io.ballerina.projects.Package;
 import io.ballerina.projects.Project;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
@@ -44,10 +45,27 @@ public class EventGenerator {
         if (!syntaxTree.containsModulePart()) {
             return Map.of();
         }
+        Map<String, Map<String, Artifact>> categoryMap = new ConcurrentHashMap<>();
+        findArtifacts(categoryMap, syntaxTree, semanticModel);
+        return categoryMap;
+    }
+
+    public static Map<String, Map<String, Artifact>> artifacts(Project project) {
+        Package currentPackage = project.currentPackage();
+        Module defaultModule = currentPackage.getDefaultModule();
+        SemanticModel semanticModel = currentPackage.getCompilation().getSemanticModel(defaultModule.moduleId());
+
+        Map<String, Map<String, Artifact>> categoryMap = new ConcurrentHashMap<>();
+        defaultModule.documentIds().stream().parallel().forEach(documentId ->
+                findArtifacts(categoryMap, defaultModule.document(documentId).syntaxTree(), semanticModel));
+        return categoryMap;
+    }
+
+    private static void findArtifacts(Map<String, Map<String, Artifact>> categoryMap,
+                                      SyntaxTree syntaxTree, SemanticModel semanticModel) {
         ModulePartNode rootNode = syntaxTree.rootNode();
         NodeList<ModuleMemberDeclarationNode> members = rootNode.members();
         ModuleNodeTransformer moduleNodeTransformer = new ModuleNodeTransformer(semanticModel);
-        Map<String, Map<String, Artifact>> categoryMap = new ConcurrentHashMap<>();
         members.stream().parallel()
                 .map(member -> member.apply(moduleNodeTransformer))
                 .flatMap(Optional::stream)
@@ -55,19 +73,6 @@ public class EventGenerator {
                     String category = artifact.type().getCategory();
                     categoryMap.computeIfAbsent(category, k -> new HashMap<>()).put(artifact.id(), artifact);
                 });
-        return categoryMap;
     }
 
-    public static List<Artifact> artifacts(Project project) {
-//        List<Artifact> artifacts = new ArrayList<>();
-//        Module defaultModule = project.currentPackage().getDefaultModule();
-//
-//        defaultModule.documentIds().stream().parallel().forEach(documentId -> {
-//            SyntaxTree syntaxTree = defaultModule.document(documentId).syntaxTree();
-//            artifacts.addAll(artifactChanges(syntaxTree,
-//                    project.currentPackage().getCompilation().getSemanticModel(defaultModule.moduleId())));
-//        });
-//        return artifacts;
-        return List.of();
-    }
 }

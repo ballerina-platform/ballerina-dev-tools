@@ -43,7 +43,7 @@ public class ArtifactsTest extends AbstractLSTest {
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
         ArtifactsRequest request = new ArtifactsRequest(getSourcePath(testConfig.source()));
         JsonObject artifactsResponse = getResponse(request);
-        JsonArray artifact = artifactsResponse.getAsJsonArray("artifacts");
+        JsonObject artifact = artifactsResponse.getAsJsonObject("artifacts");
 
         if (!artifact.equals(testConfig.output())) {
             TestConfig updatedConfig = new TestConfig(testConfig.description(), testConfig.source(), artifact);
@@ -73,6 +73,6 @@ public class ArtifactsTest extends AbstractLSTest {
         return "artifacts";
     }
 
-    public record TestConfig(String description, String source, JsonArray output) {
+    public record TestConfig(String description, String source, JsonObject output) {
     }
 }

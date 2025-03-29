@@ -18,6 +18,10 @@
 
 package io.ballerina.designmodelgenerator.extension.response;
 
+import io.ballerina.artifactsgenerator.Artifact;
+
+import java.util.Map;
+
 /**
  * Represents the response for artifact related operations. s
  *
@@ -25,13 +29,13 @@ package io.ballerina.designmodelgenerator.extension.response;
  */
 public class ArtifactResponse extends AbstractResponse {
 
-    private Object[] artifacts;
+    private Map<String, Map<String, Artifact>> artifacts;
 
-    public Object[] getArtifacts() {
+    public Map<String, Map<String, Artifact>> getArtifacts() {
         return artifacts;
     }
 
-    public void setArtifacts(Object[] artifacts) {
+    public void setArtifacts(Map<String, Map<String, Artifact>> artifacts) {
         this.artifacts = artifacts;
     }
 }
