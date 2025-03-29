@@ -23,27 +23,22 @@ import io.ballerina.compiler.syntax.tree.ModuleMemberDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.NodeList;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
+import io.ballerina.projects.Module;
+import io.ballerina.projects.Project;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 /**
- * Generator class responsible for creating artifacts from a Ballerina syntax tree.
- * This class analyzes the module members in a syntax tree to extract artifact information.
- * 
+ * Generator class responsible for creating artifacts from a Ballerina syntax tree. This class analyzes the module
+ * members in a syntax tree to extract artifact information.
+ *
  * @since 2.3.0
  */
 public class EventGenerator {
 
-    private final SyntaxTree syntaxTree;
-    private final SemanticModel semanticModel;
-
-    public EventGenerator(SyntaxTree syntaxTree, SemanticModel semanticModel) {
-        this.syntaxTree = syntaxTree;
-        this.semanticModel = semanticModel;
-    }
-
-    public List<Artifact> generate() {
+    public static List<Artifact> artifactChanges(SyntaxTree syntaxTree, SemanticModel semanticModel) {
         if (!syntaxTree.containsModulePart()) {
             return List.of();
         }
@@ -54,5 +49,16 @@ public class EventGenerator {
                 .map(member -> member.apply(moduleNodeTransformer))
                 .flatMap(Optional::stream)
                 .toList();
+    }
+
+    public static List<Artifact> artifacts(Project project) {
+        List<Artifact> artifacts = new ArrayList<>();
+        Module defaultModule = project.currentPackage().getDefaultModule();
+        defaultModule.documentIds().stream().parallel().forEach(documentId -> {
+            SyntaxTree syntaxTree = defaultModule.document(documentId).syntaxTree();
+            artifacts.addAll(artifactChanges(syntaxTree,
+                    project.currentPackage().getCompilation().getSemanticModel(defaultModule.moduleId())));
+        });
+        return artifacts;
     }
 }

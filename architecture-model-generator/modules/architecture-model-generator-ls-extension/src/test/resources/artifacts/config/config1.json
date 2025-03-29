@@ -1,0 +1,536 @@
+{
+  "description": "",
+  "source": "project_1",
+  "output": [
+    {
+      "id": "automation",
+      "location": {
+        "fileName": "automation.bal",
+        "startLine": {
+          "line": 3,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 15,
+          "offset": 1
+        }
+      },
+      "type": "AUTOMATION",
+      "name": "automation",
+      "scope": "Global",
+      "children": {}
+    },
+    {
+      "id": "orderTopics",
+      "location": {
+        "fileName": "config.bal",
+        "startLine": {
+          "line": 0,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 0,
+          "offset": 38
+        }
+      },
+      "type": "CONFIGURABLE",
+      "name": "orderTopics",
+      "scope": "Global",
+      "children": {}
+    },
+    {
+      "id": "Order",
+      "location": {
+        "fileName": "kafka.bal",
+        "startLine": {
+          "line": 3,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 8,
+          "offset": 2
+        }
+      },
+      "type": "TYPE",
+      "name": "Order",
+      "scope": "Global",
+      "children": {}
+    },
+    {
+      "id": "orderListener",
+      "location": {
+        "fileName": "kafka.bal",
+        "startLine": {
+          "line": 10,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 13,
+          "offset": 3
+        }
+      },
+      "type": "LISTENER",
+      "name": "orderListener",
+      "scope": "Global",
+      "children": {}
+    },
+    {
+      "id": "",
+      "location": {
+        "fileName": "kafka.bal",
+        "startLine": {
+          "line": 15,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 25,
+          "offset": 1
+        }
+      },
+      "type": "SERVICE",
+      "name": "",
+      "scope": "Global",
+      "children": {
+        "onConsumerRecord": {
+          "id": "onConsumerRecord",
+          "location": {
+            "fileName": "kafka.bal",
+            "startLine": {
+              "line": 17,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 24,
+              "offset": 5
+            }
+          },
+          "type": "REMOTE",
+          "name": "onConsumerRecord",
+          "scope": "Global",
+          "children": {}
+        }
+      }
+    },
+    {
+      "id": "",
+      "location": {
+        "fileName": "kafka.bal",
+        "startLine": {
+          "line": 27,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 40,
+          "offset": 1
+        }
+      },
+      "type": "SERVICE",
+      "name": "",
+      "scope": "Global",
+      "children": {
+        "onConsumerRecord": {
+          "id": "onConsumerRecord",
+          "location": {
+            "fileName": "kafka.bal",
+            "startLine": {
+              "line": 32,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 39,
+              "offset": 5
+            }
+          },
+          "type": "REMOTE",
+          "name": "onConsumerRecord",
+          "scope": "Global",
+          "children": {}
+        }
+      }
+    },
+    {
+      "id": "/",
+      "location": {
+        "fileName": "IITService.bal",
+        "startLine": {
+          "line": 3,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 16,
+          "offset": 1
+        }
+      },
+      "type": "SERVICE",
+      "name": "/",
+      "scope": "Global",
+      "children": {
+        "init": {
+          "id": "init",
+          "location": {
+            "fileName": "IITService.bal",
+            "startLine": {
+              "line": 5,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 6,
+              "offset": 5
+            }
+          },
+          "type": "FUNCTION",
+          "name": "init",
+          "scope": "Global",
+          "children": {}
+        },
+        "get#greeting": {
+          "id": "get#greeting",
+          "location": {
+            "fileName": "IITService.bal",
+            "startLine": {
+              "line": 8,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 15,
+              "offset": 5
+            }
+          },
+          "type": "RESOURCE",
+          "name": "greeting",
+          "accessor": "get",
+          "scope": "Global",
+          "children": {}
+        }
+      }
+    },
+    {
+      "id": "foo",
+      "location": {
+        "fileName": "IITService.bal",
+        "startLine": {
+          "line": 18,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 21,
+          "offset": 1
+        }
+      },
+      "type": "FUNCTION",
+      "name": "foo",
+      "scope": "Global",
+      "children": {}
+    },
+    {
+      "id": "ls",
+      "location": {
+        "fileName": "multi_service.bal",
+        "startLine": {
+          "line": 2,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 2,
+          "offset": 52
+        }
+      },
+      "type": "LISTENER",
+      "name": "ls",
+      "scope": "Global",
+      "children": {}
+    },
+    {
+      "id": "/api1",
+      "location": {
+        "fileName": "multi_service.bal",
+        "startLine": {
+          "line": 4,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 13,
+          "offset": 1
+        }
+      },
+      "type": "SERVICE",
+      "name": "/api1",
+      "scope": "Global",
+      "children": {
+        "get#path": {
+          "id": "get#path",
+          "location": {
+            "fileName": "multi_service.bal",
+            "startLine": {
+              "line": 6,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 8,
+              "offset": 5
+            }
+          },
+          "type": "RESOURCE",
+          "name": "path",
+          "accessor": "get",
+          "scope": "Global",
+          "children": {}
+        },
+        "baz": {
+          "id": "baz",
+          "location": {
+            "fileName": "multi_service.bal",
+            "startLine": {
+              "line": 10,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 12,
+              "offset": 5
+            }
+          },
+          "type": "FUNCTION",
+          "name": "baz",
+          "scope": "Global",
+          "children": {}
+        }
+      }
+    },
+    {
+      "id": "/api2",
+      "location": {
+        "fileName": "multi_service.bal",
+        "startLine": {
+          "line": 15,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 20,
+          "offset": 1
+        }
+      },
+      "type": "SERVICE",
+      "name": "/api2",
+      "scope": "Global",
+      "children": {
+        "get#path": {
+          "id": "get#path",
+          "location": {
+            "fileName": "multi_service.bal",
+            "startLine": {
+              "line": 17,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 19,
+              "offset": 5
+            }
+          },
+          "type": "RESOURCE",
+          "name": "path",
+          "accessor": "get",
+          "scope": "Global",
+          "children": {}
+        }
+      }
+    },
+    {
+      "id": "bar",
+      "location": {
+        "fileName": "multi_service.bal",
+        "startLine": {
+          "line": 22,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 24,
+          "offset": 1
+        }
+      },
+      "type": "FUNCTION",
+      "name": "bar",
+      "scope": "Global",
+      "children": {}
+    },
+    {
+      "id": "httpClient",
+      "location": {
+        "fileName": "connections.bal",
+        "startLine": {
+          "line": 2,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 2,
+          "offset": 46
+        }
+      },
+      "name": "httpClient",
+      "scope": "Global",
+      "children": {}
+    },
+    {
+      "id": "httpClient2",
+      "location": {
+        "fileName": "connections.bal",
+        "startLine": {
+          "line": 3,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 3,
+          "offset": 47
+        }
+      },
+      "name": "httpClient2",
+      "scope": "Global",
+      "children": {}
+    },
+    {
+      "id": "securedEP",
+      "location": {
+        "fileName": "BITService.bal",
+        "startLine": {
+          "line": 3,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 10,
+          "offset": 2
+        }
+      },
+      "type": "LISTENER",
+      "name": "securedEP",
+      "scope": "Global",
+      "children": {}
+    },
+    {
+      "id": "securedEP2",
+      "location": {
+        "fileName": "BITService.bal",
+        "startLine": {
+          "line": 12,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 19,
+          "offset": 2
+        }
+      },
+      "type": "LISTENER",
+      "name": "securedEP2",
+      "scope": "Global",
+      "children": {}
+    },
+    {
+      "id": "/",
+      "location": {
+        "fileName": "BITService.bal",
+        "startLine": {
+          "line": 21,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 60,
+          "offset": 1
+        }
+      },
+      "type": "SERVICE",
+      "name": "/",
+      "scope": "Global",
+      "children": {
+        "init": {
+          "id": "init",
+          "location": {
+            "fileName": "BITService.bal",
+            "startLine": {
+              "line": 30,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 32,
+              "offset": 5
+            }
+          },
+          "type": "FUNCTION",
+          "name": "init",
+          "scope": "Global",
+          "children": {}
+        },
+        "get#greeting": {
+          "id": "get#greeting",
+          "location": {
+            "fileName": "BITService.bal",
+            "startLine": {
+              "line": 34,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 44,
+              "offset": 5
+            }
+          },
+          "type": "RESOURCE",
+          "name": "greeting",
+          "accessor": "get",
+          "scope": "Global",
+          "children": {}
+        },
+        "foo1": {
+          "id": "foo1",
+          "location": {
+            "fileName": "BITService.bal",
+            "startLine": {
+              "line": 46,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 50,
+              "offset": 5
+            }
+          },
+          "type": "FUNCTION",
+          "name": "foo1",
+          "scope": "Global",
+          "children": {}
+        },
+        "foo2": {
+          "id": "foo2",
+          "location": {
+            "fileName": "BITService.bal",
+            "startLine": {
+              "line": 52,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 55,
+              "offset": 5
+            }
+          },
+          "type": "FUNCTION",
+          "name": "foo2",
+          "scope": "Global",
+          "children": {}
+        },
+        "foo3": {
+          "id": "foo3",
+          "location": {
+            "fileName": "BITService.bal",
+            "startLine": {
+              "line": 57,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 59,
+              "offset": 5
+            }
+          },
+          "type": "FUNCTION",
+          "name": "foo3",
+          "scope": "Global",
+          "children": {}
+        }
+      }
+    }
+  ]
+}
