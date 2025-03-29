@@ -64,8 +64,47 @@
       }
     },
     "Entry Points": {
-      "/root/path\\-id": {
-        "id": "/root/path\\-id",
+      "72613459": {
+        "id": "72613459",
+        "location": {
+          "fileName": "http_service.bal",
+          "startLine": {
+            "line": 66,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 76,
+            "offset": 1
+          }
+        },
+        "type": "SERVICE",
+        "name": "/api/v1",
+        "scope": "Global",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
+        "children": {
+          "get#path": {
+            "id": "get#path",
+            "location": {
+              "fileName": "http_service.bal",
+              "startLine": {
+                "line": 68,
+                "offset": 4
+              },
+              "endLine": {
+                "line": 75,
+                "offset": 5
+              }
+            },
+            "type": "RESOURCE",
+            "name": "path",
+            "accessor": "get",
+            "scope": "Global",
+            "children": {}
+          }
+        }
+      },
+      "72552513": {
+        "id": "72552513",
         "location": {
           "fileName": "http_service.bal",
           "startLine": {
@@ -179,47 +218,8 @@
           }
         }
       },
-      "/api/v1": {
-        "id": "/api/v1",
-        "location": {
-          "fileName": "http_service.bal",
-          "startLine": {
-            "line": 66,
-            "offset": 0
-          },
-          "endLine": {
-            "line": 76,
-            "offset": 1
-          }
-        },
-        "type": "SERVICE",
-        "name": "/api/v1",
-        "scope": "Global",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
-        "children": {
-          "get#path": {
-            "id": "get#path",
-            "location": {
-              "fileName": "http_service.bal",
-              "startLine": {
-                "line": 68,
-                "offset": 4
-              },
-              "endLine": {
-                "line": 75,
-                "offset": 5
-              }
-            },
-            "type": "RESOURCE",
-            "name": "path",
-            "accessor": "get",
-            "scope": "Global",
-            "children": {}
-          }
-        }
-      },
-      "/": {
-        "id": "/",
+      "72594828": {
+        "id": "72594828",
         "location": {
           "fileName": "http_service.bal",
           "startLine": {

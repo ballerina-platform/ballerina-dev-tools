@@ -75,24 +75,6 @@
         "scope": "Global",
         "children": {}
       },
-      "MyDecimal": {
-        "id": "MyDecimal",
-        "location": {
-          "fileName": "type.bal",
-          "startLine": {
-            "line": 6,
-            "offset": 0
-          },
-          "endLine": {
-            "line": 6,
-            "offset": 30
-          }
-        },
-        "type": "TYPE",
-        "name": "MyDecimal",
-        "scope": "Global",
-        "children": {}
-      },
       "XMLElement": {
         "id": "XMLElement",
         "location": {
@@ -108,6 +90,24 @@
         },
         "type": "TYPE",
         "name": "XMLElement",
+        "scope": "Global",
+        "children": {}
+      },
+      "MyDecimal": {
+        "id": "MyDecimal",
+        "location": {
+          "fileName": "type.bal",
+          "startLine": {
+            "line": 6,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 6,
+            "offset": 30
+          }
+        },
+        "type": "TYPE",
+        "name": "MyDecimal",
         "scope": "Global",
         "children": {}
       },

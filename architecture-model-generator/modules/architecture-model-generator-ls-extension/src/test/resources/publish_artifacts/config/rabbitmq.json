@@ -24,8 +24,8 @@
       }
     },
     "Entry Points": {
-      "\"queueName\"": {
-        "id": "\"queueName\"",
+      "799770358": {
+        "id": "799770358",
         "location": {
           "fileName": "rabbitmq.bal",
           "startLine": {
