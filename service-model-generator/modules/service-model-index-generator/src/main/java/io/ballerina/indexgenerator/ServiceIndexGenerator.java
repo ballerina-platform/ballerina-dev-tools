@@ -266,9 +266,19 @@ class ServiceIndexGenerator {
             paramType = CommonUtils.getTypeSignature(semanticModel,
                     ((ArrayTypeSymbol) typeSymbol).memberTypeDescriptor(), false);
         } else if (parameterKind == FunctionParameterKind.INCLUDED_RECORD) {
+            Map<String, String> docMap = new HashMap<>();
             paramType = CommonUtils.getTypeSignature(semanticModel, typeSymbol, false);
+            if (typeSymbol.getModule().isPresent() && typeSymbol.getName().isPresent()) {
+                ModuleID id = typeSymbol.getModule().get().id();
+                Optional<Symbol> typeByName = semanticModel.types().getTypeByName(id.orgName(), id.moduleName(),
+                        "", typeSymbol.getName().get());
+                if (typeByName.isPresent() && typeByName.get() instanceof TypeDefinitionSymbol typeDefinitionSymbol) {
+                    Optional<Documentation> documentation = typeDefinitionSymbol.documentation();
+                    documentation.ifPresent(documentation1 -> docMap.putAll(documentation1.parameterMap()));
+                }
+            }
             addIncludedRecordParamsToDb((RecordTypeSymbol) CommonUtils.getRawType(typeSymbol),
-                    functionId, resolvedPackage, defaultModuleInfo, semanticModel, true, new HashMap<>());
+                    functionId, resolvedPackage, defaultModuleInfo, semanticModel, true, docMap);
             defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(typeSymbol);
         } else if (parameterKind == FunctionParameterKind.REQUIRED) {
             paramType = CommonUtils.getTypeSignature(semanticModel, typeSymbol, false);
@@ -303,10 +313,20 @@ class ServiceIndexGenerator {
                                                       Package resolvedPackage, ModuleInfo defaultModuleInfo,
                                                       SemanticModel semanticModel, boolean insert,
                                                       Map<String, String> documentationMap) {
-        recordTypeSymbol.typeInclusions().forEach(includedType -> addIncludedRecordParamsToDb(
-                ((RecordTypeSymbol) CommonUtils.getRawType(includedType)), functionId, resolvedPackage,
-                defaultModuleInfo, semanticModel, false, documentationMap)
-        );
+        recordTypeSymbol.typeInclusions().forEach(includedType -> {
+            if (includedType.getModule().isPresent() && includedType.getName().isPresent()) {
+                ModuleID id = includedType.getModule().get().id();
+                Optional<Symbol> typeByName = semanticModel.types().getTypeByName(id.orgName(), id.moduleName(),
+                        "", includedType.getName().get());
+                if (typeByName.isPresent() && typeByName.get() instanceof TypeDefinitionSymbol typeDefinitionSymbol) {
+                    Optional<Documentation> documentation = typeDefinitionSymbol.documentation();
+                    documentation.ifPresent(documentation1 -> documentationMap.putAll(documentation1.parameterMap()));
+                }
+            }
+            addIncludedRecordParamsToDb(((RecordTypeSymbol) CommonUtils.getRawType(includedType)), functionId,
+                    resolvedPackage, defaultModuleInfo, semanticModel, false, documentationMap);
+        });
+
         for (Map.Entry<String, RecordFieldSymbol> entry : recordTypeSymbol.fieldDescriptors().entrySet()) {
             RecordFieldSymbol recordFieldSymbol = entry.getValue();
             TypeSymbol typeSymbol = recordFieldSymbol.typeDescriptor();

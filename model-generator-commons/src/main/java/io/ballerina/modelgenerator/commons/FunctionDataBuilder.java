@@ -49,6 +49,7 @@ import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TableTypeSymbol;
 import io.ballerina.compiler.api.symbols.TupleTypeSymbol;
+import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
@@ -590,10 +591,20 @@ public class FunctionDataBuilder {
                     ((ArrayTypeSymbol) typeSymbol).memberTypeDescriptor());
             paramType = getTypeSignature(((ArrayTypeSymbol) typeSymbol).memberTypeDescriptor());
         } else if (parameterKind == ParameterData.Kind.INCLUDED_RECORD) {
+            Map<String, String> includedRecordParamDocs = new HashMap<>();
+            if (typeSymbol.getModule().isPresent() && typeSymbol.getName().isPresent()) {
+                ModuleID id = typeSymbol.getModule().get().id();
+                Optional<Symbol> typeByName = semanticModel.types().getTypeByName(id.orgName(), id.moduleName(),
+                        "", typeSymbol.getName().get());
+                if (typeByName.isPresent() && typeByName.get() instanceof TypeDefinitionSymbol typeDefinitionSymbol) {
+                    Optional<Documentation> documentation = typeDefinitionSymbol.documentation();
+                    documentation.ifPresent(documentation1 -> includedRecordParamDocs.putAll(
+                            documentation1.parameterMap()));
+                }
+            }
             paramType = getTypeSignature(typeSymbol);
-            Map<String, ParameterData> includedParameters =
-                    getIncludedRecordParams((RecordTypeSymbol) CommonUtil.getRawType(typeSymbol), true,
-                            new HashMap<>(), union);
+            Map<String, ParameterData> includedParameters = getIncludedRecordParams(
+                    (RecordTypeSymbol) CommonUtil.getRawType(typeSymbol), true, includedRecordParamDocs, union);
             parameters.putAll(includedParameters);
             defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(typeSymbol);
         } else if (parameterKind == ParameterData.Kind.REQUIRED) {
@@ -701,10 +712,19 @@ public class FunctionDataBuilder {
                                                                Map<String, String> documentationMap,
                                                                UnionTypeSymbol union) {
         Map<String, ParameterData> parameters = new LinkedHashMap<>();
-        recordTypeSymbol.typeInclusions().forEach(includedType -> parameters.putAll(
-                getIncludedRecordParams((RecordTypeSymbol) CommonUtils.getRawType(includedType), insert,
-                        documentationMap, union))
-        );
+        recordTypeSymbol.typeInclusions().forEach(includedType -> {
+            if (includedType.getModule().isPresent() && includedType.getName().isPresent()) {
+                ModuleID id = includedType.getModule().get().id();
+                Optional<Symbol> typeByName = semanticModel.types().getTypeByName(id.orgName(), id.moduleName(),
+                        "", includedType.getName().get());
+                if (typeByName.isPresent() && typeByName.get() instanceof TypeDefinitionSymbol typeDefinitionSymbol) {
+                    Optional<Documentation> documentation = typeDefinitionSymbol.documentation();
+                    documentation.ifPresent(documentation1 -> documentationMap.putAll(documentation1.parameterMap()));
+                }
+            }
+            parameters.putAll(getIncludedRecordParams((RecordTypeSymbol) CommonUtils.getRawType(includedType), insert,
+                    documentationMap, union));
+            });
         for (Map.Entry<String, RecordFieldSymbol> entry : recordTypeSymbol.fieldDescriptors().entrySet()) {
             RecordFieldSymbol recordFieldSymbol = entry.getValue();
             TypeSymbol typeSymbol = recordFieldSymbol.typeDescriptor();
