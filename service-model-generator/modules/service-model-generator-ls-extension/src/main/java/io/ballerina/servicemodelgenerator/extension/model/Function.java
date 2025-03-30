@@ -18,10 +18,12 @@
 
 package io.ballerina.servicemodelgenerator.extension.model;
 
+import io.ballerina.modelgenerator.commons.Annotation;
 import io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants;
 import io.ballerina.servicemodelgenerator.extension.util.ServiceClassUtil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -94,6 +96,37 @@ public class Function {
             return newFunction;
         }
         return newFunction;
+    }
+
+    public static Map<String, Value> createAnnotationsMap(List<Annotation> annotations) {
+        Map<String, Value> annotationMap = new HashMap<>();
+        for (Annotation annotation : annotations) {
+            Codedata codedata = new Codedata.Builder()
+                    .setType("ANNOTATION_ATTACHMENT")
+                    .setOriginalName(annotation.annotationName())
+                    .setOrgName(annotation.orgName())
+                    .setModuleName(annotation.moduleName())
+                    .build();
+            String[] parts = annotation.typeConstrain().split(":");
+            String type = parts.length > 1 ? parts[1] : parts[0];
+            Value value = new Value.ValueBuilder()
+                    .setMetadata(new MetaData(annotation.displayName(), annotation.description()))
+                    .setCodedata(codedata)
+                    .setValueType("EXPRESSION")
+                    .setPlaceholder("{}")
+                    .setValueTypeConstraint(annotation.typeConstrain())
+                    .setEnabled(true)
+                    .setEditable(true)
+                    .setOptional(true)
+                    .setAdvanced(true)
+                    .setMembers(List.of(new PropertyTypeMemberInfo(type,
+                            annotation.packageIdentifier(), "RECORD_TYPE", false)))
+                    .build();
+
+            String annotKey = "annot" + annotation.annotationName();
+            annotationMap.put(annotKey, value);
+        }
+        return annotationMap;
     }
 
     public MetaData getMetadata() {

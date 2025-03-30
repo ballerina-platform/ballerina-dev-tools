@@ -146,7 +146,7 @@ import static io.ballerina.servicemodelgenerator.extension.util.Utils.isAiAgentM
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.getHttpServiceContractSym;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.populateRequiredFuncsDesignApproachAndServiceType;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateServiceContractModel;
-import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateServiceModel;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateHttpServiceModel;
 
 /**
  * Represents the extended language server service for the trigger model generator service.
@@ -575,7 +575,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 }
 
                 if (!serviceContractExists) {
-                    updateServiceModel(serviceModel, serviceNode, semanticModel);
+                    updateHttpServiceModel(serviceModel, serviceNode, semanticModel);
                 }
 
                 updateListenerItems(moduleName, semanticModel, project, serviceModel);
@@ -714,7 +714,6 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
     public CompletableFuture<CommonSourceResponse> updateFunction(FunctionModifierRequest request) {
         return CompletableFuture.supplyAsync(() -> {
             try {
-                List<TextEdit> edits = new ArrayList<>();
                 Path filePath = Path.of(request.filePath());
                 this.workspaceManager.loadProject(filePath);
                 Optional<Document> document = this.workspaceManager.document(filePath);
@@ -731,6 +730,8 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 if (!(parentNode instanceof ServiceDeclarationNode || parentNode instanceof ClassDefinitionNode)) {
                     return new CommonSourceResponse();
                 }
+                List<TextEdit> edits = new ArrayList<>();
+                Utils.addFunctionAnnotationTextEdits(function, functionDefinitionNode, edits);
 
                 String functionName = functionDefinitionNode.functionName().text().trim();
                 LineRange nameRange = functionDefinitionNode.functionName().lineRange();

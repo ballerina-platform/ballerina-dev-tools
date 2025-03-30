@@ -50,6 +50,8 @@ import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.Token;
 import io.ballerina.compiler.syntax.tree.TypeDefinitionNode;
 import io.ballerina.compiler.syntax.tree.TypeDescriptorNode;
+import io.ballerina.modelgenerator.commons.Annotation;
+import io.ballerina.modelgenerator.commons.ServiceDatabaseManager;
 import io.ballerina.projects.Document;
 import io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants;
 import io.ballerina.servicemodelgenerator.extension.model.Codedata;
@@ -85,6 +87,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.NEW_LINE;
 import static io.ballerina.servicemodelgenerator.extension.util.ServiceClassUtil.ServiceClassContext.GRAPHQL_DIAGRAM;
 import static io.ballerina.servicemodelgenerator.extension.util.ServiceClassUtil.ServiceClassContext.HTTP_DIAGRAM;
 import static io.ballerina.servicemodelgenerator.extension.util.ServiceClassUtil.ServiceClassContext.SERVICE_DIAGRAM;
@@ -207,7 +210,7 @@ public final class Utils {
 
     public static Service getServiceModel(TypeDefinitionNode serviceTypeNode,
                                           ServiceDeclarationNode serviceDeclarationNode,
-                                          SemanticModel semanticModel, boolean isHttp) {
+                                          SemanticModel semanticModel) {
         Service serviceModel = Service.getNewService();
         Optional<String> basePath = getPath(serviceTypeNode);
         if (basePath.isPresent() && !basePath.get().isEmpty()) {
@@ -227,8 +230,8 @@ public final class Utils {
         List<Function> functionModels = new ArrayList<>();
         serviceDeclarationNode.members().forEach(member -> {
             if (member instanceof FunctionDefinitionNode functionDefinitionNode) {
-                Function functionModel = getFunctionModel(functionDefinitionNode, semanticModel, isHttp,
-                        false);
+                Function functionModel = getFunctionModel(functionDefinitionNode, semanticModel, true,
+                        false, Map.of());
                 functionModels.add(functionModel);
             }
         });
@@ -236,13 +239,17 @@ public final class Utils {
         return serviceModel;
     }
 
-    public static Service getServiceModel(ServiceDeclarationNode serviceDeclarationNode, SemanticModel semanticModel,
-                                          boolean isHttp, boolean isGraphQL) {
+    public static Service getServiceModel(ServiceDeclarationNode serviceDeclarationNode, SemanticModel semanticModel) {
+        ServiceDatabaseManager databaseManager = ServiceDatabaseManager.getInstance();
+        List<Annotation> annotationAttachments = databaseManager.
+                getAnnotationAttachments("ballerina", "http", "OBJECT_METHOD");
+        Map<String, Value> annotations = Function.createAnnotationsMap(annotationAttachments);
         Service serviceModel = Service.getNewService();
         List<Function> functionModels = new ArrayList<>();
         serviceDeclarationNode.members().forEach(member -> {
             if (member instanceof FunctionDefinitionNode functionDefinitionNode) {
-                Function functionModel = getFunctionModel(functionDefinitionNode, semanticModel, isHttp, isGraphQL);
+                Function functionModel = getFunctionModel(functionDefinitionNode, semanticModel, true, false,
+                        annotations);
                 functionModels.add(functionModel);
             }
         });
@@ -272,10 +279,11 @@ public final class Utils {
     }
 
     public static Function getFunctionModel(MethodDeclarationNode functionDefinitionNode, SemanticModel semanticModel,
-                                            boolean isHttp, boolean isGraphQL) {
+                                            boolean isHttp, boolean isGraphQL, Map<String, Value> annotations) {
         boolean isInit = isInitFunction(functionDefinitionNode);
         ServiceClassUtil.ServiceClassContext context = deriveContext(isGraphQL, isHttp, isInit);
         Function functionModel = Function.getNewFunctionModel(context);
+        functionModel.setAnnotations(annotations);
         functionModel.setEnabled(true);
         Value accessor = functionModel.getAccessor();
         Value functionName = functionModel.getName();
@@ -319,11 +327,12 @@ public final class Utils {
         return functionModel;
     }
 
-    public static Function getFunctionModel(FunctionDefinitionNode functionDefinitionNode,
-                                            SemanticModel semanticModel, boolean isHttp, boolean isGraphQL) {
+    public static Function getFunctionModel(FunctionDefinitionNode functionDefinitionNode, SemanticModel semanticModel,
+                                            boolean isHttp, boolean isGraphQL, Map<String, Value> annotations) {
         boolean isInit = isInitFunction(functionDefinitionNode);
         ServiceClassUtil.ServiceClassContext context = deriveContext(isGraphQL, isHttp, isInit);
         Function functionModel = Function.getNewFunctionModel(context);
+        functionModel.setAnnotations(annotations);
         functionModel.setEnabled(true);
         Value accessor = functionModel.getAccessor();
         Value functionName = functionModel.getName();
@@ -379,6 +388,7 @@ public final class Utils {
         });
         functionModel.setParameters(parameterModels);
         functionModel.setCodedata(new Codedata(functionDefinitionNode.lineRange()));
+        updateAnnotationAttachmentProperty(functionDefinitionNode, functionModel);
         return functionModel;
     }
 
@@ -525,7 +535,7 @@ public final class Utils {
     public static void updateServiceContractModel(Service serviceModel, TypeDefinitionNode serviceTypeNode,
                                                   ServiceDeclarationNode serviceDeclaration,
                                                   SemanticModel semanticModel) {
-        Service commonSvcModel = getServiceModel(serviceTypeNode, serviceDeclaration, semanticModel, true);
+        Service commonSvcModel = getServiceModel(serviceTypeNode, serviceDeclaration, semanticModel);
 
         if (Objects.nonNull(serviceModel.getServiceType()) && Objects.nonNull(commonSvcModel.getServiceType())) {
             serviceModel.updateServiceType(commonSvcModel.getServiceType());
@@ -535,12 +545,9 @@ public final class Utils {
         populateListenerInfo(serviceModel, serviceDeclaration);
     }
 
-    public static void updateServiceModel(Service serviceModel, ServiceDeclarationNode serviceNode,
-                                          SemanticModel semanticModel) {
-        String moduleName = serviceModel.getModuleName();
-        boolean isHttp = moduleName.equals(ServiceModelGeneratorConstants.HTTP);
-        boolean isGraphql = moduleName.equals(ServiceModelGeneratorConstants.GRAPHQL);
-        Service commonSvcModel = getServiceModel(serviceNode, semanticModel, isHttp, isGraphql);
+    public static void updateHttpServiceModel(Service serviceModel, ServiceDeclarationNode serviceNode,
+                                              SemanticModel semanticModel) {
+        Service commonSvcModel = getServiceModel(serviceNode, semanticModel);
         updateServiceInfo(serviceModel, commonSvcModel);
         serviceModel.setCodedata(new Codedata(serviceNode.lineRange()));
         populateListenerInfo(serviceModel, serviceNode);
@@ -684,6 +691,28 @@ public final class Utils {
         });
     }
 
+    public static void updateAnnotationAttachmentProperty(FunctionDefinitionNode functionDef,
+                                                          Function function) {
+        Optional<MetadataNode> metadata = functionDef.metadata();
+        if (metadata.isEmpty()) {
+            return;
+        }
+
+        metadata.get().annotations().forEach(annotationNode -> {
+            if (annotationNode.annotValue().isEmpty()) {
+                return;
+            }
+            String annotName = annotationNode.annotReference().toString().trim();
+            String[] split = annotName.split(":");
+            annotName = split[split.length - 1];
+            String propertyName = "annot" + annotName;
+            if (function.getAnnotations().containsKey(propertyName)) {
+                Value property = function.getAnnotations().get(propertyName);
+                property.setValue(annotationNode.annotValue().get().toSourceCode().trim());
+            }
+        });
+    }
+
     private static String getListenerExprName(ExpressionNode expressionNode) {
         if (expressionNode instanceof NameReferenceNode nameReferenceNode) {
             return nameReferenceNode.toSourceCode().trim();
@@ -752,7 +781,7 @@ public final class Utils {
         List<String> annots = getAnnotationEdits(service);
 
         if (!annots.isEmpty()) {
-            builder.append(String.join(System.lineSeparator(), annots));
+            builder.append(String.join(NEW_LINE, annots));
             builder.append(System.lineSeparator());
         }
 
@@ -830,6 +859,22 @@ public final class Utils {
         return annots;
     }
 
+    public static List<String> getAnnotationEdits(Function function) {
+        Map<String, Value> properties = function.getAnnotations();
+        List<String> annots = new ArrayList<>();
+        for (Map.Entry<String, Value> property : properties.entrySet()) {
+            Value value = property.getValue();
+            if (Objects.nonNull(value.getCodedata()) && Objects.nonNull(value.getCodedata().getType()) &&
+                    value.getCodedata().getType().equals("ANNOTATION_ATTACHMENT") && value.isEnabledWithValue()) {
+                Codedata codedata = value.getCodedata();
+                String ref = codedata.getModuleName() + ":" + codedata.getOriginalName();
+                String annotTemplate = "@%s%s".formatted(ref, value.getValue());
+                annots.add(annotTemplate);
+            }
+        }
+        return annots;
+    }
+
     public static int addServiceAnnotationTextEdits(Service service, ServiceDeclarationNode serviceNode,
                                                     List<TextEdit> edits) {
         Token serviceKeyword = serviceNode.serviceKeyword();
@@ -862,6 +907,48 @@ public final class Utils {
         LinePosition lastAnnotationEndLinePos = annotations.get(size - 1).lineRange().endLine();
 
         LineRange range = LineRange.from(serviceKeyword.lineRange().fileName(),
+                firstAnnotationEndLinePos, lastAnnotationEndLinePos);
+
+        if (!annotEdit.isEmpty()) {
+            edits.add(new TextEdit(toRange(range), annotEdit));
+        }
+
+        return annots.size();
+    }
+
+    public static int addFunctionAnnotationTextEdits(Function function, FunctionDefinitionNode functionDef,
+                                                    List<TextEdit> edits) {
+        Token firstToken = functionDef.qualifierList().isEmpty() ? functionDef.functionKeyword()
+                : functionDef.qualifierList().get(0);
+
+        List<String> annots = getAnnotationEdits(function);
+        String annotEdit = String.join(System.lineSeparator(), annots);
+
+        Optional<MetadataNode> metadata = functionDef.metadata();
+        if (metadata.isEmpty()) { // metadata is empty and service model has annotations
+            if (!annotEdit.isEmpty()) {
+                annotEdit += System.lineSeparator();
+                edits.add(new TextEdit(toRange(firstToken.lineRange().startLine()), annotEdit));
+            }
+            return annots.size();
+        }
+        NodeList<AnnotationNode> annotations = metadata.get().annotations();
+        if (annotations.isEmpty()) { // metadata is present but no annotations
+            if (!annotEdit.isEmpty()) {
+                annotEdit += System.lineSeparator();
+                edits.add(new TextEdit(toRange(metadata.get().lineRange()), annotEdit));
+            }
+            return annots.size();
+        }
+
+        // first annotation end line range
+        int size = annotations.size();
+        LinePosition firstAnnotationEndLinePos = annotations.get(0).lineRange().startLine();
+
+        // last annotation end line range
+        LinePosition lastAnnotationEndLinePos = annotations.get(size - 1).lineRange().endLine();
+
+        LineRange range = LineRange.from(firstToken.lineRange().fileName(),
                 firstAnnotationEndLinePos, lastAnnotationEndLinePos);
 
         if (!annotEdit.isEmpty()) {
@@ -907,6 +994,13 @@ public final class Utils {
     public static String getFunction(Function function, List<String> statusCodeResponses,
                                      FunctionBodyKind kind, FunctionAddContext context) {
         StringBuilder builder = new StringBuilder();
+
+        List<String> annots = getAnnotationEdits(function);
+        if (!annots.isEmpty()) {
+            builder.append(String.join(NEW_LINE, annots));
+            builder.append(System.lineSeparator());
+        }
+
         String functionQualifiers = getFunctionQualifiers(function);
         if (!functionQualifiers.isEmpty()) {
             builder.append(functionQualifiers);
