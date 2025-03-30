@@ -119,6 +119,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
+import static io.ballerina.compiler.syntax.tree.SyntaxKind.OBJECT_TYPE_DESC;
 import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.KIND_MUTATION;
 import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.KIND_REMOTE;
 import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.NEW_LINE;
@@ -142,7 +143,7 @@ import static io.ballerina.servicemodelgenerator.extension.util.Utils.getPath;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.getServiceDeclarationNode;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.importExists;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.isAiAgentModule;
-import static io.ballerina.servicemodelgenerator.extension.util.Utils.isHttpServiceContractType;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.getHttpServiceContractSym;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.populateRequiredFuncsDesignApproachAndServiceType;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateServiceContractModel;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateServiceModel;
@@ -549,25 +550,26 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 }
                 Service serviceModel = service.get();
                 serviceModel.setFunctions(new ArrayList<>());
-                Optional<TypeDescriptorNode> serviceTypeDesc = serviceNode.typeDescriptor();
                 boolean serviceContractExists = false;
-                if (serviceTypeDesc.isPresent() && isHttpServiceContractType(semanticModel, serviceTypeDesc.get())) {
-                    String serviceContractName = serviceTypeDesc.get().toString().trim();
-                    Path contractPath = project.sourceRoot().toAbsolutePath() // TODO: fix this no need be this file
-                            .resolve(String.format("service_contract_%s.bal", serviceContractName));
-                    Optional<Document> contractDoc = this.workspaceManager.document(contractPath);
-                    if (contractDoc.isPresent()) {
-                        SyntaxTree contractSyntaxTree = contractDoc.get().syntaxTree();
-                        ModulePartNode contractModulePartNode = contractSyntaxTree.rootNode();
-                        Optional<TypeDefinitionNode> serviceContractType = contractModulePartNode.members().stream()
-                                .filter(member -> member.kind().equals(SyntaxKind.TYPE_DEFINITION))
-                                .map(member -> ((TypeDefinitionNode) member))
-                                .filter(member -> member.typeDescriptor().kind().equals(SyntaxKind.OBJECT_TYPE_DESC))
-                                .findFirst();
-                        if (serviceContractType.isPresent()) {
-                            serviceContractExists = true;
-                            updateServiceContractModel(serviceModel, serviceContractType.get(), serviceNode,
-                                    semanticModel);
+                if (serviceNode.typeDescriptor().isPresent()) {
+                    Optional<Symbol> httpServiceContractSym = getHttpServiceContractSym(semanticModel,
+                            serviceNode.typeDescriptor().get());
+                    if (httpServiceContractSym.isPresent() && httpServiceContractSym.get().getLocation().isPresent()) {
+                        Path contractPath = project.sourceRoot().toAbsolutePath()
+                                .resolve(httpServiceContractSym.get().getLocation().get().lineRange().fileName());
+                        Optional<Document> contractDoc = this.workspaceManager.document(contractPath);
+                        if (contractDoc.isPresent()) {
+                            ModulePartNode contractModulePartNode = contractDoc.get().syntaxTree().rootNode();
+                            Optional<TypeDefinitionNode> serviceContractType = contractModulePartNode.members().stream()
+                                    .filter(member -> member.kind().equals(SyntaxKind.TYPE_DEFINITION))
+                                    .map(member -> ((TypeDefinitionNode) member))
+                                    .filter(member -> member.typeDescriptor().kind().equals(OBJECT_TYPE_DESC))
+                                    .findFirst();
+                            if (serviceContractType.isPresent()) {
+                                serviceContractExists = true;
+                                updateServiceContractModel(serviceModel, serviceContractType.get(), serviceNode,
+                                        semanticModel);
+                            }
                         }
                     }
                 }

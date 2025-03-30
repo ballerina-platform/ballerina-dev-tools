@@ -250,17 +250,21 @@ public final class Utils {
         return serviceModel;
     }
 
-    public static boolean isHttpServiceContractType(SemanticModel semanticModel, TypeDescriptorNode serviceTypeDesc) {
+    public static Optional<Symbol> getHttpServiceContractSym(SemanticModel semanticModel,
+                                                             TypeDescriptorNode serviceTypeDesc) {
         Optional<Symbol> svcTypeSymbol = semanticModel.symbol(serviceTypeDesc);
         if (svcTypeSymbol.isEmpty() || !(svcTypeSymbol.get() instanceof TypeReferenceTypeSymbol svcTypeRef)) {
-            return false;
+            return Optional.empty();
         }
         Optional<Symbol> contractSymbol = semanticModel.types().getTypeByName("ballerina", "http", "",
                 "ServiceContract");
         if (contractSymbol.isEmpty() || !(contractSymbol.get() instanceof TypeDefinitionSymbol contractTypeDef)) {
-            return false;
+            return Optional.empty();
         }
-        return svcTypeRef.subtypeOf(contractTypeDef.typeDescriptor());
+        if (svcTypeRef.subtypeOf(contractTypeDef.typeDescriptor())) {
+            return svcTypeSymbol;
+        }
+        return Optional.empty();
     }
 
     public static String getPath(NodeList<Node> paths) {
