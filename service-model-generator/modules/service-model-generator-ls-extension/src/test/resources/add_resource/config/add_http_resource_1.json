@@ -557,6 +557,41 @@
       "inListenerInit": false,
       "isBasePath": false,
       "inDisplayAnnotation": false
+    },
+    "annotations": {
+      "annotResourceConfig": {
+        "metadata": {
+          "label": "Resource Configuration",
+          "description": "Define advanced configurations like resource level media types, security, etc."
+        },
+        "enabled": true,
+        "editable": true,
+        "value": "{}",
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "http:HttpResourceConfig",
+        "isType": false,
+        "placeholder": "{}",
+        "optional": true,
+        "advanced": true,
+        "codedata": {
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false,
+          "type": "ANNOTATION_ATTACHMENT",
+          "originalName": "ResourceConfig",
+          "orgName": "ballerina",
+          "moduleName": "http"
+        },
+        "addNewButton": false,
+        "typeMembers": [
+          {
+            "type": "HttpResourceConfig",
+            "packageInfo": "ballerina:http:2.14.0",
+            "kind": "RECORD_TYPE",
+            "selected": true
+          }
+        ]
+      }
     }
   },
   "output": {
@@ -572,7 +607,7 @@
             "character": 0
           }
         },
-        "newText": "\n\tresource function get response(http:Request request, http:Caller caller, http:Headers headers) returns error|http:Response {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t\treturn error(\"Not implemented\", err);\n\t\t}\n\t}\n"
+        "newText": "\n\t@http:ResourceConfig{}\n\tresource function get response(http:Request request, http:Caller caller, http:Headers headers) returns error|http:Response {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t\treturn error(\"Not implemented\", err);\n\t\t}\n\t}\n"
       }
     ]
   }

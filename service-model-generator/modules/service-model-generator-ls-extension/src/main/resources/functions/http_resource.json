@@ -563,7 +563,9 @@
         "isBasePath": false,
         "inDisplayAnnotation": false,
         "type": "ANNOTATION_ATTACHMENT",
-        "originalName": "ResourceConfig"
+        "originalName": "ResourceConfig",
+        "orgName": "ballerina",
+        "moduleName": "http"
       },
       "addNewButton": false,
       "typeMembers": [
