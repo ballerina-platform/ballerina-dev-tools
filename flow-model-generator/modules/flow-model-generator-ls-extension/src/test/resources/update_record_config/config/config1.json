@@ -14,6 +14,7 @@
         "typeName": "decimal",
         "optional": false,
         "defaultable": true,
+        "documentation": "Connect timeout of the channel in seconds. If the Channel does not support connect operation,\nthis property is not used at all, and therefore will be ignored.",
         "isRestType": false,
         "selected": false
       },
@@ -22,6 +23,7 @@
         "typeName": "int",
         "optional": false,
         "defaultable": true,
+        "documentation": "Sets the SO_RCVBUF option to the specified value for this Socket.",
         "isRestType": false,
         "selected": false
       },
@@ -30,6 +32,7 @@
         "typeName": "int",
         "optional": false,
         "defaultable": true,
+        "documentation": "Sets the SO_SNDBUF option to the specified value for this Socket.",
         "isRestType": false,
         "selected": false
       },
@@ -38,6 +41,7 @@
         "typeName": "boolean",
         "optional": false,
         "defaultable": true,
+        "documentation": "Enable/disable TCP_NODELAY (disable/enable Nagle's algorithm).",
         "isRestType": false,
         "selected": false
       },
@@ -46,6 +50,7 @@
         "typeName": "boolean",
         "optional": false,
         "defaultable": true,
+        "documentation": "Enable/disable the SO_REUSEADDR socket option.",
         "isRestType": false,
         "selected": false
       },
@@ -54,6 +59,7 @@
         "typeName": "boolean",
         "optional": false,
         "defaultable": true,
+        "documentation": "Enable/disable SO_KEEPALIVE.",
         "isRestType": false,
         "value": "true",
         "selected": true

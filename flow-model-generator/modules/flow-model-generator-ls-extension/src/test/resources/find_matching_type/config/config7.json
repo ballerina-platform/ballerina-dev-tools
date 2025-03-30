@@ -25,6 +25,7 @@
                           "typeName": "string",
                           "optional": false,
                           "defaultable": true,
+                          "documentation": "The host address of the MongoDB server",
                           "isRestType": false,
                           "value": "host",
                           "selected": true
@@ -34,6 +35,7 @@
                           "typeName": "int",
                           "optional": false,
                           "defaultable": true,
+                          "documentation": "The port of the MongoDB server",
                           "isRestType": false,
                           "value": "port",
                           "selected": true
@@ -61,6 +63,7 @@
                             "typeName": "string",
                             "optional": false,
                             "defaultable": true,
+                            "documentation": "The host address of the MongoDB server",
                             "isRestType": false,
                             "value": "host",
                             "selected": true
@@ -70,6 +73,7 @@
                             "typeName": "int",
                             "optional": false,
                             "defaultable": true,
+                            "documentation": "The port of the MongoDB server",
                             "isRestType": false,
                             "value": "port",
                             "selected": true
@@ -100,6 +104,7 @@
                   "typeName": "union",
                   "optional": false,
                   "defaultable": true,
+                  "documentation": "Server address (or the list of server addresses for replica sets) of the MongoDB server",
                   "isRestType": false,
                   "selected": true
                 },
@@ -112,6 +117,7 @@
                           "typeName": "PLAIN",
                           "optional": false,
                           "defaultable": true,
+                          "documentation": "The authentication mechanism to use",
                           "isRestType": false,
                           "selected": false
                         },
@@ -120,6 +126,7 @@
                           "typeName": "string",
                           "optional": false,
                           "defaultable": false,
+                          "documentation": "The username for the database connection",
                           "isRestType": false,
                           "selected": false
                         },
@@ -128,6 +135,7 @@
                           "typeName": "string",
                           "optional": false,
                           "defaultable": false,
+                          "documentation": "The password for the database connection",
                           "isRestType": false,
                           "selected": false
                         },
@@ -136,6 +144,7 @@
                           "typeName": "string",
                           "optional": false,
                           "defaultable": false,
+                          "documentation": "The source database for authenticate the client. Usually the database name",
                           "isRestType": false,
                           "selected": false
                         }
@@ -161,6 +170,7 @@
                           "typeName": "SCRAM_SHA_1",
                           "optional": false,
                           "defaultable": true,
+                          "documentation": "The authentication mechanism to use",
                           "isRestType": false,
                           "selected": false
                         },
@@ -169,6 +179,7 @@
                           "typeName": "string",
                           "optional": false,
                           "defaultable": false,
+                          "documentation": "The username for the database connection",
                           "isRestType": false,
                           "selected": false
                         },
@@ -177,6 +188,7 @@
                           "typeName": "string",
                           "optional": false,
                           "defaultable": false,
+                          "documentation": "The password for the database connection",
                           "isRestType": false,
                           "selected": false
                         },
@@ -185,6 +197,7 @@
                           "typeName": "string",
                           "optional": false,
                           "defaultable": false,
+                          "documentation": "The source database for authenticate the client. Usually the database name",
                           "isRestType": false,
                           "selected": false
                         }
@@ -210,6 +223,7 @@
                           "typeName": "SCRAM_SHA_256",
                           "optional": false,
                           "defaultable": true,
+                          "documentation": "The authentication mechanism to use",
                           "isRestType": false,
                           "selected": false
                         },
@@ -218,6 +232,7 @@
                           "typeName": "string",
                           "optional": false,
                           "defaultable": false,
+                          "documentation": "The username for the database connection",
                           "isRestType": false,
                           "selected": false
                         },
@@ -226,6 +241,7 @@
                           "typeName": "string",
                           "optional": false,
                           "defaultable": false,
+                          "documentation": "The password for the database connection",
                           "isRestType": false,
                           "selected": false
                         },
@@ -234,6 +250,7 @@
                           "typeName": "string",
                           "optional": false,
                           "defaultable": false,
+                          "documentation": "The source database for authenticate the client. Usually the database name",
                           "isRestType": false,
                           "selected": false
                         }
@@ -259,6 +276,7 @@
                           "typeName": "MONGODB_X509",
                           "optional": false,
                           "defaultable": true,
+                          "documentation": "The authentication mechanism to use",
                           "isRestType": false,
                           "selected": false
                         },
@@ -267,6 +285,7 @@
                           "typeName": "string",
                           "optional": true,
                           "defaultable": false,
+                          "documentation": "The username for authenticating the client certificate",
                           "isRestType": false,
                           "selected": false
                         }
@@ -292,6 +311,7 @@
                           "typeName": "GSSAPI",
                           "optional": false,
                           "defaultable": true,
+                          "documentation": "The authentication mechanism to use",
                           "isRestType": false,
                           "selected": false
                         },
@@ -300,6 +320,7 @@
                           "typeName": "string",
                           "optional": false,
                           "defaultable": false,
+                          "documentation": "The username for the database connection",
                           "isRestType": false,
                           "selected": false
                         },
@@ -308,6 +329,7 @@
                           "typeName": "string",
                           "optional": true,
                           "defaultable": false,
+                          "documentation": "The service name for the database connection. Use this to override the default service name of `mongodb`",
                           "isRestType": false,
                           "selected": false
                         }
@@ -331,6 +353,7 @@
                   "typeName": "union",
                   "optional": true,
                   "defaultable": false,
+                  "documentation": "The authentication configurations for the MongoDB connection",
                   "isRestType": false,
                   "selected": false
                 }
@@ -361,6 +384,7 @@
           "typeName": "union",
           "optional": false,
           "defaultable": false,
+          "documentation": "connection - Connection string or the connection parameters for the MongoDB connection",
           "isRestType": false,
           "selected": true
         },
@@ -414,6 +438,7 @@
                 "version": "5.1.0"
               },
               "defaultable": false,
+              "documentation": "The read concern level to use",
               "isRestType": false,
               "selected": false
             },
@@ -422,6 +447,7 @@
               "typeName": "string",
               "optional": true,
               "defaultable": false,
+              "documentation": "The write concern level to use",
               "isRestType": false,
               "selected": false
             },
@@ -430,6 +456,7 @@
               "typeName": "string",
               "optional": true,
               "defaultable": false,
+              "documentation": "The read preference for the replica set",
               "isRestType": false,
               "selected": false
             },
@@ -438,6 +465,7 @@
               "typeName": "string",
               "optional": true,
               "defaultable": false,
+              "documentation": "The replica set name if it is to connect to replicas",
               "isRestType": false,
               "selected": false
             },
@@ -446,6 +474,7 @@
               "typeName": "boolean",
               "optional": false,
               "defaultable": true,
+              "documentation": "Whether SSL connection is enabled",
               "isRestType": false,
               "selected": false
             },
@@ -454,6 +483,7 @@
               "typeName": "boolean",
               "optional": false,
               "defaultable": true,
+              "documentation": "Whether invalid host names should be allowed",
               "isRestType": false,
               "selected": false
             },
@@ -466,6 +496,7 @@
                       "typeName": "string",
                       "optional": false,
                       "defaultable": false,
+                      "documentation": "",
                       "isRestType": false,
                       "selected": false
                     },
@@ -474,6 +505,7 @@
                       "typeName": "string",
                       "optional": false,
                       "defaultable": false,
+                      "documentation": "The password for the database connection",
                       "isRestType": false,
                       "selected": false
                     }
@@ -489,6 +521,7 @@
                     "version": "2.8.0"
                   },
                   "defaultable": false,
+                  "documentation": "Configurations associated with the TrustStore",
                   "isRestType": false,
                   "selected": false
                 },
@@ -499,6 +532,7 @@
                       "typeName": "string",
                       "optional": false,
                       "defaultable": false,
+                      "documentation": "",
                       "isRestType": false,
                       "selected": false
                     },
@@ -507,6 +541,7 @@
                       "typeName": "string",
                       "optional": false,
                       "defaultable": false,
+                      "documentation": "The password for the database connection",
                       "isRestType": false,
                       "selected": false
                     }
@@ -522,6 +557,7 @@
                     "version": "2.8.0"
                   },
                   "defaultable": false,
+                  "documentation": "Configurations associated with the KeyStore",
                   "isRestType": false,
                   "selected": false
                 },
@@ -530,6 +566,7 @@
                   "typeName": "string",
                   "optional": false,
                   "defaultable": false,
+                  "documentation": "The standard name of the requested protocol",
                   "isRestType": false,
                   "selected": false
                 }
@@ -545,6 +582,7 @@
                 "version": "5.1.0"
               },
               "defaultable": false,
+              "documentation": "Configurations related to facilitating secure connection",
               "isRestType": false,
               "selected": false
             },
@@ -553,6 +591,7 @@
               "typeName": "boolean",
               "optional": true,
               "defaultable": false,
+              "documentation": "Whether to retry writing failures",
               "isRestType": false,
               "selected": false
             },
@@ -561,6 +600,7 @@
               "typeName": "int",
               "optional": true,
               "defaultable": false,
+              "documentation": "The timeout for the socket",
               "isRestType": false,
               "selected": false
             },
@@ -569,6 +609,7 @@
               "typeName": "int",
               "optional": true,
               "defaultable": false,
+              "documentation": "The timeout for the connection",
               "isRestType": false,
               "selected": false
             },
@@ -577,6 +618,7 @@
               "typeName": "int",
               "optional": true,
               "defaultable": false,
+              "documentation": "The maximum connection pool size",
               "isRestType": false,
               "selected": false
             },
@@ -585,6 +627,7 @@
               "typeName": "int",
               "optional": true,
               "defaultable": false,
+              "documentation": "The maximum idle time for a pooled connection in milliseconds",
               "isRestType": false,
               "selected": false
             },
@@ -593,6 +636,7 @@
               "typeName": "int",
               "optional": true,
               "defaultable": false,
+              "documentation": "The maximum life time for a pooled connection in milliseconds",
               "isRestType": false,
               "selected": false
             },
@@ -601,6 +645,7 @@
               "typeName": "int",
               "optional": true,
               "defaultable": false,
+              "documentation": "The minimum connection pool size",
               "isRestType": false,
               "selected": false
             },
@@ -609,6 +654,7 @@
               "typeName": "int",
               "optional": true,
               "defaultable": false,
+              "documentation": "The local threshold latency in milliseconds",
               "isRestType": false,
               "selected": false
             },
@@ -617,6 +663,7 @@
               "typeName": "int",
               "optional": true,
               "defaultable": false,
+              "documentation": "The heartbeat frequency in milliseconds. This is the frequency that the driver will attempt\nto determine the current state of each server in the cluster.",
               "isRestType": false,
               "selected": false
             }
@@ -632,6 +679,7 @@
             "version": "5.1.0"
           },
           "defaultable": false,
+          "documentation": "The additional connection options for the MongoDB connection",
           "isRestType": false,
           "selected": false
         }
