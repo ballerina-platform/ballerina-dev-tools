@@ -6,7 +6,7 @@
     "offset": 0
   },
   "end": {
-    "line": 22,
+    "line": 25,
     "offset": 0
   },
   "response": {
@@ -52,6 +52,28 @@
         },
         "addNewButton": true
       },
+      "basePath": {
+        "metadata": {
+          "label": "Service Base Path",
+          "description": ""
+        },
+        "enabled": true,
+        "editable": true,
+        "value": "/api/test",
+        "valueType": "IDENTIFIER",
+        "valueTypeConstraint": "string",
+        "isType": false,
+        "placeholder": "",
+        "optional": false,
+        "advanced": false,
+        "codedata": {
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false,
+          "type": "SERVICE_BASEPATH"
+        },
+        "addNewButton": false
+      },
       "annotServiceConfig": {
         "metadata": {
           "label": "Service Configuration",
@@ -82,28 +104,6 @@
             "selected": true
           }
         ]
-      },
-      "basePath": {
-        "metadata": {
-          "label": "Service Base Path",
-          "description": ""
-        },
-        "enabled": true,
-        "editable": true,
-        "value": "/api/test",
-        "valueType": "IDENTIFIER",
-        "valueTypeConstraint": "string",
-        "isType": false,
-        "placeholder": "",
-        "optional": false,
-        "advanced": false,
-        "codedata": {
-          "inListenerInit": false,
-          "isBasePath": false,
-          "inDisplayAnnotation": false,
-          "type": "SERVICE_BASEPATH"
-        },
-        "addNewButton": false
       }
     },
     "codedata": {
@@ -114,7 +114,7 @@
           "offset": 0
         },
         "endLine": {
-          "line": 22,
+          "line": 25,
           "offset": 1
         }
       },
@@ -189,6 +189,41 @@
           "inListenerInit": false,
           "isBasePath": false,
           "inDisplayAnnotation": false
+        },
+        "annotations": {
+          "annotResourceConfig": {
+            "metadata": {
+              "label": "Resource Configuration",
+              "description": "Configurations for the HTTP resource"
+            },
+            "enabled": true,
+            "editable": true,
+            "value": "{\n        consumes: []\n    }",
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:HttpResourceConfig",
+            "isType": false,
+            "placeholder": "{}",
+            "optional": true,
+            "advanced": true,
+            "codedata": {
+              "inListenerInit": false,
+              "isBasePath": false,
+              "inDisplayAnnotation": false,
+              "type": "ANNOTATION_ATTACHMENT",
+              "originalName": "ResourceConfig",
+              "orgName": "ballerina",
+              "moduleName": "http"
+            },
+            "addNewButton": false,
+            "typeMembers": [
+              {
+                "type": "HttpResourceConfig",
+                "packageInfo": "ballerina:http:2.14.0",
+                "kind": "RECORD_TYPE",
+                "selected": false
+              }
+            ]
+          }
         }
       },
       {
@@ -924,13 +959,48 @@
               "offset": 4
             },
             "endLine": {
-              "line": 21,
+              "line": 24,
               "offset": 5
             }
           },
           "inListenerInit": false,
           "isBasePath": false,
           "inDisplayAnnotation": false
+        },
+        "annotations": {
+          "annotResourceConfig": {
+            "metadata": {
+              "label": "Resource Configuration",
+              "description": "Define advanced configurations like resource level media types, security, etc."
+            },
+            "enabled": true,
+            "editable": true,
+            "value": "",
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "http:HttpResourceConfig",
+            "isType": false,
+            "placeholder": "{}",
+            "optional": true,
+            "advanced": true,
+            "codedata": {
+              "inListenerInit": false,
+              "isBasePath": false,
+              "inDisplayAnnotation": false,
+              "type": "ANNOTATION_ATTACHMENT",
+              "originalName": "ResourceConfig",
+              "orgName": "ballerina",
+              "moduleName": "http"
+            },
+            "addNewButton": false,
+            "typeMembers": [
+              {
+                "type": "HttpResourceConfig",
+                "packageInfo": "ballerina:http:2.14.0",
+                "kind": "RECORD_TYPE",
+                "selected": true
+              }
+            ]
+          }
         }
       }
     ]

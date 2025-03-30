@@ -264,7 +264,8 @@
           "inListenerInit": false,
           "isBasePath": false,
           "inDisplayAnnotation": false
-        }
+        },
+        "annotations": {}
       },
       {
         "metadata": {
@@ -434,7 +435,8 @@
           "inListenerInit": false,
           "isBasePath": false,
           "inDisplayAnnotation": false
-        }
+        },
+        "annotations": {}
       },
       {
         "metadata": {
@@ -654,7 +656,8 @@
           "inListenerInit": false,
           "isBasePath": false,
           "inDisplayAnnotation": false
-        }
+        },
+        "annotations": {}
       },
       {
         "metadata": {
@@ -771,7 +774,8 @@
           "inListenerInit": false,
           "isBasePath": false,
           "inDisplayAnnotation": false
-        }
+        },
+        "annotations": {}
       }
     ]
   }
