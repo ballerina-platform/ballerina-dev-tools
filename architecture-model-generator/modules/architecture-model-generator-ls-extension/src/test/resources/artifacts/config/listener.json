@@ -1,0 +1,83 @@
+{
+  "source": "listener.bal",
+  "description": "",
+  "output": {
+    "Listeners": {
+      "rabbitmqListener": {
+        "id": "rabbitmqListener",
+        "location": {
+          "fileName": "listener.bal",
+          "startLine": {
+            "line": 4,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 4,
+            "offset": 84
+          }
+        },
+        "type": "LISTENER",
+        "name": "rabbitmqListener",
+        "scope": "Global",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_rabbitmq_3.2.0.png",
+        "children": {}
+      },
+      "httpListener": {
+        "id": "httpListener",
+        "location": {
+          "fileName": "listener.bal",
+          "startLine": {
+            "line": 6,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 6,
+            "offset": 48
+          }
+        },
+        "type": "LISTENER",
+        "name": "httpListener",
+        "scope": "Global",
+        "children": {}
+      },
+      "refListener": {
+        "id": "refListener",
+        "location": {
+          "fileName": "listener.bal",
+          "startLine": {
+            "line": 3,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 3,
+            "offset": 48
+          }
+        },
+        "type": "LISTENER",
+        "name": "refListener",
+        "scope": "Global",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
+        "children": {}
+      },
+      "httpDefaultListener": {
+        "id": "httpDefaultListener",
+        "location": {
+          "fileName": "listener.bal",
+          "startLine": {
+            "line": 5,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 5,
+            "offset": 71
+          }
+        },
+        "type": "LISTENER",
+        "name": "httpDefaultListener",
+        "scope": "Global",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
+        "children": {}
+      }
+    }
+  }
+}
