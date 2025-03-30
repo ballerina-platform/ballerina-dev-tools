@@ -529,7 +529,6 @@ public final class Utils {
         updateServiceInfo(serviceModel, commonSvcModel);
         serviceModel.setCodedata(new Codedata(serviceDeclaration.lineRange()));
         populateListenerInfo(serviceModel, serviceDeclaration);
-        updateAnnotationAttachmentProperty(serviceDeclaration, serviceModel);
     }
 
     public static void updateServiceModel(Service serviceModel, ServiceDeclarationNode serviceNode,

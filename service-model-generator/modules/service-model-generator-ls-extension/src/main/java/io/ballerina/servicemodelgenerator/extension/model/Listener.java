@@ -82,7 +82,7 @@ public class Listener {
         listenerDeclaration.append(getValueString(properties.get("name")));
         listenerDeclaration.append(" = new ");
         listenerDeclaration.append("(");
-        properties.forEach((key, value) -> {
+        properties.forEach((key, value) -> { // TODO: Order could go wrong here
             if (value.isEnabledWithValue() && isListenerInitProperty(value)) {
                 if (isRequiredArgument(value)) {
                     params.add(getValueString(value));

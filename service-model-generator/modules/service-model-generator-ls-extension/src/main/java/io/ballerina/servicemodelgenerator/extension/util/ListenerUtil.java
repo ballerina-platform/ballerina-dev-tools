@@ -165,7 +165,7 @@ public class ListenerUtil {
         return Optional.empty();
     }
 
-    public static boolean checkForDefaultListenerExistence(Value listener) {
+    public static boolean createDefaultListener(Value listener) {
         if (Objects.nonNull(listener) && listener.isEnabledWithValue()) {
             List<String> values = listener.getValues();
             if (Objects.nonNull(values) && !values.isEmpty()) {
@@ -191,8 +191,8 @@ public class ListenerUtil {
         return false;
     }
 
-    public static String getListenerDeclarationStmt(SemanticModel semanticModel, Document document,
-                                                    LinePosition linePosition) {
+    public static String getHttpDefaultListenerDeclarationStmt(SemanticModel semanticModel, Document document,
+                                                               LinePosition linePosition) {
         String variableName = Utils.generateVariableIdentifier(semanticModel, document, linePosition,
                 ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_VAR_NAME);
         return String.format(ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_STMT, variableName);
@@ -245,7 +245,7 @@ public class ListenerUtil {
         return Optional.of(listener);
     }
 
-    public static Optional<Listener> getDefaultListenerModel() {
+    public static Optional<Listener> getDefaultListenerModel(ListenerDeclarationNode listenerNode) {
         ServiceDatabaseManager dbManager = ServiceDatabaseManager.getInstance();
         Optional<FunctionData> optFunctionResult = dbManager.getListener("http");
         if (optFunctionResult.isEmpty()) {
@@ -257,6 +257,11 @@ public class ListenerUtil {
         functionData.setParameters(parameters);
         Listener listener = getListenerModelWithoutParamProps(functionData);
         listener.getProperties().put("defaultListener", getHttpDefaultListenerValue());
+        Value nameProperty = listener.getProperty("name");
+        nameProperty.setValue(listenerNode.variableName().text().trim());
+        nameProperty.setCodedata(new Codedata(listenerNode.variableName().lineRange()));
+        nameProperty.setEditable(false);
+        listener.setCodedata(new Codedata(listenerNode.lineRange()));
         return Optional.of(listener);
     }
 
@@ -305,6 +310,9 @@ public class ListenerUtil {
 
     public static Optional<Listener> getListenerFromSource(ListenerDeclarationNode listenerDeclarationNode,
                                                            SemanticModel semanticModel) {
+        if (ListenerUtil.isHttpDefaultListener(listenerDeclarationNode)) {
+            return ListenerUtil.getDefaultListenerModel(listenerDeclarationNode);
+        }
         Optional<Symbol> symbol = semanticModel.symbol(listenerDeclarationNode.typeDescriptor().get());
         if (symbol.isEmpty() || !(symbol.get() instanceof TypeSymbol typeSymbol) || typeSymbol.getModule().isEmpty()) {
             return Optional.empty();
@@ -322,7 +330,11 @@ public class ListenerUtil {
         functionData.setParameters(parameters);
 
         Listener listener = getListenerModelWithoutParamProps(functionData);
-
+        Value nameProperty = listener.getProperty("name");
+        nameProperty.setValue(listenerDeclarationNode.variableName().text().trim());
+        nameProperty.setCodedata(new Codedata(listenerDeclarationNode.variableName().lineRange()));
+        nameProperty.setEditable(false);
+        listener.setCodedata(new Codedata(listenerDeclarationNode.lineRange()));
         Node initializer = listenerDeclarationNode.initializer();
         if (initializer instanceof NewExpressionNode newExpressionNode) {
             TypeSymbol rawType = CommonUtils.getRawType(typeSymbol);
