@@ -594,12 +594,14 @@ public class FunctionDataBuilder {
             Map<String, String> includedRecordParamDocs = new HashMap<>();
             if (typeSymbol.getModule().isPresent() && typeSymbol.getName().isPresent()) {
                 ModuleID id = typeSymbol.getModule().get().id();
-                Optional<Symbol> typeByName = semanticModel.types().getTypeByName(id.orgName(), id.moduleName(),
-                        "", typeSymbol.getName().get());
-                if (typeByName.isPresent() && typeByName.get() instanceof TypeDefinitionSymbol typeDefinitionSymbol) {
-                    Optional<Documentation> documentation = typeDefinitionSymbol.documentation();
-                    documentation.ifPresent(documentation1 -> includedRecordParamDocs.putAll(
-                            documentation1.parameterMap()));
+                if (semanticModel != null) {
+                    Optional<Symbol> typeByName = semanticModel.types().getTypeByName(id.orgName(), id.moduleName(),
+                            "", typeSymbol.getName().get());
+                    if (typeByName.isPresent() && typeByName.get() instanceof TypeDefinitionSymbol typeDefSymbol) {
+                        Optional<Documentation> documentation = typeDefSymbol.documentation();
+                        documentation.ifPresent(documentation1 -> includedRecordParamDocs.putAll(
+                                documentation1.parameterMap()));
+                    }
                 }
             }
             paramType = getTypeSignature(typeSymbol);
@@ -715,11 +717,13 @@ public class FunctionDataBuilder {
         recordTypeSymbol.typeInclusions().forEach(includedType -> {
             if (includedType.getModule().isPresent() && includedType.getName().isPresent()) {
                 ModuleID id = includedType.getModule().get().id();
-                Optional<Symbol> typeByName = semanticModel.types().getTypeByName(id.orgName(), id.moduleName(),
-                        "", includedType.getName().get());
-                if (typeByName.isPresent() && typeByName.get() instanceof TypeDefinitionSymbol typeDefinitionSymbol) {
-                    Optional<Documentation> documentation = typeDefinitionSymbol.documentation();
-                    documentation.ifPresent(documentation1 -> documentationMap.putAll(documentation1.parameterMap()));
+                if (semanticModel != null) {
+                    Optional<Symbol> typeByName = semanticModel.types().getTypeByName(id.orgName(), id.moduleName(),
+                            "", includedType.getName().get());
+                    if (typeByName.isPresent() && typeByName.get() instanceof TypeDefinitionSymbol typeDefSymbol) {
+                        Optional<Documentation> documentation = typeDefSymbol.documentation();
+                        documentation.ifPresent(doc -> documentationMap.putAll(doc.parameterMap()));
+                    }
                 }
             }
             parameters.putAll(getIncludedRecordParams((RecordTypeSymbol) CommonUtils.getRawType(includedType), insert,
