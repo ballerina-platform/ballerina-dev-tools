@@ -193,7 +193,7 @@
           "annotResourceConfig": {
             "metadata": {
               "label": "Resource Configuration",
-              "description": "Configurations for the HTTP resource"
+              "description": "Define advanced configurations like resource level media types, security, etc."
             },
             "enabled": true,
             "editable": true,
