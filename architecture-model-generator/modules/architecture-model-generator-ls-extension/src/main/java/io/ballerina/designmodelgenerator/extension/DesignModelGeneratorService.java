@@ -18,6 +18,7 @@
 
 package io.ballerina.designmodelgenerator.extension;
 
+import io.ballerina.artifactsgenerator.ArtifactsCache;
 import io.ballerina.artifactsgenerator.EventGenerator;
 import io.ballerina.designmodelgenerator.core.DesignModelGenerator;
 import io.ballerina.designmodelgenerator.core.model.DesignModel;
@@ -45,6 +46,7 @@ public class DesignModelGeneratorService implements ExtendedLanguageServerServic
     @Override
     public void init(LanguageServer langServer, WorkspaceManager workspaceManager) {
         this.workspaceManager = workspaceManager;
+        ArtifactsCache.initialize();
     }
 
     @Override

@@ -43,21 +43,21 @@
       }
     },
     "Listeners": {
-      "securedEP": {
-        "id": "securedEP",
+      "securedEP2": {
+        "id": "securedEP2",
         "location": {
           "fileName": "BITService.bal",
           "startLine": {
-            "line": 3,
+            "line": 12,
             "offset": 0
           },
           "endLine": {
-            "line": 10,
+            "line": 19,
             "offset": 2
           }
         },
         "type": "LISTENER",
-        "name": "securedEP",
+        "name": "securedEP2",
         "scope": "Global",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
         "children": {}
@@ -81,65 +81,66 @@
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
         "children": {}
       },
-      "securedEP2": {
-        "id": "securedEP2",
+      "securedEP": {
+        "id": "securedEP",
         "location": {
           "fileName": "BITService.bal",
           "startLine": {
-            "line": 12,
+            "line": 3,
             "offset": 0
           },
           "endLine": {
-            "line": 19,
+            "line": 10,
             "offset": 2
           }
         },
         "type": "LISTENER",
-        "name": "securedEP2",
+        "name": "securedEP",
         "scope": "Global",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
         "children": {}
       }
     },
-    "Functions": {
-      "bar": {
-        "id": "bar",
+    "Entry Points": {
+      "-1762100471": {
+        "id": "-1762100471",
         "location": {
           "fileName": "multi_service.bal",
           "startLine": {
+            "line": 15,
+            "offset": 0
+          },
+          "endLine": {
             "line": 20,
-            "offset": 0
-          },
-          "endLine": {
-            "line": 22,
             "offset": 1
           }
         },
-        "type": "FUNCTION",
-        "name": "bar",
+        "type": "SERVICE",
+        "name": "/api2",
         "scope": "Global",
-        "children": {}
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
+        "children": {
+          "get#path": {
+            "id": "get#path",
+            "location": {
+              "fileName": "multi_service.bal",
+              "startLine": {
+                "line": 17,
+                "offset": 4
+              },
+              "endLine": {
+                "line": 19,
+                "offset": 5
+              }
+            },
+            "type": "RESOURCE",
+            "name": "path",
+            "accessor": "get",
+            "scope": "Global",
+            "children": {}
+          }
+        }
       },
-      "foo": {
-        "id": "foo",
-        "location": {
-          "fileName": "IITService.bal",
-          "startLine": {
-            "line": 18,
-            "offset": 0
-          },
-          "endLine": {
-            "line": 21,
-            "offset": 1
-          }
-        },
-        "type": "FUNCTION",
-        "name": "foo",
-        "scope": "Global",
-        "children": {}
-      }
-    },
-    "Entry Points": {
       "-2092914893": {
         "id": "-2092914893",
         "location": {
@@ -215,8 +216,8 @@
         "scope": "Global",
         "children": {}
       },
-      "-1762111290": {
-        "id": "-1762111290",
+      "-1762111259": {
+        "id": "-1762111259",
         "location": {
           "fileName": "multi_service.bal",
           "startLine": {
@@ -224,7 +225,7 @@
             "offset": 0
           },
           "endLine": {
-            "line": 12,
+            "line": 13,
             "offset": 1
           }
         },
@@ -238,11 +239,11 @@
             "location": {
               "fileName": "multi_service.bal",
               "startLine": {
-                "line": 5,
+                "line": 6,
                 "offset": 4
               },
               "endLine": {
-                "line": 7,
+                "line": 8,
                 "offset": 5
               }
             },
@@ -257,55 +258,16 @@
             "location": {
               "fileName": "multi_service.bal",
               "startLine": {
-                "line": 9,
+                "line": 10,
                 "offset": 4
               },
               "endLine": {
-                "line": 11,
+                "line": 12,
                 "offset": 5
               }
             },
             "type": "FUNCTION",
             "name": "baz",
-            "scope": "Global",
-            "children": {}
-          }
-        }
-      },
-      "-1762101494": {
-        "id": "-1762101494",
-        "location": {
-          "fileName": "multi_service.bal",
-          "startLine": {
-            "line": 14,
-            "offset": 0
-          },
-          "endLine": {
-            "line": 18,
-            "offset": 1
-          }
-        },
-        "type": "SERVICE",
-        "name": "/api1",
-        "scope": "Global",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
-        "children": {
-          "get#path": {
-            "id": "get#path",
-            "location": {
-              "fileName": "multi_service.bal",
-              "startLine": {
-                "line": 15,
-                "offset": 4
-              },
-              "endLine": {
-                "line": 17,
-                "offset": 5
-              }
-            },
-            "type": "RESOURCE",
-            "name": "path",
-            "accessor": "get",
             "scope": "Global",
             "children": {}
           }
@@ -421,6 +383,44 @@
             "children": {}
           }
         }
+      }
+    },
+    "Functions": {
+      "bar": {
+        "id": "bar",
+        "location": {
+          "fileName": "multi_service.bal",
+          "startLine": {
+            "line": 22,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 24,
+            "offset": 1
+          }
+        },
+        "type": "FUNCTION",
+        "name": "bar",
+        "scope": "Global",
+        "children": {}
+      },
+      "foo": {
+        "id": "foo",
+        "location": {
+          "fileName": "IITService.bal",
+          "startLine": {
+            "line": 18,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 21,
+            "offset": 1
+          }
+        },
+        "type": "FUNCTION",
+        "name": "foo",
+        "scope": "Global",
+        "children": {}
       }
     },
     "Configurations": {

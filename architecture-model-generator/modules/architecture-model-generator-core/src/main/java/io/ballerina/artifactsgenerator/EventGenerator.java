@@ -23,14 +23,18 @@ import io.ballerina.compiler.syntax.tree.ModuleMemberDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.NodeList;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
+import io.ballerina.projects.Document;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.Package;
 import io.ballerina.projects.Project;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Generator class responsible for creating artifacts from a Ballerina syntax tree. This class analyzes the module
@@ -56,13 +60,20 @@ public class EventGenerator {
         SemanticModel semanticModel = currentPackage.getCompilation().getSemanticModel(defaultModule.moduleId());
 
         Map<String, Map<String, Artifact>> categoryMap = new ConcurrentHashMap<>();
-        defaultModule.documentIds().stream().parallel().forEach(documentId -> findArtifacts(categoryMap,
-                defaultModule.document(documentId).syntaxTree(), semanticModel));
+        ConcurrentHashMap<String, CopyOnWriteArrayList<String>> documentMap = new ConcurrentHashMap<>();
+        defaultModule.documentIds().stream().parallel().forEach(documentId -> {
+            Document document = defaultModule.document(documentId);
+            List<String> artifacts = findArtifacts(categoryMap, document.syntaxTree(), semanticModel);
+            documentMap.put(document.name(), new CopyOnWriteArrayList<>(artifacts));
+        });
+
+        ArtifactsCache.getInstance().initializeProject(project.sourceRoot().toString(), documentMap);
         return toUnmodifableMap(categoryMap);
     }
 
-    private static void findArtifacts(Map<String, Map<String, Artifact>> categoryMap,
-                                      SyntaxTree syntaxTree, SemanticModel semanticModel) {
+    private static List<String> findArtifacts(Map<String, Map<String, Artifact>> categoryMap,
+                                              SyntaxTree syntaxTree, SemanticModel semanticModel) {
+        List<String> artifactIds = new ArrayList<>();
         ModulePartNode rootNode = syntaxTree.rootNode();
         NodeList<ModuleMemberDeclarationNode> members = rootNode.members();
         ModuleNodeTransformer moduleNodeTransformer = new ModuleNodeTransformer(semanticModel);
@@ -71,8 +82,11 @@ public class EventGenerator {
                 .flatMap(Optional::stream)
                 .forEach(artifact -> {
                     String category = artifact.type().getCategory();
-                    categoryMap.computeIfAbsent(category, k -> new HashMap<>()).put(artifact.id(), artifact);
+                    String artifactId = artifact.id();
+                    categoryMap.computeIfAbsent(category, k -> new HashMap<>()).put(artifactId, artifact);
+                    artifactIds.add(artifactId);
                 });
+        return artifactIds;
     }
 
     private static Map<String, Map<String, Artifact>> toUnmodifableMap(Map<String, Map<String, Artifact>> categoryMap) {
