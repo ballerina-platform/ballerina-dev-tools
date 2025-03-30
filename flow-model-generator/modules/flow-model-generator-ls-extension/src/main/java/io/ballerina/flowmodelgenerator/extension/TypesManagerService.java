@@ -21,8 +21,8 @@ package io.ballerina.flowmodelgenerator.extension;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
-import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.flowmodelgenerator.core.TypesManager;
@@ -251,10 +251,9 @@ public class TypesManagerService implements ExtendedLanguageServerService {
                 String typeStr = parts.length > 1 ? parts[1] : parts[0];
 
                 // Get the type symbol
-                Optional<TypeSymbol> typeSymbol = semanticModel.get().moduleSymbols().parallelStream()
+                Optional<Symbol> typeSymbol = semanticModel.get().moduleSymbols().parallelStream()
                         .filter(symbol -> symbol.kind() == SymbolKind.TYPE_DEFINITION &&
                                 symbol.nameEquals(typeStr))
-                        .map(symbol -> ((TypeDefinitionSymbol) symbol).typeDescriptor())
                         .findFirst();
                 if (typeSymbol.isEmpty()) {
                     throw new IllegalArgumentException(String.format("Type '%s' not found in package '%s/%s:%s'",
@@ -263,11 +262,11 @@ public class TypesManagerService implements ExtendedLanguageServerService {
                             packageName,
                             versionName));
                 }
-                if (typeSymbol.get().typeKind() != TypeDescKind.RECORD) {
+                if (typeSymbol.get() instanceof TypeSymbol tSymbol && tSymbol.typeKind() != TypeDescKind.RECORD) {
                     throw new IllegalArgumentException(
                             String.format("Type '%s' is not a record", request.typeConstraint()));
                 }
-                response.setRecordConfig(Type.fromSemanticSymbol(typeSymbol.get()));
+                response.setRecordConfig(Type.fromSemanticSymbol(typeSymbol.get(), semanticModel.get()));
             } catch (Throwable e) {
                 response.setError(e);
             }
@@ -294,13 +293,14 @@ public class TypesManagerService implements ExtendedLanguageServerService {
             RecordConfigResponse response = new RecordConfigResponse();
             try {
                 FindTypeRequest.TypePackageInfo info = FindTypeRequest.TypePackageInfo.from(request.codedata());
-                Optional<TypeSymbol> typeSymbol = findTypeSymbolFromSemanticModel(info, request.filePath(),
+                SemanticModel semanticModel = findSemanticModel(info, request.filePath());
+                Optional<Symbol> typeSymbol = findTypeSymbolFromSemanticModel(semanticModel,
                         request.typeConstraint());
                 if (typeSymbol.isEmpty()) {
                     throw new IllegalArgumentException(String.format("Type '%s' not found in package '%s/%s:%s'",
                             request.typeConstraint(), info.org(), info.module(), info.version()));
                 }
-                Type type  = TypeSymbolAnalyzerFromTypeModel.analyze(typeSymbol.get(), request.expr());
+                Type type  = TypeSymbolAnalyzerFromTypeModel.analyze(typeSymbol.get(), request.expr(), semanticModel);
                 response.setRecordConfig(type);
             } catch (Throwable e) {
                 response.setError(e);
@@ -322,18 +322,19 @@ public class TypesManagerService implements ExtendedLanguageServerService {
         return CompletableFuture.supplyAsync(() -> {
             RecordConfigResponse response = new RecordConfigResponse();
             try {
-                String filePath = request.filePath();
                 String expression = request.expr();
                 for (PropertyTypeMemberInfo memberInfo : request.typeMembers()) {
                     try {
                         FindTypeRequest.TypePackageInfo info = FindTypeRequest.TypePackageInfo
                                 .from(memberInfo.packageInfo());
-                        Optional<TypeSymbol> typeSymbol = findTypeSymbolFromSemanticModel(info, filePath,
+                        SemanticModel semanticModel = findSemanticModel(info, request.filePath());
+                        Optional<Symbol> typeSymbol = findTypeSymbolFromSemanticModel(semanticModel,
                                 memberInfo.type());
                         if (typeSymbol.isEmpty()) {
                             continue;
                         }
-                        Type type  = TypeSymbolAnalyzerFromTypeModel.analyze(typeSymbol.get(), expression);
+                        Type type = TypeSymbolAnalyzerFromTypeModel.analyze(typeSymbol.get(), expression,
+                                semanticModel);
                         if (type != null && type.selected) {
                             response.setRecordConfig(type);
                             type.name = memberInfo.type();
@@ -383,8 +384,8 @@ public class TypesManagerService implements ExtendedLanguageServerService {
         return model;
     }
 
-    private Optional<TypeSymbol> findTypeSymbolFromSemanticModel(FindTypeRequest.TypePackageInfo packageInfo,
-                                                                 String path, String typeConstraint) {
+    private SemanticModel findSemanticModel(FindTypeRequest.TypePackageInfo packageInfo,
+                                                          String path) {
         String orgName = packageInfo.org();
         String packageName = packageInfo.module();
         String versionName = packageInfo.version();
@@ -398,12 +399,15 @@ public class TypesManagerService implements ExtendedLanguageServerService {
             );
         }
 
+        return semanticModel.get();
+    }
+
+    private Optional<Symbol> findTypeSymbolFromSemanticModel(SemanticModel semanticModel, String typeConstraint) {
         String[] parts = typeConstraint.split(":");
         String type = parts.length > 1 ? parts[1] : parts[0];
 
-        return semanticModel.get().moduleSymbols().parallelStream()
+        return semanticModel.moduleSymbols().parallelStream()
                 .filter(symbol -> symbol.kind() == SymbolKind.TYPE_DEFINITION && symbol.nameEquals(type))
-                .map(symbol -> ((TypeDefinitionSymbol) symbol).typeDescriptor())
                 .findFirst();
     }
 
