@@ -30,6 +30,11 @@ import static io.ballerina.servicemodelgenerator.extension.util.ServiceClassUtil
 import static io.ballerina.servicemodelgenerator.extension.util.ServiceClassUtil.ServiceClassContext.SERVICE_DIAGRAM;
 import static io.ballerina.servicemodelgenerator.extension.util.ServiceClassUtil.ServiceClassContext.TYPE_DIAGRAM;
 
+/**
+ * Represents a function in a service declaration or in a service class.
+ *
+ * @since 2.0.0
+ */
 public class Function {
     private MetaData metadata;
     private List<String> qualifiers;
@@ -43,14 +48,12 @@ public class Function {
     private boolean optional;
     private boolean editable;
     private Codedata codedata;
-
-    public Function() {
-        this(null, null, null, null, null, null, null, null, false, false, false, null);
-    }
+    private Map<String, Value> annotations;
 
     public Function(MetaData metadata, List<String> qualifiers, String kind, Value accessor, Value name,
                     List<Parameter> parameters, Map<String, Parameter> schema, FunctionReturnType returnType,
-                    boolean enabled, boolean optional, boolean editable, Codedata codedata) {
+                    boolean enabled, boolean optional, boolean editable, Codedata codedata,
+                    Map<String, Value> annotations) {
         this.metadata = metadata;
         this.qualifiers = qualifiers;
         this.kind = kind;
@@ -63,6 +66,7 @@ public class Function {
         this.optional = optional;
         this.editable = editable;
         this.codedata = codedata;
+        this.annotations = annotations;
     }
 
     private static Function getNewFunctionModel() {
@@ -71,7 +75,7 @@ public class Function {
                 new Value(ServiceModelGeneratorConstants.FUNCTION_ACCESSOR_METADATA),
                 new Value(ServiceModelGeneratorConstants.FUNCTION_NAME_METADATA), new ArrayList<>(),
                 null, new FunctionReturnType(ServiceModelGeneratorConstants.FUNCTION_RETURN_TYPE_METADATA),
-                false, false, false, null);
+                false, false, false, null, null);
     }
 
     public static Function getNewFunctionModel(ServiceClassUtil.ServiceClassContext context) {
@@ -82,7 +86,7 @@ public class Function {
                     new Value(ServiceModelGeneratorConstants.FIELD_NAME_METADATA), new ArrayList<>(),
                     Map.of(ServiceModelGeneratorConstants.PARAMETER, Parameter.graphQLParamSchema()),
                     new FunctionReturnType(ServiceModelGeneratorConstants.FIELD_TYPE_METADATA),
-                    false, false, false, null);
+                    false, false, false, null, null);
         }
         Function newFunction = getNewFunctionModel();
         if (context == TYPE_DIAGRAM || context == SERVICE_DIAGRAM) {
@@ -196,6 +200,14 @@ public class Function {
         this.schema = schema;
     }
 
+    public Map<String, Value> getAnnotations() {
+        return annotations;
+    }
+
+    public void setAnnotations(Map<String, Value> annotations) {
+        this.annotations = annotations;
+    }
+
     public static class FunctionBuilder {
         private MetaData metadata;
         private List<String> qualifiers;
@@ -209,6 +221,7 @@ public class Function {
         private boolean optional;
         private boolean editable;
         private Codedata codedata;
+        private Map<String, Value> annotations;
 
         public FunctionBuilder setMetadata(MetaData metadata) {
             this.metadata = metadata;
@@ -270,9 +283,14 @@ public class Function {
             return this;
         }
 
+        public FunctionBuilder setAnnotations(Map<String, Value> annotations) {
+            this.annotations = annotations;
+            return this;
+        }
+
         public Function build() {
             return new Function(metadata, qualifiers, kind, accessor, name, parameters, schema, returnType, enabled,
-                    optional, editable, codedata);
+                    optional, editable, codedata, annotations);
         }
     }
 }
