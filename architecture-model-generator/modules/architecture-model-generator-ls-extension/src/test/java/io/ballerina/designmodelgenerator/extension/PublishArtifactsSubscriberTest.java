@@ -19,6 +19,7 @@
 package io.ballerina.designmodelgenerator.extension;
 
 import io.ballerina.artifactsgenerator.Artifact;
+import io.ballerina.artifactsgenerator.ArtifactGenerationDebouncer;
 import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import org.ballerinalang.langserver.LSContextOperation;
 import org.ballerinalang.langserver.commons.DocumentServiceContext;
@@ -32,7 +33,6 @@ import org.eclipse.lsp4j.VersionedTextDocumentIdentifier;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.testng.Assert;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -42,6 +42,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Test cases for publishing artifacts.
@@ -75,7 +76,6 @@ public class PublishArtifactsSubscriberTest extends AbstractLSTest {
                 LSContextOperation.TXT_DID_CHANGE,
                 languageServer.getServerContext()
         );
-
         VersionedTextDocumentIdentifier versionedTextDocumentIdentifier = new VersionedTextDocumentIdentifier();
         List<TextDocumentContentChangeEvent> changeEvents =
                 List.of(new TextDocumentContentChangeEvent(getText(sourcePath)));
@@ -99,6 +99,41 @@ public class PublishArtifactsSubscriberTest extends AbstractLSTest {
 
         // Capture the artifacts published to the client - they are Object[] arrays
         ArgumentCaptor<Object> artifactsCaptor = ArgumentCaptor.forClass(Object.class);
+
+        // Add a wait loop to verify that all scheduled tasks have completed
+        // and the delayedMap is empty before proceeding with verification
+        ArtifactGenerationDebouncer debouncer = ArtifactGenerationDebouncer.getInstance();
+        long startTime = System.currentTimeMillis();
+        long timeout = 5000; // 5 seconds timeout
+        boolean isEmpty = false;
+        try {
+            // Wait for debouncer to finish processing (max 5 seconds)
+            while (System.currentTimeMillis() - startTime < timeout) {
+                // Use reflection to access the private delayedMap field
+                java.lang.reflect.Field delayedMapField =
+                        ArtifactGenerationDebouncer.class.getDeclaredField("delayedMap");
+                delayedMapField.setAccessible(true);
+                ConcurrentHashMap<?, ?> map =
+                        (ConcurrentHashMap<?, ?>) delayedMapField.get(debouncer);
+
+                // Check if the request for the fileUri is completed
+                if (map.get(fileUri) == null) {
+                    isEmpty = true;
+                    break;
+                }
+
+                // Small delay to avoid tight loop
+                Thread.sleep(100);
+            }
+
+            if (!isEmpty) {
+                Assert.fail("Timed out waiting for debouncer to finish processing");
+            }
+        } catch (Exception e) {
+            Assert.fail("Error while checking debouncer state", e);
+        }
+
+        // Verify the client was called with the expected artifacts
         Mockito.verify(mockClient).publishArtifacts(artifactsCaptor.capture());
         Object capturedValue = artifactsCaptor.getValue();
         @SuppressWarnings("unchecked")
@@ -113,7 +148,6 @@ public class PublishArtifactsSubscriberTest extends AbstractLSTest {
             compareJsonElements(gson.toJsonTree(publishedArtifacts), gson.toJsonTree(expectedArtifacts));
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.source(), configJsonPath));
         }
-
     }
 
     @Override

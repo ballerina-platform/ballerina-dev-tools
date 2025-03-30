@@ -18,6 +18,7 @@
 
 package io.ballerina.designmodelgenerator.extension;
 
+import io.ballerina.artifactsgenerator.ArtifactGenerationDebouncer;
 import io.ballerina.artifactsgenerator.EventGenerator;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
@@ -53,7 +54,11 @@ public class PublishArtifactsSubscriber implements EventSubscriber {
         if (syntaxTree.isEmpty() || semanticModel.isEmpty()) {
             return;
         }
-        client.publishArtifacts(EventGenerator.artifactChanges(syntaxTree.get(), semanticModel.get()));
+
+        // Use the debouncer to schedule the artifact generation
+        ArtifactGenerationDebouncer.getInstance().debounce(context.fileUri(), () -> {
+            client.publishArtifacts(EventGenerator.artifactChanges(syntaxTree.get(), semanticModel.get()));
+        });
     }
 
     @Override

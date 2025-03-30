@@ -47,7 +47,7 @@ public class EventGenerator {
         }
         Map<String, Map<String, Artifact>> categoryMap = new ConcurrentHashMap<>();
         findArtifacts(categoryMap, syntaxTree, semanticModel);
-        return categoryMap;
+        return toUnmodifableMap(categoryMap);
     }
 
     public static Map<String, Map<String, Artifact>> artifacts(Project project) {
@@ -56,9 +56,9 @@ public class EventGenerator {
         SemanticModel semanticModel = currentPackage.getCompilation().getSemanticModel(defaultModule.moduleId());
 
         Map<String, Map<String, Artifact>> categoryMap = new ConcurrentHashMap<>();
-        defaultModule.documentIds().stream().parallel().forEach(documentId ->
-                findArtifacts(categoryMap, defaultModule.document(documentId).syntaxTree(), semanticModel));
-        return categoryMap;
+        defaultModule.documentIds().stream().parallel().forEach(documentId -> findArtifacts(categoryMap,
+                defaultModule.document(documentId).syntaxTree(), semanticModel));
+        return toUnmodifableMap(categoryMap);
     }
 
     private static void findArtifacts(Map<String, Map<String, Artifact>> categoryMap,
@@ -75,4 +75,10 @@ public class EventGenerator {
                 });
     }
 
+    private static Map<String, Map<String, Artifact>> toUnmodifableMap(Map<String, Map<String, Artifact>> categoryMap) {
+        return categoryMap.entrySet()
+                .stream()
+                .collect(java.util.stream.Collectors.toUnmodifiableMap(Map.Entry::getKey,
+                        e -> Map.copyOf(e.getValue())));
+    }
 }
