@@ -374,7 +374,6 @@ public final class Utils {
             if (Objects.nonNull(returnType)) {
                 returnType.setValue(returnTypeDesc.get().type().toString().trim());
                 returnType.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_TYPE);
-                returnType.setEnabled(true);
             }
             if (isHttp) {
                 populateHttpResponses(functionDefinitionNode, returnType, semanticModel);

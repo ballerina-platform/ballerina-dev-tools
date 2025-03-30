@@ -234,6 +234,9 @@ public class Function {
     }
 
     public Map<String, Value> getAnnotations() {
+        if (annotations == null) {
+            annotations = new HashMap<>();
+        }
         return annotations;
     }
 
