@@ -69,6 +69,7 @@
     "typeName": "record",
     "optional": false,
     "defaultable": false,
+    "documentation": "Provides settings related to client socket configuration.\n",
     "isRestType": false,
     "selected": true
   }

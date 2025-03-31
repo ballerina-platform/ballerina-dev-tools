@@ -4817,6 +4817,7 @@
     "typeName": "union",
     "optional": false,
     "defaultable": false,
+    "documentation": "Defines the authentication configurations for the HTTP client.",
     "isRestType": false,
     "selected": true
   }

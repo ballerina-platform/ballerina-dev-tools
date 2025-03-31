@@ -380,6 +380,7 @@
       "typeName": "record",
       "optional": false,
       "defaultable": false,
+      "documentation": "Configures the SSL/TLS options to be used for HTTP service.\n",
       "isRestType": false,
       "selected": true
     },

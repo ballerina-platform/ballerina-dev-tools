@@ -689,6 +689,7 @@
       "typeName": "record",
       "optional": false,
       "defaultable": false,
+      "documentation": "Represents the Client configurations for MongoDB.",
       "isRestType": false,
       "selected": true
     },

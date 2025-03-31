@@ -1241,6 +1241,7 @@
       "typeName": "record",
       "optional": false,
       "defaultable": false,
+      "documentation": "Represents OAuth2 password grant configurations for OAuth2 authentication.",
       "isRestType": false,
       "selected": true
     },
