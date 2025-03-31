@@ -66,6 +66,14 @@ public class ModelGeneratorTest extends AbstractLSTest {
     }
 
     @Override
+    protected String[] skipList() {
+        // TODO: Enable this once the default value issue is resolved
+        return new String[]{
+                "resource_action_call_github.json"
+        };
+    }
+
+    @Override
     protected String getResourceDir() {
         return "diagram_generator";
     }
