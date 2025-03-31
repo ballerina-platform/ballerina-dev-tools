@@ -19,9 +19,7 @@
 package io.ballerina.artifactsgenerator;
 
 import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.syntax.tree.ModuleMemberDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
-import io.ballerina.compiler.syntax.tree.NodeList;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Module;
@@ -29,12 +27,12 @@ import io.ballerina.projects.Package;
 import io.ballerina.projects.Project;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 /**
  * Generator class responsible for creating artifacts from a Ballerina syntax tree. This class analyzes the module
@@ -51,15 +49,14 @@ public class ArtifactsGenerator {
             return Map.of();
         }
 
-        Map<String, List<String>> prevIdMap = new ConcurrentHashMap<>(
+        Map<String, List<String>> prevIdMap = new HashMap<>(
                 ArtifactsCache.getInstance().getArtifactIds(projectPath, syntaxTree.filePath()));
-        Map<String, List<String>> newIdMap = new ConcurrentHashMap<>();
+        Map<String, List<String>> newIdMap = new HashMap<>();
 
-        Map<String, Map<String, Map<String, Artifact>>> categoryMap = new ConcurrentHashMap<>();
+        Map<String, Map<String, Map<String, Artifact>>> categoryMap = new HashMap<>();
         ModulePartNode rootNode = syntaxTree.rootNode();
-        NodeList<ModuleMemberDeclarationNode> members = rootNode.members();
         ModuleNodeTransformer moduleNodeTransformer = new ModuleNodeTransformer(semanticModel);
-        members.stream().parallel()
+        rootNode.members().stream()
                 .map(member -> member.apply(moduleNodeTransformer))
                 .flatMap(Optional::stream)
                 .forEach(artifact -> {
@@ -76,8 +73,8 @@ public class ArtifactsGenerator {
                     }
 
                     // Update the new artifact
-                    categoryMap.computeIfAbsent(category, k -> new ConcurrentHashMap<>())
-                            .computeIfAbsent(eventType, k -> new ConcurrentHashMap<>())
+                    categoryMap.computeIfAbsent(category, k -> new HashMap<>())
+                            .computeIfAbsent(eventType, k -> new HashMap<>())
                             .put(artifactId, artifact);
                     newIdMap.computeIfAbsent(category, k -> new ArrayList<>()).add(artifactId);
                 });
@@ -103,14 +100,14 @@ public class ArtifactsGenerator {
         SemanticModel semanticModel = currentPackage.getCompilation().getSemanticModel(defaultModule.moduleId());
 
         Map<String, Map<String, Artifact>> artifactMap = new ConcurrentHashMap<>();
-        ConcurrentHashMap<String, Map<String, List<String>>> documentMap = new ConcurrentHashMap<>();
+        ConcurrentMap<String, Map<String, List<String>>> documentMap = new ConcurrentHashMap<>();
         defaultModule.documentIds().stream().parallel().forEach(documentId -> {
             Document document = defaultModule.document(documentId);
-            Map<String, List<String>> idMap = new ConcurrentHashMap<>();
+            Map<String, List<String>> idMap = new HashMap<>();
             SyntaxTree syntaxTree = document.syntaxTree();
             ModulePartNode rootNode = syntaxTree.rootNode();
             ModuleNodeTransformer moduleNodeTransformer = new ModuleNodeTransformer(semanticModel);
-            rootNode.members().stream().parallel()
+            rootNode.members().stream()
                     .map(member -> member.apply(moduleNodeTransformer))
                     .flatMap(Optional::stream)
                     .forEach(artifact -> {
@@ -119,7 +116,7 @@ public class ArtifactsGenerator {
                         artifactMap.computeIfAbsent(category, k -> new HashMap<>()).put(artifactId, artifact);
                         idMap.computeIfAbsent(category, k -> new ArrayList<>()).add(artifactId);
                     });
-            documentMap.put(document.name(), Collections.unmodifiableMap(idMap));
+            documentMap.put(document.name(), idMap);
         });
 
         ArtifactsCache.getInstance().initializeProject(project.sourceRoot().toString(), documentMap);

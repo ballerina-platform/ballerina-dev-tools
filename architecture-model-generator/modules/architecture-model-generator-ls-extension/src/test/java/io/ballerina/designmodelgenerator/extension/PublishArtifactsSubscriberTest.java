@@ -36,7 +36,6 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -185,7 +184,8 @@ public class PublishArtifactsSubscriberTest extends AbstractLSTest {
         Mockito.verify(mockClient).publishArtifacts(artifactsCaptor.capture());
         Object capturedValue = artifactsCaptor.getValue();
         @SuppressWarnings("unchecked")
-        Map<String, Map<String, Map<String, Artifact>>> publishedArtifacts = (Map<String, Map<String, Map<String, Artifact>>>) capturedValue;
+        Map<String, Map<String, Map<String, Artifact>>> publishedArtifacts =
+                (Map<String, Map<String, Map<String, Artifact>>>) capturedValue;
         Map<String, Map<String, Map<String, Artifact>>> expectedArtifacts = testConfig.output();
 
         // Assert the published artifacts
@@ -213,7 +213,8 @@ public class PublishArtifactsSubscriberTest extends AbstractLSTest {
         return "publishArtifacts";
     }
 
-    private record TestConfig(String source, String description, Map<String, Map<String, Map<String, Artifact>>> output) {
+    private record TestConfig(String source, String description,
+                              Map<String, Map<String, Map<String, Artifact>>> output) {
 
         public String description() {
             return description == null ? "" : description;

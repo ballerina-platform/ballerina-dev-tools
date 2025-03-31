@@ -22,6 +22,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -36,10 +37,10 @@ public class ArtifactsCache {
     private static ArtifactsCache instance;
 
     // Map: project_id → document id -> category -> artifact ids
-    private final ConcurrentHashMap<String, ConcurrentHashMap<String, Map<String, List<String>>>> projectCache;
+    private final ConcurrentMap<String, ConcurrentMap<String, Map<String, List<String>>>> projectCache;
 
     // Map: project_id:file_uri → lock
-    private final ConcurrentHashMap<String, Lock> locks;
+    private final ConcurrentMap<String, Lock> locks;
 
     private ArtifactsCache() {
         projectCache = new ConcurrentHashMap<>();
@@ -78,7 +79,7 @@ public class ArtifactsCache {
     }
 
     public void initializeProject(String projectId,
-                                  ConcurrentHashMap<String, Map<String, List<String>>> documentMap) {
+                                  ConcurrentMap<String, Map<String, List<String>>> documentMap) {
         projectCache.put(projectId, documentMap);
     }
 
@@ -94,7 +95,7 @@ public class ArtifactsCache {
         Lock lock = getOrCreateLock(projectId, fileUri);
         lock.lock();
 
-        ConcurrentHashMap<String, Map<String, List<String>>> documentMap = projectCache.get(projectId);
+        ConcurrentMap<String, Map<String, List<String>>> documentMap = projectCache.get(projectId);
         if (documentMap == null) {
             return Collections.emptyMap();
         }
@@ -118,7 +119,7 @@ public class ArtifactsCache {
     public void updateArtifactIds(String projectId, String fileUri, Map<String, List<String>> artifactIds) {
         try {
             // Get or create document map for project
-            ConcurrentHashMap<String, Map<String, List<String>>> documentMap =
+            ConcurrentMap<String, Map<String, List<String>>> documentMap =
                     projectCache.computeIfAbsent(projectId, k -> new ConcurrentHashMap<>());
             documentMap.put(fileUri, artifactIds);
         } finally {

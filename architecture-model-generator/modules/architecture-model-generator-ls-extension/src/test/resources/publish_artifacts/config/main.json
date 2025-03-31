@@ -1,0 +1,165 @@
+{
+  "source": "new/main.bal",
+  "description": "",
+  "output": {
+    "Variables": {
+      "updates": {
+        "menuItems": {
+          "id": "menuItems",
+          "location": {
+            "fileName": "main.bal",
+            "startLine": {
+              "line": 5,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 10,
+              "offset": 2
+            }
+          },
+          "type": "VARIABLE",
+          "name": "menuItems",
+          "scope": "Global",
+          "children": {}
+        },
+        "orders": {
+          "id": "orders",
+          "location": {
+            "fileName": "main.bal",
+            "startLine": {
+              "line": 12,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 31,
+              "offset": 2
+            }
+          },
+          "type": "VARIABLE",
+          "name": "orders",
+          "scope": "Global",
+          "children": {}
+        },
+        "orderCounter": {
+          "id": "orderCounter",
+          "location": {
+            "fileName": "main.bal",
+            "startLine": {
+              "line": 34,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 34,
+              "offset": 21
+            }
+          },
+          "type": "VARIABLE",
+          "name": "orderCounter",
+          "scope": "Global",
+          "children": {}
+        }
+      }
+    },
+    "Listeners": {
+      "deletions": {
+        "telegramAgentListener": {
+          "id": "telegramAgentListener",
+          "children": {}
+        }
+      },
+      "updates": {
+        "httpListener": {
+          "id": "httpListener",
+          "location": {
+            "fileName": "main.bal",
+            "startLine": {
+              "line": 2,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 2,
+              "offset": 49
+            }
+          },
+          "type": "LISTENER",
+          "name": "httpListener",
+          "scope": "Global",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
+          "children": {}
+        }
+      }
+    },
+    "Entry Points": {
+      "additions": {
+        "-611373993": {
+          "id": "-611373993",
+          "location": {
+            "fileName": "main.bal",
+            "startLine": {
+              "line": 36,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 69,
+              "offset": 1
+            }
+          },
+          "type": "SERVICE",
+          "name": "/restaurant",
+          "scope": "Global",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
+          "children": {
+            "post#orders": {
+              "id": "post#orders",
+              "location": {
+                "fileName": "main.bal",
+                "startLine": {
+                  "line": 46,
+                  "offset": 4
+                },
+                "endLine": {
+                  "line": 68,
+                  "offset": 5
+                }
+              },
+              "type": "RESOURCE",
+              "name": "orders",
+              "accessor": "post",
+              "scope": "Global",
+              "children": {}
+            },
+            "get#items": {
+              "id": "get#items",
+              "location": {
+                "fileName": "main.bal",
+                "startLine": {
+                  "line": 38,
+                  "offset": 4
+                },
+                "endLine": {
+                  "line": 44,
+                  "offset": 5
+                }
+              },
+              "type": "RESOURCE",
+              "name": "items",
+              "accessor": "get",
+              "scope": "Global",
+              "children": {}
+            }
+          }
+        }
+      },
+      "deletions": {
+        "-611392686": {
+          "id": "-611392686",
+          "children": {}
+        },
+        "-611384068": {
+          "id": "-611384068",
+          "children": {}
+        }
+      }
+    }
+  }
+}
