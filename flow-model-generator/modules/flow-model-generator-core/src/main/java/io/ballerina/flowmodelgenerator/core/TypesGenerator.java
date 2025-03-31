@@ -78,6 +78,7 @@ public class TypesGenerator {
     public static final String TYPE_MAP_JSON = "map<json>";
     public static final String TYPE_MAP_STRING = "map<string>";
     public static final String TYPE_JSON_ARRAY = "json[]";
+    public static final String TYPE_STRING_ARRAY = "string[]";
 
     // Other
     public static final String TYPE_ANY = TypeKind.ANY.typeName();
@@ -92,7 +93,7 @@ public class TypesGenerator {
             "Primitive Types",
             List.of(TYPE_STRING, TYPE_INT, TYPE_FLOAT, TYPE_DECIMAL, TYPE_BOOLEAN, TYPE_NIL, TYPE_BYTE),
             "Data Types", List.of(TYPE_JSON, TYPE_XML, TYPE_ANYDATA),
-            "Structural Types", List.of(TYPE_BYTE_ARRAY, TYPE_MAP_JSON, TYPE_MAP_STRING, TYPE_JSON_ARRAY, TYPE_RECORD),
+            "Structural Types", List.of(TYPE_BYTE_ARRAY, TYPE_MAP_JSON, TYPE_MAP_STRING, TYPE_JSON_ARRAY, TYPE_STRING_ARRAY, TYPE_RECORD),
             "Error Types", List.of(TYPE_ERROR),
             "Behaviour Types", List.of(TYPE_FUNCTION, TYPE_FUTURE, TYPE_TYPEDESC, TYPE_HANDLE, TYPE_STREAM),
             "Other Types", List.of(TYPE_ANY, TYPE_READONLY));
@@ -182,6 +183,7 @@ public class TypesGenerator {
             typeSymbolMap.put(TYPE_MAP_STRING, types.builder().MAP_TYPE.withTypeParam(types.STRING).build());
             typeSymbolMap.put(TYPE_JSON_ARRAY, types.builder().ARRAY_TYPE.withType(types.JSON).build());
             typeSymbolMap.put(TYPE_BYTE_ARRAY, types.builder().ARRAY_TYPE.withType(types.BYTE).build());
+            typeSymbolMap.put(TYPE_STRING_ARRAY, types.builder().ARRAY_TYPE.withType(types.STRING).build());
 
             // Build the completion items for the builtin types
             categoryMap.forEach((category, typeNames) -> {
