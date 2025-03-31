@@ -14,6 +14,32 @@
       "items": [
         {
           "metadata": {
+            "label": "agent"
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "run",
+                "description": "Executes the agent for a given user query.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.9.2.png"
+              },
+              "codedata": {
+                "node": "REMOTE_ACTION_CALL",
+                "org": "ballerinax",
+                "module": "ai.agent",
+                "object": "Agent",
+                "symbol": "run",
+                "version": "0.9.2",
+                "parentSymbol": "agent",
+                "resourcePath": "",
+                "isGenerated": false
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
             "label": "httpClient"
           },
           "items": [
@@ -31,7 +57,8 @@
                 "symbol": "get",
                 "version": "2.14.0",
                 "parentSymbol": "httpClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -49,7 +76,8 @@
                 "symbol": "post",
                 "version": "2.14.0",
                 "parentSymbol": "httpClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -67,7 +95,8 @@
                 "symbol": "put",
                 "version": "2.14.0",
                 "parentSymbol": "httpClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -85,7 +114,8 @@
                 "symbol": "delete",
                 "version": "2.14.0",
                 "parentSymbol": "httpClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -103,7 +133,8 @@
                 "symbol": "patch",
                 "version": "2.14.0",
                 "parentSymbol": "httpClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -121,7 +152,8 @@
                 "symbol": "head",
                 "version": "2.14.0",
                 "parentSymbol": "httpClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -139,7 +171,8 @@
                 "symbol": "options",
                 "version": "2.14.0",
                 "parentSymbol": "httpClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -157,7 +190,8 @@
                 "symbol": "execute",
                 "version": "2.14.0",
                 "parentSymbol": "httpClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -175,7 +209,8 @@
                 "symbol": "forward",
                 "version": "2.14.0",
                 "parentSymbol": "httpClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -193,7 +228,8 @@
                 "symbol": "submit",
                 "version": "2.14.0",
                 "parentSymbol": "httpClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -211,7 +247,8 @@
                 "symbol": "getResponse",
                 "version": "2.14.0",
                 "parentSymbol": "httpClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -229,7 +266,8 @@
                 "symbol": "hasPromise",
                 "version": "2.14.0",
                 "parentSymbol": "httpClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -247,7 +285,8 @@
                 "symbol": "getNextPromise",
                 "version": "2.14.0",
                 "parentSymbol": "httpClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -265,7 +304,8 @@
                 "symbol": "getPromisedResponse",
                 "version": "2.14.0",
                 "parentSymbol": "httpClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -283,7 +323,8 @@
                 "symbol": "rejectPromise",
                 "version": "2.14.0",
                 "parentSymbol": "httpClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -301,7 +342,8 @@
                 "symbol": "getCookieStore",
                 "version": "2.14.0",
                 "parentSymbol": "httpClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -319,7 +361,8 @@
                 "symbol": "circuitBreakerForceClose",
                 "version": "2.14.0",
                 "parentSymbol": "httpClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -337,7 +380,8 @@
                 "symbol": "circuitBreakerForceOpen",
                 "version": "2.14.0",
                 "parentSymbol": "httpClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -355,7 +399,8 @@
                 "symbol": "getCircuitBreakerCurrentState",
                 "version": "2.14.0",
                 "parentSymbol": "httpClient",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             }
@@ -380,7 +425,8 @@
                 "symbol": "get",
                 "version": "2.14.0",
                 "parentSymbol": "httpClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -398,7 +444,8 @@
                 "symbol": "post",
                 "version": "2.14.0",
                 "parentSymbol": "httpClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -416,7 +463,8 @@
                 "symbol": "put",
                 "version": "2.14.0",
                 "parentSymbol": "httpClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -434,7 +482,8 @@
                 "symbol": "delete",
                 "version": "2.14.0",
                 "parentSymbol": "httpClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -452,7 +501,8 @@
                 "symbol": "patch",
                 "version": "2.14.0",
                 "parentSymbol": "httpClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -470,7 +520,8 @@
                 "symbol": "head",
                 "version": "2.14.0",
                 "parentSymbol": "httpClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -488,7 +539,8 @@
                 "symbol": "options",
                 "version": "2.14.0",
                 "parentSymbol": "httpClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -506,7 +558,8 @@
                 "symbol": "execute",
                 "version": "2.14.0",
                 "parentSymbol": "httpClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -524,7 +577,8 @@
                 "symbol": "forward",
                 "version": "2.14.0",
                 "parentSymbol": "httpClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -542,7 +596,8 @@
                 "symbol": "submit",
                 "version": "2.14.0",
                 "parentSymbol": "httpClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -560,7 +615,8 @@
                 "symbol": "getResponse",
                 "version": "2.14.0",
                 "parentSymbol": "httpClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -578,7 +634,8 @@
                 "symbol": "hasPromise",
                 "version": "2.14.0",
                 "parentSymbol": "httpClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -596,7 +653,8 @@
                 "symbol": "getNextPromise",
                 "version": "2.14.0",
                 "parentSymbol": "httpClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -614,7 +672,8 @@
                 "symbol": "getPromisedResponse",
                 "version": "2.14.0",
                 "parentSymbol": "httpClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -632,7 +691,8 @@
                 "symbol": "rejectPromise",
                 "version": "2.14.0",
                 "parentSymbol": "httpClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -650,7 +710,8 @@
                 "symbol": "getCookieStore",
                 "version": "2.14.0",
                 "parentSymbol": "httpClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -668,7 +729,8 @@
                 "symbol": "circuitBreakerForceClose",
                 "version": "2.14.0",
                 "parentSymbol": "httpClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -686,7 +748,8 @@
                 "symbol": "circuitBreakerForceOpen",
                 "version": "2.14.0",
                 "parentSymbol": "httpClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             },
@@ -704,7 +767,8 @@
                 "symbol": "getCircuitBreakerCurrentState",
                 "version": "2.14.0",
                 "parentSymbol": "httpClientResult",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             }
@@ -718,8 +782,8 @@
             {
               "metadata": {
                 "label": "chat",
-                "description": "Uses function call API to determine next function to be called\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.7.9.png"
+                "description": "Sends a chat request to the OpenAI model with the given messages and tools.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.9.2.png"
               },
               "codedata": {
                 "node": "REMOTE_ACTION_CALL",
@@ -727,42 +791,10 @@
                 "module": "ai.agent",
                 "object": "AzureOpenAiModel",
                 "symbol": "chat",
-                "version": "0.7.9",
+                "version": "0.9.2",
                 "parentSymbol": "model",
-                "resourcePath": ""
-              },
-              "enabled": true
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "metadata": {
-        "label": "Agents",
-        "description": "The agents used in the flow"
-      },
-      "items": [
-        {
-          "metadata": {
-            "label": "agent"
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "run",
-                "description": "Executes the agent for a given user query.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.7.9.png"
-              },
-              "codedata": {
-                "node": "AGENT_CALL",
-                "org": "ballerinax",
-                "module": "ai.agent",
-                "object": "Agent",
-                "symbol": "run",
-                "version": "0.7.9",
-                "parentSymbol": "agent",
-                "resourcePath": ""
+                "resourcePath": "",
+                "isGenerated": false
               },
               "enabled": true
             }
@@ -778,7 +810,7 @@
       "items": [
         {
           "metadata": {
-            "label": "Variable"
+            "label": "Declare Variable"
           },
           "codedata": {
             "node": "VARIABLE"
@@ -797,7 +829,7 @@
         },
         {
           "metadata": {
-            "label": "Function Call",
+            "label": "Call Function",
             "description": "Both project and utility functions"
           },
           "codedata": {
@@ -811,6 +843,31 @@
           },
           "codedata": {
             "node": "DATA_MAPPER_CALL"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Call Natural Function",
+            "description": "Call a natural programming function",
+            "icon": "https://gist.github.com/user-attachments/assets/903c5c16-7d67-4af8-8113-ce7c59ccdaab"
+          },
+          "codedata": {
+            "node": "NP_FUNCTION"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Agent",
+            "description": "Create new agent"
+          },
+          "codedata": {
+            "node": "AGENT_CALL",
+            "org": "ballerinax",
+            "module": "ai.agent",
+            "object": "Agent",
+            "symbol": "run"
           },
           "enabled": true
         }
@@ -1071,38 +1128,6 @@
             "module": "log",
             "symbol": "printDebug",
             "version": "2.10.0"
-          },
-          "enabled": true
-        }
-      ]
-    },
-    {
-      "metadata": {
-        "label": "Prompt as code"
-      },
-      "items": [
-        {
-          "metadata": {
-            "label": "Call LLM",
-            "description": "AI Call\n```ballerina\nnp:callLlm(\"prompt message\", id = 845315)\n```\n\n",
-            "icon": "https://gist.github.com/user-attachments/assets/903c5c16-7d67-4af8-8113-ce7c59ccdaab"
-          },
-          "codedata": {
-            "node": "NP_FUNCTION_CALL",
-            "org": "ballerinax",
-            "module": "np",
-            "symbol": "callLlm",
-            "version": "0.1.0"
-          },
-          "enabled": true
-        },
-        {
-          "metadata": {
-            "label": "Prompt as code",
-            "description": "Prompt as code functions"
-          },
-          "codedata": {
-            "node": "NP_FUNCTION"
           },
           "enabled": true
         }

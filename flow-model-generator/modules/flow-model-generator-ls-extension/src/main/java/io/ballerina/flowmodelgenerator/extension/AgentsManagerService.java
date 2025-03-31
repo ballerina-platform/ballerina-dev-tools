@@ -24,18 +24,15 @@ import io.ballerina.flowmodelgenerator.extension.request.EditToolRequest;
 import io.ballerina.flowmodelgenerator.extension.request.GenToolRequest;
 import io.ballerina.flowmodelgenerator.extension.request.GetAllAgentsRequest;
 import io.ballerina.flowmodelgenerator.extension.request.GetAllModelsRequest;
-import io.ballerina.flowmodelgenerator.extension.request.GetConnectorActionsRequest;
 import io.ballerina.flowmodelgenerator.extension.request.GetModelsRequest;
 import io.ballerina.flowmodelgenerator.extension.request.GetToolsRequest;
 import io.ballerina.flowmodelgenerator.extension.response.EditToolResponse;
 import io.ballerina.flowmodelgenerator.extension.response.GenToolResponse;
 import io.ballerina.flowmodelgenerator.extension.response.GetAgentsResponse;
-import io.ballerina.flowmodelgenerator.extension.response.GetConnectorActionsResponse;
 import io.ballerina.flowmodelgenerator.extension.response.GetModelsResponse;
 import io.ballerina.flowmodelgenerator.extension.response.GetToolsResponse;
 import io.ballerina.modelgenerator.commons.PackageUtil;
 import io.ballerina.projects.Document;
-import io.ballerina.projects.Project;
 import org.ballerinalang.annotation.JavaSPIService;
 import org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
@@ -160,28 +157,6 @@ public class AgentsManagerService implements ExtendedLanguageServerService {
                 AgentsGenerator agentsGenerator = new AgentsGenerator(semanticModel.get());
                 response.setTextEdits(agentsGenerator.genTool(request.flowNode(), request.toolName(),
                         request.connection(), request.description(), filePath, this.workspaceManager));
-            } catch (Throwable e) {
-                throw new RuntimeException(e);
-            }
-            return response;
-        });
-    }
-
-    @JsonRequest
-    public CompletableFuture<GetConnectorActionsResponse> getActions(GetConnectorActionsRequest request) {
-        return CompletableFuture.supplyAsync(() -> {
-            GetConnectorActionsResponse response = new GetConnectorActionsResponse();
-            try {
-                Path filePath = Path.of(request.filePath());
-                Project project = this.workspaceManager.loadProject(filePath);
-                Optional<SemanticModel> semanticModel = this.workspaceManager.semanticModel(filePath);
-                if (semanticModel.isEmpty()) {
-                    return response;
-                }
-
-                AgentsGenerator agentsGenerator = new AgentsGenerator();
-                response.setActions(agentsGenerator.getActions(request.flowNode(), filePath, project,
-                        this.workspaceManager));
             } catch (Throwable e) {
                 throw new RuntimeException(e);
             }

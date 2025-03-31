@@ -33,7 +33,6 @@ import io.ballerina.compiler.api.symbols.ParameterSymbol;
 import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
-import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
@@ -43,8 +42,6 @@ import io.ballerina.compiler.syntax.tree.Token;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
-import io.ballerina.flowmodelgenerator.core.model.Item;
-import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.PropertyCodedata;
@@ -52,17 +49,11 @@ import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.flowmodelgenerator.core.utils.FlowNodeUtil;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.modelgenerator.commons.CommonUtils;
-import io.ballerina.modelgenerator.commons.FunctionData;
-import io.ballerina.modelgenerator.commons.FunctionDataBuilder;
 import io.ballerina.modelgenerator.commons.ParameterData;
 import io.ballerina.projects.Document;
-import io.ballerina.projects.Project;
 import io.ballerina.tools.diagnostics.Location;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
-import io.ballerina.tools.text.TextDocument;
-import io.ballerina.tools.text.TextDocumentChange;
-import io.ballerina.tools.text.TextRange;
 import org.ballerinalang.langserver.common.utils.CommonUtil;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.Position;
@@ -558,115 +549,6 @@ public class AgentsGenerator {
             sourceBuilder.token().descriptionDoc(desc);
         }
         return hasDescription;
-    }
-
-    public JsonArray getActions(JsonElement node, Path filePath, Project project, WorkspaceManager workspaceManager) {
-        FlowNode flowNode = gson.fromJson(node, FlowNode.class);
-        Document document = workspaceManager.document(filePath).orElseThrow();
-        TextDocument textDocument = document.textDocument();
-        SourceBuilder sourceBuilder = new SourceBuilder(flowNode, workspaceManager, filePath);
-        Path connectionPath = workspaceManager.projectRoot(filePath).resolve("connections.bal");
-        List<TextEdit> connectionTextEdits = NodeBuilder.getNodeFromKind(flowNode.codedata().node())
-                .toSource(sourceBuilder).get(connectionPath);
-        io.ballerina.tools.text.TextEdit[] textEdits = new io.ballerina.tools.text.TextEdit[connectionTextEdits.size()];
-        for (int i = 0; i < connectionTextEdits.size(); i++) {
-            TextEdit connectionTextEdit = connectionTextEdits.get(i);
-            Position start = connectionTextEdit.getRange().getStart();
-            int startTextPosition = textDocument.textPositionFrom(LinePosition.from(start.getLine(),
-                    start.getCharacter()));
-            Position end = connectionTextEdit.getRange().getEnd();
-            int endTextPosition = textDocument.textPositionFrom(LinePosition.from(end.getLine(), end.getCharacter()));
-            io.ballerina.tools.text.TextEdit textEdit =
-                    io.ballerina.tools.text.TextEdit.from(TextRange.from(startTextPosition,
-                            endTextPosition - startTextPosition), connectionTextEdit.getNewText());
-            textEdits[i] = textEdit;
-        }
-        TextDocument modifiedTextDoc = textDocument.apply(TextDocumentChange.from(textEdits));
-        Document modifiedDoc =
-                project.duplicate().currentPackage().module(document.module().moduleId())
-                        .document(document.documentId()).modify().withContent(String.join(System.lineSeparator(),
-                                modifiedTextDoc.textLines())).apply();
-
-        SemanticModel newSemanticModel = modifiedDoc.module().packageInstance().getCompilation()
-                .getSemanticModel(modifiedDoc.module().moduleId());
-        Optional<Property> property = flowNode.getProperty(Property.VARIABLE_KEY);
-        if (property.isEmpty()) {
-            throw new IllegalStateException("Variable name is not present");
-        }
-        String variableName = property.get().value().toString();
-        VariableSymbol variableSymbol = null;
-        List<Symbol> moduleSymbols = newSemanticModel.moduleSymbols();
-        for (Symbol moduleSymbol : moduleSymbols) {
-            if (moduleSymbol.kind() != SymbolKind.VARIABLE) {
-                continue;
-            }
-            if (moduleSymbol.getName().orElse("").equals(variableName)) {
-                variableSymbol = (VariableSymbol) moduleSymbol;
-            }
-        }
-        List<Item> methods = new ArrayList<>();
-        if (variableSymbol == null) {
-            return gson.toJsonTree(methods).getAsJsonArray();
-        }
-
-        // TODO: Derive this logic from AvailableNodeGenerator
-        TypeReferenceTypeSymbol typeDescriptorSymbol =
-                (TypeReferenceTypeSymbol) variableSymbol.typeDescriptor();
-        ClassSymbol classSymbol = (ClassSymbol) typeDescriptorSymbol.typeDescriptor();
-        if (!(classSymbol.qualifiers().contains(Qualifier.CLIENT))) {
-            return gson.toJsonTree(methods).getAsJsonArray();
-        }
-        String parentSymbolName = variableSymbol.getName().orElseThrow();
-        String className = classSymbol.getName().orElseThrow();
-
-        // Obtain methods of the connector
-        List<FunctionData> methodFunctionsData = new FunctionDataBuilder()
-                .parentSymbol(classSymbol)
-                .buildChildNodes();
-
-        for (FunctionData methodFunction : methodFunctionsData) {
-            String org = methodFunction.org();
-            String packageName = methodFunction.packageName();
-            String version = methodFunction.version();
-            boolean isHttpModule = org.equals(BALLERINA_ORG) && packageName.equals(HTTP_MODULE);
-
-            NodeBuilder nodeBuilder;
-            String label;
-            if (methodFunction.kind() == FunctionData.Kind.RESOURCE) {
-                if (isHttpModule && HTTP_REMOTE_METHOD_SKIP_LIST.contains(methodFunction.name())) {
-                    continue;
-                }
-                label = methodFunction.name() + (isHttpModule ? "" : methodFunction.resourcePath());
-                nodeBuilder = NodeBuilder.getNodeFromKind(NodeKind.RESOURCE_ACTION_CALL);
-            } else {
-                label = methodFunction.name();
-                nodeBuilder = switch (methodFunction.kind()) {
-                    case REMOTE -> NodeBuilder.getNodeFromKind(NodeKind.REMOTE_ACTION_CALL);
-                    case FUNCTION -> NodeBuilder.getNodeFromKind(NodeKind.METHOD_CALL);
-                    default -> throw new IllegalStateException("Unexpected value: " + methodFunction.kind());
-                };
-            }
-
-            Item item = nodeBuilder
-                    .metadata()
-                    .label(label)
-                    .icon(CommonUtils.generateIcon(org, packageName, version))
-                    .description(methodFunction.description())
-                    .stepOut()
-                    .codedata()
-                    .org(org)
-                    .module(packageName)
-                    .object(className)
-                    .symbol(methodFunction.name())
-                    .version(version)
-                    .parentSymbol(parentSymbolName)
-                    .resourcePath(methodFunction.resourcePath())
-                    .id(methodFunction.functionId())
-                    .stepOut()
-                    .buildAvailableNode();
-            methods.add(item);
-        }
-        return gson.toJsonTree(methods).getAsJsonArray();
     }
 
     public JsonElement editTool(String toolName, String description, Path projectPath) {
