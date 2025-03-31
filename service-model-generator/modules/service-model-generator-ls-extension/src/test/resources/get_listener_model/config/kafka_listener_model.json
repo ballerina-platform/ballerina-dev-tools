@@ -82,7 +82,7 @@
         "groupId": {
           "metadata": {
             "label": "groupId",
-            "description": ""
+            "description": "Unique string that identifies the consumer"
           },
           "enabled": true,
           "editable": true,
@@ -113,7 +113,7 @@
         "topics": {
           "metadata": {
             "label": "topics",
-            "description": ""
+            "description": "Topics to be subscribed by the consumer"
           },
           "enabled": true,
           "editable": true,
@@ -150,7 +150,7 @@
         "offsetReset": {
           "metadata": {
             "label": "offsetReset",
-            "description": ""
+            "description": "Offset reset strategy if no initial offset"
           },
           "enabled": true,
           "editable": true,
@@ -181,7 +181,7 @@
         "partitionAssignmentStrategy": {
           "metadata": {
             "label": "partitionAssignmentStrategy",
-            "description": ""
+            "description": "Strategy class for handling the partition assignment among consumers"
           },
           "enabled": true,
           "editable": true,
@@ -212,7 +212,7 @@
         "metricsRecordingLevel": {
           "metadata": {
             "label": "metricsRecordingLevel",
-            "description": ""
+            "description": "Metrics recording level"
           },
           "enabled": true,
           "editable": true,
@@ -243,7 +243,7 @@
         "metricsReporterClasses": {
           "metadata": {
             "label": "metricsReporterClasses",
-            "description": ""
+            "description": "Metrics reporter classes"
           },
           "enabled": true,
           "editable": true,
@@ -274,7 +274,7 @@
         "clientId": {
           "metadata": {
             "label": "clientId",
-            "description": ""
+            "description": "Identifier to be used for server side logging"
           },
           "enabled": true,
           "editable": true,
@@ -305,7 +305,7 @@
         "interceptorClasses": {
           "metadata": {
             "label": "interceptorClasses",
-            "description": ""
+            "description": "Interceptor classes to be used before sending the records"
           },
           "enabled": true,
           "editable": true,
@@ -336,7 +336,7 @@
         "isolationLevel": {
           "metadata": {
             "label": "isolationLevel",
-            "description": ""
+            "description": "Transactional message reading method"
           },
           "enabled": true,
           "editable": true,
@@ -367,7 +367,7 @@
         "schemaRegistryUrl": {
           "metadata": {
             "label": "schemaRegistryUrl",
-            "description": ""
+            "description": "Avro schema registry URL. Use this field to specify the schema registry URL, if the Avro serializer\nis used"
           },
           "enabled": true,
           "editable": true,
@@ -398,7 +398,7 @@
         "schemaRegistryConfig": {
           "metadata": {
             "label": "schemaRegistryConfig",
-            "description": ""
+            "description": "Configurations to initialize a schema registry"
           },
           "enabled": true,
           "editable": true,
@@ -429,7 +429,7 @@
         "keyDeserializerType": {
           "metadata": {
             "label": "keyDeserializerType",
-            "description": ""
+            "description": "Key deserialization type"
           },
           "enabled": true,
           "editable": true,
@@ -460,7 +460,7 @@
         "valueDeserializerType": {
           "metadata": {
             "label": "valueDeserializerType",
-            "description": ""
+            "description": "Value deserialization type"
           },
           "enabled": true,
           "editable": true,
@@ -491,7 +491,7 @@
         "additionalProperties": {
           "metadata": {
             "label": "additionalProperties",
-            "description": ""
+            "description": "Additional properties for the property fields not provided by the Ballerina `kafka` module. Use\nthis with caution since this can override any of the fields. It is not recomendded to use\nthis field except in an extreme situation"
           },
           "enabled": true,
           "editable": true,
@@ -522,7 +522,7 @@
         "sessionTimeout": {
           "metadata": {
             "label": "sessionTimeout",
-            "description": ""
+            "description": "Timeout (in seconds) used to detect consumer failures when the heartbeat threshold is reached"
           },
           "enabled": true,
           "editable": true,
@@ -553,7 +553,7 @@
         "heartBeatInterval": {
           "metadata": {
             "label": "heartBeatInterval",
-            "description": ""
+            "description": "Expected time (in seconds) between the heartbeats"
           },
           "enabled": true,
           "editable": true,
@@ -584,7 +584,7 @@
         "metadataMaxAge": {
           "metadata": {
             "label": "metadataMaxAge",
-            "description": ""
+            "description": "Maximum time (in seconds) to force a refresh of metadata"
           },
           "enabled": true,
           "editable": true,
@@ -615,7 +615,7 @@
         "autoCommitInterval": {
           "metadata": {
             "label": "autoCommitInterval",
-            "description": ""
+            "description": "Auto committing interval (in seconds) for commit offset when auto-committing is enabled"
           },
           "enabled": true,
           "editable": true,
@@ -646,7 +646,7 @@
         "maxPartitionFetchBytes": {
           "metadata": {
             "label": "maxPartitionFetchBytes",
-            "description": ""
+            "description": "The maximum amount of data the server returns per partition"
           },
           "enabled": true,
           "editable": true,
@@ -677,7 +677,7 @@
         "sendBuffer": {
           "metadata": {
             "label": "sendBuffer",
-            "description": ""
+            "description": "Size of the TCP send buffer (SO_SNDBUF)"
           },
           "enabled": true,
           "editable": true,
@@ -708,7 +708,7 @@
         "receiveBuffer": {
           "metadata": {
             "label": "receiveBuffer",
-            "description": ""
+            "description": "Size of the TCP receive buffer (SO_RCVBUF)"
           },
           "enabled": true,
           "editable": true,
@@ -739,7 +739,7 @@
         "fetchMinBytes": {
           "metadata": {
             "label": "fetchMinBytes",
-            "description": ""
+            "description": "Minimum amount of data the server should return for a fetch request"
           },
           "enabled": true,
           "editable": true,
@@ -770,7 +770,7 @@
         "fetchMaxBytes": {
           "metadata": {
             "label": "fetchMaxBytes",
-            "description": ""
+            "description": "Maximum amount of data the server should return for a fetch request"
           },
           "enabled": true,
           "editable": true,
@@ -801,7 +801,7 @@
         "fetchMaxWaitTime": {
           "metadata": {
             "label": "fetchMaxWaitTime",
-            "description": ""
+            "description": "Maximum amount of time (in seconds) the server will block before answering the fetch request"
           },
           "enabled": true,
           "editable": true,
@@ -832,7 +832,7 @@
         "reconnectBackoffTimeMax": {
           "metadata": {
             "label": "reconnectBackoffTimeMax",
-            "description": ""
+            "description": "Maximum amount of time in seconds to wait when reconnecting"
           },
           "enabled": true,
           "editable": true,
@@ -863,7 +863,7 @@
         "retryBackoff": {
           "metadata": {
             "label": "retryBackoff",
-            "description": ""
+            "description": "Time (in seconds) to wait before attempting to retry a failed request"
           },
           "enabled": true,
           "editable": true,
@@ -894,7 +894,7 @@
         "metricsSampleWindow": {
           "metadata": {
             "label": "metricsSampleWindow",
-            "description": ""
+            "description": "Window of time (in seconds) a metrics sample is computed over"
           },
           "enabled": true,
           "editable": true,
@@ -925,7 +925,7 @@
         "metricsNumSamples": {
           "metadata": {
             "label": "metricsNumSamples",
-            "description": ""
+            "description": "Number of samples maintained to compute metrics"
           },
           "enabled": true,
           "editable": true,
@@ -956,7 +956,7 @@
         "requestTimeout": {
           "metadata": {
             "label": "requestTimeout",
-            "description": ""
+            "description": "Wait time (in seconds) for response of a request"
           },
           "enabled": true,
           "editable": true,
@@ -987,7 +987,7 @@
         "connectionMaxIdleTime": {
           "metadata": {
             "label": "connectionMaxIdleTime",
-            "description": ""
+            "description": "Close idle connections after the number of seconds"
           },
           "enabled": true,
           "editable": true,
@@ -1018,7 +1018,7 @@
         "maxPollRecords": {
           "metadata": {
             "label": "maxPollRecords",
-            "description": ""
+            "description": "Maximum number of records returned in a single call to poll"
           },
           "enabled": true,
           "editable": true,
@@ -1049,7 +1049,7 @@
         "maxPollInterval": {
           "metadata": {
             "label": "maxPollInterval",
-            "description": ""
+            "description": "Maximum delay between invocations of poll"
           },
           "enabled": true,
           "editable": true,
@@ -1080,7 +1080,7 @@
         "reconnectBackoffTime": {
           "metadata": {
             "label": "reconnectBackoffTime",
-            "description": ""
+            "description": "Time (in seconds) to wait before attempting to reconnect"
           },
           "enabled": true,
           "editable": true,
@@ -1111,7 +1111,7 @@
         "pollingTimeout": {
           "metadata": {
             "label": "pollingTimeout",
-            "description": ""
+            "description": "Timeout interval for polling in seconds"
           },
           "enabled": true,
           "editable": true,
@@ -1142,7 +1142,7 @@
         "pollingInterval": {
           "metadata": {
             "label": "pollingInterval",
-            "description": ""
+            "description": "Polling interval for the consumer in seconds"
           },
           "enabled": true,
           "editable": true,
@@ -1173,7 +1173,7 @@
         "concurrentConsumers": {
           "metadata": {
             "label": "concurrentConsumers",
-            "description": ""
+            "description": "Number of concurrent consumers"
           },
           "enabled": true,
           "editable": true,
@@ -1204,7 +1204,7 @@
         "defaultApiTimeout": {
           "metadata": {
             "label": "defaultApiTimeout",
-            "description": ""
+            "description": "Default API timeout value (in seconds) for APIs with duration"
           },
           "enabled": true,
           "editable": true,
@@ -1235,7 +1235,7 @@
         "autoCommit": {
           "metadata": {
             "label": "autoCommit",
-            "description": ""
+            "description": "Enables auto committing offsets"
           },
           "enabled": true,
           "editable": true,
@@ -1266,7 +1266,7 @@
         "checkCRCS": {
           "metadata": {
             "label": "checkCRCS",
-            "description": ""
+            "description": "Checks the CRC32 of the records consumed. This ensures that no on-the-wire or on-disk corruption occurred\nto the messages. This may add some overhead and might need to be set to `false` if extreme\nperformance is required"
           },
           "enabled": true,
           "editable": true,
@@ -1297,7 +1297,7 @@
         "excludeInternalTopics": {
           "metadata": {
             "label": "excludeInternalTopics",
-            "description": ""
+            "description": "Whether records from internal topics should be exposed to the consumer"
           },
           "enabled": true,
           "editable": true,
@@ -1328,7 +1328,7 @@
         "decoupleProcessing": {
           "metadata": {
             "label": "decoupleProcessing",
-            "description": ""
+            "description": "Decouples processing"
           },
           "enabled": true,
           "editable": true,
@@ -1359,7 +1359,7 @@
         "validation": {
           "metadata": {
             "label": "validation",
-            "description": ""
+            "description": "Configuration related to constraint validation check"
           },
           "enabled": true,
           "editable": true,
@@ -1390,7 +1390,7 @@
         "autoSeekOnValidationFailure": {
           "metadata": {
             "label": "autoSeekOnValidationFailure",
-            "description": ""
+            "description": "Automatically seeks past the errornous records in the event of an data-binding or\nvalidating constraints failure"
           },
           "enabled": true,
           "editable": true,
@@ -1421,7 +1421,7 @@
         "secureSocket": {
           "metadata": {
             "label": "secureSocket",
-            "description": ""
+            "description": "Configurations related to SSL/TLS encryption"
           },
           "enabled": true,
           "editable": true,
@@ -1452,7 +1452,7 @@
         "auth": {
           "metadata": {
             "label": "auth",
-            "description": ""
+            "description": "Authentication-related configurations for the `kafka:Consumer`"
           },
           "enabled": true,
           "editable": true,
@@ -1483,7 +1483,7 @@
         "securityProtocol": {
           "metadata": {
             "label": "securityProtocol",
-            "description": ""
+            "description": "Type of the security protocol to use in the broker connection"
           },
           "enabled": true,
           "editable": true,
