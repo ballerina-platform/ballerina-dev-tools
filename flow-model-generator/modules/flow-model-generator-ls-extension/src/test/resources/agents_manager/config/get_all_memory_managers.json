@@ -1,0 +1,15 @@
+{
+  "source": "agent_1/agents.bal",
+  "description": "Sample diagram node",
+  "agent": "FunctionCallAgent",
+  "models": [
+    {
+      "node": "CLASS_INIT",
+      "org": "ballerinax",
+      "module": "ai.agent",
+      "object": "DefaultMessageWindowChatMemoryManager",
+      "symbol": "init",
+      "version": "0.9.2"
+    }
+  ]
+}

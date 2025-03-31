@@ -332,6 +332,13 @@ public class FunctionDataBuilder {
                                                 .equals(resourcePath))
                                 .findFirst()
                                 .orElse(null);
+                    } else if (functionKind == FunctionData.Kind.CLASS_INIT) {
+                        if (parentSymbol.kind() != SymbolKind.CLASS) {
+                            throw new IllegalStateException("Parent symbol should be a class symbol");
+                        }
+                        ClassSymbol classSymbol = (ClassSymbol) parentSymbol;
+                        Optional<MethodSymbol> initMethod = classSymbol.initMethod();
+                        initMethod.ifPresent(methodSymbol -> functionSymbol = methodSymbol);
                     } else {
                         // Fetch the respective method using the function name
                         functionSymbol = parentSymbol.methods().get(functionName);
@@ -408,7 +415,7 @@ public class FunctionDataBuilder {
         Optional<TypeSymbol> returnTypeSymbol = functionTypeSymbol.returnTypeDescriptor();
         String returnType = returnTypeSymbol
                 .map(typeSymbol -> {
-                    if (functionKind == FunctionData.Kind.CONNECTOR) {
+                    if (functionKind == FunctionData.Kind.CONNECTOR || functionKind == FunctionData.Kind.CLASS_INIT) {
                         return CommonUtils.getClassType(moduleInfo.packageName(),
                                 parentSymbol.getName().orElse("Client"));
                     }
