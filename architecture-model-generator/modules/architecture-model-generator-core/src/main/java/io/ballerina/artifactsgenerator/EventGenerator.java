@@ -35,6 +35,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.stream.Collectors;
 
 /**
  * Generator class responsible for creating artifacts from a Ballerina syntax tree. This class analyzes the module
@@ -44,15 +45,49 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public class EventGenerator {
 
-    public static Map<String, Map<String, Artifact>> artifactChanges(String filePath,
-                                                                     SyntaxTree syntaxTree,
-                                                                     SemanticModel semanticModel) {
+    public static Map<String, Map<String, Map<String, Artifact>>> artifactChanges(String projectPath,
+                                                                                  SyntaxTree syntaxTree,
+                                                                                  SemanticModel semanticModel) {
         if (!syntaxTree.containsModulePart()) {
             return Map.of();
         }
-        Map<String, Map<String, Artifact>> categoryMap = new ConcurrentHashMap<>();
-        findArtifacts(categoryMap, syntaxTree, semanticModel);
-        return toUnmodifableMap(categoryMap);
+
+        List<String> prevArtifactsIds =
+                new ArrayList<>(ArtifactsCache.getInstance().getArtifactIds(projectPath, syntaxTree.filePath()));
+        List<String> newArtifactIds = new ArrayList<>();
+
+        // Structure: Category -> EventType -> ArtifactId -> Artifact
+        Map<String, Map<String, Map<String, Artifact>>> categoryMap = new ConcurrentHashMap<>();
+        ModulePartNode rootNode = syntaxTree.rootNode();
+        NodeList<ModuleMemberDeclarationNode> members = rootNode.members();
+        ModuleNodeTransformer moduleNodeTransformer = new ModuleNodeTransformer(semanticModel);
+        members.stream()
+                .map(member -> member.apply(moduleNodeTransformer))
+                .flatMap(Optional::stream)
+                .forEach(artifact -> {
+                    String category = artifact.type().getCategory();
+                    String artifactId = artifact.id();
+
+                    // Determine if this is an update or an add
+                    String eventType = prevArtifactsIds.contains(artifactId) ? "updates" : "additions";
+
+                    categoryMap.computeIfAbsent(category, k -> new ConcurrentHashMap<>())
+                            .computeIfAbsent(eventType, k -> new ConcurrentHashMap<>())
+                            .put(artifactId, artifact);
+
+                    newArtifactIds.add(artifactId);
+                });
+
+        // Update the artifacts cache
+        ArtifactsCache.getInstance().updateArtifactIds(projectPath, syntaxTree.filePath(), newArtifactIds);
+
+        // Convert the nested structure to unmodifiable maps
+        return categoryMap.entrySet()
+                .stream()
+                .collect(Collectors.toUnmodifiableMap(Map.Entry::getKey,
+                        e -> e.getValue().entrySet().stream()
+                                .collect(Collectors.toUnmodifiableMap(Map.Entry::getKey,
+                                        f -> Map.copyOf(f.getValue())))));
     }
 
     public static Map<String, Map<String, Artifact>> artifacts(Project project) {
