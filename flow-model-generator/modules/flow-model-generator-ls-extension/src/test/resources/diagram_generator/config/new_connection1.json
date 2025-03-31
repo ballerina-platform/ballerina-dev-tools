@@ -620,7 +620,7 @@
           "secureSocket": {
             "metadata": {
               "label": "secureSocket",
-              "description": ""
+              "description": "SSL/TLS-related options"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:ClientSecureSocket|()",
@@ -745,7 +745,7 @@
           "connection": {
             "metadata": {
               "label": "Connection Type",
-              "description": ""
+              "description": "Connection configurations of the Redis server. This can be either a single URI or a set of parameters"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "redis:ConnectionUri|redis:ConnectionParams",
@@ -776,7 +776,7 @@
           "connectionPooling": {
             "metadata": {
               "label": "Connection Pooling Enabled",
-              "description": ""
+              "description": "Flag to indicate whether connection pooling is enabled"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "boolean",
@@ -801,7 +801,7 @@
           "isClusterConnection": {
             "metadata": {
               "label": "Cluster Mode Enabled",
-              "description": ""
+              "description": "Flag to indicate whether the connection is a cluster connection"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "boolean",
@@ -826,7 +826,7 @@
           "secureSocket": {
             "metadata": {
               "label": "Secure Socket Configurations",
-              "description": ""
+              "description": "Configurations related to SSL/TLS encryption"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "redis:SecureSocket",
@@ -1647,7 +1647,7 @@
           "secureSocket": {
             "metadata": {
               "label": "secureSocket",
-              "description": ""
+              "description": "SSL/TLS-related options"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:ClientSecureSocket|()",
@@ -1772,7 +1772,7 @@
           "connection": {
             "metadata": {
               "label": "Connection Type",
-              "description": ""
+              "description": "Connection configurations of the Redis server. This can be either a single URI or a set of parameters"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "redis:ConnectionUri|redis:ConnectionParams",
@@ -1803,7 +1803,7 @@
           "connectionPooling": {
             "metadata": {
               "label": "Connection Pooling Enabled",
-              "description": ""
+              "description": "Flag to indicate whether connection pooling is enabled"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "boolean",
@@ -1828,7 +1828,7 @@
           "isClusterConnection": {
             "metadata": {
               "label": "Cluster Mode Enabled",
-              "description": ""
+              "description": "Flag to indicate whether the connection is a cluster connection"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "boolean",
@@ -1853,7 +1853,7 @@
           "secureSocket": {
             "metadata": {
               "label": "Secure Socket Configurations",
-              "description": ""
+              "description": "Configurations related to SSL/TLS encryption"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "redis:SecureSocket",
@@ -1972,7 +1972,7 @@
           "connection": {
             "metadata": {
               "label": "Connection Type",
-              "description": ""
+              "description": "Connection configurations of the Redis server. This can be either a single URI or a set of parameters"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "redis:ConnectionUri|redis:ConnectionParams",
@@ -2003,7 +2003,7 @@
           "connectionPooling": {
             "metadata": {
               "label": "Connection Pooling Enabled",
-              "description": ""
+              "description": "Flag to indicate whether connection pooling is enabled"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "boolean",
@@ -2028,7 +2028,7 @@
           "isClusterConnection": {
             "metadata": {
               "label": "Cluster Mode Enabled",
-              "description": ""
+              "description": "Flag to indicate whether the connection is a cluster connection"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "boolean",
@@ -2053,7 +2053,7 @@
           "secureSocket": {
             "metadata": {
               "label": "Secure Socket Configurations",
-              "description": ""
+              "description": "Configurations related to SSL/TLS encryption"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "redis:SecureSocket",
