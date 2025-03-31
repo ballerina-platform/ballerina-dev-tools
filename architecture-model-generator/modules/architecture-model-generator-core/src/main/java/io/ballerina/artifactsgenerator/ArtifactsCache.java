@@ -20,8 +20,8 @@ package io.ballerina.artifactsgenerator;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -35,8 +35,8 @@ public class ArtifactsCache {
 
     private static ArtifactsCache instance;
 
-    // Map: project_id → document map
-    private final ConcurrentHashMap<String, ConcurrentHashMap<String, CopyOnWriteArrayList<String>>> projectCache;
+    // Map: project_id → document id -> category -> artifact ids
+    private final ConcurrentHashMap<String, ConcurrentHashMap<String, Map<String, List<String>>>> projectCache;
 
     // Map: project_id:file_uri → lock
     private final ConcurrentHashMap<String, Lock> locks;
@@ -78,7 +78,7 @@ public class ArtifactsCache {
     }
 
     public void initializeProject(String projectId,
-                                  ConcurrentHashMap<String, CopyOnWriteArrayList<String>> documentMap) {
+                                  ConcurrentHashMap<String, Map<String, List<String>>> documentMap) {
         projectCache.put(projectId, documentMap);
     }
 
@@ -90,18 +90,18 @@ public class ArtifactsCache {
      * @param fileUri   The file URI
      * @return List of artifact IDs, or empty list if not found
      */
-    public List<String> getArtifactIds(String projectId, String fileUri) {
+    public Map<String, List<String>> getArtifactIds(String projectId, String fileUri) {
         Lock lock = getOrCreateLock(projectId, fileUri);
         lock.lock();
 
-        ConcurrentHashMap<String, CopyOnWriteArrayList<String>> documentMap = projectCache.get(projectId);
+        ConcurrentHashMap<String, Map<String, List<String>>> documentMap = projectCache.get(projectId);
         if (documentMap == null) {
-            return Collections.emptyList();
+            return Collections.emptyMap();
         }
 
-        CopyOnWriteArrayList<String> artifactIds = documentMap.get(fileUri);
+        Map<String, List<String>> artifactIds = documentMap.get(fileUri);
         if (artifactIds == null) {
-            return Collections.emptyList();
+            return Collections.emptyMap();
         }
 
         return artifactIds;
@@ -115,15 +115,12 @@ public class ArtifactsCache {
      * @param fileUri     The file URI
      * @param artifactIds The list of artifact IDs
      */
-    public void updateArtifactIds(String projectId, String fileUri, List<String> artifactIds) {
+    public void updateArtifactIds(String projectId, String fileUri, Map<String, List<String>> artifactIds) {
         try {
             // Get or create document map for project
-            ConcurrentHashMap<String, CopyOnWriteArrayList<String>> documentMap =
+            ConcurrentHashMap<String, Map<String, List<String>>> documentMap =
                     projectCache.computeIfAbsent(projectId, k -> new ConcurrentHashMap<>());
-
-            // Convert list to CopyOnWriteArrayList and update
-            CopyOnWriteArrayList<String> concurrentArtifactIds = new CopyOnWriteArrayList<>(artifactIds);
-            documentMap.put(fileUri, concurrentArtifactIds);
+            documentMap.put(fileUri, artifactIds);
         } finally {
             // Release the lock acquired in getArtifactIds
             Lock lock = getOrCreateLock(projectId, fileUri);

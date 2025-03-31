@@ -46,6 +46,10 @@ import java.util.Optional;
 public record Artifact(String id, LineRange location, Type type, String name, String accessor,
                        String scope, String icon, Map<String, Artifact> children) {
 
+    public static Artifact emptyArtifact(String id) {
+        return new Artifact(id, null, null, null, null, null, null, null);
+    }
+
     public Artifact {
         children = children == null ? Collections.emptyMap() : Collections.unmodifiableMap(children);
     }

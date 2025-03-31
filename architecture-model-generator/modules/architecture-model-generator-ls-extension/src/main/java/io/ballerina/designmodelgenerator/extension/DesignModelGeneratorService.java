@@ -19,7 +19,7 @@
 package io.ballerina.designmodelgenerator.extension;
 
 import io.ballerina.artifactsgenerator.ArtifactsCache;
-import io.ballerina.artifactsgenerator.EventGenerator;
+import io.ballerina.artifactsgenerator.ArtifactsGenerator;
 import io.ballerina.designmodelgenerator.core.DesignModelGenerator;
 import io.ballerina.designmodelgenerator.core.model.DesignModel;
 import io.ballerina.designmodelgenerator.extension.request.ArtifactsRequest;
@@ -78,7 +78,7 @@ public class DesignModelGeneratorService implements ExtendedLanguageServerServic
             try {
                 Path projectPath = Path.of(request.projectPath());
                 Project project = workspaceManager.loadProject(projectPath);
-                response.setArtifacts(EventGenerator.artifacts(project));
+                response.setArtifacts(ArtifactsGenerator.artifacts(project));
             } catch (Throwable e) {
                 response.setError(e);
             }

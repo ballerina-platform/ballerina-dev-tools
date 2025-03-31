@@ -41,7 +41,7 @@ public class ArtifactsTest extends AbstractLSTest {
         Path configJsonPath = configDir.resolve(config);
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
         ArtifactsRequest request = new ArtifactsRequest(getSourcePath(testConfig.source()));
-        JsonObject artifactsResponse = getResponse(request);
+        JsonObject artifactsResponse = getResponseAndCloseFile(request, testConfig.source);
         JsonObject artifact = artifactsResponse.getAsJsonObject("artifacts");
 
         if (!artifact.equals(testConfig.output())) {

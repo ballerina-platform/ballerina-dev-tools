@@ -19,7 +19,7 @@
 package io.ballerina.designmodelgenerator.extension;
 
 import io.ballerina.artifactsgenerator.ArtifactGenerationDebouncer;
-import io.ballerina.artifactsgenerator.EventGenerator;
+import io.ballerina.artifactsgenerator.ArtifactsGenerator;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import org.ballerinalang.annotation.JavaSPIService;
@@ -59,7 +59,7 @@ public class PublishArtifactsSubscriber implements EventSubscriber {
 
         // Use the debouncer to schedule the artifact generation
         ArtifactGenerationDebouncer.getInstance().debounce(context.fileUri(), () -> {
-            client.publishArtifacts(EventGenerator.artifactChanges(projectPath.toString(),
+            client.publishArtifacts(ArtifactsGenerator.artifactChanges(projectPath.toString(),
                     syntaxTree.get(), semanticModel.get()));
         });
     }

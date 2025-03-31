@@ -53,6 +53,11 @@ import java.util.stream.Collectors;
 /**
  * Transforms module nodes into artifacts based on the syntax node.
  *
+ * <p>
+ * This class is thread-safe for transforming nodes within a single module. However, a new instance must be created when
+ * transforming nodes from a different module, as the semantic model context is specific to the module being processed.
+ * </p>
+ *
  * @since 2.3.0
  */
 public class ModuleNodeTransformer extends NodeTransformer<Optional<Artifact>> {
