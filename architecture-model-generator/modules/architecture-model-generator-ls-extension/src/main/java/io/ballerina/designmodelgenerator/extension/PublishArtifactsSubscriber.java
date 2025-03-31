@@ -29,6 +29,7 @@ import org.ballerinalang.langserver.commons.client.ExtendedLanguageClient;
 import org.ballerinalang.langserver.commons.eventsync.EventKind;
 import org.ballerinalang.langserver.commons.eventsync.spi.EventSubscriber;
 
+import java.nio.file.Path;
 import java.util.Optional;
 
 /**
@@ -54,10 +55,12 @@ public class PublishArtifactsSubscriber implements EventSubscriber {
         if (syntaxTree.isEmpty() || semanticModel.isEmpty()) {
             return;
         }
+        Path projectPath = context.workspace().projectRoot(context.filePath());
 
         // Use the debouncer to schedule the artifact generation
         ArtifactGenerationDebouncer.getInstance().debounce(context.fileUri(), () -> {
-            client.publishArtifacts(EventGenerator.artifactChanges(syntaxTree.get(), semanticModel.get()));
+            client.publishArtifacts(EventGenerator.artifactChanges(projectPath.toString(),
+                    syntaxTree.get(), semanticModel.get()));
         });
     }
 

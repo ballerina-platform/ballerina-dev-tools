@@ -150,9 +150,13 @@ public class ModuleNodeTransformer extends NodeTransformer<Optional<Artifact>> {
             variableBuilder.type(Artifact.Type.CONFIGURABLE);
         } else {
             Optional<ClassSymbol> connection = getConnection(moduleVariableDeclarationNode);
-            connection.ifPresent(classSymbol -> variableBuilder
-                    .type(Artifact.Type.CONNECTION)
-                    .icon(classSymbol));
+            if (connection.isPresent()) {
+                variableBuilder
+                        .type(Artifact.Type.CONNECTION)
+                        .icon(connection.get());
+            } else {
+                variableBuilder.type(Artifact.Type.VARIABLE);
+            }
         }
 
         return Optional.of(variableBuilder.build());

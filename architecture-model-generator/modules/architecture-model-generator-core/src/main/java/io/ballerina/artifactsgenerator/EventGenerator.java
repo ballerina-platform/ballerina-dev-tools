@@ -44,7 +44,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public class EventGenerator {
 
-    public static Map<String, Map<String, Artifact>> artifactChanges(SyntaxTree syntaxTree,
+    public static Map<String, Map<String, Artifact>> artifactChanges(String filePath,
+                                                                     SyntaxTree syntaxTree,
                                                                      SemanticModel semanticModel) {
         if (!syntaxTree.containsModulePart()) {
             return Map.of();

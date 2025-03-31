@@ -74,7 +74,8 @@ public record Artifact(String id, LineRange location, Type type, String name, St
         LISTENER("Listeners"),
         CONFIGURABLE("Configurations"),
         TYPE("Types"),
-        CONNECTION("Connections");
+        CONNECTION("Connections"),
+        VARIABLE("Variables");
 
         private final String category;
 

@@ -40,7 +40,7 @@ public class ArtifactGenerationDebouncer {
     private static final TimeUnit TIME_UNIT = TimeUnit.MILLISECONDS;
 
     // Map to hold scheduled tasks
-    public final ConcurrentHashMap<String, ScheduledTaskHolder> delayedMap;
+    private final ConcurrentHashMap<String, ScheduledTaskHolder> delayedMap;
 
     // Single-thread scheduler to debounce tasks.
     private final ScheduledExecutorService scheduler;
@@ -101,9 +101,6 @@ public class ArtifactGenerationDebouncer {
         private static final ArtifactGenerationDebouncer INSTANCE = new ArtifactGenerationDebouncer();
     }
 
-    /**
-     * Holder for scheduled task information.
-     */
     private record ScheduledTaskHolder(CompletableFuture<Void> promise, Future<?> future) {
     }
 }

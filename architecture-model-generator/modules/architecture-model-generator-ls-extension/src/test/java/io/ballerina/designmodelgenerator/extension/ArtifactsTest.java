@@ -18,7 +18,6 @@
 
 package io.ballerina.designmodelgenerator.extension;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import io.ballerina.designmodelgenerator.extension.request.ArtifactsRequest;
 import io.ballerina.modelgenerator.commons.AbstractLSTest;

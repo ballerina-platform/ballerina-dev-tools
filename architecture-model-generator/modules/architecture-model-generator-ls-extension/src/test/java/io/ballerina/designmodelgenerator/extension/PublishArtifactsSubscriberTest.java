@@ -20,6 +20,8 @@ package io.ballerina.designmodelgenerator.extension;
 
 import io.ballerina.artifactsgenerator.Artifact;
 import io.ballerina.artifactsgenerator.ArtifactGenerationDebouncer;
+import io.ballerina.artifactsgenerator.ArtifactsCache;
+import io.ballerina.designmodelgenerator.extension.request.ArtifactsRequest;
 import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import org.ballerinalang.langserver.LSContextOperation;
 import org.ballerinalang.langserver.commons.DocumentServiceContext;
@@ -33,9 +35,12 @@ import org.eclipse.lsp4j.VersionedTextDocumentIdentifier;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
@@ -52,6 +57,50 @@ import java.util.concurrent.ConcurrentHashMap;
 public class PublishArtifactsSubscriberTest extends AbstractLSTest {
 
     private final PublishArtifactsSubscriber publishArtifactsSubscriber = new PublishArtifactsSubscriber();
+
+    @BeforeClass(dependsOnMethods = {"init"})
+    public void initializeProject() {
+        // Load the original project
+        String sourcePath = getSourcePath("old");
+        ArtifactsRequest request = new ArtifactsRequest(sourcePath);
+        getResponse(request, "designModelService/artifacts");
+
+        // Wait until the project cache is populated
+        ArtifactsCache cache = ArtifactsCache.getInstance();
+        long startTime = System.currentTimeMillis();
+        long timeout = 5000; // 5 seconds timeout
+        String newPath = null;
+        try {
+            while (System.currentTimeMillis() - startTime < timeout) {
+                // Use reflection to access the private projectCache field
+                Field projectCacheField = ArtifactsCache.class.getDeclaredField("projectCache");
+                projectCacheField.setAccessible(true);
+                @SuppressWarnings("unchecked")
+                Map<String, Object> projectMap = (Map<String, Object>) projectCacheField.get(cache);
+                if (projectMap != null && projectMap.containsKey(sourcePath)) {
+                    // Get the artifact for old file
+                    Object oldArtifact = projectMap.get(sourcePath);
+
+                    // Create the new path by replacing the filename
+                    Path path = Path.of(sourcePath);
+                    Path parent = path.getParent();
+                    newPath = parent.resolve("new").toString();
+
+                    // Put the same artifact with new key
+                    projectMap.remove(sourcePath);
+                    projectMap.put(newPath, oldArtifact);
+                    break;
+                }
+                Thread.sleep(100);
+            }
+
+            if (newPath == null) {
+                Assert.fail("Timed out waiting for project cache to be populated");
+            }
+        } catch (Exception e) {
+            Assert.fail("Error while setting up test data in project cache", e);
+        }
+    }
 
     @Override
     @Test(dataProvider = "data-provider")
@@ -110,8 +159,7 @@ public class PublishArtifactsSubscriberTest extends AbstractLSTest {
             // Wait for debouncer to finish processing (max 5 seconds)
             while (System.currentTimeMillis() - startTime < timeout) {
                 // Use reflection to access the private delayedMap field
-                java.lang.reflect.Field delayedMapField =
-                        ArtifactGenerationDebouncer.class.getDeclaredField("delayedMap");
+                Field delayedMapField = ArtifactGenerationDebouncer.class.getDeclaredField("delayedMap");
                 delayedMapField.setAccessible(true);
                 ConcurrentHashMap<?, ?> map =
                         (ConcurrentHashMap<?, ?>) delayedMapField.get(debouncer);
@@ -165,12 +213,6 @@ public class PublishArtifactsSubscriberTest extends AbstractLSTest {
         return "publishArtifacts";
     }
 
-    /**
-     * Represents the test configuration for the publishing artifacts.
-     *
-     * @param source      The source file
-     * @param description The description of the test
-     */
     private record TestConfig(String source, String description, Map<String, Map<String, Artifact>> output) {
 
         public String description() {
