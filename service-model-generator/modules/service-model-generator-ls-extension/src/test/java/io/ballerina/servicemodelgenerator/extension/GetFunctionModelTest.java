@@ -18,9 +18,9 @@
 
 package io.ballerina.servicemodelgenerator.extension;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import io.ballerina.modelgenerator.commons.AbstractLSTest;
-import io.ballerina.servicemodelgenerator.extension.model.Function;
 import io.ballerina.servicemodelgenerator.extension.request.FunctionModelRequest;
 import io.ballerina.servicemodelgenerator.extension.response.FunctionModelResponse;
 import org.testng.Assert;
@@ -49,32 +49,16 @@ public class GetFunctionModelTest extends AbstractLSTest {
 
         FunctionModelRequest request = new FunctionModelRequest(testConfig.type(), testConfig.functionName());
         JsonObject jsonMap = getResponse(request);
-
         FunctionModelResponse functionModelResponse = gson.fromJson(jsonMap, FunctionModelResponse.class);
-        Function actualResourceModel = functionModelResponse.function();
-        boolean assertTrue = isAssertTrue(testConfig, actualResourceModel);
+        JsonElement actualResourceModel = gson.toJsonTree(functionModelResponse.function());
 
-        if (!assertTrue) {
+        if (!testConfig.response().equals(actualResourceModel)) {
             GetFunctionModelTest.TestConfig updatedConfig =
                     new GetFunctionModelTest.TestConfig(testConfig.description(), testConfig.type(),
-                            testConfig.functionName(), functionModelResponse);
+                            testConfig.functionName(), actualResourceModel);
 //            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
-    }
-
-    private static boolean isAssertTrue(TestConfig testConfig, Function actual) {
-        Function expectedResponse = testConfig.response().function();
-        return expectedResponse.getMetadata().equals(actual.getMetadata()) &&
-                expectedResponse.getKind().equals(actual.getKind()) &&
-                expectedResponse.getAccessor().equals(actual.getAccessor()) &&
-                expectedResponse.getReturnType().equals(actual.getReturnType()) &&
-                expectedResponse.getParameters().size() == actual.getParameters().size() &&
-                expectedResponse.getName().equals(actual.getName()) &&
-                expectedResponse.getSchema().keySet().size() == actual.getSchema().keySet().size() &&
-                expectedResponse.isEnabled() == actual.isEnabled() &&
-                expectedResponse.isOptional() == actual.isOptional() &&
-                expectedResponse.isEditable() == actual.isEditable();
     }
 
     @Override
@@ -106,7 +90,7 @@ public class GetFunctionModelTest extends AbstractLSTest {
      * @param response     The expected response
      */
     private record TestConfig(String description, String type, String functionName,
-                              FunctionModelResponse response) {
+                              JsonElement response) {
 
         public String description() {
             return description == null ? "" : description;

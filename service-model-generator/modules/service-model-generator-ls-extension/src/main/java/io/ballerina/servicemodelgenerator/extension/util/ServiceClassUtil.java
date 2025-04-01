@@ -232,7 +232,8 @@ public class ServiceClassUtil {
     }
 
     public static String getTcpConnectionServiceTemplate() {
-        return "service class %s {%n" +
+        return "%n" +
+                "service class %s {%n" +
                 "    *tcp:ConnectionService;%n" +
                 "%n" +
                 "    remote function onBytes(tcp:Caller caller, readonly & byte[] data) returns tcp:Error? {%n" +
@@ -261,8 +262,8 @@ public class ServiceClassUtil {
                 "            panic error(\"Unhandled error\", err);%n" +
                 "        }%n" +
                 "    }%n" +
-                "}%n";
-    }
+                "}%n%n";
+    } // TODO: fix this template remove panic error
 
     public enum FunctionKind {
         INIT,

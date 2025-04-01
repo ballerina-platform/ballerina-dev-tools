@@ -3,105 +3,103 @@
   "type": "graphql",
   "functionName": "mutation",
   "response": {
-    "function": {
+    "metadata": {
+      "label": "Graphql Mutation",
+      "description": "Graphql Mutation"
+    },
+    "qualifiers": [],
+    "kind": "MUTATION",
+    "accessor": {
       "metadata": {
-        "label": "Graphql Mutation",
-        "description": "Graphql Mutation"
+        "label": "Accessor",
+        "description": "The accessor of the function"
       },
-      "qualifiers": [],
-      "kind": "MUTATION",
-      "accessor": {
-        "metadata": {
-          "label": "Accessor",
-          "description": "The accessor of the function"
-        },
-        "enabled": false,
-        "editable": false,
-        "isType": false,
-        "optional": false,
-        "advanced": false,
-        "addNewButton": false
-      },
-      "name": {
-        "metadata": {
-          "label": "Field Name",
-          "description": "The name of the field"
-        },
-        "enabled": true,
-        "editable": true,
-        "value": "",
-        "valueType": "IDENTIFIER",
-        "isType": false,
-        "optional": false,
-        "advanced": false,
-        "addNewButton": false
-      },
-      "parameters": [],
-      "schema": {
-        "parameter": {
-          "type": {
-            "metadata": {
-              "label": "Argument Type",
-              "description": "The type of the argument"
-            },
-            "enabled": true,
-            "editable": true,
-            "value": "",
-            "valueType": "TYPE",
-            "isType": true,
-            "optional": false,
-            "advanced": false,
-            "addNewButton": false
-          },
-          "name": {
-            "metadata": {
-              "label": "Argument Name",
-              "description": "The name of the argument"
-            },
-            "enabled": true,
-            "editable": true,
-            "value": "",
-            "valueType": "IDENTIFIER",
-            "isType": false,
-            "optional": false,
-            "advanced": false,
-            "addNewButton": false
-          },
-          "defaultValue": {
-            "metadata": {
-              "label": "Default Value",
-              "description": "The default value of the argument"
-            },
-            "enabled": true,
-            "editable": true,
-            "isType": false,
-            "optional": true,
-            "advanced": false,
-            "addNewButton": false
-          },
-          "enabled": true,
-          "editable": false,
-          "optional": false,
-          "advanced": false
-        }
-      },
-      "returnType": {
-        "metadata": {
-          "label": "Field Type",
-          "description": "The type of the field"
-        },
-        "enabled": true,
-        "editable": true,
-        "value": "",
-        "valueType": "TYPE",
-        "isType": false,
-        "optional": false,
-        "advanced": false,
-        "addNewButton": false
+      "enabled": false,
+      "editable": false,
+      "isType": false,
+      "optional": false,
+      "advanced": false,
+      "addNewButton": false
+    },
+    "name": {
+      "metadata": {
+        "label": "Field Name",
+        "description": "The name of the field"
       },
       "enabled": true,
+      "editable": true,
+      "value": "",
+      "valueType": "IDENTIFIER",
+      "isType": false,
       "optional": false,
-      "editable": false
-    }
+      "advanced": false,
+      "addNewButton": false
+    },
+    "parameters": [],
+    "schema": {
+      "parameter": {
+        "type": {
+          "metadata": {
+            "label": "Argument Type",
+            "description": "The type of the argument"
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "TYPE",
+          "isType": true,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "name": {
+          "metadata": {
+            "label": "Argument Name",
+            "description": "The name of the argument"
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "valueType": "IDENTIFIER",
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "defaultValue": {
+          "metadata": {
+            "label": "Default Value",
+            "description": "The default value of the argument"
+          },
+          "enabled": true,
+          "editable": true,
+          "isType": false,
+          "optional": true,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "enabled": true,
+        "editable": false,
+        "optional": false,
+        "advanced": false
+      }
+    },
+    "returnType": {
+      "metadata": {
+        "label": "Field Type",
+        "description": "The type of the field"
+      },
+      "enabled": true,
+      "editable": true,
+      "value": "",
+      "valueType": "TYPE",
+      "isType": false,
+      "optional": false,
+      "advanced": false,
+      "addNewButton": false
+    },
+    "enabled": true,
+    "optional": false,
+    "editable": false
   }
 }

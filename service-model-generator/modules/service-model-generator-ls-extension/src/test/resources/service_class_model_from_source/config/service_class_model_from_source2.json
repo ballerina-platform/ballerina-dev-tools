@@ -543,7 +543,7 @@
             "label": "Return Type",
             "description": "The return type of the function"
           },
-          "enabled": false,
+          "enabled": true,
           "editable": true,
           "isType": false,
           "optional": false,

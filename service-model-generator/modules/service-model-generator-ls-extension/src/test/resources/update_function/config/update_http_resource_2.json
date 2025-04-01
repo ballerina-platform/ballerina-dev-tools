@@ -1,22 +1,6 @@
 {
-  "filePath": "http_service.bal",
-  "description": "Add a simple HTTP resource to the service",
-  "codedata": {
-    "lineRange": {
-      "fileName": "http_service.bal.bal",
-      "startLine": {
-        "line": 5,
-        "offset": 0
-      },
-      "endLine": {
-        "line": 12,
-        "offset": 0
-      }
-    },
-    "inListenerInit": false,
-    "isBasePath": false,
-    "inDisplayAnnotation": false
-  },
+  "filePath": "update_http_resource.bal",
+  "description": "Remove http:ResourceConfig annotation",
   "function": {
     "metadata": {
       "label": "Get Path",
@@ -30,7 +14,7 @@
       },
       "enabled": true,
       "editable": true,
-      "value": "GET",
+      "value": "get",
       "valueType": "IDENTIFIER",
       "valueTypeConstraint": "http:Method",
       "isType": false,
@@ -54,8 +38,8 @@
         "description": "The resource path"
       },
       "enabled": true,
-      "editable": false,
-      "value": "response",
+      "editable": true,
+      "value": "path2",
       "valueType": "IDENTIFIER",
       "valueTypeConstraint": "string",
       "isType": false,
@@ -94,7 +78,7 @@
           },
           "enabled": true,
           "editable": true,
-          "value": "request",
+          "value": "req",
           "valueType": "IDENTIFIER",
           "valueTypeConstraint": "string",
           "isType": false,
@@ -137,16 +121,16 @@
           },
           "enabled": true,
           "editable": true,
-          "value": "caller",
+          "value": "",
           "valueType": "IDENTIFIER",
           "valueTypeConstraint": "string",
           "isType": false,
-          "placeholder": "request",
+          "placeholder": "caller",
           "optional": false,
           "advanced": false,
           "addNewButton": false
         },
-        "enabled": true,
+        "enabled": false,
         "editable": true,
         "optional": true,
         "advanced": true
@@ -180,16 +164,16 @@
           },
           "enabled": true,
           "editable": true,
-          "value": "headers",
+          "value": "",
           "valueType": "IDENTIFIER",
           "valueTypeConstraint": "string",
           "isType": false,
-          "placeholder": "request",
+          "placeholder": "headers",
           "optional": false,
           "advanced": false,
           "addNewButton": false
         },
-        "enabled": true,
+        "enabled": false,
         "editable": true,
         "optional": true,
         "advanced": true
@@ -242,7 +226,7 @@
           "enabled": false,
           "editable": true,
           "value": "",
-          "valueType": "STRING",
+          "valueType": "EXPRESSION",
           "valueTypeConstraint": "string",
           "isType": false,
           "placeholder": "",
@@ -372,7 +356,7 @@
             "enabled": true,
             "editable": true,
             "value": "200",
-            "valueType": "EXPRESSION",
+            "valueType": "SINGLE_SELECT",
             "isType": false,
             "optional": false,
             "advanced": false,
@@ -385,7 +369,7 @@
             },
             "enabled": true,
             "editable": true,
-            "value": "http:Response",
+            "value": "",
             "valueType": "TYPE",
             "isType": false,
             "optional": false,
@@ -413,7 +397,7 @@
             },
             "enabled": true,
             "editable": true,
-            "value": "http:Response",
+            "value": "json",
             "valueType": "TYPE",
             "isType": false,
             "optional": false,
@@ -428,15 +412,15 @@
             "enabled": true,
             "editable": true,
             "value": "",
-            "valueType": "EXPRESSION_SET",
+            "valueType": "MULTIPLE_SELECT",
             "isType": false,
             "optional": false,
             "advanced": false,
             "addNewButton": false
           },
           "enabled": true,
-          "editable": true,
-          "advanced": true,
+          "editable": false,
+          "advanced": false,
           "isHttpResponseType": false
         }
       ],
@@ -445,15 +429,15 @@
           "statusCode": {
             "metadata": {
               "label": "Status Code",
-              "description": "Response status code"
+              "description": "The status code"
             },
-            "enabled": false,
-            "editable": false,
+            "enabled": true,
+            "editable": true,
             "value": "",
             "valueType": "SINGLE_SELECT",
             "valueTypeConstraint": "http:StatusCode",
             "isType": false,
-            "placeholder": "",
+            "placeholder": "200",
             "optional": false,
             "advanced": false,
             "items": [
@@ -472,50 +456,67 @@
           },
           "body": {
             "metadata": {
-              "label": "Body type",
-              "description": "Type of the response body field"
+              "label": "Body",
+              "description": "Response Body"
             },
-            "enabled": false,
-            "editable": false,
+            "enabled": true,
+            "editable": true,
             "value": "",
             "valueType": "TYPE",
-            "valueTypeConstraint": "anydata",
-            "isType": true,
-            "placeholder": "",
+            "isType": false,
             "optional": true,
-            "advanced": true,
+            "advanced": false,
             "addNewButton": false
           },
           "name": {
             "metadata": {
-              "label": "Name of the Response Status Code Type",
-              "description": "Type name of the status code response"
+              "label": "Name of the response",
+              "description": "Create a new response type"
             },
-            "enabled": false,
-            "editable": false,
+            "enabled": true,
+            "editable": true,
             "value": "",
-            "valueType": "EXPRESSION",
-            "valueTypeConstraint": "anydata",
-            "isType": true,
-            "placeholder": "",
-            "optional": false,
-            "advanced": true,
+            "valueType": "IDENTIFIER",
+            "isType": false,
+            "optional": true,
+            "advanced": false,
             "addNewButton": false
           },
           "type": {
             "metadata": {
               "label": "Response Type",
-              "description": "The response type"
+              "description": "Select a response type"
             },
-            "enabled": false,
-            "editable": false,
+            "enabled": true,
+            "editable": true,
             "value": "",
             "valueType": "TYPE",
-            "valueTypeConstraint": "anydata|http:StatusCodeResponse",
-            "isType": true,
-            "placeholder": "",
+            "isType": false,
+            "optional": false,
+            "advanced": false,
+            "addNewButton": false
+          },
+          "headers": {
+            "metadata": {
+              "label": "Header types",
+              "description": "Response header types"
+            },
+            "enabled": true,
+            "editable": true,
+            "value": "",
+            "valueType": "MULTIPLE_SELECT",
+            "isType": false,
             "optional": true,
             "advanced": false,
+            "items": [
+              "",
+              "string",
+              "int",
+              "boolean",
+              "string[]",
+              "int[]",
+              "boolean[]"
+            ],
             "addNewButton": false
           },
           "enabled": true,
@@ -544,13 +545,13 @@
     "editable": true,
     "codedata": {
       "lineRange": {
-        "fileName": "main.bal",
+        "fileName": "update_http_resource.bal",
         "startLine": {
-          "line": 6,
+          "line": 11,
           "offset": 4
         },
         "endLine": {
-          "line": 8,
+          "line": 19,
           "offset": 5
         }
       },
@@ -566,7 +567,7 @@
         },
         "enabled": true,
         "editable": true,
-        "value": "{}",
+        "value": "",
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "http:HttpResourceConfig",
         "isType": false,
@@ -595,19 +596,19 @@
     }
   },
   "output": {
-    "http_service.bal": [
+    "update_http_resource.bal": [
       {
         "range": {
           "start": {
-            "line": 12,
-            "character": 0
+            "line": 14,
+            "character": 31
           },
           "end": {
-            "line": 12,
-            "character": 0
+            "line": 14,
+            "character": 62
           }
         },
-        "newText": "\n\t@http:ResourceConfig{}\n\tresource function get response(http:Request request, http:Caller caller, http:Headers headers) returns error|http:Response {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t\treturn error(\"Not implemented\", err);\n\t\t}\n\t}\n"
+        "newText": "(http:Request req) returns json "
       }
     ]
   }

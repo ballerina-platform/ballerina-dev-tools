@@ -80,6 +80,37 @@
               "codedata": {
                 "type": "SERVICE_BASEPATH"
               }
+            },
+            "annotServiceConfig": {
+              "metadata": {
+                "label": "Service Configuration",
+                "description": "Define advanced configurations like service level security, etc."
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "EXPRESSION",
+              "valueTypeConstraint": "http:HttpServiceConfig",
+              "isType": false,
+              "placeholder": "{}",
+              "optional": true,
+              "advanced": true,
+              "codedata": {
+                "inListenerInit": false,
+                "isBasePath": false,
+                "inDisplayAnnotation": false,
+                "type": "ANNOTATION_ATTACHMENT",
+                "originalName": "ServiceConfig"
+              },
+              "addNewButton": false,
+              "typeMembers": [
+                {
+                  "type": "HttpServiceConfig",
+                  "packageInfo": "ballerina:http:2.14.0",
+                  "kind": "RECORD_TYPE",
+                  "selected": true
+                }
+              ]
             }
           }
         },
@@ -134,37 +165,6 @@
               }
             }
           }
-        }
-      ]
-    },
-    "annotServiceConfig": {
-      "metadata": {
-        "label": "Service Configuration",
-        "description": "Define advanced configurations like service level security, etc."
-      },
-      "enabled": true,
-      "editable": true,
-      "value": "",
-      "valueType": "EXPRESSION",
-      "valueTypeConstraint": "http:HttpServiceConfig",
-      "isType": false,
-      "placeholder": "{}",
-      "optional": true,
-      "advanced": true,
-      "codedata": {
-        "inListenerInit": false,
-        "isBasePath": false,
-        "inDisplayAnnotation": false,
-        "type": "ANNOTATION_ATTACHMENT",
-        "originalName": "ServiceConfig"
-      },
-      "addNewButton": false,
-      "typeMembers": [
-        {
-          "type": "HttpServiceConfig",
-          "packageInfo": "ballerina:http:2.14.0",
-          "kind": "RECORD_TYPE",
-          "selected": true
         }
       ]
     }

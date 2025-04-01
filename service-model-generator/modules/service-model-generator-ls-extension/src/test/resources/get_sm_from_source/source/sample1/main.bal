@@ -14,6 +14,9 @@ service /api/test on httpListener {
         }
     }
 
+    @http:ResourceConfig {
+        consumes: []
+    }
     resource function get greeting/[string name](@http:Header string header, int id = 45) returns OkResponse {
         do {
         } on fail error err {
