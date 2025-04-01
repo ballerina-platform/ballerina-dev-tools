@@ -6,6 +6,15 @@
     {
       "label": "string",
       "labelDetails": {
+        "detail": "Used Variable Types",
+        "description": "String"
+      },
+      "kind": "TypeParameter",
+      "insertText": "string"
+    },
+    {
+      "label": "string",
+      "labelDetails": {
         "detail": "Primitive Types",
         "description": "String"
       },

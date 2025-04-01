@@ -7,40 +7,13 @@
   },
   "completions": [
     {
-      "label": "Person[]",
-      "labelDetails": {
-        "detail": "Variable",
-        "description": "Array"
-      },
-      "kind": "TypeParameter",
-      "insertText": "Person[]"
-    },
-    {
       "label": "map<Person>",
       "labelDetails": {
-        "detail": "Variable",
+        "detail": "Used Variable Types",
         "description": "Map"
       },
       "kind": "TypeParameter",
       "insertText": "map<Person>"
-    },
-    {
-      "label": "string[]",
-      "labelDetails": {
-        "detail": "Variable",
-        "description": "Array"
-      },
-      "kind": "TypeParameter",
-      "insertText": "string[]"
-    },
-    {
-      "label": "string|int",
-      "labelDetails": {
-        "detail": "Variable",
-        "description": "Union"
-      },
-      "kind": "Enum",
-      "insertText": "string|int"
     },
     {
       "label": "Person",
@@ -50,6 +23,33 @@
       },
       "kind": "Struct",
       "insertText": "Person"
+    },
+    {
+      "label": "string[]",
+      "labelDetails": {
+        "detail": "Used Variable Types",
+        "description": "Array"
+      },
+      "kind": "TypeParameter",
+      "insertText": "string[]"
+    },
+    {
+      "label": "Person[]",
+      "labelDetails": {
+        "detail": "Used Variable Types",
+        "description": "Array"
+      },
+      "kind": "TypeParameter",
+      "insertText": "Person[]"
+    },
+    {
+      "label": "string|int",
+      "labelDetails": {
+        "detail": "Used Variable Types",
+        "description": "Union"
+      },
+      "kind": "Enum",
+      "insertText": "string|int"
     },
     {
       "label": "byte[]",

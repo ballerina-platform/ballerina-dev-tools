@@ -30,7 +30,6 @@ import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.flowmodelgenerator.core.expressioneditor.DocumentContext;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.ModuleInfo;
-import io.ballerina.projects.Module;
 import io.ballerina.tools.text.LinePosition;
 import org.ballerinalang.model.types.TypeKind;
 import org.eclipse.lsp4j.CompletionItem;
@@ -54,6 +53,7 @@ public class TypesGenerator {
     private final Map<TypeSymbol, CompletionItem> completionItemMap;
     private final Map<TypeSymbol, List<CompletionItem>> subtypeItemsMap;
     private volatile boolean initialized = false;
+    private static final String LANG_ANNOTATIONS_MODULE = "lang.annotations";
 
     private static final String USER_DEFINED_TYPE = "User-Defined";
     private static final String VARIABLE_TYPE = "Used Variable Types";
@@ -120,66 +120,90 @@ public class TypesGenerator {
         }
         SemanticModel semanticModel = optionalSemanticModel.get();
 
-        // Get the symbol of the type constraint
         initializeBuiltinTypes(semanticModel);
-        TypeSymbol typeSymbol = typeSymbolMap.get(typeConstraint);
-        List<CompletionItem> completionItems = new ArrayList<>();
+        Optional<ModuleInfo> userModuleInfo =
+                documentContext.module().map(module -> ModuleInfo.from(module.descriptor()));
+        TypeSymbol typeConstraintSymbol = typeSymbolMap.get(typeConstraint);
 
-        // Provide type of the visible variables in the line position is not null
-        if (linePosition != null) {
-            Optional<Module> module = documentContext.module();
-            if (module.isPresent()) {
-                ModuleInfo userModuleInfo = ModuleInfo.from(module.get().descriptor());
-                List<Symbol> symbols = semanticModel.visibleSymbols(documentContext.document(), linePosition);
-                List<CompletionItem> variableCompletions = symbols.parallelStream()
-                        .filter(symbol -> symbol.kind() == SymbolKind.VARIABLE)
-                        .map(symbol -> {
-                            VariableSymbol variableSymbol = (VariableSymbol) symbol;
-                            TypeSymbol variableTypeSymbol = variableSymbol.typeDescriptor();
-                            return TypeCompletionItemBuilder.build(variableTypeSymbol,
-                                    CommonUtils.getTypeSignature(semanticModel, variableTypeSymbol, false,
-                                            userModuleInfo),
-                                    VARIABLE_TYPE);
-                        })
-                        .toList();
-                completionItems.addAll(variableCompletions);
+        // Obtain the module symbols
+        List<Symbol> symbols;
+        if (linePosition == null) {
+            symbols = semanticModel.moduleSymbols();
+        } else {
+            symbols = semanticModel.visibleSymbols(documentContext.document(), linePosition);
+        }
+
+        // Generate the completion items for the user's symbols
+        List<CompletionItem> completionItems = new ArrayList<>();
+        for (Symbol symbol : symbols) {
+            // Generate the completion items for the types used in variables
+            if (symbol.kind() == SymbolKind.VARIABLE && userModuleInfo.isPresent()) {
+                VariableSymbol variableSymbol = (VariableSymbol) symbol;
+                TypeSymbol variableTypeSymbol = variableSymbol.typeDescriptor();
+
+                if (isInvalidTypeSymbol(variableTypeSymbol, typeConstraintSymbol)) {
+                    continue;
+                }
+                completionItems.add(TypeCompletionItemBuilder.build(
+                        variableTypeSymbol,
+                        CommonUtils.getTypeSignature(semanticModel, variableTypeSymbol, false,
+                                userModuleInfo.get()),
+                        VARIABLE_TYPE
+                ));
+                continue;
+            }
+
+            // Generate the completion items for the type definitions
+            if (TYPE_SYMBOL_KINDS.contains(symbol.kind())) {
+                if (isInvalidTypeSymbol(symbol, typeConstraintSymbol)) {
+                    continue;
+                }
+                // Skip the internal type definitions
+                if (symbol.getModule().map(moduleSymbol -> moduleSymbol.nameEquals(LANG_ANNOTATIONS_MODULE))
+                        .orElse(false)) {
+                    continue;
+                }
+                completionItems.add(TypeCompletionItemBuilder.build(
+                        symbol,
+                        symbol.getName().orElse(""),
+                        USER_DEFINED_TYPE
+                ));
             }
         }
 
-        // If the symbol not found, return all the completions
-        if (typeSymbol == null) {
-            List<CompletionItem> typeCompletions = semanticModel.moduleSymbols().parallelStream()
-                    .filter(symbol -> TYPE_SYMBOL_KINDS.contains(symbol.kind()))
-                    .map(symbol -> TypeCompletionItemBuilder.build(symbol, symbol.getName().orElse(""),
-                            USER_DEFINED_TYPE))
-                    .toList();
-            completionItems.addAll(typeCompletions);
+        // Add the remaining completions items
+        if (typeConstraintSymbol == null) {
+            // Add all the builtin types
             completionItems.addAll(completionItemMap.values());
-            return Either.forLeft(completionItems);
+        } else {
+            // Add the subtype builtin types
+            List<CompletionItem> subtypeItems = subtypeItemsMap.get(typeConstraintSymbol);
+            if (subtypeItems != null) {
+                completionItems.addAll(subtypeItems);
+            }
         }
-
-        // Get the filtered type completions
-        List<CompletionItem> typeCompletions = semanticModel.moduleSymbols().parallelStream()
-                .filter(symbol -> isSubtype(typeSymbol, symbol))
-                .map(symbol -> TypeCompletionItemBuilder.build(symbol, symbol.getName().orElse(""),
-                        USER_DEFINED_TYPE))
-                .toList();
-        completionItems.addAll(typeCompletions);
-        completionItems.addAll(subtypeItemsMap.get(typeSymbol));
         return Either.forLeft(completionItems);
     }
 
-    private static boolean isSubtype(TypeSymbol parentSymbol, Symbol childSymbol) {
-        TypeSymbol childTypeSymbol = switch (childSymbol.kind()) {
-            case TYPE_DEFINITION -> ((TypeDefinitionSymbol) childSymbol).typeDescriptor();
-            case CLASS -> ((ClassSymbol) childSymbol);
-            case ENUM -> ((EnumSymbol) childSymbol).typeDescriptor();
+    private static boolean isInvalidTypeSymbol(Symbol symbol, TypeSymbol typeConstraintSymbol) {
+        if (typeConstraintSymbol == null) {
+            return false;
+        }
+        TypeSymbol childTypeSymbol = switch (symbol.kind()) {
+            case TYPE_DEFINITION -> ((TypeDefinitionSymbol) symbol).typeDescriptor();
+            case CLASS -> ((ClassSymbol) symbol);
+            case ENUM -> ((EnumSymbol) symbol).typeDescriptor();
+            case TYPE -> (TypeSymbol) symbol;
             default -> null;
         };
         if (childTypeSymbol == null) {
-            return false;
+            return true;
         }
-        return childTypeSymbol.subtypeOf(parentSymbol);
+        try {
+            return !childTypeSymbol.subtypeOf(typeConstraintSymbol);
+        } catch (Throwable ignored) {
+            return true;
+        }
     }
 
     public Optional<TypeSymbol> getTypeSymbol(SemanticModel semanticModel, String typeName) {

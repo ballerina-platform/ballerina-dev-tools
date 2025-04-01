@@ -1,6 +1,6 @@
 
 public function main() {
-    Person[] localPersons = [
+    Person[] people = [
         {
             id: 1,
             name: "John Doe"

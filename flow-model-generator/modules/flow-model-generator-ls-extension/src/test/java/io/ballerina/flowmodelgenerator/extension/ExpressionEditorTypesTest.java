@@ -52,7 +52,7 @@ public class ExpressionEditorTypesTest extends AbstractLSTest {
                 ExpressionEditorCompletionTest.COMPLETION_RESPONSE_TYPE);
         if (!assertArray("completions", actualCompletions, testConfig.completions())) {
             TestConfig updatedConfig = new TestConfig(testConfig.description(), testConfig.source(),
-                    testConfig.typeConstraint(), testConfig.position() ,actualCompletions);
+                    testConfig.typeConstraint(), testConfig.position(), actualCompletions);
 //            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
