@@ -1,0 +1,344 @@
+{
+  "filePath": "proj",
+  "type": {
+    "name": "Message",
+    "fields": [
+      {
+        "members": [
+          {
+            "typeName": "string",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": true
+          },
+          {
+            "memberType": {
+              "typeName": "string",
+              "optional": false,
+              "defaultable": false,
+              "isRestType": false,
+              "selected": false
+            },
+            "typeName": "array",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          }
+        ],
+        "name": "to",
+        "typeName": "union",
+        "optional": false,
+        "defaultable": false,
+        "documentation": "TO address list",
+        "isRestType": false,
+        "value": "\"dd\"",
+        "selected": true
+      },
+      {
+        "name": "subject",
+        "typeName": "string",
+        "optional": false,
+        "defaultable": false,
+        "documentation": "Subject of email",
+        "isRestType": false,
+        "value": "\"dd\"",
+        "selected": true
+      },
+      {
+        "name": "from",
+        "typeName": "string",
+        "optional": true,
+        "defaultable": false,
+        "documentation": "From address",
+        "isRestType": false,
+        "selected": false
+      },
+      {
+        "name": "body",
+        "typeName": "string",
+        "optional": true,
+        "defaultable": false,
+        "documentation": "Text typed body of the email message",
+        "isRestType": false,
+        "value": "\"addad\"\n",
+        "selected": true
+      },
+      {
+        "name": "htmlBody",
+        "typeName": "string",
+        "optional": true,
+        "defaultable": false,
+        "documentation": "HTML typed body of the email message",
+        "isRestType": false,
+        "selected": false
+      },
+      {
+        "members": [
+          {
+            "typeName": "string",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "memberType": {
+              "typeName": "string",
+              "optional": false,
+              "defaultable": false,
+              "isRestType": false,
+              "selected": false
+            },
+            "typeName": "array",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          }
+        ],
+        "name": "cc",
+        "typeName": "union",
+        "optional": true,
+        "defaultable": false,
+        "documentation": "CC address list",
+        "isRestType": false,
+        "selected": false
+      },
+      {
+        "members": [
+          {
+            "typeName": "string",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "memberType": {
+              "typeName": "string",
+              "optional": false,
+              "defaultable": false,
+              "isRestType": false,
+              "selected": false
+            },
+            "typeName": "array",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          }
+        ],
+        "name": "bcc",
+        "typeName": "union",
+        "optional": true,
+        "defaultable": false,
+        "documentation": "BCC address list",
+        "isRestType": false,
+        "selected": false
+      },
+      {
+        "members": [
+          {
+            "typeName": "string",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "memberType": {
+              "typeName": "string",
+              "optional": false,
+              "defaultable": false,
+              "isRestType": false,
+              "selected": false
+            },
+            "typeName": "array",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          }
+        ],
+        "name": "replyTo",
+        "typeName": "union",
+        "optional": true,
+        "defaultable": false,
+        "documentation": "Reply To addresses",
+        "isRestType": false,
+        "selected": false
+      },
+      {
+        "name": "contentType",
+        "typeName": "string",
+        "optional": true,
+        "defaultable": false,
+        "documentation": "Content Type of the Body",
+        "isRestType": false,
+        "selected": false
+      },
+      {
+        "paramType": {
+          "typeName": "string",
+          "optional": false,
+          "defaultable": false,
+          "isRestType": false,
+          "selected": false
+        },
+        "name": "headers",
+        "typeName": "map",
+        "optional": true,
+        "defaultable": false,
+        "documentation": "Header list",
+        "isRestType": false,
+        "selected": false
+      },
+      {
+        "name": "sender",
+        "typeName": "string",
+        "optional": true,
+        "defaultable": false,
+        "documentation": "Sender's address",
+        "isRestType": false,
+        "selected": false
+      },
+      {
+        "members": [
+          {
+            "fields": [],
+            "name": "Entity",
+            "typeName": "object",
+            "optional": false,
+            "typeInfo": {
+              "name": "Entity",
+              "orgName": "ballerina",
+              "moduleName": "mime",
+              "version": "2.12.0"
+            },
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "fields": [
+              {
+                "name": "filePath",
+                "typeName": "string",
+                "optional": false,
+                "defaultable": false,
+                "documentation": "",
+                "isRestType": false,
+                "selected": false
+              },
+              {
+                "name": "contentType",
+                "typeName": "string",
+                "optional": false,
+                "defaultable": false,
+                "documentation": "Content Type of the Body",
+                "isRestType": false,
+                "selected": false
+              }
+            ],
+            "hasRestType": false,
+            "name": "Attachment",
+            "typeName": "record",
+            "optional": false,
+            "typeInfo": {
+              "name": "Attachment",
+              "orgName": "ballerina",
+              "moduleName": "email",
+              "version": "2.12.0"
+            },
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          },
+          {
+            "memberType": {
+              "members": [
+                {
+                  "fields": [],
+                  "name": "Entity",
+                  "typeName": "object",
+                  "optional": false,
+                  "typeInfo": {
+                    "name": "Entity",
+                    "orgName": "ballerina",
+                    "moduleName": "mime",
+                    "version": "2.12.0"
+                  },
+                  "defaultable": false,
+                  "isRestType": false,
+                  "selected": false
+                },
+                {
+                  "fields": [
+                    {
+                      "name": "filePath",
+                      "typeName": "string",
+                      "optional": false,
+                      "defaultable": false,
+                      "documentation": "",
+                      "isRestType": false,
+                      "selected": false
+                    },
+                    {
+                      "name": "contentType",
+                      "typeName": "string",
+                      "optional": false,
+                      "defaultable": false,
+                      "documentation": "Content Type of the Body",
+                      "isRestType": false,
+                      "selected": false
+                    }
+                  ],
+                  "hasRestType": false,
+                  "name": "Attachment",
+                  "typeName": "record",
+                  "optional": false,
+                  "typeInfo": {
+                    "name": "Attachment",
+                    "orgName": "ballerina",
+                    "moduleName": "email",
+                    "version": "2.12.0"
+                  },
+                  "defaultable": false,
+                  "isRestType": false,
+                  "selected": false
+                }
+              ],
+              "typeName": "union",
+              "optional": false,
+              "defaultable": false,
+              "isRestType": false,
+              "selected": false
+            },
+            "typeName": "array",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          }
+        ],
+        "name": "attachments",
+        "typeName": "union",
+        "optional": true,
+        "defaultable": false,
+        "documentation": "Email attachements",
+        "isRestType": false,
+        "selected": false
+      }
+    ],
+    "hasRestType": false,
+    "typeName": "record",
+    "optional": false,
+    "defaultable": false,
+    "documentation": "Email message properties.\n",
+    "isRestType": false,
+    "selected": true
+  },
+  "output": "{\n    to: \"dd\",\n    subject: \"dd\",\n    body: \"addad\"\n}"
+}
