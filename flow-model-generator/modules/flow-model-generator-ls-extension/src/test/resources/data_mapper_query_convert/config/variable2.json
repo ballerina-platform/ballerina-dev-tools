@@ -62,6 +62,6 @@
     "line": 30,
     "offset": 64
   },
-  "output": "from var bank in banks select {name: bank.name, credentials: from var userInfoItem in bank.userInfo select {username: ,password: }}",
+  "output": "",
   "targetField": "stores.0.credentials"
 }
