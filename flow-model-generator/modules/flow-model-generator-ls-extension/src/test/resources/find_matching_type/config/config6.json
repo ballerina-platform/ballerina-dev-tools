@@ -21,6 +21,7 @@
                   "typeName": "string",
                   "optional": false,
                   "defaultable": false,
+                  "documentation": "",
                   "isRestType": false,
                   "value": "",
                   "selected": false
@@ -30,6 +31,7 @@
                   "typeName": "string",
                   "optional": false,
                   "defaultable": false,
+                  "documentation": "",
                   "isRestType": false,
                   "value": "",
                   "selected": false
@@ -57,6 +59,7 @@
                   "typeName": "string",
                   "optional": false,
                   "defaultable": false,
+                  "documentation": "",
                   "isRestType": false,
                   "value": "\"\"",
                   "selected": true
@@ -66,6 +69,7 @@
                   "typeName": "string",
                   "optional": false,
                   "defaultable": false,
+                  "documentation": "",
                   "isRestType": false,
                   "value": "\"\"",
                   "selected": true
@@ -75,6 +79,7 @@
                   "typeName": "string",
                   "optional": true,
                   "defaultable": false,
+                  "documentation": "",
                   "isRestType": false,
                   "selected": false
                 }
@@ -98,6 +103,7 @@
           "typeName": "union",
           "optional": false,
           "defaultable": false,
+          "documentation": "Configurations associated with `crypto:KeyStore` or combination of certificate and (PKCS8) private key of the server",
           "isRestType": false,
           "selected": true
         },
@@ -130,6 +136,7 @@
                 "version": "2.12.2"
               },
               "defaultable": true,
+              "documentation": "",
               "isRestType": false,
               "selected": false
             },
@@ -142,6 +149,7 @@
                       "typeName": "string",
                       "optional": false,
                       "defaultable": false,
+                      "documentation": "",
                       "isRestType": false,
                       "selected": false
                     },
@@ -150,6 +158,7 @@
                       "typeName": "string",
                       "optional": false,
                       "defaultable": false,
+                      "documentation": "",
                       "isRestType": false,
                       "selected": false
                     }
@@ -180,6 +189,7 @@
               "typeName": "union",
               "optional": false,
               "defaultable": false,
+              "documentation": "",
               "isRestType": false,
               "selected": false
             }
@@ -189,6 +199,7 @@
           "typeName": "record",
           "optional": true,
           "defaultable": false,
+          "documentation": "Configures associated with mutual SSL operations",
           "isRestType": false,
           "selected": false
         },
@@ -228,6 +239,7 @@
                 "version": "2.12.2"
               },
               "defaultable": false,
+              "documentation": "",
               "isRestType": false,
               "selected": false
             },
@@ -243,6 +255,7 @@
               "typeName": "array",
               "optional": false,
               "defaultable": true,
+              "documentation": "",
               "isRestType": false,
               "selected": false
             }
@@ -252,6 +265,7 @@
           "typeName": "record",
           "optional": true,
           "defaultable": false,
+          "documentation": "SSL/TLS protocol related options",
           "isRestType": false,
           "selected": false
         },
@@ -284,6 +298,7 @@
                 "version": "2.12.2"
               },
               "defaultable": true,
+              "documentation": "",
               "isRestType": false,
               "selected": false
             },
@@ -292,6 +307,7 @@
               "typeName": "int",
               "optional": false,
               "defaultable": false,
+              "documentation": "",
               "isRestType": false,
               "selected": false
             },
@@ -300,6 +316,7 @@
               "typeName": "int",
               "optional": false,
               "defaultable": false,
+              "documentation": "",
               "isRestType": false,
               "selected": false
             }
@@ -309,6 +326,7 @@
           "typeName": "record",
           "optional": true,
           "defaultable": false,
+          "documentation": "Certificate validation against OCSP_CRL, OCSP_STAPLING related options",
           "isRestType": false,
           "selected": false
         },
@@ -324,6 +342,7 @@
           "typeName": "array",
           "optional": false,
           "defaultable": true,
+          "documentation": "List of ciphers to be used\neg: TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA",
           "isRestType": false,
           "selected": false
         },
@@ -332,6 +351,7 @@
           "typeName": "boolean",
           "optional": false,
           "defaultable": true,
+          "documentation": "Enable/Disable new SSL session creation",
           "isRestType": false,
           "selected": false
         },
@@ -340,6 +360,7 @@
           "typeName": "decimal",
           "optional": true,
           "defaultable": false,
+          "documentation": "SSL handshake time out",
           "isRestType": false,
           "selected": false
         },
@@ -348,6 +369,7 @@
           "typeName": "decimal",
           "optional": true,
           "defaultable": false,
+          "documentation": "SSL session time out",
           "isRestType": false,
           "selected": false
         }
@@ -357,6 +379,7 @@
       "typeName": "record",
       "optional": false,
       "defaultable": false,
+      "documentation": "Configures the SSL/TLS options to be used for HTTP service.\n",
       "isRestType": false,
       "selected": true
     },

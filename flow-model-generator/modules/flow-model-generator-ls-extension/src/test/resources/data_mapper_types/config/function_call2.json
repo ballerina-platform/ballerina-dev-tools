@@ -58,6 +58,7 @@
         "typeName": "string",
         "optional": false,
         "defaultable": false,
+        "documentation": "",
         "isRestType": false,
         "selected": false
       },
@@ -66,6 +67,7 @@
         "typeName": "string",
         "optional": false,
         "defaultable": false,
+        "documentation": "",
         "isRestType": false,
         "selected": false
       },
@@ -76,6 +78,7 @@
             "typeName": "string",
             "optional": false,
             "defaultable": false,
+            "documentation": "",
             "isRestType": false,
             "selected": false
           },
@@ -84,6 +87,7 @@
             "typeName": "string",
             "optional": false,
             "defaultable": false,
+            "documentation": "",
             "isRestType": false,
             "selected": false
           }
@@ -99,6 +103,7 @@
           "version": "0.0.0"
         },
         "defaultable": false,
+        "documentation": "",
         "isRestType": false,
         "selected": false
       }
