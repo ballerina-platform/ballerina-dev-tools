@@ -115,7 +115,7 @@ public class RecordValueGenerator {
                     if (fieldObj.has("selected") && fieldObj.get("selected").getAsBoolean()) {
                         String fieldName = fieldObj.get("name").getAsString();
                         StringBuilder fieldValueBuilder = new StringBuilder();
-                        generateFieldValue(fieldObj, fieldValueBuilder, indentLevel + 1);
+                        generateValue(fieldObj, fieldValueBuilder, indentLevel + 1);
                         String fieldValue = nextIndent + fieldName + ": " + fieldValueBuilder.toString().trim();
                         fieldValues.add(fieldValue);
                     }
@@ -127,20 +127,6 @@ public class RecordValueGenerator {
             builder.append(String.join(",\n", fieldValues));
         }
         builder.append("\n").append(indent).append("}");
-    }
-
-    private static void generateFieldValue(JsonObject fieldObj, StringBuilder builder, int indentLevel) {
-        if (fieldObj.has("typeName")) {
-            String typeName = fieldObj.get("typeName").getAsString();
-            switch (typeName) {
-                case "record" -> generateRecordValue(fieldObj, builder, indentLevel);
-                case "union" -> generateUnionValue(fieldObj, builder, indentLevel);
-                case "enum" -> generateEnumValue(fieldObj, builder, indentLevel);
-                default -> generateDefaultValue(fieldObj, builder, indentLevel);
-            }
-        } else {
-            generateDefaultValue(fieldObj, builder, indentLevel);
-        }
     }
 
     private static void generateDefaultValue(JsonObject jsonObject, StringBuilder builder, int indentLevel) {
