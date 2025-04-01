@@ -176,7 +176,7 @@ public final class Utils {
                 && !designApproach.getChoices().isEmpty()) {
             designApproach.getChoices().forEach(choice -> choice.setEnabled(false));
             designApproach.getChoices().stream()
-                    .filter(choice -> choice.getMetadata().label().equals("Import from OpenAPI Specification"))
+                    .filter(choice -> choice.getMetadata().label().equals("Import From OpenAPI Specification"))
                     .findFirst()
                     .ifPresent(approach -> {
                 approach.setEnabled(true);
@@ -208,25 +208,16 @@ public final class Utils {
         return Optional.of(expressionNode);
     }
 
-    public static Service getServiceModel(TypeDefinitionNode serviceTypeNode,
-                                          ServiceDeclarationNode serviceDeclarationNode,
-                                          SemanticModel semanticModel) {
+    public static Service fromHttpServiceWithContract(TypeDefinitionNode serviceTypeNode,
+                                                      ServiceDeclarationNode serviceDeclarationNode,
+                                                      SemanticModel semanticModel) {
         Service serviceModel = Service.getNewService();
-        Optional<String> basePath = getPath(serviceTypeNode);
-        if (basePath.isPresent() && !basePath.get().isEmpty()) {
-            MetaData metaData = new MetaData("Service Base Path", "The base path for the service");
-            Value basePathValue = new Value();
-            basePathValue.setValue(basePath.get());
-            basePathValue.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER);
-            basePathValue.setEnabled(true);
-            basePathValue.setMetadata(metaData);
-            serviceModel.setBasePath(basePathValue);
-        }
-        Value serviceType = new Value();
-        serviceType.setValue(serviceTypeNode.typeName().text().trim());
-        serviceType.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_TYPE);
-        serviceType.setEnabled(true);
-        serviceModel.setServiceContractTypeName(serviceType);
+        Value serviceContractType = new Value.ValueBuilder()
+                .enabled(true)
+                .valueType(ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER)
+                .value(serviceTypeNode.typeName().text().trim())
+                .build();
+        serviceModel.setServiceContractTypeName(serviceContractType);
         List<Function> functionModels = new ArrayList<>();
         serviceDeclarationNode.members().forEach(member -> {
             if (member instanceof FunctionDefinitionNode functionDefinitionNode) {
@@ -531,14 +522,10 @@ public final class Utils {
         return Optional.empty();
     }
 
-    public static void updateServiceContractModel(Service serviceModel, TypeDefinitionNode serviceTypeNode,
-                                                  ServiceDeclarationNode serviceDeclaration,
-                                                  SemanticModel semanticModel) {
-        Service commonSvcModel = getServiceModel(serviceTypeNode, serviceDeclaration, semanticModel);
-
-        if (Objects.nonNull(serviceModel.getServiceType()) && Objects.nonNull(commonSvcModel.getServiceType())) {
-            serviceModel.updateServiceType(commonSvcModel.getServiceType());
-        }
+    public static void updateHttpServiceContractModel(Service serviceModel, TypeDefinitionNode serviceTypeNode,
+                                                      ServiceDeclarationNode serviceDeclaration,
+                                                      SemanticModel semanticModel) {
+        Service commonSvcModel = fromHttpServiceWithContract(serviceTypeNode, serviceDeclaration, semanticModel);
         updateServiceInfo(serviceModel, commonSvcModel);
         serviceModel.setCodedata(new Codedata(serviceDeclaration.lineRange()));
         populateListenerInfo(serviceModel, serviceDeclaration);

@@ -145,7 +145,7 @@ import static io.ballerina.servicemodelgenerator.extension.util.Utils.importExis
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.isAiAgentModule;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.getHttpServiceContractSym;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.populateRequiredFuncsDesignApproachAndServiceType;
-import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateServiceContractModel;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateHttpServiceContractModel;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateHttpServiceModel;
 
 /**
@@ -567,7 +567,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                                     .findFirst();
                             if (serviceContractType.isPresent()) {
                                 serviceContractExists = true;
-                                updateServiceContractModel(serviceModel, serviceContractType.get(), serviceNode,
+                                updateHttpServiceContractModel(serviceModel, serviceContractType.get(), serviceNode,
                                         semanticModel);
                             }
                         }

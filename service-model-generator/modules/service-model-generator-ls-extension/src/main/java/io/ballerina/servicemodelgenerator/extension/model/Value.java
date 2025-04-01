@@ -312,12 +312,17 @@ public class Value {
         private boolean addNewButton = false;
         private List<PropertyTypeMemberInfo> typeMembers;
 
+        public ValueBuilder metadata(String label, String description) {
+            this.metadata = new MetaData(label, description);
+            return this;
+        }
+
         public ValueBuilder setMetadata(MetaData metadata) {
             this.metadata = metadata;
             return this;
         }
 
-        public ValueBuilder setEnabled(boolean enabled) {
+        public ValueBuilder enabled(boolean enabled) {
             this.enabled = enabled;
             return this;
         }
@@ -327,12 +332,12 @@ public class Value {
             return this;
         }
 
-        public ValueBuilder setValue(String value) {
+        public ValueBuilder value(String value) {
             this.value = value;
             return this;
         }
 
-        public ValueBuilder setValueType(String valueType) {
+        public ValueBuilder valueType(String valueType) {
             this.valueType = valueType;
             return this;
         }

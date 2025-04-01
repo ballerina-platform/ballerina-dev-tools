@@ -293,13 +293,13 @@ public class ListenerUtil {
             Value.ValueBuilder valueBuilder = new Value.ValueBuilder()
                     .setMetadata(new MetaData(unescapedParamName, paramResult.description()))
                     .setCodedata(codedata)
-                    .setValue("")
-                    .setValueType("EXPRESSION")
+                    .value("")
+                    .valueType("EXPRESSION")
                     .setPlaceholder(paramResult.defaultValue())
                     .setValueTypeConstraint(paramResult.type())
                     .setEditable(true)
                     .setType(false)
-                    .setEnabled(true)
+                    .enabled(true)
                     .setOptional(paramResult.optional())
                     .setAdvanced(paramResult.optional())
                     .setTypeMembers(paramResult.typeMembers());
@@ -372,12 +372,12 @@ public class ListenerUtil {
         valueBuilder
                 .setMetadata(new MetaData("Name", "The name of the listener"))
                 .setCodedata(new Codedata("LISTENER_VAR_NAME"))
-                .setValue("")
-                .setValueType("IDENTIFIER")
+                .value("")
+                .valueType("IDENTIFIER")
                 .setValueTypeConstraint("string")
                 .setType(false)
                 .setEditable(true)
-                .setEnabled(true)
+                .enabled(true)
                 .setOptional(false)
                 .setAdvanced(false);
 
