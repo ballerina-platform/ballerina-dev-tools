@@ -6,16 +6,16 @@
     {
       "node": "CLASS_INIT",
       "org": "ballerinax",
-      "module": "ai.agent",
-      "object": "OpenAiModel",
+      "module": "ai",
+      "object": "OpenAiProvider",
       "symbol": "init",
       "version": "0.7.9"
     },
     {
       "node": "CLASS_INIT",
       "org": "ballerinax",
-      "module": "ai.agent",
-      "object": "AzureOpenAiModel",
+      "module": "ai",
+      "object": "AzureOpenAiProvider",
       "symbol": "init",
       "version": "0.7.9"
     }

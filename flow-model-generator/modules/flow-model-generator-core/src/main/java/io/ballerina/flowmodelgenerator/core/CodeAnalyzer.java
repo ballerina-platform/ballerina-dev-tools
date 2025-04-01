@@ -198,7 +198,7 @@ class CodeAnalyzer extends NodeVisitor {
     private final Stack<NodeBuilder> flowNodeBuilderStack;
     private TypedBindingPatternNode typedBindingPatternNode;
     private static final String BALLERINAX = "ballerinax";
-    private static final String AI_AGENT = "ai.agent";
+    private static final String AI_AGENT = "ai";
 
     public CodeAnalyzer(Project project, SemanticModel semanticModel, String connectionScope,
                         Map<String, LineRange> dataMappings, TextDocument textDocument, ModuleInfo moduleInfo,
@@ -1149,13 +1149,13 @@ class CodeAnalyzer extends NodeVisitor {
         }
         switch (name) {
             case OPEN_AI_MODEL ->
-                    setAIModelType(OPEN_AI_MODEL_TYPES, OPEN_AI_MODEL_DESC, "agent:OPEN_AI_MODEL_NAMES",
+                    setAIModelType(OPEN_AI_MODEL_TYPES, OPEN_AI_MODEL_DESC, "ai:OPEN_AI_MODEL_NAMES",
                             "\"gpt-3.5-turbo-16k-0613\"");
             case ANTHROPIC_MODEL ->
-                    setAIModelType(ANTHROPIC_MODEL_TYPES, ANTHROPIC_MODEL_DESC, "agent:ANTHROPIC_MODEL_NAMES",
+                    setAIModelType(ANTHROPIC_MODEL_TYPES, ANTHROPIC_MODEL_DESC, "ai:ANTHROPIC_MODEL_NAMES",
                             "\"claude-3-haiku-20240307\"");
             case MISTRAL_AI_MODEL ->
-                    setAIModelType(MISTRAL_AI_MODEL_TYPES, MISTRAL_AI_MODEL_DESC, "agent:MISTRAL_AI_MODEL_NAMES",
+                    setAIModelType(MISTRAL_AI_MODEL_TYPES, MISTRAL_AI_MODEL_DESC, "ai:MISTRAL_AI_MODEL_NAMES",
                             "\"mistral-large-latest\"");
             default -> {
                 return;

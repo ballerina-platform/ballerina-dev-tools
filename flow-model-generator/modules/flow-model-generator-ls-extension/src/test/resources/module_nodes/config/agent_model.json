@@ -15,7 +15,7 @@
         "codedata": {
           "node": "AGENT",
           "org": "ballerinax",
-          "module": "ai.agent",
+          "module": "ai",
           "object": "Agent",
           "symbol": "init",
           "lineRange": {
@@ -29,7 +29,7 @@
               "offset": 2
             }
           },
-          "sourceCode": "final agent:Agent agent = check new (\n    systemPrompt = {\n        role: \"Telegram Assistant\",\n        instructions: \"Assist the users with their requests, whether it's for information, \" +\n            \"tasks, or troubleshooting. Provide clear, helpful responses in a friendly and professional manner.\"\n    },\n    model = model,\n    tools = [sum, multiply],\n    memory = new agent:MessageWindowChatMemory(10) // Available by default\n);"
+          "sourceCode": "final ai:Agent agent = check new (\n    systemPrompt = {\n        role: \"Telegram Assistant\",\n        instructions: \"Assist the users with their requests, whether it's for information, \" +\n            \"tasks, or troubleshooting. Provide clear, helpful responses in a friendly and professional manner.\"\n    },\n    model = model,\n    tools = [sum, multiply],\n    memory = new ai:MessageWindowChatMemory(10) // Available by default\n);"
         },
         "returning": false,
         "properties": {
@@ -39,7 +39,7 @@
               "description": "The system prompt assigned to the agent."
             },
             "valueType": "EXPRESSION",
-            "valueTypeConstraint": "agent:SystemPrompt",
+            "valueTypeConstraint": "ai:SystemPrompt",
             "value": "{\n        role: \"Telegram Assistant\",\n        instructions: \"Assist the users with their requests, whether it's for information, \" +\n            \"tasks, or troubleshooting. Provide clear, helpful responses in a friendly and professional manner.\"\n    }",
             "placeholder": "{role: \"\", instructions: \"\"}",
             "optional": false,
@@ -51,8 +51,8 @@
             },
             "typeMembers": [
               {
-                "type": "agent:SystemPrompt",
-                "packageInfo": "ballerinax:ai.agent:0.7.9",
+                "type": "ai:SystemPrompt",
+                "packageInfo": "ballerinax:ai.ai:0.7.9",
                 "kind": "RECORD_TYPE",
                 "selected": true
               }
@@ -64,7 +64,7 @@
               "description": "Type of the agent"
             },
             "valueType": "EXPRESSION",
-            "valueTypeConstraint": "agent:AgentType",
+            "valueTypeConstraint": "ai:AgentType",
             "placeholder": "\"FUNCTION_CALL_AGENT\"",
             "optional": true,
             "editable": true,
@@ -75,8 +75,8 @@
             },
             "typeMembers": [
               {
-                "type": "agent:AgentType",
-                "packageInfo": "ballerinax:ai.agent:0.7.9",
+                "type": "ai:AgentType",
+                "packageInfo": "ballerinax:ai.ai:0.7.9",
                 "kind": "BASIC_TYPE",
                 "selected": false
               }
@@ -88,7 +88,7 @@
               "description": "The memory used by the agent to store and manage conversation history."
             },
             "valueType": "EXPRESSION",
-            "valueTypeConstraint": "agent:Memory",
+            "valueTypeConstraint": "ai:Memory",
             "placeholder": "object {}",
             "optional": true,
             "editable": true,
@@ -99,8 +99,8 @@
             },
             "typeMembers": [
               {
-                "type": "agent:Memory",
-                "packageInfo": "ballerinax:ai.agent:0.7.9",
+                "type": "ai:Memory",
+                "packageInfo": "ballerinax:ai.ai:0.7.9",
                 "kind": "OBJECT_TYPE",
                 "selected": false
               }
@@ -136,7 +136,7 @@
               "description": "The model used by the agent."
             },
             "valueType": "EXPRESSION",
-            "valueTypeConstraint": "agent:Model",
+            "valueTypeConstraint": "ai:ModelProvider",
             "placeholder": "object {}",
             "optional": false,
             "editable": true,
@@ -147,8 +147,8 @@
             },
             "typeMembers": [
               {
-                "type": "agent:Model",
-                "packageInfo": "ballerinax:ai.agent:0.7.9",
+                "type": "ai:ModelProvider",
+                "packageInfo": "ballerinax:ai.ai:0.7.9",
                 "kind": "OBJECT_TYPE",
                 "selected": false
               }
@@ -160,7 +160,7 @@
               "description": "The tools available for the agent."
             },
             "valueType": "EXPRESSION",
-            "valueTypeConstraint": "(agent:BaseToolKit|agent:ToolConfig|agent:FunctionTool)[]",
+            "valueTypeConstraint": "(ai:BaseToolKit|ai:ToolConfig|ai:FunctionTool)[]",
             "placeholder": "[]",
             "optional": true,
             "editable": true,
@@ -171,7 +171,7 @@
             },
             "typeMembers": [
               {
-                "type": "agent:BaseToolKit|agent:ToolConfig|agent:FunctionTool",
+                "type": "ai:BaseToolKit|ai:ToolConfig|ai:FunctionTool",
                 "packageInfo": "",
                 "kind": "ARRAY_TYPE",
                 "selected": false
@@ -254,7 +254,7 @@
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
-            "value": "agent:Agent",
+            "value": "ai:Agent",
             "placeholder": "var",
             "optional": false,
             "editable": true,
@@ -1275,8 +1275,8 @@
         "codedata": {
           "node": "NEW_CONNECTION",
           "org": "ballerinax",
-          "module": "ai.agent",
-          "object": "AzureOpenAiModel",
+          "module": "ai",
+          "object": "AzureOpenAiProvider",
           "symbol": "init",
           "lineRange": {
             "fileName": "agents.bal",
@@ -1289,7 +1289,7 @@
               "offset": 115
             }
           },
-          "sourceCode": "final agent:Model model = check new agent:AzureOpenAiModel({auth: {apiKey}}, serviceUrl, deploymentId, apiVersion);"
+          "sourceCode": "final ai:ModelProvider model = check new ai:AzureOpenAiProvider({auth: {apiKey}}, serviceUrl, deploymentId, apiVersion);"
         },
         "returning": false,
         "properties": {
@@ -1400,7 +1400,7 @@
               "description": "Model Configuration for OpenAI chat client"
             },
             "valueType": "EXPRESSION",
-            "valueTypeConstraint": "agent:ChatModelConfig",
+            "valueTypeConstraint": "ai:ChatModelConfig",
             "placeholder": "{}",
             "optional": true,
             "editable": true,
@@ -1411,8 +1411,8 @@
             },
             "typeMembers": [
               {
-                "type": "agent:ChatModelConfig",
-                "packageInfo": "ballerinax:ai.agent:0.7.9",
+                "type": "ai:ChatModelConfig",
+                "packageInfo": "ballerinax:ai.ai:0.7.9",
                 "kind": "RECORD_TYPE",
                 "selected": false
               }
@@ -1470,7 +1470,7 @@
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
-            "value": "agent:Model",
+            "value": "ai:ModelProvider",
             "placeholder": "var",
             "optional": false,
             "editable": false,

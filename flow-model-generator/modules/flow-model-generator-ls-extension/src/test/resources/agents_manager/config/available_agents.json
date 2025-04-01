@@ -724,8 +724,8 @@
               "codedata": {
                 "node": "REMOTE_ACTION_CALL",
                 "org": "ballerinax",
-                "module": "ai.agent",
-                "object": "AzureOpenAiModel",
+                "module": "ai",
+                "object": "AzureOpenAiProvider",
                 "symbol": "chat",
                 "version": "0.7.9",
                 "parentSymbol": "model",
@@ -757,7 +757,7 @@
               "codedata": {
                 "node": "AGENT_CALL",
                 "org": "ballerinax",
-                "module": "ai.agent",
+                "module": "ai",
                 "object": "Agent",
                 "symbol": "run",
                 "version": "0.7.9",

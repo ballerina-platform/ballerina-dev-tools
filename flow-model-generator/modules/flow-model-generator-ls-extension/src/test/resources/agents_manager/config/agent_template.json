@@ -8,10 +8,10 @@
   "codedata": {
     "node": "AGENT",
     "org": "ballerinax",
-    "module": "ai.agent",
+    "module": "ai",
     "object": "Agent",
     "symbol": "init",
-    "version": "0.7.15"
+    "version": "1.0.0"
   },
   "output": {
     "id": "31",
@@ -30,10 +30,10 @@
     "codedata": {
       "node": "AGENT",
       "org": "ballerinax",
-      "module": "ai.agent",
+      "module": "ai",
       "object": "Agent",
       "symbol": "init",
-      "version": "0.7.15",
+      "version": "1.0.0",
       "isNew": true
     },
     "returning": false,
@@ -44,7 +44,7 @@
           "description": "The system prompt assigned to the agent"
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "agent:SystemPrompt",
+        "valueTypeConstraint": "ai:SystemPrompt",
         "placeholder": "{role: \"\", instructions: \"\"}",
         "optional": false,
         "editable": true,
@@ -57,7 +57,7 @@
         "typeMembers": [
           {
             "type": "SystemPrompt",
-            "packageInfo": "ballerinax:ai.agent:0.7.15",
+            "packageInfo": "ballerinax:ai.ai:0.7.15",
             "kind": "RECORD_TYPE",
             "selected": false
           }
@@ -69,7 +69,7 @@
           "description": "The model used by the agent"
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "agent:Model",
+        "valueTypeConstraint": "ai:ModelProvider",
         "placeholder": "object {}",
         "optional": false,
         "editable": true,
@@ -82,7 +82,7 @@
         "typeMembers": [
           {
             "type": "Model",
-            "packageInfo": "ballerinax:ai.agent:0.7.15",
+            "packageInfo": "ballerinax:ai.ai:0.7.15",
             "kind": "OBJECT_TYPE",
             "selected": false
           }
@@ -94,7 +94,7 @@
           "description": "The tools available for the agent"
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "(agent:BaseToolKit|agent:ToolConfig|agent:FunctionTool)[]",
+        "valueTypeConstraint": "(ai:BaseToolKit|ai:ToolConfig|ai:FunctionTool)[]",
         "placeholder": "[]",
         "optional": true,
         "editable": true,
@@ -119,7 +119,7 @@
           "description": "Type of the agent"
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "agent:AgentType",
+        "valueTypeConstraint": "ai:AgentType",
         "placeholder": "\"FUNCTION_CALL_AGENT\"",
         "optional": true,
         "editable": true,
@@ -132,7 +132,7 @@
         "typeMembers": [
           {
             "type": "AgentType",
-            "packageInfo": "ballerinax:ai.agent:0.7.15",
+            "packageInfo": "ballerinax:ai.ai:0.7.15",
             "kind": "BASIC_TYPE",
             "selected": false
           }
@@ -194,7 +194,7 @@
           "description": "The memory manager used by the agent to store and manage conversation history"
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "agent:MemoryManager",
+        "valueTypeConstraint": "ai:MemoryManager",
         "placeholder": "object {}",
         "optional": true,
         "editable": true,
@@ -207,7 +207,7 @@
         "typeMembers": [
           {
             "type": "MemoryManager",
-            "packageInfo": "ballerinax:ai.agent:0.7.15",
+            "packageInfo": "ballerinax:ai.ai:0.7.15",
             "kind": "OBJECT_TYPE",
             "selected": false
           }
@@ -219,7 +219,7 @@
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "agent:Agent",
+        "value": "ai:Agent",
         "placeholder": "var",
         "optional": false,
         "editable": false,

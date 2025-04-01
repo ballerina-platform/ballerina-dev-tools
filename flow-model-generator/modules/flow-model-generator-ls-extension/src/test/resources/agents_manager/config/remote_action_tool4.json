@@ -172,7 +172,7 @@
             "character": 0
           }
         },
-        "newText": "# The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n# + path - Request path\n# + headers - The entity headers\n# + return - Type of the variable\n@agent:Tool\n@display {label: \"\",iconPath: \"https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png\"}\nisolated function toolFunc( string path, map<string|string[]>|() headers) returns json{ json variable = gmailClient-> get( path, headers) ;\nreturn variable;\n}"
+        "newText": "# The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n# + path - Request path\n# + headers - The entity headers\n# + return - Type of the variable\n@ai:Tool\n@display {label: \"\",iconPath: \"https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png\"}\nisolated function toolFunc( string path, map<string|string[]>|() headers) returns json{ json variable = gmailClient-> get( path, headers) ;\nreturn variable;\n}"
       }
     ]
   }

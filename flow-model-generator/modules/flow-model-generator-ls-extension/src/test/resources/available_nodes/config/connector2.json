@@ -4563,7 +4563,7 @@
           "codedata": {
             "node": "AGENT_CALL",
             "org": "ballerinax",
-            "module": "ai.agent",
+            "module": "ai",
             "object": "Agent",
             "symbol": "run"
           },

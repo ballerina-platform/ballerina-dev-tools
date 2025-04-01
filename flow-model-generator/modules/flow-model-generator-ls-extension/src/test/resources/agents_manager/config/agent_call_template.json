@@ -8,11 +8,11 @@
   "codedata": {
     "node": "AGENT_CALL",
     "org": "ballerinax",
-    "module": "ai.agent",
+    "module": "ai",
     "object": "Agent",
     "symbol": "run",
     "parentSymbol": "agentRun",
-    "version": "0.7.15"
+    "version": "1.0.0"
   },
   "output": {
     "id": "31",
@@ -24,10 +24,10 @@
     "codedata": {
       "node": "AGENT_CALL",
       "org": "ballerinax",
-      "module": "ai.agent",
+      "module": "ai",
       "object": "Agent",
       "symbol": "run",
-      "version": "0.7.15",
+      "version": "1.0.0",
       "isNew": true
     },
     "returning": false,
@@ -38,7 +38,7 @@
           "description": "Connection to use"
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "agent:Agent",
+        "valueTypeConstraint": "ai:Agent",
         "value": "agentRun",
         "optional": false,
         "editable": false,

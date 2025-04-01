@@ -26,7 +26,7 @@
             "model": {
               "name": "myModel",
               "path": "https://bcentral-packageicons.azureedge.net/images/agent_agent_0.1.0.png",
-              "type": "AzureOpenAiModel"
+              "type": "AzureOpenAiProvider"
             },
             "tools": [
               {
@@ -50,7 +50,7 @@
         "codedata": {
           "node": "AGENT_CALL",
           "org": "ballerinax",
-          "module": "ai.agent",
+          "module": "ai",
           "object": "Agent",
           "symbol": "run",
           "version": "0.7.16",
@@ -198,7 +198,7 @@
         "codedata": {
           "node": "AGENT",
           "org": "ballerinax",
-          "module": "ai.agent",
+          "module": "ai",
           "object": "Agent",
           "symbol": "init",
           "lineRange": {
@@ -212,7 +212,7 @@
               "offset": 2
             }
           },
-          "sourceCode": "// final MockLlm model = new;\nfinal agent:Agent agent = check new (model = myModel,\n    systemPrompt = {role: \"Math tutor\", instructions: \"Help the students with their questions.\"},\n    tools = [set, sum, mutiply], agentType = agent:REACT_AGENT\n);"
+          "sourceCode": "// final MockLlm model = new;\nfinal ai:Agent agent = check new (model = myModel,\n    systemPrompt = {role: \"Math tutor\", instructions: \"Help the students with their questions.\"},\n    tools = [set, sum, mutiply], agentType = ai:REACT_AGENT\n);"
         },
         "returning": false,
         "properties": {
@@ -236,7 +236,7 @@
             "typeMembers": [
               {
                 "type": "Model",
-                "packageInfo": "ballerinax:ai.agent:0.7.16",
+                "packageInfo": "ballerinax:ai.ai:0.7.16",
                 "kind": "OBJECT_TYPE",
                 "selected": false
               }
@@ -262,7 +262,7 @@
             "typeMembers": [
               {
                 "type": "SystemPrompt",
-                "packageInfo": "ballerinax:ai.agent:0.7.16",
+                "packageInfo": "ballerinax:ai.ai:0.7.16",
                 "kind": "RECORD_TYPE",
                 "selected": false
               }
@@ -275,7 +275,7 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "AgentType",
-            "value": "agent:REACT_AGENT\n",
+            "value": "ai:REACT_AGENT\n",
             "placeholder": "\"FUNCTION_CALL_AGENT\"",
             "optional": true,
             "editable": true,
@@ -288,7 +288,7 @@
             "typeMembers": [
               {
                 "type": "AgentType",
-                "packageInfo": "ballerinax:ai.agent:0.7.16",
+                "packageInfo": "ballerinax:ai.ai:0.7.16",
                 "kind": "BASIC_TYPE",
                 "selected": false
               }
@@ -389,7 +389,7 @@
             "typeMembers": [
               {
                 "type": "MemoryManager",
-                "packageInfo": "ballerinax:ai.agent:0.7.16",
+                "packageInfo": "ballerinax:ai.ai:0.7.16",
                 "kind": "OBJECT_TYPE",
                 "selected": false
               }
@@ -1823,14 +1823,14 @@
         "id": "103268",
         "metadata": {
           "label": "Class",
-          "description": "AzureOpenAiModel is a client class that provides an interface for interacting with Azure-hosted OpenAI language models.",
+          "description": "AzureOpenAiProvider is a client class that provides an interface for interacting with Azure-hosted OpenAI language models.",
           "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.7.16.png"
         },
         "codedata": {
           "node": "CLASS_INIT",
           "org": "ballerinax",
-          "module": "ai.agent",
-          "object": "AzureOpenAiModel",
+          "module": "ai",
+          "object": "AzureOpenAiProvider",
           "symbol": "init",
           "lineRange": {
             "fileName": "agents.bal",
@@ -1843,7 +1843,7 @@
               "offset": 100
             }
           },
-          "sourceCode": "agent:AzureOpenAiModel myModel = check new ({auth: {apiKey}}, serviceUrl, deploymentId, apiVersion);"
+          "sourceCode": "ai:AzureOpenAiProvider myModel = check new ({auth: {apiKey}}, serviceUrl, deploymentId, apiVersion);"
         },
         "returning": false,
         "properties": {
@@ -2426,7 +2426,7 @@
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
-            "value": "AzureOpenAiModel",
+            "value": "AzureOpenAiProvider",
             "placeholder": "var",
             "optional": false,
             "editable": true,

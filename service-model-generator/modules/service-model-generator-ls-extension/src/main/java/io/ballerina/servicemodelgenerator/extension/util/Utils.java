@@ -807,8 +807,8 @@ public final class Utils {
     }
 
     private static String getAgentChatFunction() {
-        return "    resource function post chat(@http:Payload agent:ChatReqMessage request) " +
-                "returns agent:ChatRespMessage|error {" + System.lineSeparator() +
+        return "    resource function post chat(@http:Payload ai:ChatReqMessage request) " +
+                "returns ai:ChatRespMessage|error {" + System.lineSeparator() +
                 "    }";
     }
 
@@ -1158,6 +1158,6 @@ public final class Utils {
     }
 
     public static boolean isAiAgentModule(String org, String module) {
-        return org.equals("ballerinax") && module.equals("ai.agent");
+        return org.equals("ballerinax") && module.equals("ai");
     }
 }

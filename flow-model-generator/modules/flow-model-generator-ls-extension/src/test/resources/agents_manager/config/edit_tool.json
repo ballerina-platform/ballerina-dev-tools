@@ -15,7 +15,7 @@
             "character": 11
           }
         },
-        "newText": "@agent:Tool {description: \"New description\"}\n"
+        "newText": "@ai:Tool {description: \"New description\"}\n"
       }
     ]
   }

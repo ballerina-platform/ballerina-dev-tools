@@ -5,7 +5,7 @@
     {
       "node": "AGENT",
       "org": "ballerinax",
-      "module": "ai.agent",
+      "module": "ai",
       "object": "Agent",
       "symbol": "init",
       "version": "0.9.1"

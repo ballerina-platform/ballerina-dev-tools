@@ -668,8 +668,8 @@
       }
     },
     {
-      "name": "ai.agent",
-      "version": "0.7.16",
+      "name": "ai",
+      "version": "1.0.0",
       "serviceTypeSkipList": [],
       "serviceDeclaration": {
         "displayName": "AI Agent Service",
