@@ -55,12 +55,10 @@ import java.util.Set;
 
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.getFunctionModel;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.getPath;
-import static io.ballerina.servicemodelgenerator.extension.util.Utils.getResourceFunctionModel;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.isPresent;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.populateListenerInfo;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateAnnotationAttachmentProperty;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateFunction;
-import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateFunctionInfo;
 
 public class ServiceModelUtils {
 
@@ -125,16 +123,7 @@ public class ServiceModelUtils {
         // functions contains in source but not enforced using the service contract type
         functionsInSource.forEach(funcInSource -> {
             if (serviceModel.getFunctions().stream().noneMatch(newFunction -> isPresent(funcInSource, newFunction))) {
-                if (serviceModel.getModuleName().equals(ServiceModelGeneratorConstants.HTTP) &&
-                        funcInSource.getKind().equals(ServiceModelGeneratorConstants.KIND_RESOURCE)) {
-                    getResourceFunctionModel().ifPresentOrElse(
-                            resourceFunction -> {
-                                updateFunctionInfo(resourceFunction, funcInSource);
-                                serviceModel.addFunction(resourceFunction);
-                            },
-                            () -> serviceModel.addFunction(funcInSource)
-                    );
-                } else if (serviceModel.getModuleName().equals(ServiceModelGeneratorConstants.GRAPHQL)) {
+                if (serviceModel.getModuleName().equals(ServiceModelGeneratorConstants.GRAPHQL)) {
                     GraphqlUtil.updateGraphqlFunctionMetaData(funcInSource);
                     serviceModel.addFunction(funcInSource);
                 } else {

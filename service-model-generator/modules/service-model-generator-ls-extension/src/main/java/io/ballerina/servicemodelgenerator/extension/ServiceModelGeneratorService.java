@@ -125,6 +125,8 @@ import static io.ballerina.servicemodelgenerator.extension.ServiceModelGenerator
 import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.NEW_LINE;
 import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.NEW_LINE_WITH_TAB;
 import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.TWO_NEW_LINES;
+import static io.ballerina.servicemodelgenerator.extension.util.HttpUtil.updateHttpServiceContractModel;
+import static io.ballerina.servicemodelgenerator.extension.util.HttpUtil.updateHttpServiceModel;
 import static io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtils.getProtocol;
 import static io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtils.updateFunctionList;
 import static io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtils.updateGenericServiceModel;
@@ -145,8 +147,6 @@ import static io.ballerina.servicemodelgenerator.extension.util.Utils.importExis
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.isAiAgentModule;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.getHttpServiceContractSym;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.populateRequiredFuncsDesignApproachAndServiceType;
-import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateHttpServiceContractModel;
-import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateHttpServiceModel;
 
 /**
  * Represents the extended language server service for the trigger model generator service.
