@@ -241,6 +241,7 @@ public final class Utils {
             if (member instanceof FunctionDefinitionNode functionDefinitionNode) {
                 Function functionModel = getFunctionModel(functionDefinitionNode, semanticModel, true, false,
                         annotations);
+                functionModel.setEditable(true);
                 functionModels.add(functionModel);
             }
         });
@@ -526,6 +527,7 @@ public final class Utils {
                                                       ServiceDeclarationNode serviceDeclaration,
                                                       SemanticModel semanticModel) {
         Service commonSvcModel = fromHttpServiceWithContract(serviceTypeNode, serviceDeclaration, semanticModel);
+        enableContractFirstApproach(serviceModel);
         updateServiceInfo(serviceModel, commonSvcModel);
         serviceModel.setCodedata(new Codedata(serviceDeclaration.lineRange()));
         populateListenerInfo(serviceModel, serviceDeclaration);
@@ -552,31 +554,12 @@ public final class Utils {
     }
 
     private static void updateServiceInfo(Service serviceModel, Service commonSvcModel) {
-        Value serviceContractTypeNameValue = commonSvcModel.getServiceContractTypeNameValue();
-        if (Objects.nonNull(serviceContractTypeNameValue)) {
-            enableContractFirstApproach(serviceModel);
-        }
         populateRequiredFuncsDesignApproachAndServiceType(serviceModel);
         updateValue(serviceModel.getServiceContractTypeNameValue(), commonSvcModel.getServiceContractTypeNameValue());
 
-        // mark the enabled functions as true if they present in the source
-        serviceModel.getFunctions().forEach(functionModel -> {
-            Optional<Function> function = commonSvcModel.getFunctions().stream()
-                    .filter(newFunction -> isPresent(functionModel, newFunction)
-                            && newFunction.getKind().equals(functionModel.getKind()))
-                    .findFirst();
-            function.ifPresentOrElse(
-                    func -> updateFunction(functionModel, func, serviceModel),
-                    () -> functionModel.setEnabled(false)
-            );
-        });
-
         // functions contains in source but not enforced using the service contract type
         commonSvcModel.getFunctions().forEach(functionModel -> {
-            if (serviceModel.getFunctions().stream()
-                    .noneMatch(newFunction -> isPresent(functionModel, newFunction))) {
-                if (serviceModel.getModuleName().equals(ServiceModelGeneratorConstants.HTTP) &&
-                        functionModel.getKind().equals(ServiceModelGeneratorConstants.KIND_RESOURCE)) {
+                if (functionModel.getKind().equals(ServiceModelGeneratorConstants.KIND_RESOURCE)) {
                     getResourceFunctionModel().ifPresentOrElse(
                             resourceFunction -> {
                                 // remove the default json response from the resource function
@@ -588,13 +571,9 @@ public final class Utils {
                             },
                             () -> serviceModel.addFunction(functionModel)
                     );
-                } else if (serviceModel.getModuleName().equals(ServiceModelGeneratorConstants.GRAPHQL)) {
-                    GraphqlUtil.updateGraphqlFunctionMetaData(functionModel);
-                    serviceModel.addFunction(functionModel);
                 } else {
                     serviceModel.addFunction(functionModel);
                 }
-            }
         });
     }
 
@@ -629,6 +608,7 @@ public final class Utils {
     }
 
     public static void updateFunctionInfo(Function functionModel, Function commonFunction) {
+        functionModel.setEditable(commonFunction.isEditable());
         functionModel.setEnabled(true);
         functionModel.setKind(commonFunction.getKind());
         functionModel.setCodedata(commonFunction.getCodedata());

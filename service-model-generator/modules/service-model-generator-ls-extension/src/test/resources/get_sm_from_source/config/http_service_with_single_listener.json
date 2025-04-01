@@ -173,7 +173,7 @@
         },
         "enabled": true,
         "optional": false,
-        "editable": false,
+        "editable": true,
         "codedata": {
           "lineRange": {
             "fileName": "main.bal",
