@@ -2047,6 +2047,11 @@ class CodeAnalyzer extends NodeVisitor {
     }
 
     private void handleExpressionNode(NonTerminalNode statementNode) {
+        // If there is a type binding pattern node, then default to the variable node
+        if (typedBindingPatternNode != null) {
+            return;
+        }
+
         startNode(NodeKind.EXPRESSION, statementNode)
                 .properties().statement(statementNode);
     }
