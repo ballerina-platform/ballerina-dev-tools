@@ -29,9 +29,14 @@ import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.DefaultableParameterNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
+import io.ballerina.compiler.syntax.tree.MarkdownDocumentationLineNode;
+import io.ballerina.compiler.syntax.tree.MarkdownDocumentationNode;
+import io.ballerina.compiler.syntax.tree.MarkdownParameterDocumentationLineNode;
+import io.ballerina.compiler.syntax.tree.MetadataNode;
 import io.ballerina.compiler.syntax.tree.ModuleMemberDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.Node;
+import io.ballerina.compiler.syntax.tree.NodeList;
 import io.ballerina.compiler.syntax.tree.NodeVisitor;
 import io.ballerina.compiler.syntax.tree.ParameterNode;
 import io.ballerina.compiler.syntax.tree.RequiredParameterNode;
@@ -51,6 +56,8 @@ import io.ballerina.modelgenerator.commons.ModuleInfo;
 import io.ballerina.modelgenerator.commons.ParameterData;
 import io.ballerina.tools.text.LineRange;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -90,7 +97,6 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
     @Override
     public void visit(FunctionDefinitionNode functionDefinitionNode) {
         boolean isNpFunction = isNpFunction(functionDefinitionNode);
-
         NodeKind nodeKind;
         if (functionDefinitionNode.functionBody().kind() == SyntaxKind.EXPRESSION_FUNCTION_BODY) {
             nodeKind = NodeKind.DATA_MAPPER_DEFINITION;
@@ -104,6 +110,7 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
 
         NodeBuilder nodeBuilder = NodeBuilder.getNodeFromKind(nodeKind)
                 .defaultModuleName(this.moduleInfo);
+        FunctionDocumentation documentation = getFunctionDocumentation(functionDefinitionNode);
 
         // Set the line range of the function definition node
         LineRange functionLineRange = functionDefinitionNode.lineRange();
@@ -124,7 +131,8 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
             case DATA_MAPPER_DEFINITION -> DataMapperDefinitionBuilder.setMandatoryProperties(nodeBuilder, returnType);
             case AUTOMATION -> AutomationBuilder.sendMandatoryProperties(nodeBuilder);
             case NP_FUNCTION_DEFINITION -> NPFunctionDefinitionBuilder.setMandatoryProperties(nodeBuilder, returnType);
-            default -> FunctionDefinitionBuilder.setMandatoryProperties(nodeBuilder, returnType);
+            default -> FunctionDefinitionBuilder.setMandatoryProperties(nodeBuilder, returnType,
+                    documentation == null ? "" : documentation.description());
         }
 
         boolean isContextParamAvailable = false;
@@ -171,13 +179,21 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
             String paramNameText = paramName.map(Token::text).orElse("");
             Token paramToken = paramName.orElse(null);
             switch (nodeKind) {
-                case AUTOMATION -> AutomationBuilder.setProperty(nodeBuilder.properties(), paramType,
-                        paramNameText, paramToken);
-                case DATA_MAPPER_DEFINITION ->
-                        DataMapperDefinitionBuilder.setProperty(nodeBuilder.properties(), paramType,
-                                paramNameText, paramToken);
-                default -> FunctionDefinitionBuilder.setProperty(nodeBuilder.properties(), paramType,
-                        paramNameText, paramToken);
+                case AUTOMATION -> AutomationBuilder.setProperty(nodeBuilder.properties(), paramType, paramNameText,
+                        paramToken);
+                case DATA_MAPPER_DEFINITION -> DataMapperDefinitionBuilder.setProperty(nodeBuilder.properties(),
+                        paramType, paramNameText, paramToken);
+                default -> {
+                    String paramDescription = "";
+                    if (documentation != null) {
+                        String paramDesc = documentation.parameterDescriptions().get(paramNameText);
+                        if (paramDesc != null) {
+                            paramDescription = paramDesc;
+                        }
+                    }
+                    FunctionDefinitionBuilder.setProperty(nodeBuilder.properties(), paramType, paramNameText,
+                            paramDescription, paramToken);
+                }
             }
         }
 
@@ -311,5 +327,40 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
         return CommonUtils.isNpModule(typeDesc) && typeDesc.getName().isPresent()
                 && (Constants.NaturalFunctions.PROMPT_TYPE_NAME.equals(typeDesc.getName().get())
                     || Constants.NaturalFunctions.CONTEXT_TYPE_NAME.equals(typeDesc.getName().get()));
+    }
+
+    private FunctionDocumentation getFunctionDocumentation(FunctionDefinitionNode funcDefNode) {
+        Optional<MetadataNode> optMetadata = funcDefNode.metadata();
+        if (optMetadata.isEmpty()) {
+            return null;
+        }
+        Optional<Node> optDocStr = optMetadata.get().documentationString();
+        if (optDocStr.isEmpty() || optDocStr.get().kind() != SyntaxKind.MARKDOWN_DOCUMENTATION) {
+            return null;
+        }
+        MarkdownDocumentationNode docNode = (MarkdownDocumentationNode) optDocStr.get();
+        StringBuilder description = new StringBuilder();
+        Map<String, String> params = new HashMap<>();
+        for (Node documentationLine : docNode.documentationLines()) {
+            if (documentationLine.kind() == SyntaxKind.MARKDOWN_DOCUMENTATION_LINE) {
+                NodeList<Node> nodes = ((MarkdownDocumentationLineNode) documentationLine).documentElements();
+                if (nodes.size() == 1) {
+                    description.append(nodes.get(0).toSourceCode());
+                }
+            } else if (documentationLine.kind() == SyntaxKind.MARKDOWN_PARAMETER_DOCUMENTATION_LINE) {
+                MarkdownParameterDocumentationLineNode docLine =
+                        (MarkdownParameterDocumentationLineNode) documentationLine;
+                String param = docLine.parameterName().text().trim();
+                NodeList<Node> nodes = docLine.documentElements();
+                if (!nodes.isEmpty()) {
+                    params.put(param, nodes.get(0).toSourceCode());
+                }
+            }
+        }
+        return new FunctionDocumentation(description.toString(), params);
+    }
+
+    private record FunctionDocumentation (String description, Map<String, String> parameterDescriptions) {
+
     }
 }

@@ -1,10 +1,10 @@
 {
-  "filePath": "function_def.bal",
-  "fileName": "function_def.bal",
-  "functionName": "add",
+  "filePath": "function_def",
+  "fileName": "functions.bal",
+  "functionName": "divide",
   "description": "",
   "output": {
-    "id": "37742",
+    "id": "35884",
     "metadata": {
       "label": "Function Definition",
       "description": "Define a function"
@@ -12,14 +12,14 @@
     "codedata": {
       "node": "FUNCTION_DEFINITION",
       "lineRange": {
-        "fileName": "function_def.bal",
+        "fileName": "functions.bal",
         "startLine": {
-          "line": 6,
+          "line": 4,
           "offset": 0
         },
         "endLine": {
-          "line": 6,
-          "offset": 46
+          "line": 8,
+          "offset": 48
         }
       }
     },
@@ -31,21 +31,21 @@
           "description": "Name of the function"
         },
         "valueType": "IDENTIFIER",
-        "value": "add",
+        "value": "divide",
         "optional": false,
         "editable": false,
         "advanced": false,
         "hidden": false,
         "codedata": {
           "lineRange": {
-            "fileName": "function_def.bal",
+            "fileName": "functions.bal",
             "startLine": {
-              "line": 6,
-              "offset": 16
+              "line": 8,
+              "offset": 9
             },
             "endLine": {
-              "line": 6,
-              "offset": 19
+              "line": 8,
+              "offset": 15
             }
           }
         }
@@ -56,7 +56,7 @@
           "description": "Type of the return value"
         },
         "valueType": "TYPE",
-        "value": "int",
+        "value": "int|error",
         "optional": true,
         "editable": true,
         "advanced": false,
@@ -68,7 +68,7 @@
           "description": "Description of the function"
         },
         "valueType": "STRING",
-        "value": "",
+        "value": "Divide a/b\n",
         "optional": true,
         "editable": true,
         "advanced": false,
@@ -162,14 +162,14 @@
                 "hidden": false,
                 "codedata": {
                   "lineRange": {
-                    "fileName": "function_def.bal",
+                    "fileName": "functions.bal",
                     "startLine": {
-                      "line": 6,
-                      "offset": 24
+                      "line": 8,
+                      "offset": 21
                     },
                     "endLine": {
-                      "line": 6,
-                      "offset": 25
+                      "line": 8,
+                      "offset": 22
                     }
                   }
                 }
@@ -180,7 +180,7 @@
                   "description": "Description of the parameter"
                 },
                 "valueType": "STRING",
-                "value": "",
+                "value": "Paramter a\n",
                 "optional": true,
                 "editable": true,
                 "advanced": false,
@@ -224,14 +224,14 @@
                 "hidden": false,
                 "codedata": {
                   "lineRange": {
-                    "fileName": "function_def.bal",
+                    "fileName": "functions.bal",
                     "startLine": {
-                      "line": 6,
-                      "offset": 31
+                      "line": 8,
+                      "offset": 28
                     },
                     "endLine": {
-                      "line": 6,
-                      "offset": 32
+                      "line": 8,
+                      "offset": 29
                     }
                   }
                 }
@@ -242,7 +242,7 @@
                   "description": "Description of the parameter"
                 },
                 "valueType": "STRING",
-                "value": "",
+                "value": "Parameter b\n",
                 "optional": true,
                 "editable": true,
                 "advanced": false,
