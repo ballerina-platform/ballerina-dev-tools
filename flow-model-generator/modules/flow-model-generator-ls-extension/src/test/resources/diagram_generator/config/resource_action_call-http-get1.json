@@ -2253,7 +2253,7 @@
           "secureSocket": {
             "metadata": {
               "label": "secureSocket",
-              "description": ""
+              "description": "SSL/TLS-related options"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:ClientSecureSocket|()",
