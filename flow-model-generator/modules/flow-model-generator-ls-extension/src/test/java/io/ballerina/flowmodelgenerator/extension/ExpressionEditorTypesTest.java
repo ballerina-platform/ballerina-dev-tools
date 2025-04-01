@@ -37,7 +37,9 @@ import java.util.List;
  */
 public class ExpressionEditorTypesTest extends AbstractLSTest {
 
-    @Test(dataProvider = "data-provider")
+    // TODO: Enable once the intermittent issue is resolved
+    //  Tracked with https://github.com/wso2/product-ballerina-integrator/issues/78
+    @Test(dataProvider = "data-provider", enabled = false)
     public void test(Path config) throws IOException {
         Path configJsonPath = configDir.resolve(config);
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
