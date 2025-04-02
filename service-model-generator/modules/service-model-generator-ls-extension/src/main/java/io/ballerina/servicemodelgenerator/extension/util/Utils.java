@@ -1009,29 +1009,18 @@ public final class Utils {
         return request.id() == null && request.organization() != null && request.packageName() != null;
     }
 
-    /**
-     * Generates the URI for the given source path.
-     *
-     * @param sourcePath the source path
-     * @return the generated URI as a string
-     */
-    public static String getExprUri(String sourcePath) {
-        String exprUriString = "expr" + Paths.get(sourcePath).toUri().toString().substring(4);
-        return URI.create(exprUriString).toString();
-    }
-
     public static boolean isTcpService(String org, String module) {
         return org.equals("ballerina") && module.equals("tcp");
     }
 
     public static String getTcpOnConnectTemplate() {
-        return "    remote function onConnect(tcp:Caller caller) returns tcp:ConnectionService {%n" +
+        return "    remote function onConnect(tcp:Caller caller) returns tcp:ConnectionService|tcp:Error? {%n" +
                 "        do {%n" +
                 "            %s connectionService = new %s();%n" +
                 "            return connectionService;%n" +
                 "        } on fail error err {%n" +
                 "            // handle error%n" +
-                "            panic error(\"Unhandled error\", err);%n" +
+                "            return error(\"unhandled error\", err);%n" +
                 "        }%n" +
                 "    }";
     }

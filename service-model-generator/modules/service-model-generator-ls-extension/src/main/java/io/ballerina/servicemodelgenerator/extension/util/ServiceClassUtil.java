@@ -241,7 +241,7 @@ public class ServiceClassUtil {
                 "%n" +
                 "        } on fail error err {%n" +
                 "            // handle error%n" +
-                "            panic error(\"Unhandled error\", err);%n" +
+                "            return error(\"unhandled error\", err);%n" +
                 "        }%n" +
                 "    }%n" +
                 "%n" +
@@ -250,7 +250,7 @@ public class ServiceClassUtil {
                 "%n" +
                 "        } on fail error err {%n" +
                 "            // handle error%n" +
-                "            panic error(\"Unhandled error\", err);%n" +
+                "            return error(\"unhandled error\", err);%n" +
                 "        }%n" +
                 "    }%n" +
                 "%n" +
@@ -259,11 +259,11 @@ public class ServiceClassUtil {
                 "%n" +
                 "        } on fail error err {%n" +
                 "            // handle error%n" +
-                "            panic error(\"Unhandled error\", err);%n" +
+                "            return error(\"unhandled error\", err);%n" +
                 "        }%n" +
                 "    }%n" +
                 "}%n%n";
-    } // TODO: fix this template remove panic error
+    }
 
     public enum FunctionKind {
         INIT,
