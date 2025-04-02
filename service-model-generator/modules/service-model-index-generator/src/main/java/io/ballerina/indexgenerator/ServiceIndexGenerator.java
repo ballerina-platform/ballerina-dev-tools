@@ -465,6 +465,8 @@ class ServiceIndexGenerator {
     private static void handleServiceType(ObjectTypeSymbol objectTypeSymbol, SemanticModel semanticModel,
                                           int serviceTypeId) {
 
+        TypeSymbol errorTypeSymbol = semanticModel.types().ERROR;
+
         objectTypeSymbol.methods().forEach((methodName, methodSymbol) -> {
             if (methodSymbol.qualifiers().contains(Qualifier.REMOTE)) {
                 Optional<Documentation> documentation = methodSymbol.documentation();
@@ -475,11 +477,16 @@ class ServiceIndexGenerator {
                     paramDocMap = documentation.get().parameterMap();
                 }
 
+                TypeSymbol returnType = methodSymbol.typeDescriptor().returnTypeDescriptor().orElse(null);
+                int returnError = returnType != null && CommonUtils.subTypeOf(returnType, errorTypeSymbol) ? 1 : 0;
+                String returnTypeSignature = Objects.isNull(returnType) ? "" : CommonUtils.getTypeSignature(
+                        semanticModel, returnType, false);
+
+
                 List<ServiceTypeFunctionParameter> parameters = new ArrayList<>();
                 ServiceTypeFunction function = new ServiceTypeFunction(methodName,
-                        methodDescription, "", "REMOTE", CommonUtils.getTypeSignature(
-                        semanticModel, methodSymbol.typeDescriptor().returnTypeDescriptor().get(), false),
-                        1, "", 1, parameters);
+                        methodDescription, "", "REMOTE", returnTypeSignature,
+                        0, returnError, "", 1, parameters);
 
                 int functionId = DatabaseManager.insertServiceTypeFunction(serviceTypeId, function);
 
@@ -510,11 +517,15 @@ class ServiceIndexGenerator {
                 String path = getPath(resourceMethodSymbol, semanticModel);
 
                 List<ServiceTypeFunctionParameter> parameters = new ArrayList<>();
+
+                TypeSymbol returnType = methodSymbol.typeDescriptor().returnTypeDescriptor().orElse(null);
+                int returnError = returnType != null && CommonUtils.subTypeOf(returnType, errorTypeSymbol) ? 1 : 0;
+                String returnTypeSignature = Objects.isNull(returnType) ? "" : CommonUtils.getTypeSignature(
+                        semanticModel, returnType, false);
+
                 ServiceTypeFunction function = new ServiceTypeFunction(path,
                         methodDescription, resourceMethodSymbol.getName().orElse("get"), "RESOURCE",
-                        CommonUtils.getTypeSignature(semanticModel, methodSymbol.typeDescriptor()
-                                .returnTypeDescriptor().get(), false),
-                        1, "", 1, parameters);
+                        returnTypeSignature, 0, returnError,"", 1, parameters);
 
                 int functionId = DatabaseManager.insertServiceTypeFunction(serviceTypeId, function);
 
@@ -639,6 +650,7 @@ class ServiceIndexGenerator {
             String kind,
             String returnType,
             int returnTypeEditable,
+            int returnError,
             String importStatements,
             int enable,
             List<ServiceTypeFunctionParameter> parameters
