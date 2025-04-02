@@ -18,13 +18,16 @@
 
 package io.ballerina.flowmodelgenerator.extension.request;
 
+import io.ballerina.tools.text.LinePosition;
+
 /**
  * Record representing a request for expression editor types.
  *
- * @param filePath The path to the file being processed
+ * @param filePath       The path to the file being processed
  * @param typeConstraint The type constraint to filter out the completions
+ * @param position       The position in the file where the request is made
  * @since 2.0.0
  */
-public record ExpressionEditorTypesRequest(String filePath, String typeConstraint) {
+public record ExpressionEditorTypesRequest(String filePath, String typeConstraint, LinePosition position) {
 
 }

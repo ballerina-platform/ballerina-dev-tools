@@ -70,6 +70,24 @@
       "insertText": "Admission"
     },
     {
+      "label": "Input & readonly",
+      "labelDetails": {
+        "detail": "Used Variable Types",
+        "description": "Intersection"
+      },
+      "kind": "TypeParameter",
+      "insertText": "Input & readonly"
+    },
+    {
+      "label": "Input",
+      "labelDetails": {
+        "detail": "Used Variable Types",
+        "description": "Record"
+      },
+      "kind": "Struct",
+      "insertText": "Input"
+    },
+    {
       "label": "record",
       "labelDetails": {
         "detail": "Structural Types",

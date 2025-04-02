@@ -70,6 +70,60 @@
       "insertText": "Admission"
     },
     {
+      "label": "boolean",
+      "labelDetails": {
+        "detail": "Used Variable Types",
+        "description": "Boolean"
+      },
+      "kind": "TypeParameter",
+      "insertText": "boolean"
+    },
+    {
+      "label": "string",
+      "labelDetails": {
+        "detail": "Used Variable Types",
+        "description": "String"
+      },
+      "kind": "TypeParameter",
+      "insertText": "string"
+    },
+    {
+      "label": "int",
+      "labelDetails": {
+        "detail": "Used Variable Types",
+        "description": "Int"
+      },
+      "kind": "TypeParameter",
+      "insertText": "int"
+    },
+    {
+      "label": "Input & readonly",
+      "labelDetails": {
+        "detail": "Used Variable Types",
+        "description": "Intersection"
+      },
+      "kind": "TypeParameter",
+      "insertText": "Input & readonly"
+    },
+    {
+      "label": "table<Input> key(name) & readonly",
+      "labelDetails": {
+        "detail": "Used Variable Types",
+        "description": "Intersection"
+      },
+      "kind": "TypeParameter",
+      "insertText": "table<Input> key(name) & readonly"
+    },
+    {
+      "label": "Input",
+      "labelDetails": {
+        "detail": "Used Variable Types",
+        "description": "Record"
+      },
+      "kind": "Struct",
+      "insertText": "Input"
+    },
+    {
       "label": "string",
       "labelDetails": {
         "detail": "Primitive Types",

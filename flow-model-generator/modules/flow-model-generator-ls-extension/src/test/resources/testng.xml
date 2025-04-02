@@ -83,6 +83,7 @@ under the License.
 <!--            <class name="io.ballerina.flowmodelgenerator.extension.agentsmanager.AvailableNodesTest"/>-->
 <!--            <class name="io.ballerina.flowmodelgenerator.extension.agentsmanager.SearchTest"/>-->
 <!--            <class name="io.ballerina.flowmodelgenerator.extension.agentsmanager.EditToolTest"/>-->
+<!--            <class name="io.ballerina.flowmodelgenerator.extension.agentsmanager.GetAllMemoryManagersTest"/>-->
         </classes>
     </test>
 </suite>
