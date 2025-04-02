@@ -1,0 +1,102 @@
+{
+  "description": "Test getting graphql listener model",
+  "filePath": "sample1/main.bal",
+  "orgName": "ballerina",
+  "pkgName": "graphql",
+  "moduleName": "graphql",
+  "response": {
+    "service": {
+      "id": "2",
+      "name": "GraphQL Service",
+      "type": "graphql",
+      "displayName": "GraphQL Service",
+      "description": "Add the service documentation",
+      "displayAnnotation": {
+        "label": "GraphQL Service",
+        "iconPath": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.16.0.png"
+      },
+      "moduleName": "graphql",
+      "orgName": "ballerina",
+      "version": "1.16.0",
+      "packageName": "graphql",
+      "listenerProtocol": "graphql",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.16.0.png",
+      "properties": {
+        "listener": {
+          "metadata": {
+            "label": "Listeners",
+            "description": "The Listeners to be bound with the service"
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "values": [],
+          "valueType": "MULTIPLE_SELECT",
+          "valueTypeConstraint": "graphql:Listener",
+          "isType": false,
+          "placeholder": "",
+          "optional": false,
+          "advanced": false,
+          "items": [],
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER"
+          },
+          "addNewButton": true
+        },
+        "serviceType": {
+          "metadata": {
+            "label": "GraphQL Service Type",
+            "description": "The name of the service contract type"
+          },
+          "enabled": false,
+          "editable": true,
+          "value": "Service",
+          "valueType": "SINGLE_SELECT",
+          "valueTypeConstraint": "string",
+          "isType": false,
+          "placeholder": "Service",
+          "optional": false,
+          "advanced": false,
+          "items": [
+            "",
+            "Service"
+          ],
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "SERVICE_TYPE"
+          },
+          "addNewButton": false
+        },
+        "basePath": {
+          "metadata": {
+            "label": "Service Base Path",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "/graphql",
+          "values": [],
+          "valueType": "IDENTIFIER",
+          "valueTypeConstraint": "string",
+          "isType": false,
+          "placeholder": "/graphql",
+          "optional": false,
+          "advanced": false,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "SERVICE_BASE_PATH"
+          },
+          "addNewButton": false
+        }
+      },
+      "functions": []
+    }
+  }
+}
