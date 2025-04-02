@@ -23,6 +23,8 @@ import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 
+import java.util.Map;
+
 /**
  * Utility class for flow node and properties related operations.
  *
@@ -37,8 +39,10 @@ public class FlowNodeUtil {
      * @return true if the check key flag is set, false otherwise
      */
     public static boolean hasCheckKeyFlagSet(FlowNode flowNode) {
-        return flowNode.properties().containsKey(Property.CHECK_ERROR_KEY) &&
-                flowNode.properties().get(Property.CHECK_ERROR_KEY).value().equals(true);
+        Map<String, Property> properties = flowNode.properties();
+        return properties != null &&
+                properties.containsKey(Property.CHECK_ERROR_KEY) &&
+                properties.get(Property.CHECK_ERROR_KEY).value().equals(true);
     }
 
     /**

@@ -40,7 +40,7 @@
         "ResourceConfig": {
           "attachmentPoints": ["OBJECT_METHOD"],
           "displayName": "Resource Configuration",
-          "description": "Configurations for the HTTP resource",
+          "description": "Define advanced configurations like resource level media types, security, etc.",
           "typeConstrain": "http:HttpResourceConfig"
         }
       }
@@ -72,20 +72,6 @@
           "name": "Service",
           "description": "",
           "functions": []
-        }
-      },
-      "annotations": {
-        "ServiceConfig": {
-          "attachmentPoints": ["SERVICE"],
-          "displayName": "Service Configuration",
-          "description": "Configurations for the Graphql service",
-          "typeConstrain": "graphql:GraphqlServiceConfig"
-        },
-        "ResourceConfig": {
-          "attachmentPoints": ["OBJECT_METHOD"],
-          "displayName": "Resource Configuration",
-          "description": "Configurations for the Grapqhl field",
-          "typeConstrain": "graphql:GraphqlResourceConfig"
         }
       }
     },

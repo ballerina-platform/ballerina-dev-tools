@@ -13,6 +13,7 @@
         "typeName": "string",
         "optional": false,
         "defaultable": false,
+        "documentation": "",
         "isRestType": false,
         "selected": false
       },
@@ -21,6 +22,7 @@
         "typeName": "string",
         "optional": false,
         "defaultable": false,
+        "documentation": "",
         "isRestType": false,
         "selected": false
       },
@@ -29,6 +31,7 @@
         "typeName": "decimal",
         "optional": false,
         "defaultable": false,
+        "documentation": "",
         "isRestType": false,
         "selected": false
       },
@@ -37,6 +40,7 @@
         "typeName": "string",
         "optional": false,
         "defaultable": false,
+        "documentation": "",
         "isRestType": false,
         "selected": false
       },
@@ -45,6 +49,7 @@
         "typeName": "string",
         "optional": false,
         "defaultable": false,
+        "documentation": "",
         "isRestType": false,
         "selected": false
       },
@@ -53,6 +58,7 @@
         "typeName": "string",
         "optional": false,
         "defaultable": false,
+        "documentation": "",
         "isRestType": false,
         "selected": false
       }
@@ -65,6 +71,7 @@
           "typeName": "string",
           "optional": false,
           "defaultable": false,
+          "documentation": "",
           "isRestType": false,
           "selected": false
         },
@@ -73,6 +80,7 @@
           "typeName": "string",
           "optional": false,
           "defaultable": false,
+          "documentation": "",
           "isRestType": false,
           "selected": false
         },
@@ -81,6 +89,7 @@
           "typeName": "string",
           "optional": false,
           "defaultable": false,
+          "documentation": "",
           "isRestType": false,
           "selected": false
         },
@@ -89,6 +98,7 @@
           "typeName": "string",
           "optional": false,
           "defaultable": false,
+          "documentation": "",
           "isRestType": false,
           "selected": false
         }

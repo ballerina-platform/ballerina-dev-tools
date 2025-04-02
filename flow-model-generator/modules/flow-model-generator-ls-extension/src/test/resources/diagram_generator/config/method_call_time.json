@@ -1,0 +1,200 @@
+{
+  "start": {
+    "line": 2,
+    "offset": 0
+  },
+  "end": {
+    "line": 5,
+    "offset": 1
+  },
+  "source": "method_call_time.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "method_call_time.bal",
+    "nodes": [
+      {
+        "id": "35000",
+        "metadata": {
+          "label": "Start"
+        },
+        "codedata": {
+          "node": "EVENT_START",
+          "lineRange": {
+            "fileName": "method_call_time.bal",
+            "startLine": {
+              "line": 2,
+              "offset": 38
+            },
+            "endLine": {
+              "line": 5,
+              "offset": 1
+            }
+          },
+          "sourceCode": "public function main() returns error? {\n    time:Zone timeZone = check time:loadSystemZone();\n    time:ZoneOffset|() offeset = timeZone.fixedOffset();\n}"
+        },
+        "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "34897",
+        "metadata": {
+          "label": "loadSystemZone",
+          "description": "Load the default time zone of the system.\n```ballerina\ntime:Zone|time:Error zone = time:loadSystemZone();\n```",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.7.0.png"
+        },
+        "codedata": {
+          "node": "FUNCTION_CALL",
+          "org": "ballerina",
+          "module": "time",
+          "symbol": "loadSystemZone",
+          "version": "2.7.0",
+          "lineRange": {
+            "fileName": "method_call_time.bal",
+            "startLine": {
+              "line": 3,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 3,
+              "offset": 53
+            }
+          },
+          "sourceCode": "time:Zone timeZone = check time:loadSystemZone();"
+        },
+        "returning": false,
+        "properties": {
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Trigger error flow"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": true,
+            "hidden": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "timeZone",
+            "optional": false,
+            "editable": false,
+            "advanced": false,
+            "hidden": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "method_call_time.bal",
+                "startLine": {
+                  "line": 3,
+                  "offset": 14
+                },
+                "endLine": {
+                  "line": 3,
+                  "offset": 22
+                }
+              }
+            }
+          },
+          "type": {
+            "metadata": {
+              "label": "Variable Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "time:Zone",
+            "placeholder": "var",
+            "optional": false,
+            "editable": false,
+            "advanced": false,
+            "hidden": false,
+            "codedata": {}
+          }
+        },
+        "flags": 1
+      },
+      {
+        "id": "35892",
+        "metadata": {
+          "label": "Declare Variable",
+          "description": "Assign a value to a variable"
+        },
+        "codedata": {
+          "node": "VARIABLE",
+          "lineRange": {
+            "fileName": "method_call_time.bal",
+            "startLine": {
+              "line": 4,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 4,
+              "offset": 56
+            }
+          },
+          "sourceCode": "time:ZoneOffset|() offeset = timeZone.fixedOffset();"
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Initialize with value"
+            },
+            "valueType": "EXPRESSION",
+            "value": "timeZone.fixedOffset()",
+            "optional": true,
+            "editable": true,
+            "advanced": false,
+            "hidden": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "offeset",
+            "optional": false,
+            "editable": false,
+            "advanced": false,
+            "hidden": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "method_call_time.bal",
+                "startLine": {
+                  "line": 4,
+                  "offset": 23
+                },
+                "endLine": {
+                  "line": 4,
+                  "offset": 30
+                }
+              }
+            }
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "time:ZoneOffset|()",
+            "placeholder": "var",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "hidden": false,
+            "codedata": {}
+          }
+        },
+        "flags": 0
+      }
+    ],
+    "connections": []
+  }
+}

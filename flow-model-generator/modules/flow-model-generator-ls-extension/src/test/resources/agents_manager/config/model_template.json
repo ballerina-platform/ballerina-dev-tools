@@ -105,7 +105,7 @@
         "typeMembers": [
           {
             "type": "ai:OPEN_AI_MODEL_NAMES",
-            "packageInfo": "ballerinax:ai.ai:0.7.15",
+            "packageInfo": "ballerinax:ai:1.0.0",
             "kind": "BASIC_TYPE",
             "selected": false
           }

@@ -127,7 +127,7 @@ public class ClassInitBuilder extends CallBuilder {
 
     @Override
     protected FunctionData.Kind getFunctionResultKind() {
-        return FunctionData.Kind.CONNECTOR;
+        return FunctionData.Kind.CLASS_INIT;
     }
 
     @Override

@@ -57,7 +57,7 @@
         "typeMembers": [
           {
             "type": "SystemPrompt",
-            "packageInfo": "ballerinax:ai.ai:0.7.15",
+            "packageInfo": "ballerinax:ai:1.0.0",
             "kind": "RECORD_TYPE",
             "selected": false
           }
@@ -82,7 +82,7 @@
         "typeMembers": [
           {
             "type": "Model",
-            "packageInfo": "ballerinax:ai.ai:0.7.15",
+            "packageInfo": "ballerinax:ai:1.0.0",
             "kind": "OBJECT_TYPE",
             "selected": false
           }
@@ -132,7 +132,7 @@
         "typeMembers": [
           {
             "type": "AgentType",
-            "packageInfo": "ballerinax:ai.ai:0.7.15",
+            "packageInfo": "ballerinax:ai:1.0.0",
             "kind": "BASIC_TYPE",
             "selected": false
           }
@@ -207,7 +207,7 @@
         "typeMembers": [
           {
             "type": "MemoryManager",
-            "packageInfo": "ballerinax:ai.ai:0.7.15",
+            "packageInfo": "ballerinax:ai:1.0.0",
             "kind": "OBJECT_TYPE",
             "selected": false
           }

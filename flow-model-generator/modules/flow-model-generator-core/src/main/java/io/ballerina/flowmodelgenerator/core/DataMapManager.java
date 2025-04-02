@@ -41,6 +41,7 @@ import io.ballerina.compiler.syntax.tree.CheckExpressionNode;
 import io.ballerina.compiler.syntax.tree.ClauseNode;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.FieldAccessExpressionNode;
+import io.ballerina.compiler.syntax.tree.FromClauseNode;
 import io.ballerina.compiler.syntax.tree.FunctionArgumentNode;
 import io.ballerina.compiler.syntax.tree.FunctionCallExpressionNode;
 import io.ballerina.compiler.syntax.tree.ImplicitNewExpressionNode;
@@ -176,16 +177,29 @@ public class DataMapManager {
             return null;
         }
 
-        Type type = Type.fromSemanticSymbol(targetNode.typeSymbol());
+        Type type;
+        ExpressionNode expressionNode = targetNode.expressionNode();
+        if (expressionNode != null && targetNode.expressionNode().kind() == SyntaxKind.QUERY_EXPRESSION) {
+            FromClauseNode fromClauseNode =
+                    ((QueryExpressionNode) targetNode.expressionNode()).queryPipeline().fromClause();
+            Optional<TypeSymbol> typeSymbol = newSemanticModel.typeOf(fromClauseNode.expression());
+            if (typeSymbol.isPresent() && typeSymbol.get().typeKind() == TypeDescKind.ARRAY) {
+                String fromClauseVar = fromClauseNode.typedBindingPattern().bindingPattern().toSourceCode().trim();
+                inputPorts.add(getMappingPort(fromClauseVar, fromClauseVar,
+                        Type.fromSemanticSymbol(((ArrayTypeSymbol) typeSymbol.get()).memberTypeDescriptor())));
+            }
+            type = Type.fromSemanticSymbol(((ArrayTypeSymbol) targetNode.typeSymbol()).memberTypeDescriptor());
+        } else {
+            type = Type.fromSemanticSymbol(targetNode.typeSymbol());
+        }
         String name = targetNode.name();
         MappingPort outputPort = getMappingPort(name, name, type);
         List<Mapping> mappings = new ArrayList<>();
-        ExpressionNode expressionNode = targetNode.expressionNode();
         if (expressionNode != null) {
-            String typeKind = type.getTypeName();
-            if (typeKind.equals("record")) {
+            TypeDescKind typeDescKind = CommonUtils.getRawType(targetNode.typeSymbol()).typeKind();
+            if (typeDescKind == TypeDescKind.RECORD) {
                 generateRecordVariableDataMapping(expressionNode, mappings, name, newSemanticModel);
-            } else if (typeKind.equals("array")) {
+            } else if (typeDescKind == TypeDescKind.ARRAY) {
                 generateArrayVariableDataMapping(expressionNode, mappings, name, newSemanticModel);
             }
         }
@@ -292,19 +306,53 @@ public class DataMapManager {
             return null;
         }
 
-        Map<String, MappingFieldNode> mappingFieldsMap = convertMappingFieldsToMap(mappingCtrExprNode.fields());
-        Map<String, RecordFieldSymbol> fieldDescriptors = recordTypeSymbol.fieldDescriptors();
+        ExpressionNode expr = mappingCtrExprNode;
+        ExpressionNode lastExpr = null;
         for (int i = 1; i < splits.length; i++) {
             String split = splits[i];
+            if (expr.kind() != SyntaxKind.MAPPING_CONSTRUCTOR) {
+                return null;
+            }
+            Map<String, MappingFieldNode> mappingFieldsMap =
+                    convertMappingFieldsToMap((MappingConstructorExpressionNode) expr);
             MappingFieldNode mappingFieldNode = mappingFieldsMap.get(split);
-            if (mappingFieldNode != null) {
-                RecordFieldSymbol recordFieldSymbol = fieldDescriptors.get(split);
-                if (recordFieldSymbol != null) {
-                    return new TargetNode(recordFieldSymbol.typeDescriptor(), split,
-                            ((SpecificFieldNode) mappingFieldNode).valueExpr().get());
-                }
+            if (mappingFieldNode == null) {
                 break;
             }
+            if (mappingFieldNode.kind() != SyntaxKind.SPECIFIC_FIELD) {
+                break;
+            }
+            SpecificFieldNode specificFieldNode = (SpecificFieldNode) mappingFieldNode;
+            Optional<ExpressionNode> optValueExpr = specificFieldNode.valueExpr();
+            if (optValueExpr.isEmpty()) {
+                break;
+            }
+            expr = optValueExpr.get();
+            if (i == splits.length - 1) {
+                lastExpr = expr;
+            }
+        }
+
+        TypeSymbol ts = recordTypeSymbol;
+        TypeSymbol lastTypeSymbol = null;
+        for (int i = 1; i < splits.length; i++) {
+            String split = splits[i];
+            if (ts.typeKind() != TypeDescKind.RECORD) {
+                break;
+            }
+            RecordTypeSymbol rts = (RecordTypeSymbol) ts;
+            RecordFieldSymbol recordFieldSymbol = rts.fieldDescriptors().get(split);
+            if (recordFieldSymbol == null) {
+                break;
+            }
+            ts = CommonUtils.getRawType(recordFieldSymbol.typeDescriptor());
+            if (i == splits.length - 1) {
+                lastTypeSymbol = ts;
+            }
+        }
+        if (lastTypeSymbol != null && lastTypeSymbol.typeKind() == TypeDescKind.ARRAY
+                && lastExpr != null && lastExpr.kind() == SyntaxKind.QUERY_EXPRESSION) {
+            return new TargetNode(lastTypeSymbol, splits[splits.length - 1], lastExpr);
         }
         return null;
     }
@@ -341,12 +389,13 @@ public class DataMapManager {
         return null;
     }
 
-    private Map<String, MappingFieldNode> convertMappingFieldsToMap(SeparatedNodeList<MappingFieldNode> mappingFields) {
+    private Map<String, MappingFieldNode> convertMappingFieldsToMap(
+            MappingConstructorExpressionNode mappingCtrExprNode) {
         Map<String, MappingFieldNode> mappingFieldNodeMap = new HashMap<>();
-        mappingFields.forEach(mappingFieldNode -> {
+        mappingCtrExprNode.fields().forEach(mappingFieldNode -> {
             if (mappingFieldNode.kind() == SyntaxKind.SPECIFIC_FIELD) {
                 SpecificFieldNode specificFieldNode = (SpecificFieldNode) mappingFieldNode;
-                mappingFieldNodeMap.put(specificFieldNode.fieldName().toSourceCode(), specificFieldNode);
+                mappingFieldNodeMap.put(specificFieldNode.fieldName().toSourceCode().trim(), specificFieldNode);
             }
         });
         return mappingFieldNodeMap;
@@ -442,6 +491,8 @@ public class DataMapManager {
         ExpressionNode expr = selectClauseNode.expression();
         if (expr.kind() == SyntaxKind.MAPPING_CONSTRUCTOR) {
             genMapping((MappingConstructorExpressionNode) expr, mappings, name, semanticModel);
+        } else {
+            genMapping(expr, name, mappings, semanticModel);
         }
     }
 

@@ -97,7 +97,8 @@ public class ServiceModelUtils {
         boolean isGraphql = serviceModel.getModuleName().equals(ServiceModelGeneratorConstants.GRAPHQL);
         List<Function> functionsInSource = serviceNode.members().stream()
                 .filter(member -> member instanceof FunctionDefinitionNode)
-                .map(member -> getFunctionModel((FunctionDefinitionNode) member, semanticModel, false, isGraphql))
+                .map(member -> getFunctionModel((FunctionDefinitionNode) member, semanticModel, false,
+                        isGraphql, Map.of()))
                 .toList();
 
         updateServiceInfoNew(serviceModel, functionsInSource);

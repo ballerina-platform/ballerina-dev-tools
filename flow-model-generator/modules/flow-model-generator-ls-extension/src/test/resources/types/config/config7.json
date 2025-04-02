@@ -257,6 +257,15 @@
       },
       "kind": "TypeParameter",
       "insertText": "byte[]"
+    },
+    {
+      "label": "string[]",
+      "labelDetails": {
+        "detail": "Structural Types",
+        "description": "Array"
+      },
+      "kind": "TypeParameter",
+      "insertText": "string[]"
     }
   ]
 }
