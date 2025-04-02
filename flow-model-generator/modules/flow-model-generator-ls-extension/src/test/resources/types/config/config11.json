@@ -1,55 +1,47 @@
 {
   "description": "",
-  "source": "data_mapper/main.bal",
+  "source": "proj/main.bal",
   "typeConstraint": "anydata",
+  "position": {
+    "line": 12,
+    "offset": 0
+  },
   "completions": [
     {
-      "label": "Input",
+      "label": "Person[]",
       "labelDetails": {
-        "detail": "User-Defined",
-        "description": "Record"
+        "detail": "Used Variable Types",
+        "description": "Array"
       },
-      "kind": "Struct",
-      "insertText": "Input"
+      "kind": "TypeParameter",
+      "insertText": "Person[]"
     },
     {
-      "label": "Output",
+      "label": "string[]",
       "labelDetails": {
-        "detail": "User-Defined",
-        "description": "Record"
+        "detail": "Used Variable Types",
+        "description": "Array"
       },
-      "kind": "Struct",
-      "insertText": "Output"
+      "kind": "TypeParameter",
+      "insertText": "string[]"
     },
     {
-      "label": "Location",
+      "label": "string|int",
       "labelDetails": {
-        "detail": "User-Defined",
-        "description": "Record"
+        "detail": "Used Variable Types",
+        "description": "Union"
       },
-      "kind": "Struct",
-      "documentation": {
-        "left": "Represents a geographical location.\n"
-      },
-      "insertText": "Location"
+      "kind": "Enum",
+      "insertText": "string|int"
     },
     {
-      "label": "Address",
+      "label": "map<Person>",
       "labelDetails": {
-        "detail": "User-Defined",
-        "description": "Record"
+        "detail": "Used Variable Types",
+        "description": "Map"
       },
-      "kind": "Struct",
-      "insertText": "Address"
-    },
-    {
-      "label": "Employee",
-      "labelDetails": {
-        "detail": "User-Defined",
-        "description": "Record"
-      },
-      "kind": "Struct",
-      "insertText": "Employee"
+      "kind": "TypeParameter",
+      "insertText": "map<Person>"
     },
     {
       "label": "Person",
@@ -59,69 +51,6 @@
       },
       "kind": "Struct",
       "insertText": "Person"
-    },
-    {
-      "label": "Admission",
-      "labelDetails": {
-        "detail": "User-Defined",
-        "description": "Record"
-      },
-      "kind": "Struct",
-      "insertText": "Admission"
-    },
-    {
-      "label": "boolean",
-      "labelDetails": {
-        "detail": "Used Variable Types",
-        "description": "Boolean"
-      },
-      "kind": "TypeParameter",
-      "insertText": "boolean"
-    },
-    {
-      "label": "string",
-      "labelDetails": {
-        "detail": "Used Variable Types",
-        "description": "String"
-      },
-      "kind": "TypeParameter",
-      "insertText": "string"
-    },
-    {
-      "label": "int",
-      "labelDetails": {
-        "detail": "Used Variable Types",
-        "description": "Int"
-      },
-      "kind": "TypeParameter",
-      "insertText": "int"
-    },
-    {
-      "label": "Input & readonly",
-      "labelDetails": {
-        "detail": "Used Variable Types",
-        "description": "Intersection"
-      },
-      "kind": "TypeParameter",
-      "insertText": "Input & readonly"
-    },
-    {
-      "label": "table<Input> key(name) & readonly",
-      "labelDetails": {
-        "detail": "Used Variable Types",
-        "description": "Intersection"
-      },
-      "kind": "TypeParameter",
-      "insertText": "table<Input> key(name) & readonly"
-    },
-    {
-      "label": "Input",
-      "labelDetails": {
-        "detail": "Used Variable Types",
-        "description": "Record"
-      },
-      "kind": "Struct",
-      "insertText": "Input"
     },
     {
       "label": "string",
