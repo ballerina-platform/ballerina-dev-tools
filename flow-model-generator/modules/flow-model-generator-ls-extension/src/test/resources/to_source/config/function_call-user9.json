@@ -25,30 +25,7 @@
       },
       "sourceCode": "print();"
     },
-    "returning": false,
-    "properties": {
-      "view": {
-        "metadata": {
-          "label": "View",
-          "description": "Function definition location"
-        },
-        "valueType": "VIEW",
-        "value": {
-          "fileName": "function_call.bal",
-          "startLine": {
-            "line": 61,
-            "offset": 0
-          },
-          "endLine": {
-            "line": 63,
-            "offset": 1
-          }
-        },
-        "optional": false,
-        "editable": false,
-        "advanced": false
-      }
-    },
+    "returning": false, 
     "flags": 0
   },
   "output": {
