@@ -162,7 +162,7 @@
               "returnType": "",
               "returnError": 0,
               "returnTypeEditable": 0,
-              "enable": 0,
+              "enable": 1,
               "parameters": [
                 {
                   "name": "event",
@@ -257,7 +257,7 @@
               "returnType": "error?",
               "returnError": 1,
               "returnTypeEditable": 0,
-              "enable": 0,
+              "enable": 1,
               "parameters": [
                 {
                   "name": "event",
@@ -318,7 +318,7 @@
               "returnType": "error?",
               "returnError": 1,
               "returnTypeEditable": 0,
-              "enable": 0,
+              "enable": 1,
               "parameters": [
                 {
                   "name": "message",
@@ -373,7 +373,7 @@
               "returnType": "error?",
               "returnError": 1,
               "returnTypeEditable": 0,
-              "enable": 0,
+              "enable": 1,
               "parameters": [
                 {
                   "name": "message",
@@ -446,7 +446,7 @@
               "returnType": "error?",
               "returnError": 1,
               "returnTypeEditable": 0,
-              "enable": 0,
+              "enable": 1,
               "parameters": [
                 {
                   "name": "message",
@@ -506,7 +506,7 @@
               "returnType": "error?",
               "returnError": 1,
               "returnTypeEditable": 0,
-              "enable": 0,
+              "enable": 1,
               "parameters": [
                 {
                   "name": "message",
@@ -568,7 +568,7 @@
               "returnType": "error?",
               "returnError": 1,
               "returnTypeEditable": 0,
-              "enable": 0,
+              "enable": 1,
               "parameters": [
                 {
                   "name": "records",
@@ -598,7 +598,7 @@
               "returnType": "error?",
               "returnError": 1,
               "returnTypeEditable": 0,
-              "enable": 0,
+              "enable": 1,
               "parameters": [
                 {
                   "name": "kafkaError",
