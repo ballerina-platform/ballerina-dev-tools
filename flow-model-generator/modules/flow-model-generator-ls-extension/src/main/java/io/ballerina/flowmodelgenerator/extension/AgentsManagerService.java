@@ -23,6 +23,7 @@ import io.ballerina.flowmodelgenerator.core.AgentsGenerator;
 import io.ballerina.flowmodelgenerator.extension.request.EditToolRequest;
 import io.ballerina.flowmodelgenerator.extension.request.GenToolRequest;
 import io.ballerina.flowmodelgenerator.extension.request.GetAllAgentsRequest;
+import io.ballerina.flowmodelgenerator.extension.request.GetAllMemoryManagersRequest;
 import io.ballerina.flowmodelgenerator.extension.request.GetAllModelsRequest;
 import io.ballerina.flowmodelgenerator.extension.request.GetConnectorActionsRequest;
 import io.ballerina.flowmodelgenerator.extension.request.GetModelsRequest;
@@ -31,6 +32,7 @@ import io.ballerina.flowmodelgenerator.extension.response.EditToolResponse;
 import io.ballerina.flowmodelgenerator.extension.response.GenToolResponse;
 import io.ballerina.flowmodelgenerator.extension.response.GetAgentsResponse;
 import io.ballerina.flowmodelgenerator.extension.response.GetConnectorActionsResponse;
+import io.ballerina.flowmodelgenerator.extension.response.GetMemoryManagersResponse;
 import io.ballerina.flowmodelgenerator.extension.response.GetModelsResponse;
 import io.ballerina.flowmodelgenerator.extension.response.GetToolsResponse;
 import io.ballerina.modelgenerator.commons.PackageUtil;
@@ -95,6 +97,25 @@ public class AgentsManagerService implements ExtendedLanguageServerService {
 
                 AgentsGenerator agentsGenerator  = new AgentsGenerator();
                 response.setModels(agentsGenerator.getAllModels(semanticModel.get()));
+            } catch (Throwable e) {
+                throw new RuntimeException(e);
+            }
+            return response;
+        });
+    }
+
+    @JsonRequest
+    public CompletableFuture<GetMemoryManagersResponse> getAllMemoryManagers(GetAllMemoryManagersRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            GetMemoryManagersResponse response = new GetMemoryManagersResponse();
+            try {
+                Optional<SemanticModel> semanticModel = PackageUtil.getSemanticModel(BALLERINAX, AI_AGENT);
+                if (semanticModel.isEmpty()) {
+                    return response;
+                }
+
+                AgentsGenerator agentsGenerator  = new AgentsGenerator();
+                response.setMemoryManagers(agentsGenerator.getAllMemoryManagers(semanticModel.get()));
             } catch (Throwable e) {
                 throw new RuntimeException(e);
             }

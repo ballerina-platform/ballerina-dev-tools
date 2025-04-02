@@ -1,0 +1,106 @@
+{
+  "source": "agent_1/agents.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "31",
+    "metadata": {
+      "label": "Class",
+      "description": "Initializes a new `agent:DefaultMessageWindowChatMemoryManager`.\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.9.2.png"
+    },
+    "codedata": {
+      "node": "CLASS_INIT",
+      "org": "ballerinax",
+      "module": "ai.agent",
+      "object": "DefaultMessageWindowChatMemoryManager",
+      "symbol": "init",
+      "version": "0.9.2",
+      "isNew": true
+    },
+    "returning": false,
+    "properties": {
+      "size": {
+        "metadata": {
+          "label": "size",
+          "description": "The maximum number of messages that can be stored in `agent:MessageWindowChatMemory`"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "int",
+        "placeholder": "0",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "hidden": false,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "size"
+        },
+        "typeMembers": [
+          {
+            "type": "int",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "type": {
+        "metadata": {
+          "label": "Variable Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "agent:DefaultMessageWindowChatMemoryManager",
+        "placeholder": "var",
+        "optional": false,
+        "editable": false,
+        "advanced": false,
+        "hidden": false,
+        "codedata": {}
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "agentDefaultmessagewindowchatmemorymanager",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "hidden": false
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "agent_1/agents.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import ballerinax/ai.agent;"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "final agent:DefaultMessageWindowChatMemoryManager agentDefaultmessagewindowchatmemorymanager = check new ();"
+      }
+    ]
+  }
+}

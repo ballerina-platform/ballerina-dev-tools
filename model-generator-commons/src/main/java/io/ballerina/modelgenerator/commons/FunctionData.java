@@ -130,6 +130,7 @@ public class FunctionData {
         REMOTE,
         RESOURCE,
         LISTENER_INIT,
+        CLASS_INIT,
     }
 
 }

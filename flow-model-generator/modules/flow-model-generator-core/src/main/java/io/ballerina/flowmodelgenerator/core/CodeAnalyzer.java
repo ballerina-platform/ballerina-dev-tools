@@ -357,6 +357,7 @@ class CodeAnalyzer extends NodeVisitor {
                 ExpressionNode toolsArg = null;
                 ExpressionNode modelArg = null;
                 ExpressionNode systemPromptArg = null;
+                ExpressionNode memoryManager = null;
                 for (FunctionArgumentNode arg : argList.get().arguments()) {
                     if (arg.kind() == SyntaxKind.NAMED_ARG) {
                         NamedArgumentNode namedArgumentNode = (NamedArgumentNode) arg;
@@ -366,6 +367,8 @@ class CodeAnalyzer extends NodeVisitor {
                             modelArg = namedArgumentNode.expression();
                         } else if (namedArgumentNode.argumentName().name().text().equals("systemPrompt")) {
                             systemPromptArg = namedArgumentNode.expression();
+                        } else if (namedArgumentNode.argumentName().name().text().equals("memoryManager")) {
+                            memoryManager = namedArgumentNode.expression();
                         }
                     }
                 }
@@ -383,7 +386,7 @@ class CodeAnalyzer extends NodeVisitor {
                 }
                 
                 if (toolsArg.kind() == SyntaxKind.LIST_CONSTRUCTOR) {
-                    List<ToolData> toolUrls = new ArrayList<>();
+                    List<ToolData> toolsData = new ArrayList<>();
                     ListConstructorExpressionNode listCtrExprNode = (ListConstructorExpressionNode) toolsArg;
                     for (Node node : listCtrExprNode.expressions()) {
                         if (node.kind() != SyntaxKind.SIMPLE_NAME_REFERENCE) {
@@ -391,9 +394,9 @@ class CodeAnalyzer extends NodeVisitor {
                         }
                         SimpleNameReferenceNode simpleNameReferenceNode = (SimpleNameReferenceNode) node;
                         String toolName = simpleNameReferenceNode.name().text();
-                        toolUrls.add(new ToolData(toolName, getIcon(toolName), getToolDescription(toolName)));
+                        toolsData.add(new ToolData(toolName, getIcon(toolName), getToolDescription(toolName)));
                     }
-                    nodeBuilder.metadata().addData("tools", toolUrls);
+                    nodeBuilder.metadata().addData("tools", toolsData);
                 }
 
                 if (systemPromptArg.kind() == SyntaxKind.MAPPING_CONSTRUCTOR) {
@@ -411,6 +414,11 @@ class CodeAnalyzer extends NodeVisitor {
                                 specificFieldNode.valueExpr().orElseThrow().toSourceCode());
                     }
                     nodeBuilder.metadata().addData("agent", agentData);
+                }
+
+                if (memoryManager != null && memoryManager.kind() == SyntaxKind.SIMPLE_NAME_REFERENCE) {
+                    nodeBuilder.metadata().addData("memoryManager",
+                            new MemoryManagerData(((SimpleNameReferenceNode) memoryManager).name().text().trim()));
                 }
 
                 ModelData modelUrl = getModelIconUrl(modelArg);
@@ -1582,8 +1590,12 @@ class CodeAnalyzer extends NodeVisitor {
         }
 
         for (TypeSymbol typeSymbol : classSymbol.typeInclusions()) {
-            if (typeSymbol.getName().isPresent() && typeSymbol.getName().get().equals("Model")) {
-                return true;
+            Optional<String> optName = typeSymbol.getName();
+            if (optName.isPresent()) {
+                String name = optName.get();
+                if (name.equals("Model") || name.equals("MemoryManager")) {
+                    return true;
+                }
             }
         }
         return false;
@@ -2155,6 +2167,11 @@ class CodeAnalyzer extends NodeVisitor {
     }
 
     private record ModelData(String name, String path, String type) {
+
+    }
+
+    // TODO: Update data based on requirements
+    private record MemoryManagerData(String name) {
 
     }
 }

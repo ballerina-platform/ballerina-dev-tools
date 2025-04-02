@@ -262,7 +262,7 @@
             "character": 0
           }
         },
-        "newText": "final agent:Agent agentAgent = check new (systemPrompt = {role: \"\", instructions: \"\"}, model = agentOpenaimodel, tools = [sum, average]);"
+        "newText": "final agent:Agent agentAgent = check new (\n    systemPrompt = {role: \"\", instructions: \"\"}, model = agentOpenaimodel, tools = [sum, average]\n);"
       }
     ]
   }
