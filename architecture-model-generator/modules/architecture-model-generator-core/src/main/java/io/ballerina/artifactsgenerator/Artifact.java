@@ -18,6 +18,8 @@
 
 package io.ballerina.artifactsgenerator;
 
+import io.ballerina.compiler.api.ModuleID;
+import io.ballerina.compiler.api.symbols.ModuleSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.designmodelgenerator.core.CommonUtils;
@@ -43,11 +45,29 @@ import java.util.Optional;
  * @param children map of child artifacts (id -> child)
  * @since 2.3.0
  */
-public record Artifact(String id, LineRange location, Type type, String name, String accessor,
-                       String scope, String icon, Map<String, Artifact> children) {
+public record Artifact(String id, LineRange location, String type, String name, String accessor,
+                       String scope, String icon, String module, Map<String, Artifact> children) {
+
+    private static final Map<String, String> typeCategoryMap = Map.ofEntries(
+            Map.entry(Type.SERVICE.name(), "Entry Points"),
+            Map.entry(Type.AUTOMATION.name(), "Entry Points"),
+            Map.entry(Type.RESOURCE.name(), "Resources"),
+            Map.entry(Type.REMOTE.name(), "Remote Methods"),
+            Map.entry(Type.FUNCTION.name(), "Functions"),
+            Map.entry(Type.NP_FUNCTION.name(), "Natural Functions"),
+            Map.entry(Type.DATA_MAPPER.name(), "Data Mappers"),
+            Map.entry(Type.LISTENER.name(), "Listeners"),
+            Map.entry(Type.CONFIGURABLE.name(), "Configurations"),
+            Map.entry(Type.TYPE.name(), "Types"),
+            Map.entry(Type.CONNECTION.name(), "Connections"),
+            Map.entry(Type.VARIABLE.name(), "Variables"));
+
+    public static String getCategory(String type) {
+        return typeCategoryMap.getOrDefault(type, "Others");
+    }
 
     public static Artifact emptyArtifact(String id) {
-        return new Artifact(id, null, null, null, null, null, null, null);
+        return new Artifact(id, null, null, null, null, null, null, null, null);
     }
 
     public Artifact {
@@ -55,41 +75,21 @@ public record Artifact(String id, LineRange location, Type type, String name, St
     }
 
     /**
-     * Get a child artifact by its ID.
-     *
-     * @param id ID of the child artifact
-     * @return Optional containing the child artifact if found
-     */
-    public Optional<Artifact> getChild(String id) {
-        return Optional.ofNullable(children.get(id));
-    }
-
-    /**
      * Represents the different types of artifacts.
      */
     public enum Type {
-        SERVICE("Entry Points"),
-        AUTOMATION("Entry Points"),
-        RESOURCE("Resources"),
-        REMOTE("Remote Methods"),
-        FUNCTION("Functions"),
-        NP_FUNCTION("Natural Functions"),
-        DATA_MAPPER("Data Mappers"),
-        LISTENER("Listeners"),
-        CONFIGURABLE("Configurations"),
-        TYPE("Types"),
-        CONNECTION("Connections"),
-        VARIABLE("Variables");
-
-        private final String category;
-
-        Type(String category) {
-            this.category = category;
-        }
-
-        public String getCategory() {
-            return category;
-        }
+        SERVICE,
+        AUTOMATION,
+        RESOURCE,
+        REMOTE,
+        FUNCTION,
+        NP_FUNCTION,
+        DATA_MAPPER,
+        LISTENER,
+        CONFIGURABLE,
+        TYPE,
+        CONNECTION,
+        VARIABLE;
     }
 
     public enum Scope {
@@ -120,6 +120,7 @@ public record Artifact(String id, LineRange location, Type type, String name, St
         private String accessor;
         private Scope scope = Scope.GLOBAL;
         private String icon;
+        private String module;
         private final Map<String, Artifact> children = new HashMap<>();
 
         public Builder(Node node) {

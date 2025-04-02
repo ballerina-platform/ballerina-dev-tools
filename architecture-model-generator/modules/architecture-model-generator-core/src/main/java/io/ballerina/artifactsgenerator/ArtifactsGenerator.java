@@ -60,7 +60,7 @@ public class ArtifactsGenerator {
                 .map(member -> member.apply(moduleNodeTransformer))
                 .flatMap(Optional::stream)
                 .forEach(artifact -> {
-                    String category = artifact.type().getCategory();
+                    String category = Artifact.getCategory(artifact.type());
                     String artifactId = artifact.id();
 
                     // Determine if this is an update or an addition
@@ -111,7 +111,7 @@ public class ArtifactsGenerator {
                     .map(member -> member.apply(moduleNodeTransformer))
                     .flatMap(Optional::stream)
                     .forEach(artifact -> {
-                        String category = artifact.type().getCategory();
+                        String category = Artifact.getCategory(artifact.type());
                         String artifactId = artifact.id();
                         artifactMap.computeIfAbsent(category, k -> new HashMap<>()).put(artifactId, artifact);
                         idMap.computeIfAbsent(category, k -> new ArrayList<>()).add(artifactId);
