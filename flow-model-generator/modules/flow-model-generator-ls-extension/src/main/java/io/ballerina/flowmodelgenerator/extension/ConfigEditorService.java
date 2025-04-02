@@ -31,6 +31,7 @@ import io.ballerina.projects.Document;
 import io.ballerina.projects.DocumentId;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.Project;
+import io.ballerina.projects.ProjectKind;
 import org.ballerinalang.annotation.JavaSPIService;
 import org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
@@ -124,17 +125,22 @@ public class ConfigEditorService implements ExtendedLanguageServerService {
                 FlowNode configVariable = gson.fromJson(request.configVariable(), FlowNode.class);
                 String variableFileName = configVariable.codedata().lineRange().fileName();
                 Path configFilePath = Path.of(request.configFilePath());
-                Project project = this.workspaceManager.loadProject(configFilePath);
 
                 Path variableFilePath = null;
-                for (Module module : project.currentPackage().modules()) {
-                    for (DocumentId documentId : module.documentIds()) {
-                        Document document = module.document(documentId);
-                        if (document.name().equals(variableFileName)) {
-                            variableFilePath = project.sourceRoot().resolve(document.syntaxTree().filePath());
+                Project project = this.workspaceManager.loadProject(configFilePath);
+                if (project.kind() == ProjectKind.SINGLE_FILE_PROJECT) {
+                    variableFilePath = project.sourceRoot();
+                } else {
+                    for (Module module : project.currentPackage().modules()) {
+                        for (DocumentId documentId : module.documentIds()) {
+                            Document document = module.document(documentId);
+                            if (document.name().equals(variableFileName)) {
+                                variableFilePath = project.sourceRoot().resolve(document.syntaxTree().filePath());
+                            }
                         }
                     }
                 }
+
                 if (Objects.isNull(variableFilePath)) {
                     return response;
                 }

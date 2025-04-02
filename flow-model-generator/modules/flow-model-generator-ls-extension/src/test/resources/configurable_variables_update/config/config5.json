@@ -5,7 +5,18 @@
       "label": "Config variables"
     },
     "codedata": {
-      "node": "ASSIGN"
+      "node": "ASSIGN",
+      "lineRange": {
+        "fileName": "config5.bal",
+        "startLine": {
+          "line": 0,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 0,
+          "offset": 0
+        }
+      }
     },
     "properties": {
       "type": {
@@ -45,11 +56,11 @@
       {
         "range": {
           "start": {
-            "line": 3,
+            "line": 0,
             "character": 0
           },
           "end": {
-            "line": 3,
+            "line": 0,
             "character": 0
           }
         },
@@ -58,3 +69,4 @@
     ]
   }
 }
+
