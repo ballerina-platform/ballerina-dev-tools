@@ -246,6 +246,7 @@ public class Function {
 
     public static class FunctionBuilder {
         private MetaData metadata;
+        private Codedata codedata;
         private List<String> qualifiers;
         private String kind;
         private Value accessor;
@@ -253,11 +254,15 @@ public class Function {
         private List<Parameter> parameters;
         private Map<String, Parameter> schema;
         private FunctionReturnType returnType;
-        private boolean enabled;
-        private boolean optional;
-        private boolean editable;
-        private Codedata codedata;
+        private boolean enabled = false;
+        private boolean optional = false;
+        private boolean editable = false;
         private Map<String, Value> annotations;
+
+        public FunctionBuilder metadata(String label, String description) {
+            this.metadata = new MetaData(label, description);
+            return this;
+        }
 
         public FunctionBuilder setMetadata(MetaData metadata) {
             this.metadata = metadata;
@@ -269,22 +274,22 @@ public class Function {
             return this;
         }
 
-        public FunctionBuilder setKind(String kind) {
+        public FunctionBuilder kind(String kind) {
             this.kind = kind;
             return this;
         }
 
-        public FunctionBuilder setAccessor(Value accessor) {
+        public FunctionBuilder accessor(Value accessor) {
             this.accessor = accessor;
             return this;
         }
 
-        public FunctionBuilder setName(Value name) {
+        public FunctionBuilder name(Value name) {
             this.name = name;
             return this;
         }
 
-        public FunctionBuilder setParameters(List<Parameter> parameters) {
+        public FunctionBuilder parameters(List<Parameter> parameters) {
             this.parameters = parameters;
             return this;
         }
@@ -294,22 +299,22 @@ public class Function {
             return this;
         }
 
-        public FunctionBuilder setReturnType(FunctionReturnType returnType) {
+        public FunctionBuilder returnType(FunctionReturnType returnType) {
             this.returnType = returnType;
             return this;
         }
 
-        public FunctionBuilder setEnabled(boolean enabled) {
+        public FunctionBuilder enabled(boolean enabled) {
             this.enabled = enabled;
             return this;
         }
 
-        public FunctionBuilder setOptional(boolean optional) {
+        public FunctionBuilder optional(boolean optional) {
             this.optional = optional;
             return this;
         }
 
-        public FunctionBuilder setEditable(boolean editable) {
+        public FunctionBuilder editable(boolean editable) {
             this.editable = editable;
             return this;
         }

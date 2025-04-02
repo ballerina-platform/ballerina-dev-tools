@@ -316,21 +316,21 @@ public class Value {
 
     public static class ValueBuilder {
         private MetaData metadata;
-        private boolean enabled;
-        private boolean editable;
+        private Codedata codedata;
         private String value;
         private List<String> values;
         private String valueType;
         private String valueTypeConstraint;
-        private boolean isType;
         private String placeholder;
-        private boolean optional;
-        private boolean advanced;
-        private Map<String, Value> properties;
         private List<String> items;
-        private Codedata codedata;
-        private boolean addNewButton = false;
+        private Map<String, Value> properties;
         private List<PropertyTypeMemberInfo> typeMembers;
+        private boolean isType = false;
+        private boolean addNewButton = false;
+        private boolean enabled = false;
+        private boolean editable = false;
+        private boolean optional = false;
+        private boolean advanced = false;
 
         public ValueBuilder metadata(String label, String description) {
             this.metadata = new MetaData(label, description);
@@ -367,7 +367,7 @@ public class Value {
             return this;
         }
 
-        public ValueBuilder setType(boolean isType) {
+        public ValueBuilder isType(boolean isType) {
             this.isType = isType;
             return this;
         }

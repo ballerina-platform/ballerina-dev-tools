@@ -43,6 +43,7 @@ public record ServiceTypeFunction(
         String accessor,
         String kind,
         String returnType,
+        int returnError,
         int returnTypeEditable,
         String importStatements,
         int enable,

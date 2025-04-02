@@ -128,7 +128,7 @@ import static io.ballerina.servicemodelgenerator.extension.ServiceModelGenerator
 import static io.ballerina.servicemodelgenerator.extension.util.HttpUtil.updateHttpServiceContractModel;
 import static io.ballerina.servicemodelgenerator.extension.util.HttpUtil.updateHttpServiceModel;
 import static io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtils.getProtocol;
-import static io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtils.updateFunctionList;
+import static io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtils.populateRequiredFunctionsForServiceType;
 import static io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtils.updateGenericServiceModel;
 import static io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtils.updateListenerItems;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.FunctionAddContext.RESOURCE_ADD;
@@ -415,7 +415,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                     service.getProperties().put("returningServiceClass", Value.getTcpValue(serviceName));
                 }
 
-                updateFunctionList(service);
+                populateRequiredFunctionsForServiceType(service);
                 String serviceDeclaration = getServiceDeclarationNode(service, context);
                 edits.add(new TextEdit(Utils.toRange(lineRange.endLine()), NEW_LINE + serviceDeclaration));
 
