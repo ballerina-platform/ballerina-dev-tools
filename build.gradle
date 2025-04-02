@@ -93,9 +93,28 @@ subprojects {
     ext.defineSyncTask = { String pathParam ->
         tasks.register('localSync') {
             doLast {
-                def version = ballerinaLangVersion.contains('-') ? ballerinaLangVersion.split('-')[0] : ballerinaLangVersion
+                def distVersion = ""
+                def distributionsDir = new File("${System.getProperty('user.home')}/.ballerina/ballerina-home/distributions/")
+                if (distributionsDir.exists()) {
+                    def ballerinaDirectories = distributionsDir.listFiles().findAll { 
+                        it.isDirectory() && it.name.startsWith("ballerina-") 
+                    }
+                    
+                    if (ballerinaDirectories) {
+                        ballerinaDirectories.sort { a, b -> b.name <=> a.name }
+                        def latestDir = ballerinaDirectories[0]
+                        distVersion = latestDir.name.substring("ballerina-".length())
+                    } else {
+                        println "No Ballerina distributions found."
+                        return
+                    }
+                } else {
+                    println "Distributions directory does not exist at: ${distributionsDir.absolutePath}"
+                    return
+                }
+
                 def buildLibsDir = file('build/libs')
-                def destinationPath = "${System.getProperty('user.home')}/.ballerina/ballerina-home/distributions/ballerina-${version}/${pathParam}"
+                def destinationPath = "${System.getProperty('user.home')}/.ballerina/ballerina-home/distributions/ballerina-${distVersion}/${pathParam}"
 
                 if (buildLibsDir.exists() && buildLibsDir.listFiles()) {
                     def jarFiles = buildLibsDir.listFiles().findAll { it.name.endsWith('.jar') }
