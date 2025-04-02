@@ -1,0 +1,29 @@
+{
+  "description": "",
+  "source": "proj/main.bal",
+  "typeConstraint": "string[]",
+  "position": {
+    "line": 12,
+    "offset": 0
+  },
+  "completions": [
+    {
+      "label": "string[]",
+      "labelDetails": {
+        "detail": "Used Variable Types",
+        "description": "Array"
+      },
+      "kind": "TypeParameter",
+      "insertText": "string[]"
+    },
+    {
+      "label": "string[]",
+      "labelDetails": {
+        "detail": "Structural Types",
+        "description": "Array"
+      },
+      "kind": "TypeParameter",
+      "insertText": "string[]"
+    }
+  ]
+}

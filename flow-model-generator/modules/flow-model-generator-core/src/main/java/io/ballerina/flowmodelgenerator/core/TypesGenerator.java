@@ -26,6 +26,11 @@ import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
+import io.ballerina.compiler.api.symbols.VariableSymbol;
+import io.ballerina.flowmodelgenerator.core.expressioneditor.DocumentContext;
+import io.ballerina.modelgenerator.commons.CommonUtils;
+import io.ballerina.modelgenerator.commons.ModuleInfo;
+import io.ballerina.tools.text.LinePosition;
 import org.ballerinalang.model.types.TypeKind;
 import org.eclipse.lsp4j.CompletionItem;
 import org.eclipse.lsp4j.CompletionList;
@@ -36,7 +41,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * This class is responsible for generating types from the semantic model.
@@ -49,8 +53,11 @@ public class TypesGenerator {
     private final Map<TypeSymbol, CompletionItem> completionItemMap;
     private final Map<TypeSymbol, List<CompletionItem>> subtypeItemsMap;
     private volatile boolean initialized = false;
+    private static final String LANG_ANNOTATIONS_MODULE = "lang.annotations";
 
     private static final String USER_DEFINED_TYPE = "User-Defined";
+    private static final String VARIABLE_TYPE = "Used Variable Types";
+
     private static final List<SymbolKind> TYPE_SYMBOL_KINDS = List.of(SymbolKind.TYPE_DEFINITION, SymbolKind.CLASS,
             SymbolKind.ENUM);
 
@@ -105,43 +112,98 @@ public class TypesGenerator {
         this.subtypeItemsMap = new LinkedHashMap<>();
     }
 
-    public Either<List<CompletionItem>, CompletionList> getTypes(SemanticModel semanticModel, String typeConstraint) {
-        // Get the symbol of the type constraint
-        initializeBuiltinTypes(semanticModel);
-        TypeSymbol typeSymbol = typeSymbolMap.get(typeConstraint);
+    public Either<List<CompletionItem>, CompletionList> getTypes(DocumentContext documentContext, String typeConstraint,
+                                                                 LinePosition linePosition) {
+        Optional<SemanticModel> optionalSemanticModel = documentContext.semanticModel();
+        if (optionalSemanticModel.isEmpty()) {
+            return Either.forLeft(new ArrayList<>());
+        }
+        SemanticModel semanticModel = optionalSemanticModel.get();
 
-        // If the symbol not found, return all the completions
-        if (typeSymbol == null) {
-            List<CompletionItem> completionItems = semanticModel.moduleSymbols().parallelStream()
-                    .filter(symbol -> TYPE_SYMBOL_KINDS.contains(symbol.kind()))
-                    .map(symbol -> TypeCompletionItemBuilder.build(symbol, symbol.getName().orElse(""),
-                            USER_DEFINED_TYPE))
-                    .collect(Collectors.toCollection(ArrayList::new));
-            completionItems.addAll(completionItemMap.values());
-            return Either.forLeft(completionItems);
+        initializeBuiltinTypes(semanticModel);
+        Optional<ModuleInfo> userModuleInfo =
+                documentContext.module().map(module -> ModuleInfo.from(module.descriptor()));
+        TypeSymbol typeConstraintSymbol = typeSymbolMap.get(typeConstraint);
+
+        // Obtain the module symbols
+        List<Symbol> symbols;
+        if (linePosition == null) {
+            symbols = semanticModel.moduleSymbols();
+        } else {
+            symbols = semanticModel.visibleSymbols(documentContext.document(), linePosition);
         }
 
-        // Get the filtered type completions
-        List<CompletionItem> completionItems = semanticModel.moduleSymbols().parallelStream()
-                .filter(symbol -> isSubtype(typeSymbol, symbol))
-                .map(symbol -> TypeCompletionItemBuilder.build(symbol, symbol.getName().orElse(""),
-                        USER_DEFINED_TYPE))
-                .collect(Collectors.toCollection(ArrayList::new));
-        completionItems.addAll(subtypeItemsMap.get(typeSymbol));
+        // Generate the completion items for the user's symbols
+        List<CompletionItem> completionItems = new ArrayList<>();
+        for (Symbol symbol : symbols) {
+            // Generate the completion items for the types used in variables
+            if (symbol.kind() == SymbolKind.VARIABLE && userModuleInfo.isPresent()) {
+                VariableSymbol variableSymbol = (VariableSymbol) symbol;
+                TypeSymbol variableTypeSymbol = variableSymbol.typeDescriptor();
+
+                if (isInvalidTypeSymbol(variableTypeSymbol, typeConstraintSymbol)) {
+                    continue;
+                }
+                completionItems.add(TypeCompletionItemBuilder.build(
+                        variableTypeSymbol,
+                        CommonUtils.getTypeSignature(semanticModel, variableTypeSymbol, false,
+                                userModuleInfo.get()),
+                        VARIABLE_TYPE
+                ));
+                continue;
+            }
+
+            // Generate the completion items for the type definitions
+            if (TYPE_SYMBOL_KINDS.contains(symbol.kind())) {
+                if (isInvalidTypeSymbol(symbol, typeConstraintSymbol)) {
+                    continue;
+                }
+                // Skip the internal type definitions
+                if (symbol.getModule().map(moduleSymbol -> moduleSymbol.nameEquals(LANG_ANNOTATIONS_MODULE))
+                        .orElse(false)) {
+                    continue;
+                }
+                completionItems.add(TypeCompletionItemBuilder.build(
+                        symbol,
+                        symbol.getName().orElse(""),
+                        USER_DEFINED_TYPE
+                ));
+            }
+        }
+
+        // Add the remaining completions items
+        if (typeConstraintSymbol == null) {
+            // Add all the builtin types
+            completionItems.addAll(completionItemMap.values());
+        } else {
+            // Add the subtype builtin types
+            List<CompletionItem> subtypeItems = subtypeItemsMap.get(typeConstraintSymbol);
+            if (subtypeItems != null) {
+                completionItems.addAll(subtypeItems);
+            }
+        }
         return Either.forLeft(completionItems);
     }
 
-    private static boolean isSubtype(TypeSymbol parentSymbol, Symbol childSymbol) {
-        TypeSymbol childTypeSymbol = switch (childSymbol.kind()) {
-            case TYPE_DEFINITION -> ((TypeDefinitionSymbol) childSymbol).typeDescriptor();
-            case CLASS -> ((ClassSymbol) childSymbol);
-            case ENUM -> ((EnumSymbol) childSymbol).typeDescriptor();
+    private static boolean isInvalidTypeSymbol(Symbol symbol, TypeSymbol typeConstraintSymbol) {
+        if (typeConstraintSymbol == null) {
+            return false;
+        }
+        TypeSymbol childTypeSymbol = switch (symbol.kind()) {
+            case TYPE_DEFINITION -> ((TypeDefinitionSymbol) symbol).typeDescriptor();
+            case CLASS -> ((ClassSymbol) symbol);
+            case ENUM -> ((EnumSymbol) symbol).typeDescriptor();
+            case TYPE -> (TypeSymbol) symbol;
             default -> null;
         };
         if (childTypeSymbol == null) {
-            return false;
+            return true;
         }
-        return childTypeSymbol.subtypeOf(parentSymbol);
+        try {
+            return !childTypeSymbol.subtypeOf(typeConstraintSymbol);
+        } catch (Throwable ignored) {
+            return true;
+        }
     }
 
     public Optional<TypeSymbol> getTypeSymbol(SemanticModel semanticModel, String typeName) {
@@ -196,7 +258,7 @@ public class TypesGenerator {
 
             // Build the subtype items for the builtin types
             typeSymbolMap.forEach((name, symbol) -> {
-                List<CompletionItem> completionsList = typeSymbolMap.values().parallelStream()
+                List<CompletionItem> completionsList = typeSymbolMap.values().stream()
                         .filter(typeSymbol -> typeSymbol.subtypeOf(symbol))
                         .map(completionItemMap::get)
                         .toList();
