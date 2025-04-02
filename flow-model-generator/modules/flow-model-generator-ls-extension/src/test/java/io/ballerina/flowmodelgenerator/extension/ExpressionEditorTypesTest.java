@@ -21,6 +21,7 @@ package io.ballerina.flowmodelgenerator.extension;
 import com.google.gson.JsonObject;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorTypesRequest;
 import io.ballerina.modelgenerator.commons.AbstractLSTest;
+import io.ballerina.tools.text.LinePosition;
 import org.eclipse.lsp4j.CompletionItem;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -43,14 +44,15 @@ public class ExpressionEditorTypesTest extends AbstractLSTest {
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
 
         ExpressionEditorTypesRequest request =
-                new ExpressionEditorTypesRequest(getSourcePath(testConfig.source()), testConfig.typeConstraint());
+                new ExpressionEditorTypesRequest(getSourcePath(testConfig.source()), testConfig.typeConstraint(),
+                        testConfig.position());
         JsonObject response = getResponse(request);
 
         List<CompletionItem> actualCompletions = gson.fromJson(response.get("left").getAsJsonArray(),
                 ExpressionEditorCompletionTest.COMPLETION_RESPONSE_TYPE);
         if (!assertArray("completions", actualCompletions, testConfig.completions())) {
             TestConfig updatedConfig = new TestConfig(testConfig.description(), testConfig.source(),
-                    testConfig.typeConstraint(), actualCompletions);
+                    testConfig.typeConstraint(), testConfig.position(), actualCompletions);
 //            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
@@ -76,7 +78,7 @@ public class ExpressionEditorTypesTest extends AbstractLSTest {
         return "expressionEditor";
     }
 
-    private record TestConfig(String description, String source, String typeConstraint,
+    private record TestConfig(String description, String source, String typeConstraint, LinePosition position,
                               List<CompletionItem> completions) {
     }
 }

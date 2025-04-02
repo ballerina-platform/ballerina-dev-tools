@@ -80,7 +80,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static io.ballerina.openapi.core.generators.common.GeneratorConstants.DEFAULT_FILE_HEADER;
-import static io.ballerina.servicemodelgenerator.extension.util.Utils.getAnnotationEdits;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.importExists;
 
 /**
@@ -163,19 +162,12 @@ public class OpenApiServiceGenerator {
                 } else {
                     listenerDeclaringLoc = modulePartNode.lineRange().endLine();
                 }
-                String listenerDeclarationStmt = ListenerUtil.getListenerDeclarationStmt(
+                String listenerDeclarationStmt = ListenerUtil.getHttpDefaultListenerDeclarationStmt(
                         semanticModel.get(), document.get(), listenerDeclaringLoc);
                 textEdits.add(new TextEdit(Utils.toRange(listenerDeclaringLoc), listenerDeclarationStmt));
             }
 
             StringBuilder serviceBuilder = new StringBuilder();
-
-            List<String> annotations = getAnnotationEdits(service);
-
-            if (!annotations.isEmpty()) {
-                serviceBuilder.append(String.join(System.lineSeparator(), annotations));
-                serviceBuilder.append(System.lineSeparator());
-            }
 
             String serviceImplContent = genServiceImplementation(serviceTypeFile, typeName, listeners, project,
                     mainFile);

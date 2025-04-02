@@ -87,6 +87,7 @@ import java.util.Set;
 public class AgentsGenerator {
 
     public static final String MODEL = "Model";
+    public static final String MEMORY_MANAGER = "MemoryManager";
     public static final String TOOL_ANNOTATION = "Tool";
     public static final String TARGET_TYPE = "targetType";
     private final Gson gson;
@@ -168,6 +169,40 @@ public class AgentsGenerator {
                     .module(id.packageName())
                     .version(id.version())
                     .object(model.getName().orElse(MODEL))
+                    .symbol(INIT)
+                    .build());
+        }
+        return gson.toJsonTree(models).getAsJsonArray();
+    }
+
+    public JsonArray getAllMemoryManagers(SemanticModel agentSymbol) {
+        List<ClassSymbol> memoryManagerSymbols = new ArrayList<>();
+        for (Symbol symbol : agentSymbol.moduleSymbols()) {
+            if (symbol.kind() != SymbolKind.CLASS) {
+                continue;
+            }
+            ClassSymbol classSymbol = (ClassSymbol) symbol;
+            List<TypeSymbol> inclusionsTypes = classSymbol.typeInclusions();
+            for (TypeSymbol typeSymbol : inclusionsTypes) {
+                if (typeSymbol.getName().isPresent() && typeSymbol.getName().get().equals(MEMORY_MANAGER)) {
+                    memoryManagerSymbols.add(classSymbol);
+                    break;
+                }
+            }
+        }
+
+        List<Codedata> models = new ArrayList<>();
+        for (ClassSymbol model : memoryManagerSymbols) {
+            Optional<ModuleSymbol> optModule = model.getModule();
+            if (optModule.isEmpty()) {
+                throw new IllegalStateException("Memory Manager module id not found");
+            }
+            ModuleID id = optModule.get().id();
+            models.add(new Codedata.Builder<>(null).node(NodeKind.CLASS_INIT)
+                    .org(id.orgName())
+                    .module(id.packageName())
+                    .version(id.version())
+                    .object(model.getName().orElse(MEMORY_MANAGER))
                     .symbol(INIT)
                     .build());
         }

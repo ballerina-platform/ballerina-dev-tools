@@ -82,7 +82,7 @@
         "host": {
           "metadata": {
             "label": "host",
-            "description": ""
+            "description": "The host name/IP of the endpoint"
           },
           "enabled": true,
           "editable": true,
@@ -113,7 +113,7 @@
         "http1Settings": {
           "metadata": {
             "label": "http1Settings",
-            "description": ""
+            "description": "Configurations related to HTTP/1.x protocol"
           },
           "enabled": true,
           "editable": true,
@@ -144,7 +144,7 @@
         "secureSocket": {
           "metadata": {
             "label": "secureSocket",
-            "description": ""
+            "description": "The SSL configurations for the service endpoint. This needs to be configured in order to\ncommunicate through HTTPS."
           },
           "enabled": true,
           "editable": true,
@@ -181,7 +181,7 @@
         "httpVersion": {
           "metadata": {
             "label": "httpVersion",
-            "description": ""
+            "description": "Highest HTTP version supported by the endpoint"
           },
           "enabled": true,
           "editable": true,
@@ -212,7 +212,7 @@
         "timeout": {
           "metadata": {
             "label": "timeout",
-            "description": ""
+            "description": "Period of time in seconds that a connection waits for a read/write operation. Use value 0 to\ndisable timeout"
           },
           "enabled": true,
           "editable": true,
@@ -243,7 +243,7 @@
         "server": {
           "metadata": {
             "label": "server",
-            "description": ""
+            "description": "The server name which should appear as a response header"
           },
           "enabled": true,
           "editable": true,
@@ -280,7 +280,7 @@
         "requestLimits": {
           "metadata": {
             "label": "requestLimits",
-            "description": ""
+            "description": "Configurations associated with inbound request size limits"
           },
           "enabled": true,
           "editable": true,
@@ -311,7 +311,7 @@
         "gracefulStopTimeout": {
           "metadata": {
             "label": "gracefulStopTimeout",
-            "description": ""
+            "description": "Grace period of time in seconds for listener gracefulStop"
           },
           "enabled": true,
           "editable": true,
@@ -342,7 +342,7 @@
         "socketConfig": {
           "metadata": {
             "label": "socketConfig",
-            "description": ""
+            "description": "Provides settings related to server socket configuration"
           },
           "enabled": true,
           "editable": true,
@@ -373,7 +373,7 @@
         "http2InitialWindowSize": {
           "metadata": {
             "label": "http2InitialWindowSize",
-            "description": ""
+            "description": "Configuration to change the initial window size in HTTP/2"
           },
           "enabled": true,
           "editable": true,
@@ -404,7 +404,7 @@
         "minIdleTimeInStaleState": {
           "metadata": {
             "label": "minIdleTimeInStaleState",
-            "description": ""
+            "description": "Minimum time in seconds for a connection to be kept open which has received a GOAWAY.\nThis only applies for HTTP/2. Default value is 5 minutes. If the value is set to -1,\nthe connection will be closed after all in-flight streams are completed"
           },
           "enabled": true,
           "editable": true,
@@ -435,7 +435,7 @@
         "timeBetweenStaleEviction": {
           "metadata": {
             "label": "timeBetweenStaleEviction",
-            "description": ""
+            "description": "Time between the connection stale eviction runs in seconds. This only applies for HTTP/2.\nDefault value is 30 seconds"
           },
           "enabled": true,
           "editable": true,

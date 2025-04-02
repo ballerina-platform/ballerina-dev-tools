@@ -76,11 +76,11 @@
       {
         "id": "59685",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "Declare Variable",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "method_call.bal",
             "startLine": {
@@ -96,21 +96,21 @@
         },
         "returning": false,
         "properties": {
-          "statement": {
+          "expression": {
             "metadata": {
-              "label": "Statement",
-              "description": "Ballerina statement"
+              "label": "Expression",
+              "description": "Initialize with value"
             },
             "valueType": "EXPRESSION",
             "value": "new Calculator(10)",
-            "optional": false,
+            "optional": true,
             "editable": true,
             "advanced": false,
             "hidden": false
           },
           "variable": {
             "metadata": {
-              "label": "Variable Name",
+              "label": "Name",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -135,7 +135,7 @@
           },
           "type": {
             "metadata": {
-              "label": "Variable Type",
+              "label": "Type",
               "description": "Type of the variable"
             },
             "valueType": "TYPE",

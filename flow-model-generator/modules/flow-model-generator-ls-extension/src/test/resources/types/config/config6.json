@@ -1,8 +1,26 @@
 {
   "description": "",
   "source": "data_mapper/main.bal",
-  "typeConstraint": "json",
+  "typeConstraint": "anydata",
   "completions": [
+    {
+      "label": "Input",
+      "labelDetails": {
+        "detail": "User-Defined",
+        "description": "Record"
+      },
+      "kind": "Struct",
+      "insertText": "Input"
+    },
+    {
+      "label": "Output",
+      "labelDetails": {
+        "detail": "User-Defined",
+        "description": "Record"
+      },
+      "kind": "Struct",
+      "insertText": "Output"
+    },
     {
       "label": "Location",
       "labelDetails": {
@@ -41,6 +59,69 @@
       },
       "kind": "Struct",
       "insertText": "Person"
+    },
+    {
+      "label": "Admission",
+      "labelDetails": {
+        "detail": "User-Defined",
+        "description": "Record"
+      },
+      "kind": "Struct",
+      "insertText": "Admission"
+    },
+    {
+      "label": "boolean",
+      "labelDetails": {
+        "detail": "Used Variable Types",
+        "description": "Boolean"
+      },
+      "kind": "TypeParameter",
+      "insertText": "boolean"
+    },
+    {
+      "label": "string",
+      "labelDetails": {
+        "detail": "Used Variable Types",
+        "description": "String"
+      },
+      "kind": "TypeParameter",
+      "insertText": "string"
+    },
+    {
+      "label": "int",
+      "labelDetails": {
+        "detail": "Used Variable Types",
+        "description": "Int"
+      },
+      "kind": "TypeParameter",
+      "insertText": "int"
+    },
+    {
+      "label": "Input & readonly",
+      "labelDetails": {
+        "detail": "Used Variable Types",
+        "description": "Intersection"
+      },
+      "kind": "TypeParameter",
+      "insertText": "Input & readonly"
+    },
+    {
+      "label": "table<Input> key(name) & readonly",
+      "labelDetails": {
+        "detail": "Used Variable Types",
+        "description": "Intersection"
+      },
+      "kind": "TypeParameter",
+      "insertText": "table<Input> key(name) & readonly"
+    },
+    {
+      "label": "Input",
+      "labelDetails": {
+        "detail": "Used Variable Types",
+        "description": "Record"
+      },
+      "kind": "Struct",
+      "insertText": "Input"
     },
     {
       "label": "string",
@@ -97,6 +178,15 @@
       "insertText": "decimal"
     },
     {
+      "label": "xml",
+      "labelDetails": {
+        "detail": "Data Types",
+        "description": "Xml"
+      },
+      "kind": "TypeParameter",
+      "insertText": "xml"
+    },
+    {
       "label": "byte",
       "labelDetails": {
         "detail": "Primitive Types",
@@ -113,6 +203,24 @@
       },
       "kind": "TypeParameter",
       "insertText": "json"
+    },
+    {
+      "label": "anydata",
+      "labelDetails": {
+        "detail": "Data Types",
+        "description": "Anydata"
+      },
+      "kind": "TypeParameter",
+      "insertText": "anydata"
+    },
+    {
+      "label": "record",
+      "labelDetails": {
+        "detail": "Structural Types",
+        "description": "Record"
+      },
+      "kind": "Struct",
+      "insertText": "record"
     },
     {
       "label": "map<json>",
@@ -149,6 +257,15 @@
       },
       "kind": "TypeParameter",
       "insertText": "byte[]"
+    },
+    {
+      "label": "string[]",
+      "labelDetails": {
+        "detail": "Structural Types",
+        "description": "Array"
+      },
+      "kind": "TypeParameter",
+      "insertText": "string[]"
     }
   ]
 }

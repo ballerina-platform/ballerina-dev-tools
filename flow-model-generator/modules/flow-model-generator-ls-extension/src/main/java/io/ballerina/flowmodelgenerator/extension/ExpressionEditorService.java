@@ -110,7 +110,7 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                 Path filePath = Path.of(request.filePath());
                 DocumentContext documentContext = new DocumentContext(workspaceManagerProxy, filePath);
                 return TypesGenerator.getInstance()
-                        .getTypes(documentContext.semanticModel().orElseThrow(), request.typeConstraint());
+                        .getTypes(documentContext, request.typeConstraint(), request.position());
             } catch (Throwable e) {
                 return Either.forRight(new CompletionList());
             }

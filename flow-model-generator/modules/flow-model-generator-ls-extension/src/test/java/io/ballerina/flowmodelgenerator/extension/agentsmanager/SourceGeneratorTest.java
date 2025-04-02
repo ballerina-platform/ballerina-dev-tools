@@ -51,7 +51,8 @@ public class SourceGeneratorTest extends AbstractLSTest {
     @Override
     protected Object[] getConfigsList() {
         return new Object[][]{
-                {Path.of("source.json")}
+                {Path.of("source.json")},
+                {Path.of("memory_manager_source.json")}
         };
     }
 

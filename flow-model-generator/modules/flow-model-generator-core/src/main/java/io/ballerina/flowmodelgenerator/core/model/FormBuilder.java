@@ -214,6 +214,21 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
         return this;
     }
 
+    public FormBuilder<T> description(String value) {
+        propertyBuilder
+                .metadata()
+                .label(Property.DESCRIPTION_LABEL)
+                .description(Property.DESCRIPTION_TYPE_DOC)
+                .stepOut()
+                .value(value == null ? "" : value)
+                .type(Property.ValueType.STRING)
+                .optional(true)
+                .editable();
+
+        addProperty(Property.DESCRIPTION_KEY);
+        return this;
+    }
+
     public FormBuilder<T> returnType(String value) {
         return returnType(value, null, true);
     }
@@ -1017,6 +1032,56 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
         }
 
         addProperty(Property.VARIABLE_KEY);
+
+        return endNestedProperty(Property.ValueType.FIXED_PROPERTY, name, Property.PARAMETER_LABEL,
+                Property.PARAMETER_DOC);
+    }
+
+    public FormBuilder<T> parameterWithDescription(String type, String name, Token token, Property.ValueType valueType,
+                                    Object typeConstraint, String description) {
+        nestedProperty();
+
+        // Build the parameter type property
+        propertyBuilder
+                .metadata()
+                .label(Property.IMPLICIT_TYPE_LABEL)
+                .description(Property.PARAMETER_TYPE_DOC)
+                .stepOut()
+                .type(valueType)
+                .typeConstraint(typeConstraint)
+                .value(type)
+                .editable();
+        addProperty(Property.TYPE_KEY);
+
+        // Build the parameter name property
+        propertyBuilder
+                .metadata()
+                .label(Property.IMPLICIT_VARIABLE_LABEL)
+                .description(Property.PARAMETER_VARIABLE_DOC)
+                .stepOut()
+                .type(Property.ValueType.IDENTIFIER)
+                .editable()
+                .value(name);
+
+        if (token == null) {
+            propertyBuilder.editable();
+        } else {
+            propertyBuilder.codedata()
+                    .lineRange(token.lineRange());
+        }
+
+        addProperty(Property.VARIABLE_KEY);
+
+        propertyBuilder
+                .metadata()
+                .label(Property.DESCRIPTION_LABEL)
+                .description(Property.PARAMETER_DESCRIPTION_TYPE_DOC)
+                .stepOut()
+                .type(Property.ValueType.STRING)
+                .value(description)
+                .optional(true)
+                .editable();
+        addProperty(Property.DESCRIPTION_KEY);
 
         return endNestedProperty(Property.ValueType.FIXED_PROPERTY, name, Property.PARAMETER_LABEL,
                 Property.PARAMETER_DOC);

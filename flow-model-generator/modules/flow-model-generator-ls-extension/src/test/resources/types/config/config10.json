@@ -1,0 +1,271 @@
+{
+  "description": "",
+  "source": "proj/main.bal",
+  "position": {
+    "line": 12,
+    "offset": 0
+  },
+  "completions": [
+    {
+      "label": "map<Person>",
+      "labelDetails": {
+        "detail": "Used Variable Types",
+        "description": "Map"
+      },
+      "kind": "TypeParameter",
+      "insertText": "map<Person>"
+    },
+    {
+      "label": "Person",
+      "labelDetails": {
+        "detail": "User-Defined",
+        "description": "Record"
+      },
+      "kind": "Struct",
+      "insertText": "Person"
+    },
+    {
+      "label": "string[]",
+      "labelDetails": {
+        "detail": "Used Variable Types",
+        "description": "Array"
+      },
+      "kind": "TypeParameter",
+      "insertText": "string[]"
+    },
+    {
+      "label": "Person[]",
+      "labelDetails": {
+        "detail": "Used Variable Types",
+        "description": "Array"
+      },
+      "kind": "TypeParameter",
+      "insertText": "Person[]"
+    },
+    {
+      "label": "string|int",
+      "labelDetails": {
+        "detail": "Used Variable Types",
+        "description": "Union"
+      },
+      "kind": "Enum",
+      "insertText": "string|int"
+    },
+    {
+      "label": "byte[]",
+      "labelDetails": {
+        "detail": "Structural Types",
+        "description": "Array"
+      },
+      "kind": "TypeParameter",
+      "insertText": "byte[]"
+    },
+    {
+      "label": "map<json>",
+      "labelDetails": {
+        "detail": "Structural Types",
+        "description": "Map"
+      },
+      "kind": "TypeParameter",
+      "insertText": "map<json>"
+    },
+    {
+      "label": "map<string>",
+      "labelDetails": {
+        "detail": "Structural Types",
+        "description": "Map"
+      },
+      "kind": "TypeParameter",
+      "insertText": "map<string>"
+    },
+    {
+      "label": "json[]",
+      "labelDetails": {
+        "detail": "Structural Types",
+        "description": "Array"
+      },
+      "kind": "TypeParameter",
+      "insertText": "json[]"
+    },
+    {
+      "label": "string[]",
+      "labelDetails": {
+        "detail": "Structural Types",
+        "description": "Array"
+      },
+      "kind": "TypeParameter",
+      "insertText": "string[]"
+    },
+    {
+      "label": "record",
+      "labelDetails": {
+        "detail": "Structural Types",
+        "description": "Record"
+      },
+      "kind": "Struct",
+      "insertText": "record"
+    },
+    {
+      "label": "function",
+      "labelDetails": {
+        "detail": "Behaviour Types",
+        "description": "Function"
+      },
+      "kind": "TypeParameter",
+      "insertText": "function"
+    },
+    {
+      "label": "future",
+      "labelDetails": {
+        "detail": "Behaviour Types",
+        "description": "Future"
+      },
+      "kind": "TypeParameter",
+      "insertText": "future"
+    },
+    {
+      "label": "typedesc",
+      "labelDetails": {
+        "detail": "Behaviour Types",
+        "description": "Typedesc"
+      },
+      "kind": "TypeParameter",
+      "insertText": "typedesc"
+    },
+    {
+      "label": "handle",
+      "labelDetails": {
+        "detail": "Behaviour Types",
+        "description": "Handle"
+      },
+      "kind": "TypeParameter",
+      "insertText": "handle"
+    },
+    {
+      "label": "stream",
+      "labelDetails": {
+        "detail": "Behaviour Types",
+        "description": "Stream"
+      },
+      "kind": "TypeParameter",
+      "insertText": "stream"
+    },
+    {
+      "label": "error",
+      "labelDetails": {
+        "detail": "Error Types",
+        "description": "Error"
+      },
+      "kind": "Event",
+      "insertText": "error"
+    },
+    {
+      "label": "json",
+      "labelDetails": {
+        "detail": "Data Types",
+        "description": "Json"
+      },
+      "kind": "TypeParameter",
+      "insertText": "json"
+    },
+    {
+      "label": "xml",
+      "labelDetails": {
+        "detail": "Data Types",
+        "description": "Xml"
+      },
+      "kind": "TypeParameter",
+      "insertText": "xml"
+    },
+    {
+      "label": "anydata",
+      "labelDetails": {
+        "detail": "Data Types",
+        "description": "Anydata"
+      },
+      "kind": "TypeParameter",
+      "insertText": "anydata"
+    },
+    {
+      "label": "any",
+      "labelDetails": {
+        "detail": "Other Types",
+        "description": "Any"
+      },
+      "kind": "TypeParameter",
+      "insertText": "any"
+    },
+    {
+      "label": "readonly",
+      "labelDetails": {
+        "detail": "Other Types",
+        "description": "Readonly"
+      },
+      "kind": "TypeParameter",
+      "insertText": "readonly"
+    },
+    {
+      "label": "string",
+      "labelDetails": {
+        "detail": "Primitive Types",
+        "description": "String"
+      },
+      "kind": "TypeParameter",
+      "insertText": "string"
+    },
+    {
+      "label": "int",
+      "labelDetails": {
+        "detail": "Primitive Types",
+        "description": "Int"
+      },
+      "kind": "TypeParameter",
+      "insertText": "int"
+    },
+    {
+      "label": "float",
+      "labelDetails": {
+        "detail": "Primitive Types",
+        "description": "Float"
+      },
+      "kind": "TypeParameter",
+      "insertText": "float"
+    },
+    {
+      "label": "decimal",
+      "labelDetails": {
+        "detail": "Primitive Types",
+        "description": "Decimal"
+      },
+      "kind": "TypeParameter",
+      "insertText": "decimal"
+    },
+    {
+      "label": "boolean",
+      "labelDetails": {
+        "detail": "Primitive Types",
+        "description": "Boolean"
+      },
+      "kind": "TypeParameter",
+      "insertText": "boolean"
+    },
+    {
+      "label": "()",
+      "labelDetails": {
+        "detail": "Primitive Types",
+        "description": "Nil"
+      },
+      "kind": "TypeParameter",
+      "insertText": "()"
+    },
+    {
+      "label": "byte",
+      "labelDetails": {
+        "detail": "Primitive Types",
+        "description": "Byte"
+      },
+      "kind": "TypeParameter",
+      "insertText": "byte"
+    }
+  ]
+}

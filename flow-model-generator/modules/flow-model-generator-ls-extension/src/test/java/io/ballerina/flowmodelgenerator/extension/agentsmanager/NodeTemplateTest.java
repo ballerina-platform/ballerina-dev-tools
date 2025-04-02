@@ -44,7 +44,8 @@ public class NodeTemplateTest extends AbstractLSTest {
         return new Object[][]{
                 {Path.of("agent_template.json")},
                 {Path.of("agent_call_template.json")},
-                {Path.of("model_template.json")}
+                {Path.of("model_template.json")},
+                {Path.of("memory_manager_template.json")}
         };
     }
 

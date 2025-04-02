@@ -31,7 +31,9 @@ public class ServiceModelGeneratorConstants {
     public static final String SPACE = " ";
     public static final String OPEN_BRACE = "{";
     public static final String CLOSE_BRACE = "}";
-    public static final String LINE_SEPARATOR = System.lineSeparator();
+    public static final String NEW_LINE = System.lineSeparator();
+    public static final String TWO_NEW_LINES = NEW_LINE + NEW_LINE;
+    public static final String NEW_LINE_WITH_TAB = NEW_LINE + "\t";
     public static final String IMPORT_STMT_TEMPLATE = "%nimport %s/%s;%n";
     public static final String AT = "@";
     public static final String COLON = ":";
@@ -39,8 +41,8 @@ public class ServiceModelGeneratorConstants {
     public static final String SINGLE_SELECT_VALUE = "SINGLE_SELECT";
     public static final String MULTIPLE_SELECT_VALUE = "MULTIPLE_SELECT";
 
-    public static final String HTTP_DEFAULT_LISTENER_STMT = LINE_SEPARATOR +
-            "listener http:Listener %s = http:getDefaultListener();" + LINE_SEPARATOR;
+    public static final String HTTP_DEFAULT_LISTENER_STMT = NEW_LINE +
+            "listener http:Listener %s = http:getDefaultListener();" + NEW_LINE;
     public static final String HTTP_DEFAULT_LISTENER_ITEM_LABEL = "(+) Create and use the default HTTP listener" +
             " (port: 9090)";
     public static final String HTTP_DEFAULT_LISTENER_VAR_NAME = "httpDefaultListener";

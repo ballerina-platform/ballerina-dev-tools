@@ -180,6 +180,24 @@
       "insertText": "UserProfile"
     },
     {
+      "label": "any",
+      "labelDetails": {
+        "detail": "Other Types",
+        "description": "Any"
+      },
+      "kind": "TypeParameter",
+      "insertText": "any"
+    },
+    {
+      "label": "readonly",
+      "labelDetails": {
+        "detail": "Other Types",
+        "description": "Readonly"
+      },
+      "kind": "TypeParameter",
+      "insertText": "readonly"
+    },
+    {
       "label": "string",
       "labelDetails": {
         "detail": "Primitive Types",
@@ -279,6 +297,15 @@
       "insertText": "json[]"
     },
     {
+      "label": "string[]",
+      "labelDetails": {
+        "detail": "Structural Types",
+        "description": "Array"
+      },
+      "kind": "TypeParameter",
+      "insertText": "string[]"
+    },
+    {
       "label": "record",
       "labelDetails": {
         "detail": "Structural Types",
@@ -367,24 +394,6 @@
       },
       "kind": "TypeParameter",
       "insertText": "anydata"
-    },
-    {
-      "label": "any",
-      "labelDetails": {
-        "detail": "Other Types",
-        "description": "Any"
-      },
-      "kind": "TypeParameter",
-      "insertText": "any"
-    },
-    {
-      "label": "readonly",
-      "labelDetails": {
-        "detail": "Other Types",
-        "description": "Readonly"
-      },
-      "kind": "TypeParameter",
-      "insertText": "readonly"
     }
   ]
 }

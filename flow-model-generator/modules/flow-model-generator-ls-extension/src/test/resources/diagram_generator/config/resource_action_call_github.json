@@ -4,7 +4,7 @@
     "offset": 0
   },
   "end": {
-    "line": 9,
+    "line": 10,
     "offset": 1
   },
   "source": "github_resource_call.bal",
@@ -265,6 +265,265 @@
             "advanced": false,
             "hidden": false,
             "codedata": {}
+          }
+        },
+        "flags": 1
+      },
+      {
+        "id": "40903",
+        "metadata": {
+          "label": "get",
+          "description": "List organization repositories\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_github_5.1.0.png"
+        },
+        "codedata": {
+          "node": "RESOURCE_ACTION_CALL",
+          "org": "ballerinax",
+          "module": "github",
+          "object": "Client",
+          "symbol": "get",
+          "version": "5.1.0",
+          "lineRange": {
+            "fileName": "github_resource_call.bal",
+            "startLine": {
+              "line": 9,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 9,
+              "offset": 107
+            }
+          },
+          "sourceCode": "github:MinimalRepository[] githubMinimalrepository = check githubClient->/orgs/[\"lakshan\"]/repos.get();",
+          "resourcePath": "/orgs/[org]/repos"
+        },
+        "returning": false,
+        "properties": {
+          "resourcePath": {
+            "metadata": {
+              "label": "Resource Path",
+              "description": "Resource Path"
+            },
+            "valueType": "EXPRESSION",
+            "value": "/orgs/[org]/repos",
+            "optional": false,
+            "editable": false,
+            "advanced": false,
+            "hidden": false,
+            "codedata": {
+              "originalName": "/orgs/[org]/repos"
+            }
+          },
+          "org": {
+            "metadata": {
+              "label": "org",
+              "description": "The organization name. The name is not case sensitive."
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "string",
+            "value": "\"lakshan\"",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "hidden": false,
+            "codedata": {
+              "kind": "PATH_PARAM",
+              "originalName": "org"
+            },
+            "typeMembers": []
+          },
+          "connection": {
+            "metadata": {
+              "label": "Connection",
+              "description": "Connection to use"
+            },
+            "valueType": "EXPRESSION",
+            "value": "githubClient",
+            "optional": false,
+            "editable": false,
+            "advanced": false,
+            "hidden": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "githubMinimalrepository",
+            "optional": false,
+            "editable": false,
+            "advanced": false,
+            "hidden": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "github_resource_call.bal",
+                "startLine": {
+                  "line": 9,
+                  "offset": 31
+                },
+                "endLine": {
+                  "line": 9,
+                  "offset": 54
+                }
+              }
+            }
+          },
+          "type": {
+            "metadata": {
+              "label": "Variable Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "github:MinimalRepository[]",
+            "placeholder": "var",
+            "optional": false,
+            "editable": false,
+            "advanced": false,
+            "hidden": false,
+            "codedata": {}
+          },
+          "sort": {
+            "metadata": {
+              "label": "sort",
+              "description": "The property to sort the results by."
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "\"created\"|\"updated\"|\"pushed\"|\"full_name\"",
+            "placeholder": "\"created\"",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "hidden": false,
+            "codedata": {
+              "kind": "DEFAULTABLE",
+              "originalName": "sort"
+            },
+            "typeMembers": [
+              {
+                "type": "\"created\"",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              },
+              {
+                "type": "\"full_name\"",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              },
+              {
+                "type": "\"pushed\"",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              },
+              {
+                "type": "\"updated\"",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
+          },
+          "direction": {
+            "metadata": {
+              "label": "direction",
+              "description": "The order to sort by. Default: `asc` when using `full_name`, otherwise `desc`."
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "\"desc\"|()|\"asc\"",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "hidden": false,
+            "codedata": {
+              "kind": "DEFAULTABLE",
+              "originalName": "direction"
+            },
+            "typeMembers": [
+              {
+                "type": "\"asc\"",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              },
+              {
+                "type": "\"desc\"",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
+          },
+          "per_page": {
+            "metadata": {
+              "label": "per_page",
+              "description": "The number of results per page (max 100)."
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "int",
+            "placeholder": "30",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "hidden": false,
+            "codedata": {
+              "kind": "DEFAULTABLE",
+              "originalName": "per_page"
+            },
+            "typeMembers": [
+              {
+                "type": "int",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
+          },
+          "page": {
+            "metadata": {
+              "label": "page",
+              "description": "Page number of the results to fetch."
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "int",
+            "placeholder": "1",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "hidden": false,
+            "codedata": {
+              "kind": "DEFAULTABLE",
+              "originalName": "page"
+            },
+            "typeMembers": [
+              {
+                "type": "int",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
+          },
+          "checkError": {
+            "metadata": {
+              "label": "Check Error",
+              "description": "Trigger error flow"
+            },
+            "valueType": "FLAG",
+            "value": true,
+            "optional": false,
+            "editable": true,
+            "advanced": true,
+            "hidden": false
           }
         },
         "flags": 1
