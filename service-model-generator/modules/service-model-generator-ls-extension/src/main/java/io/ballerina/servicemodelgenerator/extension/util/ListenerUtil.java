@@ -78,6 +78,8 @@ public class ListenerUtil {
         Set<String> listeners = new LinkedHashSet<>();
         boolean isHttpDefaultListenerDefined = false;
         boolean isHttp = ServiceModelGeneratorConstants.HTTP.equals(moduleName);
+        boolean isKafka = ServiceModelGeneratorConstants.KAFKA.equals(moduleName);
+
         for (Symbol moduleSymbol : semanticModel.moduleSymbols()) {
             if (!(moduleSymbol instanceof VariableSymbol variableSymbol)
                     || !variableSymbol.qualifiers().contains(Qualifier.LISTENER)) {
@@ -86,6 +88,9 @@ public class ListenerUtil {
             Optional<ModuleSymbol> module = variableSymbol.typeDescriptor().getModule();
             if (module.isEmpty() || !module.get().id().moduleName().equals(moduleName) ||
                     variableSymbol.getName().isEmpty()) {
+                continue;
+            }
+            if (isKafka && semanticModel.references(variableSymbol).size() > 1) {
                 continue;
             }
             String listenerName = variableSymbol.getName().get();
