@@ -866,7 +866,8 @@ public final class Utils {
         // function body
         FunctionReturnType returnType = function.getReturnType();
         builder.append("{").append(NEW_LINE);
-        if (signatureContext.equals(FunctionSignatureContext.HTTP_RESOURCE_ADD) || returnType.hasError()) {
+        if (returnType.hasError() || addContext.equals(FunctionAddContext.HTTP_SERVICE_ADD) ||
+                signatureContext.equals(FunctionSignatureContext.HTTP_RESOURCE_ADD)) {
             builder.append("\tdo {").append(NEW_LINE);
             if (addContext.equals(FunctionAddContext.HTTP_SERVICE_ADD)) {
                 builder.append("\t\treturn \"Hello, Greetings!\";").append(NEW_LINE);
