@@ -75,6 +75,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -832,11 +833,20 @@ public final class Utils {
         String functionSignature = generateFunctionSignatureSource(function, statusCodeResponses, sigContext);
         builder.append(functionSignature);
 
-        // function body
         FunctionReturnType returnType = function.getReturnType();
+
+        boolean hasErrorInReturn = returnType.hasError() || addContext.equals(FunctionAddContext.HTTP_SERVICE_ADD) ||
+                signatureContext.equals(FunctionSignatureContext.HTTP_RESOURCE_ADD);
+
+        if (!hasErrorInReturn && Objects.nonNull(returnType.getValue())) {
+            List<String> returnParts = Arrays.stream(returnType.getValue().split("\\|")).toList();
+            hasErrorInReturn = returnParts.contains("error") || returnParts.contains("error?");
+        }
+
+
+        // function body
         builder.append("{").append(NEW_LINE);
-        if (returnType.hasError() || addContext.equals(FunctionAddContext.HTTP_SERVICE_ADD) ||
-                signatureContext.equals(FunctionSignatureContext.HTTP_RESOURCE_ADD)) {
+        if (hasErrorInReturn) {
             builder.append("\tdo {").append(NEW_LINE);
             if (addContext.equals(FunctionAddContext.HTTP_SERVICE_ADD)) {
                 builder.append("\t\treturn \"Hello, Greetings!\";").append(NEW_LINE);

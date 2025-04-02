@@ -100,6 +100,7 @@
       }
     },
     "returnType": {
+      "hasError": false,
       "metadata": {
         "label": "Return Type",
         "description": "The return type of the function"
@@ -131,7 +132,8 @@
       "inListenerInit": false,
       "isBasePath": false,
       "inDisplayAnnotation": false
-    }
+    },
+    "annotations": {}
   },
   "output": {
     "add_function_for_class.bal": [
@@ -146,7 +148,7 @@
             "character": 34
           }
         },
-        "newText": "\n\tresource function get author/[int id]() returns string|error? {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t\treturn error(\"Not implemented\", err);\n\t\t}\n\t}"
+        "newText": "\n\tresource function get author/[int id]() returns string|error? {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t\treturn error(\"unhandled error\", err);\n\t\t}\n\t}"
       }
     ]
   }

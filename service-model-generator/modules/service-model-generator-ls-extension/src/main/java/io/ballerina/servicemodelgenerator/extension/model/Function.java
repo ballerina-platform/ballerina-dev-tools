@@ -93,8 +93,7 @@ public class Function {
            functionBuilder
                     .name(name(RESOURCE_NAME_METADATA))
                     .returnType(returnType(RESOURCE_FUNCTION_RETURN_TYPE_METADATA))
-                    .schema(Map.of(ServiceModelGeneratorConstants.PARAMETER, Parameter.functionParamSchema()))
-                    .build();
+                    .schema(Map.of(ServiceModelGeneratorConstants.PARAMETER, Parameter.functionParamSchema()));
         } else {
             functionBuilder
                     .name(name(FUNCTION_NAME_METADATA))
