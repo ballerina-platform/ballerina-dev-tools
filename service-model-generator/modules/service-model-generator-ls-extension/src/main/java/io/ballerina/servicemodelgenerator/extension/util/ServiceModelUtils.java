@@ -103,6 +103,33 @@ public class ServiceModelUtils {
         serviceModel.setCodedata(new Codedata(serviceNode.lineRange()));
         populateListenerInfo(serviceModel, serviceNode);
         updateAnnotationAttachmentProperty(serviceNode, serviceModel);
+
+        if (serviceModel.getModuleName().equals(ServiceModelGeneratorConstants.RABBITMQ)) {
+            filterRabbitMqFunctions(serviceModel.getFunctions());
+        }
+    }
+
+    private static void filterRabbitMqFunctions(List<Function> functions) {
+        // RabbitMQ services can have on of `onMessage` or `onRequest` functions
+        boolean hasOnMessage = false;
+        boolean hasOnRequest = false;
+        int onMessageIndex = -1;
+        int onRequestIndex = -1;
+        for (int i = 0; i < functions.size(); i++) {
+            Function function = functions.get(i);
+            if (function.getName().getValue().equals("onMessage")) {
+                hasOnMessage = function.isEnabled();
+                onMessageIndex = i;
+            } else if (function.getName().getValue().equals("onRequest")) {
+                hasOnRequest = function.isEnabled();
+                onRequestIndex = i;
+            }
+        }
+        if (hasOnMessage) {
+            functions.remove(onRequestIndex);
+        } else if (hasOnRequest) {
+            functions.remove(onMessageIndex);
+        }
     }
 
     private static void updateServiceInfoNew(Service serviceModel, List<Function> functionsInSource) {

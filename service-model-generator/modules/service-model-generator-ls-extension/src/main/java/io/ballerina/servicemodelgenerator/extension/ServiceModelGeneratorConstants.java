@@ -52,6 +52,7 @@ public class ServiceModelGeneratorConstants {
     public static final String HTTP = "http";
     public static final String GRAPHQL = "graphql";
     public static final String TCP = "tcp";
+    public static final String RABBITMQ = "rabbitmq";
 
     public static final String PROPERTY_REQUIRED_FUNCTIONS = "requiredFunctions";
     public static final String PROPERTY_DESIGN_APPROACH = "designApproach";
