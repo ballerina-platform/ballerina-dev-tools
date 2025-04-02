@@ -19,10 +19,6 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import com.google.gson.Gson;
-import io.ballerina.compiler.api.symbols.RecordTypeSymbol;
-import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
-import io.ballerina.compiler.api.symbols.TypeDescKind;
-import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.Token;
 import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
@@ -31,7 +27,6 @@ import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.tools.text.LineRange;
-import org.ballerinalang.langserver.common.utils.RecordUtil;
 import org.ballerinalang.model.types.TypeKind;
 import org.eclipse.lsp4j.TextEdit;
 
@@ -144,26 +139,15 @@ public class DataMapperDefinitionBuilder extends NodeBuilder {
         LineRange lineRange = sourceBuilder.flowNode.codedata().lineRange();
         if (lineRange == null) {
             // The return type symbol should be present
-            Optional<TypeDefinitionSymbol> returnTypeSymbol = sourceBuilder.getTypeDefinitionSymbol(returnTypeString);
-            if (returnTypeSymbol.isEmpty()) {
-                throw new IllegalStateException("Return type symbol not found: " + returnTypeString);
+            Optional<String> returnBody = sourceBuilder.getExpressionBodyText(returnTypeString);
+            if (returnBody.isEmpty()) {
+                throw new IllegalStateException("Failed to produce the data mapper output");
             }
 
-            // The return type should a record type
-            TypeSymbol recordTypeSymbol = returnTypeSymbol.get().typeDescriptor();
-            if (recordTypeSymbol.typeKind() != TypeDescKind.RECORD) {
-                throw new IllegalStateException("Return type should be a record type: " + returnTypeString);
-            }
-
-            // Generate the body text
-            String bodyText = RecordUtil.getFillAllRecordFieldInsertText(
-                    ((RecordTypeSymbol) recordTypeSymbol).fieldDescriptors());
             sourceBuilder
                     .token()
                         .keyword(SyntaxKind.RIGHT_DOUBLE_ARROW_TOKEN)
-                        .openBrace()
-                        .name(bodyText)
-                        .closeBrace()
+                        .name(returnBody.get())
                         .endOfStatement()
                         .stepOut()
                     .textEdit(false, DATA_MAPPINGS_BAL);

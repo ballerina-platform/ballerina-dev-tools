@@ -2,7 +2,7 @@
   "source": "data_mapper/data_mappings.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "69496",
+    "id": "37778",
     "metadata": {
       "label": "Data Mapper",
       "description": "Define a data mapper"
@@ -19,7 +19,7 @@
           "description": "Name of the function"
         },
         "valueType": "IDENTIFIER",
-        "value": "mapNames",
+        "value": "transformToEmployee",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -30,8 +30,8 @@
           "description": "Type of the return value"
         },
         "valueType": "TYPE",
-        "valueTypeConstraint": "record",
-        "value": "Summary",
+        "valueTypeConstraint": "json",
+        "value": "float",
         "optional": true,
         "editable": true,
         "advanced": false
@@ -78,7 +78,7 @@
           "advanced": false
         },
         "value": {
-          "employees": {
+          "person": {
             "metadata": {
               "label": "Parameter",
               "description": "Function parameter"
@@ -92,7 +92,7 @@
                 },
                 "valueType": "TYPE",
                 "valueTypeConstraint": "anydata",
-                "value": "Employee[]",
+                "value": "Person",
                 "optional": false,
                 "editable": true,
                 "advanced": false
@@ -103,7 +103,42 @@
                   "description": "Name of the variable"
                 },
                 "valueType": "IDENTIFIER",
-                "value": "employees",
+                "value": "person",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              }
+            },
+            "optional": false,
+            "editable": false,
+            "advanced": false
+          },
+          "admission": {
+            "metadata": {
+              "label": "Parameter",
+              "description": "Function parameter"
+            },
+            "valueType": "FIXED_PROPERTY",
+            "value": {
+              "type": {
+                "metadata": {
+                  "label": "Variable Type",
+                  "description": "Type of the variable"
+                },
+                "valueType": "TYPE",
+                "valueTypeConstraint": "anydata",
+                "value": "Admission",
+                "optional": false,
+                "editable": true,
+                "advanced": false
+              },
+              "variable": {
+                "metadata": {
+                  "label": "Variable Name",
+                  "description": "Name of the variable"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "admission",
                 "optional": false,
                 "editable": true,
                 "advanced": false
@@ -134,7 +169,7 @@
             "character": 0
           }
         },
-        "newText": "\nfunction mapNames(Employee []employees) returns Summary=> {\ntotalSalary: 0, averageAge: ()\n};"
+        "newText": "\nfunction transformToEmployee(Person person, Admission admission) returns float=> 0.0;"
       }
     ]
   }

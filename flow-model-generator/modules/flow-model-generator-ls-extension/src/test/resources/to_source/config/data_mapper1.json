@@ -84,7 +84,7 @@
             "character": 2
           }
         },
-        "newText": "function transformToPerson(string name, string email, Address address) returns Person => {\n    address: {houseNo: \"\", line1: \"\", line2: \"\", city: \"\", country: \"\"},\n    name: \"\",\n    email: \"\"\n};"
+        "newText": "function transformToPerson(string name, string email, Address address) returns Person => {\n    {\n        address: {houseNo: \"\", line1: \"\", line2: \"\", city: \"\", country: \"\"},\n        name: \"\",\n        email: \"\"\n    }\n};"
       }
     ]
   }
