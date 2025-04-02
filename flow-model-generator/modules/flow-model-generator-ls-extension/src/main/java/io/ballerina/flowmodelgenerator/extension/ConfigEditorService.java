@@ -18,13 +18,19 @@
 
 package io.ballerina.flowmodelgenerator.extension;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.flowmodelgenerator.core.ConfigVariablesManager;
+import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.extension.request.ConfigVariablesGetRequest;
 import io.ballerina.flowmodelgenerator.extension.request.ConfigVariablesUpdateRequest;
 import io.ballerina.flowmodelgenerator.extension.response.ConfigVariablesResponse;
 import io.ballerina.flowmodelgenerator.extension.response.ConfigVariablesUpdateResponse;
 import io.ballerina.projects.Document;
+import io.ballerina.projects.DocumentId;
+import io.ballerina.projects.Module;
+import io.ballerina.projects.Project;
 import org.ballerinalang.annotation.JavaSPIService;
 import org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
@@ -41,6 +47,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
@@ -49,10 +56,12 @@ import java.util.concurrent.CompletableFuture;
 public class ConfigEditorService implements ExtendedLanguageServerService {
 
     private WorkspaceManager workspaceManager;
+    private Gson gson;
 
     @Override
     public void init(LanguageServer langServer, WorkspaceManager workspaceManager) {
         this.workspaceManager = workspaceManager;
+        this.gson = new Gson();
     }
 
     @Override
@@ -61,6 +70,7 @@ public class ConfigEditorService implements ExtendedLanguageServerService {
     }
 
     @JsonRequest
+    @SuppressWarnings("unused")
     public CompletableFuture<ConfigVariablesResponse> getConfigVariables(ConfigVariablesGetRequest request) {
         return CompletableFuture.supplyAsync(() -> {
             ConfigVariablesResponse response = new ConfigVariablesResponse();
@@ -90,21 +100,37 @@ public class ConfigEditorService implements ExtendedLanguageServerService {
     }
 
     @JsonRequest
-    public CompletableFuture<ConfigVariablesUpdateResponse> updateConfigVariables(
-            ConfigVariablesUpdateRequest request) {
+    @SuppressWarnings("unused")
+    public CompletableFuture<ConfigVariablesUpdateResponse> updateConfigVariables(ConfigVariablesUpdateRequest req) {
         return CompletableFuture.supplyAsync(() -> {
             ConfigVariablesUpdateResponse response = new ConfigVariablesUpdateResponse();
             try {
-                Path configFile = Path.of(request.configFilePath());
-                this.workspaceManager.loadProject(configFile);
-                Optional<Document> document = this.workspaceManager.document(configFile);
+                FlowNode configVariable = gson.fromJson(req.configVariable(), FlowNode.class);
+                String variableFileName = configVariable.codedata().lineRange().fileName();
+                Path configFilePath = Path.of(req.configFilePath());
+                Project project = this.workspaceManager.loadProject(configFilePath);
+
+                Path variableFilePath = null;
+                for (Module module : project.currentPackage().modules()) {
+                    for (DocumentId documentId : module.documentIds()) {
+                        Document document = module.document(documentId);
+                        if (document.name().equals(variableFileName)) {
+                            variableFilePath = project.sourceRoot().resolve(document.syntaxTree().filePath());
+                        }
+                    }
+                }
+                if (Objects.isNull(variableFilePath)) {
+                    return response;
+                }
+
+                Optional<Document> document = this.workspaceManager.document(variableFilePath);
                 if (document.isEmpty()) {
                     return response;
                 }
 
                 ConfigVariablesManager configVariablesManager = new ConfigVariablesManager();
-                response.setTextEdits(configVariablesManager.update(document.get(), configFile,
-                        request.configVariable()));
+                JsonElement textEdits = configVariablesManager.update(document.get(), variableFilePath, configVariable);
+                response.setTextEdits(textEdits);
             } catch (Throwable e) {
                 response.setError(e);
             }
