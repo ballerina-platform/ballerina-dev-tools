@@ -68,18 +68,20 @@ public class FunctionDefinitionBuilder extends NodeBuilder {
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
         properties().functionNameTemplate("function", context.getAllVisibleSymbolNames());
-        setMandatoryProperties(this, null);
+        setMandatoryProperties(this, null, "");
         setOptionalProperties(this);
     }
 
-    public static void setMandatoryProperties(NodeBuilder nodeBuilder, String returnType) {
+    public static void setMandatoryProperties(NodeBuilder nodeBuilder, String returnType, String description) {
         nodeBuilder.properties()
                 .returnType(returnType, null, true)
+                .description(description)
                 .nestedProperty();
     }
 
-    public static void setProperty(FormBuilder<?> formBuilder, String type, String name, Token token) {
-        formBuilder.parameter(type, name, token, Property.ValueType.TYPE, null);
+    public static void setProperty(FormBuilder<?> formBuilder, String type, String name, String description,
+                                   Token token) {
+        formBuilder.parameterWithDescription(type, name, token, Property.ValueType.TYPE, null, description);
     }
 
     public static void setOptionalProperties(NodeBuilder nodeBuilder) {
@@ -90,19 +92,11 @@ public class FunctionDefinitionBuilder extends NodeBuilder {
 
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
-        sourceBuilder.token().keyword(SyntaxKind.FUNCTION_KEYWORD);
+        Optional<Property> optDescription = sourceBuilder.flowNode.getProperty(Property.DESCRIPTION_KEY);
+        optDescription.ifPresent(property -> sourceBuilder.token().descriptionDoc(property.value().toString()));
 
-        // Write the function name
-        Optional<Property> property = sourceBuilder.flowNode.getProperty(Property.FUNCTION_NAME_KEY);
-        if (property.isEmpty()) {
-            throw new IllegalStateException("Function name is not present");
-        }
-        sourceBuilder.token()
-                .name(property.get().value().toString())
-                .keyword(SyntaxKind.OPEN_PAREN_TOKEN);
-
-        // WRite the function parameters
         Optional<Property> parameters = sourceBuilder.flowNode.getProperty(Property.PARAMETERS_KEY);
+        String params = "";
         if (parameters.isPresent() && parameters.get().value() instanceof Map<?, ?> paramMap) {
             List<String> paramList = new ArrayList<>();
             for (Object obj : paramMap.values()) {
@@ -116,8 +110,30 @@ public class FunctionDefinitionBuilder extends NodeBuilder {
                 String paramType = paramProperties.get(Property.TYPE_KEY).value().toString();
                 String paramName = paramProperties.get(Property.VARIABLE_KEY).value().toString();
                 paramList.add(paramType + " " + paramName);
+                if (optDescription.isPresent()) {
+                    Property property = paramProperties.get(Property.DESCRIPTION_KEY);
+                    if (property != null) {
+                        sourceBuilder.token().parameterDoc(paramName, property.value().toString());
+                    }
+                }
             }
-            sourceBuilder.token().name(String.join(", ", paramList));
+            params = String.join(", ", paramList);
+        }
+
+        sourceBuilder.token().keyword(SyntaxKind.FUNCTION_KEYWORD);
+
+        // Write the function name
+        Optional<Property> property = sourceBuilder.flowNode.getProperty(Property.FUNCTION_NAME_KEY);
+        if (property.isEmpty()) {
+            throw new IllegalStateException("Function name is not present");
+        }
+        sourceBuilder.token()
+                .name(property.get().value().toString())
+                .keyword(SyntaxKind.OPEN_PAREN_TOKEN);
+
+        // WRite the function parameters
+        if (!params.isEmpty()) {
+            sourceBuilder.token().name(params);
         }
         sourceBuilder.token().keyword(SyntaxKind.CLOSE_PAREN_TOKEN);
 
@@ -153,7 +169,7 @@ public class FunctionDefinitionBuilder extends NodeBuilder {
 
         private static Property initParameterSchema() {
             FormBuilder<?> formBuilder = new FormBuilder<>(null, null, null, null);
-            setProperty(formBuilder, "", "", null);
+            setProperty(formBuilder, "", "", "", null);
             Map<String, Property> nodeProperties = formBuilder.build();
             return nodeProperties.get("");
         }

@@ -1,54 +1,28 @@
 {
-  "filePath": "function_def.bal",
-  "fileName": "function_def.bal",
-  "functionName": "add",
-  "description": "",
-  "output": {
-    "id": "37742",
+  "source": "new_connection7/main.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "65744",
     "metadata": {
       "label": "Function Definition",
       "description": "Define a function"
     },
     "codedata": {
       "node": "FUNCTION_DEFINITION",
-      "lineRange": {
-        "fileName": "function_def.bal",
-        "startLine": {
-          "line": 6,
-          "offset": 0
-        },
-        "endLine": {
-          "line": 6,
-          "offset": 46
-        }
-      }
+      "isNew": true
     },
     "returning": false,
     "properties": {
       "functionName": {
         "metadata": {
-          "label": "Name",
+          "label": "Function Name",
           "description": "Name of the function"
         },
         "valueType": "IDENTIFIER",
-        "value": "add",
+        "value": "divide",
         "optional": false,
-        "editable": false,
-        "advanced": false,
-        "hidden": false,
-        "codedata": {
-          "lineRange": {
-            "fileName": "function_def.bal",
-            "startLine": {
-              "line": 6,
-              "offset": 16
-            },
-            "endLine": {
-              "line": 6,
-              "offset": 19
-            }
-          }
-        }
+        "editable": true,
+        "advanced": false
       },
       "type": {
         "metadata": {
@@ -56,19 +30,18 @@
           "description": "Type of the return value"
         },
         "valueType": "TYPE",
-        "value": "int",
+        "value": "int|error",
         "optional": true,
         "editable": true,
-        "advanced": false,
-        "hidden": false
+        "advanced": false
       },
       "description": {
         "metadata": {
           "label": "Description",
-          "description": "Description of the function"
+          "description": "Description of the parameter"
         },
         "valueType": "STRING",
-        "value": "",
+        "value": "Divide a/b",
         "optional": true,
         "editable": true,
         "advanced": false,
@@ -89,45 +62,31 @@
           "value": {
             "type": {
               "metadata": {
-                "label": "Type",
-                "description": "Type of the parameter"
+                "label": "Variable Type",
+                "description": "Type of the variable"
               },
               "valueType": "TYPE",
+              "valueTypeConstraint": "anydata",
               "value": "",
               "optional": false,
               "editable": true,
-              "advanced": false,
-              "hidden": false
+              "advanced": false
             },
             "variable": {
               "metadata": {
-                "label": "Name",
-                "description": "Name of the parameter"
+                "label": "Variable Name",
+                "description": "Name of the variable"
               },
               "valueType": "IDENTIFIER",
               "value": "",
               "optional": false,
               "editable": true,
-              "advanced": false,
-              "hidden": false
-            },
-            "description": {
-              "metadata": {
-                "label": "Description",
-                "description": "Description of the parameter"
-              },
-              "valueType": "STRING",
-              "value": "",
-              "optional": true,
-              "editable": true,
-              "advanced": false,
-              "hidden": false
+              "advanced": false
             }
           },
           "optional": false,
           "editable": false,
-          "advanced": false,
-          "hidden": false
+          "advanced": false
         },
         "value": {
           "a": {
@@ -139,40 +98,26 @@
             "value": {
               "type": {
                 "metadata": {
-                  "label": "Type",
-                  "description": "Type of the parameter"
+                  "label": "Variable Type",
+                  "description": "Type of the variable"
                 },
                 "valueType": "TYPE",
+                "valueTypeConstraint": "anydata",
                 "value": "int",
                 "optional": false,
                 "editable": true,
-                "advanced": false,
-                "hidden": false
+                "advanced": false
               },
               "variable": {
                 "metadata": {
-                  "label": "Name",
-                  "description": "Name of the parameter"
+                  "label": "Variable Name",
+                  "description": "Name of the variable"
                 },
                 "valueType": "IDENTIFIER",
                 "value": "a",
                 "optional": false,
                 "editable": true,
-                "advanced": false,
-                "hidden": false,
-                "codedata": {
-                  "lineRange": {
-                    "fileName": "function_def.bal",
-                    "startLine": {
-                      "line": 6,
-                      "offset": 24
-                    },
-                    "endLine": {
-                      "line": 6,
-                      "offset": 25
-                    }
-                  }
-                }
+                "advanced": false
               },
               "description": {
                 "metadata": {
@@ -180,8 +125,8 @@
                   "description": "Description of the parameter"
                 },
                 "valueType": "STRING",
-                "value": "",
-                "optional": true,
+                "value": "Paramter a",
+                "optional": false,
                 "editable": true,
                 "advanced": false,
                 "hidden": false
@@ -189,8 +134,7 @@
             },
             "optional": false,
             "editable": false,
-            "advanced": false,
-            "hidden": false
+            "advanced": false
           },
           "b": {
             "metadata": {
@@ -201,40 +145,26 @@
             "value": {
               "type": {
                 "metadata": {
-                  "label": "Type",
-                  "description": "Type of the parameter"
+                  "label": "Variable Type",
+                  "description": "Type of the variable"
                 },
                 "valueType": "TYPE",
+                "valueTypeConstraint": "anydata",
                 "value": "int",
                 "optional": false,
                 "editable": true,
-                "advanced": false,
-                "hidden": false
+                "advanced": false
               },
               "variable": {
                 "metadata": {
-                  "label": "Name",
-                  "description": "Name of the parameter"
+                  "label": "Variable Name",
+                  "description": "Name of the variable"
                 },
                 "valueType": "IDENTIFIER",
                 "value": "b",
                 "optional": false,
                 "editable": true,
-                "advanced": false,
-                "hidden": false,
-                "codedata": {
-                  "lineRange": {
-                    "fileName": "function_def.bal",
-                    "startLine": {
-                      "line": 6,
-                      "offset": 31
-                    },
-                    "endLine": {
-                      "line": 6,
-                      "offset": 32
-                    }
-                  }
-                }
+                "advanced": false
               },
               "description": {
                 "metadata": {
@@ -242,8 +172,8 @@
                   "description": "Description of the parameter"
                 },
                 "valueType": "STRING",
-                "value": "",
-                "optional": true,
+                "value": "Parameter b",
+                "optional": false,
                 "editable": true,
                 "advanced": false,
                 "hidden": false
@@ -251,16 +181,31 @@
             },
             "optional": false,
             "editable": false,
-            "advanced": false,
-            "hidden": false
+            "advanced": false
           }
         },
-        "optional": true,
+        "optional": false,
         "editable": false,
-        "advanced": false,
-        "hidden": false
+        "advanced": false
       }
     },
     "flags": 0
+  },
+  "output": {
+    "new_connection7/functions.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "# Divide a/b\n# + a - Paramter a\n# + b - Parameter b\nfunction divide( int a, int b) returns int|error{\n}"
+      }
+    ]
   }
 }

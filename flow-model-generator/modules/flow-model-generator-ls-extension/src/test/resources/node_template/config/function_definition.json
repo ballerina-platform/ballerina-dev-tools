@@ -39,6 +39,18 @@
         "advanced": false,
         "hidden": false
       },
+      "description": {
+        "metadata": {
+          "label": "Description",
+          "description": "Description of the function"
+        },
+        "valueType": "STRING",
+        "value": "",
+        "optional": true,
+        "editable": true,
+        "advanced": false,
+        "hidden": false
+      },
       "parameters": {
         "metadata": {
           "label": "Parameters",
@@ -72,6 +84,18 @@
               "valueType": "IDENTIFIER",
               "value": "",
               "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "description": {
+              "metadata": {
+                "label": "Description",
+                "description": "Description of the parameter"
+              },
+              "valueType": "STRING",
+              "value": "",
+              "optional": true,
               "editable": true,
               "advanced": false,
               "hidden": false
