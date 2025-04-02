@@ -130,15 +130,11 @@ public class ServiceClassUtil {
         functionModel.setKind(kind.name());
 
         if (kind.equals(FunctionKind.RESOURCE)) {
-            Value accessor = functionModel.getAccessor();
-            accessor.setValue(functionDef.functionName().text().trim());
-            accessor.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER);
-            accessor.setEnabled(true);
-            accessor.setEditable(true);
-            updateFunctionNameProperty(functionModel.getName(), Utils.getPath(functionDef.relativeResourcePath()),
+            functionModel.getAccessor().setValue(functionDef.functionName().text().trim());
+            setFunctionNameAndLineRange(functionModel.getName(), Utils.getPath(functionDef.relativeResourcePath()),
                     functionDef.functionName().lineRange());
         } else {
-            updateFunctionNameProperty(functionModel.getName(), functionDef.functionName().text().trim(),
+            setFunctionNameAndLineRange(functionModel.getName(), functionDef.functionName().text().trim(),
                     functionDef.functionName().lineRange());
         }
 
@@ -211,15 +207,9 @@ public class ServiceClassUtil {
         return FunctionKind.DEFAULT;
     }
 
-    private static void updateFunctionNameProperty(Value value, String functionName, LineRange lineRange) {
-        value.setMetadata(new MetaData("Function Name", "The name of the function"));
-        value.setEnabled(true);
-        value.setEditable(false);
+    private static void setFunctionNameAndLineRange(Value value, String functionName, LineRange lineRange) {
         value.setValue(functionName);
         value.setCodedata(new Codedata(lineRange));
-        value.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER);
-        value.setValueTypeConstraint("string");
-        value.setPlaceholder("");
     }
 
     private static void updateMetadata(Function function, FunctionKind kind) {
@@ -245,7 +235,7 @@ public class ServiceClassUtil {
                 "        }%n" +
                 "    }%n" +
                 "%n" +
-                "    remote function onError(tcp:Error tcpError) {%n" +
+                "    remote function onError(tcp:Error tcpError) tcp:Error? {%n" +
                 "        do {%n" +
                 "%n" +
                 "        } on fail error err {%n" +
@@ -254,7 +244,7 @@ public class ServiceClassUtil {
                 "        }%n" +
                 "    }%n" +
                 "%n" +
-                "    remote function onClose() {%n" +
+                "    remote function onClose() tcp:Error? {%n" +
                 "        do {%n" +
                 "%n" +
                 "        } on fail error err {%n" +

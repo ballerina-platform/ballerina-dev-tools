@@ -28,6 +28,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.FIELD_NAME_METADATA;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.FIELD_TYPE_METADATA;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.FUNCTION_NAME_METADATA;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.FUNCTION_RETURN_TYPE_METADATA;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.RESOURCE_FUNCTION_RETURN_TYPE_METADATA;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.RESOURCE_NAME_METADATA;
 import static io.ballerina.servicemodelgenerator.extension.util.ServiceClassUtil.ServiceClassContext.GRAPHQL_DIAGRAM;
 import static io.ballerina.servicemodelgenerator.extension.util.ServiceClassUtil.ServiceClassContext.SERVICE_DIAGRAM;
 import static io.ballerina.servicemodelgenerator.extension.util.ServiceClassUtil.ServiceClassContext.TYPE_DIAGRAM;
@@ -70,32 +76,59 @@ public class Function {
         this.codedata = codedata;
         this.annotations = annotations;
     }
-
-    private static Function getNewFunctionModel() {
-        return new Function(new MetaData("", ""), new ArrayList<>(),
-                ServiceModelGeneratorConstants.KIND_DEFAULT,
-                new Value(ServiceModelGeneratorConstants.FUNCTION_ACCESSOR_METADATA),
-                new Value(ServiceModelGeneratorConstants.FUNCTION_NAME_METADATA), new ArrayList<>(),
-                null, new FunctionReturnType(ServiceModelGeneratorConstants.FUNCTION_RETURN_TYPE_METADATA),
-                false, false, false, null, null);
+    public static Function getNewFunctionModel(ServiceClassUtil.ServiceClassContext context) {
+        FunctionBuilder functionBuilder = new FunctionBuilder()
+                .metadata("", "")
+                .accessor(functionAccessor())
+                .parameters(new ArrayList<>());
+        if (context == GRAPHQL_DIAGRAM) {
+            functionBuilder
+                    .name(name(FIELD_NAME_METADATA))
+                    .returnType(returnType(FIELD_TYPE_METADATA))
+                    .schema(Map.of(ServiceModelGeneratorConstants.PARAMETER, Parameter.graphQLParamSchema()));
+        } else if (context == TYPE_DIAGRAM) {
+           functionBuilder
+                    .name(name(RESOURCE_NAME_METADATA))
+                    .returnType(returnType(RESOURCE_FUNCTION_RETURN_TYPE_METADATA))
+                    .schema(Map.of(ServiceModelGeneratorConstants.PARAMETER, Parameter.functionParamSchema()))
+                    .build();
+        } else {
+            functionBuilder
+                    .name(name(FUNCTION_NAME_METADATA))
+                    .returnType(returnType(FUNCTION_RETURN_TYPE_METADATA));
+        }
+        if (context == SERVICE_DIAGRAM) {
+           functionBuilder.schema(Map.of(ServiceModelGeneratorConstants.PARAMETER, Parameter.functionParamSchema()));
+        }
+        return functionBuilder.build();
     }
 
-    public static Function getNewFunctionModel(ServiceClassUtil.ServiceClassContext context) {
-        if (context == GRAPHQL_DIAGRAM) {
-            return new Function(new MetaData("", ""), new ArrayList<>(),
-                    ServiceModelGeneratorConstants.KIND_DEFAULT,
-                    new Value(ServiceModelGeneratorConstants.FUNCTION_ACCESSOR_METADATA),
-                    new Value(ServiceModelGeneratorConstants.FIELD_NAME_METADATA), new ArrayList<>(),
-                    Map.of(ServiceModelGeneratorConstants.PARAMETER, Parameter.graphQLParamSchema()),
-                    new FunctionReturnType(ServiceModelGeneratorConstants.FIELD_TYPE_METADATA),
-                    false, false, false, null, null);
-        }
-        Function newFunction = getNewFunctionModel();
-        if (context == TYPE_DIAGRAM || context == SERVICE_DIAGRAM) {
-            newFunction.setSchema(Map.of(ServiceModelGeneratorConstants.PARAMETER, Parameter.functionParamSchema()));
-            return newFunction;
-        }
-        return newFunction;
+    private static Value functionAccessor() {
+        return new Value.ValueBuilder()
+                .setMetadata(ServiceModelGeneratorConstants.FUNCTION_ACCESSOR_METADATA)
+                .valueType(ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER)
+                .enabled(true)
+                .editable(true)
+                .build();
+    }
+
+    private static Value name(MetaData metadata) {
+        return new Value.ValueBuilder()
+                .setMetadata(metadata)
+                .valueType(ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER)
+                .enabled(true)
+                .editable(false)
+                .build();
+    }
+
+    public static FunctionReturnType returnType(MetaData metadata) {
+        Value value = new Value.ValueBuilder()
+                .setMetadata(metadata)
+                .valueType(ServiceModelGeneratorConstants.VALUE_TYPE_TYPE)
+                .enabled(true)
+                .editable(true)
+                .build();
+        return new FunctionReturnType(value);
     }
 
     public static Map<String, Value> createAnnotationsMap(List<Annotation> annotations) {
@@ -294,7 +327,7 @@ public class Function {
             return this;
         }
 
-        public FunctionBuilder setSchema(Map<String, Parameter> schema) {
+        public FunctionBuilder schema(Map<String, Parameter> schema) {
             this.schema = schema;
             return this;
         }

@@ -49,11 +49,11 @@ public class Value {
                 null, null, null);
     }
 
-    public Value(MetaData metadata) {
-        this(metadata, false, true, null, null,
-                null, false, null, false, false,
-                null, null, null);
-    }
+//    public Value(MetaData metadata) {
+//        this(metadata, false, true, null, null,
+//                null, false, null, false, false,
+//                null, null, null);
+//    }
 
     public Value() {
         this(new MetaData("", ""), false, true, null, null,

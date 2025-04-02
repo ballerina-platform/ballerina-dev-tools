@@ -116,6 +116,10 @@ public class ServiceModelGeneratorConstants {
             "The name of the function");
     public static final MetaData FUNCTION_ACCESSOR_METADATA = new MetaData("Accessor",
             "The accessor of the function");
+    public static final MetaData RESOURCE_NAME_METADATA = new MetaData("Resource Path",
+            "The resource path");
+    public static final MetaData RESOURCE_FUNCTION_RETURN_TYPE_METADATA = new MetaData("Return Type",
+            "The return type of the resource");
 
     private ServiceModelGeneratorConstants() {
     }

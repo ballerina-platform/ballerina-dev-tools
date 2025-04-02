@@ -36,10 +36,6 @@ public class FunctionReturnType extends Value {
         super(value);
     }
 
-    public FunctionReturnType(MetaData metaData) {
-        super(new Value.ValueBuilder().setMetadata(metaData).enabled(true).editable(true).build());
-    }
-
     public List<HttpResponse> getResponses() {
         return responses;
     }
@@ -54,10 +50,6 @@ public class FunctionReturnType extends Value {
 
     public void setSchema(Map<String, HttpResponse> schema) {
         this.schema = schema;
-    }
-
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), responses, schema);
     }
 
     public boolean hasError() {
