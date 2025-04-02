@@ -762,6 +762,7 @@
           "isHttpResponseType": false
         }
       },
+      "hasError": false,
       "metadata": {
         "label": "Return type",
         "description": "Return type of the function"
@@ -776,6 +777,25 @@
       "optional": true,
       "advanced": false,
       "addNewButton": false
+    },
+    "enabled": true,
+    "optional": false,
+    "editable": true,
+    "codedata": {
+      "lineRange": {
+        "fileName": "main.bal",
+        "startLine": {
+          "line": 22,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 24,
+          "offset": 5
+        }
+      },
+      "inListenerInit": false,
+      "isBasePath": false,
+      "inDisplayAnnotation": false
     },
     "annotations": {
       "annotResourceConfig": {
@@ -811,25 +831,6 @@
           }
         ]
       }
-    },
-    "enabled": true,
-    "optional": false,
-    "editable": true,
-    "codedata": {
-      "lineRange": {
-        "fileName": "main.bal",
-        "startLine": {
-          "line": 22,
-          "offset": 4
-        },
-        "endLine": {
-          "line": 24,
-          "offset": 5
-        }
-      },
-      "inListenerInit": false,
-      "isBasePath": false,
-      "inDisplayAnnotation": false
     }
   },
   "output": {
@@ -845,7 +846,7 @@
             "character": 0
           }
         },
-        "newText": "\n\tresource function get customHttpOK(int kolaId, int id = 45, string name = \"BI_PROJECT\") returns error|http:Accepted {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t\treturn error(\"Not implemented\", err);\n\t\t}\n\t}\n"
+        "newText": "\n\tresource function get customHttpOK(int kolaId, int id = 45, string name = \"BI_PROJECT\") returns error|http:Accepted {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t\treturn error(\"unhandled error\", err);\n\t\t}\n\t}\n"
       }
     ]
   }
