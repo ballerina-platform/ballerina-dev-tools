@@ -851,25 +851,13 @@ public final class Utils {
         builder.append(functionSignature);
         builder.append("{");
         builder.append(System.lineSeparator());
-        if (kind.equals(FunctionBodyKind.DO_BLOCK) || kind.equals(FunctionBodyKind.BLOCK_WITH_PANIC)) {
+        if (kind.equals(FunctionBodyKind.DO_BLOCK)) {
             builder.append("\tdo {");
             builder.append(System.lineSeparator());
             if (context.equals(FunctionAddContext.HTTP_SERVICE_ADD)) {
                 builder.append("\t\treturn \"Hello, Greetings!\";");
                 builder.append(System.lineSeparator());
             }
-        }
-        if (kind.equals(FunctionBodyKind.BLOCK_WITH_PANIC)) {
-            builder.append("\t\tpanic error(\"Unimplemented function\");");
-            builder.append(System.lineSeparator());
-            builder.append("\t} on fail error err {");
-            builder.append(System.lineSeparator());
-            builder.append("\t\t// handle error");
-            builder.append(System.lineSeparator());
-            builder.append("\t\tpanic error(\"Unhandled error\");");
-            builder.append(System.lineSeparator());
-            builder.append("\t}");
-            builder.append(System.lineSeparator());
         }
         if (kind.equals(FunctionBodyKind.DO_BLOCK)) {
             builder.append("\t} on fail error err {");
@@ -890,7 +878,6 @@ public final class Utils {
 
     public enum FunctionBodyKind {
         EMPTY,
-        BLOCK_WITH_PANIC,
         DO_BLOCK
     }
 
