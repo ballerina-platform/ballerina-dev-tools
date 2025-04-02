@@ -133,12 +133,14 @@ import static io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtil
 import static io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtils.updateListenerItems;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.FunctionAddContext.RESOURCE_ADD;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.FunctionAddContext.TCP_SERVICE_ADD;
-import static io.ballerina.servicemodelgenerator.extension.util.Utils.FunctionBodyKind.DO_BLOCK;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.FunctionSignatureContext.FUNCTION_ADD;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.FunctionSignatureContext.FUNCTION_UPDATE;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.FunctionSignatureContext.HTTP_RESOURCE_ADD;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.addServiceAnnotationTextEdits;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.expectsTriggerByName;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.filterTriggers;
-import static io.ballerina.servicemodelgenerator.extension.util.Utils.getFunction;
-import static io.ballerina.servicemodelgenerator.extension.util.Utils.getFunctionSignature;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.generateFunctionDefSource;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.generateFunctionSignatureSource;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.getImportStmt;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.getListenerExpression;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.getPath;
@@ -490,8 +492,8 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 }
                 ServiceDeclarationNode serviceNode = (ServiceDeclarationNode) node;
                 List<String> newStatusCodeTypesDef = new ArrayList<>();
-                String functionDefinition = NEW_LINE_WITH_TAB + getFunction(request.function(), newStatusCodeTypesDef,
-                        DO_BLOCK, RESOURCE_ADD).replace(NEW_LINE, NEW_LINE_WITH_TAB) + NEW_LINE;
+                String functionDefinition = NEW_LINE_WITH_TAB + generateFunctionDefSource(request.function(), newStatusCodeTypesDef,
+                        RESOURCE_ADD, HTTP_RESOURCE_ADD).replace(NEW_LINE, NEW_LINE_WITH_TAB) + NEW_LINE;
 
                 List<TextEdit> textEdits = new ArrayList<>();
                 LineRange serviceEnd = serviceNode.closeBraceToken().lineRange();
@@ -694,8 +696,8 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 if (!members.isEmpty()) {
                     functionLineRange = members.get(members.size() - 1).lineRange();
                 }
-                String functionNode = NEW_LINE_WITH_TAB + getFunction(request.function(), List.of(), DO_BLOCK,
-                        Utils.FunctionAddContext.FUNCTION_ADD).replace(NEW_LINE, NEW_LINE_WITH_TAB);
+                String functionNode = NEW_LINE_WITH_TAB + generateFunctionDefSource(request.function(), List.of(),
+                        Utils.FunctionAddContext.FUNCTION_ADD, FUNCTION_ADD).replace(NEW_LINE, NEW_LINE_WITH_TAB);
                 edits.add(new TextEdit(Utils.toRange(functionLineRange.endLine()), functionNode));
                 return new CommonSourceResponse(Map.of(request.filePath(), edits));
             } catch (Throwable e) {
@@ -759,7 +761,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
 
                 LineRange signatureRange = functionDefinitionNode.functionSignature().lineRange();
                 List<String> newStatusCodeTypesDef = new ArrayList<>();
-                String functionSignature = getFunctionSignature(function, newStatusCodeTypesDef, false);
+                String functionSignature = generateFunctionSignatureSource(function, newStatusCodeTypesDef, FUNCTION_UPDATE);
                 edits.add(new TextEdit(Utils.toRange(signatureRange), functionSignature));
 
                 if (!newStatusCodeTypesDef.isEmpty() && parentNode instanceof ServiceDeclarationNode serviceNode) {

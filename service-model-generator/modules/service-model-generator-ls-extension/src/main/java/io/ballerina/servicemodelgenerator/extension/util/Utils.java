@@ -85,7 +85,13 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.GET;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.KIND_QUERY;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.KIND_RESOURCE;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.KIND_SUBSCRIPTION;
 import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.NEW_LINE;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.SPACE;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.SUBSCRIBE;
 import static io.ballerina.servicemodelgenerator.extension.util.ServiceClassUtil.ServiceClassContext.GRAPHQL_DIAGRAM;
 import static io.ballerina.servicemodelgenerator.extension.util.ServiceClassUtil.ServiceClassContext.HTTP_DIAGRAM;
 import static io.ballerina.servicemodelgenerator.extension.util.ServiceClassUtil.ServiceClassContext.SERVICE_DIAGRAM;
@@ -228,7 +234,7 @@ public final class Utils {
             if (qualifier.text().trim().matches(ServiceModelGeneratorConstants.REMOTE)) {
                 functionModel.setKind(ServiceModelGeneratorConstants.KIND_REMOTE);
             } else if (qualifier.text().trim().matches(ServiceModelGeneratorConstants.RESOURCE)) {
-                functionModel.setKind(ServiceModelGeneratorConstants.KIND_RESOURCE);
+                functionModel.setKind(KIND_RESOURCE);
                 accessor.setValue(functionDefinitionNode.methodName().text().trim());
                 accessor.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER);
                 accessor.setEnabled(true);
@@ -285,13 +291,13 @@ public final class Utils {
                 }
             } else if (qualifier.text().trim().matches(ServiceModelGeneratorConstants.RESOURCE)) {
                 if (isGraphQL) {
-                    if (functionName.getValue().equals(ServiceModelGeneratorConstants.SUBSCRIBE)) {
-                        functionModel.setKind(ServiceModelGeneratorConstants.KIND_SUBSCRIPTION);
+                    if (functionName.getValue().equals(SUBSCRIBE)) {
+                        functionModel.setKind(KIND_SUBSCRIPTION);
                     } else {
-                        functionModel.setKind(ServiceModelGeneratorConstants.KIND_QUERY);
+                        functionModel.setKind(KIND_QUERY);
                     }
                 } else {
-                    functionModel.setKind(ServiceModelGeneratorConstants.KIND_RESOURCE);
+                    functionModel.setKind(KIND_RESOURCE);
                 }
                 accessor.setValue(functionDefinitionNode.functionName().text().trim());
                 accessor.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER);
@@ -648,10 +654,10 @@ public final class Utils {
             String chatFunction = getAgentChatFunction();
             functions.add(chatFunction);
         } else {
-            FunctionBodyKind kind = FunctionBodyKind.DO_BLOCK;
             service.getFunctions().forEach(function -> {
                 if (function.isEnabled()) {
-                    String functionNode = "\t" + getFunction(function, new ArrayList<>(), kind, context)
+                    String functionNode = "\t" + generateFunctionDefSource(function, new ArrayList<>(), context,
+                            FunctionSignatureContext.FUNCTION_ADD)
                             .replace(System.lineSeparator(), System.lineSeparator() + "\t");
                     functions.add(functionNode);
                 }
@@ -816,72 +822,71 @@ public final class Utils {
         RESOURCE_ADD
     }
 
-    public static String getFunction(Function function, List<String> statusCodeResponses,
-                                     FunctionBodyKind kind, FunctionAddContext context) {
+    public enum FunctionSignatureContext {
+        FUNCTION_ADD,
+        HTTP_RESOURCE_ADD,
+        FUNCTION_UPDATE
+    }
+
+    public static String generateFunctionDefSource(Function function, List<String> statusCodeResponses,
+                                                   FunctionAddContext addContext,
+                                                   FunctionSignatureContext signatureContext) {
         StringBuilder builder = new StringBuilder();
 
-        List<String> annots = getAnnotationEdits(function);
-        if (!annots.isEmpty()) {
-            builder.append(String.join(NEW_LINE, annots));
-            builder.append(System.lineSeparator());
+        List<String> functionAnnotations = getAnnotationEdits(function);
+        if (!functionAnnotations.isEmpty()) {
+            builder.append(String.join(NEW_LINE, functionAnnotations)).append(NEW_LINE);
         }
 
         String functionQualifiers = getFunctionQualifiers(function);
         if (!functionQualifiers.isEmpty()) {
-            builder.append(functionQualifiers);
-            builder.append(" ");
+            builder.append(functionQualifiers).append(SPACE);
         }
         builder.append("function ");
-        if (function.getKind().equals(ServiceModelGeneratorConstants.KIND_RESOURCE)
-                && Objects.nonNull(function.getAccessor())
-                && function.getAccessor().isEnabledWithValue()) {
-            builder.append(getValueString(function.getAccessor()).toLowerCase(Locale.ROOT));
-            builder.append(" ");
+
+        // function accessor
+        Value accessor = function.getAccessor();
+        if (function.getKind().equals(KIND_RESOURCE) && Objects.nonNull(accessor) && accessor.isEnabledWithValue()) {
+            builder.append(getValueString(accessor).toLowerCase(Locale.ROOT)).append(SPACE);
         }
-        if (function.getKind().equals(ServiceModelGeneratorConstants.KIND_SUBSCRIPTION)) {
-            builder.append(ServiceModelGeneratorConstants.SUBSCRIBE);
-            builder.append(" ");
+        if (function.getKind().equals(KIND_SUBSCRIPTION)) {
+            builder.append(SUBSCRIBE).append(SPACE);
         }
-        if (function.getKind().equals(ServiceModelGeneratorConstants.KIND_QUERY)) {
-            builder.append(ServiceModelGeneratorConstants.GET);
-            builder.append(" ");
+        if (function.getKind().equals(KIND_QUERY)) {
+            builder.append(GET).append(SPACE);
         }
+
+        // function identifier
         builder.append(getValueString(function.getName()));
-        String functionSignature = getFunctionSignature(function, statusCodeResponses, true);
+
+        FunctionSignatureContext sigContext = addContext.equals(FunctionAddContext.HTTP_SERVICE_ADD) ?
+                FunctionSignatureContext.HTTP_RESOURCE_ADD : signatureContext;
+        String functionSignature = generateFunctionSignatureSource(function, statusCodeResponses, sigContext);
         builder.append(functionSignature);
-        builder.append("{");
-        builder.append(System.lineSeparator());
-        if (kind.equals(FunctionBodyKind.DO_BLOCK)) {
-            builder.append("\tdo {");
-            builder.append(System.lineSeparator());
-            if (context.equals(FunctionAddContext.HTTP_SERVICE_ADD)) {
-                builder.append("\t\treturn \"Hello, Greetings!\";");
-                builder.append(System.lineSeparator());
+
+        // function body
+        FunctionReturnType returnType = function.getReturnType();
+        builder.append("{").append(NEW_LINE);
+        if (signatureContext.equals(FunctionSignatureContext.HTTP_RESOURCE_ADD) || returnType.hasError()) {
+            builder.append("\tdo {").append(NEW_LINE);
+            if (addContext.equals(FunctionAddContext.HTTP_SERVICE_ADD)) {
+                builder.append("\t\treturn \"Hello, Greetings!\";").append(NEW_LINE);
             }
-        }
-        if (kind.equals(FunctionBodyKind.DO_BLOCK)) {
-            builder.append("\t} on fail error err {");
-            builder.append(System.lineSeparator());
-            builder.append("\t\t// handle error");
-            builder.append(System.lineSeparator());
-            FunctionReturnType returnType = function.getReturnType();
-            if (returnType.isEnabledWithValue() || Objects.nonNull(returnType.getResponses())) {
-                builder.append("\t\treturn error(\"Not implemented\", err);");
-            }
-            builder.append(System.lineSeparator());
-            builder.append("\t}");
-            builder.append(System.lineSeparator());
+            builder.append("\t} on fail error err {")
+                    .append(NEW_LINE)
+                    .append("\t\t// handle error")
+                    .append(NEW_LINE)
+                    .append("\t\treturn error(\"unhandled error\", err);")
+                    .append(NEW_LINE)
+                    .append("\t}")
+                    .append(NEW_LINE);
         }
         builder.append("}");
         return builder.toString();
     }
 
-    public enum FunctionBodyKind {
-        EMPTY,
-        DO_BLOCK
-    }
-
-    public static String getFunctionSignature(Function function, List<String> statusCodeResponses, boolean isAdd) {
+    public static String generateFunctionSignatureSource(Function function, List<String> statusCodeResponses,
+                                                         FunctionSignatureContext context) {
         StringBuilder builder = new StringBuilder();
         builder.append("(");
         List<String> params = new ArrayList<>();
@@ -908,11 +913,12 @@ public final class Utils {
         builder.append(String.join(", ", params));
         builder.append(")");
         FunctionReturnType returnType = function.getReturnType();
+        boolean addError = context.equals(FunctionSignatureContext.HTTP_RESOURCE_ADD);
         if (Objects.nonNull(returnType)) {
             if (returnType.isEnabledWithValue()) {
                 builder.append(" returns ");
                 String returnTypeStr = getValueString(returnType);
-                if (isAdd && !returnTypeStr.contains("error")) {
+                if (addError && !returnTypeStr.contains("error")) {
                     returnTypeStr = "error|" + returnTypeStr;
                 }
                 builder.append(returnTypeStr);
@@ -924,7 +930,7 @@ public final class Utils {
                         .filter(Objects::nonNull)
                         .toList());
                 if (!responses.isEmpty()) {
-                    if (isAdd && !statusCodeResponses.contains("error")) {
+                    if (addError && !statusCodeResponses.contains("error")) {
                         responses.addFirst("error");
                     }
                     builder.append(" returns ");
@@ -941,8 +947,8 @@ public final class Utils {
         qualifiers = Objects.isNull(qualifiers) ? new ArrayList<>() : qualifiers;
         String kind = function.getKind();
         switch (kind) {
-            case ServiceModelGeneratorConstants.KIND_QUERY, ServiceModelGeneratorConstants.KIND_SUBSCRIPTION,
-                 ServiceModelGeneratorConstants.KIND_RESOURCE ->
+            case KIND_QUERY, KIND_SUBSCRIPTION,
+                 KIND_RESOURCE ->
                     qualifiers.add(ServiceModelGeneratorConstants.RESOURCE);
             case ServiceModelGeneratorConstants.KIND_REMOTE, ServiceModelGeneratorConstants.KIND_MUTATION ->
                     qualifiers.add(ServiceModelGeneratorConstants.REMOTE);

@@ -60,7 +60,7 @@ public class FunctionReturnType extends Value {
         return Objects.hash(super.hashCode(), responses, schema);
     }
 
-    public boolean isHasError() {
+    public boolean hasError() {
         return hasError;
     }
 
