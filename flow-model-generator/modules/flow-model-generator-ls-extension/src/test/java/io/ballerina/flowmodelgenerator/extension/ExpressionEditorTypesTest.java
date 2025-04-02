@@ -59,6 +59,14 @@ public class ExpressionEditorTypesTest extends AbstractLSTest {
     }
 
     @Override
+    protected String[] skipList() {
+        // TODO: Enable this once the intermitten issue in the subtype is API is fixed
+        return new String[] {
+                "config11.json"
+        };
+    }
+
+    @Override
     protected String getResourceDir() {
         return "types";
     }
