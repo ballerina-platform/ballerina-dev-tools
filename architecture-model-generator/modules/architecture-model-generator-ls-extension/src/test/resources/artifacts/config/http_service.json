@@ -1,6 +1,6 @@
 {
-  "source": "http_service.bal",
   "description": "",
+  "source": "http_service.bal",
   "output": {
     "Connections": {
       "httpClient": {
@@ -20,6 +20,7 @@
         "name": "httpClient",
         "scope": "Global",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
+        "module": "http",
         "children": {}
       }
     },
@@ -41,6 +42,7 @@
         "name": "securedEP",
         "scope": "Global",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
+        "module": "http",
         "children": {}
       },
       "refListener": {
@@ -60,6 +62,7 @@
         "name": "refListener",
         "scope": "Global",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
+        "module": "http",
         "children": {}
       }
     },
@@ -81,6 +84,7 @@
         "name": "/api/v1",
         "scope": "Global",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
+        "module": "http",
         "children": {
           "get#path": {
             "id": "get#path",
@@ -120,6 +124,7 @@
         "name": "/root/path-id",
         "scope": "Global",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
+        "module": "http",
         "children": {
           "post#data": {
             "id": "post#data",
@@ -235,6 +240,7 @@
         "name": "/",
         "scope": "Global",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
+        "module": "http",
         "children": {
           "init": {
             "id": "init",

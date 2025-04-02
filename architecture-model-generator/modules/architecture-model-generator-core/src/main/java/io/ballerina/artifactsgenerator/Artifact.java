@@ -43,6 +43,7 @@ import java.util.Optional;
  * @param scope    scope of the artifact (global/local)
  * @param icon     icon representing the artifact
  * @param children map of child artifacts (id -> child)
+ * @param module   module name of the artifact
  * @since 2.3.0
  */
 public record Artifact(String id, LineRange location, String type, String name, String accessor,
@@ -161,7 +162,13 @@ public record Artifact(String id, LineRange location, String type, String name, 
         }
 
         public Builder icon(Symbol symbol) {
-            symbol.getModule().ifPresent(module -> this.icon = CommonUtils.generateIcon(module.id()));
+            Optional<ModuleSymbol> moduleSymbol = symbol.getModule();
+            if (moduleSymbol.isEmpty()) {
+                return this;
+            }
+            ModuleID moduleId = moduleSymbol.get().id();
+            this.icon = CommonUtils.generateIcon(moduleId);
+            this.module = moduleId.moduleName();
             return this;
         }
 
@@ -180,7 +187,8 @@ public record Artifact(String id, LineRange location, String type, String name, 
                 id = id == null ? name : id;
             }
             name = IdentifierUtils.unescapeBallerina(name);
-            return new Artifact(id, location, type, name, accessor, scope.getValue(), icon, new HashMap<>(children));
+            return new Artifact(id, location, type == null ? null : type.name(), name, accessor, scope.getValue(), icon,
+                    module, new HashMap<>(children));
         }
     }
 }

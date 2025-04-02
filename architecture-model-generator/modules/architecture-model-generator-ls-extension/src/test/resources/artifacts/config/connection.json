@@ -1,6 +1,6 @@
 {
-  "source": "connection.bal",
   "description": "",
+  "source": "connection.bal",
   "output": {
     "Connections": {
       "localClient": {
@@ -20,6 +20,7 @@
         "name": "localClient",
         "scope": "Global",
         "icon": "https://bcentral-packageicons.azureedge.net/images/$anon_._0.0.0.png",
+        "module": ".",
         "children": {}
       },
       "tcpConnection": {
@@ -39,6 +40,7 @@
         "name": "tcpConnection",
         "scope": "Global",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_tcp_1.13.0.png",
+        "module": "tcp",
         "children": {}
       },
       "httpConnection": {
@@ -58,6 +60,7 @@
         "name": "httpConnection",
         "scope": "Global",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
+        "module": "http",
         "children": {}
       },
       "graphQlConnection": {
@@ -77,6 +80,7 @@
         "name": "graphQlConnection",
         "scope": "Global",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.16.0.png",
+        "module": "graphql",
         "children": {}
       }
     }

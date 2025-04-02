@@ -1,6 +1,6 @@
 {
-  "source": "listener.bal",
   "description": "",
+  "source": "listener.bal",
   "output": {
     "Listeners": {
       "rabbitmqListener": {
@@ -20,6 +20,7 @@
         "name": "rabbitmqListener",
         "scope": "Global",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_rabbitmq_3.2.0.png",
+        "module": "rabbitmq",
         "children": {}
       },
       "httpListener": {
@@ -57,6 +58,7 @@
         "name": "refListener",
         "scope": "Global",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
+        "module": "http",
         "children": {}
       },
       "httpDefaultListener": {
@@ -76,6 +78,7 @@
         "name": "httpDefaultListener",
         "scope": "Global",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
+        "module": "http",
         "children": {}
       }
     }
