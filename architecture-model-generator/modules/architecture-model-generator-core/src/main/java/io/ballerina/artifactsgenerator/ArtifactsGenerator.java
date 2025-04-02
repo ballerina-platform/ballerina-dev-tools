@@ -42,6 +42,10 @@ import java.util.concurrent.ConcurrentMap;
  */
 public class ArtifactsGenerator {
 
+    private static final String ADDITIONS = "additions";
+    private static final String UPDATES = "updates";
+    private static final String DELETIONS = "deletions";
+
     public static Map<String, Map<String, Map<String, Artifact>>> artifactChanges(String projectPath,
                                                                                   SyntaxTree syntaxTree,
                                                                                   SemanticModel semanticModel) {
@@ -67,9 +71,9 @@ public class ArtifactsGenerator {
                     List<String> prevIds = prevIdMap.get(category);
                     String eventType;
                     if (prevIds != null && prevIds.remove(artifactId)) {
-                        eventType = "updates";
+                        eventType = UPDATES;
                     } else {
-                        eventType = "additions";
+                        eventType = ADDITIONS;
                     }
 
                     // Update the new artifact
@@ -84,7 +88,7 @@ public class ArtifactsGenerator {
             if (!remainingIds.isEmpty()) {
                 remainingIds.forEach(id -> categoryMap
                         .computeIfAbsent(category, k -> new HashMap<>())
-                        .computeIfAbsent(ChangeType.DELETE.getName(), k -> new HashMap<>())
+                        .computeIfAbsent(DELETIONS, k -> new HashMap<>())
                         .put(id, Artifact.emptyArtifact(id)));
             }
         });
@@ -121,21 +125,5 @@ public class ArtifactsGenerator {
 
         ArtifactsCache.getInstance().initializeProject(project.sourceRoot().toString(), documentMap);
         return artifactMap;
-    }
-
-    public enum ChangeType {
-        ADDITION("additions"),
-        UPDATE("updates"),
-        DELETE("deletions");
-
-        private final String name;
-
-        ChangeType(String name) {
-            this.name = name;
-        }
-
-        public String getName() {
-            return name;
-        }
     }
 }

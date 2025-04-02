@@ -192,7 +192,7 @@ public class PublishArtifactsSubscriberTest extends AbstractLSTest {
         if (!publishedArtifacts.equals(expectedArtifacts)) {
             TestConfig updatedConfig =
                     new TestConfig(testConfig.source(), testConfig.description(), publishedArtifacts);
-            updateConfig(configJsonPath, updatedConfig);
+//            updateConfig(configJsonPath, updatedConfig);
             compareJsonElements(gson.toJsonTree(publishedArtifacts), gson.toJsonTree(expectedArtifacts));
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.source(), configJsonPath));
         }
