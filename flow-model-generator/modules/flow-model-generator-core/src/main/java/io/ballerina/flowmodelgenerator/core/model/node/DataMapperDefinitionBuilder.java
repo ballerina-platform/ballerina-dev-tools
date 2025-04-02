@@ -60,7 +60,8 @@ public class DataMapperDefinitionBuilder extends NodeBuilder {
     private static final String DATA_MAPPINGS_BAL = "data_mappings.bal";
     private static final Gson gson = new Gson();
 
-    public static final String ANYDATA_TYPE = TypeKind.ANYDATA.typeName();
+    public static final String RETURN_TYPE = TypeKind.JSON.typeName();
+    public static final String PARAMETER_TYPE = TypeKind.JSON.typeName();
 
     @Override
     public void setConcreteConstData() {
@@ -82,12 +83,12 @@ public class DataMapperDefinitionBuilder extends NodeBuilder {
 
     public static void setMandatoryProperties(NodeBuilder nodeBuilder, String returnType) {
         nodeBuilder.properties()
-                .returnType(returnType, ANYDATA_TYPE, false)
+                .returnType(returnType, RETURN_TYPE, false)
                 .nestedProperty();
     }
 
     public static void setProperty(FormBuilder<?> formBuilder, String type, String name, Token token) {
-        formBuilder.parameter(type, name, token, Property.ValueType.TYPE, TypeKind.ANYDATA.typeName());
+        formBuilder.parameter(type, name, token, Property.ValueType.TYPE, PARAMETER_TYPE);
     }
 
     public static void setOptionalProperties(NodeBuilder nodeBuilder) {
