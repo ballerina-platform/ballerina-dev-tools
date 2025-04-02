@@ -44,7 +44,7 @@ import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -79,7 +79,7 @@ public class ConfigEditorService implements ExtendedLanguageServerService {
                 List<Path> filePaths = new ArrayList<>();
                 Files.walkFileTree(projectFolder, new FileReader(filePaths));
 
-                Map<Document, SemanticModel> documentSemanticModelMap = new HashMap<>();
+                Map<Document, SemanticModel> documentSemanticModelMap = new LinkedHashMap<>();
                 for (Path filePath : filePaths) {
                     this.workspaceManager.loadProject(filePath);
                     Optional<Document> document = this.workspaceManager.document(filePath);
