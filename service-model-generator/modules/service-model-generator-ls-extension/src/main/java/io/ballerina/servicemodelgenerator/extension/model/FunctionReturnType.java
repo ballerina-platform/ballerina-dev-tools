@@ -22,30 +22,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * Represents the return type of function.
+ *
+ * @since 2.0.0
+ */
 public class FunctionReturnType extends Value {
     private List<HttpResponse> responses;
     private Map<String, HttpResponse> schema;
+    private boolean hasError;
 
     public FunctionReturnType(Value value) {
-        super(value.getMetadata(), value.isEnabled(), value.isEditable(), value.getValue(), value.getValueType(),
-                value.getValueTypeConstraint(), value.isType(), value.getPlaceholder(), value.isOptional(),
-                value.isAdvanced(), value.getProperties(), value.getItems(), value.getCodedata());
+        super(value);
     }
 
     public FunctionReturnType(MetaData metaData) {
-        this(metaData, true, true, null,
-                null, null, false, null, false, false,
-                null, null, null, null, null);
-    }
-
-    public FunctionReturnType(MetaData metadata, boolean enabled, boolean editable, String value, String valueType,
-                              String valueTypeConstraint, boolean isType, String placeholder, boolean optional,
-                              boolean advanced, Map<String, Value> properties, List<String> items, Codedata codedata,
-                              List<HttpResponse> responses, Map<String, HttpResponse> schema) {
-        super(metadata, enabled, editable, value, valueType, valueTypeConstraint, isType, placeholder, optional,
-                advanced, properties, items, codedata);
-        this.responses = responses;
-        this.schema = schema;
+        super(new Value.ValueBuilder().setMetadata(metaData).enabled(true).editable(true).build());
     }
 
     public List<HttpResponse> getResponses() {
@@ -68,11 +60,11 @@ public class FunctionReturnType extends Value {
         return Objects.hash(super.hashCode(), responses, schema);
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (Objects.isNull(obj) || !(obj instanceof FunctionReturnType functionReturnType)) {
-            return false;
-        }
-        return super.equals(functionReturnType);
+    public boolean isHasError() {
+        return hasError;
+    }
+
+    public void setHasError(boolean hasError) {
+        this.hasError = hasError;
     }
 }

@@ -297,7 +297,7 @@ public class ListenerUtil {
                     .valueType("EXPRESSION")
                     .setPlaceholder(paramResult.defaultValue())
                     .setValueTypeConstraint(paramResult.type())
-                    .setEditable(true)
+                    .editable(true)
                     .setType(false)
                     .enabled(true)
                     .setOptional(paramResult.optional())
@@ -376,7 +376,7 @@ public class ListenerUtil {
                 .valueType("IDENTIFIER")
                 .setValueTypeConstraint("string")
                 .setType(false)
-                .setEditable(true)
+                .editable(true)
                 .enabled(true)
                 .setOptional(false)
                 .setAdvanced(false);

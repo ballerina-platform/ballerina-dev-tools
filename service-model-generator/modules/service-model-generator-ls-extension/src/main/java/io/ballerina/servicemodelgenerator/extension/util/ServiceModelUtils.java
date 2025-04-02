@@ -249,7 +249,7 @@ public class ServiceModelUtils {
                 .setValueTypeConstraint("string")
                 .setPlaceholder(function.name())
                 .enabled(true)
-                .setEditable(false)
+                .editable(false)
                 .setType(false)
                 .setOptional(false)
                 .setAdvanced(false);
@@ -262,7 +262,7 @@ public class ServiceModelUtils {
                 .setValueTypeConstraint("string")
                 .setPlaceholder(function.returnType())
                 .enabled(true)
-                .setEditable(true)
+                .editable(true)
                 .setType(true)
                 .setOptional(true)
                 .setAdvanced(false);
@@ -287,7 +287,7 @@ public class ServiceModelUtils {
                     .setValueTypeConstraint("string")
                     .setPlaceholder(function.accessor())
                     .enabled(true)
-                    .setEditable(false)
+                    .editable(false)
                     .setType(false)
                     .setOptional(false)
                     .setAdvanced(false);
@@ -307,7 +307,7 @@ public class ServiceModelUtils {
                 .setValueTypeConstraint("string")
                 .setPlaceholder(parameter.name())
                 .enabled(true)
-                .setEditable(false)
+                .editable(false)
                 .setType(false)
                 .setOptional(false)
                 .setAdvanced(false);
@@ -320,7 +320,7 @@ public class ServiceModelUtils {
                 .setValueTypeConstraint("string")
                 .setPlaceholder(parameter.type())
                 .enabled(true)
-                .setEditable(true)
+                .editable(true)
                 .setType(true)
                 .setOptional(true)
                 .setAdvanced(false);
@@ -333,7 +333,7 @@ public class ServiceModelUtils {
                 .setValueTypeConstraint("string")
                 .setPlaceholder(parameter.defaultValue())
                 .enabled(true)
-                .setEditable(true)
+                .editable(true)
                 .setType(true)
                 .setOptional(true)
                 .setAdvanced(false);
@@ -376,7 +376,7 @@ public class ServiceModelUtils {
                 .setOptional(false)
                 .setAdvanced(false)
                 .enabled(template.optionalTypeDescriptor() == 0)
-                .setEditable(true)
+                .editable(true)
                 .setType(false)
                 .setAddNewButton(false);
 
@@ -396,7 +396,7 @@ public class ServiceModelUtils {
                 .setOptional(false)
                 .setAdvanced(false)
                 .enabled(true)
-                .setEditable(true)
+                .editable(true)
                 .setType(false)
                 .setAddNewButton(false);
 
@@ -416,7 +416,7 @@ public class ServiceModelUtils {
                 .setOptional(false)
                 .setAdvanced(false)
                 .enabled(true)
-                .setEditable(true)
+                .editable(true)
                 .setType(false)
                 .setAddNewButton(false);
 
@@ -436,7 +436,7 @@ public class ServiceModelUtils {
                 .setOptional(false)
                 .setAdvanced(false)
                 .enabled(true)
-                .setEditable(true)
+                .editable(true)
                 .setType(false)
                 .setAddNewButton(false);
 
@@ -457,7 +457,7 @@ public class ServiceModelUtils {
                 .setOptional(false)
                 .setAdvanced(false)
                 .enabled(true)
-                .setEditable(true)
+                .editable(true)
                 .setType(false)
                 .setAddNewButton(false);
 
@@ -486,7 +486,7 @@ public class ServiceModelUtils {
                 .setOptional(true)
                 .setAdvanced(true)
                 .enabled(true)
-                .setEditable(true)
+                .editable(true)
                 .setType(false)
                 .setAddNewButton(false)
                 .setMembers(List.of(propertyTypeMemberInfo));
@@ -512,7 +512,7 @@ public class ServiceModelUtils {
                 .setOptional(false)
                 .setAdvanced(false)
                 .enabled(true)
-                .setEditable(true)
+                .editable(true)
                 .setType(false)
                 .setAddNewButton(isMultiple);
 

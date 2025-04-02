@@ -83,6 +83,26 @@ public class Value {
         this.codedata = codedata;
     }
 
+    public Value(Value value) {
+        this.metadata = value.metadata;
+        this.enabled = value.enabled;
+        this.editable = value.editable;
+        this.value = value.value;
+        this.values = value.values;
+        this.valueType = value.valueType;
+        this.valueTypeConstraint = value.valueTypeConstraint;
+        this.isType = value.isType;
+        this.placeholder = value.placeholder;
+        this.optional = value.optional;
+        this.advanced = value.advanced;
+        this.properties = value.properties;
+        this.items = value.items;
+        this.codedata = value.codedata;
+        this.choices = value.choices;
+        this.addNewButton = value.addNewButton;
+        this.typeMembers = value.typeMembers;
+    }
+
     public Value(MetaData metadata, boolean enabled, boolean editable, String value, List<String> values,
                  String valueType,
                  String valueTypeConstraint, boolean isType, String placeholder, boolean optional,
@@ -327,7 +347,7 @@ public class Value {
             return this;
         }
 
-        public ValueBuilder setEditable(boolean editable) {
+        public ValueBuilder editable(boolean editable) {
             this.editable = editable;
             return this;
         }

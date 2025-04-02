@@ -116,7 +116,7 @@ public class Function {
                     .setPlaceholder("{}")
                     .setValueTypeConstraint(annotation.typeConstrain())
                     .enabled(true)
-                    .setEditable(true)
+                    .editable(true)
                     .setOptional(true)
                     .setAdvanced(true)
                     .setMembers(List.of(new PropertyTypeMemberInfo(type,
