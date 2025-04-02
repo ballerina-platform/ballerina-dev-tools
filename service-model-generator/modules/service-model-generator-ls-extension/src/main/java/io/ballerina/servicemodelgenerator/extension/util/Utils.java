@@ -73,9 +73,7 @@ import org.eclipse.lsp4j.TextEdit;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URI;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -225,6 +223,7 @@ public final class Utils {
         Function functionModel = Function.getNewFunctionModel(context);
         functionModel.setAnnotations(annotations);
         functionModel.setEnabled(true);
+
         Value accessor = functionModel.getAccessor();
         Value functionName = functionModel.getName();
         functionName.setValue(functionDefinitionNode.methodName().text().trim());

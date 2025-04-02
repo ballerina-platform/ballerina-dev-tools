@@ -141,13 +141,13 @@ import static io.ballerina.servicemodelgenerator.extension.util.Utils.expectsTri
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.filterTriggers;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.generateFunctionDefSource;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.generateFunctionSignatureSource;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.getHttpServiceContractSym;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.getImportStmt;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.getListenerExpression;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.getPath;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.getServiceDeclarationNode;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.importExists;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.isAiAgentModule;
-import static io.ballerina.servicemodelgenerator.extension.util.Utils.getHttpServiceContractSym;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.populateRequiredFuncsDesignApproachAndServiceType;
 
 /**
@@ -492,8 +492,9 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 }
                 ServiceDeclarationNode serviceNode = (ServiceDeclarationNode) node;
                 List<String> newStatusCodeTypesDef = new ArrayList<>();
-                String functionDefinition = NEW_LINE_WITH_TAB + generateFunctionDefSource(request.function(), newStatusCodeTypesDef,
-                        RESOURCE_ADD, HTTP_RESOURCE_ADD).replace(NEW_LINE, NEW_LINE_WITH_TAB) + NEW_LINE;
+                String functionDefinition = NEW_LINE_WITH_TAB + generateFunctionDefSource(request.function(),
+                        newStatusCodeTypesDef, RESOURCE_ADD, HTTP_RESOURCE_ADD)
+                        .replace(NEW_LINE, NEW_LINE_WITH_TAB) + NEW_LINE;
 
                 List<TextEdit> textEdits = new ArrayList<>();
                 LineRange serviceEnd = serviceNode.closeBraceToken().lineRange();
@@ -761,7 +762,8 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
 
                 LineRange signatureRange = functionDefinitionNode.functionSignature().lineRange();
                 List<String> newStatusCodeTypesDef = new ArrayList<>();
-                String functionSignature = generateFunctionSignatureSource(function, newStatusCodeTypesDef, FUNCTION_UPDATE);
+                String functionSignature = generateFunctionSignatureSource(function, newStatusCodeTypesDef,
+                        FUNCTION_UPDATE);
                 edits.add(new TextEdit(Utils.toRange(signatureRange), functionSignature));
 
                 if (!newStatusCodeTypesDef.isEmpty() && parentNode instanceof ServiceDeclarationNode serviceNode) {
