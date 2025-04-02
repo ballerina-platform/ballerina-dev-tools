@@ -889,29 +889,9 @@ public final class Utils {
                                                          FunctionSignatureContext context) {
         StringBuilder builder = new StringBuilder();
         builder.append("(");
-        List<String> params = new ArrayList<>();
-        // sort params list where required params come first
-        function.getParameters().sort(new Parameter.RequiredParamSorter());
-        function.getParameters().forEach(param -> {
-            if (param.isEnabled()) {
-                String paramDef;
-                Value defaultValue = param.getDefaultValue();
-                if (Objects.nonNull(defaultValue) && defaultValue.isEnabled()
-                        && defaultValue.getValue() != null && !defaultValue.getValue().isEmpty()) {
-                    paramDef = String.format("%s %s = %s", getValueString(param.getType()),
-                            getValueString(param.getName()), getValueString(defaultValue));
-                } else {
-                    paramDef = String.format("%s %s", getValueString(param.getType()),
-                            getValueString(param.getName()));
-                }
-                if (Objects.nonNull(param.getHttpParamType()) && !param.getHttpParamType().equals("Query")) {
-                    paramDef = String.format("@http:%s %s", param.getHttpParamType(), paramDef);
-                }
-                params.add(paramDef);
-            }
-        });
-        builder.append(String.join(", ", params));
+        builder.append(generateFunctionParamListSource(function.getParameters()));
         builder.append(")");
+
         FunctionReturnType returnType = function.getReturnType();
         boolean addError = context.equals(FunctionSignatureContext.HTTP_RESOURCE_ADD);
         if (Objects.nonNull(returnType)) {
@@ -938,8 +918,34 @@ public final class Utils {
                 }
             }
         }
-        builder.append(" ");
+        builder.append(SPACE);
         return builder.toString();
+    }
+
+    private static String generateFunctionParamListSource(List<Parameter> parameters) {
+        // sort params list where required params come first
+        parameters.sort(new Parameter.RequiredParamSorter());
+
+        List<String> params = new ArrayList<>();
+        parameters.forEach(param -> {
+            if (param.isEnabled()) {
+                String paramDef;
+                Value defaultValue = param.getDefaultValue();
+                if (Objects.nonNull(defaultValue) && defaultValue.isEnabled() &&
+                        Objects.nonNull(defaultValue.getValue()) && !defaultValue.getValue().isEmpty()) {
+                    paramDef = String.format("%s %s = %s", getValueString(param.getType()),
+                            getValueString(param.getName()), getValueString(defaultValue));
+                } else {
+                    paramDef = String.format("%s %s", getValueString(param.getType()),
+                            getValueString(param.getName()));
+                }
+                if (Objects.nonNull(param.getHttpParamType()) && !param.getHttpParamType().equals("Query")) {
+                    paramDef = String.format("@http:%s %s", param.getHttpParamType(), paramDef);
+                }
+                params.add(paramDef);
+            }
+        });
+        return String.join(", ", params);
     }
 
     public static String getFunctionQualifiers(Function function) {
