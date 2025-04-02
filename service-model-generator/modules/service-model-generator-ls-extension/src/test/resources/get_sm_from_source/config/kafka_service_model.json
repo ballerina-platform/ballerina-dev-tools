@@ -257,15 +257,15 @@
           }
         ],
         "returnType": {
+          "hasError": true,
           "metadata": {
             "label": "Return Type",
             "description": "The return type of the function"
           },
           "enabled": true,
-          "editable": true,
+          "editable": false,
           "value": "error?",
           "valueType": "TYPE",
-          "valueTypeConstraint": "string",
           "isType": true,
           "placeholder": "error?",
           "optional": true,
@@ -388,15 +388,15 @@
           }
         ],
         "returnType": {
+          "hasError": true,
           "metadata": {
             "label": "Return Type",
             "description": "The return type of the function"
           },
           "enabled": true,
-          "editable": true,
+          "editable": false,
           "value": "error?",
           "valueType": "TYPE",
-          "valueTypeConstraint": "string",
           "isType": true,
           "placeholder": "error?",
           "optional": true,

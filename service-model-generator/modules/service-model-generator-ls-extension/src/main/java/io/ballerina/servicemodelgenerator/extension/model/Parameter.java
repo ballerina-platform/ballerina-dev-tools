@@ -168,6 +168,7 @@ public class Parameter {
                 .setMetadata(metadata)
                 .valueType(ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER)
                 .enabled(true)
+                .editable(true)
                 .build();
     }
 
