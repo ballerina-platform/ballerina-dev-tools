@@ -525,7 +525,7 @@ class ServiceIndexGenerator {
 
                 ServiceTypeFunction function = new ServiceTypeFunction(path,
                         methodDescription, resourceMethodSymbol.getName().orElse("get"), "RESOURCE",
-                        returnTypeSignature, 0, returnError,"", 1, parameters);
+                        returnTypeSignature, 0, returnError, "", 1, parameters);
 
                 int functionId = DatabaseManager.insertServiceTypeFunction(serviceTypeId, function);
 
