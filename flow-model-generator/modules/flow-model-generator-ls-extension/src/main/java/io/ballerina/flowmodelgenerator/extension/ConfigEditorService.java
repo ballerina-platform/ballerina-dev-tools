@@ -55,6 +55,8 @@ import java.util.concurrent.CompletableFuture;
 @JsonSegment("configEditor")
 public class ConfigEditorService implements ExtendedLanguageServerService {
 
+    private static final String BAL_FILE_EXTENSION = ".bal";
+
     private WorkspaceManager workspaceManager;
     private Gson gson;
 
@@ -69,6 +71,12 @@ public class ConfigEditorService implements ExtendedLanguageServerService {
         return null;
     }
 
+    /**
+     * Retrieves configuration variables from the Ballerina project.
+     *
+     * @param request The request containing project path
+     * @return A future with configuration variables response
+     */
     @JsonRequest
     @SuppressWarnings("unused")
     public CompletableFuture<ConfigVariablesResponse> getConfigVariables(ConfigVariablesGetRequest request) {
@@ -77,7 +85,7 @@ public class ConfigEditorService implements ExtendedLanguageServerService {
             try {
                 Path projectFolder = Path.of(request.projectPath());
                 List<Path> filePaths = new ArrayList<>();
-                Files.walkFileTree(projectFolder, new FileReader(filePaths));
+                Files.walkFileTree(projectFolder, new BallerinaFileVisitor(filePaths));
 
                 Map<Document, SemanticModel> documentSemanticModelMap = new LinkedHashMap<>();
                 for (Path filePath : filePaths) {
@@ -99,15 +107,23 @@ public class ConfigEditorService implements ExtendedLanguageServerService {
         });
     }
 
+    /**
+     * Update a given config variable with the provided value.
+     *
+     * @param request The request containing config variable and file path
+     * @return A future with update response containing text edits
+     */
     @JsonRequest
     @SuppressWarnings("unused")
-    public CompletableFuture<ConfigVariablesUpdateResponse> updateConfigVariables(ConfigVariablesUpdateRequest req) {
+    public CompletableFuture<ConfigVariablesUpdateResponse> updateConfigVariables(
+            ConfigVariablesUpdateRequest request) {
+
         return CompletableFuture.supplyAsync(() -> {
             ConfigVariablesUpdateResponse response = new ConfigVariablesUpdateResponse();
             try {
-                FlowNode configVariable = gson.fromJson(req.configVariable(), FlowNode.class);
+                FlowNode configVariable = gson.fromJson(request.configVariable(), FlowNode.class);
                 String variableFileName = configVariable.codedata().lineRange().fileName();
-                Path configFilePath = Path.of(req.configFilePath());
+                Path configFilePath = Path.of(request.configFilePath());
                 Project project = this.workspaceManager.loadProject(configFilePath);
 
                 Path variableFilePath = null;
@@ -138,17 +154,20 @@ public class ConfigEditorService implements ExtendedLanguageServerService {
         });
     }
 
-    private static class FileReader extends SimpleFileVisitor<Path> {
+    /**
+     * File visitor that collects Ballerina file paths.
+     */
+    private static class BallerinaFileVisitor extends SimpleFileVisitor<Path> {
 
-        List<Path> filePaths;
+        private final List<Path> filePaths;
 
-        public FileReader(List<Path> filePaths) {
+        public BallerinaFileVisitor(List<Path> filePaths) {
             this.filePaths = filePaths;
         }
 
         @Override
         public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
-            if (file.toString().endsWith(".bal")) {
+            if (file.toString().endsWith(BAL_FILE_EXTENSION)) {
                 filePaths.add(file);
             }
             return FileVisitResult.CONTINUE;
