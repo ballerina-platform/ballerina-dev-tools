@@ -1833,7 +1833,7 @@
         "metadata": {
           "label": "Class",
           "description": "AzureOpenAiProvider is a client class that provides an interface for interacting with Azure-hosted OpenAI language models.",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.7.16.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.9.2.png"
         },
         "codedata": {
           "node": "CLASS_INIT",
