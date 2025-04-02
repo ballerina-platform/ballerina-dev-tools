@@ -28,8 +28,12 @@ import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
+import io.ballerina.compiler.syntax.tree.AnnotationNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
+import io.ballerina.compiler.syntax.tree.Node;
+import io.ballerina.compiler.syntax.tree.NodeList;
 import io.ballerina.compiler.syntax.tree.ServiceDeclarationNode;
+import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.TypeDefinitionNode;
 import io.ballerina.modelgenerator.commons.Annotation;
 import io.ballerina.modelgenerator.commons.ServiceDatabaseManager;
@@ -50,6 +54,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -284,23 +289,38 @@ public final class HttpUtil {
     public static Service fromHttpServiceWithContract(TypeDefinitionNode serviceTypeNode,
                                                       ServiceDeclarationNode serviceDeclarationNode,
                                                       SemanticModel semanticModel) {
-        Service serviceModel = Service.getNewService();
+        Service serviceModel = Service.getEmptyServiceModel();
         Value serviceContractType = new Value.ValueBuilder()
                 .enabled(true)
                 .valueType(ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER)
                 .value(serviceTypeNode.typeName().text().trim())
                 .build();
         serviceModel.setServiceContractTypeName(serviceContractType);
-        List<Function> functionModels = new ArrayList<>();
         serviceDeclarationNode.members().forEach(member -> {
             if (member instanceof FunctionDefinitionNode functionDefinitionNode) {
                 Function functionModel = getFunctionModel(functionDefinitionNode, semanticModel, true,
                         false, Map.of());
-                functionModels.add(functionModel);
+                serviceModel.getFunctions().add(functionModel);
             }
         });
-        serviceModel.setFunctions(functionModels);
+
         return serviceModel;
+    }
+
+    public static Optional<String> getHttpParameterType(NodeList<AnnotationNode> annotations) {
+        for (AnnotationNode annotation : annotations) {
+            Node annotReference = annotation.annotReference();
+            String annotName = annotReference.toString();
+            if (annotReference.kind() != SyntaxKind.QUALIFIED_NAME_REFERENCE) {
+                continue;
+            }
+            String[] annotStrings = annotName.split(":");
+            if (!annotStrings[0].trim().equals(ServiceModelGeneratorConstants.HTTP)) {
+                continue;
+            }
+            return Optional.of(annotStrings[annotStrings.length - 1].trim().toUpperCase(Locale.ROOT));
+        }
+        return Optional.empty();
     }
 
     private static Service getServiceModel(ServiceDeclarationNode serviceDeclarationNode, SemanticModel semanticModel) {
@@ -308,17 +328,15 @@ public final class HttpUtil {
         List<Annotation> annotationAttachments = databaseManager.
                 getAnnotationAttachments("ballerina", "http", "OBJECT_METHOD");
         Map<String, Value> annotations = Function.createAnnotationsMap(annotationAttachments);
-        Service serviceModel = Service.getNewService();
-        List<Function> functionModels = new ArrayList<>();
+        Service serviceModel = Service.getEmptyServiceModel();
         serviceDeclarationNode.members().forEach(member -> {
             if (member instanceof FunctionDefinitionNode functionDefinitionNode) {
                 Function functionModel = getFunctionModel(functionDefinitionNode, semanticModel, true, false,
                         annotations);
                 functionModel.setEditable(true);
-                functionModels.add(functionModel);
+                serviceModel.getFunctions().add(functionModel);
             }
         });
-        serviceModel.setFunctions(functionModels);
         return serviceModel;
     }
 

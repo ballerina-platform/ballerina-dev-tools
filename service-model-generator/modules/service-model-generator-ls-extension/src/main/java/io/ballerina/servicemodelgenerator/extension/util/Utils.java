@@ -84,12 +84,21 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.GET;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.KIND_DEFAULTABLE;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.KIND_MUTATION;
 import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.KIND_QUERY;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.KIND_REMOTE;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.KIND_REQUIRED;
 import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.KIND_RESOURCE;
 import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.KIND_SUBSCRIPTION;
 import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.NEW_LINE;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.REMOTE;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.RESOURCE;
 import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.SPACE;
 import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.SUBSCRIBE;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.VALUE_TYPE_EXPRESSION;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER;
+import static io.ballerina.servicemodelgenerator.extension.util.HttpUtil.getHttpParameterType;
 import static io.ballerina.servicemodelgenerator.extension.util.ServiceClassUtil.ServiceClassContext.GRAPHQL_DIAGRAM;
 import static io.ballerina.servicemodelgenerator.extension.util.ServiceClassUtil.ServiceClassContext.HTTP_DIAGRAM;
 import static io.ballerina.servicemodelgenerator.extension.util.ServiceClassUtil.ServiceClassContext.SERVICE_DIAGRAM;
@@ -222,35 +231,27 @@ public final class Utils {
         ServiceClassUtil.ServiceClassContext context = deriveContext(isGraphQL, isHttp, isInit);
         Function functionModel = Function.getNewFunctionModel(context);
         functionModel.setAnnotations(annotations);
-        functionModel.setEnabled(true);
 
-        Value accessor = functionModel.getAccessor();
         Value functionName = functionModel.getName();
         functionName.setValue(functionDefinitionNode.methodName().text().trim());
-        functionName.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER);
-        functionName.setEnabled(true);
+        functionName.setValueType(VALUE_TYPE_IDENTIFIER);
+
+        Value accessor = functionModel.getAccessor();
         for (Token qualifier : functionDefinitionNode.qualifierList()) {
-            if (qualifier.text().trim().matches(ServiceModelGeneratorConstants.REMOTE)) {
-                functionModel.setKind(ServiceModelGeneratorConstants.KIND_REMOTE);
-            } else if (qualifier.text().trim().matches(ServiceModelGeneratorConstants.RESOURCE)) {
+            String qualifierText = qualifier.text().trim();
+            if (qualifierText.matches(REMOTE)) {
+                functionModel.setKind(KIND_REMOTE);
+            } else if (qualifierText.matches(RESOURCE)) {
                 functionModel.setKind(KIND_RESOURCE);
                 accessor.setValue(functionDefinitionNode.methodName().text().trim());
-                accessor.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER);
-                accessor.setEnabled(true);
                 functionName.setValue(getPath(functionDefinitionNode.relativeResourcePath()));
-            } else {
-                functionModel.addQualifier(qualifier.text().trim());
             }
         }
         FunctionSignatureNode functionSignatureNode = functionDefinitionNode.methodSignature();
         Optional<ReturnTypeDescriptorNode> returnTypeDesc = functionSignatureNode.returnTypeDesc();
         if (returnTypeDesc.isPresent()) {
             FunctionReturnType returnType = functionModel.getReturnType();
-            if (Objects.nonNull(returnType)) {
-                returnType.setValue(returnTypeDesc.get().type().toString().trim());
-                returnType.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_TYPE);
-                returnType.setEnabled(true);
-            }
+            returnType.setValue(returnTypeDesc.get().type().toString().trim());
             if (isHttp) {
                 populateHttpResponses(functionDefinitionNode, returnType, semanticModel);
             }
@@ -270,50 +271,37 @@ public final class Utils {
                                             boolean isHttp, boolean isGraphQL, Map<String, Value> annotations) {
         boolean isInit = isInitFunction(functionDefinitionNode);
         ServiceClassUtil.ServiceClassContext context = deriveContext(isGraphQL, isHttp, isInit);
+
         Function functionModel = Function.getNewFunctionModel(context);
         functionModel.setAnnotations(annotations);
-        functionModel.setEnabled(true);
-        Value accessor = functionModel.getAccessor();
+
         Value functionName = functionModel.getName();
         functionName.setValue(functionDefinitionNode.functionName().text().trim());
-        functionName.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER);
-        functionName.setEnabled(true);
-        if (isGraphQL) {
-            accessor.setEditable(false);
-        }
+        functionName.setValueType(VALUE_TYPE_IDENTIFIER);
+
+        Value accessor = functionModel.getAccessor();
         for (Token qualifier : functionDefinitionNode.qualifierList()) {
-            if (qualifier.text().trim().matches(ServiceModelGeneratorConstants.REMOTE)) {
+            String qualifierText = qualifier.text().trim();
+            if (qualifierText.matches(REMOTE)) {
+                functionModel.setKind(isGraphQL ? KIND_MUTATION : KIND_REMOTE);
+                break;
+            } else if (qualifierText.matches(RESOURCE)) {
                 if (isGraphQL) {
-                    functionModel.setKind(ServiceModelGeneratorConstants.KIND_MUTATION);
-                } else {
-                    functionModel.setKind(ServiceModelGeneratorConstants.KIND_REMOTE);
-                }
-            } else if (qualifier.text().trim().matches(ServiceModelGeneratorConstants.RESOURCE)) {
-                if (isGraphQL) {
-                    if (functionName.getValue().equals(SUBSCRIBE)) {
-                        functionModel.setKind(KIND_SUBSCRIPTION);
-                    } else {
-                        functionModel.setKind(KIND_QUERY);
-                    }
+                    functionModel.setKind(functionName.getValue().equals(SUBSCRIBE) ? KIND_SUBSCRIPTION : KIND_QUERY);
                 } else {
                     functionModel.setKind(KIND_RESOURCE);
                 }
                 accessor.setValue(functionDefinitionNode.functionName().text().trim());
-                accessor.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER);
-                accessor.setEnabled(true);
                 functionName.setValue(getPath(functionDefinitionNode.relativeResourcePath()));
-            } else {
-                functionModel.addQualifier(qualifier.text().trim());
+                break;
             }
         }
+
         FunctionSignatureNode functionSignatureNode = functionDefinitionNode.functionSignature();
         Optional<ReturnTypeDescriptorNode> returnTypeDesc = functionSignatureNode.returnTypeDesc();
         if (returnTypeDesc.isPresent()) {
             FunctionReturnType returnType = functionModel.getReturnType();
-            if (Objects.nonNull(returnType)) {
-                returnType.setValue(returnTypeDesc.get().type().toString().trim());
-                returnType.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_TYPE);
-            }
+            returnType.setValue(returnTypeDesc.get().type().toString().trim());
             if (isHttp) {
                 populateHttpResponses(functionDefinitionNode, returnType, semanticModel);
             }
@@ -366,38 +354,26 @@ public final class Utils {
         HttpUtil.populateHttpResponses(returnType, semanticModel, resource);
     }
 
-    public static Optional<String> getHttpParameterType(NodeList<AnnotationNode> annotations) {
-        for (AnnotationNode annotation : annotations) {
-            Node annotReference = annotation.annotReference();
-            String annotName = annotReference.toString();
-            if (annotReference.kind() != SyntaxKind.QUALIFIED_NAME_REFERENCE) {
-                continue;
-            }
-            String[] annotStrings = annotName.split(":");
-            if (!annotStrings[0].trim().equals(ServiceModelGeneratorConstants.HTTP)) {
-                continue;
-            }
-            return Optional.of(annotStrings[annotStrings.length - 1].trim().toUpperCase(Locale.ROOT));
-        }
-        return Optional.empty();
-    }
-
     public static Optional<Parameter> getParameterModel(ParameterNode parameterNode, boolean isHttp,
                                                         boolean isGraphQL) {
         if (parameterNode instanceof RequiredParameterNode parameter) {
-            String paramName = parameter.paramName().get().toString().trim();
-            Parameter parameterModel = createParameter(paramName, ServiceModelGeneratorConstants.KIND_REQUIRED,
-                    ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER, parameter.typeName().toString().trim(),
+            if (parameter.paramName().isEmpty()) {
+                return Optional.empty();
+            }
+            String paramName = parameter.paramName().get().text().trim();
+            Parameter parameterModel = createParameter(paramName, KIND_REQUIRED, parameter.typeName().toString().trim(),
                     parameter.annotations(), isHttp, isGraphQL);
             return Optional.of(parameterModel);
         } else if (parameterNode instanceof DefaultableParameterNode parameter) {
-            String paramName = parameter.paramName().get().toString().trim();
-            Parameter parameterModel = createParameter(paramName, ServiceModelGeneratorConstants.KIND_DEFAULTABLE,
-                    ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER, parameter.typeName().toString().trim(),
-                    parameter.annotations(), isHttp, isGraphQL);
+            if (parameter.paramName().isEmpty()) {
+                return Optional.empty();
+            }
+            String paramName = parameter.paramName().get().text().trim();
+            Parameter parameterModel = createParameter(paramName, KIND_DEFAULTABLE,
+                    parameter.typeName().toString().trim(), parameter.annotations(), isHttp, isGraphQL);
             Value defaultValue = parameterModel.getDefaultValue();
             defaultValue.setValue(parameter.expression().toString().trim());
-            defaultValue.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_EXPRESSION);
+            defaultValue.setValueType(VALUE_TYPE_EXPRESSION);
             defaultValue.setEnabled(true);
             return Optional.of(parameterModel);
         }
@@ -405,35 +381,28 @@ public final class Utils {
     }
 
 
-    private static Parameter createParameter(String paramName, String paramKind, String valueType, String typeName,
+    private static Parameter createParameter(String paramName, String paramKind, String typeName,
                                              NodeList<AnnotationNode> annotationNodes, boolean isHttp,
                                              boolean isGraphQL) {
         Parameter parameterModel = Parameter.getNewParameter(isGraphQL);
         parameterModel.setMetadata(new MetaData(paramName, paramName));
         parameterModel.setKind(paramKind);
-        getHttpParameterType(annotationNodes).ifPresent(parameterModel::setHttpParamType);
-        Value type = parameterModel.getType();
-        type.setValue(typeName);
-        type.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_TYPE);
-        type.setType(true);
-        type.setEnabled(true);
+        parameterModel.getType().setValue(typeName);
+        parameterModel.getName().setValue(paramName);
+
         if (isHttp) {
             Optional<String> httpParameterType = getHttpParameterType(annotationNodes);
             if (httpParameterType.isPresent()) {
                 parameterModel.setHttpParamType(httpParameterType.get());
             } else {
                 if (!(typeName.equals("http:Request") || typeName.equals("http:Caller")
-                        || typeName.equals("http:Headers"))) {
+                        || typeName.equals("http:Headers") || typeName.equals("http:RequestContext"))) {
                     parameterModel.setHttpParamType(ServiceModelGeneratorConstants.HTTP_PARAM_TYPE_QUERY);
                     parameterModel.setEditable(true);
                 }
             }
         }
-        Value name = parameterModel.getName();
-        name.setValue(paramName);
-        name.setValueType(valueType);
-        name.setEnabled(true);
-        parameterModel.setEnabled(true);
+
         return parameterModel;
     }
 
@@ -955,9 +924,9 @@ public final class Utils {
         switch (kind) {
             case KIND_QUERY, KIND_SUBSCRIPTION,
                  KIND_RESOURCE ->
-                    qualifiers.add(ServiceModelGeneratorConstants.RESOURCE);
-            case ServiceModelGeneratorConstants.KIND_REMOTE, ServiceModelGeneratorConstants.KIND_MUTATION ->
-                    qualifiers.add(ServiceModelGeneratorConstants.REMOTE);
+                    qualifiers.add(RESOURCE);
+            case KIND_REMOTE, KIND_MUTATION ->
+                    qualifiers.add(REMOTE);
 
             default -> {
             }

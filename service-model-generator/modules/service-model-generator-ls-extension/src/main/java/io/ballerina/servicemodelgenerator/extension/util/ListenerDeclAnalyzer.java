@@ -120,7 +120,7 @@ public class ListenerDeclAnalyzer {
                         .editable(true)
                         .isType(false)
                         .enabled(true)
-                        .setOptional(paramResult.optional())
+                        .optional(paramResult.optional())
                         .setAdvanced(paramResult.optional())
                         .setTypeMembers(paramResult.typeMembers());
                 properties.put(unescapedParamName, valueBuilder.build());
@@ -165,7 +165,7 @@ public class ListenerDeclAnalyzer {
                             .editable(true)
                             .isType(false)
                             .enabled(true)
-                            .setOptional(paramResult.optional())
+                            .optional(paramResult.optional())
                             .setAdvanced(paramResult.optional())
                             .setTypeMembers(paramResult.typeMembers());
                     properties.put(unescapedParamName, valueBuilder.build());
@@ -194,7 +194,7 @@ public class ListenerDeclAnalyzer {
                         .editable(true)
                         .isType(false)
                         .enabled(true)
-                        .setOptional(restParamResult.optional())
+                        .optional(restParamResult.optional())
                         .setAdvanced(restParamResult.optional())
                         .setTypeMembers(restParamResult.typeMembers());
 
@@ -248,7 +248,7 @@ public class ListenerDeclAnalyzer {
                                     .editable(true)
                                     .isType(false)
                                     .enabled(true)
-                                    .setOptional(paramResult.optional())
+                                    .optional(paramResult.optional())
                                     .setAdvanced(paramResult.optional())
                                     .setTypeMembers(paramResult.typeMembers());
 
@@ -277,7 +277,7 @@ public class ListenerDeclAnalyzer {
                                         .editable(true)
                                         .isType(false)
                                         .enabled(true)
-                                        .setOptional(paramResult.optional())
+                                        .optional(paramResult.optional())
                                         .setAdvanced(paramResult.optional())
                                         .setTypeMembers(paramResult.typeMembers());
 
@@ -305,7 +305,7 @@ public class ListenerDeclAnalyzer {
                                     .editable(true)
                                     .isType(false)
                                     .enabled(true)
-                                    .setOptional(paramResult.optional())
+                                    .optional(paramResult.optional())
                                     .setAdvanced(paramResult.optional())
                                     .setTypeMembers(paramResult.typeMembers());
 
@@ -336,7 +336,7 @@ public class ListenerDeclAnalyzer {
                         .editable(true)
                         .isType(false)
                         .enabled(true)
-                        .setOptional(paramResult.optional())
+                        .optional(paramResult.optional())
                         .setAdvanced(paramResult.optional())
                         .setTypeMembers(paramResult.typeMembers());
                 properties.put(unescapedParamName, valueBuilder.build());
@@ -364,7 +364,7 @@ public class ListenerDeclAnalyzer {
                         .editable(true)
                         .isType(false)
                         .enabled(true)
-                        .setOptional(paramResult.optional())
+                        .optional(paramResult.optional())
                         .setAdvanced(paramResult.optional())
                         .setTypeMembers(paramResult.typeMembers());
                 properties.put(unescapedParamName, valueBuilder.build());
@@ -395,7 +395,7 @@ public class ListenerDeclAnalyzer {
                     .editable(true)
                     .isType(false)
                     .enabled(true)
-                    .setOptional(paramResult.optional())
+                    .optional(paramResult.optional())
                     .setAdvanced(paramResult.optional())
                     .setTypeMembers(paramResult.typeMembers());
             properties.put(unescapedParamName, valueBuilder.build());

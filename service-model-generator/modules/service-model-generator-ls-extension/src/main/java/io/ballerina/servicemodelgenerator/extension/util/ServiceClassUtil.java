@@ -158,7 +158,6 @@ public class ServiceClassUtil {
             parameterModel.ifPresent(parameterModels::add);
         });
         functionModel.setParameters(parameterModels);
-        functionModel.setEnabled(true);
         functionModel.setEditable(true);
         functionModel.setCodedata(new Codedata(functionDef.lineRange()));
         return functionModel;

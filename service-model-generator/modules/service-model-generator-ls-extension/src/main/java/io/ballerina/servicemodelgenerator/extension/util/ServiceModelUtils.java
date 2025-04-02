@@ -286,7 +286,7 @@ public class ServiceModelUtils {
                 .editable(function.returnTypeEditable() == 1)
                 .enabled(true)
                 .isType(true)
-                .setOptional(true);
+                .optional(true);
 
         FunctionReturnType functionReturnType = new FunctionReturnType(returnValue.build());
         functionReturnType.setHasError(function.returnError() == 1);
@@ -312,7 +312,7 @@ public class ServiceModelUtils {
                     .enabled(true)
                     .editable(false)
                     .isType(false)
-                    .setOptional(false)
+                    .optional(false)
                     .setAdvanced(false);
             functionBuilder.accessor(accessor.build());
         }
@@ -332,7 +332,7 @@ public class ServiceModelUtils {
                 .enabled(true)
                 .editable(false)
                 .isType(false)
-                .setOptional(false)
+                .optional(false)
                 .setAdvanced(false);
 
         Value.ValueBuilder parameterType = new Value.ValueBuilder();
@@ -345,7 +345,7 @@ public class ServiceModelUtils {
                 .enabled(true)
                 .editable(true)
                 .isType(true)
-                .setOptional(true)
+                .optional(true)
                 .setAdvanced(false);
 
         Value.ValueBuilder parameterDefaultValue = new Value.ValueBuilder();
@@ -358,7 +358,7 @@ public class ServiceModelUtils {
                 .enabled(true)
                 .editable(true)
                 .isType(true)
-                .setOptional(true)
+                .optional(true)
                 .setAdvanced(false);
 
         Parameter.Builder parameterBuilder = new Parameter.Builder();
@@ -396,7 +396,7 @@ public class ServiceModelUtils {
                 .valueType("SINGLE_SELECT")
                 .setValueTypeConstraint("string")
                 .setPlaceholder(template.typeDescriptorDefaultValue())
-                .setOptional(false)
+                .optional(false)
                 .setAdvanced(false)
                 .enabled(template.optionalTypeDescriptor() == 0)
                 .editable(true)
@@ -416,7 +416,7 @@ public class ServiceModelUtils {
                 .valueType("EXPRESSION")
                 .setValueTypeConstraint("string")
                 .setPlaceholder("\"/path\"")
-                .setOptional(false)
+                .optional(false)
                 .setAdvanced(false)
                 .enabled(true)
                 .editable(true)
@@ -436,7 +436,7 @@ public class ServiceModelUtils {
                 .valueType("EXPRESSION")
                 .setValueTypeConstraint("string")
                 .setPlaceholder(template.stringLiteralDefaultValue())
-                .setOptional(false)
+                .optional(false)
                 .setAdvanced(false)
                 .enabled(true)
                 .editable(true)
@@ -456,7 +456,7 @@ public class ServiceModelUtils {
                 .valueType("IDENTIFIER")
                 .setValueTypeConstraint("string")
                 .setPlaceholder("/")
-                .setOptional(false)
+                .optional(false)
                 .setAdvanced(false)
                 .enabled(true)
                 .editable(true)
@@ -477,7 +477,7 @@ public class ServiceModelUtils {
                 .valueType("IDENTIFIER")
                 .setValueTypeConstraint("string")
                 .setPlaceholder(template.absoluteResourcePathDefaultValue())
-                .setOptional(false)
+                .optional(false)
                 .setAdvanced(false)
                 .enabled(true)
                 .editable(true)
@@ -506,7 +506,7 @@ public class ServiceModelUtils {
                 .valueType("EXPRESSION")
                 .setValueTypeConstraint(attachment.typeName())
                 .setPlaceholder("{}")
-                .setOptional(true)
+                .optional(true)
                 .setAdvanced(true)
                 .enabled(true)
                 .editable(true)
@@ -532,7 +532,7 @@ public class ServiceModelUtils {
                 .valueType(valueType)
                 .setValueTypeConstraint(protocol + ":" + "Listener")
                 .setPlaceholder("")
-                .setOptional(false)
+                .optional(false)
                 .setAdvanced(false)
                 .enabled(true)
                 .editable(true)

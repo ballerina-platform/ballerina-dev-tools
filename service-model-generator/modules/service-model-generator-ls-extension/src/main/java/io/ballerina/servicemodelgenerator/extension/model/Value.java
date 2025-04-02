@@ -49,12 +49,6 @@ public class Value {
                 null, null, null);
     }
 
-//    public Value(MetaData metadata) {
-//        this(metadata, false, true, null, null,
-//                null, false, null, false, false,
-//                null, null, null);
-//    }
-
     public Value() {
         this(new MetaData("", ""), false, true, null, null,
                 null, false, null, false, false,
@@ -286,28 +280,6 @@ public class Value {
         this.typeMembers = typeMembers;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(metadata, enabled, editable, value, values, valueType, valueTypeConstraint, isType,
-                placeholder, optional, advanced, properties, items, codedata, choices, addNewButton);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (Objects.isNull(obj) || !(obj instanceof Value v)) {
-            return false;
-        }
-        return Objects.equals(metadata, v.metadata) && enabled == v.enabled && editable == v.editable
-                && Objects.equals(value, v.value) && Objects.equals(values, v.values)
-                && Objects.equals(valueType, v.valueType)
-                && Objects.equals(valueTypeConstraint, v.valueTypeConstraint)
-                && isType == v.isType && Objects.equals(placeholder, v.placeholder)
-                && optional == v.optional
-                && advanced == v.advanced && Objects.equals(properties, v.properties)
-                && Objects.equals(items, v.items) && Objects.equals(codedata, v.codedata)
-                && Objects.equals(choices, v.choices) && addNewButton == v.addNewButton;
-    }
-
     public static Value getTcpValue(String value) {
         return new Value(null, true, true, value,
                 null, null, false, null, false, false,
@@ -377,7 +349,7 @@ public class Value {
             return this;
         }
 
-        public ValueBuilder setOptional(boolean optional) {
+        public ValueBuilder optional(boolean optional) {
             this.optional = optional;
             return this;
         }

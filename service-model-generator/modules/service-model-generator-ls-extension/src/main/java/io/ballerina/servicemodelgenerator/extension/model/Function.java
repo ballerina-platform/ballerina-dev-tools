@@ -80,7 +80,8 @@ public class Function {
         FunctionBuilder functionBuilder = new FunctionBuilder()
                 .metadata("", "")
                 .accessor(functionAccessor())
-                .parameters(new ArrayList<>());
+                .parameters(new ArrayList<>())
+                .enabled(true);
         if (context == GRAPHQL_DIAGRAM) {
             functionBuilder
                     .name(name(FIELD_NAME_METADATA))
@@ -127,6 +128,7 @@ public class Function {
                 .valueType(ServiceModelGeneratorConstants.VALUE_TYPE_TYPE)
                 .enabled(true)
                 .editable(true)
+                .optional(true)
                 .build();
         return new FunctionReturnType(value);
     }
@@ -150,7 +152,7 @@ public class Function {
                     .setValueTypeConstraint(annotation.typeConstrain())
                     .enabled(true)
                     .editable(true)
-                    .setOptional(true)
+                    .optional(true)
                     .setAdvanced(true)
                     .setMembers(List.of(new PropertyTypeMemberInfo(type,
                             annotation.packageIdentifier(), "RECORD_TYPE", false)))

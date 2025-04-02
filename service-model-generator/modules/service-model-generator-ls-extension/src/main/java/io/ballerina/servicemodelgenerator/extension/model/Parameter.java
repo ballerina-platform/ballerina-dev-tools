@@ -168,7 +168,6 @@ public class Parameter {
                 .setMetadata(metadata)
                 .valueType(ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER)
                 .enabled(true)
-                .editable(false)
                 .build();
     }
 
@@ -176,6 +175,7 @@ public class Parameter {
         return new Value.ValueBuilder()
                 .setMetadata(metadata)
                 .valueType(ServiceModelGeneratorConstants.VALUE_TYPE_TYPE)
+                .isType(true)
                 .enabled(true)
                 .editable(true)
                 .build();
@@ -187,6 +187,7 @@ public class Parameter {
                 .valueType(ServiceModelGeneratorConstants.VALUE_TYPE_EXPRESSION)
                 .enabled(true)
                 .editable(true)
+                .optional(true)
                 .build();
     }
 
@@ -205,7 +206,6 @@ public class Parameter {
                 .defaultValue(defaultValue(ARGUMENT_DEFAULT_VALUE_METADATA))
                 .enabled(true)
                 .editable(true)
-                .optional(true)
                 .build();
     }
 
@@ -216,15 +216,11 @@ public class Parameter {
                 .defaultValue(defaultValue(PARAMETER_DEFAULT_VALUE_METADATA))
                 .enabled(true)
                 .editable(true)
-                .optional(true)
                 .build();
     }
 
     public static Parameter getNewParameter(boolean isGraphQL) {
-        if (isGraphQL) {
-            return graphQLParamSchema();
-        }
-        return functionParamSchema();
+        return isGraphQL ? graphQLParamSchema() : functionParamSchema();
     }
 
     public static class RequiredParamSorter implements Comparator<Parameter>, Serializable {

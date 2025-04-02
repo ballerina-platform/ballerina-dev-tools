@@ -305,7 +305,7 @@ public class ListenerUtil {
                     .editable(true)
                     .isType(false)
                     .enabled(true)
-                    .setOptional(paramResult.optional())
+                    .optional(paramResult.optional())
                     .setAdvanced(paramResult.optional())
                     .setTypeMembers(paramResult.typeMembers());
 
@@ -383,7 +383,7 @@ public class ListenerUtil {
                 .isType(false)
                 .editable(true)
                 .enabled(true)
-                .setOptional(false)
+                .optional(false)
                 .setAdvanced(false);
 
         return valueBuilder.build();
