@@ -70,15 +70,15 @@
           "label": "Init Method",
           "description": "Init Method"
         },
-        "qualifiers": [],
         "kind": "INIT",
         "accessor": {
           "metadata": {
             "label": "Accessor",
             "description": "The accessor of the function"
           },
-          "enabled": false,
+          "enabled": true,
           "editable": true,
+          "valueType": "IDENTIFIER",
           "isType": false,
           "optional": false,
           "advanced": false,
@@ -90,12 +90,10 @@
             "description": "The name of the function"
           },
           "enabled": true,
-          "editable": false,
+          "editable": true,
           "value": "init",
           "valueType": "IDENTIFIER",
-          "valueTypeConstraint": "string",
           "isType": false,
-          "placeholder": "",
           "optional": false,
           "advanced": false,
           "codedata": {
@@ -165,7 +163,7 @@
               "addNewButton": false
             },
             "enabled": true,
-            "editable": false,
+            "editable": true,
             "optional": false,
             "advanced": false
           }
@@ -180,7 +178,7 @@
               "enabled": true,
               "editable": true,
               "valueType": "TYPE",
-              "isType": false,
+              "isType": true,
               "optional": false,
               "advanced": false,
               "addNewButton": false
@@ -212,12 +210,13 @@
               "addNewButton": false
             },
             "enabled": true,
-            "editable": false,
+            "editable": true,
             "optional": false,
             "advanced": false
           }
         },
         "returnType": {
+          "hasError": false,
           "metadata": {
             "label": "Return Type",
             "description": "The return type of the function"
@@ -256,7 +255,6 @@
           "label": "Resource Method",
           "description": "Resource Method"
         },
-        "qualifiers": [],
         "kind": "RESOURCE",
         "accessor": {
           "metadata": {
@@ -274,16 +272,14 @@
         },
         "name": {
           "metadata": {
-            "label": "Function Name",
-            "description": "The name of the function"
+            "label": "Resource Path",
+            "description": "The resource path"
           },
           "enabled": true,
-          "editable": false,
+          "editable": true,
           "value": "author/[int id]",
           "valueType": "IDENTIFIER",
-          "valueTypeConstraint": "string",
           "isType": false,
-          "placeholder": "",
           "optional": false,
           "advanced": false,
           "codedata": {
@@ -315,7 +311,7 @@
               "enabled": true,
               "editable": true,
               "valueType": "TYPE",
-              "isType": false,
+              "isType": true,
               "optional": false,
               "advanced": false,
               "addNewButton": false
@@ -347,15 +343,16 @@
               "addNewButton": false
             },
             "enabled": true,
-            "editable": false,
+            "editable": true,
             "optional": false,
             "advanced": false
           }
         },
         "returnType": {
+          "hasError": false,
           "metadata": {
             "label": "Return Type",
-            "description": "The return type of the function"
+            "description": "The return type of the resource"
           },
           "enabled": true,
           "editable": true,
@@ -391,15 +388,15 @@
           "label": "Remote Method",
           "description": "Remote Method"
         },
-        "qualifiers": [],
         "kind": "REMOTE",
         "accessor": {
           "metadata": {
             "label": "Accessor",
             "description": "The accessor of the function"
           },
-          "enabled": false,
+          "enabled": true,
           "editable": true,
+          "valueType": "IDENTIFIER",
           "isType": false,
           "optional": false,
           "advanced": false,
@@ -407,16 +404,14 @@
         },
         "name": {
           "metadata": {
-            "label": "Function Name",
-            "description": "The name of the function"
+            "label": "Resource Path",
+            "description": "The resource path"
           },
           "enabled": true,
-          "editable": false,
+          "editable": true,
           "value": "addAuthor",
           "valueType": "IDENTIFIER",
-          "valueTypeConstraint": "string",
           "isType": false,
-          "placeholder": "",
           "optional": false,
           "advanced": false,
           "codedata": {
@@ -486,7 +481,7 @@
               "addNewButton": false
             },
             "enabled": true,
-            "editable": false,
+            "editable": true,
             "optional": false,
             "advanced": false
           }
@@ -501,7 +496,7 @@
               "enabled": true,
               "editable": true,
               "valueType": "TYPE",
-              "isType": false,
+              "isType": true,
               "optional": false,
               "advanced": false,
               "addNewButton": false
@@ -533,20 +528,22 @@
               "addNewButton": false
             },
             "enabled": true,
-            "editable": false,
+            "editable": true,
             "optional": false,
             "advanced": false
           }
         },
         "returnType": {
+          "hasError": false,
           "metadata": {
             "label": "Return Type",
-            "description": "The return type of the function"
+            "description": "The return type of the resource"
           },
           "enabled": true,
           "editable": true,
+          "valueType": "TYPE",
           "isType": false,
-          "optional": false,
+          "optional": true,
           "advanced": false,
           "addNewButton": false
         },
@@ -640,10 +637,11 @@
             "label": "Initial Value",
             "description": "The initial value of the filed"
           },
-          "enabled": false,
+          "enabled": true,
           "editable": true,
+          "valueType": "EXPRESSION",
           "isType": false,
-          "optional": false,
+          "optional": true,
           "advanced": false,
           "addNewButton": false
         },
@@ -720,10 +718,11 @@
             "label": "Initial Value",
             "description": "The initial value of the filed"
           },
-          "enabled": false,
+          "enabled": true,
           "editable": true,
+          "valueType": "EXPRESSION",
           "isType": false,
-          "optional": false,
+          "optional": true,
           "advanced": false,
           "addNewButton": false
         },
@@ -805,7 +804,7 @@
           "value": "[]",
           "valueType": "EXPRESSION",
           "isType": false,
-          "optional": false,
+          "optional": true,
           "advanced": false,
           "addNewButton": false
         },

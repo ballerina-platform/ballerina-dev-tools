@@ -43,6 +43,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.FUNCTION_NAME_METADATA;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.FUNCTION_RETURN_TYPE_METADATA;
+
 /**
  * Util class for service class related operations.
  *
@@ -128,6 +131,11 @@ public class ServiceClassUtil {
         Function functionModel = Function.getNewFunctionModel(context);
         updateMetadata(functionModel, kind);
         functionModel.setKind(kind.name());
+
+        if (kind == FunctionKind.INIT) {
+            functionModel.getName().setMetadata(FUNCTION_NAME_METADATA);
+            functionModel.getReturnType().setMetadata(FUNCTION_RETURN_TYPE_METADATA);
+        }
 
         if (kind.equals(FunctionKind.RESOURCE)) {
             functionModel.getAccessor().setValue(functionDef.functionName().text().trim());
