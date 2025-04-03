@@ -136,6 +136,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.StartBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.VariableBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.WaitBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.XmlPayloadBuilder;
+import io.ballerina.flowmodelgenerator.core.utils.FlowNodeUtil;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.FunctionData;
@@ -640,7 +641,7 @@ class CodeAnalyzer extends NodeVisitor {
                 }
                 customPropBuilder
                         .stepOut()
-                        .addProperty(unescapedParamName);
+                        .addProperty(FlowNodeUtil.getPropertyKey(unescapedParamName));
             }
             return;
         }
@@ -704,7 +705,7 @@ class CodeAnalyzer extends NodeVisitor {
                                 .importStatements(paramResult.importStatements())
                                 .stepOut()
                             .stepOut()
-                            .addProperty(unescapedParamName);
+                            .addProperty(FlowNodeUtil.getPropertyKey(unescapedParamName));
                 }
 
                 for (int i = paramCount; i < argCount; i++) {
@@ -734,7 +735,7 @@ class CodeAnalyzer extends NodeVisitor {
                             .importStatements(restParamResult.importStatements())
                             .stepOut()
                         .stepOut()
-                        .addProperty(unescapedParamName);
+                        .addProperty(FlowNodeUtil.getPropertyKey(unescapedParamName));
             }
             // iterate over functionParamMap
             addRemainingParamsToPropertyMap(funcParamMap, hasOnlyRestParams);
@@ -803,7 +804,7 @@ class CodeAnalyzer extends NodeVisitor {
                                         .importStatements(paramResult.importStatements())
                                         .stepOut()
                                     .stepOut()
-                                    .addProperty(unescapedParamName, paramValue);
+                                    .addProperty(FlowNodeUtil.getPropertyKey(unescapedParamName), paramValue);
                         } else {
                             if (funcParamMap.containsKey(argName)) { // included record attribute
                                 paramResult = funcParamMap.get(argName);
@@ -850,7 +851,7 @@ class CodeAnalyzer extends NodeVisitor {
                                             .importStatements(paramResult.importStatements())
                                             .stepOut()
                                         .stepOut()
-                                        .addProperty(unescapedParamName, paramValue);
+                                        .addProperty(FlowNodeUtil.getPropertyKey(unescapedParamName), paramValue);
 
                             }
                         }
@@ -892,7 +893,7 @@ class CodeAnalyzer extends NodeVisitor {
                                         .importStatements(paramResult.importStatements())
                                         .stepOut()
                                     .stepOut()
-                                    .addProperty(unescapedParamName, paramValue);
+                                    .addProperty(FlowNodeUtil.getPropertyKey(unescapedParamName), paramValue);
                             return;
                         }
                     }
@@ -939,7 +940,7 @@ class CodeAnalyzer extends NodeVisitor {
                             .importStatements(paramResult.importStatements())
                             .stepOut()
                         .stepOut()
-                        .addProperty(unescapedParamName, paramValue);
+                        .addProperty(FlowNodeUtil.getPropertyKey(unescapedParamName), paramValue);
             }
 
             for (Map.Entry<String, Node> entry : namedArgValueMap.entrySet()) { // handle remaining named args
@@ -988,7 +989,7 @@ class CodeAnalyzer extends NodeVisitor {
                         .importStatements(paramResult.importStatements())
                         .stepOut()
                         .stepOut()
-                        .addProperty(unescapedParamName, paramValue);
+                        .addProperty(FlowNodeUtil.getPropertyKey(unescapedParamName), paramValue);
             }
             ParameterData includedRecordRest = funcParamMap.get("Additional Values");
             if (includedRecordRest != null) {
@@ -1014,7 +1015,7 @@ class CodeAnalyzer extends NodeVisitor {
                             .importStatements(includedRecordRest.importStatements())
                             .stepOut()
                         .stepOut()
-                        .addProperty("additionalValues");
+                        .addProperty(FlowNodeUtil.getPropertyKey("additionalValues"));
             }
             addRemainingParamsToPropertyMap(funcParamMap, hasOnlyRestParams);
         }

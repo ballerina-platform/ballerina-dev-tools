@@ -26,8 +26,6 @@ import io.ballerina.flowmodelgenerator.core.DiagnosticHandler;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.ParameterMemberTypeData;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
