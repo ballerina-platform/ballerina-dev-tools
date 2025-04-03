@@ -35,3 +35,8 @@ function serviceCall() {
 }
 
 type MyError distinct error;
+
+enum MyEnum {
+    EN_A,
+    EN_B
+}

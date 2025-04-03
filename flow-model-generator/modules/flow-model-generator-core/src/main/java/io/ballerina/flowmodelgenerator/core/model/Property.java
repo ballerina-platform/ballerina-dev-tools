@@ -160,6 +160,7 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
     public static final String SCOPE_DOC = "Scope of the connection, Global or Local";
     public static final String GLOBAL_SCOPE = "Global";
     public static final String SERVICE_SCOPE = "Service";
+    public static final String OBJECT_SCOPE = "Object";
     public static final String LOCAL_SCOPE = "Local";
 
     public static final String CONNECTION_KEY = "connection";
