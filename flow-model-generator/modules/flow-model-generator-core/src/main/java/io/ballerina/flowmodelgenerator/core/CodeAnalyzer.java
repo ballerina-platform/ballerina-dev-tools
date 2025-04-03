@@ -27,8 +27,11 @@ import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
 import io.ballerina.compiler.api.symbols.MethodSymbol;
 import io.ballerina.compiler.api.symbols.ModuleSymbol;
+import io.ballerina.compiler.api.symbols.ParameterKind;
 import io.ballerina.compiler.api.symbols.ParameterSymbol;
 import io.ballerina.compiler.api.symbols.Qualifier;
+import io.ballerina.compiler.api.symbols.RecordFieldSymbol;
+import io.ballerina.compiler.api.symbols.RecordTypeSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
@@ -416,9 +419,13 @@ class CodeAnalyzer extends NodeVisitor {
                     nodeBuilder.metadata().addData("agent", agentData);
                 }
 
-                if (memoryManager != null && memoryManager.kind() == SyntaxKind.SIMPLE_NAME_REFERENCE) {
+                if (memoryManager == null) {
+                    String defaultMemoryManagerName = getDefaultMemoryManagerName(classSymbol.get());
                     nodeBuilder.metadata().addData("memoryManager",
-                            new MemoryManagerData(((SimpleNameReferenceNode) memoryManager).name().text().trim()));
+                            new MemoryManagerData("", defaultMemoryManagerName));
+                } else if (memoryManager.kind() == SyntaxKind.SIMPLE_NAME_REFERENCE) {
+                    nodeBuilder.metadata().addData("memoryManager",
+                            new MemoryManagerData(((SimpleNameReferenceNode) memoryManager).name().text().trim(), ""));
                 }
 
                 ModelData modelUrl = getModelIconUrl(modelArg);
@@ -428,6 +435,39 @@ class CodeAnalyzer extends NodeVisitor {
                 break;
             }
         }
+    }
+
+    private String getDefaultMemoryManagerName(ClassSymbol classSymbol) {
+        Optional<MethodSymbol> initMethodSymbol = classSymbol.initMethod();
+        if (initMethodSymbol.isEmpty()) {
+            return "";
+        }
+        Optional<List<ParameterSymbol>> optParams = initMethodSymbol.get().typeDescriptor().params();
+        if (optParams.isEmpty()) {
+            return "";
+        }
+        for (ParameterSymbol param : optParams.get()) {
+            ParameterKind paramKind = param.paramKind();
+            if (paramKind == ParameterKind.INCLUDED_RECORD) {
+                TypeSymbol rawType = CommonUtils.getRawType(param.typeDescriptor());
+                if (rawType.typeKind() != TypeDescKind.RECORD) {
+                    break;
+                }
+                RecordFieldSymbol recordFieldSymbol =
+                        ((RecordTypeSymbol) rawType).fieldDescriptors().get("memoryManager");
+                if (recordFieldSymbol == null) {
+                    break;
+                }
+                if (recordFieldSymbol.hasDefaultValue()) {
+                    Optional<String> optName = recordFieldSymbol.typeDescriptor().getName();
+                    if (optName.isEmpty()) {
+                        break;
+                    }
+                    return optName.get();
+                }
+            }
+        }
+        return "";
     }
 
     @Override
@@ -2176,7 +2216,7 @@ class CodeAnalyzer extends NodeVisitor {
     }
 
     // TODO: Update data based on requirements
-    private record MemoryManagerData(String name) {
+    private record MemoryManagerData(String name, String type) {
 
     }
 }

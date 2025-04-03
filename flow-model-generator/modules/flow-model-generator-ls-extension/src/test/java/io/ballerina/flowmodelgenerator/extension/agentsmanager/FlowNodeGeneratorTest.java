@@ -44,6 +44,7 @@ public class FlowNodeGeneratorTest extends AbstractLSTest {
         return new Object[][]{
                 {Path.of("agent_call_flow_node_1.json")},
                 {Path.of("agent_call_flow_node_2.json")},
+                {Path.of("agent_call_flow_node_3.json")},
         };
     }
 
