@@ -44,6 +44,7 @@ import io.ballerina.compiler.syntax.tree.ServiceDeclarationNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.Token;
 import io.ballerina.compiler.syntax.tree.TypeDefinitionNode;
+import io.ballerina.compiler.syntax.tree.TypeDescriptorNode;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 
 import java.util.List;
@@ -114,14 +115,29 @@ public class ModuleNodeTransformer extends NodeTransformer<Optional<Artifact>> {
 
         // Set the icon using the listener
         SeparatedNodeList<ExpressionNode> expressions = serviceDeclarationNode.expressions();
+        ExpressionNode firstExpression;
         if (!expressions.isEmpty()) {
-            setIcon(serviceBuilder, expressions.get(0));
+            firstExpression = expressions.get(0);
+            setIcon(serviceBuilder, firstExpression);
+        } else {
+            firstExpression = null;
+        }
+
+        // Derive the entry point name
+        String entryPointName;
+        Optional<TypeDescriptorNode> typeDescriptorNode = serviceDeclarationNode.typeDescriptor();
+        NodeList<Node> resourcePaths = serviceDeclarationNode.absoluteResourcePath();
+        if (typeDescriptorNode.isPresent()) {
+            entryPointName = typeDescriptorNode.get().toSourceCode().strip();
+        } else if (!resourcePaths.isEmpty()) {
+            entryPointName = getPathString(resourcePaths);
+        } else if (firstExpression != null) {
+            entryPointName = firstExpression.toSourceCode().strip();
+        } else {
+            entryPointName = "";
         }
 
         // Generate the service path
-        String entryPointName = serviceDeclarationNode.typeDescriptor()
-                .map(descriptorNode -> descriptorNode.toSourceCode().strip())
-                .orElse(getPathString(serviceDeclarationNode.absoluteResourcePath()));
         serviceBuilder
                 .name(entryPointName)
                 .type(Artifact.Type.SERVICE);
