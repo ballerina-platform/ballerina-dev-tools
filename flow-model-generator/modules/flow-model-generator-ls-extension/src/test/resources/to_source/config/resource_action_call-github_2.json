@@ -76,7 +76,7 @@
         },
         "typeMembers": []
       },
-      "type_": {
+      "$type": {
         "metadata": {
           "label": "type",
           "description": "Specifies the types of repositories you want returned."

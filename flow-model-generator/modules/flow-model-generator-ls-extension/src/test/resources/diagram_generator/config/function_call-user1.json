@@ -84,7 +84,7 @@
             "advanced": false,
             "hidden": false
           },
-          "name_": {
+          "$name": {
             "metadata": {
               "label": "name"
             },
