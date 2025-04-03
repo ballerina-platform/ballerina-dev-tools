@@ -38,7 +38,7 @@
           "description": "Type of the return value"
         },
         "valueType": "TYPE",
-        "valueTypeConstraint": "anydata",
+        "valueTypeConstraint": "json",
         "value": "",
         "optional": false,
         "editable": true,
@@ -64,7 +64,7 @@
                 "description": "Type of the parameter"
               },
               "valueType": "TYPE",
-              "valueTypeConstraint": "anydata",
+              "valueTypeConstraint": "json",
               "value": "",
               "optional": false,
               "editable": true,
