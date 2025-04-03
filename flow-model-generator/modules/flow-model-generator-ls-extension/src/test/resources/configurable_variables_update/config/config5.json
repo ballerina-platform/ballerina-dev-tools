@@ -5,7 +5,8 @@
       "label": "Config variables"
     },
     "codedata": {
-      "node": "ASSIGN"
+      "node": "ASSIGN",
+      "isNew": true
     },
     "properties": {
       "type": {
@@ -58,3 +59,4 @@
     ]
   }
 }
+

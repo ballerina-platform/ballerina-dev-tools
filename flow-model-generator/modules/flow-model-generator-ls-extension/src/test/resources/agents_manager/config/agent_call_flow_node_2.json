@@ -17,7 +17,7 @@
         "metadata": {
           "label": "run",
           "description": "Executes the agent for a given user query.\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.9.2.png",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai_1.0.0.png",
           "data": {
             "tools": [
               {
@@ -46,17 +46,17 @@
             "model": {
               "name": "myModel",
               "path": "https://bcentral-packageicons.azureedge.net/images/agent_agent_0.1.0.png",
-              "type": "AzureOpenAiModel"
+              "type": "AzureOpenAiProvider"
             }
           }
         },
         "codedata": {
           "node": "AGENT_CALL",
           "org": "ballerinax",
-          "module": "ai.agent",
+          "module": "ai",
           "object": "Agent",
           "symbol": "run",
-          "version": "0.9.2",
+          "version": "1.0.0",
           "lineRange": {
             "fileName": "agents.bal",
             "startLine": {
@@ -110,9 +110,9 @@
               }
             ]
           },
-          "memoryId": {
+          "sessionId": {
             "metadata": {
-              "label": "Memory ID",
+              "label": "Session ID",
               "description": "The ID associated with the agent memory"
             },
             "valueType": "EXPRESSION",
@@ -124,7 +124,7 @@
             "hidden": false,
             "codedata": {
               "kind": "DEFAULTABLE",
-              "originalName": "memoryId"
+              "originalName": "sessionId"
             },
             "typeMembers": [
               {
@@ -196,12 +196,12 @@
         "metadata": {
           "label": "Agent",
           "description": "Represents an agent.",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.9.2.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai_1.0.0.png"
         },
         "codedata": {
           "node": "AGENT",
           "org": "ballerinax",
-          "module": "ai.agent",
+          "module": "ai",
           "object": "Agent",
           "symbol": "init",
           "lineRange": {
@@ -215,7 +215,7 @@
               "offset": 2
             }
           },
-          "sourceCode": "// final MockLlm model = new;\nfinal agent:Agent agent = check new (model = myModel,\n    systemPrompt = {role: \"Math tutor\", instructions: \"Help the students with their questions.\"},\n    tools = [set, sum, mutiply], agentType = agent:REACT_AGENT, memoryManager = def\n);"
+          "sourceCode": "// final MockLlm model = new;\nfinal ai:Agent agent = check new (model = myModel,\n    systemPrompt = {role: \"Math tutor\", instructions: \"Help the students with their questions.\"},\n    tools = [set, sum, mutiply], agentType = ai:REACT_AGENT, memoryManager = def\n);"
         },
         "returning": false,
         "properties": {
@@ -225,7 +225,7 @@
               "description": "The model used by the agent"
             },
             "valueType": "EXPRESSION",
-            "valueTypeConstraint": "Model",
+            "valueTypeConstraint": "ai:ModelProvider",
             "value": "myModel",
             "placeholder": "object {}",
             "optional": false,
@@ -238,8 +238,8 @@
             },
             "typeMembers": [
               {
-                "type": "Model",
-                "packageInfo": "ballerinax:ai.agent:0.9.2",
+                "type": "ModelProvider",
+                "packageInfo": "ballerinax:ai:1.0.0",
                 "kind": "OBJECT_TYPE",
                 "selected": false
               }
@@ -251,7 +251,7 @@
               "description": "The system prompt assigned to the agent"
             },
             "valueType": "EXPRESSION",
-            "valueTypeConstraint": "SystemPrompt",
+            "valueTypeConstraint": "ai:SystemPrompt",
             "value": "{role: \"Math tutor\", instructions: \"Help the students with their questions.\"}",
             "placeholder": "{role: \"\", instructions: \"\"}",
             "optional": false,
@@ -265,9 +265,9 @@
             "typeMembers": [
               {
                 "type": "SystemPrompt",
-                "packageInfo": "ballerinax:ai.agent:0.9.2",
+                "packageInfo": "ballerinax:ai:1.0.0",
                 "kind": "RECORD_TYPE",
-                "selected": false
+                "selected": true
               }
             ]
           },
@@ -277,8 +277,8 @@
               "description": "Type of the agent"
             },
             "valueType": "EXPRESSION",
-            "valueTypeConstraint": "AgentType",
-            "value": "agent:REACT_AGENT",
+            "valueTypeConstraint": "ai:AgentType",
+            "value": "ai:REACT_AGENT",
             "placeholder": "\"FUNCTION_CALL_AGENT\"",
             "optional": true,
             "editable": true,
@@ -291,7 +291,7 @@
             "typeMembers": [
               {
                 "type": "AgentType",
-                "packageInfo": "ballerinax:ai.agent:0.9.2",
+                "packageInfo": "ballerinax:ai:1.0.0",
                 "kind": "BASIC_TYPE",
                 "selected": false
               }
@@ -303,7 +303,7 @@
               "description": "The tools available for the agent"
             },
             "valueType": "EXPRESSION",
-            "valueTypeConstraint": "(BaseToolKit|ToolConfig|FunctionTool)[]",
+            "valueTypeConstraint": "(ai:BaseToolKit|ai:ToolConfig|ai:FunctionTool)[]",
             "value": "[set, sum, mutiply]",
             "placeholder": "[]",
             "optional": true,
@@ -316,7 +316,7 @@
             },
             "typeMembers": [
               {
-                "type": "BaseToolKit|agent",
+                "type": "BaseToolKit|ai",
                 "packageInfo": "",
                 "kind": "ARRAY_TYPE",
                 "selected": false
@@ -329,9 +329,9 @@
               "description": "The memory manager used by the agent to store and manage conversation history"
             },
             "valueType": "EXPRESSION",
-            "valueTypeConstraint": "MemoryManager",
+            "valueTypeConstraint": "ai:MemoryManager|()",
             "value": "def\n",
-            "placeholder": "object {}",
+            "placeholder": "()",
             "optional": true,
             "editable": true,
             "advanced": true,
@@ -343,8 +343,14 @@
             "typeMembers": [
               {
                 "type": "MemoryManager",
-                "packageInfo": "ballerinax:ai.agent:0.9.2",
+                "packageInfo": "ballerinax:ai:1.0.0",
                 "kind": "OBJECT_TYPE",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
                 "selected": false
               }
             ]
@@ -439,11 +445,11 @@
                 "fileName": "agents.bal",
                 "startLine": {
                   "line": 80,
-                  "offset": 18
+                  "offset": 15
                 },
                 "endLine": {
                   "line": 80,
-                  "offset": 23
+                  "offset": 20
                 }
               }
             }
@@ -454,7 +460,7 @@
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
-            "value": "Agent",
+            "value": "ai:Agent",
             "placeholder": "var",
             "optional": false,
             "editable": true,
@@ -1824,17 +1830,17 @@
         "flags": 1
       },
       {
-        "id": "104260",
+        "id": "104250",
         "metadata": {
           "label": "Class",
-          "description": "AzureOpenAiModel is a client class that provides an interface for interacting with Azure-hosted OpenAI language models.",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.9.2.png"
+          "description": "AzureOpenAiProvider is a client class that provides an interface for interacting with Azure-hosted OpenAI language models.",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai_1.0.0.png"
         },
         "codedata": {
           "node": "CLASS_INIT",
           "org": "ballerinax",
-          "module": "ai.agent",
-          "object": "AzureOpenAiModel",
+          "module": "ai",
+          "object": "AzureOpenAiProvider",
           "symbol": "init",
           "lineRange": {
             "fileName": "agents.bal",
@@ -1844,10 +1850,10 @@
             },
             "endLine": {
               "line": 73,
-              "offset": 100
+              "offset": 90
             }
           },
-          "sourceCode": "agent:AzureOpenAiModel myModel = check new ({auth: {apiKey}}, serviceUrl, deploymentId, apiVersion);"
+          "sourceCode": "ai:AzureOpenAiProvider myModel = check new (serviceUrl, apiKey, deploymentId, apiVersion);"
         },
         "returning": false,
         "properties": {
@@ -1858,21 +1864,12 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "string",
-            "value": "{auth: {apiKey}}",
+            "value": "serviceUrl",
             "placeholder": "\"\"",
             "optional": false,
             "editable": true,
             "advanced": false,
             "hidden": false,
-            "diagnostics": {
-              "hasDiagnostics": true,
-              "diagnostics": [
-                {
-                  "severity": "ERROR",
-                  "message": "a type compatible with mapping constructor expressions not found in type 'string'"
-                }
-              ]
-            },
             "codedata": {
               "kind": "REQUIRED",
               "originalName": "serviceUrl"
@@ -1882,7 +1879,7 @@
                 "type": "string",
                 "packageInfo": "",
                 "kind": "BASIC_TYPE",
-                "selected": false
+                "selected": true
               }
             ]
           },
@@ -1893,7 +1890,7 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "string",
-            "value": "serviceUrl",
+            "value": "apiKey",
             "placeholder": "\"\"",
             "optional": false,
             "editable": true,
@@ -2430,7 +2427,7 @@
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
-            "value": "AzureOpenAiModel",
+            "value": "ai:AzureOpenAiProvider",
             "placeholder": "var",
             "optional": false,
             "editable": true,
@@ -2438,9 +2435,6 @@
             "hidden": false,
             "codedata": {}
           }
-        },
-        "diagnostics": {
-          "hasDiagnostics": true
         },
         "flags": 1
       }

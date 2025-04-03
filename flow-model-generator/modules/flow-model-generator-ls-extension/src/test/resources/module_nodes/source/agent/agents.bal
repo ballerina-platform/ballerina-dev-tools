@@ -1,14 +1,14 @@
 import ballerina/io;
 import ballerina/lang.regexp;
-import ballerinax/ai.agent;
+import ballerinax/ai;
 
 configurable string apiKey = ?;
 configurable string deploymentId = ?;
 configurable string apiVersion = ?;
 configurable string serviceUrl = ?;
 
-final agent:Model model = check new agent:AzureOpenAiModel({auth: {apiKey}}, serviceUrl, deploymentId, apiVersion);
-final agent:Agent agent = check new (
+final ai:ModelProvider model = check new ai:AzureOpenAiProvider(serviceUrl, apiKey, deploymentId, apiVersion);
+final ai:Agent agent = check new (
     systemPrompt = {
         role: "Telegram Assistant",
         instructions: "Assist the users with their requests, whether it's for information, " +
@@ -16,5 +16,5 @@ final agent:Agent agent = check new (
     },
     model = model,
     tools = [sum, multiply],
-    memory = new agent:MessageWindowChatMemory(10) // Available by default
+    memoryManager = new ai:DefaultMessageWindowChatMemoryManager(10) // Available by default
 );

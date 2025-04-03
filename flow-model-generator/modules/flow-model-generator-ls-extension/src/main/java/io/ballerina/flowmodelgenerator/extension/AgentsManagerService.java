@@ -54,7 +54,7 @@ import java.util.concurrent.CompletableFuture;
 public class AgentsManagerService implements ExtendedLanguageServerService {
     private WorkspaceManager workspaceManager;
     private static final String BALLERINAX = "ballerinax";
-    private static final String AI_AGENT = "ai.agent";
+    private static final String AI_AGENT = "ai";
 
     @Override
     public void init(LanguageServer langServer, WorkspaceManager workspaceManager) {

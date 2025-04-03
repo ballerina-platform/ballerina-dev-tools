@@ -15,7 +15,7 @@
 // under the License.
 
 import ballerina/lang.regexp;
-import ballerinax/ai.agent;
+import ballerinax/ai;
 
 isolated function getNumbers(string prompt) returns string[] {
     regexp:Span[] spans = re `-?\d+\.?\d*`.findAll(prompt);
@@ -50,7 +50,7 @@ type MockLlmToolCall record {|
     json action_input;
 |};
 
-@agent:Tool
+@ai:AgentTool
 isolated function sum(decimal[] numbers) returns string {
     decimal total = 0;
     foreach decimal number in numbers {
@@ -59,7 +59,7 @@ isolated function sum(decimal[] numbers) returns string {
     return string `Answer is: ${total}`;
 }
 
-@agent:Tool
+@ai:AgentTool
 isolated function mutiply(int a, int b) returns string {
     return string `Answer is: ${a * b}`;
 }
@@ -70,17 +70,17 @@ configurable string apiVersion = "2023-08-01-preview";
 configurable string serviceUrl = "https://bal-rnd.openai.azure.com/openai";
 configurable string apiKey = ?;
 
-agent:DefaultMessageWindowChatMemoryManager def = new ();
-agent:AzureOpenAiModel myModel = check new ({auth: {apiKey}}, serviceUrl, deploymentId, apiVersion);
+ai:DefaultMessageWindowChatMemoryManager def = new ();
+ai:AzureOpenAiProvider myModel = check new (serviceUrl, apiKey, deploymentId, apiVersion);
 
-isolated function getChatAssistantMessage(string content) returns agent:ChatAssistantMessage {
-    return {role: agent:ASSISTANT, content};
+isolated function getChatAssistantMessage(string content) returns ai:ChatAssistantMessage {
+    return {role: ai:ASSISTANT, content};
 }
 
 // final MockLlm model = new;
-final agent:Agent agent = check new (model = myModel,
+final ai:Agent agent = check new (model = myModel,
     systemPrompt = {role: "Math tutor", instructions: "Help the students with their questions."},
-    tools = [set, sum, mutiply], agentType = agent:REACT_AGENT, memoryManager = def
+    tools = [set, sum, mutiply], agentType = ai:REACT_AGENT, memoryManager = def
 );
 
 public function main() returns error? {
@@ -91,7 +91,7 @@ public function main() returns error? {
 # The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.
 # + path - Request path
 # + headers - The entity headers
-@agent:Tool
+@ai:AgentTool
 @display {
     iconPath: "/path/icon.png"
 }

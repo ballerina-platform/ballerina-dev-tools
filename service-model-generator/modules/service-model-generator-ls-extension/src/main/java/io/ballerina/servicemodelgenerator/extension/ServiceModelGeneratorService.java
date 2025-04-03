@@ -125,28 +125,30 @@ import static io.ballerina.servicemodelgenerator.extension.ServiceModelGenerator
 import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.NEW_LINE;
 import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.NEW_LINE_WITH_TAB;
 import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.TWO_NEW_LINES;
+import static io.ballerina.servicemodelgenerator.extension.util.HttpUtil.updateHttpServiceContractModel;
+import static io.ballerina.servicemodelgenerator.extension.util.HttpUtil.updateHttpServiceModel;
 import static io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtils.getProtocol;
-import static io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtils.updateFunctionList;
+import static io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtils.populateRequiredFunctionsForServiceType;
 import static io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtils.updateGenericServiceModel;
 import static io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtils.updateListenerItems;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.FunctionAddContext.RESOURCE_ADD;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.FunctionAddContext.TCP_SERVICE_ADD;
-import static io.ballerina.servicemodelgenerator.extension.util.Utils.FunctionBodyKind.DO_BLOCK;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.FunctionSignatureContext.FUNCTION_ADD;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.FunctionSignatureContext.FUNCTION_UPDATE;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.FunctionSignatureContext.HTTP_RESOURCE_ADD;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.addServiceAnnotationTextEdits;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.expectsTriggerByName;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.filterTriggers;
-import static io.ballerina.servicemodelgenerator.extension.util.Utils.getFunction;
-import static io.ballerina.servicemodelgenerator.extension.util.Utils.getFunctionSignature;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.generateFunctionDefSource;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.generateFunctionSignatureSource;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.getHttpServiceContractSym;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.getImportStmt;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.getListenerExpression;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.getPath;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.getServiceDeclarationNode;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.importExists;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.isAiAgentModule;
-import static io.ballerina.servicemodelgenerator.extension.util.Utils.getHttpServiceContractSym;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.populateRequiredFuncsDesignApproachAndServiceType;
-import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateServiceContractModel;
-import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateHttpServiceModel;
 
 /**
  * Represents the extended language server service for the trigger model generator service.
@@ -415,7 +417,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                     service.getProperties().put("returningServiceClass", Value.getTcpValue(serviceName));
                 }
 
-                updateFunctionList(service);
+                populateRequiredFunctionsForServiceType(service);
                 String serviceDeclaration = getServiceDeclarationNode(service, context);
                 edits.add(new TextEdit(Utils.toRange(lineRange.endLine()), NEW_LINE + serviceDeclaration));
 
@@ -490,8 +492,9 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 }
                 ServiceDeclarationNode serviceNode = (ServiceDeclarationNode) node;
                 List<String> newStatusCodeTypesDef = new ArrayList<>();
-                String functionDefinition = NEW_LINE_WITH_TAB + getFunction(request.function(), newStatusCodeTypesDef,
-                        DO_BLOCK, RESOURCE_ADD).replace(NEW_LINE, NEW_LINE_WITH_TAB) + NEW_LINE;
+                String functionDefinition = NEW_LINE_WITH_TAB + generateFunctionDefSource(request.function(),
+                        newStatusCodeTypesDef, RESOURCE_ADD, HTTP_RESOURCE_ADD)
+                        .replace(NEW_LINE, NEW_LINE_WITH_TAB) + NEW_LINE;
 
                 List<TextEdit> textEdits = new ArrayList<>();
                 LineRange serviceEnd = serviceNode.closeBraceToken().lineRange();
@@ -567,7 +570,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                                     .findFirst();
                             if (serviceContractType.isPresent()) {
                                 serviceContractExists = true;
-                                updateServiceContractModel(serviceModel, serviceContractType.get(), serviceNode,
+                                updateHttpServiceContractModel(serviceModel, serviceContractType.get(), serviceNode,
                                         semanticModel);
                             }
                         }
@@ -694,8 +697,8 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 if (!members.isEmpty()) {
                     functionLineRange = members.get(members.size() - 1).lineRange();
                 }
-                String functionNode = NEW_LINE_WITH_TAB + getFunction(request.function(), List.of(), DO_BLOCK,
-                        Utils.FunctionAddContext.FUNCTION_ADD).replace(NEW_LINE, NEW_LINE_WITH_TAB);
+                String functionNode = NEW_LINE_WITH_TAB + generateFunctionDefSource(request.function(), List.of(),
+                        Utils.FunctionAddContext.FUNCTION_ADD, FUNCTION_ADD).replace(NEW_LINE, NEW_LINE_WITH_TAB);
                 edits.add(new TextEdit(Utils.toRange(functionLineRange.endLine()), functionNode));
                 return new CommonSourceResponse(Map.of(request.filePath(), edits));
             } catch (Throwable e) {
@@ -759,7 +762,8 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
 
                 LineRange signatureRange = functionDefinitionNode.functionSignature().lineRange();
                 List<String> newStatusCodeTypesDef = new ArrayList<>();
-                String functionSignature = getFunctionSignature(function, newStatusCodeTypesDef, false);
+                String functionSignature = generateFunctionSignatureSource(function, newStatusCodeTypesDef,
+                        FUNCTION_UPDATE);
                 edits.add(new TextEdit(Utils.toRange(signatureRange), functionSignature));
 
                 if (!newStatusCodeTypesDef.isEmpty() && parentNode instanceof ServiceDeclarationNode serviceNode) {

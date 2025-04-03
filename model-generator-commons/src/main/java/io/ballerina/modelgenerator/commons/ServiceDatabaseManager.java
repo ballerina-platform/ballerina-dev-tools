@@ -340,6 +340,7 @@ public class ServiceDatabaseManager {
                 "f.accessor, " +
                 "f.kind, " +
                 "f.return_type, " +
+                "f.return_error, " +
                 "f.return_type_editable, " +
                 "f.import_statements, " +
                 "f.enable " +
@@ -364,6 +365,7 @@ public class ServiceDatabaseManager {
                         rs.getString("accessor"),
                         rs.getString("kind"),
                         rs.getString("return_type"),
+                        rs.getInt("return_error"),
                         rs.getInt("return_type_editable"),
                         rs.getString("import_statements"),
                         rs.getInt("enable"),

@@ -5,10 +5,10 @@
     {
       "node": "AGENT",
       "org": "ballerinax",
-      "module": "ai.agent",
+      "module": "ai",
       "object": "Agent",
       "symbol": "init",
-      "version": "0.9.1"
+      "version": "1.0.0"
     }
   ]
 }

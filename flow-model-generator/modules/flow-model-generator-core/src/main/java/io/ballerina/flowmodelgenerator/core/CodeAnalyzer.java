@@ -27,8 +27,11 @@ import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
 import io.ballerina.compiler.api.symbols.MethodSymbol;
 import io.ballerina.compiler.api.symbols.ModuleSymbol;
+import io.ballerina.compiler.api.symbols.ParameterKind;
 import io.ballerina.compiler.api.symbols.ParameterSymbol;
 import io.ballerina.compiler.api.symbols.Qualifier;
+import io.ballerina.compiler.api.symbols.RecordFieldSymbol;
+import io.ballerina.compiler.api.symbols.RecordTypeSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
@@ -198,7 +201,7 @@ class CodeAnalyzer extends NodeVisitor {
     private final Stack<NodeBuilder> flowNodeBuilderStack;
     private TypedBindingPatternNode typedBindingPatternNode;
     private static final String BALLERINAX = "ballerinax";
-    private static final String AI_AGENT = "ai.agent";
+    private static final String AI_AGENT = "ai";
 
     public CodeAnalyzer(Project project, SemanticModel semanticModel, String connectionScope,
                         Map<String, LineRange> dataMappings, TextDocument textDocument, ModuleInfo moduleInfo,
@@ -416,9 +419,13 @@ class CodeAnalyzer extends NodeVisitor {
                     nodeBuilder.metadata().addData("agent", agentData);
                 }
 
-                if (memoryManager != null && memoryManager.kind() == SyntaxKind.SIMPLE_NAME_REFERENCE) {
+                if (memoryManager == null) {
+                    String defaultMemoryManagerName = getDefaultMemoryManagerName(classSymbol.get());
                     nodeBuilder.metadata().addData("memoryManager",
-                            new MemoryManagerData(((SimpleNameReferenceNode) memoryManager).name().text().trim()));
+                            new MemoryManagerData("", defaultMemoryManagerName));
+                } else if (memoryManager.kind() == SyntaxKind.SIMPLE_NAME_REFERENCE) {
+                    nodeBuilder.metadata().addData("memoryManager",
+                            new MemoryManagerData(((SimpleNameReferenceNode) memoryManager).name().text().trim(), ""));
                 }
 
                 ModelData modelUrl = getModelIconUrl(modelArg);
@@ -428,6 +435,39 @@ class CodeAnalyzer extends NodeVisitor {
                 break;
             }
         }
+    }
+
+    private String getDefaultMemoryManagerName(ClassSymbol classSymbol) {
+        Optional<MethodSymbol> initMethodSymbol = classSymbol.initMethod();
+        if (initMethodSymbol.isEmpty()) {
+            return "";
+        }
+        Optional<List<ParameterSymbol>> optParams = initMethodSymbol.get().typeDescriptor().params();
+        if (optParams.isEmpty()) {
+            return "";
+        }
+        for (ParameterSymbol param : optParams.get()) {
+            ParameterKind paramKind = param.paramKind();
+            if (paramKind == ParameterKind.INCLUDED_RECORD) {
+                TypeSymbol rawType = CommonUtils.getRawType(param.typeDescriptor());
+                if (rawType.typeKind() != TypeDescKind.RECORD) {
+                    break;
+                }
+                RecordFieldSymbol recordFieldSymbol =
+                        ((RecordTypeSymbol) rawType).fieldDescriptors().get("memoryManager");
+                if (recordFieldSymbol == null) {
+                    break;
+                }
+                if (recordFieldSymbol.hasDefaultValue()) {
+                    Optional<String> optName = recordFieldSymbol.typeDescriptor().getName();
+                    if (optName.isEmpty()) {
+                        break;
+                    }
+                    return optName.get();
+                }
+            }
+        }
+        return "";
     }
 
     @Override
@@ -1157,13 +1197,13 @@ class CodeAnalyzer extends NodeVisitor {
         }
         switch (name) {
             case OPEN_AI_MODEL ->
-                    setAIModelType(OPEN_AI_MODEL_TYPES, OPEN_AI_MODEL_DESC, "agent:OPEN_AI_MODEL_NAMES",
+                    setAIModelType(OPEN_AI_MODEL_TYPES, OPEN_AI_MODEL_DESC, "ai:OPEN_AI_MODEL_NAMES",
                             "\"gpt-3.5-turbo-16k-0613\"");
             case ANTHROPIC_MODEL ->
-                    setAIModelType(ANTHROPIC_MODEL_TYPES, ANTHROPIC_MODEL_DESC, "agent:ANTHROPIC_MODEL_NAMES",
+                    setAIModelType(ANTHROPIC_MODEL_TYPES, ANTHROPIC_MODEL_DESC, "ai:ANTHROPIC_MODEL_NAMES",
                             "\"claude-3-haiku-20240307\"");
             case MISTRAL_AI_MODEL ->
-                    setAIModelType(MISTRAL_AI_MODEL_TYPES, MISTRAL_AI_MODEL_DESC, "agent:MISTRAL_AI_MODEL_NAMES",
+                    setAIModelType(MISTRAL_AI_MODEL_TYPES, MISTRAL_AI_MODEL_DESC, "ai:MISTRAL_AI_MODEL_NAMES",
                             "\"mistral-large-latest\"");
             default -> {
                 return;
@@ -1593,7 +1633,7 @@ class CodeAnalyzer extends NodeVisitor {
             Optional<String> optName = typeSymbol.getName();
             if (optName.isPresent()) {
                 String name = optName.get();
-                if (name.equals("Model") || name.equals("MemoryManager")) {
+                if (name.equals("ModelProvider") || name.equals("MemoryManager")) {
                     return true;
                 }
             }
@@ -2176,7 +2216,7 @@ class CodeAnalyzer extends NodeVisitor {
     }
 
     // TODO: Update data based on requirements
-    private record MemoryManagerData(String name) {
+    private record MemoryManagerData(String name, String type) {
 
     }
 }

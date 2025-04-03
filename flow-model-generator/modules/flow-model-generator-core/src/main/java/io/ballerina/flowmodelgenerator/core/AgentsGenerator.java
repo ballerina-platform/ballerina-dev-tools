@@ -86,14 +86,14 @@ import java.util.Set;
  */
 public class AgentsGenerator {
 
-    public static final String MODEL = "Model";
+    public static final String MODEL = "ModelProvider";
+    public static final String TOOL_ANNOTATION = "AgentTool";
     public static final String MEMORY_MANAGER = "MemoryManager";
-    public static final String TOOL_ANNOTATION = "Tool";
     public static final String TARGET_TYPE = "targetType";
     private final Gson gson;
     private final SemanticModel semanticModel;
     private static final String BALLERINAX = "ballerinax";
-    private static final String AI_AGENT = "ai.agent";
+    private static final String AI_AGENT = "ai";
     private static final String INIT = "init";
     private static final String AGENT_FILE = "agents.bal";
     public static final String AGENT = "Agent";
@@ -283,7 +283,7 @@ public class AgentsGenerator {
         String path = flowNode.metadata().icon();
         if (nodeKind == NodeKind.FUNCTION_DEFINITION) {
             sourceBuilder.token()
-                    .name("@agent:Tool").
+                    .name("@ai:AgentTool").
                     name(System.lineSeparator());
             sourceBuilder.token()
                     .name("@display {")
@@ -392,7 +392,7 @@ public class AgentsGenerator {
             }
 
             sourceBuilder.token()
-                    .name("@agent:Tool").
+                    .name("@ai:AgentTool").
                     name(System.lineSeparator());
             sourceBuilder.token()
                     .name("@display {")
@@ -465,7 +465,7 @@ public class AgentsGenerator {
             }
 
             sourceBuilder.token()
-                    .name("@agent:Tool")
+                    .name("@ai:AgentTool")
                     .name(System.lineSeparator());
             sourceBuilder.token()
                     .name("@display {")
@@ -718,12 +718,12 @@ public class AgentsGenerator {
 
             for (AnnotationAttachmentSymbol annotAttachment : functionSymbol.annotAttachments()) {
                 AnnotationSymbol annotationSymbol = annotAttachment.typeDescriptor();
-                if (!annotationSymbol.getName().orElseThrow().equals("Tool")) {
+                if (!annotationSymbol.getName().orElseThrow().equals("AgentTool")) {
                     continue;
                 }
                 Location location = annotAttachment.getLocation().orElseThrow();
                 textEdits.add(new TextEdit(CommonUtils.toRange(location.lineRange()),
-                        "@agent:Tool {description: \"" + description + "\"}" + System.lineSeparator()));
+                        "@ai:AgentTool {description: \"" + description + "\"}" + System.lineSeparator()));
                 break;
             }
             textEditsMap.put(projectPath.resolve(functionSymbol.getLocation().orElseThrow().lineRange().fileName()),

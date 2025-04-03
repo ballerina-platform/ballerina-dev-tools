@@ -28,6 +28,8 @@ import io.ballerina.servicemodelgenerator.extension.response.ServiceFromSourceRe
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.io.BufferedReader;
@@ -104,5 +106,15 @@ public class GetServiceModelFromSourceTest extends AbstractLSTest {
         public String description() {
             return description == null ? "" : description;
         }
+    }
+
+    @AfterMethod
+    public void shutDownLanguageServer() {
+        super.shutDownLanguageServer();
+    }
+
+    @BeforeMethod
+    public void startLanguageServer() {
+        super.startLanguageServer();
     }
 }

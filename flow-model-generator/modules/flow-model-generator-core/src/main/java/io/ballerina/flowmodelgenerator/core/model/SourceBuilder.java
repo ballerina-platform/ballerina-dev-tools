@@ -19,8 +19,10 @@
 package io.ballerina.flowmodelgenerator.core.model;
 
 import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.api.symbols.SymbolKind;
-import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
+import io.ballerina.compiler.api.symbols.RecordTypeSymbol;
+import io.ballerina.compiler.api.symbols.TypeDescKind;
+import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
+import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.IdentifierToken;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.Node;
@@ -29,6 +31,7 @@ import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.flowmodelgenerator.core.utils.FileSystemUtils;
 import io.ballerina.modelgenerator.commons.CommonUtils;
+import io.ballerina.modelgenerator.commons.DefaultValueGeneratorUtil;
 import io.ballerina.modelgenerator.commons.ParameterData;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Module;
@@ -38,6 +41,7 @@ import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.formatter.core.FormattingTreeModifier;
 import org.ballerinalang.formatter.core.options.FormattingOptions;
 import org.ballerinalang.langserver.common.utils.CommonUtil;
+import org.ballerinalang.langserver.common.utils.RecordUtil;
 import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
@@ -261,18 +265,33 @@ public class SourceBuilder {
         return this;
     }
 
-    public Optional<TypeDefinitionSymbol> getTypeDefinitionSymbol(String typeName) {
+    public Optional<String> getExpressionBodyText(String typeName) {
         try {
             workspaceManager.loadProject(filePath);
         } catch (WorkspaceDocumentException | EventSyncException e) {
             throw new RuntimeException(e);
         }
         SemanticModel semanticModel = FileSystemUtils.getSemanticModel(workspaceManager, filePath);
-        return semanticModel.moduleSymbols().stream()
-                .filter(symbol -> symbol.kind() == SymbolKind.TYPE_DEFINITION && symbol.getName().isPresent() &&
-                        symbol.getName().get().equals(typeName))
-                .map(symbol -> (TypeDefinitionSymbol) symbol)
-                .findFirst();
+        Optional<TypeSymbol> optionalType = semanticModel.types().getType(typeName);
+        if (optionalType.isEmpty()) {
+            return Optional.empty();
+        }
+        TypeSymbol typeSymbol = optionalType.get();
+
+        if (typeSymbol.typeKind() == TypeDescKind.TYPE_REFERENCE) {
+            TypeReferenceTypeSymbol typeDefinitionSymbol = (TypeReferenceTypeSymbol) typeSymbol;
+            typeSymbol = typeDefinitionSymbol.typeDescriptor();
+        }
+
+        String bodyText;
+        if (typeSymbol.typeKind() == TypeDescKind.RECORD) {
+            String recordFields =
+                    RecordUtil.getFillAllRecordFieldInsertText(((RecordTypeSymbol) typeSymbol).fieldDescriptors());
+            bodyText = String.format("{%n%s%n}", recordFields);
+        } else {
+            bodyText = DefaultValueGeneratorUtil.getDefaultValueForType(typeSymbol);
+        }
+        return Optional.of(bodyText);
     }
 
     public SourceBuilder typedBindingPattern() {

@@ -26,6 +26,21 @@ import java.util.Comparator;
 import java.util.Locale;
 import java.util.Objects;
 
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.ARGUMENT_DEFAULT_VALUE_METADATA;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.ARGUMENT_NAME_METADATA;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.ARGUMENT_TYPE_METADATA;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.FIELD_DEFAULT_VALUE_METADATA;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.FIELD_NAME_METADATA;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.FIELD_TYPE_METADATA;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.PARAMETER_DEFAULT_VALUE_METADATA;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.PARAMETER_NAME_METADATA;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.PARAMETER_TYPE_METADATA;
+
+/**
+ * Represents a parameter in service method.
+ *
+ * @since 2.0.0
+ */
 public class Parameter {
     private MetaData metadata;
     private String kind;
@@ -37,10 +52,6 @@ public class Parameter {
     private boolean optional;
     private boolean advanced;
     private String httpParamType;
-
-    public Parameter() {
-        this(null, null, null, null, null, false, false, false, false, null);
-    }
 
     public Parameter(MetaData metadata, String kind, Value type, Value name, Value defaultValue, boolean enabled,
                      boolean editable, boolean optional, boolean advanced, String httpParamType) {
@@ -67,14 +78,6 @@ public class Parameter {
         this.optional = parameter.optional;
         this.advanced = parameter.advanced;
         this.httpParamType = parameter.httpParamType;
-    }
-
-    public static Parameter getNewField() {
-        return new Parameter(null, null,
-                new Value(ServiceModelGeneratorConstants.FIELD_TYPE_METADATA),
-                new Value(ServiceModelGeneratorConstants.FIELD_NAME_METADATA),
-                new Value(ServiceModelGeneratorConstants.FIELD_DEFAULT_VALUE_METADATA),
-                false, false, false, false, null);
     }
 
     public MetaData getMetadata() {
@@ -160,33 +163,65 @@ public class Parameter {
         this.httpParamType = httpParamType;
     }
 
+    private static Value name(MetaData metadata) {
+        return new Value.ValueBuilder()
+                .setMetadata(metadata)
+                .valueType(ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER)
+                .enabled(true)
+                .editable(true)
+                .build();
+    }
+
+    private static Value type(MetaData metadata) {
+        return new Value.ValueBuilder()
+                .setMetadata(metadata)
+                .valueType(ServiceModelGeneratorConstants.VALUE_TYPE_TYPE)
+                .isType(true)
+                .enabled(true)
+                .editable(true)
+                .build();
+    }
+
+    private static Value defaultValue(MetaData metadata) {
+        return new Value.ValueBuilder()
+                .setMetadata(metadata)
+                .valueType(ServiceModelGeneratorConstants.VALUE_TYPE_EXPRESSION)
+                .enabled(true)
+                .editable(true)
+                .optional(true)
+                .build();
+    }
+
+    public static Parameter getNewField() {
+        return new Parameter.Builder()
+                .type(type(FIELD_TYPE_METADATA))
+                .name(name(FIELD_NAME_METADATA))
+                .defaultValue(defaultValue(FIELD_DEFAULT_VALUE_METADATA))
+                .build();
+    }
+
     public static Parameter graphQLParamSchema() {
-        return new Parameter(null, null,
-                new Value(ServiceModelGeneratorConstants.ARGUMENT_TYPE_METADATA,
-                        ServiceModelGeneratorConstants.VALUE_TYPE_TYPE, true, false),
-                new Value(ServiceModelGeneratorConstants.ARGUMENT_NAME_METADATA,
-                        ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER, true, false),
-                new Value(ServiceModelGeneratorConstants.ARGUMENT_DEFAULT_VALUE_METADATA,
-                        ServiceModelGeneratorConstants.VALUE_TYPE_EXPRESSION, true, true),
-                true, false, false, false, null);
+        return new Parameter.Builder()
+                .type(type(ARGUMENT_TYPE_METADATA))
+                .name(name(ARGUMENT_NAME_METADATA))
+                .defaultValue(defaultValue(ARGUMENT_DEFAULT_VALUE_METADATA))
+                .enabled(true)
+                .editable(true)
+                .build();
     }
 
     public static Parameter functionParamSchema() {
-        return new Parameter(null, null,
-                new Value(ServiceModelGeneratorConstants.PARAMETER_TYPE_METADATA,
-                        ServiceModelGeneratorConstants.VALUE_TYPE_TYPE, true, false),
-                new Value(ServiceModelGeneratorConstants.PARAMETER_NAME_METADATA,
-                        ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER, true, false),
-                new Value(ServiceModelGeneratorConstants.PARAMETER_DEFAULT_VALUE_METADATA,
-                        ServiceModelGeneratorConstants.VALUE_TYPE_EXPRESSION, true, true),
-                true, false, false, false, null);
+        return new Parameter.Builder()
+                .type(type(PARAMETER_TYPE_METADATA))
+                .name(name(PARAMETER_NAME_METADATA))
+                .defaultValue(defaultValue(PARAMETER_DEFAULT_VALUE_METADATA))
+                .enabled(true)
+                .editable(true)
+                .build();
     }
 
     public static Parameter getNewParameter(boolean isGraphQL) {
-        if (isGraphQL) {
-            return graphQLParamSchema();
-        }
-        return functionParamSchema();
+        return isGraphQL ? graphQLParamSchema() : functionParamSchema();
     }
 
     public static class RequiredParamSorter implements Comparator<Parameter>, Serializable {

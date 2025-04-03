@@ -288,6 +288,7 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
                     .stepOut()
                 .value(data)
                 .type(Property.ValueType.IDENTIFIER)
+                .typeConstraint(Property.GLOBAL_SCOPE)
                 .editable();
         addProperty(Property.VARIABLE_KEY);
         return this;
@@ -742,6 +743,7 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
                     .description(FunctionDefinitionBuilder.FUNCTION_NAME_DOC)
                     .stepOut()
                 .type(Property.ValueType.IDENTIFIER)
+                .typeConstraint(Property.GLOBAL_SCOPE)
                 .value(functionName);
 
         if (!functionName.equals(Constants.MAIN_FUNCTION_NAME)) {
@@ -768,6 +770,7 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
                     .stepOut()
                 .value(generatedName)
                 .type(Property.ValueType.IDENTIFIER)
+                .typeConstraint(Property.GLOBAL_SCOPE)
                 .editable();
         addProperty(Property.FUNCTION_NAME_KEY);
         return this;
