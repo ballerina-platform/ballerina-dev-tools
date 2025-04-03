@@ -1,0 +1,119 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "31",
+    "metadata": {
+      "label": "push",
+      "description": "Adds values to the end of an array.\n\n```ballerina\nint[] numbers = [2];\nnumbers.push(4, 6);\nnumbers ⇒ [2,4,6]\nint[] moreNumbers = [8, 10, 12, 14];\nnumbers.push(...moreNumbers);\nnumbers ⇒ [2,4,6,8,10,12,14]\n```\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.array_0.0.0.png"
+    },
+    "codedata": {
+      "node": "FUNCTION_CALL",
+      "org": "ballerina",
+      "module": "lang.array",
+      "symbol": "push",
+      "version": "0.0.0",
+      "isNew": true,
+      "lineRange": {
+        "fileName": "function_call.bal",
+        "startLine": {
+          "line": 22,
+          "offset": 8
+        },
+        "endLine": {
+          "line": 22,
+          "offset": 61
+        }
+      }
+    },
+    "returning": false,
+    "properties": {
+      "arr": {
+        "metadata": {
+          "label": "arr",
+          "description": "the array"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "(any|error)[]",
+        "placeholder": "[]",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "hidden": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "arr"
+        },
+        "typeMembers": [
+          {
+            "type": "Type",
+            "packageInfo": "ballerina:lang.array:0.0.0",
+            "kind": "ARRAY_TYPE",
+            "selected": false
+          }
+        ],
+        "value": "orders"
+      },
+      "vals": {
+        "metadata": {
+          "label": "vals",
+          "description": "values to add to the end of the array"
+        },
+        "valueType": "EXPRESSION_SET",
+        "valueTypeConstraint": "(any|error)",
+        "placeholder": "()",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "hidden": false,
+        "codedata": {
+          "kind": "REST_PARAMETER",
+          "originalName": "vals"
+        },
+        "typeMembers": [
+          {
+            "type": "Type",
+            "packageInfo": "ballerina:lang.array:0.0.0",
+            "kind": "ARRAY_TYPE",
+            "selected": false
+          }
+        ],
+        "value": [
+          "newOrder"
+        ]
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import ballerina/lang.array;"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 22,
+            "character": 8
+          },
+          "end": {
+            "line": 22,
+            "character": 61
+          }
+        },
+        "newText": "array:push(orders, newOrder);"
+      }
+    ]
+  }
+}
