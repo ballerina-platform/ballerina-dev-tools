@@ -19,12 +19,10 @@
 package io.ballerina.flowmodelgenerator.core.expressioneditor.services;
 
 import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.api.symbols.SymbolKind;
-import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
+import io.ballerina.compiler.api.Types;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeParser;
-import io.ballerina.flowmodelgenerator.core.TypesGenerator;
 import io.ballerina.flowmodelgenerator.core.expressioneditor.ExpressionEditorContext;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.projects.Document;
@@ -66,23 +64,10 @@ public class TypeDiagnosticRequest extends DiagnosticsRequest {
             return Set.of();
         }
         Set<Diagnostic> diagnostics = new HashSet<>();
-        TypesGenerator typesGenerator = TypesGenerator.getInstance();
-
-        // Get the builtin type symbol
-        Optional<TypeSymbol> typeSymbol =
-                typesGenerator.getTypeSymbol(semanticModel.get(), context.info().expression());
-
-        // Get the type definition symbol if it is not a builtin type
-        if (typeSymbol.isEmpty()) {
-            typeSymbol =
-                    semanticModel.get().visibleSymbols(document.get(), context.info().startLine()).parallelStream()
-                            .filter(symbol -> symbol.kind() == SymbolKind.TYPE_DEFINITION &&
-                                    symbol.nameEquals(context.info().expression()))
-                            .map(symbol -> ((TypeDefinitionSymbol) symbol).typeDescriptor())
-                            .findFirst();
-        }
 
         // Check for undefined types
+        Types types = semanticModel.get().types();
+        Optional<TypeSymbol> typeSymbol = types.getType(context.info().expression());
         if (typeSymbol.isEmpty()) {
             String message = String.format(UNDEFINED_TYPE, context.info().expression());
             diagnostics.add(CommonUtils.createDiagnostic(message, context.getExpressionLineRange(),
@@ -91,16 +76,14 @@ public class TypeDiagnosticRequest extends DiagnosticsRequest {
         }
 
         // Check if the type is a subtype of the type constraint
-        Object typeConstraint = context.getProperty().valueTypeConstraint();
+        String typeConstraint = context.getProperty().valueTypeConstraint();
         if (typeConstraint == null) {
             return diagnostics;
         }
-        String typeConstraintString = typeConstraint.toString();
-        Optional<TypeSymbol> typeConstraintTypeSymbol =
-                typesGenerator.getTypeSymbol(semanticModel.get(), typeConstraintString);
+        Optional<TypeSymbol> typeConstraintTypeSymbol = types.getType(typeConstraint);
         if (typeConstraintTypeSymbol.isPresent()) {
             if (!typeSymbol.get().subtypeOf(typeConstraintTypeSymbol.get())) {
-                String message = String.format(INVALID_SUBTYPE, typeConstraintString, context.info().expression());
+                String message = String.format(INVALID_SUBTYPE, typeConstraint, context.info().expression());
                 diagnostics.add(CommonUtils.createDiagnostic(message, context.getExpressionLineRange(),
                         "", DiagnosticSeverity.ERROR));
             }
