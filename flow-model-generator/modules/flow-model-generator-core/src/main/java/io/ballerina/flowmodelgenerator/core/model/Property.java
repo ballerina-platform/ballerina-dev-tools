@@ -27,6 +27,7 @@ import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.ParameterMemberTypeData;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Represents an expression in the flow model.

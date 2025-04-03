@@ -64,7 +64,7 @@ public class FlowNodeUtil {
      */
     public static String getPropertyKey(String key) {
         if (Property.RESERVED_PROPERTY_KEYS.contains(key)) {
-            return key + "_";
+            return "$" + key;
         }
         return key;
     }

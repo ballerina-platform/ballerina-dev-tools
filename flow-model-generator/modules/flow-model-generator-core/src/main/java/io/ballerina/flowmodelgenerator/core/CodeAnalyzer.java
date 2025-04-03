@@ -1015,7 +1015,7 @@ class CodeAnalyzer extends NodeVisitor {
                             .importStatements(includedRecordRest.importStatements())
                             .stepOut()
                         .stepOut()
-                        .addProperty(FlowNodeUtil.getPropertyKey("additionalValues"));
+                        .addProperty("additionalValues");
             }
             addRemainingParamsToPropertyMap(funcParamMap, hasOnlyRestParams);
         }
