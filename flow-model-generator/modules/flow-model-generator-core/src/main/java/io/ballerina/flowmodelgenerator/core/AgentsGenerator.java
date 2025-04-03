@@ -282,8 +282,10 @@ public class AgentsGenerator {
         List<String> args = new ArrayList<>();
         String path = flowNode.metadata().icon();
         if (nodeKind == NodeKind.FUNCTION_DEFINITION) {
+            if (description != null && !description.isEmpty()) {
+                sourceBuilder.token().descriptionDoc(description);
+            }
             sourceBuilder.token()
-                    .descriptionDoc(description)
                     .name("@ai:AgentTool")
                     .name(System.lineSeparator());
             sourceBuilder.token()
