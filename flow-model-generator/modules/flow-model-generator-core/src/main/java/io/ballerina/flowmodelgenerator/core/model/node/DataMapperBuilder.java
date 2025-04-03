@@ -20,11 +20,9 @@ package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ArrayTypeSymbol;
-import io.ballerina.compiler.api.symbols.RecordTypeSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
-import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
@@ -40,7 +38,6 @@ import io.ballerina.projects.Project;
 import io.ballerina.tools.diagnostics.Location;
 import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.langserver.common.utils.NameUtil;
-import org.ballerinalang.langserver.common.utils.RecordUtil;
 import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
@@ -216,17 +213,7 @@ public class DataMapperBuilder extends NodeBuilder {
             throw new IllegalStateException("Output must be defined for a data mapper node");
         }
 
-        String bodyText = "";
-        Optional<TypeDefinitionSymbol> recordSymbol =
-                sourceBuilder.getTypeDefinitionSymbol(output.get().value().toString());
-        if (recordSymbol.isPresent()) {
-            TypeSymbol typeSymbol = recordSymbol.get().typeDescriptor();
-            if (typeSymbol.typeKind() == TypeDescKind.RECORD) {
-                bodyText =
-                        RecordUtil.getFillAllRecordFieldInsertText(
-                                ((RecordTypeSymbol) typeSymbol).fieldDescriptors());
-            }
-        }
+        String bodyText = sourceBuilder.getExpressionBodyText(output.get().value().toString()).orElse("");
 
         sourceBuilder.token()
                 .keyword(SyntaxKind.FUNCTION_KEYWORD)

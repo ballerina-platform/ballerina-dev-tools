@@ -21,6 +21,7 @@
           "description": "Name of the function"
         },
         "valueType": "IDENTIFIER",
+        "valueTypeConstraint": "Global",
         "value": "main",
         "optional": false,
         "editable": false,
