@@ -335,8 +335,20 @@ public abstract class AbstractLSTest {
         return "flowDesignService";
     }
 
+    protected void startLanguageServer() {
+        if (this.serviceEndpoint != null && this.languageServer != null) {
+            return;
+        }
+        this.languageServer = new BallerinaLanguageServer();
+        TestUtil.LanguageServerBuilder builder = TestUtil.newLanguageServer().withLanguageServer(languageServer);
+        this.serviceEndpoint = builder.build();
+    }
+
     @AfterClass
     public void shutDownLanguageServer() {
+        if (this.serviceEndpoint == null) {
+            return;
+        }
         TestUtil.shutdownLanguageServer(this.serviceEndpoint);
         this.languageServer = null;
         this.serviceEndpoint = null;

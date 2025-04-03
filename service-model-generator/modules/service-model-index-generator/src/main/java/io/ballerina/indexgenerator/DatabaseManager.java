@@ -149,10 +149,11 @@ class DatabaseManager {
 
     public static int insertServiceTypeFunction(int serviceTypeId, ServiceIndexGenerator.ServiceTypeFunction func) {
         String sql = "INSERT INTO ServiceTypeFunction (name, description, accessor, kind, return_type, " +
-                "return_type_editable, import_statements, enable, service_type_id) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "return_type_editable, return_error, import_statements, enable, service_type_id) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         return insertEntry(sql, new Object[]{func.name(), func.description(), func.accessor(), func.kind(),
-                func.returnType(), func.returnTypeEditable(), func.importStatements(), func.enable(), serviceTypeId});
+                func.returnType(), func.returnTypeEditable(), func.returnError(), func.importStatements(),
+                func.enable(), serviceTypeId});
     }
 
     public static void insertServiceTypeFunctionParameter(int functionId,

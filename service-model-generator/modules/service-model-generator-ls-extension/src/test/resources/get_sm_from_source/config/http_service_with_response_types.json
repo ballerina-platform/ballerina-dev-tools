@@ -646,6 +646,7 @@
               "isHttpResponseType": false
             }
           },
+          "hasError": false,
           "metadata": {
             "label": "Return type",
             "description": "Return type of the function"
@@ -1316,6 +1317,7 @@
               "isHttpResponseType": false
             }
           },
+          "hasError": false,
           "metadata": {
             "label": "Return type",
             "description": "Return type of the function"
@@ -1986,6 +1988,7 @@
               "isHttpResponseType": false
             }
           },
+          "hasError": false,
           "metadata": {
             "label": "Return type",
             "description": "Return type of the function"
@@ -2656,6 +2659,7 @@
               "isHttpResponseType": false
             }
           },
+          "hasError": false,
           "metadata": {
             "label": "Return type",
             "description": "Return type of the function"
@@ -3326,6 +3330,7 @@
               "isHttpResponseType": false
             }
           },
+          "hasError": false,
           "metadata": {
             "label": "Return type",
             "description": "Return type of the function"
@@ -4224,6 +4229,7 @@
               "isHttpResponseType": false
             }
           },
+          "hasError": false,
           "metadata": {
             "label": "Return type",
             "description": "Return type of the function"
@@ -4818,12 +4824,14 @@
               "isHttpResponseType": false
             }
           },
+          "hasError": false,
           "metadata": {
             "label": "Return type",
             "description": "Return type of the function"
           },
           "enabled": false,
           "editable": true,
+          "valueType": "TYPE",
           "valueTypeConstraint": "anydata|http:Response|http:StatusCodeResponse",
           "isType": true,
           "placeholder": "",

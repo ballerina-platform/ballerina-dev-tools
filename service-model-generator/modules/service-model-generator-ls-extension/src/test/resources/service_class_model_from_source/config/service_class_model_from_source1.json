@@ -70,7 +70,6 @@
           "label": "Resource Method",
           "description": "Resource Method"
         },
-        "qualifiers": [],
         "kind": "RESOURCE",
         "accessor": {
           "metadata": {
@@ -88,16 +87,14 @@
         },
         "name": {
           "metadata": {
-            "label": "Function Name",
-            "description": "The name of the function"
+            "label": "Field Name",
+            "description": "The name of the field"
           },
           "enabled": true,
-          "editable": false,
+          "editable": true,
           "value": "author/[int id]",
           "valueType": "IDENTIFIER",
-          "valueTypeConstraint": "string",
           "isType": false,
-          "placeholder": "",
           "optional": false,
           "advanced": false,
           "codedata": {
@@ -129,7 +126,7 @@
               "enabled": true,
               "editable": true,
               "valueType": "TYPE",
-              "isType": false,
+              "isType": true,
               "optional": false,
               "advanced": false,
               "addNewButton": false
@@ -161,12 +158,13 @@
               "addNewButton": false
             },
             "enabled": true,
-            "editable": false,
+            "editable": true,
             "optional": false,
             "advanced": false
           }
         },
         "returnType": {
+          "hasError": false,
           "metadata": {
             "label": "Field Type",
             "description": "The type of the field"

@@ -91,7 +91,7 @@
   "returnType": {
     "metadata": {
       "label": "Return Type",
-      "description": "The return type of the function"
+      "description": "The return type of the resource"
     },
     "enabled": true,
     "editable": true,

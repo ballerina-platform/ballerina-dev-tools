@@ -602,6 +602,7 @@
           "isHttpResponseType": false
         }
       },
+      "hasError": false,
       "metadata": {
         "label": "Return type",
         "description": "Return type of the function"

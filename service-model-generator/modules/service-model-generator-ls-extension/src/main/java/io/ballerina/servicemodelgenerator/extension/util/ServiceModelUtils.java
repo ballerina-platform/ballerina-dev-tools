@@ -55,12 +55,10 @@ import java.util.Set;
 
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.getFunctionModel;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.getPath;
-import static io.ballerina.servicemodelgenerator.extension.util.Utils.getResourceFunctionModel;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.isPresent;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.populateListenerInfo;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateAnnotationAttachmentProperty;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateFunction;
-import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateFunctionInfo;
 
 public class ServiceModelUtils {
 
@@ -105,6 +103,33 @@ public class ServiceModelUtils {
         serviceModel.setCodedata(new Codedata(serviceNode.lineRange()));
         populateListenerInfo(serviceModel, serviceNode);
         updateAnnotationAttachmentProperty(serviceNode, serviceModel);
+
+        if (serviceModel.getModuleName().equals(ServiceModelGeneratorConstants.RABBITMQ)) {
+            filterRabbitMqFunctions(serviceModel.getFunctions());
+        }
+    }
+
+    private static void filterRabbitMqFunctions(List<Function> functions) {
+        // RabbitMQ services can have on of `onMessage` or `onRequest` functions
+        boolean hasOnMessage = false;
+        boolean hasOnRequest = false;
+        int onMessageIndex = -1;
+        int onRequestIndex = -1;
+        for (int i = 0; i < functions.size(); i++) {
+            Function function = functions.get(i);
+            if (function.getName().getValue().equals("onMessage")) {
+                hasOnMessage = function.isEnabled();
+                onMessageIndex = i;
+            } else if (function.getName().getValue().equals("onRequest")) {
+                hasOnRequest = function.isEnabled();
+                onRequestIndex = i;
+            }
+        }
+        if (hasOnMessage) {
+            functions.remove(onRequestIndex);
+        } else if (hasOnRequest) {
+            functions.remove(onMessageIndex);
+        }
     }
 
     private static void updateServiceInfoNew(Service serviceModel, List<Function> functionsInSource) {
@@ -125,16 +150,7 @@ public class ServiceModelUtils {
         // functions contains in source but not enforced using the service contract type
         functionsInSource.forEach(funcInSource -> {
             if (serviceModel.getFunctions().stream().noneMatch(newFunction -> isPresent(funcInSource, newFunction))) {
-                if (serviceModel.getModuleName().equals(ServiceModelGeneratorConstants.HTTP) &&
-                        funcInSource.getKind().equals(ServiceModelGeneratorConstants.KIND_RESOURCE)) {
-                    getResourceFunctionModel().ifPresentOrElse(
-                            resourceFunction -> {
-                                updateFunctionInfo(resourceFunction, funcInSource);
-                                serviceModel.addFunction(resourceFunction);
-                            },
-                            () -> serviceModel.addFunction(funcInSource)
-                    );
-                } else if (serviceModel.getModuleName().equals(ServiceModelGeneratorConstants.GRAPHQL)) {
+                if (serviceModel.getModuleName().equals(ServiceModelGeneratorConstants.GRAPHQL)) {
                     GraphqlUtil.updateGraphqlFunctionMetaData(funcInSource);
                     serviceModel.addFunction(funcInSource);
                 } else {
@@ -236,7 +252,7 @@ public class ServiceModelUtils {
         return Optional.of(service);
     }
 
-    public static void updateFunctionList(Service service) {
+    public static void populateRequiredFunctionsForServiceType(Service service) {
         int packageId = Integer.parseInt(service.getId());
         String serviceTypeName = Objects.nonNull(service.getServiceType()) ? service.getServiceType().getValue()
                 : "Service";
@@ -253,56 +269,52 @@ public class ServiceModelUtils {
 
         Value.ValueBuilder functionName = new Value.ValueBuilder();
         functionName
-                .setMetadata(new MetaData(function.name(), function.description()))
+                .metadata(function.name(), function.description())
                 .setCodedata(new Codedata("FUNCTION_NAME"))
-                .setValue(function.name())
-                .setValueType("IDENTIFIER")
+                .value(function.name())
+                .valueType("IDENTIFIER")
                 .setValueTypeConstraint("string")
                 .setPlaceholder(function.name())
-                .setEnabled(true)
-                .setEditable(false)
-                .setType(false)
-                .setOptional(false)
-                .setAdvanced(false);
+                .enabled(true);
 
-        Value.ValueBuilder functionReturnType = new Value.ValueBuilder();
-        functionReturnType
-                .setMetadata(new MetaData("Return Type", "The return type of the function"))
-                .setValue(function.returnType())
-                .setValueType("TYPE")
-                .setValueTypeConstraint("string")
+        Value.ValueBuilder returnValue = new Value.ValueBuilder();
+        returnValue
+                .metadata("Return Type", "The return type of the function")
+                .value(function.returnType())
+                .valueType("TYPE")
                 .setPlaceholder(function.returnType())
-                .setEnabled(true)
-                .setEditable(true)
-                .setType(true)
-                .setOptional(true)
-                .setAdvanced(false);
+                .editable(function.returnTypeEditable() == 1)
+                .enabled(true)
+                .isType(true)
+                .optional(true);
+
+        FunctionReturnType functionReturnType = new FunctionReturnType(returnValue.build());
+        functionReturnType.setHasError(function.returnError() == 1);
 
         Function.FunctionBuilder functionBuilder = new Function.FunctionBuilder();
         functionBuilder
                 .setMetadata(new MetaData(function.name(), function.description()))
-                .setKind(function.kind())
-                .setEnabled(function.enable() == 1)
-                .setOptional(false)
-                .setEditable(true)
-                .setName(functionName.build())
-                .setReturnType(new FunctionReturnType(functionReturnType.build()))
-                .setParameters(parameters);
+                .kind(function.kind())
+                .enabled(function.enable() == 1)
+                .editable(true)
+                .name(functionName.build())
+                .returnType(functionReturnType)
+                .parameters(parameters);
 
         if (function.kind().equals(ServiceModelGeneratorConstants.KIND_RESOURCE)) {
             Value.ValueBuilder accessor = new Value.ValueBuilder()
-                    .setMetadata(new MetaData("Accessor", "The accessor of the resource function"))
+                    .metadata("Accessor", "The accessor of the resource function")
                     .setCodedata(new Codedata("ACCESSOR"))
-                    .setValue(function.accessor())
-                    .setValueType("IDENTIFIER")
+                    .value(function.accessor())
+                    .valueType("IDENTIFIER")
                     .setValueTypeConstraint("string")
                     .setPlaceholder(function.accessor())
-                    .setEnabled(true)
-                    .setEditable(false)
-                    .setType(false)
-                    .setOptional(false)
+                    .enabled(true)
+                    .editable(false)
+                    .isType(false)
+                    .optional(false)
                     .setAdvanced(false);
-            functionBuilder.setAccessor(accessor.build());
+            functionBuilder.accessor(accessor.build());
         }
 
         return functionBuilder.build();
@@ -313,40 +325,40 @@ public class ServiceModelUtils {
         parameterName
                 .setMetadata(new MetaData(parameter.name(), parameter.description()))
                 .setCodedata(new Codedata("PARAMETER_NAME"))
-                .setValue(parameter.name())
-                .setValueType("IDENTIFIER")
+                .value(parameter.name())
+                .valueType("IDENTIFIER")
                 .setValueTypeConstraint("string")
                 .setPlaceholder(parameter.name())
-                .setEnabled(true)
-                .setEditable(false)
-                .setType(false)
-                .setOptional(false)
+                .enabled(true)
+                .editable(false)
+                .isType(false)
+                .optional(false)
                 .setAdvanced(false);
 
         Value.ValueBuilder parameterType = new Value.ValueBuilder();
         parameterType
                 .setMetadata(new MetaData("Type", "The type of the parameter"))
-                .setValue(parameter.type())
-                .setValueType("TYPE")
+                .value(parameter.type())
+                .valueType("TYPE")
                 .setValueTypeConstraint("string")
                 .setPlaceholder(parameter.type())
-                .setEnabled(true)
-                .setEditable(true)
-                .setType(true)
-                .setOptional(true)
+                .enabled(true)
+                .editable(true)
+                .isType(true)
+                .optional(true)
                 .setAdvanced(false);
 
         Value.ValueBuilder parameterDefaultValue = new Value.ValueBuilder();
         parameterDefaultValue
                 .setMetadata(new MetaData("Default Value", "The default value of the parameter"))
-                .setValue(parameter.defaultValue())
-                .setValueType("EXPRESSION")
+                .value(parameter.defaultValue())
+                .valueType("EXPRESSION")
                 .setValueTypeConstraint("string")
                 .setPlaceholder(parameter.defaultValue())
-                .setEnabled(true)
-                .setEditable(true)
-                .setType(true)
-                .setOptional(true)
+                .enabled(true)
+                .editable(true)
+                .isType(true)
+                .optional(true)
                 .setAdvanced(false);
 
         Parameter.Builder parameterBuilder = new Parameter.Builder();
@@ -379,16 +391,16 @@ public class ServiceModelUtils {
         valueBuilder
                 .setMetadata(new MetaData(template.typeDescriptorLabel(), template.typeDescriptorDescription()))
                 .setCodedata(new Codedata("SERVICE_TYPE"))
-                .setValue(value)
+                .value(value)
                 .setItems(items)
-                .setValueType("SINGLE_SELECT")
+                .valueType("SINGLE_SELECT")
                 .setValueTypeConstraint("string")
                 .setPlaceholder(template.typeDescriptorDefaultValue())
-                .setOptional(false)
+                .optional(false)
                 .setAdvanced(false)
-                .setEnabled(template.optionalTypeDescriptor() == 0)
-                .setEditable(true)
-                .setType(false)
+                .enabled(template.optionalTypeDescriptor() == 0)
+                .editable(true)
+                .isType(false)
                 .setAddNewButton(false);
 
         return valueBuilder.build();
@@ -399,16 +411,16 @@ public class ServiceModelUtils {
         valueBuilder
                 .setMetadata(new MetaData("String Literal", "The string literal of the service"))
                 .setCodedata(new Codedata("STRING_LITERAL"))
-                .setValue(value)
+                .value(value)
                 .setValues(new ArrayList<>())
-                .setValueType("EXPRESSION")
+                .valueType("EXPRESSION")
                 .setValueTypeConstraint("string")
                 .setPlaceholder("\"/path\"")
-                .setOptional(false)
+                .optional(false)
                 .setAdvanced(false)
-                .setEnabled(true)
-                .setEditable(true)
-                .setType(false)
+                .enabled(true)
+                .editable(true)
+                .isType(false)
                 .setAddNewButton(false);
 
         return valueBuilder.build();
@@ -419,16 +431,16 @@ public class ServiceModelUtils {
         valueBuilder
                 .setMetadata(new MetaData(template.stringLiteralLabel(), template.stringLiteralDescription()))
                 .setCodedata(new Codedata("STRING_LITERAL"))
-                .setValue("")
+                .value("")
                 .setValues(new ArrayList<>())
-                .setValueType("EXPRESSION")
+                .valueType("EXPRESSION")
                 .setValueTypeConstraint("string")
                 .setPlaceholder(template.stringLiteralDefaultValue())
-                .setOptional(false)
+                .optional(false)
                 .setAdvanced(false)
-                .setEnabled(true)
-                .setEditable(true)
-                .setType(false)
+                .enabled(true)
+                .editable(true)
+                .isType(false)
                 .setAddNewButton(false);
 
         return valueBuilder.build();
@@ -439,16 +451,16 @@ public class ServiceModelUtils {
         valueBuilder
                 .setMetadata(new MetaData("Base Path", "The base path of the service"))
                 .setCodedata(new Codedata("SERVICE_BASE_PATH"))
-                .setValue(value)
+                .value(value)
                 .setValues(new ArrayList<>())
-                .setValueType("IDENTIFIER")
+                .valueType("IDENTIFIER")
                 .setValueTypeConstraint("string")
                 .setPlaceholder("/")
-                .setOptional(false)
+                .optional(false)
                 .setAdvanced(false)
-                .setEnabled(true)
-                .setEditable(true)
-                .setType(false)
+                .enabled(true)
+                .editable(true)
+                .isType(false)
                 .setAddNewButton(false);
 
         return valueBuilder.build();
@@ -460,16 +472,16 @@ public class ServiceModelUtils {
                 .setMetadata(new MetaData(template.absoluteResourcePathLabel(),
                         template.absoluteResourcePathDescription()))
                 .setCodedata(new Codedata("SERVICE_BASE_PATH"))
-                .setValue(template.absoluteResourcePathDefaultValue())
+                .value(template.absoluteResourcePathDefaultValue())
                 .setValues(new ArrayList<>())
-                .setValueType("IDENTIFIER")
+                .valueType("IDENTIFIER")
                 .setValueTypeConstraint("string")
                 .setPlaceholder(template.absoluteResourcePathDefaultValue())
-                .setOptional(false)
+                .optional(false)
                 .setAdvanced(false)
-                .setEnabled(true)
-                .setEditable(true)
-                .setType(false)
+                .enabled(true)
+                .editable(true)
+                .isType(false)
                 .setAddNewButton(false);
 
         return valueBuilder.build();
@@ -489,16 +501,16 @@ public class ServiceModelUtils {
         Value.ValueBuilder valueBuilder = new Value.ValueBuilder()
                 .setMetadata(new MetaData(attachment.displayName(), attachment.description()))
                 .setCodedata(codedata)
-                .setValue("")
+                .value("")
                 .setValues(new ArrayList<>())
-                .setValueType("EXPRESSION")
+                .valueType("EXPRESSION")
                 .setValueTypeConstraint(attachment.typeName())
                 .setPlaceholder("{}")
-                .setOptional(true)
+                .optional(true)
                 .setAdvanced(true)
-                .setEnabled(true)
-                .setEditable(true)
-                .setType(false)
+                .enabled(true)
+                .editable(true)
+                .isType(false)
                 .setAddNewButton(false)
                 .setMembers(List.of(propertyTypeMemberInfo));
 
@@ -515,16 +527,16 @@ public class ServiceModelUtils {
         valueBuilder
                 .setMetadata(metaData)
                 .setCodedata(new Codedata("LISTENER"))
-                .setValue("")
+                .value("")
                 .setValues(new ArrayList<>())
-                .setValueType(valueType)
+                .valueType(valueType)
                 .setValueTypeConstraint(protocol + ":" + "Listener")
                 .setPlaceholder("")
-                .setOptional(false)
+                .optional(false)
                 .setAdvanced(false)
-                .setEnabled(true)
-                .setEditable(true)
-                .setType(false)
+                .enabled(true)
+                .editable(true)
+                .isType(false)
                 .setAddNewButton(isMultiple);
 
         return valueBuilder.build();

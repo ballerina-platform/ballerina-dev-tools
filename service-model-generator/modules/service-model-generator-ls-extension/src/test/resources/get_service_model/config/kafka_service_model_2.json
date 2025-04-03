@@ -1,0 +1,79 @@
+{
+  "description": "Test getting kafka service model when existing listener is used",
+  "filePath": "sample3/main.bal",
+  "orgName": "ballerina",
+  "pkgName": "kafka",
+  "moduleName": "kafka",
+  "response": {
+    "service": {
+      "id": "9",
+      "name": "Kafka Event Handler",
+      "type": "kafka",
+      "displayName": "Kafka Event Handler",
+      "description": "Add the service documentation",
+      "displayAnnotation": {
+        "label": "Kafka Event Handler",
+        "iconPath": "https://bcentral-packageicons.azureedge.net/images/ballerinax_kafka_4.5.0.png"
+      },
+      "moduleName": "kafka",
+      "orgName": "ballerinax",
+      "version": "4.5.0",
+      "packageName": "kafka",
+      "listenerProtocol": "kafka",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_kafka_4.5.0.png",
+      "properties": {
+        "listener": {
+          "metadata": {
+            "label": "Listener",
+            "description": "The Listener to be bound with the service"
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "values": [],
+          "valueType": "SINGLE_SELECT",
+          "valueTypeConstraint": "kafka:Listener",
+          "isType": false,
+          "placeholder": "",
+          "optional": false,
+          "advanced": false,
+          "items": [],
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER"
+          },
+          "addNewButton": false
+        },
+        "serviceType": {
+          "metadata": {
+            "label": "Service Type",
+            "description": "The name of the service contract type"
+          },
+          "enabled": false,
+          "editable": true,
+          "value": "Service",
+          "valueType": "SINGLE_SELECT",
+          "valueTypeConstraint": "string",
+          "isType": false,
+          "placeholder": "Service",
+          "optional": false,
+          "advanced": false,
+          "items": [
+            "",
+            "Service"
+          ],
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "SERVICE_TYPE"
+          },
+          "addNewButton": false
+        }
+      },
+      "functions": []
+    }
+  }
+}

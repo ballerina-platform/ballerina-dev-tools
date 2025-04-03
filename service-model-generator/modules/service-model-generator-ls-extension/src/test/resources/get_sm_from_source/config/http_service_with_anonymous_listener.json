@@ -127,15 +127,15 @@
           "label": "",
           "description": ""
         },
-        "qualifiers": [],
         "kind": "DEFAULT",
         "accessor": {
           "metadata": {
             "label": "Accessor",
             "description": "The accessor of the function"
           },
-          "enabled": false,
+          "enabled": true,
           "editable": true,
+          "valueType": "IDENTIFIER",
           "isType": false,
           "optional": false,
           "advanced": false,
@@ -157,6 +157,7 @@
         },
         "parameters": [],
         "returnType": {
+          "hasError": false,
           "metadata": {
             "label": "Return Type",
             "description": "The return type of the function"
@@ -166,13 +167,13 @@
           "value": "error?",
           "valueType": "TYPE",
           "isType": false,
-          "optional": false,
+          "optional": true,
           "advanced": false,
           "addNewButton": false
         },
         "enabled": true,
         "optional": false,
-        "editable": false,
+        "editable": true,
         "codedata": {
           "lineRange": {
             "fileName": "main.bal",
@@ -449,7 +450,7 @@
               "addNewButton": false
             },
             "enabled": true,
-            "editable": false,
+            "editable": true,
             "optional": false,
             "advanced": false,
             "httpParamType": "HEADER"
@@ -931,6 +932,7 @@
               "isHttpResponseType": false
             }
           },
+          "hasError": false,
           "metadata": {
             "label": "Return type",
             "description": "Return type of the function"

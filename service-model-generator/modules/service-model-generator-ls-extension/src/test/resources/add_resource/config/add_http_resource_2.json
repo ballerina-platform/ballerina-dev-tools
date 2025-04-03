@@ -600,6 +600,7 @@
           "isHttpResponseType": false
         }
       },
+      "hasError": false,
       "metadata": {
         "label": "Return type",
         "description": "Return type of the function"
@@ -683,7 +684,7 @@
             "character": 0
           }
         },
-        "newText": "\n\t@http:ResourceConfig{consumes: []}\n\tresource function get intResult() returns error|int {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t\treturn error(\"Not implemented\", err);\n\t\t}\n\t}\n"
+        "newText": "\n\t@http:ResourceConfig{consumes: []}\n\tresource function get intResult() returns error|int {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t\treturn error(\"unhandled error\", err);\n\t\t}\n\t}\n"
       }
     ]
   }

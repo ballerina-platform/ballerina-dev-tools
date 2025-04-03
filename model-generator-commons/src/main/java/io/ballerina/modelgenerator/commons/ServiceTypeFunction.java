@@ -29,6 +29,7 @@ import java.util.List;
  * @param accessor The accessor of the function
  * @param kind The kind of the function
  * @param returnType The return type of the function
+ * @param returnError Whether the return type has an error
  * @param returnTypeEditable Whether the return type is editable
  * @param importStatements The import statements of the function
  * @param enable Whether the function is enabled
@@ -43,6 +44,7 @@ public record ServiceTypeFunction(
         String accessor,
         String kind,
         String returnType,
+        int returnError,
         int returnTypeEditable,
         String importStatements,
         int enable,

@@ -192,17 +192,17 @@
           }
         ],
         "returnType": {
+          "hasError": true,
           "metadata": {
             "label": "Return Type",
             "description": "The return type of the function"
           },
           "enabled": true,
-          "editable": true,
+          "editable": false,
           "value": "tcp:ConnectionService",
           "valueType": "TYPE",
-          "valueTypeConstraint": "string",
           "isType": true,
-          "placeholder": "tcp:ConnectionService",
+          "placeholder": "tcp:ConnectionService|tcp:Error?",
           "optional": true,
           "advanced": false,
           "addNewButton": false

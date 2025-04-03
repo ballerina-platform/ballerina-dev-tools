@@ -124,15 +124,15 @@
           "label": "",
           "description": ""
         },
-        "qualifiers": [],
         "kind": "DEFAULT",
         "accessor": {
           "metadata": {
             "label": "Accessor",
             "description": "The accessor of the function"
           },
-          "enabled": false,
-          "editable": false,
+          "enabled": true,
+          "editable": true,
+          "valueType": "IDENTIFIER",
           "isType": false,
           "optional": false,
           "advanced": false,
@@ -163,7 +163,7 @@
               "enabled": true,
               "editable": true,
               "valueType": "TYPE",
-              "isType": false,
+              "isType": true,
               "optional": false,
               "advanced": false,
               "addNewButton": false
@@ -195,12 +195,13 @@
               "addNewButton": false
             },
             "enabled": true,
-            "editable": false,
+            "editable": true,
             "optional": false,
             "advanced": false
           }
         },
         "returnType": {
+          "hasError": false,
           "metadata": {
             "label": "Return Type",
             "description": "The return type of the function"
@@ -210,7 +211,7 @@
           "value": "error?",
           "valueType": "TYPE",
           "isType": false,
-          "optional": false,
+          "optional": true,
           "advanced": false,
           "addNewButton": false
         },
@@ -240,7 +241,6 @@
           "label": "Graphql Query",
           "description": "Graphql Query"
         },
-        "qualifiers": [],
         "kind": "QUERY",
         "accessor": {
           "metadata": {
@@ -248,7 +248,7 @@
             "description": "The accessor of the function"
           },
           "enabled": true,
-          "editable": false,
+          "editable": true,
           "value": "get",
           "valueType": "IDENTIFIER",
           "isType": false,
@@ -319,7 +319,7 @@
               "addNewButton": false
             },
             "enabled": true,
-            "editable": false,
+            "editable": true,
             "optional": false,
             "advanced": false
           }
@@ -334,7 +334,7 @@
               "enabled": true,
               "editable": true,
               "valueType": "TYPE",
-              "isType": false,
+              "isType": true,
               "optional": false,
               "advanced": false,
               "addNewButton": false
@@ -366,12 +366,13 @@
               "addNewButton": false
             },
             "enabled": true,
-            "editable": false,
+            "editable": true,
             "optional": false,
             "advanced": false
           }
         },
         "returnType": {
+          "hasError": false,
           "metadata": {
             "label": "Field Type",
             "description": "The type of the field"
@@ -381,7 +382,7 @@
           "value": "string",
           "valueType": "TYPE",
           "isType": false,
-          "optional": false,
+          "optional": true,
           "advanced": false,
           "addNewButton": false
         },
@@ -411,15 +412,15 @@
           "label": "Graphql Mutation",
           "description": "Graphql Mutation"
         },
-        "qualifiers": [],
         "kind": "MUTATION",
         "accessor": {
           "metadata": {
             "label": "Accessor",
             "description": "The accessor of the function"
           },
-          "enabled": false,
-          "editable": false,
+          "enabled": true,
+          "editable": true,
+          "valueType": "IDENTIFIER",
           "isType": false,
           "optional": false,
           "advanced": false,
@@ -488,7 +489,7 @@
               "addNewButton": false
             },
             "enabled": true,
-            "editable": false,
+            "editable": true,
             "optional": false,
             "advanced": false
           },
@@ -540,7 +541,7 @@
               "addNewButton": false
             },
             "enabled": true,
-            "editable": false,
+            "editable": true,
             "optional": false,
             "advanced": false
           }
@@ -555,7 +556,7 @@
               "enabled": true,
               "editable": true,
               "valueType": "TYPE",
-              "isType": false,
+              "isType": true,
               "optional": false,
               "advanced": false,
               "addNewButton": false
@@ -587,12 +588,13 @@
               "addNewButton": false
             },
             "enabled": true,
-            "editable": false,
+            "editable": true,
             "optional": false,
             "advanced": false
           }
         },
         "returnType": {
+          "hasError": false,
           "metadata": {
             "label": "Field Type",
             "description": "The type of the field"
@@ -602,7 +604,7 @@
           "value": "Profile|error",
           "valueType": "TYPE",
           "isType": false,
-          "optional": false,
+          "optional": true,
           "advanced": false,
           "addNewButton": false
         },
@@ -632,7 +634,6 @@
           "label": "Graphql Subscription",
           "description": "Graphql Subscription"
         },
-        "qualifiers": [],
         "kind": "SUBSCRIPTION",
         "accessor": {
           "metadata": {
@@ -640,7 +641,7 @@
             "description": "The accessor of the function"
           },
           "enabled": true,
-          "editable": false,
+          "editable": true,
           "value": "subscribe",
           "valueType": "IDENTIFIER",
           "isType": false,
@@ -673,7 +674,7 @@
               "enabled": true,
               "editable": true,
               "valueType": "TYPE",
-              "isType": false,
+              "isType": true,
               "optional": false,
               "advanced": false,
               "addNewButton": false
@@ -705,12 +706,13 @@
               "addNewButton": false
             },
             "enabled": true,
-            "editable": false,
+            "editable": true,
             "optional": false,
             "advanced": false
           }
         },
         "returnType": {
+          "hasError": false,
           "metadata": {
             "label": "Field Type",
             "description": "The type of the field"
@@ -720,7 +722,7 @@
           "value": "stream<string, error?>",
           "valueType": "TYPE",
           "isType": false,
-          "optional": false,
+          "optional": true,
           "advanced": false,
           "addNewButton": false
         },
