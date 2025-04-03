@@ -60,6 +60,7 @@ public record Artifact(String id, LineRange location, String type, String name, 
     private static final String CATEGORY_TYPES = "Types";
     private static final String CATEGORY_CONNECTIONS = "Connections";
     private static final String CATEGORY_VARIABLES = "Variables";
+    private static final String CATEGORY_DEFAULT = "Others";
     
     private static final Map<String, String> typeCategoryMap = Map.ofEntries(
             Map.entry(Type.SERVICE.name(), CATEGORY_ENTRY_POINTS),
@@ -76,7 +77,7 @@ public record Artifact(String id, LineRange location, String type, String name, 
             Map.entry(Type.VARIABLE.name(), CATEGORY_VARIABLES));
 
     public static String getCategory(String type) {
-        return typeCategoryMap.getOrDefault(type, "Others");
+        return typeCategoryMap.getOrDefault(type, CATEGORY_DEFAULT);
     }
 
     public static Artifact emptyArtifact(String id) {

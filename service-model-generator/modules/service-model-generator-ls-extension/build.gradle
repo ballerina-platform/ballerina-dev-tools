@@ -106,9 +106,6 @@ task copyStdlibs() {
     }
 }
 
-test.dependsOn rootProject.pullBallerinaModule('kafka', ballerinaxKafkaVersion)
-test.dependsOn rootProject.pullBallerinaModule('rabbitmq', ballerinaxRabbitmqVersion)
-
 test {
     dependsOn {
         copyStdlibs

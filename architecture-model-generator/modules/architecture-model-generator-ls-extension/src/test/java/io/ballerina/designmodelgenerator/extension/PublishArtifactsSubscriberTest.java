@@ -40,8 +40,6 @@ import org.testng.annotations.Test;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -113,9 +111,10 @@ public class PublishArtifactsSubscriberTest extends AbstractLSTest {
         Path filePath = Path.of(sourcePath);
         String fileUri;
         try {
-            fileUri = new URI("file", "", sourcePath, null).toString();
-        } catch (URISyntaxException e) {
-            Assert.fail("Error while creating document service context", e);
+            Path path = Path.of(sourcePath).toAbsolutePath().normalize();
+            fileUri = path.toUri().toString();
+        } catch (Exception e) {
+            Assert.fail("Error while creating the file uri", e);
             return;
         }
         DocumentServiceContext documentServiceContext = ContextBuilder.buildDocumentServiceContext(
