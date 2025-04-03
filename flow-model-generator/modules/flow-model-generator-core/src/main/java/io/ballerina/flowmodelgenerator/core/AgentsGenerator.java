@@ -283,8 +283,9 @@ public class AgentsGenerator {
         String path = flowNode.metadata().icon();
         if (nodeKind == NodeKind.FUNCTION_DEFINITION) {
             sourceBuilder.token()
-                    .name("@ai:AgentTool").
-                    name(System.lineSeparator());
+                    .descriptionDoc(description)
+                    .name("@ai:AgentTool")
+                    .name(System.lineSeparator());
             sourceBuilder.token()
                     .name("@display {")
                     .name("label: \"\",")
