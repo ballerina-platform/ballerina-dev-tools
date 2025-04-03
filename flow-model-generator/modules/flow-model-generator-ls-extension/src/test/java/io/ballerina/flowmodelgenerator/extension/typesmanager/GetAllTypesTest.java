@@ -57,7 +57,8 @@ public class GetAllTypesTest extends AbstractLSTest {
     @Override
     protected Object[] getConfigsList() {
         return new Object[][]{
-                {Path.of("get_all_types.json")},
+                {Path.of("get_all_types1.json")},
+                {Path.of("get_all_types2.json")},
         };
     }
 
