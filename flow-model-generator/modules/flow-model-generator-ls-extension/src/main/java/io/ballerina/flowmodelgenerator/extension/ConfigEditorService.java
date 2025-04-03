@@ -123,24 +123,27 @@ public class ConfigEditorService implements ExtendedLanguageServerService {
             ConfigVariablesUpdateResponse response = new ConfigVariablesUpdateResponse();
             try {
                 FlowNode configVariable = gson.fromJson(request.configVariable(), FlowNode.class);
-                String variableFileName = configVariable.codedata().lineRange().fileName();
                 Path configFilePath = Path.of(request.configFilePath());
-
                 Path variableFilePath = null;
-                Project project = this.workspaceManager.loadProject(configFilePath);
-                if (project.kind() == ProjectKind.SINGLE_FILE_PROJECT) {
-                    variableFilePath = project.sourceRoot();
+                if (isNew(configVariable)) {
+                    variableFilePath = configFilePath;
+                    this.workspaceManager.loadProject(configFilePath);
                 } else {
-                    for (Module module : project.currentPackage().modules()) {
-                        for (DocumentId documentId : module.documentIds()) {
-                            Document document = module.document(documentId);
-                            if (document.name().equals(variableFileName)) {
-                                variableFilePath = project.sourceRoot().resolve(document.syntaxTree().filePath());
+                    String variableFileName = configVariable.codedata().lineRange().fileName();
+                    Project project = this.workspaceManager.loadProject(configFilePath);
+                    if (project.kind() == ProjectKind.SINGLE_FILE_PROJECT) {
+                        variableFilePath = project.sourceRoot();
+                    } else {
+                        for (Module module : project.currentPackage().modules()) {
+                            for (DocumentId documentId : module.documentIds()) {
+                                Document document = module.document(documentId);
+                                if (document.name().equals(variableFileName)) {
+                                    variableFilePath = project.sourceRoot().resolve(document.syntaxTree().filePath());
+                                }
                             }
                         }
                     }
                 }
-
                 if (Objects.isNull(variableFilePath)) {
                     return response;
                 }
@@ -178,5 +181,9 @@ public class ConfigEditorService implements ExtendedLanguageServerService {
             }
             return FileVisitResult.CONTINUE;
         }
+    }
+
+    private boolean isNew(FlowNode configVariable) {
+        return configVariable.codedata().isNew() != null && configVariable.codedata().isNew();
     }
 }
