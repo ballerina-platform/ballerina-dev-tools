@@ -410,6 +410,10 @@ public class TypeTransformer {
     }
 
     public Object transform(ArrayTypeSymbol arrayTypeSymbol, TypeData.TypeDataBuilder typeDataBuilder) {
+        typeDataBuilder.properties()
+                .isArray("true", true, true, true)
+                .arraySize(arrayTypeSymbol.size().isPresent() ? arrayTypeSymbol.size().get().toString() : "",
+                        true, true, true);
         return transformTypesWithConstraintType(arrayTypeSymbol, NodeKind.ARRAY, typeDataBuilder);
     }
 
@@ -513,13 +517,14 @@ public class TypeTransformer {
     private Object transformTypesWithConstraintType(TypeSymbol typeSymbol,
                                                     NodeKind nodeKind,
                                                     TypeData.TypeDataBuilder typeDataBuilder) {
-        typeDataBuilder
-                .codedata()
-                    .node(nodeKind)
-                    .stepOut()
-                .properties()
-                    .isArray(nodeKind == NodeKind.ARRAY ? "true" : "false", true, true, true)
+        typeDataBuilder.codedata().node(nodeKind);
+
+        if (nodeKind != NodeKind.ARRAY) {
+            typeDataBuilder
+                    .properties()
+                    .isArray("false", true, true, true)
                     .arraySize("", false, false, false);
+        }
 
         Member.MemberBuilder memberBuilder = new Member.MemberBuilder();
         TypeSymbol memberTypeDesc = switch (typeSymbol.typeKind()) {

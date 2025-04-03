@@ -22,6 +22,7 @@ import com.google.gson.Gson;
 import io.ballerina.flowmodelgenerator.core.model.Function;
 import io.ballerina.flowmodelgenerator.core.model.Member;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
+import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.TypeData;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import org.ballerinalang.langserver.common.utils.CommonUtil;
@@ -113,13 +114,7 @@ public class SourceCodeGenerator {
             return (String) typeDescriptor;
         }
 
-        TypeData typeData;
-        if (typeDescriptor instanceof Map) {
-            String json = gson.toJson(typeDescriptor);
-            typeData = gson.fromJson(json, TypeData.class);
-        } else {
-            typeData = (TypeData) typeDescriptor;
-        }
+        TypeData typeData = toTypeData(typeDescriptor);
 
         return switch (typeData.codedata().node()) {
             case RECORD -> generateRecordTypeDescriptor(typeData);
@@ -325,11 +320,23 @@ public class SourceCodeGenerator {
     }
 
     private String generateArrayTypeDescriptor(TypeData typeData) {
-        if (typeData.members().size() == 1) {
-            String transformed = generateTypeDescriptor(typeData.members().getFirst().type());
-            return transformed + "[]";
+        String arraySize = typeData.properties().get(Property.ARRAY_SIZE).value().toString();
+
+        if (typeData.members().size() != 1) {
+            return "[" + arraySize + "]";
         }
-        return "[]";
+
+        Object type = typeData.members().getFirst().type();
+        String transformed = generateTypeDescriptor(type);
+
+        if (!(type instanceof String)) {
+            NodeKind nodeKind = toTypeData(type).codedata().node();
+            if (nodeKind == NodeKind.UNION || nodeKind == NodeKind.INTERSECTION) {
+                transformed = "(" + transformed + ")";
+            }
+        }
+
+        return transformed + "[" + arraySize + "]";
     }
 
     private String generateDocs(String docs, String indent) {
@@ -380,5 +387,16 @@ public class SourceCodeGenerator {
                 generateTypeDescriptor(function.returnType()),
                 function.name()
         );
+    }
+
+    private TypeData toTypeData(Object typeDescAsObject) {
+        TypeData typeData;
+        if (typeDescAsObject instanceof Map) {
+            String json = gson.toJson(typeDescAsObject);
+            typeData = gson.fromJson(json, TypeData.class);
+        } else {
+            typeData = (TypeData) typeDescAsObject;
+        }
+        return typeData;
     }
 }
