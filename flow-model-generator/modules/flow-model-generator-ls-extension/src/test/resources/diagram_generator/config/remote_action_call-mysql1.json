@@ -40,7 +40,7 @@
         "metadata": {
           "label": "query",
           "description": "Executes the query, which may return multiple results.\nWhen processing the stream, make sure to consume all fetched data or close the stream.\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mysql_1.13.1.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mysql_1.14.0.png"
         },
         "codedata": {
           "node": "REMOTE_ACTION_CALL",
@@ -48,7 +48,7 @@
           "module": "mysql",
           "object": "Client",
           "symbol": "query",
-          "version": "1.13.1",
+          "version": "1.14.0",
           "lineRange": {
             "fileName": "mysql.bal",
             "startLine": {
@@ -115,7 +115,7 @@
             "typeMembers": [
               {
                 "type": "ParameterizedQuery",
-                "packageInfo": "ballerina:sql:1.14.0",
+                "packageInfo": "ballerina:sql:1.16.0",
                 "kind": "OBJECT_TYPE",
                 "selected": true
               }
@@ -168,7 +168,7 @@
         "metadata": {
           "label": "query",
           "description": "Executes the query, which may return multiple results.\nWhen processing the stream, make sure to consume all fetched data or close the stream.\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mysql_1.13.1.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mysql_1.14.0.png"
         },
         "codedata": {
           "node": "REMOTE_ACTION_CALL",
@@ -176,7 +176,7 @@
           "module": "mysql",
           "object": "Client",
           "symbol": "query",
-          "version": "1.13.1",
+          "version": "1.14.0",
           "lineRange": {
             "fileName": "mysql.bal",
             "startLine": {
@@ -243,7 +243,7 @@
             "typeMembers": [
               {
                 "type": "ParameterizedQuery",
-                "packageInfo": "ballerina:sql:1.14.0",
+                "packageInfo": "ballerina:sql:1.16.0",
                 "kind": "OBJECT_TYPE",
                 "selected": true
               }
@@ -298,7 +298,7 @@
         "metadata": {
           "label": "New Connection",
           "description": "Represents a MySQL database client.",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mysql_1.13.1.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mysql_1.14.0.png"
         },
         "codedata": {
           "node": "NEW_CONNECTION",
@@ -483,7 +483,7 @@
             "typeMembers": [
               {
                 "type": "Options",
-                "packageInfo": "ballerinax:mysql:1.13.1",
+                "packageInfo": "ballerinax:mysql:1.14.0",
                 "kind": "RECORD_TYPE",
                 "selected": false
               },
@@ -515,7 +515,7 @@
             "typeMembers": [
               {
                 "type": "ConnectionPool",
-                "packageInfo": "ballerina:sql:1.14.0",
+                "packageInfo": "ballerina:sql:1.15.0",
                 "kind": "RECORD_TYPE",
                 "selected": false
               },
