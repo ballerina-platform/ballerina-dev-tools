@@ -26,6 +26,8 @@ import io.ballerina.flowmodelgenerator.core.DiagnosticHandler;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.ParameterMemberTypeData;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -62,7 +64,6 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
         }
         return (T) value;
     }
-
     public static final String VARIABLE_KEY = "variable";
     public static final String VARIABLE_NAME = "Variable Name";
     public static final String PARAMETER_VARIABLE_DOC = "Name of the parameter";
@@ -199,6 +200,13 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
 
     public static final String FUNCTION_NAME_KEY = "functionName";
     public static final String PARAMETERS_KEY = "parameters";
+
+    public static final List<String> RESERVED_PROPERTY_KEYS = List.of(VARIABLE_KEY, NAME_KEY, TYPE_KEY,
+            DESCRIPTION_KEY, IS_ARRAY_KEY, IS_PUBLIC_KEY, IS_PRIVATE_KEY, IS_ISOLATED_KEY, IS_READ_ONLY_KEY,
+            IS_DISTINCT_KEY, NETWORK_QUALIFIER_KEY, QUALIFIERS_KEY, RETURN_TYPE_LABEL, EXPRESSION_KEY,
+            CONDITION_KEY, IGNORE_KEY, ON_ERROR_VARIABLE_KEY, ON_ERROR_TYPE_KEY, COLLECTION_KEY,
+            CHECK_ERROR_KEY, SCOPE_KEY, CONNECTION_KEY, RESOURCE_PATH_KEY, COMMENT_KEY,
+            PATTERNS_KEY, GUARD_KEY, RETRY_COUNT_KEY);
 
     public String toSourceCode() {
         if (value == null || value.toString().isEmpty()) {
