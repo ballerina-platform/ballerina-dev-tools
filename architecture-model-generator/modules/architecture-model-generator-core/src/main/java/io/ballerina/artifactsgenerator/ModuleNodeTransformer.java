@@ -119,9 +119,11 @@ public class ModuleNodeTransformer extends NodeTransformer<Optional<Artifact>> {
         }
 
         // Generate the service path
-        String absolutePath = getPathString(serviceDeclarationNode.absoluteResourcePath());
+        String entryPointName = serviceDeclarationNode.typeDescriptor()
+                .map(descriptorNode -> descriptorNode.toSourceCode().strip())
+                .orElse(getPathString(serviceDeclarationNode.absoluteResourcePath()));
         serviceBuilder
-                .name(absolutePath)
+                .name(entryPointName)
                 .type(Artifact.Type.SERVICE);
 
         // Check for the child functions

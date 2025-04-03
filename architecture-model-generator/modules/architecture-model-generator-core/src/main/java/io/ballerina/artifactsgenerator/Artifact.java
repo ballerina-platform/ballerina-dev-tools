@@ -49,19 +49,31 @@ import java.util.Optional;
 public record Artifact(String id, LineRange location, String type, String name, String accessor,
                        String scope, String icon, String module, Map<String, Artifact> children) {
 
+    private static final String CATEGORY_ENTRY_POINTS = "Entry Points";
+    private static final String CATEGORY_RESOURCES = "Resources";
+    private static final String CATEGORY_REMOTE_METHODS = "Remote Methods";
+    private static final String CATEGORY_FUNCTIONS = "Functions";
+    private static final String CATEGORY_NATURAL_FUNCTIONS = "Natural Functions";
+    private static final String CATEGORY_DATA_MAPPERS = "Data Mappers";
+    private static final String CATEGORY_LISTENERS = "Listeners";
+    private static final String CATEGORY_CONFIGURATIONS = "Configurations";
+    private static final String CATEGORY_TYPES = "Types";
+    private static final String CATEGORY_CONNECTIONS = "Connections";
+    private static final String CATEGORY_VARIABLES = "Variables";
+    
     private static final Map<String, String> typeCategoryMap = Map.ofEntries(
-            Map.entry(Type.SERVICE.name(), "Entry Points"),
-            Map.entry(Type.AUTOMATION.name(), "Entry Points"),
-            Map.entry(Type.RESOURCE.name(), "Resources"),
-            Map.entry(Type.REMOTE.name(), "Remote Methods"),
-            Map.entry(Type.FUNCTION.name(), "Functions"),
-            Map.entry(Type.NP_FUNCTION.name(), "Natural Functions"),
-            Map.entry(Type.DATA_MAPPER.name(), "Data Mappers"),
-            Map.entry(Type.LISTENER.name(), "Listeners"),
-            Map.entry(Type.CONFIGURABLE.name(), "Configurations"),
-            Map.entry(Type.TYPE.name(), "Types"),
-            Map.entry(Type.CONNECTION.name(), "Connections"),
-            Map.entry(Type.VARIABLE.name(), "Variables"));
+            Map.entry(Type.SERVICE.name(), CATEGORY_ENTRY_POINTS),
+            Map.entry(Type.AUTOMATION.name(), CATEGORY_ENTRY_POINTS),
+            Map.entry(Type.RESOURCE.name(), CATEGORY_RESOURCES),
+            Map.entry(Type.REMOTE.name(), CATEGORY_REMOTE_METHODS),
+            Map.entry(Type.FUNCTION.name(), CATEGORY_FUNCTIONS),
+            Map.entry(Type.NP_FUNCTION.name(), CATEGORY_NATURAL_FUNCTIONS),
+            Map.entry(Type.DATA_MAPPER.name(), CATEGORY_DATA_MAPPERS),
+            Map.entry(Type.LISTENER.name(), CATEGORY_LISTENERS),
+            Map.entry(Type.CONFIGURABLE.name(), CATEGORY_CONFIGURATIONS),
+            Map.entry(Type.TYPE.name(), CATEGORY_TYPES),
+            Map.entry(Type.CONNECTION.name(), CATEGORY_CONNECTIONS),
+            Map.entry(Type.VARIABLE.name(), CATEGORY_VARIABLES));
 
     public static String getCategory(String type) {
         return typeCategoryMap.getOrDefault(type, "Others");
