@@ -52,7 +52,6 @@ import java.util.Map;
 public class ConfigVariablesManager {
 
     public static final String DEFAULTABLE = "defaultable";
-    public static final String LINE_SEPARATOR = System.lineSeparator();
     private final Gson gson;
 
     public ConfigVariablesManager() {
@@ -108,12 +107,8 @@ public class ConfigVariablesManager {
                     .build();
     }
 
-    public JsonElement update(Document document, Path configFile, JsonElement configs) {
+    public JsonElement update(Document document, Path configFile, FlowNode configVariable) {
         List<TextEdit> textEdits = new ArrayList<>();
-        Map<Path, List<TextEdit>> textEditsMap = new HashMap<>();
-        textEditsMap.put(configFile, textEdits);
-
-        FlowNode configVariable = gson.fromJson(configs, FlowNode.class);
         LineRange lineRange = configVariable.codedata().lineRange();
         Map<String, Property> properties = configVariable.properties();
         String configStmt = configStmt(properties);
@@ -126,6 +121,8 @@ public class ConfigVariablesManager {
             textEdits.add(new TextEdit(CommonUtils.toRange(lineRange), configStmt));
         }
 
+        Map<Path, List<TextEdit>> textEditsMap = new HashMap<>();
+        textEditsMap.put(configFile, textEdits);
         return gson.toJsonTree(textEditsMap);
     }
 
