@@ -68,14 +68,16 @@ public class FunctionDefinitionBuilder extends NodeBuilder {
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
         properties().functionNameTemplate("function", context.getAllVisibleSymbolNames());
-        setMandatoryProperties(this, null, "");
+        setMandatoryProperties(this, null, "", "");
         setOptionalProperties(this);
     }
 
-    public static void setMandatoryProperties(NodeBuilder nodeBuilder, String returnType, String description) {
+    public static void setMandatoryProperties(NodeBuilder nodeBuilder, String returnType, String description,
+                                              String returnDescription) {
         nodeBuilder.properties()
                 .returnType(returnType, null, true)
                 .description(description)
+                .returnDescription(returnDescription)
                 .nestedProperty();
     }
 
@@ -119,6 +121,9 @@ public class FunctionDefinitionBuilder extends NodeBuilder {
             }
             params = String.join(", ", paramList);
         }
+
+        Optional<Property> optReturnDescription = sourceBuilder.flowNode.getProperty(Property.RETURN_DESCRIPTION_KEY);
+        optReturnDescription.ifPresent(property -> sourceBuilder.token().returnDoc(property.value().toString()));
 
         sourceBuilder.token().keyword(SyntaxKind.FUNCTION_KEYWORD);
 

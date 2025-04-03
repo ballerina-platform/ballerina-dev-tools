@@ -132,7 +132,8 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
             case AUTOMATION -> AutomationBuilder.sendMandatoryProperties(nodeBuilder);
             case NP_FUNCTION_DEFINITION -> NPFunctionDefinitionBuilder.setMandatoryProperties(nodeBuilder, returnType);
             default -> FunctionDefinitionBuilder.setMandatoryProperties(nodeBuilder, returnType,
-                    documentation == null ? "" : documentation.description());
+                    documentation == null ? "" : documentation.description(),
+                    documentation == null ? "" : documentation.returnDescription());
         }
 
         boolean isContextParamAvailable = false;
@@ -341,11 +342,18 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
         MarkdownDocumentationNode docNode = (MarkdownDocumentationNode) optDocStr.get();
         StringBuilder description = new StringBuilder();
         Map<String, String> params = new HashMap<>();
+        String returnDescription = "";
         for (Node documentationLine : docNode.documentationLines()) {
             if (documentationLine.kind() == SyntaxKind.MARKDOWN_DOCUMENTATION_LINE) {
                 NodeList<Node> nodes = ((MarkdownDocumentationLineNode) documentationLine).documentElements();
                 if (nodes.size() == 1) {
-                    description.append(nodes.get(0).toSourceCode());
+                    String source = nodes.get(0).toSourceCode();
+                    if (source.contains("return -")) {
+                        String[] splits = source.split("return -");
+                        returnDescription = splits[1].trim();
+                    } else {
+                        description.append(source);
+                    }
                 }
             } else if (documentationLine.kind() == SyntaxKind.MARKDOWN_PARAMETER_DOCUMENTATION_LINE) {
                 MarkdownParameterDocumentationLineNode docLine =
@@ -357,10 +365,11 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
                 }
             }
         }
-        return new FunctionDocumentation(description.toString(), params);
+        return new FunctionDocumentation(description.toString(), params, returnDescription);
     }
 
-    private record FunctionDocumentation (String description, Map<String, String> parameterDescriptions) {
+    private record FunctionDocumentation (String description, Map<String, String> parameterDescriptions,
+                                          String returnDescription) {
 
     }
 }
