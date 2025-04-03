@@ -2,7 +2,7 @@
   "description": "",
   "filePath": "source.bal",
   "context": {
-    "expression": "error",
+    "expression": "error|string",
     "startLine": {
       "line": 30,
       "offset": 0
@@ -54,14 +54,14 @@
         },
         "end": {
           "line": 30,
-          "character": 5
+          "character": 12
         }
       },
       "severity": "Error",
       "code": {
         "left": ""
       },
-      "message": "expected a subtype of 'anydata', but found 'error'"
+      "message": "expected a subtype of 'anydata', but found 'error|string'"
     }
   ]
 }

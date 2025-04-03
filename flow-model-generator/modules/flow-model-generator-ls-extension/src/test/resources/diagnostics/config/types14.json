@@ -1,0 +1,75 @@
+{
+  "description": "",
+  "filePath": "source.bal",
+  "context": {
+    "expression": "let",
+    "startLine": {
+      "line": 1,
+      "offset": 0
+    },
+    "offset": 2,
+    "codedata": {
+      "node": "VARIABLE",
+      "lineRange": {
+        "fileName": "new_data.bal",
+        "startLine": {
+          "line": 1,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 1,
+          "offset": 14
+        }
+      },
+      "sourceCode": "int i = 12;"
+    },
+    "property": {
+      "metadata": {
+        "label": "Type",
+        "description": "Type of the variable"
+      },
+      "valueType": "TYPE",
+      "value": "",
+      "placeholder": "var",
+      "optional": false,
+      "editable": true,
+      "advanced": false
+    }
+  },
+  "diagnostics": [
+    {
+      "range": {
+        "start": {
+          "line": 0,
+          "character": 0
+        },
+        "end": {
+          "line": 0,
+          "character": 1
+        }
+      },
+      "severity": "Error",
+      "code": {
+        "left": "BCE0501"
+      },
+      "message": "missing type descriptor"
+    },
+    {
+      "range": {
+        "start": {
+          "line": 0,
+          "character": 0
+        },
+        "end": {
+          "line": 0,
+          "character": 3
+        }
+      },
+      "severity": "Error",
+      "code": {
+        "left": "BCE0600"
+      },
+      "message": "invalid token 'let'"
+    }
+  ]
+}
