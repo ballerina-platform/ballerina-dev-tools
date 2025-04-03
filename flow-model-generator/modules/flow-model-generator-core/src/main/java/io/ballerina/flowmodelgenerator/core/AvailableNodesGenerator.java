@@ -72,7 +72,7 @@ public class AvailableNodesGenerator {
     private static final List<String> HTTP_REMOTE_METHOD_SKIP_LIST = List.of("get", "put", "post", "head",
             "delete", "patch", "options");
     private static final String BALLERINAX = "ballerinax";
-    public static final String AI_AGENT = "ai.agent";
+    public static final String AI_AGENT = "ai";
 
     public AvailableNodesGenerator(SemanticModel semanticModel, Document document, Package pkg) {
         this.rootBuilder = new Category.Builder(null).name(Category.Name.ROOT);
@@ -174,6 +174,7 @@ public class AvailableNodesGenerator {
                         .module(AI_AGENT)
                         .symbol("run")
                         .object("Agent")
+                        .version("1.0.0")
                         .build(),
                 true
         );

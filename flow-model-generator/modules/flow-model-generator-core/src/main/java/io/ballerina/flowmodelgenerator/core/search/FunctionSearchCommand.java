@@ -71,7 +71,7 @@ class FunctionSearchCommand extends SearchCommand {
 
     public static final String TOOL_ANNOTATION = "Tool";
     private static final String BALLERINAX = "ballerinax";
-    private static final String AI_AGENT = "ai.agent";
+    private static final String AI_AGENT = "ai";
     private static final Map<String, List<String>> POPULAR_BALLERINA_FUNCTIONS = Map.of(
             "log", List.of("printInfo", "printDebug", "printError", "printWarn"),
             "time", List.of("utcNow", "utcFromString"),

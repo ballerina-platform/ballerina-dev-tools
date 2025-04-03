@@ -76,9 +76,10 @@
           "codedata": {
             "node": "AGENT_CALL",
             "org": "ballerinax",
-            "module": "ai.agent",
+            "module": "ai",
             "object": "Agent",
-            "symbol": "run"
+            "symbol": "run",
+            "version": "1.0.0"
           },
           "enabled": true
         }

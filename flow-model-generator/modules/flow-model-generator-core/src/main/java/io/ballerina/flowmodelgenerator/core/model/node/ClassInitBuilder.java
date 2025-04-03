@@ -39,81 +39,81 @@ import java.util.Set;
  */
 public class ClassInitBuilder extends CallBuilder {
     private static final String CLASS_LABEL = "Class";
-    public static final String OPEN_AI_MODEL = "OpenAiModel";
+    public static final String OPEN_AI_MODEL = "OpenAiProvider";
     public static final List<String> OPEN_AI_MODEL_TYPES = List.of(
-            "agent:O3_MINI",
-            "agent:O3_MINI_2025_01_31",
-            "agent:O1",
-            "agent:O1_2024_12_17",
-            "agent:GPT_4O",
-            "agent:GPT_4O_2024_11_20",
-            "agent:GPT_4O_2024_08_06",
-            "agent:GPT_4O_2024_05_13",
-            "agent:GPT_4O_MINI",
-            "agent:GPT_4O_MINI_2024_07_18",
-            "agent:GPT_4_TURBO",
-            "agent:GPT_4_TURBO_2024_04_09",
-            "agent:GPT_4_0125_PREVIEW",
-            "agent:GPT_4_TURBO_PREVIEW",
-            "agent:GPT_4_1106_PREVIEW",
-            "agent:GPT_4_VISION_PREVIEW",
-            "agent:GPT_4",
-            "agent:GPT_4_0314",
-            "agent:GPT_4_0613",
-            "agent:GPT_4_32K",
-            "agent:GPT_4_32K_0314",
-            "agent:GPT_4_32K_0613",
-            "agent:GPT_3_5_TURBO",
-            "agent:GPT_3_5_TURBO_16K",
-            "agent:GPT_3_5_TURBO_0301",
-            "agent:GPT_3_5_TURBO_0613",
-            "agent:GPT_3_5_TURBO_1106",
-            "agent:GPT_3_5_TURBO_0125",
-            "agent:GPT_3_5_TURBO_16K_0613"
+            "ai:O3_MINI",
+            "ai:O3_MINI_2025_01_31",
+            "ai:O1",
+            "ai:O1_2024_12_17",
+            "ai:GPT_4O",
+            "ai:GPT_4O_2024_11_20",
+            "ai:GPT_4O_2024_08_06",
+            "ai:GPT_4O_2024_05_13",
+            "ai:GPT_4O_MINI",
+            "ai:GPT_4O_MINI_2024_07_18",
+            "ai:GPT_4_TURBO",
+            "ai:GPT_4_TURBO_2024_04_09",
+            "ai:GPT_4_0125_PREVIEW",
+            "ai:GPT_4_TURBO_PREVIEW",
+            "ai:GPT_4_1106_PREVIEW",
+            "ai:GPT_4_VISION_PREVIEW",
+            "ai:GPT_4",
+            "ai:GPT_4_0314",
+            "ai:GPT_4_0613",
+            "ai:GPT_4_32K",
+            "ai:GPT_4_32K_0314",
+            "ai:GPT_4_32K_0613",
+            "ai:GPT_3_5_TURBO",
+            "ai:GPT_3_5_TURBO_16K",
+            "ai:GPT_3_5_TURBO_0301",
+            "ai:GPT_3_5_TURBO_0613",
+            "ai:GPT_3_5_TURBO_1106",
+            "ai:GPT_3_5_TURBO_0125",
+            "ai:GPT_3_5_TURBO_16K_0613"
     );
 
-    public static final String ANTHROPIC_MODEL = "AnthropicModel";
+    public static final String ANTHROPIC_MODEL = "AnthropicProvider";
     public static final List<String> ANTHROPIC_MODEL_TYPES = List.of(
-            "agent:CLAUDE_3_7_SONNET_20250219",
-            "agent:CLAUDE_3_5_HAIKU_20241022",
-            "agent:CLAUDE_3_5_SONNET_20241022",
-            "agent:CLAUDE_3_5_SONNET_20240620",
-            "agent:CLAUDE_3_OPUS_20240229",
-            "agent:CLAUDE_3_SONNET_20240229",
-            "agent:CLAUDE_3_HAIKU_20240307"
+            "ai:CLAUDE_3_7_SONNET_20250219",
+            "ai:CLAUDE_3_5_HAIKU_20241022",
+            "ai:CLAUDE_3_5_SONNET_20241022",
+            "ai:CLAUDE_3_5_SONNET_20240620",
+            "ai:CLAUDE_3_OPUS_20240229",
+            "ai:CLAUDE_3_SONNET_20240229",
+            "ai:CLAUDE_3_HAIKU_20240307"
     );
 
     public static final String MISTRAL_AI_MODEL = "MistralAiModel";
 
     public static final List<String> MISTRAL_AI_MODEL_TYPES = List.of(
-            "agent:MINISTRAL_3B_2410",
-            "agent:MINISTRAL_8B_2410",
-            "agent:OPEN_MISTRAL_7B ",
-            "agent:OPEN_MISTRAL_NEMO",
-            "agent:OPEN_MIXTRAL_8X7B",
-            "agent:OPEN_MIXTRAL_8X22B",
-            "agent:MISTRAL_SMALL_2402",
-            "agent:MISTRAL_SMALL_2409",
-            "agent:MISTRAL_SMALL_2501",
-            "agent:MISTRAL_MEDIUM_2312",
-            "agent:MISTRAL_LARGE_2402",
-            "agent:MISTRAL_LARGE_2407",
-            "agent:MISTRAL_LARGE_2411",
-            "agent:PIXTRAL_LARGE_2411",
-            "agent:CODESTRAL_2405",
-            "agent:CODESTRAL_2501",
-            "agent:CODESTRAL_MAMBA_2407",
-            "agent:PIXTRAL_12B_2409",
-            "agent:MISTRAL_SABA_2502 ",
-            "agent:MISTRAL_SMALL_MODEL ",
-            "agent:MISTRAL_MEDIUM_MODEL",
-            "agent:MISTRAL_LARGE_MODEL"
+            "ai:MINISTRAL_3B_2410",
+            "ai:MINISTRAL_8B_2410",
+            "ai:OPEN_MISTRAL_7B ",
+            "ai:OPEN_MISTRAL_NEMO",
+            "ai:OPEN_MIXTRAL_8X7B",
+            "ai:OPEN_MIXTRAL_8X22B",
+            "ai:MISTRAL_SMALL_2402",
+            "ai:MISTRAL_SMALL_2409",
+            "ai:MISTRAL_SMALL_2501",
+            "ai:MISTRAL_MEDIUM_2312",
+            "ai:MISTRAL_LARGE_2402",
+            "ai:MISTRAL_LARGE_2407",
+            "ai:MISTRAL_LARGE_2411",
+            "ai:PIXTRAL_LARGE_2411",
+            "ai:CODESTRAL_2405",
+            "ai:CODESTRAL_2501",
+            "ai:CODESTRAL_MAMBA_2407",
+            "ai:PIXTRAL_12B_2409",
+            "ai:MISTRAL_SABA_2502 ",
+            "ai:MISTRAL_SMALL_MODEL ",
+            "ai:MISTRAL_MEDIUM_MODEL",
+            "ai:MISTRAL_LARGE_MODEL"
     );
 
     public static final String MODEL_TYPE = "modelType";
     public static final String REQUIRED = "REQUIRED";
     public static final String BALLERINAX = "ballerinax";
-    public static final String AI_AGENT = "ai.agent";
+    public static final String AI_AGENT = "ai";
     public static final String OPEN_AI_MODEL_DESC = "The OpenAI model name as constant from OPEN_AI_MODEL_NAMES enum";
     public static final String ANTHROPIC_MODEL_DESC =
             "The Anthropic model name as constant from ANTHROPIC_MODEL_NAMES enum";
@@ -164,11 +164,11 @@ public class ClassInitBuilder extends CallBuilder {
         }
         switch (codedata.object()) {
             case OPEN_AI_MODEL -> setAIModelType(OPEN_AI_MODEL_TYPES,
-                    OPEN_AI_MODEL_DESC, "agent:OPEN_AI_MODEL_NAMES", "\"gpt-3.5-turbo-16k-0613\"", codedata);
+                    OPEN_AI_MODEL_DESC, "ai:OPEN_AI_MODEL_NAMES", "\"gpt-3.5-turbo-16k-0613\"", codedata);
             case ANTHROPIC_MODEL -> setAIModelType(ANTHROPIC_MODEL_TYPES,
-                    ANTHROPIC_MODEL_DESC, "agent:ANTHROPIC_MODEL_NAMES", "\"claude-3-haiku-20240307\"", codedata);
+                    ANTHROPIC_MODEL_DESC, "ai:ANTHROPIC_MODEL_NAMES", "\"claude-3-haiku-20240307\"", codedata);
             case MISTRAL_AI_MODEL -> setAIModelType(MISTRAL_AI_MODEL_TYPES,
-                    MISTRAL_AI_MODEL_DESC, "agent:MISTRAL_AI_MODEL_NAMES", "\"mistral-large-latest\"", codedata);
+                    MISTRAL_AI_MODEL_DESC, "ai:MISTRAL_AI_MODEL_NAMES", "\"mistral-large-latest\"", codedata);
             default -> {
                 return;
             }

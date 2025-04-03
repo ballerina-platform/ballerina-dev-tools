@@ -12,10 +12,10 @@
           },
           "end": {
             "line": 92,
-            "character": 11
+            "character": 13
           }
         },
-        "newText": "@agent:Tool {description: \"New description\"}\n"
+        "newText": "@ai:AgentTool {description: \"New description\"}\n"
       }
     ]
   }

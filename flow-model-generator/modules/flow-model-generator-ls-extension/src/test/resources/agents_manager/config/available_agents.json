@@ -14,6 +14,31 @@
       "items": [
         {
           "metadata": {
+            "label": "agent"
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "run",
+                "description": "Executes the agent for a given user query.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai_1.0.0.png"
+              },
+              "codedata": {
+                "node": "REMOTE_ACTION_CALL",
+                "org": "ballerinax",
+                "module": "ai",
+                "object": "Agent",
+                "symbol": "run",
+                "version": "1.0.0",
+                "parentSymbol": "agent",
+                "resourcePath": ""
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
             "label": "httpClient"
           },
           "items": [
@@ -718,50 +743,17 @@
             {
               "metadata": {
                 "label": "chat",
-                "description": "Uses function call API to determine next function to be called\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.7.9.png"
+                "description": "Sends a chat request to the OpenAI model with the given messages and tools.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai_1.0.0.png"
               },
               "codedata": {
                 "node": "REMOTE_ACTION_CALL",
                 "org": "ballerinax",
-                "module": "ai.agent",
-                "object": "AzureOpenAiModel",
+                "module": "ai",
+                "object": "AzureOpenAiProvider",
                 "symbol": "chat",
-                "version": "0.7.9",
+                "version": "1.0.0",
                 "parentSymbol": "model",
-                "resourcePath": ""
-              },
-              "enabled": true
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "metadata": {
-        "label": "Agents",
-        "description": "The agents used in the flow"
-      },
-      "items": [
-        {
-          "metadata": {
-            "label": "agent"
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "run",
-                "description": "Executes the agent for a given user query.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.7.9.png"
-              },
-              "codedata": {
-                "node": "AGENT_CALL",
-                "org": "ballerinax",
-                "module": "ai.agent",
-                "object": "Agent",
-                "symbol": "run",
-                "version": "0.7.9",
-                "parentSymbol": "agent",
                 "resourcePath": ""
               },
               "enabled": true
@@ -778,7 +770,7 @@
       "items": [
         {
           "metadata": {
-            "label": "Variable"
+            "label": "Declare Variable"
           },
           "codedata": {
             "node": "VARIABLE"
@@ -797,7 +789,7 @@
         },
         {
           "metadata": {
-            "label": "Function Call",
+            "label": "Call Function",
             "description": "Both project and utility functions"
           },
           "codedata": {
@@ -811,6 +803,32 @@
           },
           "codedata": {
             "node": "DATA_MAPPER_CALL"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Call Natural Function",
+            "description": "Call a natural programming function",
+            "icon": "https://gist.github.com/user-attachments/assets/903c5c16-7d67-4af8-8113-ce7c59ccdaab"
+          },
+          "codedata": {
+            "node": "NP_FUNCTION"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Agent",
+            "description": "Create new agent"
+          },
+          "codedata": {
+            "node": "AGENT_CALL",
+            "org": "ballerinax",
+            "module": "ai",
+            "object": "Agent",
+            "symbol": "run",
+            "version": "1.0.0"
           },
           "enabled": true
         }
@@ -1071,38 +1089,6 @@
             "module": "log",
             "symbol": "printDebug",
             "version": "2.10.0"
-          },
-          "enabled": true
-        }
-      ]
-    },
-    {
-      "metadata": {
-        "label": "Prompt as code"
-      },
-      "items": [
-        {
-          "metadata": {
-            "label": "Call LLM",
-            "description": "AI Call\n```ballerina\nnp:callLlm(\"prompt message\", id = 845315)\n```\n\n",
-            "icon": "https://gist.github.com/user-attachments/assets/903c5c16-7d67-4af8-8113-ce7c59ccdaab"
-          },
-          "codedata": {
-            "node": "NP_FUNCTION_CALL",
-            "org": "ballerinax",
-            "module": "np",
-            "symbol": "callLlm",
-            "version": "0.1.0"
-          },
-          "enabled": true
-        },
-        {
-          "metadata": {
-            "label": "Prompt as code",
-            "description": "Prompt as code functions"
-          },
-          "codedata": {
-            "node": "NP_FUNCTION"
           },
           "enabled": true
         }

@@ -8,25 +8,25 @@
   "codedata": {
     "node": "CLASS_INIT",
     "org": "ballerinax",
-    "module": "ai.agent",
+    "module": "ai",
     "object": "DefaultMessageWindowChatMemoryManager",
     "symbol": "init",
-    "version": "0.9.2"
+    "version": "1.0.0"
   },
   "output": {
     "id": "31",
     "metadata": {
       "label": "Class",
-      "description": "Initializes a new `agent:DefaultMessageWindowChatMemoryManager`.\n",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.9.2.png"
+      "description": "Initializes a new `ai:DefaultMessageWindowChatMemoryManager`.\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai_1.0.0.png"
     },
     "codedata": {
       "node": "CLASS_INIT",
       "org": "ballerinax",
-      "module": "ai.agent",
+      "module": "ai",
       "object": "DefaultMessageWindowChatMemoryManager",
       "symbol": "init",
-      "version": "0.9.2",
+      "version": "1.0.0",
       "isNew": true
     },
     "returning": false,
@@ -34,7 +34,7 @@
       "size": {
         "metadata": {
           "label": "size",
-          "description": "The maximum number of messages that can be stored in `agent:MessageWindowChatMemory`"
+          "description": "The maximum number of messages that can be stored in `ai:MessageWindowChatMemory`"
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "int",
@@ -62,7 +62,7 @@
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "agent:DefaultMessageWindowChatMemoryManager",
+        "value": "ai:DefaultMessageWindowChatMemoryManager",
         "placeholder": "var",
         "optional": false,
         "editable": false,
@@ -76,7 +76,7 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "agentDefaultmessagewindowchatmemorymanager",
+        "value": "aiDefaultmessagewindowchatmemorymanager",
         "optional": false,
         "editable": true,
         "advanced": false,
