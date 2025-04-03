@@ -196,7 +196,7 @@
             "character": 0
           }
         },
-        "newText": "@ai:AgentTool\n@display {label: \"\", iconPath: \"\"}\nisolated function toolFunc(string foo, int...bar) returns string{ string result = foo( foo, bar) ;\nreturn result;\n}"
+        "newText": "# \n@ai:AgentTool\n@display {label: \"\",iconPath: \"\"}\nisolated function toolFunc( string foo, int... bar) returns string{ string result = foo( foo, bar) ;\nreturn result;\n}"
       }
     ]
   }
