@@ -2,15 +2,16 @@
   "source": "new_connection3/main.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "38878",
+    "id": "39846",
     "metadata": {
       "label": "New Connection",
-      "description": "Create a new connection"
+      "description": "Ballerina Redis connector provides the capability to access Redis cache.\nThis connector lets you to perform operations to access and manipulate key-value data stored in a Redis database. \n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.1.0.png"
     },
     "codedata": {
       "node": "NEW_CONNECTION",
-      "org": "ballerina",
-      "module": "http",
+      "org": "ballerinax",
+      "module": "redis",
       "object": "Client",
       "symbol": "init",
       "lineRange": {
@@ -23,10 +24,130 @@
           "line": 7,
           "offset": 66
         }
-      }
+      },
+      "sourceCode": "redis:Client localRedisCl = check new;"
     },
     "returning": false,
     "properties": {
+      "connection_": {
+        "metadata": {
+          "label": "Connection Type",
+          "description": "Connection configurations of the Redis server. This can be either a single URI or a set of parameters"
+        },
+        "value": "\"redis://localhost:6379\"",
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "redis:ConnectionUri|redis:ConnectionParams",
+        "placeholder": "\"\"",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "hidden": false,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "connection"
+        },
+        "typeMembers": [
+          {
+            "type": "ConnectionUri",
+            "packageInfo": "ballerinax:redis:3.1.0",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "ConnectionParams",
+            "packageInfo": "ballerinax:redis:3.1.0",
+            "kind": "RECORD_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "connectionPooling": {
+        "metadata": {
+          "label": "Connection Pooling Enabled",
+          "description": "Flag to indicate whether connection pooling is enabled"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "boolean",
+        "placeholder": "false",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "hidden": false,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "connectionPooling"
+        },
+        "typeMembers": [
+          {
+            "type": "boolean",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "isClusterConnection": {
+        "metadata": {
+          "label": "Cluster Mode Enabled",
+          "description": "Flag to indicate whether the connection is a cluster connection"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "boolean",
+        "placeholder": "false",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "hidden": false,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "isClusterConnection"
+        },
+        "typeMembers": [
+          {
+            "type": "boolean",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "secureSocket": {
+        "metadata": {
+          "label": "Secure Socket Configurations",
+          "description": "Configurations related to SSL/TLS encryption"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "redis:SecureSocket",
+        "placeholder": "{}",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "hidden": false,
+        "codedata": {
+          "kind": "INCLUDED_FIELD",
+          "originalName": "secureSocket"
+        },
+        "typeMembers": [
+          {
+            "type": "SecureSocket",
+            "packageInfo": "ballerinax:redis:3.1.0",
+            "kind": "RECORD_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "checkError": {
+        "metadata": {
+          "label": "Check Error",
+          "description": "Terminate on error"
+        },
+        "valueType": "FLAG",
+        "value": true,
+        "optional": false,
+        "editable": false,
+        "advanced": true,
+        "hidden": false
+      },
       "scope": {
         "metadata": {
           "label": "Connection Scope",
@@ -35,55 +156,48 @@
         "valueType": "ENUM",
         "value": "Local",
         "optional": false,
-        "editable": true
-      },
-      "url": {
-        "metadata": {
-          "label": "url",
-          "description": "URL of the target service\n"
-        },
-        "valueType": "EXPRESSION",
-        "value": "\"http://localhost:8080\"",
-        "placeholder": "\"\"",
-        "optional": false,
         "editable": true,
-        "codedata": {
-          "kind": "REQUIRED",
-          "originalName": "url"
-        }
-      },
-      "config": {
-        "metadata": {
-          "label": "config",
-          "description": "The configurations to be used when initializing the `client`\n"
-        },
-        "value": "{}",
-        "placeholder": "{}",
-        "valueType": "EXPRESSION",
-        "optional": false,
-        "editable": true,
-        "codedata": {
-          "kind": "INCLUDED_RECORD",
-          "originalName": "config"
-        }
+        "advanced": true,
+        "hidden": false
       },
       "variable": {
         "metadata": {
-          "label": "Data variable",
+          "label": "Connection Name",
           "description": "Name of the variable"
         },
-        "value": "localHttpCl",
+        "valueType": "IDENTIFIER",
+        "value": "localRedisCl",
         "optional": false,
-        "editable": true
+        "editable": false,
+        "advanced": false,
+        "hidden": false,
+        "codedata": {
+          "lineRange": {
+            "fileName": "new_connection.bal",
+            "startLine": {
+              "line": 8,
+              "offset": 17
+            },
+            "endLine": {
+              "line": 8,
+              "offset": 29
+            }
+          }
+        }
       },
       "type": {
         "metadata": {
-          "label": "Data type",
+          "label": "Connection Type",
           "description": "Type of the variable"
         },
-        "value": "http:Client",
+        "valueType": "TYPE",
+        "value": "redis:Client",
+        "placeholder": "var",
         "optional": false,
-        "editable": true
+        "editable": false,
+        "advanced": false,
+        "hidden": false,
+        "codedata": {}
       }
     },
     "flags": 1
@@ -101,7 +215,7 @@
             "character": 0
           }
         },
-        "newText": "import ballerina/http;"
+        "newText": "import ballerinax/redis;"
       },
       {
         "range": {
@@ -114,7 +228,7 @@
             "character": 66
           }
         },
-        "newText": "final http:Client localHttpCl = check new (\"http://localhost:8080\", {});"
+        "newText": "final redis:Client localRedisCl = check new (connection = \"redis://localhost:6379\");"
       }
     ]
   }

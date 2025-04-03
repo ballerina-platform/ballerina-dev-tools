@@ -121,7 +121,7 @@
         },
         "returning": false,
         "properties": {
-          "connection": {
+          "connection_": {
             "metadata": {
               "label": "Connection Type",
               "description": "Connection configurations of the Redis server. This can be either a single URI or a set of parameters"
