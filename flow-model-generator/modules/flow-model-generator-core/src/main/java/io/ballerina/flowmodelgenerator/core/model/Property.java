@@ -74,6 +74,7 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
 
     public static final String NAME_KEY = "name";
     public static final String DESCRIPTION_KEY = "description";
+    public static final String RETURN_DESCRIPTION_KEY = "returnDescription";
     public static final String IS_ARRAY_KEY = "isArray";
     public static final String ARRAY_SIZE = "arraySize";
 
@@ -107,6 +108,7 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
     public static final String IMPLICIT_TYPE_LABEL = "Type";
     public static final String DESCRIPTION_LABEL = "Description";
     public static final String DESCRIPTION_TYPE_DOC = "Description of the function";
+    public static final String RETURN_DESCRIPTION_TYPE_DOC = "Description of the return value";
     public static final String PARAMETER_DESCRIPTION_TYPE_DOC = "Description of the parameter";
 
     public static final String TYPE_DOC = "Type of the variable";

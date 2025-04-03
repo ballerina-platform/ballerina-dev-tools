@@ -52,6 +52,18 @@
         "advanced": false,
         "hidden": false
       },
+      "returnDescription": {
+        "metadata": {
+          "label": "Description",
+          "description": "Description of the return value"
+        },
+        "valueType": "STRING",
+        "value": "",
+        "optional": true,
+        "editable": true,
+        "advanced": false,
+        "hidden": false
+      },
       "parameters": {
         "metadata": {
           "label": "Parameters",

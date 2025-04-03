@@ -229,6 +229,21 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
         return this;
     }
 
+    public FormBuilder<T> returnDescription(String value) {
+        propertyBuilder
+                .metadata()
+                .label(Property.DESCRIPTION_LABEL)
+                .description(Property.RETURN_DESCRIPTION_TYPE_DOC)
+                .stepOut()
+                .value(value == null ? "" : value)
+                .type(Property.ValueType.STRING)
+                .optional(true)
+                .editable();
+
+        addProperty(Property.RETURN_DESCRIPTION_KEY);
+        return this;
+    }
+
     public FormBuilder<T> returnType(String value) {
         return returnType(value, null, true);
     }
