@@ -26,17 +26,17 @@ public function main() {
     }
 }
 
-@ai:Tool
+@ai:AgentTool
 isolated function fn(int x) returns int {
     return x + 1;
 }
 
-@ai:Tool
+@ai:AgentTool
 isolated function fn2(int x, error? err) returns int? {
     return x + 1;
 }
 
-@ai:Tool
+@ai:AgentTool
 function fn1(int x) returns int|error? {
     return x + 1;
 }

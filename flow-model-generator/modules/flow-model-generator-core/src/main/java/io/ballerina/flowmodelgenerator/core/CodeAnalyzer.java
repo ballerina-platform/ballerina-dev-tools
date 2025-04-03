@@ -1593,7 +1593,7 @@ class CodeAnalyzer extends NodeVisitor {
             Optional<String> optName = typeSymbol.getName();
             if (optName.isPresent()) {
                 String name = optName.get();
-                if (name.equals("Model") || name.equals("MemoryManager")) {
+                if (name.equals("ModelProvider") || name.equals("MemoryManager")) {
                     return true;
                 }
             }

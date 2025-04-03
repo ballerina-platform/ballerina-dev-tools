@@ -17,8 +17,8 @@
     "id": "31",
     "metadata": {
       "label": "Class",
-      "description": "OpenAiProvider is a client class that provides an interface for interacting with OpenAI language models.",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.7.15.png"
+      "description": "Initializes the OpenAI model with the given connection configuration and model configuration.\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai_1.0.0.png"
     },
     "codedata": {
       "node": "CLASS_INIT",
@@ -567,7 +567,7 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "agentOpenaimodel",
+        "value": "aiOpenaiprovider",
         "optional": false,
         "editable": true,
         "advanced": false,

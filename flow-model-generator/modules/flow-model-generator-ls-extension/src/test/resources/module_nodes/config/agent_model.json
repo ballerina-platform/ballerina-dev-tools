@@ -10,7 +10,7 @@
         "metadata": {
           "label": "Agent",
           "description": "Represents an agent.",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.7.9.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai_1.0.0.png"
         },
         "codedata": {
           "node": "AGENT",
@@ -51,7 +51,7 @@
             },
             "typeMembers": [
               {
-                "type": "ai:SystemPrompt",
+                "type": "SystemPrompt",
                 "packageInfo": "ballerinax:ai:1.0.0",
                 "kind": "RECORD_TYPE",
                 "selected": true
@@ -1270,7 +1270,7 @@
         "metadata": {
           "label": "New Connection",
           "description": "",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.7.9.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai_1.0.0.png"
         },
         "codedata": {
           "node": "NEW_CONNECTION",
@@ -1289,7 +1289,7 @@
               "offset": 115
             }
           },
-          "sourceCode": "final ai:ModelProvider model = check new ai:AzureOpenAiProvider({auth: {apiKey}}, serviceUrl, deploymentId, apiVersion);"
+          "sourceCode": "final ai:ModelProvider model = check new ai:AzureOpenAiProvider(serviceUrl, serviceUrl, deploymentId, apiVersion);"
         },
         "returning": false,
         "properties": {
@@ -1300,7 +1300,7 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "chat:ConnectionConfig",
-            "value": "{auth: {apiKey}}",
+            "value": "serviceUrl",
             "placeholder": "{auth: {token: \"\"}}",
             "optional": false,
             "editable": true,

@@ -50,7 +50,7 @@ type MockLlmToolCall record {|
     json action_input;
 |};
 
-@ai:Tool
+@ai:AgentTool
 isolated function sum(decimal[] numbers) returns string {
     decimal total = 0;
     foreach decimal number in numbers {
@@ -59,7 +59,7 @@ isolated function sum(decimal[] numbers) returns string {
     return string `Answer is: ${total}`;
 }
 
-@ai:Tool
+@ai:AgentTool
 isolated function mutiply(int a, int b) returns string {
     return string `Answer is: ${a * b}`;
 }
@@ -70,7 +70,7 @@ configurable string apiVersion = "2023-08-01-preview";
 configurable string serviceUrl = "https://bal-rnd.openai.azure.com/openai";
 configurable string apiKey = ?;
 
-ai:AzureOpenAiProvider model = check new ({auth: {apiKey}}, serviceUrl, deploymentId, apiVersion);
+ai:AzureOpenAiProvider model = check new (serviceUrl, apiKey, deploymentId, apiVersion);
 
 isolated function getChatAssistantMessage(string content) returns ai:ChatAssistantMessage {
     return {role: ai:ASSISTANT, content};
@@ -87,7 +87,7 @@ public function main() returns error? {
 
 }
 
-@ai:Tool
+@ai:AgentTool
 @display {
     iconPath: "/path/icon.png"
 }

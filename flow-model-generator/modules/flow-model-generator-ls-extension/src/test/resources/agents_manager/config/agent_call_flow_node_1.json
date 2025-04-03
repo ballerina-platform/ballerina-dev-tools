@@ -17,17 +17,8 @@
         "metadata": {
           "label": "run",
           "description": "Executes the agent for a given user query.\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.9.2.png",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai_1.0.0.png",
           "data": {
-            "agent": {
-              "instructions": "\"Help the students with their questions.\"",
-              "role": "\"Math tutor\""
-            },
-            "model": {
-              "name": "myModel",
-              "path": "https://bcentral-packageicons.azureedge.net/images/agent_agent_0.1.0.png",
-              "type": "AzureOpenAiProvider"
-            },
             "tools": [
               {
                 "name": "set",
@@ -52,7 +43,7 @@
             "model": {
               "name": "myModel",
               "path": "https://bcentral-packageicons.azureedge.net/images/agent_agent_0.1.0.png",
-              "type": "AzureOpenAiModel"
+              "type": "AzureOpenAiProvider"
             }
           }
         },
@@ -62,7 +53,7 @@
           "module": "ai",
           "object": "Agent",
           "symbol": "run",
-          "version": "0.9.2",
+          "version": "1.0.0",
           "lineRange": {
             "fileName": "agents.bal",
             "startLine": {
@@ -116,9 +107,9 @@
               }
             ]
           },
-          "memoryId": {
+          "sessionId": {
             "metadata": {
-              "label": "Memory ID",
+              "label": "Session ID",
               "description": "The ID associated with the agent memory"
             },
             "valueType": "EXPRESSION",
@@ -130,7 +121,7 @@
             "hidden": false,
             "codedata": {
               "kind": "DEFAULTABLE",
-              "originalName": "memoryId"
+              "originalName": "sessionId"
             },
             "typeMembers": [
               {
@@ -202,7 +193,7 @@
         "metadata": {
           "label": "Agent",
           "description": "Represents an agent.",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.9.2.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai_1.0.0.png"
         },
         "codedata": {
           "node": "AGENT",
@@ -231,7 +222,7 @@
               "description": "The model used by the agent"
             },
             "valueType": "EXPRESSION",
-            "valueTypeConstraint": "Model",
+            "valueTypeConstraint": "ai:ModelProvider",
             "value": "myModel",
             "placeholder": "object {}",
             "optional": false,
@@ -244,7 +235,7 @@
             },
             "typeMembers": [
               {
-                "type": "Model",
+                "type": "ModelProvider",
                 "packageInfo": "ballerinax:ai:1.0.0",
                 "kind": "OBJECT_TYPE",
                 "selected": false
@@ -257,7 +248,7 @@
               "description": "The system prompt assigned to the agent"
             },
             "valueType": "EXPRESSION",
-            "valueTypeConstraint": "SystemPrompt",
+            "valueTypeConstraint": "ai:SystemPrompt",
             "value": "{role: \"Math tutor\", instructions: \"Help the students with their questions.\"}",
             "placeholder": "{role: \"\", instructions: \"\"}",
             "optional": false,
@@ -273,7 +264,7 @@
                 "type": "SystemPrompt",
                 "packageInfo": "ballerinax:ai:1.0.0",
                 "kind": "RECORD_TYPE",
-                "selected": false
+                "selected": true
               }
             ]
           },
@@ -283,7 +274,7 @@
               "description": "Type of the agent"
             },
             "valueType": "EXPRESSION",
-            "valueTypeConstraint": "AgentType",
+            "valueTypeConstraint": "ai:AgentType",
             "value": "ai:REACT_AGENT\n",
             "placeholder": "\"FUNCTION_CALL_AGENT\"",
             "optional": true,
@@ -309,7 +300,7 @@
               "description": "The tools available for the agent"
             },
             "valueType": "EXPRESSION",
-            "valueTypeConstraint": "(BaseToolKit|ToolConfig|FunctionTool)[]",
+            "valueTypeConstraint": "(ai:BaseToolKit|ai:ToolConfig|ai:FunctionTool)[]",
             "value": "[set, sum, mutiply]",
             "placeholder": "[]",
             "optional": true,
@@ -322,7 +313,7 @@
             },
             "typeMembers": [
               {
-                "type": "BaseToolKit|agent",
+                "type": "BaseToolKit|ai",
                 "packageInfo": "",
                 "kind": "ARRAY_TYPE",
                 "selected": false
@@ -385,8 +376,8 @@
               "description": "The memory manager used by the agent to store and manage conversation history"
             },
             "valueType": "EXPRESSION",
-            "valueTypeConstraint": "MemoryManager",
-            "placeholder": "object {}",
+            "valueTypeConstraint": "ai:MemoryManager|()",
+            "placeholder": "()",
             "optional": true,
             "editable": true,
             "advanced": true,
@@ -400,6 +391,12 @@
                 "type": "MemoryManager",
                 "packageInfo": "ballerinax:ai:1.0.0",
                 "kind": "OBJECT_TYPE",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
                 "selected": false
               }
             ]
@@ -444,11 +441,11 @@
                 "fileName": "agents.bal",
                 "startLine": {
                   "line": 79,
-                  "offset": 18
+                  "offset": 15
                 },
                 "endLine": {
                   "line": 79,
-                  "offset": 23
+                  "offset": 20
                 }
               }
             }
@@ -459,7 +456,7 @@
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
-            "value": "Agent",
+            "value": "ai:Agent",
             "placeholder": "var",
             "optional": false,
             "editable": true,
@@ -1829,11 +1826,11 @@
         "flags": 1
       },
       {
-        "id": "103268",
+        "id": "103258",
         "metadata": {
           "label": "Class",
           "description": "AzureOpenAiProvider is a client class that provides an interface for interacting with Azure-hosted OpenAI language models.",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.9.2.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai_1.0.0.png"
         },
         "codedata": {
           "node": "CLASS_INIT",
@@ -1849,10 +1846,10 @@
             },
             "endLine": {
               "line": 72,
-              "offset": 100
+              "offset": 90
             }
           },
-          "sourceCode": "ai:AzureOpenAiProvider myModel = check new ({auth: {apiKey}}, serviceUrl, deploymentId, apiVersion);"
+          "sourceCode": "ai:AzureOpenAiProvider myModel = check new (serviceUrl, apiKey, deploymentId, apiVersion);"
         },
         "returning": false,
         "properties": {
@@ -1863,21 +1860,12 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "string",
-            "value": "{auth: {apiKey}}",
+            "value": "serviceUrl",
             "placeholder": "\"\"",
             "optional": false,
             "editable": true,
             "advanced": false,
             "hidden": false,
-            "diagnostics": {
-              "hasDiagnostics": true,
-              "diagnostics": [
-                {
-                  "severity": "ERROR",
-                  "message": "a type compatible with mapping constructor expressions not found in type 'string'"
-                }
-              ]
-            },
             "codedata": {
               "kind": "REQUIRED",
               "originalName": "serviceUrl"
@@ -1887,7 +1875,7 @@
                 "type": "string",
                 "packageInfo": "",
                 "kind": "BASIC_TYPE",
-                "selected": false
+                "selected": true
               }
             ]
           },
@@ -1898,7 +1886,7 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "string",
-            "value": "serviceUrl",
+            "value": "apiKey",
             "placeholder": "\"\"",
             "optional": false,
             "editable": true,
@@ -2435,7 +2423,7 @@
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
-            "value": "AzureOpenAiProvider",
+            "value": "ai:AzureOpenAiProvider",
             "placeholder": "var",
             "optional": false,
             "editable": true,
@@ -2443,9 +2431,6 @@
             "hidden": false,
             "codedata": {}
           }
-        },
-        "diagnostics": {
-          "hasDiagnostics": true
         },
         "flags": 1
       }

@@ -7,7 +7,7 @@ configurable string deploymentId = ?;
 configurable string apiVersion = ?;
 configurable string serviceUrl = ?;
 
-final ai:ModelProvider model = check new ai:AzureOpenAiProvider({auth: {apiKey}}, serviceUrl, deploymentId, apiVersion);
+final ai:ModelProvider model = check new ai:AzureOpenAiProvider(serviceUrl, apiKey, deploymentId, apiVersion);
 final ai:Agent agent = check new (
     systemPrompt = {
         role: "Telegram Assistant",
@@ -16,5 +16,5 @@ final ai:Agent agent = check new (
     },
     model = model,
     tools = [sum, multiply],
-    memory = new ai:MessageWindowChatMemory(10) // Available by default
+    memoryManager = new ai:DefaultMessageWindowChatMemoryManager(10) // Available by default
 );

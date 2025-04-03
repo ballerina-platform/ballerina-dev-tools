@@ -6,7 +6,7 @@
     "metadata": {
       "label": "Agent",
       "description": "Represents an agent.",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.7.9.png"
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai_1.0.0.png"
     },
     "codedata": {
       "node": "AGENT",
@@ -14,7 +14,7 @@
       "module": "ai",
       "object": "Agent",
       "symbol": "init",
-      "version": "0.7.9",
+      "version": "1.0.0",
       "id": 0,
       "isNew": true
     },
@@ -37,7 +37,7 @@
         },
         "typeMembers": [
           {
-            "type": "ai:SystemPrompt",
+            "type": "SystemPrompt",
             "packageInfo": "ballerinax:ai:1.0.0",
             "kind": "RECORD_TYPE",
             "selected": false
@@ -143,7 +143,7 @@
             "selected": false
           }
         ],
-        "value": "agentOpenaimodel"
+        "value": "aiOpenaiprovider"
       },
       "tools": {
         "metadata": {
@@ -217,7 +217,7 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "agentAgent",
+        "value": "aiAgent",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -262,7 +262,7 @@
             "character": 0
           }
         },
-        "newText": "final ai:Agent agentAgent = check new (systemPrompt = {role: \"\", instructions: \"\"}, model = agentOpenaimodel, tools = [sum, average]);"
+        "newText": "final ai:Agent aiAgent = check new (\n    systemPrompt = {role: \"\", instructions: \"\"}, model = aiOpenaiprovider, tools = [sum, average]\n);"
       }
     ]
   }

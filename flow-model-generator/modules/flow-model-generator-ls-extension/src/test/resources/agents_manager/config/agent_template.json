@@ -18,7 +18,7 @@
     "metadata": {
       "label": "Agent",
       "description": "Represents an agent.",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.7.15.png",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai_1.0.0.png",
       "data": {
         "paramsToHide": [
           "model",
@@ -81,7 +81,7 @@
         },
         "typeMembers": [
           {
-            "type": "Model",
+            "type": "ModelProvider",
             "packageInfo": "ballerinax:ai:1.0.0",
             "kind": "OBJECT_TYPE",
             "selected": false
@@ -106,7 +106,7 @@
         },
         "typeMembers": [
           {
-            "type": "BaseToolKit|agent",
+            "type": "BaseToolKit|ai",
             "packageInfo": "",
             "kind": "ARRAY_TYPE",
             "selected": false
@@ -194,8 +194,8 @@
           "description": "The memory manager used by the agent to store and manage conversation history"
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "ai:MemoryManager",
-        "placeholder": "object {}",
+        "valueTypeConstraint": "ai:MemoryManager|()",
+        "placeholder": "()",
         "optional": true,
         "editable": true,
         "advanced": true,
@@ -209,6 +209,12 @@
             "type": "MemoryManager",
             "packageInfo": "ballerinax:ai:1.0.0",
             "kind": "OBJECT_TYPE",
+            "selected": false
+          },
+          {
+            "type": "()",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
             "selected": false
           }
         ]
@@ -233,7 +239,7 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "agentAgent",
+        "value": "aiAgent",
         "optional": false,
         "editable": true,
         "advanced": false,
