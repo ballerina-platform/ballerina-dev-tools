@@ -67,15 +67,9 @@ public class ModelGeneratorTest extends AbstractLSTest {
 
     @Override
     protected String[] skipList() {
-        // TODO: Re-enable once the version mismatch issue is fixed
-        return new String[] {
-                "new_connection1.json",
-                "new_connection2.json",
-                "new_connection3.json",
-                "method_call3.json",
-                "currency_converter1.json",
-                "remote_action_call-mysql1.json",
-                "remote_action_call-mysql2.json",
+        // TODO: Enable this once the default value issue is resolved
+        return new String[]{
+                "resource_action_call_github.json"
         };
     }
 

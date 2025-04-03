@@ -768,7 +768,7 @@
           "secureSocket": {
             "metadata": {
               "label": "secureSocket",
-              "description": ""
+              "description": "SSL/TLS-related options"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:ClientSecureSocket|()",
@@ -867,7 +867,7 @@
         "metadata": {
           "label": "New Connection",
           "description": "Ballerina Redis connector provides the capability to access Redis cache.\nThis connector lets you to perform operations to access and manipulate key-value data stored in a Redis database. \n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.1.0.png"
         },
         "codedata": {
           "node": "NEW_CONNECTION",
@@ -893,7 +893,7 @@
           "connection": {
             "metadata": {
               "label": "Connection Type",
-              "description": ""
+              "description": "Connection configurations of the Redis server. This can be either a single URI or a set of parameters"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "redis:ConnectionUri|redis:ConnectionParams",
@@ -909,13 +909,13 @@
             "typeMembers": [
               {
                 "type": "ConnectionUri",
-                "packageInfo": "ballerinax:redis:3.0.2",
+                "packageInfo": "ballerinax:redis:3.1.0",
                 "kind": "BASIC_TYPE",
                 "selected": false
               },
               {
                 "type": "ConnectionParams",
-                "packageInfo": "ballerinax:redis:3.0.2",
+                "packageInfo": "ballerinax:redis:3.1.0",
                 "kind": "RECORD_TYPE",
                 "selected": false
               }
@@ -924,7 +924,7 @@
           "connectionPooling": {
             "metadata": {
               "label": "Connection Pooling Enabled",
-              "description": ""
+              "description": "Flag to indicate whether connection pooling is enabled"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "boolean",
@@ -949,7 +949,7 @@
           "isClusterConnection": {
             "metadata": {
               "label": "Cluster Mode Enabled",
-              "description": ""
+              "description": "Flag to indicate whether the connection is a cluster connection"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "boolean",
@@ -974,7 +974,7 @@
           "secureSocket": {
             "metadata": {
               "label": "Secure Socket Configurations",
-              "description": ""
+              "description": "Configurations related to SSL/TLS encryption"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "redis:SecureSocket",
@@ -990,7 +990,7 @@
             "typeMembers": [
               {
                 "type": "SecureSocket",
-                "packageInfo": "ballerinax:redis:3.0.2",
+                "packageInfo": "ballerinax:redis:3.1.0",
                 "kind": "RECORD_TYPE",
                 "selected": false
               }
@@ -1067,7 +1067,7 @@
         "metadata": {
           "label": "New Connection",
           "description": "Ballerina Redis connector provides the capability to access Redis cache.\nThis connector lets you to perform operations to access and manipulate key-value data stored in a Redis database. \n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.1.0.png"
         },
         "codedata": {
           "node": "NEW_CONNECTION",
@@ -1093,7 +1093,7 @@
           "connection": {
             "metadata": {
               "label": "Connection Type",
-              "description": ""
+              "description": "Connection configurations of the Redis server. This can be either a single URI or a set of parameters"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "redis:ConnectionUri|redis:ConnectionParams",
@@ -1109,13 +1109,13 @@
             "typeMembers": [
               {
                 "type": "ConnectionUri",
-                "packageInfo": "ballerinax:redis:3.0.2",
+                "packageInfo": "ballerinax:redis:3.1.0",
                 "kind": "BASIC_TYPE",
                 "selected": false
               },
               {
                 "type": "ConnectionParams",
-                "packageInfo": "ballerinax:redis:3.0.2",
+                "packageInfo": "ballerinax:redis:3.1.0",
                 "kind": "RECORD_TYPE",
                 "selected": false
               }
@@ -1124,7 +1124,7 @@
           "connectionPooling": {
             "metadata": {
               "label": "Connection Pooling Enabled",
-              "description": ""
+              "description": "Flag to indicate whether connection pooling is enabled"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "boolean",
@@ -1149,7 +1149,7 @@
           "isClusterConnection": {
             "metadata": {
               "label": "Cluster Mode Enabled",
-              "description": ""
+              "description": "Flag to indicate whether the connection is a cluster connection"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "boolean",
@@ -1174,7 +1174,7 @@
           "secureSocket": {
             "metadata": {
               "label": "Secure Socket Configurations",
-              "description": ""
+              "description": "Configurations related to SSL/TLS encryption"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "redis:SecureSocket",
@@ -1190,7 +1190,7 @@
             "typeMembers": [
               {
                 "type": "SecureSocket",
-                "packageInfo": "ballerinax:redis:3.0.2",
+                "packageInfo": "ballerinax:redis:3.1.0",
                 "kind": "RECORD_TYPE",
                 "selected": false
               }
@@ -1847,7 +1847,7 @@
           "secureSocket": {
             "metadata": {
               "label": "secureSocket",
-              "description": ""
+              "description": "SSL/TLS-related options"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:ClientSecureSocket|()",
@@ -1946,7 +1946,7 @@
         "metadata": {
           "label": "New Connection",
           "description": "Ballerina Redis connector provides the capability to access Redis cache.\nThis connector lets you to perform operations to access and manipulate key-value data stored in a Redis database. \n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.1.0.png"
         },
         "codedata": {
           "node": "NEW_CONNECTION",
@@ -1972,7 +1972,7 @@
           "connection": {
             "metadata": {
               "label": "Connection Type",
-              "description": ""
+              "description": "Connection configurations of the Redis server. This can be either a single URI or a set of parameters"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "redis:ConnectionUri|redis:ConnectionParams",
@@ -1988,13 +1988,13 @@
             "typeMembers": [
               {
                 "type": "ConnectionUri",
-                "packageInfo": "ballerinax:redis:3.0.2",
+                "packageInfo": "ballerinax:redis:3.1.0",
                 "kind": "BASIC_TYPE",
                 "selected": false
               },
               {
                 "type": "ConnectionParams",
-                "packageInfo": "ballerinax:redis:3.0.2",
+                "packageInfo": "ballerinax:redis:3.1.0",
                 "kind": "RECORD_TYPE",
                 "selected": false
               }
@@ -2003,7 +2003,7 @@
           "connectionPooling": {
             "metadata": {
               "label": "Connection Pooling Enabled",
-              "description": ""
+              "description": "Flag to indicate whether connection pooling is enabled"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "boolean",
@@ -2028,7 +2028,7 @@
           "isClusterConnection": {
             "metadata": {
               "label": "Cluster Mode Enabled",
-              "description": ""
+              "description": "Flag to indicate whether the connection is a cluster connection"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "boolean",
@@ -2053,7 +2053,7 @@
           "secureSocket": {
             "metadata": {
               "label": "Secure Socket Configurations",
-              "description": ""
+              "description": "Configurations related to SSL/TLS encryption"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "redis:SecureSocket",
@@ -2069,7 +2069,7 @@
             "typeMembers": [
               {
                 "type": "SecureSocket",
-                "packageInfo": "ballerinax:redis:3.0.2",
+                "packageInfo": "ballerinax:redis:3.1.0",
                 "kind": "RECORD_TYPE",
                 "selected": false
               }
