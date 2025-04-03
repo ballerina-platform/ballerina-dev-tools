@@ -90,35 +90,35 @@ public class ConfigVariablesManager {
         diagnosticHandler.handle(nodeBuilder, modVarDeclNode.lineRange(), false);
 
         TypedBindingPatternNode typedBindingPattern = modVarDeclNode.typedBindingPattern();
-        return
-                nodeBuilder
-                    .metadata()
-                        .label("Config variables")
-                        .stepOut()
-                    .codedata()
-                        .node(NodeKind.CONFIG_VARIABLE)
-                        .lineRange(modVarDeclNode.lineRange())
-                        .stepOut()
-                    .properties()
-                        .type(typedBindingPattern.typeDescriptor(), true)
-                        .defaultableName(typedBindingPattern.bindingPattern().toSourceCode().trim())
-                        .defaultableVariable(modVarDeclNode.initializer().orElse(null))
-                        .stepOut()
-                    .build();
+        return nodeBuilder
+                .metadata()
+                .label("Config variables")
+                .stepOut()
+                .codedata()
+                .node(NodeKind.CONFIG_VARIABLE)
+                .lineRange(modVarDeclNode.lineRange())
+                .stepOut()
+                .properties()
+                .type(typedBindingPattern.typeDescriptor(), true)
+                .defaultableName(typedBindingPattern.bindingPattern().toSourceCode().trim())
+                .defaultableVariable(modVarDeclNode.initializer().orElse(null))
+                .stepOut()
+                .build();
     }
 
     public JsonElement update(Document document, Path configFile, FlowNode configVariable) {
-        List<TextEdit> textEdits = new ArrayList<>();
         LineRange lineRange = configVariable.codedata().lineRange();
         Map<String, Property> properties = configVariable.properties();
-        String configStmt = configStmt(properties);
-        if (lineRange == null) {
+        String configStatement = constructConfigStatement(properties);
+
+        List<TextEdit> textEdits = new ArrayList<>();
+        if (isNew(configVariable) || lineRange == null) {
             SyntaxTree syntaxTree = document.syntaxTree();
             ModulePartNode modulePartNode = syntaxTree.rootNode();
             LinePosition startPos = LinePosition.from(modulePartNode.lineRange().endLine().line() + 1, 0);
-            textEdits.add(new TextEdit(CommonUtils.toRange(startPos), configStmt));
+            textEdits.add(new TextEdit(CommonUtils.toRange(startPos), configStatement));
         } else {
-            textEdits.add(new TextEdit(CommonUtils.toRange(lineRange), configStmt));
+            textEdits.add(new TextEdit(CommonUtils.toRange(lineRange), configStatement));
         }
 
         Map<Path, List<TextEdit>> textEditsMap = new HashMap<>();
@@ -126,12 +126,16 @@ public class ConfigVariablesManager {
         return gson.toJsonTree(textEditsMap);
     }
 
-    private String configStmt(Map<String, Property> properties) {
+    private String constructConfigStatement(Map<String, Property> properties) {
         String value = properties.get(DEFAULTABLE).toSourceCode();
-        if (value.isEmpty()) {
-            value = "?";
-        }
-        return String.format("configurable %s %s = %s;", properties.get(Property.TYPE_KEY).toSourceCode(),
-                properties.get(Property.VARIABLE_KEY).toSourceCode(), value);
+        return String.format("configurable %s %s = %s;",
+                properties.get(Property.TYPE_KEY).toSourceCode(),
+                properties.get(Property.VARIABLE_KEY).toSourceCode(),
+                value.isEmpty() ? "?" : value
+        );
+    }
+
+    private boolean isNew(FlowNode configVariable) {
+        return configVariable.codedata().isNew() != null && configVariable.codedata().isNew();
     }
 }
