@@ -75,8 +75,8 @@ public class FunctionDefinitionBuilder extends NodeBuilder {
     public static void setMandatoryProperties(NodeBuilder nodeBuilder, String returnType, String description,
                                               String returnDescription) {
         nodeBuilder.properties()
+                .functionDescription(description)
                 .returnType(returnType, null, true)
-                .description(description)
                 .returnDescription(returnDescription)
                 .nestedProperty();
     }
@@ -94,7 +94,7 @@ public class FunctionDefinitionBuilder extends NodeBuilder {
 
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
-        Optional<Property> optDescription = sourceBuilder.flowNode.getProperty(Property.DESCRIPTION_KEY);
+        Optional<Property> optDescription = sourceBuilder.flowNode.getProperty(Property.FUNCTION_NAME_DESCRIPTION_KEY);
         optDescription.ifPresent(property -> sourceBuilder.token().descriptionDoc(property.value().toString()));
 
         Optional<Property> parameters = sourceBuilder.flowNode.getProperty(Property.PARAMETERS_KEY);
@@ -113,7 +113,7 @@ public class FunctionDefinitionBuilder extends NodeBuilder {
                 String paramName = paramProperties.get(Property.VARIABLE_KEY).value().toString();
                 paramList.add(paramType + " " + paramName);
                 if (optDescription.isPresent()) {
-                    Property property = paramProperties.get(Property.DESCRIPTION_KEY);
+                    Property property = paramProperties.get(Property.PARAMETER_DESCRIPTION_KEY);
                     if (property != null) {
                         sourceBuilder.token().parameterDoc(paramName, property.value().toString());
                     }

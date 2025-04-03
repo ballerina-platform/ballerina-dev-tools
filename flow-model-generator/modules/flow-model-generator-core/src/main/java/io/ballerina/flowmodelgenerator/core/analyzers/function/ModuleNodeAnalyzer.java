@@ -347,13 +347,7 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
             if (documentationLine.kind() == SyntaxKind.MARKDOWN_DOCUMENTATION_LINE) {
                 NodeList<Node> nodes = ((MarkdownDocumentationLineNode) documentationLine).documentElements();
                 if (nodes.size() == 1) {
-                    String source = nodes.get(0).toSourceCode();
-                    if (source.contains("return -")) {
-                        String[] splits = source.split("return -");
-                        returnDescription = splits[1].trim();
-                    } else {
-                        description.append(source);
-                    }
+                    description.append(nodes.get(0).toSourceCode());
                 }
             } else if (documentationLine.kind() == SyntaxKind.MARKDOWN_PARAMETER_DOCUMENTATION_LINE) {
                 MarkdownParameterDocumentationLineNode docLine =
@@ -362,6 +356,13 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
                 NodeList<Node> nodes = docLine.documentElements();
                 if (!nodes.isEmpty()) {
                     params.put(param, nodes.get(0).toSourceCode());
+                }
+            } else if (documentationLine.kind() == SyntaxKind.MARKDOWN_RETURN_PARAMETER_DOCUMENTATION_LINE) {
+                MarkdownParameterDocumentationLineNode returnDocLine =
+                        (MarkdownParameterDocumentationLineNode) documentationLine;
+                NodeList<Node> nodes = returnDocLine.documentElements();
+                if (!nodes.isEmpty()) {
+                    returnDescription = nodes.get(0).toSourceCode();
                 }
             }
         }

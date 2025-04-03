@@ -15,7 +15,7 @@ function divide( int a, int b) returns int|error{
 # + a - Paramter a
 # + b - Parameter b
 #
-# return - The result of the division
+# + return - The result of the division
 function divide2( int a, int b) returns int|error{
     return 2;
 }
