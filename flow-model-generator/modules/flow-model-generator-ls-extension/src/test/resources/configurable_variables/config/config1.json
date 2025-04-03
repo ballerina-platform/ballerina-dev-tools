@@ -34,6 +34,7 @@
           "optional": false,
           "editable": true,
           "advanced": false,
+          "hidden": false,
           "codedata": {}
         },
         "variable": {
@@ -42,10 +43,12 @@
             "description": "Name of the variable"
           },
           "valueType": "IDENTIFIER",
+          "valueTypeConstraint": "Global",
           "value": "config1",
           "optional": false,
           "editable": true,
-          "advanced": false
+          "advanced": false,
+          "hidden": false
         },
         "defaultable": {
           "metadata": {
@@ -56,7 +59,8 @@
           "value": "",
           "optional": true,
           "editable": true,
-          "advanced": false
+          "advanced": false,
+          "hidden": false
         }
       },
       "flags": 0
@@ -94,6 +98,7 @@
           "optional": false,
           "editable": true,
           "advanced": false,
+          "hidden": false,
           "codedata": {}
         },
         "variable": {
@@ -102,10 +107,12 @@
             "description": "Name of the variable"
           },
           "valueType": "IDENTIFIER",
+          "valueTypeConstraint": "Global",
           "value": "config2",
           "optional": false,
           "editable": true,
-          "advanced": false
+          "advanced": false,
+          "hidden": false
         },
         "defaultable": {
           "metadata": {
@@ -116,7 +123,8 @@
           "value": "",
           "optional": true,
           "editable": true,
-          "advanced": false
+          "advanced": false,
+          "hidden": false
         }
       },
       "flags": 0

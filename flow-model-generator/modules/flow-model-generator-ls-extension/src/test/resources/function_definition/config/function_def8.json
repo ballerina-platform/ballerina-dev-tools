@@ -31,6 +31,7 @@
           "description": "Name of the function"
         },
         "valueType": "IDENTIFIER",
+        "valueTypeConstraint": "Global",
         "value": "processUser",
         "optional": false,
         "editable": false,

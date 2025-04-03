@@ -26,6 +26,7 @@
           "description": "Name of the data mapper"
         },
         "valueType": "IDENTIFIER",
+        "valueTypeConstraint": "Global",
         "value": "transform1",
         "optional": false,
         "editable": true,
