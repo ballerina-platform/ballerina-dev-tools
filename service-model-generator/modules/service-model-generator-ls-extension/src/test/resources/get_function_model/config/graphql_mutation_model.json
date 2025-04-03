@@ -85,6 +85,7 @@
       }
     },
     "returnType": {
+      "hasError": false,
       "metadata": {
         "label": "Field Type",
         "description": "The type of the field"

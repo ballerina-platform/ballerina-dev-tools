@@ -43,6 +43,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.FUNCTION_NAME_METADATA;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.FUNCTION_RETURN_TYPE_METADATA;
+
 /**
  * Util class for service class related operations.
  *
@@ -129,16 +132,17 @@ public class ServiceClassUtil {
         updateMetadata(functionModel, kind);
         functionModel.setKind(kind.name());
 
+        if (kind == FunctionKind.INIT) {
+            functionModel.getName().setMetadata(FUNCTION_NAME_METADATA);
+            functionModel.getReturnType().setMetadata(FUNCTION_RETURN_TYPE_METADATA);
+        }
+
         if (kind.equals(FunctionKind.RESOURCE)) {
-            Value accessor = functionModel.getAccessor();
-            accessor.setValue(functionDef.functionName().text().trim());
-            accessor.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER);
-            accessor.setEnabled(true);
-            accessor.setEditable(true);
-            updateFunctionNameProperty(functionModel.getName(), Utils.getPath(functionDef.relativeResourcePath()),
+            functionModel.getAccessor().setValue(functionDef.functionName().text().trim());
+            setFunctionNameAndLineRange(functionModel.getName(), Utils.getPath(functionDef.relativeResourcePath()),
                     functionDef.functionName().lineRange());
         } else {
-            updateFunctionNameProperty(functionModel.getName(), functionDef.functionName().text().trim(),
+            setFunctionNameAndLineRange(functionModel.getName(), functionDef.functionName().text().trim(),
                     functionDef.functionName().lineRange());
         }
 
@@ -162,7 +166,6 @@ public class ServiceClassUtil {
             parameterModel.ifPresent(parameterModels::add);
         });
         functionModel.setParameters(parameterModels);
-        functionModel.setEnabled(true);
         functionModel.setEditable(true);
         functionModel.setCodedata(new Codedata(functionDef.lineRange()));
         return functionModel;
@@ -211,15 +214,9 @@ public class ServiceClassUtil {
         return FunctionKind.DEFAULT;
     }
 
-    private static void updateFunctionNameProperty(Value value, String functionName, LineRange lineRange) {
-        value.setMetadata(new MetaData("Function Name", "The name of the function"));
-        value.setEnabled(true);
-        value.setEditable(false);
+    private static void setFunctionNameAndLineRange(Value value, String functionName, LineRange lineRange) {
         value.setValue(functionName);
         value.setCodedata(new Codedata(lineRange));
-        value.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER);
-        value.setValueTypeConstraint("string");
-        value.setPlaceholder("");
     }
 
     private static void updateMetadata(Function function, FunctionKind kind) {
@@ -241,29 +238,29 @@ public class ServiceClassUtil {
                 "%n" +
                 "        } on fail error err {%n" +
                 "            // handle error%n" +
-                "            panic error(\"Unhandled error\", err);%n" +
+                "            return error(\"unhandled error\", err);%n" +
                 "        }%n" +
                 "    }%n" +
                 "%n" +
-                "    remote function onError(tcp:Error tcpError) {%n" +
+                "    remote function onError(tcp:Error tcpError) tcp:Error? {%n" +
                 "        do {%n" +
                 "%n" +
                 "        } on fail error err {%n" +
                 "            // handle error%n" +
-                "            panic error(\"Unhandled error\", err);%n" +
+                "            return error(\"unhandled error\", err);%n" +
                 "        }%n" +
                 "    }%n" +
                 "%n" +
-                "    remote function onClose() {%n" +
+                "    remote function onClose() tcp:Error? {%n" +
                 "        do {%n" +
                 "%n" +
                 "        } on fail error err {%n" +
                 "            // handle error%n" +
-                "            panic error(\"Unhandled error\", err);%n" +
+                "            return error(\"unhandled error\", err);%n" +
                 "        }%n" +
                 "    }%n" +
                 "}%n%n";
-    } // TODO: fix this template remove panic error
+    }
 
     public enum FunctionKind {
         INIT,

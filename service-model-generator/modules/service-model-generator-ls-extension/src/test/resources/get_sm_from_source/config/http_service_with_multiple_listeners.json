@@ -310,7 +310,7 @@
               "addNewButton": false
             },
             "enabled": true,
-            "editable": false,
+            "editable": true,
             "optional": false,
             "advanced": false
           }
@@ -813,6 +813,7 @@
               "isHttpResponseType": false
             }
           },
+          "hasError": false,
           "metadata": {
             "label": "Return type",
             "description": "Return type of the function"

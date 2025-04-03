@@ -78,6 +78,8 @@ public class ListenerUtil {
         Set<String> listeners = new LinkedHashSet<>();
         boolean isHttpDefaultListenerDefined = false;
         boolean isHttp = ServiceModelGeneratorConstants.HTTP.equals(moduleName);
+        boolean isKafka = ServiceModelGeneratorConstants.KAFKA.equals(moduleName);
+
         for (Symbol moduleSymbol : semanticModel.moduleSymbols()) {
             if (!(moduleSymbol instanceof VariableSymbol variableSymbol)
                     || !variableSymbol.qualifiers().contains(Qualifier.LISTENER)) {
@@ -86,6 +88,9 @@ public class ListenerUtil {
             Optional<ModuleSymbol> module = variableSymbol.typeDescriptor().getModule();
             if (module.isEmpty() || !module.get().id().moduleName().equals(moduleName) ||
                     variableSymbol.getName().isEmpty()) {
+                continue;
+            }
+            if (isKafka && semanticModel.references(variableSymbol).size() > 1) {
                 continue;
             }
             String listenerName = variableSymbol.getName().get();
@@ -293,14 +298,14 @@ public class ListenerUtil {
             Value.ValueBuilder valueBuilder = new Value.ValueBuilder()
                     .setMetadata(new MetaData(unescapedParamName, paramResult.description()))
                     .setCodedata(codedata)
-                    .setValue("")
-                    .setValueType("EXPRESSION")
+                    .value("")
+                    .valueType("EXPRESSION")
                     .setPlaceholder(paramResult.defaultValue())
                     .setValueTypeConstraint(paramResult.type())
-                    .setEditable(true)
-                    .setType(false)
-                    .setEnabled(true)
-                    .setOptional(paramResult.optional())
+                    .editable(true)
+                    .isType(false)
+                    .enabled(true)
+                    .optional(paramResult.optional())
                     .setAdvanced(paramResult.optional())
                     .setTypeMembers(paramResult.typeMembers());
 
@@ -372,13 +377,13 @@ public class ListenerUtil {
         valueBuilder
                 .setMetadata(new MetaData("Name", "The name of the listener"))
                 .setCodedata(new Codedata("LISTENER_VAR_NAME"))
-                .setValue("")
-                .setValueType("IDENTIFIER")
+                .value("")
+                .valueType("IDENTIFIER")
                 .setValueTypeConstraint("string")
-                .setType(false)
-                .setEditable(true)
-                .setEnabled(true)
-                .setOptional(false)
+                .isType(false)
+                .editable(true)
+                .enabled(true)
+                .optional(false)
                 .setAdvanced(false);
 
         return valueBuilder.build();

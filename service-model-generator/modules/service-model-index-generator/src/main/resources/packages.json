@@ -107,8 +107,9 @@
               "description": "The `onConnect` remote method will be triggered when a message is received from a tcp client",
               "accessor": "",
               "kind": "REMOTE",
-              "returnType": "tcp:ConnectionService",
-              "returnTypeEditable": 1,
+              "returnType": "tcp:ConnectionService|tcp:Error?",
+              "returnError": 1,
+              "returnTypeEditable": 0,
               "enable": 0,
               "parameters": [
                 {
@@ -159,8 +160,9 @@
               "accessor": "",
               "kind": "REMOTE",
               "returnType": "",
+              "returnError": 0,
               "returnTypeEditable": 0,
-              "enable": 0,
+              "enable": 1,
               "parameters": [
                 {
                   "name": "event",
@@ -179,6 +181,7 @@
               "accessor": "",
               "kind": "REMOTE",
               "returnType": "",
+              "returnError": 0,
               "returnTypeEditable": 0,
               "enable": 0,
               "parameters": [
@@ -199,6 +202,7 @@
               "accessor": "",
               "kind": "REMOTE",
               "returnType": "",
+              "returnError": 0,
               "returnTypeEditable": 0,
               "enable": 0,
               "parameters": [
@@ -251,8 +255,9 @@
               "accessor": "",
               "kind": "REMOTE",
               "returnType": "error?",
-              "returnTypeEditable": 1,
-              "enable": 0,
+              "returnError": 1,
+              "returnTypeEditable": 0,
+              "enable": 1,
               "parameters": [
                 {
                   "name": "event",
@@ -311,8 +316,9 @@
               "accessor": "",
               "kind": "REMOTE",
               "returnType": "error?",
-              "returnTypeEditable": 1,
-              "enable": 0,
+              "returnError": 1,
+              "returnTypeEditable": 0,
+              "enable": 1,
               "parameters": [
                 {
                   "name": "message",
@@ -365,8 +371,9 @@
               "accessor": "",
               "kind": "REMOTE",
               "returnType": "error?",
-              "returnTypeEditable": 1,
-              "enable": 0,
+              "returnError": 1,
+              "returnTypeEditable": 0,
+              "enable": 1,
               "parameters": [
                 {
                   "name": "message",
@@ -385,7 +392,8 @@
               "accessor": "",
               "kind": "REMOTE",
               "returnType": "error?",
-              "returnTypeEditable": 1,
+              "returnError": 1,
+              "returnTypeEditable": 0,
               "enable": 0,
               "parameters": [
                 {
@@ -400,7 +408,6 @@
               ]
             }
           ]
-
         }
       }
     },
@@ -437,8 +444,9 @@
               "accessor": "",
               "kind": "REMOTE",
               "returnType": "error?",
-              "returnTypeEditable": 1,
-              "enable": 0,
+              "returnError": 1,
+              "returnTypeEditable": 0,
+              "enable": 1,
               "parameters": [
                 {
                   "name": "message",
@@ -466,7 +474,8 @@
               "accessor": "",
               "kind": "REMOTE",
               "returnType": "anydata|error",
-              "returnTypeEditable": 1,
+              "returnError": 1,
+              "returnTypeEditable": 0,
               "enable": 0,
               "parameters": [
                 {
@@ -495,8 +504,9 @@
               "accessor": "",
               "kind": "REMOTE",
               "returnType": "error?",
-              "returnTypeEditable": 1,
-              "enable": 0,
+              "returnError": 1,
+              "returnTypeEditable": 0,
+              "enable": 1,
               "parameters": [
                 {
                   "name": "message",
@@ -556,8 +566,9 @@
               "accessor": "",
               "kind": "REMOTE",
               "returnType": "error?",
-              "returnTypeEditable": 1,
-              "enable": 0,
+              "returnError": 1,
+              "returnTypeEditable": 0,
+              "enable": 1,
               "parameters": [
                 {
                   "name": "records",
@@ -585,8 +596,9 @@
               "accessor": "",
               "kind": "REMOTE",
               "returnType": "error?",
-              "returnTypeEditable": 1,
-              "enable": 0,
+              "returnError": 1,
+              "returnTypeEditable": 0,
+              "enable": 1,
               "parameters": [
                 {
                   "name": "kafkaError",

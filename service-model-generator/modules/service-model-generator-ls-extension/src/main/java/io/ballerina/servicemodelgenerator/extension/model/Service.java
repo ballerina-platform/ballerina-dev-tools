@@ -26,26 +26,27 @@ import java.util.Objects;
 
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.getValueString;
 
+/**
+ * Represents a service declaration.
+ *
+ * @since 2.0.0
+ */
 public class Service {
-    private String id;
-    private String name;
-    private String type;
-    private String displayName;
-    private String description;
-    private DisplayAnnotation displayAnnotation;
-    private String moduleName;
-    private String orgName;
-    private String version;
-    private String packageName;
-    private String listenerProtocol;
-    private String icon;
+    private final String id;
+    private final String name;
+    private final String type;
+    private final String displayName;
+    private final String description;
+    private final DisplayAnnotation displayAnnotation;
+    private final String moduleName;
+    private final String orgName;
+    private final String version;
+    private final String packageName;
+    private final String listenerProtocol;
+    private final String icon;
     private Map<String, Value> properties;
     private Codedata codedata;
     private List<Function> functions;
-
-    public Service() {
-        this(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-    }
 
     public Service(String id, String name, String type, String displayName, String description,
                    DisplayAnnotation displayAnnotation, String moduleName, String orgName, String version,
@@ -66,11 +67,6 @@ public class Service {
         this.properties = properties;
         this.functions = functions;
         this.codedata = codedata;
-    }
-
-    public static Service getNewService() {
-        return new Service(null, null, null, null, null, null, null, null, null, null, null, null, new HashMap<>(),
-                null, new ArrayList<>());
     }
 
     public List<Function> getFunctions() {
@@ -103,21 +99,6 @@ public class Service {
 
     public void setServiceType(Value serviceType) {
         properties.put("serviceType", serviceType);
-    }
-
-    public void updateServiceType(Value sourceServiceType) {
-        Value targetServiceType = properties.get("serviceType");
-        if (Objects.isNull(targetServiceType) || Objects.isNull(sourceServiceType)) {
-            return;
-        }
-        targetServiceType.setEnabled(sourceServiceType.isEnabledWithValue());
-        String serviceTypeName = sourceServiceType.getValue();
-        String[] serviceTypeNames = serviceTypeName.split(":", 2);
-        if (serviceTypeNames.length > 1) {
-            serviceTypeName = serviceTypeNames[1];
-        }
-        targetServiceType.setValue(serviceTypeName);
-        targetServiceType.setValueType(sourceServiceType.getValueType());
     }
 
     public Value getServiceType() {
@@ -233,6 +214,13 @@ public class Service {
         } else {
             this.properties = properties;
         }
+    }
+
+    public static Service getEmptyServiceModel() {
+        return new Service.ServiceModelBuilder()
+                .setFunctions(new ArrayList<>())
+                .setProperties(new HashMap<>())
+                .build();
     }
 
     public static class ServiceModelBuilder {
