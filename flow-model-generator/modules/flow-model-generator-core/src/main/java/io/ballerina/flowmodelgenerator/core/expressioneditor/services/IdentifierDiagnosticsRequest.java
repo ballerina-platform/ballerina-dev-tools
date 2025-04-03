@@ -19,10 +19,12 @@
 package io.ballerina.flowmodelgenerator.core.expressioneditor.services;
 
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeParser;
 import io.ballerina.flowmodelgenerator.core.expressioneditor.ExpressionEditorContext;
+import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.projects.Document;
 import org.ballerinalang.util.diagnostic.DiagnosticErrorCode;
@@ -31,6 +33,7 @@ import org.eclipse.lsp4j.Diagnostic;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Stream;
 
 /**
  * Handles diagnostic requests for identifier validation in the expression editor.
@@ -54,23 +57,40 @@ public class IdentifierDiagnosticsRequest extends DiagnosticsRequest {
 
     @Override
     protected Set<Diagnostic> getSemanticDiagnostics(ExpressionEditorContext context) {
-        Optional<SemanticModel> semanticModel =
-                context.workspaceManager().semanticModel(context.filePath());
-        Optional<Document> document =
-                context.workspaceManager().document(context.filePath());
-        if (semanticModel.isEmpty() || document.isEmpty()) {
+        String typeConstraint = context.getProperty().valueTypeConstraint();
+
+        // Skip semantic checks for object scope
+        if (Property.OBJECT_SCOPE.equals(typeConstraint)) {
             return Set.of();
         }
-        Set<Diagnostic> diagnostics = new HashSet<>();
+
+        // Obtain the semantic model
+        Optional<SemanticModel> semanticModel = context.workspaceManager().semanticModel(context.filePath());
+        if (semanticModel.isEmpty()) {
+            return Set.of();
+        }
+
+        // Obtain the symbol stream based on the scope of the identifier
+        Stream<Symbol> symbolStream;
+        if (Property.GLOBAL_SCOPE.equals(typeConstraint)) {
+            symbolStream = semanticModel.get().moduleSymbols().stream()
+                    .filter(symbol -> symbol.kind() != SymbolKind.MODULE);
+        } else {
+            Optional<Document> document = context.workspaceManager().document(context.filePath());
+            if (document.isEmpty()) {
+                return Set.of();
+            }
+            symbolStream = semanticModel.get()
+                    .visibleSymbols(document.get(), context.info().startLine()).parallelStream()
+                    .filter(symbol -> symbol.kind() == SymbolKind.VARIABLE);
+        }
 
         // Check for redeclared symbols
-        boolean redeclaredSymbol =
-                semanticModel.get().visibleSymbols(document.get(), context.info().startLine()).parallelStream()
-                        .filter(symbol -> symbol.kind() == SymbolKind.VARIABLE)
-                        .flatMap(symbol -> symbol.getName().stream())
-                        .anyMatch(name -> name.equals(context.info().expression()));
+        Set<Diagnostic> diagnostics = new HashSet<>();
+        String inputValue = context.info().expression();
+        boolean redeclaredSymbol = symbolStream.anyMatch(symbol -> symbol.nameEquals(inputValue));
         if (redeclaredSymbol) {
-            String message = String.format(REDECLARED_SYMBOL, context.info().expression());
+            String message = String.format(REDECLARED_SYMBOL, inputValue);
             diagnostics.add(CommonUtils.createDiagnostic(message, context.getExpressionLineRange(),
                     REDECLARED_SYMBOL_ERROR_CODE));
         }

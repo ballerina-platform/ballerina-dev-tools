@@ -1,0 +1,25 @@
+{
+  "description": "",
+  "filePath": "source.bal",
+  "context": {
+    "expression": "classVar",
+    "startLine": {
+      "line": 15,
+      "offset": 35
+    },
+    "offset": 2,
+    "property": {
+      "metadata": {
+        "label": "Name",
+        "description": "Name of the variable"
+      },
+      "valueType": "IDENTIFIER",
+      "valueTypeConstraint": "Global",
+      "value": "i",
+      "optional": false,
+      "editable": true,
+      "advanced": false
+    }
+  },
+  "diagnostics": []
+}
