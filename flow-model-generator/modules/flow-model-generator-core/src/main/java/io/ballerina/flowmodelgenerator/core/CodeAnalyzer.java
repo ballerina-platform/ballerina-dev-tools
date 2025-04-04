@@ -581,11 +581,11 @@ class CodeAnalyzer extends NodeVisitor {
                     .codedata()
                         .kind(paramResult.kind().name())
                         .originalName(paramResult.name())
-                        .importStatements(paramResult.importStatements())
                         .stepOut()
                     .placeholder(paramResult.defaultValue())
                     .typeConstraint(paramResult.type())
                     .typeMembers(paramResult.typeMembers())
+                    .imports(paramResult.importStatements())
                     .editable()
                     .defaultable(paramResult.optional());
 
@@ -657,11 +657,11 @@ class CodeAnalyzer extends NodeVisitor {
                         .codedata()
                             .kind(paramKind.name())
                             .originalName(paramResult.name())
-                            .importStatements(paramResult.importStatements())
                             .stepOut()
                         .placeholder(paramResult.defaultValue())
                         .typeConstraint(paramResult.type())
                         .typeMembers(paramResult.typeMembers())
+                        .imports(paramResult.importStatements())
                         .editable()
                         .defaultable(paramResult.optional());
 
@@ -734,6 +734,7 @@ class CodeAnalyzer extends NodeVisitor {
                             .type(getPropertyTypeFromParam(parameterSymbol, paramResult.kind()))
                             .typeConstraint(paramResult.type())
                             .typeMembers(paramResult.typeMembers(), selectedType)
+                            .imports(paramResult.importStatements())
                             .value(value)
                             .placeholder(paramResult.defaultValue())
                             .editable()
@@ -741,7 +742,6 @@ class CodeAnalyzer extends NodeVisitor {
                             .codedata()
                                 .kind(paramResult.kind().name())
                                 .originalName(paramResult.name())
-                                .importStatements(paramResult.importStatements())
                                 .stepOut()
                             .stepOut()
                             .addProperty(unescapedParamName);
@@ -764,6 +764,7 @@ class CodeAnalyzer extends NodeVisitor {
                         .type(getPropertyTypeFromParam(restParamSymbol, restParamResult.kind()))
                         .typeConstraint(restParamResult.type())
                         .typeMembers(restParamResult.typeMembers())
+                        .imports(restParamResult.importStatements())
                         .value(restArgs)
                         .placeholder(restParamResult.defaultValue())
                         .editable()
@@ -771,7 +772,6 @@ class CodeAnalyzer extends NodeVisitor {
                         .codedata()
                             .kind(restParamResult.kind().name())
                             .originalName(restParamResult.name())
-                            .importStatements(restParamResult.importStatements())
                             .stepOut()
                         .stepOut()
                         .addProperty(unescapedParamName);
@@ -833,6 +833,7 @@ class CodeAnalyzer extends NodeVisitor {
                                     .type(getPropertyTypeFromParam(parameterSymbol, paramResult.kind()))
                                     .typeConstraint(paramResult.type())
                                     .typeMembers(paramResult.typeMembers(), selectedType)
+                                    .imports(paramResult.importStatements())
                                     .value(value)
                                     .placeholder(paramResult.defaultValue())
                                     .editable()
@@ -840,7 +841,6 @@ class CodeAnalyzer extends NodeVisitor {
                                     .codedata()
                                         .kind(paramResult.kind().name())
                                         .originalName(paramResult.name())
-                                        .importStatements(paramResult.importStatements())
                                         .stepOut()
                                     .stepOut()
                                     .addProperty(unescapedParamName, paramValue);
@@ -880,6 +880,7 @@ class CodeAnalyzer extends NodeVisitor {
                                         .type(getPropertyTypeFromParam(parameterSymbol, paramResult.kind()))
                                         .typeConstraint(paramResult.type())
                                         .typeMembers(paramResult.typeMembers(), selectedType)
+                                        .imports(paramResult.importStatements())
                                         .value(value)
                                         .placeholder(paramResult.defaultValue())
                                         .editable()
@@ -887,7 +888,6 @@ class CodeAnalyzer extends NodeVisitor {
                                         .codedata()
                                             .kind(paramResult.kind().name())
                                             .originalName(paramResult.name())
-                                            .importStatements(paramResult.importStatements())
                                             .stepOut()
                                         .stepOut()
                                         .addProperty(unescapedParamName, paramValue);
@@ -922,6 +922,7 @@ class CodeAnalyzer extends NodeVisitor {
                                     .type(getPropertyTypeFromParam(parameterSymbol, paramResult.kind()))
                                     .typeConstraint(paramResult.type())
                                     .typeMembers(paramResult.typeMembers(), selectedType)
+                                    .imports(paramResult.importStatements())
                                     .value(value)
                                     .placeholder(paramResult.defaultValue())
                                     .editable()
@@ -929,7 +930,6 @@ class CodeAnalyzer extends NodeVisitor {
                                     .codedata()
                                         .kind(paramResult.kind().name())
                                         .originalName(paramResult.name())
-                                        .importStatements(paramResult.importStatements())
                                         .stepOut()
                                     .stepOut()
                                     .addProperty(unescapedParamName, paramValue);
@@ -969,6 +969,7 @@ class CodeAnalyzer extends NodeVisitor {
                         .type(getPropertyTypeFromParam(parameterSymbol, paramResult.kind()))
                         .typeConstraint(paramResult.type())
                         .typeMembers(paramResult.typeMembers(), selectedType)
+                        .imports(paramResult.importStatements())
                         .value(value)
                         .placeholder(paramResult.defaultValue())
                         .editable()
@@ -976,7 +977,6 @@ class CodeAnalyzer extends NodeVisitor {
                         .codedata()
                             .kind(paramResult.kind().name())
                             .originalName(paramResult.name())
-                            .importStatements(paramResult.importStatements())
                             .stepOut()
                         .stepOut()
                         .addProperty(unescapedParamName, paramValue);
@@ -1018,6 +1018,7 @@ class CodeAnalyzer extends NodeVisitor {
                         .type(getPropertyTypeFromParam(null, paramResult.kind()))
                         .typeConstraint(paramResult.type())
                         .typeMembers(paramResult.typeMembers(), selectedType)
+                        .imports(paramResult.importStatements())
                         .value(value)
                         .placeholder(paramResult.defaultValue())
                         .editable()
@@ -1025,7 +1026,6 @@ class CodeAnalyzer extends NodeVisitor {
                         .codedata()
                         .kind(paramResult.kind().name())
                         .originalName(paramResult.name())
-                        .importStatements(paramResult.importStatements())
                         .stepOut()
                         .stepOut()
                         .addProperty(unescapedParamName, paramValue);
@@ -1044,6 +1044,7 @@ class CodeAnalyzer extends NodeVisitor {
                         .type(getPropertyTypeFromParam(null, includedRecordRest.kind()))
                         .typeConstraint(includedRecordRest.type())
                         .typeMembers(includedRecordRest.typeMembers())
+                        .imports(includedRecordRest.importStatements())
                         .value(includedRecordRestArgs)
                         .placeholder(includedRecordRest.defaultValue())
                         .editable()
@@ -1051,7 +1052,6 @@ class CodeAnalyzer extends NodeVisitor {
                         .codedata()
                             .kind(includedRecordRest.kind().name())
                             .originalName(includedRecordRest.name())
-                            .importStatements(includedRecordRest.importStatements())
                             .stepOut()
                         .stepOut()
                         .addProperty("additionalValues");

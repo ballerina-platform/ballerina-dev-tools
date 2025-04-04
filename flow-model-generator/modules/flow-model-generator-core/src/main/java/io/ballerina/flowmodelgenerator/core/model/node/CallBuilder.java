@@ -135,12 +135,12 @@ public abstract class CallBuilder extends NodeBuilder {
                 .codedata()
                     .kind(paramData.kind().name())
                     .originalName(paramData.name())
-                    .importStatements(paramData.importStatements())
                     .stepOut()
                 .value(value)
                 .placeholder(paramData.defaultValue())
                 .type(Property.ValueType.TYPE)
                 .typeConstraint(paramData.type())
+                .imports(paramData.importStatements())
                 .editable()
                 .stepOut()
                 .addProperty(unescapedParamName);
@@ -175,11 +175,11 @@ public abstract class CallBuilder extends NodeBuilder {
                     .codedata()
                         .kind(paramResult.kind().name())
                         .originalName(paramResult.name())
-                        .importStatements(paramResult.importStatements())
                         .stepOut()
                     .placeholder(paramResult.defaultValue())
                     .typeConstraint(paramResult.type())
                     .typeMembers(paramResult.typeMembers())
+                    .imports(paramResult.importStatements())
                     .editable()
                     .defaultable(paramResult.optional());
 

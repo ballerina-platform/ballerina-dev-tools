@@ -36,8 +36,7 @@
         "hidden": false,
         "codedata": {
           "kind": "REQUIRED",
-          "originalName": "config",
-          "importStatements": "ballerina/http"
+          "originalName": "config"
         },
         "typeMembers": [
           {
@@ -46,7 +45,10 @@
             "kind": "RECORD_TYPE",
             "selected": false
           }
-        ]
+        ],
+        "imports": {
+          "http": "ballerina/http"
+        }
       },
       "address": {
         "metadata": {
@@ -70,7 +72,10 @@
             "kind": "RECORD_TYPE",
             "selected": false
           }
-        ]
+        ],
+        "imports": {
+          "http": "ballerina/http"
+        }
       },
       "type": {
         "metadata": {
@@ -84,8 +89,9 @@
         "editable": false,
         "advanced": false,
         "hidden": false,
-        "codedata": {
-          "importStatements": "ballerina/http"
+        "codedata": {},
+        "imports": {
+          "http": "ballerina/http"
         }
       },
       "variable": {
@@ -98,7 +104,10 @@
         "optional": false,
         "editable": true,
         "advanced": false,
-        "hidden": false
+        "hidden": false,
+        "imports": {
+          "http": "ballerina/http"
+        }
       }
     },
     "flags": 0

@@ -244,8 +244,7 @@
         "hidden": false,
         "codedata": {
           "kind": "DEFAULTABLE",
-          "originalName": "connectionPool",
-          "importStatements": "ballerina/sql"
+          "originalName": "connectionPool"
         },
         "typeMembers": [
           {
@@ -260,7 +259,10 @@
             "kind": "RECORD_TYPE",
             "selected": false
           }
-        ]
+        ],
+        "imports": {
+          "sql": "ballerina/sql"
+        }
       },
       "type": {
         "metadata": {
@@ -274,8 +276,9 @@
         "editable": false,
         "advanced": false,
         "hidden": false,
-        "codedata": {
-          "importStatements": "ballerina/sql"
+        "codedata": {},
+        "imports": {
+          "sql": "ballerina/sql"
         }
       },
       "variable": {
@@ -288,7 +291,10 @@
         "optional": false,
         "editable": true,
         "advanced": false,
-        "hidden": false
+        "hidden": false,
+        "imports": {
+          "sql": "ballerina/sql"
+        }
       },
       "scope": {
         "metadata": {
@@ -300,7 +306,10 @@
         "optional": false,
         "editable": true,
         "advanced": true,
-        "hidden": false
+        "hidden": false,
+        "imports": {
+          "sql": "ballerina/sql"
+        }
       },
       "checkError": {
         "metadata": {
@@ -312,7 +321,10 @@
         "optional": false,
         "editable": false,
         "advanced": true,
-        "hidden": false
+        "hidden": false,
+        "imports": {
+          "sql": "ballerina/sql"
+        }
       }
     },
     "flags": 0
