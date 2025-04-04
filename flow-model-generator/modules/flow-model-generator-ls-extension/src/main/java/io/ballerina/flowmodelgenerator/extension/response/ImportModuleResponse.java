@@ -19,19 +19,26 @@
 package io.ballerina.flowmodelgenerator.extension.response;
 
 /**
- * This is a class to indicate if the API success or not.
+ * An abstract response to return the import module statement details.
  *
  * @since 2.0.0
  */
-public class SuccessResponse extends AbstractFlowModelResponse {
+public class ImportModuleResponse extends AbstractFlowModelResponse {
+    private String prefix;
+    private String moduleId;
 
-    private boolean success;
-
-    public boolean success() {
-        return this.success;
+    public String prefix() {
+        return prefix;
     }
 
-    public void setSuccess(boolean success) {
-        this.success = success;
+    public String moduleId() {
+        return moduleId;
+    }
+    public void setPrefix(String prefix) {
+        this.prefix = prefix;
+    }
+
+    public void setModuleId(String moduleId) {
+        this.moduleId = moduleId;
     }
 }

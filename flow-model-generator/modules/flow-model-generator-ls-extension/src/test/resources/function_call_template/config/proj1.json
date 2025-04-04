@@ -1,13 +1,15 @@
 {
-    "description": "",
-    "filePath": "proj/source.bal",
-    "codedata": {
-        "node": "FUNCTION_CALL",
-        "org": "ballerina",
-        "module": "lang.value",
-        "symbol": "clone",
-        "version": "0.0.0"
-    },
-    "kind": "AVAILABLE",
-    "functionCall": "value:clone(${1})"
+  "description": "",
+  "filePath": "proj/source.bal",
+  "codedata": {
+    "node": "FUNCTION_CALL",
+    "org": "ballerina",
+    "module": "lang.value",
+    "symbol": "clone",
+    "version": "0.0.0"
+  },
+  "kind": "AVAILABLE",
+  "functionCall": "value:clone(${1})",
+  "prefix": "value",
+  "moduleId": "ballerina/lang.value:0.0.0"
 }

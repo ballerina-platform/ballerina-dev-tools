@@ -9,5 +9,7 @@
     "version": "1.6.1"
   },
   "kind": "AVAILABLE",
-  "functionCall": "io:println(${1})"
+  "functionCall": "io:println(${1})",
+  "prefix": "io",
+  "moduleId": "ballerina/io:1.8.0"
 }

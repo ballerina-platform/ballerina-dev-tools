@@ -61,14 +61,32 @@ public class FunctionCallTemplateTest extends AbstractLSTest {
         notifyDidOpen(sourcePath);
         FunctionCallTemplateRequest request = new FunctionCallTemplateRequest(sourcePath, testConfig.codedata(),
                 testConfig.kind(), testConfig.searchKind());
-        String template = getResponse(request).getAsJsonPrimitive("template").getAsString();
+        JsonObject response = getResponse(request);
+        String template = response.getAsJsonPrimitive("template").getAsString();
+
+        boolean failed = false;
+        String prefix = null;
+        String moduleId = null;
         notifyDidClose(sourcePath);
 
-        if (!template.equals(testConfig.functionCall())) {
+        // Check prefix and moduleId when applicable (for IMPORTED and AVAILABLE kinds)
+        if (testConfig.kind() == FunctionCallTemplateRequest.FunctionCallTemplateKind.IMPORTED ||
+                testConfig.kind() == FunctionCallTemplateRequest.FunctionCallTemplateKind.AVAILABLE) {
+            if (response.has("prefix") && response.has("moduleId")) {
+                prefix = response.get("prefix").getAsString();
+                moduleId = response.get("moduleId").getAsString();
+
+                if ((!prefix.equals(testConfig.prefix())) || !moduleId.equals(testConfig.moduleId())) {
+                    failed = true;
+                }
+            }
+        }
+
+        if (!template.equals(testConfig.functionCall()) || failed) {
             TestConfig updatedConfig = new TestConfig(testConfig.description(), testConfig.filePath(),
-                    testConfig.codedata(),
-                    testConfig.kind(), testConfig.searchKind(), template);
-            // updateConfig(configJsonPath, updatedConfig);
+                    testConfig.codedata(), testConfig.kind(), testConfig.searchKind(),
+                    template, prefix, moduleId);
+//            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
     }
@@ -134,7 +152,7 @@ public class FunctionCallTemplateTest extends AbstractLSTest {
 
     private record TestConfig(String description, String filePath, Codedata codedata,
                               FunctionCallTemplateRequest.FunctionCallTemplateKind kind, String searchKind,
-                              String functionCall) {
+                              String functionCall, String prefix, String moduleId) {
 
     }
 }

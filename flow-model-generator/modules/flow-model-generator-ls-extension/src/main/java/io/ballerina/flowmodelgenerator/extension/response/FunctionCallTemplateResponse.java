@@ -23,7 +23,8 @@ package io.ballerina.flowmodelgenerator.extension.response;
  *
  * @since 2.0.0
  */
-public class FunctionCallTemplateResponse extends AbstractFlowModelResponse {
+public class FunctionCallTemplateResponse extends ImportModuleResponse {
+
     private String template;
 
     public void setTemplate(String template) {

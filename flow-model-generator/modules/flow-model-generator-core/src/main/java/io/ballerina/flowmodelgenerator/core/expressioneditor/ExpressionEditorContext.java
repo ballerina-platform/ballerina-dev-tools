@@ -241,9 +241,10 @@ public class ExpressionEditorContext {
      * @param textDocument The TextDocument containing the new content
      */
     public void applyContent(TextDocument textDocument) {
-        documentContext.document().modify()
+        Document newDocument = documentContext.document().modify()
                 .withContent(String.join(System.lineSeparator(), textDocument.textLines()))
                 .apply();
+        documentContext.updateContext(newDocument);
     }
 
     public String fileUri() {
@@ -260,6 +261,10 @@ public class ExpressionEditorContext {
 
     public WorkspaceManager workspaceManager() {
         return documentContext.workspaceManager();
+    }
+
+    public DocumentContext documentContext() {
+        return documentContext;
     }
 
     public Property getProperty() {

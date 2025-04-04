@@ -1,14 +1,16 @@
 {
-    "description": "",
-    "filePath": "source.bal",
-    "codedata": {
-        "node": "FUNCTION_CALL",
-        "org": "ballerina",
-        "module": "http",
-        "symbol": "ClientConfiguration",
-        "version": "2.14.0"
-    },
-    "kind": "IMPORTED",
-    "searchKind": "TYPE",
-    "functionCall": "http:ClientConfiguration"
+  "description": "",
+  "filePath": "source.bal",
+  "codedata": {
+    "node": "FUNCTION_CALL",
+    "org": "ballerina",
+    "module": "http",
+    "symbol": "ClientConfiguration",
+    "version": "2.14.0"
+  },
+  "kind": "IMPORTED",
+  "searchKind": "TYPE",
+  "functionCall": "http:ClientConfiguration",
+  "prefix": "http",
+  "moduleId": "ballerina/http:2.14.0"
 }
