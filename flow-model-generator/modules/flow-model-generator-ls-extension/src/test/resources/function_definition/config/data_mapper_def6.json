@@ -1,10 +1,10 @@
 {
   "filePath": "data_mappings.bal",
   "fileName": "data_mappings.bal",
-  "functionName": "createEmployee",
+  "functionName": "mapPerson",
   "description": "",
   "output": {
-    "id": "65551",
+    "id": "79429",
     "metadata": {
       "label": "Data Mapper",
       "description": "Define a data mapper"
@@ -14,12 +14,12 @@
       "lineRange": {
         "fileName": "data_mappings.bal",
         "startLine": {
-          "line": 34,
+          "line": 48,
           "offset": 0
         },
         "endLine": {
-          "line": 34,
-          "offset": 79
+          "line": 48,
+          "offset": 69
         }
       }
     },
@@ -32,7 +32,7 @@
         },
         "valueType": "IDENTIFIER",
         "valueTypeConstraint": "Global",
-        "value": "createEmployee",
+        "value": "mapPerson",
         "optional": false,
         "editable": false,
         "advanced": false,
@@ -41,12 +41,12 @@
           "lineRange": {
             "fileName": "data_mappings.bal",
             "startLine": {
-              "line": 34,
+              "line": 48,
               "offset": 9
             },
             "endLine": {
-              "line": 34,
-              "offset": 23
+              "line": 48,
+              "offset": 18
             }
           }
         }
@@ -58,7 +58,7 @@
         },
         "valueType": "TYPE",
         "valueTypeConstraint": "json",
-        "value": "Employee",
+        "value": "nats:AnydataMessage",
         "optional": false,
         "editable": true,
         "advanced": false,
@@ -144,12 +144,12 @@
                   "lineRange": {
                     "fileName": "data_mappings.bal",
                     "startLine": {
-                      "line": 34,
-                      "offset": 31
+                      "line": 48,
+                      "offset": 26
                     },
                     "endLine": {
-                      "line": 34,
-                      "offset": 35
+                      "line": 48,
+                      "offset": 30
                     }
                   }
                 }
@@ -195,63 +195,12 @@
                   "lineRange": {
                     "fileName": "data_mappings.bal",
                     "startLine": {
-                      "line": 34,
-                      "offset": 41
+                      "line": 48,
+                      "offset": 36
                     },
                     "endLine": {
-                      "line": 34,
-                      "offset": 44
-                    }
-                  }
-                }
-              }
-            },
-            "optional": false,
-            "editable": false,
-            "advanced": false,
-            "hidden": false
-          },
-          "salary": {
-            "metadata": {
-              "label": "Parameter",
-              "description": "Function parameter"
-            },
-            "valueType": "FIXED_PROPERTY",
-            "value": {
-              "type": {
-                "metadata": {
-                  "label": "Type",
-                  "description": "Type of the parameter"
-                },
-                "valueType": "TYPE",
-                "valueTypeConstraint": "json",
-                "value": "decimal",
-                "optional": false,
-                "editable": true,
-                "advanced": false,
-                "hidden": false
-              },
-              "variable": {
-                "metadata": {
-                  "label": "Name",
-                  "description": "Name of the parameter"
-                },
-                "valueType": "IDENTIFIER",
-                "value": "salary",
-                "optional": false,
-                "editable": true,
-                "advanced": false,
-                "hidden": false,
-                "codedata": {
-                  "lineRange": {
-                    "fileName": "data_mappings.bal",
-                    "startLine": {
-                      "line": 34,
-                      "offset": 54
-                    },
-                    "endLine": {
-                      "line": 34,
-                      "offset": 60
+                      "line": 48,
+                      "offset": 39
                     }
                   }
                 }

@@ -4,7 +4,7 @@
   "functionName": "mapPersonToEmployee",
   "description": "",
   "output": {
-    "id": "55613",
+    "id": "58589",
     "metadata": {
       "label": "Data Mapper",
       "description": "Define a data mapper"
@@ -14,11 +14,11 @@
       "lineRange": {
         "fileName": "data_mappings.bal",
         "startLine": {
-          "line": 24,
+          "line": 27,
           "offset": 0
         },
         "endLine": {
-          "line": 24,
+          "line": 27,
           "offset": 61
         }
       }
@@ -41,11 +41,11 @@
           "lineRange": {
             "fileName": "data_mappings.bal",
             "startLine": {
-              "line": 24,
+              "line": 27,
               "offset": 9
             },
             "endLine": {
-              "line": 24,
+              "line": 27,
               "offset": 28
             }
           }
@@ -144,11 +144,11 @@
                   "lineRange": {
                     "fileName": "data_mappings.bal",
                     "startLine": {
-                      "line": 24,
+                      "line": 27,
                       "offset": 36
                     },
                     "endLine": {
-                      "line": 24,
+                      "line": 27,
                       "offset": 42
                     }
                   }

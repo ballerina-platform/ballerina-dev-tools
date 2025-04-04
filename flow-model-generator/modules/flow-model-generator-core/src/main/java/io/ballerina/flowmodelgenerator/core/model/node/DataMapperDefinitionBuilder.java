@@ -139,7 +139,7 @@ public class DataMapperDefinitionBuilder extends NodeBuilder {
         LineRange lineRange = sourceBuilder.flowNode.codedata().lineRange();
         if (lineRange == null) {
             // The return type symbol should be present
-            Optional<String> returnBody = sourceBuilder.getExpressionBodyText(returnTypeString);
+            Optional<String> returnBody = sourceBuilder.getExpressionBodyText(returnTypeString, returnType.get().imports());
             if (returnBody.isEmpty()) {
                 throw new IllegalStateException("Failed to produce the data mapper output");
             }

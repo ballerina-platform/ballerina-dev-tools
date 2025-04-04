@@ -1,3 +1,6 @@
+import ballerinax/nats;
+import ballerina/http;
+
 // Basic record definitions
 type Person record {
     string name;
@@ -42,3 +45,23 @@ function mapNames(Employee[] employees) returns Summary =>
         averageAge: avg(yearsOld),
         totalSalary: sum(salary)
     };
+
+function mapPerson(string name, int age) returns nats:AnydataMessage => {
+    subject: name,
+    content: [
+        {
+            name: name,
+            age: age
+        }
+    ]
+};
+
+function mapPersonOrAccess(string name, int age) returns nats:AnydataMessage|http:AccessLogConfiguration => {
+    subject: name,
+    content: [
+        {
+            name: name,
+            age: age
+        }
+    ]
+};

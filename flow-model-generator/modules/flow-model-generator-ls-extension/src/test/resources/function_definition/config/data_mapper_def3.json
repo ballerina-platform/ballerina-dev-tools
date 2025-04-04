@@ -4,7 +4,7 @@
   "functionName": "mapNames",
   "description": "",
   "output": {
-    "id": "69496",
+    "id": "72472",
     "metadata": {
       "label": "Data Mapper",
       "description": "Define a data mapper"
@@ -14,11 +14,11 @@
       "lineRange": {
         "fileName": "data_mappings.bal",
         "startLine": {
-          "line": 38,
+          "line": 41,
           "offset": 0
         },
         "endLine": {
-          "line": 38,
+          "line": 41,
           "offset": 56
         }
       }
@@ -41,11 +41,11 @@
           "lineRange": {
             "fileName": "data_mappings.bal",
             "startLine": {
-              "line": 38,
+              "line": 41,
               "offset": 9
             },
             "endLine": {
-              "line": 38,
+              "line": 41,
               "offset": 17
             }
           }
@@ -144,11 +144,11 @@
                   "lineRange": {
                     "fileName": "data_mappings.bal",
                     "startLine": {
-                      "line": 38,
+                      "line": 41,
                       "offset": 29
                     },
                     "endLine": {
-                      "line": 38,
+                      "line": 41,
                       "offset": 38
                     }
                   }

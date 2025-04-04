@@ -32,6 +32,8 @@ import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.flowmodelgenerator.core.utils.FileSystemUtils;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.DefaultValueGeneratorUtil;
+import io.ballerina.modelgenerator.commons.ModuleInfo;
+import io.ballerina.modelgenerator.commons.PackageUtil;
 import io.ballerina.modelgenerator.commons.ParameterData;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Module;
@@ -40,6 +42,7 @@ import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.formatter.core.FormattingTreeModifier;
 import org.ballerinalang.formatter.core.options.FormattingOptions;
+import org.ballerinalang.langserver.LSClientLogger;
 import org.ballerinalang.langserver.common.utils.CommonUtil;
 import org.ballerinalang.langserver.common.utils.RecordUtil;
 import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
@@ -47,6 +50,7 @@ import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.Range;
 import org.eclipse.lsp4j.TextEdit;
+import org.wso2.ballerinalang.compiler.tree.BLangPackage;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -65,13 +69,20 @@ public class SourceBuilder {
     public final WorkspaceManager workspaceManager;
     public final Path filePath;
     private final Map<Path, List<TextEdit>> textEditsMap;
+    private final LSClientLogger lsClientLogger;
 
-    public SourceBuilder(FlowNode flowNode, WorkspaceManager workspaceManager, Path filePath) {
+    public SourceBuilder(FlowNode flowNode, WorkspaceManager workspaceManager, Path filePath,
+                         LSClientLogger lsClientLogger) {
         this.tokenBuilder = new TokenBuilder(this);
         this.textEditsMap = new HashMap<>();
         this.flowNode = flowNode;
         this.workspaceManager = workspaceManager;
         this.filePath = filePath;
+        this.lsClientLogger = lsClientLogger;
+    }
+
+    public SourceBuilder(FlowNode flowNode, WorkspaceManager workspaceManager, Path filePath) {
+        this(flowNode, workspaceManager, filePath, null);
     }
 
     public TokenBuilder token() {
@@ -264,7 +275,7 @@ public class SourceBuilder {
         return this;
     }
 
-    public Optional<String> getExpressionBodyText(String typeName) {
+    public Optional<String> getExpressionBodyText(String typeName, Map<String, String> imports) {
         try {
             workspaceManager.loadProject(filePath);
         } catch (WorkspaceDocumentException | EventSyncException e) {
@@ -272,7 +283,17 @@ public class SourceBuilder {
         }
         SemanticModel semanticModel = FileSystemUtils.getSemanticModel(workspaceManager, filePath);
         Document document = FileSystemUtils.getDocument(workspaceManager, filePath);
-        Optional<TypeSymbol> optionalType = semanticModel.types().getType(document, typeName);
+
+        // Obtain the symbols of the imports
+        Map<String, BLangPackage> packageMap = new HashMap<>();
+        imports.values().forEach(moduleId -> {
+            ModuleInfo moduleInfo = ModuleInfo.from(moduleId);
+            PackageUtil.pullModuleAndNotify(lsClientLogger, moduleInfo).ifPresent(pkg ->
+                    packageMap.put(pkg.packageName().value(), pkg.getCompilation().defaultModuleBLangPackage())
+            );
+        });
+
+        Optional<TypeSymbol> optionalType = semanticModel.types().getType(document, typeName, packageMap);
         if (optionalType.isEmpty()) {
             return Optional.empty();
         }
@@ -317,7 +338,7 @@ public class SourceBuilder {
 
     public SourceBuilder children(List<FlowNode> flowNodes) {
         for (FlowNode node : flowNodes) {
-            SourceBuilder sourceBuilder = new SourceBuilder(node, workspaceManager, filePath);
+            SourceBuilder sourceBuilder = new SourceBuilder(node, workspaceManager, filePath, lsClientLogger);
             Map<Path, List<TextEdit>> textEdits =
                     NodeBuilder.getNodeFromKind(node.codedata().node()).toSource(sourceBuilder);
             List<TextEdit> filePathTextEdits = textEdits.get(filePath);
