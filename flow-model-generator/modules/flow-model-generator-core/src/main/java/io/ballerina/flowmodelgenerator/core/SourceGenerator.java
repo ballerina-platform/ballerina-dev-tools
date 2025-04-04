@@ -32,6 +32,7 @@ import org.eclipse.lsp4j.TextEdit;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Generates source code from the flow model.
@@ -42,7 +43,7 @@ public class SourceGenerator {
 
     private final Gson gson;
     private final WorkspaceManager workspaceManager;
-    private final Path filePath;
+    private Path filePath;
 
     public SourceGenerator(WorkspaceManager workspaceManager, Path filePath) {
         this.workspaceManager = workspaceManager;
@@ -61,11 +62,20 @@ public class SourceGenerator {
      */
     public JsonElement toSourceCode(JsonElement diagramNode) {
         FlowNode flowNode = gson.fromJson(diagramNode, FlowNode.class);
+        if (!filePath.toString().endsWith(".bal") && hasFileName(flowNode)) {
+            filePath = filePath.resolve(flowNode.codedata().lineRange().fileName());
+        }
         SourceBuilder sourceBuilder = new SourceBuilder(flowNode, workspaceManager, filePath);
         Map<Path, List<TextEdit>> textEdits =
                 NodeBuilder.getNodeFromKind(flowNode.codedata().node()).toSource(sourceBuilder);
         addNewLine(textEdits);
         return gson.toJsonTree(textEdits);
+    }
+
+    private boolean hasFileName(FlowNode flowNode) {
+        return Objects.nonNull(flowNode) && Objects.nonNull(flowNode.codedata()) &&
+                Objects.nonNull(flowNode.codedata().lineRange())
+                && Objects.nonNull(flowNode.codedata().lineRange().fileName());
     }
 
     // If text edit add new change, add new line to the text edit
