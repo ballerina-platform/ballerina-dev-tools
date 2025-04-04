@@ -79,7 +79,7 @@
               "advanced": false,
               "hidden": false
             },
-            "description": {
+            "parameterDescription": {
               "metadata": {
                 "label": "Description",
                 "description": "Description of the parameter"

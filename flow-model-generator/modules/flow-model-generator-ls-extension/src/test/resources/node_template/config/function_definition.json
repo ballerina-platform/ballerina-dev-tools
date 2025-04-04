@@ -28,6 +28,18 @@
         "advanced": false,
         "hidden": false
       },
+      "functionNameDescription": {
+        "metadata": {
+          "label": "Description",
+          "description": "Description of the function"
+        },
+        "valueType": "STRING",
+        "value": "",
+        "optional": true,
+        "editable": true,
+        "advanced": false,
+        "hidden": false
+      },
       "type": {
         "metadata": {
           "label": "Return Type",
@@ -40,19 +52,7 @@
         "advanced": false,
         "hidden": false
       },
-      "description": {
-        "metadata": {
-          "label": "Description",
-          "description": "Description of the function"
-        },
-        "valueType": "STRING",
-        "value": "",
-        "optional": true,
-        "editable": true,
-        "advanced": false,
-        "hidden": false
-      },
-      "returnDescription": {
+      "typeDescription": {
         "metadata": {
           "label": "Description",
           "description": "Description of the return value"
@@ -101,7 +101,7 @@
               "advanced": false,
               "hidden": false
             },
-            "description": {
+            "parameterDescription": {
               "metadata": {
                 "label": "Description",
                 "description": "Description of the parameter"

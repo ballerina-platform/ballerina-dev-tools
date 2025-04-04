@@ -35,7 +35,7 @@
         "editable": true,
         "advanced": false
       },
-      "returnDescription": {
+      "typeDescription": {
         "metadata": {
           "label": "Description",
           "description": "Description of the return value"
@@ -47,7 +47,7 @@
         "advanced": false,
         "hidden": false
       },
-      "description": {
+      "functionNameDescription": {
         "metadata": {
           "label": "Description",
           "description": "Description of the parameter"
@@ -131,7 +131,7 @@
                 "editable": true,
                 "advanced": false
               },
-              "description": {
+              "parameterDescription": {
                 "metadata": {
                   "label": "Description",
                   "description": "Description of the parameter"
@@ -178,7 +178,7 @@
                 "editable": true,
                 "advanced": false
               },
-              "description": {
+              "parameterDescription": {
                 "metadata": {
                   "label": "Description",
                   "description": "Description of the parameter"

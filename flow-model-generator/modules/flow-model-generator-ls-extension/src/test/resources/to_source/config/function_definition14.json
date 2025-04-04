@@ -35,13 +35,25 @@
         "editable": true,
         "advanced": false
       },
-      "description": {
+      "functionNameDescription": {
         "metadata": {
           "label": "Description",
           "description": "Description of the parameter"
         },
         "valueType": "STRING",
         "value": "Divide a/b",
+        "optional": true,
+        "editable": true,
+        "advanced": false,
+        "hidden": false
+      },
+      "typeDescription": {
+        "metadata": {
+          "label": "Description",
+          "description": "Description of the return value"
+        },
+        "valueType": "STRING",
+        "value": "Return a/b",
         "optional": true,
         "editable": true,
         "advanced": false,
@@ -119,13 +131,13 @@
                 "editable": true,
                 "advanced": false
               },
-              "description": {
+              "parameterDescription": {
                 "metadata": {
                   "label": "Description",
                   "description": "Description of the parameter"
                 },
                 "valueType": "STRING",
-                "value": "Paramter a",
+                "value": "Parameter a",
                 "optional": false,
                 "editable": true,
                 "advanced": false,
@@ -204,7 +216,7 @@
             "character": 0
           }
         },
-        "newText": "# Divide a/b\n# + a - Paramter a\n# + b - Parameter b\nfunction divide( int a, int b) returns int|error{\n}"
+        "newText": "# Divide a/b\n# + a - Parameter a\n# + return - Return a/b\nfunction divide( int a, int b) returns int|error{\n}"
       }
     ]
   }
