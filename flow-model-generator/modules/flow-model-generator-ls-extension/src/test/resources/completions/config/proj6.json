@@ -27,10 +27,12 @@
       "optional": false,
       "editable": true,
       "advanced": false,
+      "imports": {
+        "http": "ballerina/http:2.14.0"
+      },
       "codedata": {
         "kind": "INCLUDED_FIELD",
-        "originalName": "auth",
-        "importStatements": "ballerina/http"
+        "originalName": "auth"
       }
     }
   },
