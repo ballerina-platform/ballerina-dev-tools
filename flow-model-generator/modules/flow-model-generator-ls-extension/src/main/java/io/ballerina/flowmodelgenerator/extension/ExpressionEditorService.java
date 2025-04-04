@@ -170,19 +170,14 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                 String template;
                 switch (request.kind()) {
                     case CURRENT -> template = codedata.symbol();
-                    case IMPORTED -> template = codedata.getModulePrefix() + ":" + codedata.symbol();
-                    case AVAILABLE -> {
-                        String fileUri = CommonUtils.getExprUri(request.filePath());
-                        String importStatement = codedata.getImportSignature();
-                        ExpressionEditorContext expressionEditorContext = new ExpressionEditorContext(
-                                workspaceManagerProxy,
-                                fileUri,
-                                Path.of(request.filePath()),
-                                null);
-                        Optional<TextEdit> importTextEdit = expressionEditorContext.getImport(importStatement);
-                        importTextEdit.ifPresent(
-                                textEdit -> expressionEditorContext.applyTextEdits(List.of(textEdit)));
+                    case IMPORTED -> {
+                        response.setPrefix(codedata.getModulePrefix());
+                        response.setModuleId(codedata.getModuleId());
                         template = codedata.getModulePrefix() + ":" + codedata.symbol();
+                    }
+                    case AVAILABLE -> {
+                        template = codedata.getModulePrefix() + ":" + codedata.symbol();
+                        applyModuleImport(request.filePath(), codedata.getImportSignature(), response);
                     }
                     default -> {
                         response.setError(new IllegalArgumentException("Invalid kind: " + request.kind() +
@@ -209,37 +204,40 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
         return CompletableFuture.supplyAsync(() -> {
             ImportModuleResponse response = new ImportModuleResponse();
             try {
-                String fileUri = CommonUtils.getExprUri(request.filePath());
-                Path filePath = Path.of(request.filePath());
-                ExpressionEditorContext expressionEditorContext = new ExpressionEditorContext(
-                        workspaceManagerProxy,
-                        fileUri,
-                        filePath,
-                        null);
                 String importStatement = request.importStatement()
                         .replaceFirst("^import\\s+", "")
                         .replaceAll(";\\n$", "");
-                Optional<TextEdit> importTextEdit = expressionEditorContext.getImport(importStatement);
-                importTextEdit.ifPresent(textEdit -> expressionEditorContext.applyTextEdits(List.of(textEdit)));
-
-                // Obtain the module details
-                String[] split = importStatement.split("/");
-                Module module = expressionEditorContext.documentContext().module().orElseThrow();
-                module.packageInstance().getCompilation();
-                module.packageInstance().getResolution();
-                ModuleDescriptor descriptor = module.moduleDependencies().stream()
-                        .map(ModuleDependency::descriptor)
-                        .filter(moduleDependencyDescriptor ->
-                                moduleDependencyDescriptor.org().value().equals(split[0]) &&
-                                        moduleDependencyDescriptor.packageName().value().equals(split[1]))
-                        .findFirst()
-                        .orElseThrow(() -> new IllegalArgumentException("Module not found for: " + importStatement));
-                response.setPrefix(CommonUtils.getDefaultModulePrefix(descriptor.packageName().value()));
-                response.setModuleId(CommonUtils.constructModuleId(descriptor));
+                applyModuleImport(request.filePath(), importStatement, response);
             } catch (Exception e) {
                 response.setError(e);
             }
             return response;
         });
+    }
+
+    private void applyModuleImport(String filePathString, String importStatement, ImportModuleResponse response) {
+        String fileUri = CommonUtils.getExprUri(filePathString);
+        Path filePath = Path.of(filePathString);
+        ExpressionEditorContext expressionEditorContext = new ExpressionEditorContext(
+                workspaceManagerProxy,
+                fileUri,
+                filePath,
+                null);
+        Optional<TextEdit> importTextEdit = expressionEditorContext.getImport(importStatement);
+        importTextEdit.ifPresent(textEdit -> expressionEditorContext.applyTextEdits(List.of(textEdit)));
+
+        // Obtain the module details
+        String[] split = importStatement.split("/");
+        Module module = expressionEditorContext.documentContext().module().orElseThrow();
+        module.packageInstance().getResolution();
+        ModuleDescriptor descriptor = module.moduleDependencies().stream()
+                .map(ModuleDependency::descriptor)
+                .filter(moduleDependencyDescriptor ->
+                        moduleDependencyDescriptor.org().value().equals(split[0]) &&
+                                moduleDependencyDescriptor.packageName().value().equals(split[1]))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Module not found for: " + importStatement));
+        response.setPrefix(CommonUtils.getDefaultModulePrefix(descriptor.packageName().value()));
+        response.setModuleId(CommonUtils.constructModuleId(descriptor));
     }
 }
