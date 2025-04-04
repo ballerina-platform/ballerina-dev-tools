@@ -40,7 +40,6 @@ import io.ballerina.flowmodelgenerator.core.model.Metadata;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.node.AgentBuilder;
-import io.ballerina.flowmodelgenerator.core.model.node.NPFunctionCall;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.FunctionData;
 import io.ballerina.modelgenerator.commons.FunctionDataBuilder;
@@ -151,17 +150,19 @@ public class AvailableNodesGenerator {
                 true
         );
 
-        AvailableNode npFunction = new AvailableNode(
-                new Metadata.Builder<>(null)
-                        .label(NPFunctionCall.LABEL)
-                        .description(NPFunctionCall.DESCRIPTION)
-                        .icon(Constants.NaturalFunctions.ICON)
-                        .build(),
-                new Codedata.Builder<>(null)
-                        .node(NodeKind.NP_FUNCTION)
-                        .build(),
-                true
-        );
+// TODO: Enable natural functions https://github.com/wso2/product-ballerina-integrator/issues/107
+
+//        AvailableNode npFunction = new AvailableNode(
+//                new Metadata.Builder<>(null)
+//                        .label(NPFunctionCall.LABEL)
+//                        .description(NPFunctionCall.DESCRIPTION)
+//                        .icon(Constants.NaturalFunctions.ICON)
+//                        .build(),
+//                new Codedata.Builder<>(null)
+//                        .node(NodeKind.NP_FUNCTION)
+//                        .build(),
+//                true
+//        );
 
         AvailableNode agentCall = new AvailableNode(
                 new Metadata.Builder<>(null)
@@ -184,7 +185,8 @@ public class AvailableNodesGenerator {
                 .node(NodeKind.ASSIGN)
                 .node(function)
                 .node(NodeKind.DATA_MAPPER_CALL)
-                .node(npFunction)
+                // TODO: Enable natural functions https://github.com/wso2/product-ballerina-integrator/issues/107
+                // .node(npFunction)
                 .node(agentCall);
 
         this.rootBuilder.stepIn(Category.Name.CONTROL)
