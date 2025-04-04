@@ -182,14 +182,13 @@ public class SourceBuilder {
             //  have to optimize how we handle the return type, as the current implementation does not allow the user
             //  to assign the error to a variable and handle it.
             // Add the import statements if exists in the return type
-            if (type.codedata() != null && type.codedata().importStatements() != null &&
-                    flowNode.getProperty(Property.CHECK_ERROR_KEY).map(property -> property.value().equals("false"))
-                            .orElse(true)) {
+            if (type.imports() != null && flowNode.getProperty(Property.CHECK_ERROR_KEY)
+                    .map(property -> property.value().equals("false")).orElse(true)) {
                 // TODO: Improve this logic to process all the imports at once
-                for (String importStatement : type.codedata().importStatements().split(",")) {
-                    String[] importParts = importStatement.split("/");
-                    acceptImport(importParts[0], importParts[1]);
-                }
+                type.imports().values().forEach(moduleId -> {
+                    String[] importParts = moduleId.split("/");
+                    acceptImport(importParts[0], importParts[1].split(":")[0]);
+                });
             }
         }
         acceptImport();
