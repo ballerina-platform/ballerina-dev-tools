@@ -67,7 +67,7 @@ public class TypeDiagnosticRequest extends DiagnosticsRequest {
 
         // Check for undefined types
         Types types = semanticModel.get().types();
-        Optional<TypeSymbol> typeSymbol = types.getType(context.info().expression());
+        Optional<TypeSymbol> typeSymbol = types.getType(document.get(), context.info().expression());
         if (typeSymbol.isEmpty()) {
             String message = String.format(UNDEFINED_TYPE, context.info().expression());
             diagnostics.add(CommonUtils.createDiagnostic(message, context.getExpressionLineRange(),
@@ -80,7 +80,7 @@ public class TypeDiagnosticRequest extends DiagnosticsRequest {
         if (typeConstraint == null) {
             return diagnostics;
         }
-        Optional<TypeSymbol> typeConstraintTypeSymbol = types.getType(typeConstraint);
+        Optional<TypeSymbol> typeConstraintTypeSymbol = types.getType(document.get(), typeConstraint);
         if (typeConstraintTypeSymbol.isPresent()) {
             if (!typeSymbol.get().subtypeOf(typeConstraintTypeSymbol.get())) {
                 String message = String.format(INVALID_SUBTYPE, typeConstraint, context.info().expression());

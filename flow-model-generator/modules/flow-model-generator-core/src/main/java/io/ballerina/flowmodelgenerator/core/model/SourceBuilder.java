@@ -271,7 +271,8 @@ public class SourceBuilder {
             throw new RuntimeException(e);
         }
         SemanticModel semanticModel = FileSystemUtils.getSemanticModel(workspaceManager, filePath);
-        Optional<TypeSymbol> optionalType = semanticModel.types().getType(typeName);
+        Document document = FileSystemUtils.getDocument(workspaceManager, filePath);
+        Optional<TypeSymbol> optionalType = semanticModel.types().getType(document, typeName);
         if (optionalType.isEmpty()) {
             return Optional.empty();
         }
