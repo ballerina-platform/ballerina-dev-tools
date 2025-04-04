@@ -1,0 +1,112 @@
+{
+  "description": "",
+  "source": "agent.bal",
+  "output": {
+    "Connections": {
+      "_telegramAgentAgent": {
+        "id": "_telegramAgentAgent",
+        "location": {
+          "fileName": "agent.bal",
+          "startLine": {
+            "line": 4,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 7,
+            "offset": 44
+          }
+        },
+        "type": "CONNECTION",
+        "name": "_telegramAgentAgent",
+        "scope": "Global",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.9.2.png",
+        "module": "ai.agent",
+        "children": {}
+      },
+      "_telegramAgentModel": {
+        "id": "_telegramAgentModel",
+        "location": {
+          "fileName": "agent.bal",
+          "startLine": {
+            "line": 3,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 3,
+            "offset": 87
+          }
+        },
+        "type": "CONNECTION",
+        "name": "_telegramAgentModel",
+        "scope": "Global",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.9.2.png",
+        "module": "ai.agent",
+        "children": {}
+      }
+    },
+    "Listeners": {
+      "telegramAgentListener": {
+        "id": "telegramAgentListener",
+        "location": {
+          "fileName": "agent.bal",
+          "startLine": {
+            "line": 9,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 9,
+            "offset": 97
+          }
+        },
+        "type": "LISTENER",
+        "name": "telegramAgentListener",
+        "scope": "Global",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.9.2.png",
+        "module": "ai.agent",
+        "children": {}
+      }
+    },
+    "Entry Points": {
+      "576380030": {
+        "id": "576380030",
+        "location": {
+          "fileName": "agent.bal",
+          "startLine": {
+            "line": 11,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 17,
+            "offset": 1
+          }
+        },
+        "type": "SERVICE",
+        "name": "/telegramAgent",
+        "scope": "Global",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.9.2.png",
+        "module": "ai.agent",
+        "children": {
+          "post#chat": {
+            "id": "post#chat",
+            "location": {
+              "fileName": "agent.bal",
+              "startLine": {
+                "line": 12,
+                "offset": 4
+              },
+              "endLine": {
+                "line": 16,
+                "offset": 5
+              }
+            },
+            "type": "RESOURCE",
+            "name": "chat",
+            "accessor": "post",
+            "scope": "Global",
+            "children": {}
+          }
+        }
+      }
+    }
+  }
+}

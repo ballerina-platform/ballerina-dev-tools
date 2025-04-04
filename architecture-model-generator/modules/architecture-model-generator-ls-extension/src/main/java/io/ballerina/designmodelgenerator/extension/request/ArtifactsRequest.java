@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2022, WSO2 LLC. (http://www.wso2.com) All Rights Reserved.
+ *  Copyright (c) 2025, WSO2 LLC. (http://www.wso2.com)
  *
  *  WSO2 LLC. licenses this file to you under the Apache License,
  *  Version 2.0 (the "License"); you may not use this file except
@@ -16,13 +16,13 @@
  *  under the License.
  */
 
-module io.ballerina.LSExtensions.ProjectDesignService {
-    requires io.ballerina.language.server.commons;
-    requires io.ballerina.lang;
-    requires org.eclipse.lsp4j.jsonrpc;
-    requires org.eclipse.lsp4j;
-    requires com.google.gson;
-    requires io.ballerina.tools.api;
-    requires io.ballerina.architecturemodelgenerator;
-    requires io.ballerina.parser;
+package io.ballerina.designmodelgenerator.extension.request;
+
+/**
+ * Record representing a request for artifacts.
+ *
+ * @param projectPath The path to the project for which artifacts are requested
+ * @since 2.3.0
+ */
+public record ArtifactsRequest(String projectPath) {
 }

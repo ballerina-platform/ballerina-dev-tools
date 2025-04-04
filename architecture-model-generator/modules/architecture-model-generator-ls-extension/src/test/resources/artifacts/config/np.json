@@ -1,0 +1,80 @@
+{
+  "source": "np.bal",
+  "description": "",
+  "output": {
+    "Natural Functions": {
+      "suggestMovieName2": {
+        "id": "suggestMovieName2",
+        "location": {
+          "fileName": "np.bal",
+          "startLine": {
+            "line": 26,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 35,
+            "offset": 55
+          }
+        },
+        "type": "NP_FUNCTION",
+        "name": "suggestMovieName2",
+        "scope": "Global",
+        "children": {}
+      },
+      "suggestMovieName1": {
+        "id": "suggestMovieName1",
+        "location": {
+          "fileName": "np.bal",
+          "startLine": {
+            "line": 14,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 24,
+            "offset": 55
+          }
+        },
+        "type": "NP_FUNCTION",
+        "name": "suggestMovieName1",
+        "scope": "Global",
+        "children": {}
+      },
+      "rateMovie": {
+        "id": "rateMovie",
+        "location": {
+          "fileName": "np.bal",
+          "startLine": {
+            "line": 37,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 46,
+            "offset": 52
+          }
+        },
+        "type": "NP_FUNCTION",
+        "name": "rateMovie",
+        "scope": "Global",
+        "children": {}
+      },
+      "suggestMovieGenre": {
+        "id": "suggestMovieGenre",
+        "location": {
+          "fileName": "np.bal",
+          "startLine": {
+            "line": 2,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 12,
+            "offset": 55
+          }
+        },
+        "type": "NP_FUNCTION",
+        "name": "suggestMovieGenre",
+        "scope": "Global",
+        "children": {}
+      }
+    }
+  }
+}
