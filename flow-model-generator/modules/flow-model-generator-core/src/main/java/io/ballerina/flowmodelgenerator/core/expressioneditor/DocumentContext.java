@@ -148,6 +148,13 @@ public class DocumentContext {
         return imports;
     }
 
+    public void updateContext(Document newDocument) {
+        this.document = newDocument;
+        this.module = newDocument.module();
+        this.project = module.project();
+        this.semanticModel = project.currentPackage().getCompilation().getSemanticModel(module.moduleId());
+    }
+
     private void initialize() {
         if (initialized) {
             return;

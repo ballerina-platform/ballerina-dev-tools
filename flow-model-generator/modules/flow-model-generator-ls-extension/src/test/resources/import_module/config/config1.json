@@ -2,5 +2,7 @@
   "description": "",
   "filePath": "source.bal",
   "importStatement": "import ballerina/log;\n",
-  "expression": "log:p"
+  "expression": "log:p",
+  "prefix": "log",
+  "moduleId": "ballerina/log:2.12.0"
 }

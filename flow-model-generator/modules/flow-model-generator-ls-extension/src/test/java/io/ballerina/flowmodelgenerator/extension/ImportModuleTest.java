@@ -28,6 +28,7 @@ import io.ballerina.tools.text.LinePosition;
 import org.eclipse.lsp4j.Diagnostic;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -60,8 +61,17 @@ public class ImportModuleTest extends AbstractLSTest {
         // Send module snippet request
         ImportModuleRequest moduleSnippetRequest = new ImportModuleRequest(sourcePath, testConfig.importStatement());
         JsonObject successResponse = getResponse(moduleSnippetRequest);
-        successResponse.get("success").getAsBoolean();
-        Assert.assertTrue(successResponse.get("success").getAsBoolean(), "Module snippet request failed");
+
+        String prefix = successResponse.get("prefix").getAsString();
+        String moduleId = successResponse.get("moduleId").getAsString();
+
+        // Validate the response
+        if (!prefix.equals(testConfig.prefix()) || !moduleId.equals(testConfig.moduleId())) {
+            TestConfig updatedConfig = new TestConfig(testConfig.description(), testConfig.filePath(),
+                    testConfig.importStatement(), testConfig.expression(), prefix, moduleId);
+//            updateConfig(configJsonPath, updatedConfig);
+            Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
+        }
 
         // Send diagnostics request
         ExpressionEditorContext.Info info =
@@ -103,6 +113,7 @@ public class ImportModuleTest extends AbstractLSTest {
         return ImportModuleTest.class;
     }
 
-    private record TestConfig(String description, String filePath, String importStatement, String expression) {
+    private record TestConfig(String description, String filePath, String importStatement, String expression,
+                              String prefix, String moduleId) {
     }
 }

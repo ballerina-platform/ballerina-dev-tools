@@ -52,6 +52,8 @@ import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.DocumentId;
+import io.ballerina.projects.ModuleDescriptor;
+import io.ballerina.projects.ModuleName;
 import io.ballerina.projects.Project;
 import io.ballerina.projects.ProjectKind;
 import io.ballerina.tools.diagnostics.DiagnosticInfo;
@@ -679,7 +681,7 @@ public class CommonUtils {
      */
     public static String getImportStatement(String orgName, String packageName, String moduleName) {
         StringBuilder importStatement = new StringBuilder(orgName).append("/").append(packageName);
-        if (!packageName.equals(moduleName)) {
+        if (moduleName != null && !packageName.equals(moduleName)) {
             importStatement.append(".").append(moduleName);
         }
         return importStatement.toString();
@@ -829,5 +831,45 @@ public class CommonUtils {
         TextDocument textDocument = document.textDocument();
         int textPosition = textDocument.toCharArray().length;
         return textDocument.linePositionFrom(textPosition);
+    }
+
+    /**
+     * Extracts the default module prefix from a package name.
+     * The prefix is the last segment of the package name after splitting by dots.
+     *
+     * @param packageName The fully qualified package name to extract the prefix from
+     * @return The last segment of the package name as the default module prefix
+     */
+    public static String getDefaultModulePrefix(String packageName) {
+        String[] parts = packageName.split("\\.");
+        return parts.length > 0 ? parts[parts.length - 1] : packageName;
+    }
+
+    /**
+     * Constructs a fully qualified ID from a module descriptor in the format:
+     * <org>/<package-name>.<module-name>:<version>
+     *
+     * @param descriptor The module descriptor to construct ID from
+     * @return The formatted ID string
+     */
+    public static String constructModuleId(ModuleDescriptor descriptor) {
+        StringBuilder idBuilder = new StringBuilder();
+        
+        // Add organization
+        idBuilder.append(descriptor.org().value()).append('/');
+        
+        // Add package name
+        idBuilder.append(descriptor.name().packageName().value());
+        
+        // Add module name if it's not the default module
+        String moduleNamePart = descriptor.name().moduleNamePart();
+        if (moduleNamePart != null && !moduleNamePart.isEmpty()) {
+            idBuilder.append('.').append(moduleNamePart);
+        }
+        
+        // Add version
+        idBuilder.append(':').append(descriptor.version());
+        
+        return idBuilder.toString();
     }
 }
