@@ -57,7 +57,7 @@ public class BinaryBuilder extends NodeBuilder {
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
         sourceBuilder.newVariable();
 
-        Optional<Property> exprProperty = sourceBuilder.flowNode.getProperty(Property.EXPRESSION_KEY);
+        Optional<Property> exprProperty = sourceBuilder.getProperty(Property.EXPRESSION_KEY);
         exprProperty.ifPresent(value -> sourceBuilder.token().expression(value).endOfStatement());
 
         return sourceBuilder.textEdit().build();

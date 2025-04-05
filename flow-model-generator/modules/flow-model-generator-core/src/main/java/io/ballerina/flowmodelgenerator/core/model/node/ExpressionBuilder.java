@@ -53,7 +53,7 @@ public class ExpressionBuilder extends NodeBuilder {
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
         sourceBuilder.newVariable();
 
-        Optional<Property> expression = sourceBuilder.flowNode.getProperty(Property.EXPRESSION_KEY);
+        Optional<Property> expression = sourceBuilder.getProperty(Property.EXPRESSION_KEY);
         if (expression.isPresent()) {
             sourceBuilder.token()
                     .expression(expression.get())

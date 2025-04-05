@@ -39,7 +39,6 @@ import io.ballerina.modelgenerator.commons.ParameterData;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.ModuleDescriptor;
-import io.ballerina.projects.Project;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.formatter.core.FormattingTreeModifier;
@@ -82,7 +81,6 @@ public class SourceBuilder {
     private static final String AGENTS_BAL = "agents.bal";
     private static final String DATA_MAPPINGS_BAL = "data_mappings.bal";
     private static final String FUNCTIONS_BAL = "functions.bal";
-
     private static final String BALLERINA_FILE_SUFFIX = ".bal";
 
     public SourceBuilder(FlowNode flowNode, WorkspaceManager workspaceManager, Path filePath,
@@ -158,8 +156,8 @@ public class SourceBuilder {
     }
 
     public SourceBuilder newVariableWithInferredType() {
-        Optional<Property> optionalType = flowNode.getProperty(Property.TYPE_KEY);
-        Optional<Property> variable = flowNode.getProperty(Property.VARIABLE_KEY);
+        Optional<Property> optionalType = getProperty(Property.TYPE_KEY);
+        Optional<Property> variable = getProperty(Property.VARIABLE_KEY);
 
         if (optionalType.isEmpty() || variable.isEmpty()) {
             return this;
@@ -187,8 +185,8 @@ public class SourceBuilder {
     }
 
     public SourceBuilder newVariable(String typeKey) {
-        Optional<Property> type = flowNode.getProperty(typeKey);
-        Optional<Property> variable = flowNode.getProperty(Property.VARIABLE_KEY);
+        Optional<Property> type = getProperty(typeKey);
+        Optional<Property> variable = getProperty(Property.VARIABLE_KEY);
 
         if (type.isPresent() && variable.isPresent()) {
             tokenBuilder.expressionWithType(type.get(), variable.get())
@@ -198,7 +196,7 @@ public class SourceBuilder {
     }
 
     public SourceBuilder acceptImportWithVariableType() {
-        Optional<Property> optionalType = flowNode.getProperty(Property.TYPE_KEY);
+        Optional<Property> optionalType = getProperty(Property.TYPE_KEY);
         if (optionalType.isPresent()) {
             Property type = optionalType.get();
 
@@ -206,7 +204,7 @@ public class SourceBuilder {
             //  have to optimize how we handle the return type, as the current implementation does not allow the user
             //  to assign the error to a variable and handle it.
             // Add the import statements if exists in the return type
-            if (type.imports() != null && flowNode.getProperty(Property.CHECK_ERROR_KEY)
+            if (type.imports() != null && getProperty(Property.CHECK_ERROR_KEY)
                     .map(property -> property.value().equals("false")).orElse(true)) {
                 // TODO: Improve this logic to process all the imports at once
                 type.imports().values().forEach(moduleId -> {
@@ -311,8 +309,8 @@ public class SourceBuilder {
     }
 
     public SourceBuilder typedBindingPattern(String typeKey) {
-        Optional<Property> type = flowNode.getProperty(typeKey);
-        Optional<Property> variable = flowNode.getProperty(Property.VARIABLE_KEY);
+        Optional<Property> type = getProperty(typeKey);
+        Optional<Property> variable = getProperty(Property.VARIABLE_KEY);
 
         if (type.isPresent() && variable.isPresent()) {
             tokenBuilder.expressionWithType(type.get(), variable.get());

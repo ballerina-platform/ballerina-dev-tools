@@ -51,7 +51,7 @@ public class FailBuilder extends NodeBuilder {
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
         sourceBuilder.token().keyword(SyntaxKind.FAIL_KEYWORD);
-        Optional<Property> property = sourceBuilder.flowNode.getProperty(Property.EXPRESSION_KEY);
+        Optional<Property> property = sourceBuilder.getProperty(Property.EXPRESSION_KEY);
         property.ifPresent(value -> sourceBuilder.token()
                 .whiteSpace()
                 .expression(value));

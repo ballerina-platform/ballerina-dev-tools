@@ -50,8 +50,8 @@ public class StartBuilder extends NodeBuilder {
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
         // Write the type and  the variable
-        Optional<Property> type = sourceBuilder.flowNode.getProperty(Property.TYPE_KEY);
-        Optional<Property> variable = sourceBuilder.flowNode.getProperty(Property.VARIABLE_KEY);
+        Optional<Property> type = sourceBuilder.getProperty(Property.TYPE_KEY);
+        Optional<Property> variable = sourceBuilder.getProperty(Property.VARIABLE_KEY);
         if (type.isPresent() && variable.isPresent()) {
             sourceBuilder.token()
                     .expressionWithType(type.get(), variable.get())
@@ -60,7 +60,7 @@ public class StartBuilder extends NodeBuilder {
 
         // Write the expression
         sourceBuilder.token().keyword(SyntaxKind.START_KEYWORD);
-        Optional<Property> property = sourceBuilder.flowNode.getProperty(Property.EXPRESSION_KEY);
+        Optional<Property> property = sourceBuilder.getProperty(Property.EXPRESSION_KEY);
         property.ifPresent(value -> sourceBuilder.token()
                 .whiteSpace()
                 .expression(value));

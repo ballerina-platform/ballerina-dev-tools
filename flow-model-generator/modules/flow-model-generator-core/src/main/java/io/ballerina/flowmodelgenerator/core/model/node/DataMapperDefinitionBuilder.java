@@ -96,7 +96,7 @@ public class DataMapperDefinitionBuilder extends NodeBuilder {
         sourceBuilder.token().keyword(SyntaxKind.FUNCTION_KEYWORD);
 
         // Write the data mapper name
-        Optional<Property> property = sourceBuilder.flowNode.getProperty(Property.FUNCTION_NAME_KEY);
+        Optional<Property> property = sourceBuilder.getProperty(Property.FUNCTION_NAME_KEY);
         if (property.isEmpty()) {
             throw new IllegalStateException("Data mapper name is not present");
         }

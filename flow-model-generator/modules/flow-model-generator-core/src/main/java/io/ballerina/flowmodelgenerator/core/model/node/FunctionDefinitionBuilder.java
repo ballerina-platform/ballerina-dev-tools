@@ -93,13 +93,13 @@ public class FunctionDefinitionBuilder extends NodeBuilder {
 
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
-        Optional<Property> optDescription = sourceBuilder.flowNode.getProperty(Property.FUNCTION_NAME_DESCRIPTION_KEY);
+        Optional<Property> optDescription = sourceBuilder.getProperty(Property.FUNCTION_NAME_DESCRIPTION_KEY);
         String description = "";
         if (optDescription.isPresent()) {
             description = optDescription.get().value().toString();
         }
 
-        Optional<Property> parameters = sourceBuilder.flowNode.getProperty(Property.PARAMETERS_KEY);
+        Optional<Property> parameters = sourceBuilder.getProperty(Property.PARAMETERS_KEY);
         String params = "";
         Map<String, String> paramsDesc = new HashMap<>();
         if (parameters.isPresent() && parameters.get().value() instanceof Map<?, ?> paramMap) {
@@ -128,13 +128,13 @@ public class FunctionDefinitionBuilder extends NodeBuilder {
             params = String.join(", ", paramList);
         }
 
-        Optional<Property> optReturnDescription = sourceBuilder.flowNode.getProperty(Property.RETURN_DESCRIPTION_KEY);
+        Optional<Property> optReturnDescription = sourceBuilder.getProperty(Property.RETURN_DESCRIPTION_KEY);
         String returnDescription = "";
         if (optReturnDescription.isPresent()) {
             returnDescription = optReturnDescription.get().value().toString();
         }
 
-        Optional<Property> funcNameProperty = sourceBuilder.flowNode.getProperty(Property.FUNCTION_NAME_KEY);
+        Optional<Property> funcNameProperty = sourceBuilder.getProperty(Property.FUNCTION_NAME_KEY);
         if (funcNameProperty.isEmpty()) {
             throw new IllegalStateException("Function name is not present");
         }
@@ -169,7 +169,7 @@ public class FunctionDefinitionBuilder extends NodeBuilder {
         sourceBuilder.token().keyword(SyntaxKind.CLOSE_PAREN_TOKEN);
 
         // Write the return type
-        Optional<Property> returnType = sourceBuilder.flowNode.getProperty(Property.TYPE_KEY);
+        Optional<Property> returnType = sourceBuilder.getProperty(Property.TYPE_KEY);
         if (returnType.isPresent() && !returnType.get().value().toString().isEmpty()) {
             sourceBuilder.token()
                     .keyword(SyntaxKind.RETURNS_KEYWORD)

@@ -51,7 +51,7 @@ public class RemoteActionCallBuilder extends CallBuilder {
             sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
         }
 
-        Optional<Property> connection = flowNode.getProperty(Property.CONNECTION_KEY);
+        Optional<Property> connection = sourceBuilder.getProperty(Property.CONNECTION_KEY);
         if (connection.isEmpty()) {
             throw new IllegalStateException("Client must be defined for an action call node");
         }

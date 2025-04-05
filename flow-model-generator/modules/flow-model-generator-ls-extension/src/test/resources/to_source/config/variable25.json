@@ -1,0 +1,107 @@
+{
+  "source": "empty.bal",
+  "description": "JWT Header variable assignment",
+  "diagram": {
+    "id": "45800",
+    "metadata": {
+      "label": "Variable",
+      "description": "Assign a value to a variable"
+    },
+    "codedata": {
+      "node": "VARIABLE",
+      "lineRange": {
+        "fileName": "new_data.bal",
+        "startLine": {
+          "line": 14,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 14,
+          "offset": 24
+        }
+      },
+      "sourceCode": "jwt:Header header = {};"
+    },
+    "returning": false,
+    "properties": {
+      "expression": {
+        "metadata": {
+          "label": "Expression",
+          "description": "Expression"
+        },
+        "valueType": "EXPRESSION",
+        "value": "{}",
+        "optional": true,
+        "editable": true,
+        "advanced": false
+      },
+      "variable": {
+        "metadata": {
+          "label": "Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "header",
+        "placeholder": "item",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "type": {
+        "metadata": {
+          "label": "Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "jwt:Header",
+        "placeholder": "var",
+        "imports": {
+          "jwt": "ballerina/jwt:2.15.0"
+        },
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      }
+    },
+    "diagnostics": {
+      "hasDiagnostics": true,
+      "diagnostics": [
+        {
+          "severity": "WARNING",
+          "message": "unused variable 'header'"
+        }
+      ]
+    },
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import ballerina/jwt;"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 14,
+            "character": 4
+          },
+          "end": {
+            "line": 14,
+            "character": 24
+          }
+        },
+        "newText": "jwt:Header header = {};"
+      }
+    ]
+  }
+}

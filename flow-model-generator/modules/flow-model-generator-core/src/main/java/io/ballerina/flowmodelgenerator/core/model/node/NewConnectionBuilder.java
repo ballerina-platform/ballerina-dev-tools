@@ -83,7 +83,7 @@ public class NewConnectionBuilder extends CallBuilder {
                         Set.of(Property.VARIABLE_KEY, Property.TYPE_KEY, Property.SCOPE_KEY,
                                 Property.CHECK_ERROR_KEY));
 
-        Optional<Property> scope = sourceBuilder.flowNode.getProperty(Property.SCOPE_KEY);
+        Optional<Property> scope = sourceBuilder.getProperty(Property.SCOPE_KEY);
         if (scope.isEmpty()) {
             throw new IllegalStateException("Scope is not defined for the new connection node");
         }

@@ -65,7 +65,7 @@ public class MatchBuilder extends NodeBuilder {
 
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
-        Optional<Property> condition = sourceBuilder.flowNode.getProperty(Property.CONDITION_KEY);
+        Optional<Property> condition = sourceBuilder.getProperty(Property.CONDITION_KEY);
         if (condition.isEmpty()) {
             throw new IllegalStateException("Match node does not have a condition");
         }

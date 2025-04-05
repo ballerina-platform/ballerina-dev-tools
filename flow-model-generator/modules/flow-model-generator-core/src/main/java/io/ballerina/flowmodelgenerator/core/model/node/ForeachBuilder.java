@@ -54,7 +54,7 @@ public class ForeachBuilder extends NodeBuilder {
                 .typedBindingPattern()
                 .token().keyword(SyntaxKind.IN_KEYWORD);
 
-        Optional<Property> exprProperty = sourceBuilder.flowNode.getProperty(Property.COLLECTION_KEY);
+        Optional<Property> exprProperty = sourceBuilder.getProperty(Property.COLLECTION_KEY);
         exprProperty.ifPresent(property -> sourceBuilder.token().expression(property));
 
         Optional<Branch> body = sourceBuilder.flowNode.getBranch(Branch.BODY_LABEL);

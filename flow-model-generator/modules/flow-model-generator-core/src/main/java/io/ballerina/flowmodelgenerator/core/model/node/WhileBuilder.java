@@ -51,7 +51,7 @@ public class WhileBuilder extends NodeBuilder {
 
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
-        Optional<Property> condition = sourceBuilder.flowNode.getProperty(Property.CONDITION_KEY);
+        Optional<Property> condition = sourceBuilder.getProperty(Property.CONDITION_KEY);
         Optional<Branch> body = sourceBuilder.flowNode.getBranch(Branch.BODY_LABEL);
 
         sourceBuilder.token().keyword(SyntaxKind.WHILE_KEYWORD);
