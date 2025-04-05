@@ -28,6 +28,7 @@ import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.compiler.syntax.tree.ExplicitNewExpressionNode;
 import io.ballerina.compiler.syntax.tree.FunctionArgumentNode;
 import io.ballerina.compiler.syntax.tree.ImplicitNewExpressionNode;
+import io.ballerina.compiler.syntax.tree.ImportDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ListenerDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.NewExpressionNode;
@@ -64,8 +65,32 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.ASB;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.ASB_DEFAULT_LISTENER_EXPR;
 import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.DEFAULT_LISTENER_ITEM_LABEL;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.FILE;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.FILE_DEFAULT_LISTENER_EXPR;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.FTP;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.FTP_DEFAULT_LISTENER_EXPR;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.GITHUB_DEFAULT_LISTENER_EXPR;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.GRAPHQL;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.GRAPHQL_DEFAULT_LISTENER_EXPR;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.HTTP;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_EXPR;
 import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_ITEM_LABEL;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.DEFAULT_LISTENER_VAR_NAME;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.KAFKA;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.KAFKA_DEFAULT_LISTENER_EXPR;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.MQTT;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.MQTT_DEFAULT_LISTENER_EXPR;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.NEW_LINE;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.RABBITMQ;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.RABBITMQ_DEFAULT_LISTENER_EXPR;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.SF;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.SF_DEFAULT_LISTENER_EXPR;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.TCP;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.TCP_DEFAULT_LISTENER_EXPR;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.TRIGGER_GITHUB;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.removeLeadingSingleQuote;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.upperCaseFirstLetter;
 
@@ -79,8 +104,8 @@ public class ListenerUtil {
     public static Set<String> getCompatibleListeners(String moduleName, SemanticModel semanticModel, Project project) {
         Set<String> listeners = new LinkedHashSet<>();
         boolean isHttpDefaultListenerDefined = false;
-        boolean isHttp = ServiceModelGeneratorConstants.HTTP.equals(moduleName);
-        boolean isKafka = ServiceModelGeneratorConstants.KAFKA.equals(moduleName);
+        boolean isHttp = HTTP.equals(moduleName);
+        boolean isKafka = KAFKA.equals(moduleName);
 
         for (Symbol moduleSymbol : semanticModel.moduleSymbols()) {
             if (!(moduleSymbol instanceof VariableSymbol variableSymbol)
@@ -128,7 +153,7 @@ public class ListenerUtil {
         }
 
         if (!isHttp && listeners.isEmpty()) {
-            listeners.add(DEFAULT_LISTENER_ITEM_LABEL.formatted(moduleName));
+            listeners.add(DEFAULT_LISTENER_ITEM_LABEL.formatted(moduleName(moduleName)));
         }
 
         return listeners;
@@ -176,7 +201,8 @@ public class ListenerUtil {
         return Optional.empty();
     }
 
-    public static boolean createDefaultListener(Value listener) {
+    public static DefaultListener getDefaultListener(Value listener, SemanticModel semanticModel,
+                                                     Document document, ModulePartNode node, String moduleName) {
         if (Objects.nonNull(listener) && listener.isEnabledWithValue()) {
             List<String> values = listener.getValues();
             if (Objects.nonNull(values) && !values.isEmpty()) {
@@ -184,29 +210,67 @@ public class ListenerUtil {
                     addAll(values);
                 }};
                 for (int i = 0; i < values.size(); i++) {
-                    if (values.get(i).equals(
-                            HTTP_DEFAULT_LISTENER_ITEM_LABEL)) {
-                        valuesList.set(i, ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_VAR_NAME);
+                    String selection = values.get(i);
+                    if (selection.equals(HTTP_DEFAULT_LISTENER_ITEM_LABEL) ||
+                            selection.equals(DEFAULT_LISTENER_ITEM_LABEL.formatted(moduleName(moduleName)))) {
+                        DefaultListener defaultListener = defaultListener(semanticModel, document, node,
+                                moduleName);
+                        valuesList.set(i, defaultListener.variableName());
                         listener.setValues(valuesList);
-                        return true;
+                        return defaultListener;
                     }
                 }
             } else {
-                if (listener.getValue().equals(
-                        HTTP_DEFAULT_LISTENER_ITEM_LABEL)) {
-                    listener.setValue(ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_VAR_NAME);
-                    return true;
+                String selection = listener.getValue();
+                if (selection.equals(HTTP_DEFAULT_LISTENER_ITEM_LABEL) ||
+                        selection.equals(DEFAULT_LISTENER_ITEM_LABEL.formatted(moduleName(moduleName)))) {
+                    DefaultListener defaultListener = defaultListener(semanticModel, document, node, moduleName);
+                    listener.setValue(defaultListener.variableName());
+                    return defaultListener;
                 }
             }
         }
-        return false;
+        return null;
     }
 
-    public static String getHttpDefaultListenerDeclarationStmt(SemanticModel semanticModel, Document document,
-                                                               LinePosition linePosition) {
+    public record DefaultListener(String moduleName, String variableName, LinePosition linePosition) {
+    }
+
+    public static DefaultListener defaultListener(SemanticModel semanticModel, Document document,
+                                                  ModulePartNode node, String moduleName) {
+        List<ImportDeclarationNode> importsList = node.imports().stream().toList();
+        LinePosition linePosition = importsList.isEmpty() ? node.lineRange().endLine() :
+                importsList.getLast().lineRange().endLine();
         String variableName = Utils.generateVariableIdentifier(semanticModel, document, linePosition,
-                ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_VAR_NAME);
-        return String.format(ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_STMT, variableName);
+                DEFAULT_LISTENER_VAR_NAME.formatted(moduleName(moduleName)));
+        return new DefaultListener(moduleName, variableName, linePosition);
+    }
+
+    public static String getDefaultListenerDeclarationStmt(DefaultListener defaultListener) {
+        String stmt =  NEW_LINE + "listener %s:Listener %s = %s;" + NEW_LINE;
+        String expression = switch (defaultListener.moduleName()) {
+            case HTTP -> HTTP_DEFAULT_LISTENER_EXPR;
+            case GRAPHQL -> GRAPHQL_DEFAULT_LISTENER_EXPR;
+            case TCP -> TCP_DEFAULT_LISTENER_EXPR;
+            case KAFKA -> KAFKA_DEFAULT_LISTENER_EXPR;
+            case RABBITMQ -> RABBITMQ_DEFAULT_LISTENER_EXPR;
+            case MQTT -> MQTT_DEFAULT_LISTENER_EXPR;
+            case ASB -> ASB_DEFAULT_LISTENER_EXPR;
+            case SF -> SF_DEFAULT_LISTENER_EXPR;
+            case TRIGGER_GITHUB -> GITHUB_DEFAULT_LISTENER_EXPR;
+            case FTP -> FTP_DEFAULT_LISTENER_EXPR;
+            case FILE -> FILE_DEFAULT_LISTENER_EXPR;
+            default -> "";
+        };
+        return stmt.formatted(moduleName(defaultListener.moduleName()), defaultListener.variableName(), expression);
+    }
+
+    private static String moduleName(String moduleName) {
+        String[] parts = moduleName.split("\\.");
+        if (parts.length > 1) {
+            return parts[parts.length - 1];
+        }
+        return moduleName;
     }
 
     public static Listener getListenerModelWithoutParamProps(FunctionData functionData) {
@@ -285,7 +349,7 @@ public class ListenerUtil {
         value.setAdvanced(false);
         value.setOptional(false);
         value.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_EXPRESSION);
-        value.setValue(ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_EXPR);
+        value.setValue(HTTP_DEFAULT_LISTENER_EXPR);
         return value;
     }
 
@@ -373,8 +437,7 @@ public class ListenerUtil {
     }
 
     public static boolean isHttpDefaultListener(ListenerDeclarationNode listenerNode) {
-        return listenerNode.initializer().toSourceCode().trim().contains(ServiceModelGeneratorConstants
-                .HTTP_DEFAULT_LISTENER_EXPR);
+        return listenerNode.initializer().toSourceCode().trim().contains(HTTP_DEFAULT_LISTENER_EXPR);
     }
 
     public static Value nameProperty() {

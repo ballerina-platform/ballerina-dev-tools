@@ -33,7 +33,6 @@ import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
-import io.ballerina.compiler.syntax.tree.ImportDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.openapi.core.generators.common.GeneratorUtils;
@@ -113,7 +112,8 @@ public class OpenApiServiceGenerator {
         this.workspaceManager = workspaceManager;
     }
 
-    public Map<String, List<TextEdit>> generateService(Service service, boolean isDefaultListenerCreationRequired)
+    public Map<String, List<TextEdit>> generateService(Service service, ListenerUtil.DefaultListener
+            defaultListener)
             throws IOException,
             BallerinaOpenApiException, FormatterException, WorkspaceDocumentException, EventSyncException {
         Filter filter = new Filter(new ArrayList<>(), new ArrayList<>());
@@ -154,17 +154,9 @@ public class OpenApiServiceGenerator {
                 textEdits.add(new TextEdit(Utils.toRange(modulePartNode.lineRange().startLine()), importText));
             }
 
-            if (isDefaultListenerCreationRequired) {
-                List<ImportDeclarationNode> importsList = modulePartNode.imports().stream().toList();
-                LinePosition listenerDeclaringLoc;
-                if (!importsList.isEmpty()) {
-                    listenerDeclaringLoc = importsList.get(importsList.size() - 1).lineRange().endLine();
-                } else {
-                    listenerDeclaringLoc = modulePartNode.lineRange().endLine();
-                }
-                String listenerDeclarationStmt = ListenerUtil.getHttpDefaultListenerDeclarationStmt(
-                        semanticModel.get(), document.get(), listenerDeclaringLoc);
-                textEdits.add(new TextEdit(Utils.toRange(listenerDeclaringLoc), listenerDeclarationStmt));
+            if (Objects.nonNull(defaultListener)) {
+                String stmt = ListenerUtil.getDefaultListenerDeclarationStmt(defaultListener);
+                textEdits.add(new TextEdit(Utils.toRange(defaultListener.linePosition()), stmt));
             }
 
             StringBuilder serviceBuilder = new StringBuilder();
