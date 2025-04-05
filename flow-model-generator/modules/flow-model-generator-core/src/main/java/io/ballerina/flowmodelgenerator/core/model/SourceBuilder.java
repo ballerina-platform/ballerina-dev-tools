@@ -193,12 +193,6 @@ public class SourceBuilder {
         return this;
     }
 
-    public SourceBuilder textEdit(boolean isExpression, String fileName) {
-        textEdit(isExpression, filePath, defaultRange);
-        acceptImport(filePath);
-        return this;
-    }
-
     public SourceBuilder acceptImportWithVariableType() {
         Optional<Property> optionalType = flowNode.getProperty(Property.TYPE_KEY);
         if (optionalType.isPresent()) {
@@ -233,22 +227,14 @@ public class SourceBuilder {
     }
 
     public SourceBuilder acceptImport() {
-        return acceptImport(filePath);
-    }
-
-    public SourceBuilder acceptImport(Path resolvedPath) {
         Codedata codedata = flowNode.codedata();
         String org = codedata.org();
         String module = codedata.module();
-        return acceptImport(resolvedPath, org, module);
+        return acceptImport(org, module);
     }
 
     public SourceBuilder acceptImport(String org, String module) {
-        return acceptImport(filePath, org, module);
-    }
-
-    public SourceBuilder acceptImport(Path resolvedPath, String org, String module) {
-        return acceptImport(resolvedPath, org, module, false);
+        return acceptImport(filePath, org, module, false);
     }
 
     public SourceBuilder acceptImport(Path resolvedPath, String org, String module, boolean defaultNamespace) {
@@ -620,7 +606,7 @@ public class SourceBuilder {
         // Add the imports if exists
         imports.forEach(moduleImport -> {
             String[] split = moduleImport.split("/");
-            acceptImport(filePath, split[0], split[1]);
+            acceptImport(split[0], split[1]);
         });
         return textEditsMap;
     }

@@ -187,7 +187,8 @@ public class FunctionDefinitionBuilder extends NodeBuilder {
                         .openBrace()
                         .closeBrace()
                         .stepOut()
-                    .textEdit(false, FUNCTIONS_BAL);
+                    .textEdit(false)
+                    .acceptImport();
         } else {
             sourceBuilder
                     .token().skipFormatting().stepOut()

@@ -95,7 +95,7 @@ public class NewConnectionBuilder extends CallBuilder {
                 checkDriverImport(sourceBuilder, codedata, filePath);
             }
             case Property.GLOBAL_SCOPE -> {
-                sourceBuilder.textEdit(false, CONNECTIONS_BAL);
+                sourceBuilder.textEdit(false).acceptImport();
                 Path projectRoot = sourceBuilder.workspaceManager.projectRoot(filePath);
                 checkDriverImport(sourceBuilder, codedata, projectRoot.resolve(CONNECTIONS_BAL));
             }
