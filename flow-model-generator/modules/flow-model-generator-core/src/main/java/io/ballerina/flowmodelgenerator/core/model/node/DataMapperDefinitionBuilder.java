@@ -106,7 +106,7 @@ public class DataMapperDefinitionBuilder extends NodeBuilder {
                 .keyword(SyntaxKind.OPEN_PAREN_TOKEN);
 
         // Write the data mapper parameters
-        Optional<Property> parameters = sourceBuilder.flowNode.getProperty(Property.PARAMETERS_KEY);
+        Optional<Property> parameters = sourceBuilder.getProperty(Property.PARAMETERS_KEY);
         if (parameters.isPresent() && parameters.get().value() instanceof Map<?, ?> paramMap) {
             List<String> paramList = new ArrayList<>();
             for (Object obj : paramMap.values()) {
@@ -125,7 +125,7 @@ public class DataMapperDefinitionBuilder extends NodeBuilder {
         sourceBuilder.token().keyword(SyntaxKind.CLOSE_PAREN_TOKEN);
 
         // Write the return type
-        Optional<Property> returnType = sourceBuilder.flowNode.getProperty(Property.TYPE_KEY);
+        Optional<Property> returnType = sourceBuilder.getProperty(Property.TYPE_KEY);
         if (returnType.isEmpty() || returnType.get().value().toString().isEmpty()) {
             throw new IllegalStateException("The data mapper should have an output");
         }
@@ -158,7 +158,9 @@ public class DataMapperDefinitionBuilder extends NodeBuilder {
                     .token().skipFormatting().stepOut()
                     .textEdit(false);
         }
-        return sourceBuilder.build();
+        return sourceBuilder
+                .acceptPropertyImports(DATA_MAPPINGS_BAL)
+                .build();
     }
 
     private static class ParameterSchemaHolder {

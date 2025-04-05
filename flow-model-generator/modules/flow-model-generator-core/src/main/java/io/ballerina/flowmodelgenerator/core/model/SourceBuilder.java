@@ -65,10 +65,12 @@ import java.util.stream.Collectors;
 public class SourceBuilder {
 
     private TokenBuilder tokenBuilder;
+    private Path resolvedPath;
     public final FlowNode flowNode;
     public final WorkspaceManager workspaceManager;
     public final Path filePath;
     private final Map<Path, List<TextEdit>> textEditsMap;
+    private final List<String> imports;
     private final LSClientLogger lsClientLogger;
 
     public SourceBuilder(FlowNode flowNode, WorkspaceManager workspaceManager, Path filePath,
@@ -78,6 +80,7 @@ public class SourceBuilder {
         this.flowNode = flowNode;
         this.workspaceManager = workspaceManager;
         this.filePath = filePath;
+        this.imports = new ArrayList<>();
         this.lsClientLogger = lsClientLogger;
     }
 
@@ -206,6 +209,33 @@ public class SourceBuilder {
         return this;
     }
 
+    public Optional<Property> getProperty(String key) {
+        Optional<Property> property = flowNode.getProperty(key);
+        property.ifPresent(prop -> {
+            Map<String, String> propImports = prop.imports();
+            if (propImports != null) {
+                propImports.values().forEach(propImport -> imports.add(propImport.split(":")[0]));
+            }
+        });
+        return property;
+    }
+
+    public SourceBuilder acceptPropertyImports(String fileName) {
+        return acceptPropertyImports(getResolvedPath(fileName));
+    }
+
+    public SourceBuilder acceptPropertyImports() {
+        return acceptPropertyImports(filePath);
+    }
+
+    public SourceBuilder acceptPropertyImports(Path resolvedPath) {
+        imports.forEach(moduleImport -> {
+            String[] split = moduleImport.split("/");
+            acceptImport(resolvedPath, split[0], split[1]);
+        });
+        return this;
+    }
+
     public SourceBuilder acceptImport() {
         return acceptImport(filePath);
     }
@@ -282,12 +312,7 @@ public class SourceBuilder {
             throw new RuntimeException(e);
         }
         // Obtain the document
-        Path resolvedPath;
-        if (flowNode.codedata().isNew() == null || !flowNode.codedata().isNew()) {
-            resolvedPath = filePath;
-        } else {
-            resolvedPath = workspaceManager.projectRoot(filePath).resolve(fileName);
-        }
+        Path resolvedPath = getResolvedPath(fileName);
         Document document = FileSystemUtils.getDocument(workspaceManager, resolvedPath);
 
         // Obtain the symbols of the imports
@@ -574,6 +599,17 @@ public class SourceBuilder {
         textEditsMap.put(filePath, textEdits);
 
         return this;
+    }
+
+    public Path getResolvedPath(String fileName) {
+        if (resolvedPath != null) {
+            return resolvedPath;
+        }
+        if (flowNode.codedata().isNew() == null || !flowNode.codedata().isNew()) {
+            resolvedPath = filePath;
+        }
+        resolvedPath = workspaceManager.projectRoot(filePath).resolve(fileName);
+        return resolvedPath;
     }
 
     public SourceBuilder comment() {

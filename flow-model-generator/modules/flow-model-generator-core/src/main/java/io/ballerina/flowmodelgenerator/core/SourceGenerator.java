@@ -67,7 +67,6 @@ public class SourceGenerator {
         if (!filePath.toString().endsWith(".bal") && hasFileName(flowNode)) {
             filePath = filePath.resolve(flowNode.codedata().lineRange().fileName());
         }
-        SourceBuilder sourceBuilder = new SourceBuilder(flowNode, workspaceManager, filePath);
         Map<Path, List<TextEdit>> textEdits =
                 NodeBuilder.getNodeFromKind(flowNode.codedata().node()).toSource(sourceBuilder);
         addNewLine(textEdits);
