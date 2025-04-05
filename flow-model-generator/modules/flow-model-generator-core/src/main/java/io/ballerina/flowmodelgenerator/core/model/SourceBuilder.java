@@ -686,30 +686,34 @@ public class SourceBuilder {
         }
 
         public TokenBuilder parameterDoc(String paramName, String description) {
-            sb.append(SyntaxKind.HASH_TOKEN.stringValue())
-                    .append(WHITE_SPACE)
-                    .append(SyntaxKind.PLUS_TOKEN.stringValue())
-                    .append(WHITE_SPACE)
-                    .append(paramName)
-                    .append(WHITE_SPACE)
-                    .append("-")
-                    .append(WHITE_SPACE)
-                    .append(description)
-                    .append(System.lineSeparator());
+            if (!description.isEmpty()) {
+                sb.append(SyntaxKind.HASH_TOKEN.stringValue())
+                        .append(WHITE_SPACE)
+                        .append(SyntaxKind.PLUS_TOKEN.stringValue())
+                        .append(WHITE_SPACE)
+                        .append(paramName)
+                        .append(WHITE_SPACE)
+                        .append("-")
+                        .append(WHITE_SPACE)
+                        .append(description)
+                        .append(System.lineSeparator());
+            }
             return this;
         }
 
         public TokenBuilder returnDoc(String returnDescription) {
-            sb.append(SyntaxKind.HASH_TOKEN.stringValue())
-                    .append(WHITE_SPACE)
-                    .append(SyntaxKind.PLUS_TOKEN.stringValue())
-                    .append(WHITE_SPACE)
-                    .append(SyntaxKind.RETURN_KEYWORD.stringValue())
-                    .append(WHITE_SPACE)
-                    .append("-")
-                    .append(WHITE_SPACE)
-                    .append(returnDescription)
-                    .append(System.lineSeparator());
+            if (!returnDescription.isEmpty()) {
+                sb.append(SyntaxKind.HASH_TOKEN.stringValue())
+                        .append(WHITE_SPACE)
+                        .append(SyntaxKind.PLUS_TOKEN.stringValue())
+                        .append(WHITE_SPACE)
+                        .append(SyntaxKind.RETURN_KEYWORD.stringValue())
+                        .append(WHITE_SPACE)
+                        .append("-")
+                        .append(WHITE_SPACE)
+                        .append(returnDescription)
+                        .append(System.lineSeparator());
+            }
             return this;
         }
 
