@@ -91,15 +91,21 @@ public class NewConnectionBuilder extends CallBuilder {
         Path filePath = sourceBuilder.filePath;
         switch (scope.get().value().toString()) {
             case Property.LOCAL_SCOPE -> {
-                sourceBuilder.textEdit(false).acceptImport();
+                sourceBuilder.textEdit(false);
                 checkDriverImport(sourceBuilder, codedata, filePath);
             }
             case Property.GLOBAL_SCOPE -> {
-                sourceBuilder.textEdit(false).acceptImport();
+                sourceBuilder.textEdit(false);
                 Path projectRoot = sourceBuilder.workspaceManager.projectRoot(filePath);
                 checkDriverImport(sourceBuilder, codedata, projectRoot.resolve(CONNECTIONS_BAL));
             }
             default -> throw new IllegalStateException("Invalid scope for the new connection node");
+        }
+        // TODO: This should be removed once the codedata is refactored to capture the module name
+        if (Boolean.TRUE.equals(codedata.isGenerated())) {
+            sourceBuilder.addImport(codedata.module());
+        } else {
+            sourceBuilder.acceptImport();
         }
 
         return sourceBuilder.build();

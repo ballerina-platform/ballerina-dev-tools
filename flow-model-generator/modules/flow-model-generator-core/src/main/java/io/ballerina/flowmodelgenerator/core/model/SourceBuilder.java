@@ -236,6 +236,12 @@ public class SourceBuilder {
         return acceptImport(org, module);
     }
 
+    // TODO: This should be removed once the codedata is refactored to capture the module name
+    public SourceBuilder addImport(String text) {
+        imports.add(text);
+        return this;
+    }
+
     public SourceBuilder acceptImport(String org, String module) {
         return acceptImport(org, module, false);
     }
@@ -274,7 +280,8 @@ public class SourceBuilder {
             imports.values().forEach(moduleId -> {
                 ModuleInfo moduleInfo = ModuleInfo.from(moduleId);
                 PackageUtil.pullModuleAndNotify(lsClientLogger, moduleInfo).ifPresent(pkg ->
-                        packageMap.put(pkg.packageName().value(), pkg.getCompilation().defaultModuleBLangPackage())
+                        packageMap.put(CommonUtils.getDefaultModulePrefix(pkg.packageName().value()),
+                                pkg.getCompilation().defaultModuleBLangPackage())
                 );
             });
         }

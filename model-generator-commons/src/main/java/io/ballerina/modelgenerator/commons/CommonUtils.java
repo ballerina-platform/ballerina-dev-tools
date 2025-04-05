@@ -656,12 +656,19 @@ public class CommonUtils {
                 String orgName = moduleId.orgName();
                 String packageName = moduleId.packageName();
                 String moduleName = moduleId.moduleName();
+                String modulePrefix = moduleId.modulePrefix();
 
                 if (isPredefinedLangLib(orgName, packageName) || isAnnotationLangLib(orgName, packageName) ||
                         isWithinCurrentModule(moduleInfo, orgName, packageName, moduleName)) {
                     return;
                 }
-                imports.add(getImportStatement(orgName, packageName, moduleName));
+
+                // Check if this is within the current package
+                if (orgName.equals(moduleInfo.org()) && modulePrefix.equals((moduleInfo.moduleName()))) {
+                    imports.add(getImportStatement("", packageName, modulePrefix));
+                } else {
+                    imports.add(getImportStatement(orgName, packageName, moduleName));
+                }
             }
         }
     }
@@ -679,7 +686,11 @@ public class CommonUtils {
      * @return the import statement
      */
     public static String getImportStatement(String orgName, String packageName, String moduleName) {
-        StringBuilder importStatement = new StringBuilder(orgName).append("/").append(packageName);
+        StringBuilder importStatement = new StringBuilder();
+        if (!orgName.isEmpty()) {
+            importStatement.append(orgName).append("/");
+        }
+        importStatement.append(packageName);
         if (moduleName != null && !packageName.equals(moduleName)) {
             importStatement.append(".").append(moduleName);
         }

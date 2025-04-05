@@ -17,7 +17,7 @@
         },
         "endLine": {
           "line": 5,
-          "offset": 80ø
+          "offset": 80
         }
       },
       "sourceCode": "string someId = random:createDecimal().toString() + uuid:createRandomUuid();"

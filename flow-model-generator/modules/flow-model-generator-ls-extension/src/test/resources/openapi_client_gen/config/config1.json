@@ -10,7 +10,7 @@
   "description": "Sample diagram node",
   "codedata": {
     "node": "NEW_CONNECTION",
-    "org": "",
+    "org": "oas",
     "module": "mod1",
     "object": "Client",
     "symbol": "init",
@@ -22,11 +22,11 @@
     "metadata": {
       "label": "New Connection",
       "description": "",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/_mod1_null.png"
+      "icon": "https://bcentral-packageicons.azureedge.net/images/oas_mod1_null.png"
     },
     "codedata": {
       "node": "NEW_CONNECTION",
-      "org": "",
+      "org": "oas",
       "module": "mod1",
       "object": "Client",
       "symbol": "init",
@@ -59,9 +59,7 @@
             "selected": false
           }
         ],
-        "imports": {
-          "mod1": "oas/client1.client1.mod1"
-        }
+        "imports": {}
       },
       "serviceUrl": {
         "metadata": {
@@ -87,9 +85,7 @@
             "selected": false
           }
         ],
-        "imports": {
-          "mod1": "oas/client1.client1.mod1"
-        }
+        "imports": {}
       },
       "type": {
         "metadata": {
@@ -104,9 +100,7 @@
         "advanced": false,
         "hidden": false,
         "codedata": {},
-        "imports": {
-          "mod1": "oas/client1.client1.mod1"
-        }
+        "imports": {}
       },
       "variable": {
         "metadata": {
@@ -119,9 +113,7 @@
         "editable": true,
         "advanced": false,
         "hidden": false,
-        "imports": {
-          "mod1": "oas/client1.client1.mod1"
-        }
+        "imports": {}
       },
       "scope": {
         "metadata": {
@@ -134,9 +126,7 @@
         "editable": true,
         "advanced": true,
         "hidden": false,
-        "imports": {
-          "mod1": "oas/client1.client1.mod1"
-        }
+        "imports": {}
       },
       "checkError": {
         "metadata": {
@@ -149,9 +139,7 @@
         "editable": false,
         "advanced": true,
         "hidden": false,
-        "imports": {
-          "mod1": "oas/client1.client1.mod1"
-        }
+        "imports": {}
       }
     },
     "flags": 0
