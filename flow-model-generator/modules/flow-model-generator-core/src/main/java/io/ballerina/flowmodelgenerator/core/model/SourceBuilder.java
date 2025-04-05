@@ -39,6 +39,7 @@ import io.ballerina.modelgenerator.commons.ParameterData;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.ModuleDescriptor;
+import io.ballerina.projects.Project;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.formatter.core.FormattingTreeModifier;
@@ -267,11 +268,7 @@ public class SourceBuilder {
     }
 
     public Optional<String> getExpressionBodyText(String typeName, Map<String, String> imports) {
-        try {
-            workspaceManager.loadProject(filePath);
-        } catch (WorkspaceDocumentException | EventSyncException e) {
-            throw new RuntimeException(e);
-        }
+        Project project = PackageUtil.loadProject(workspaceManager, filePath);
         Document document = FileSystemUtils.getDocument(workspaceManager, filePath);
 
         // Obtain the symbols of the imports
@@ -279,7 +276,7 @@ public class SourceBuilder {
         if (imports != null) {
             imports.values().forEach(moduleId -> {
                 ModuleInfo moduleInfo = ModuleInfo.from(moduleId);
-                PackageUtil.pullModuleAndNotify(lsClientLogger, moduleInfo).ifPresent(pkg ->
+                PackageUtil.pullModuleAndNotify(lsClientLogger, moduleInfo, project).ifPresent(pkg ->
                         packageMap.put(CommonUtils.getDefaultModulePrefix(pkg.packageName().value()),
                                 pkg.getCompilation().defaultModuleBLangPackage())
                 );

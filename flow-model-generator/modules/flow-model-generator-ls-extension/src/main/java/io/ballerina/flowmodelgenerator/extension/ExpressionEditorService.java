@@ -46,6 +46,7 @@ import io.ballerina.projects.Document;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.ModuleDependency;
 import io.ballerina.projects.ModuleDescriptor;
+import io.ballerina.projects.Project;
 import io.ballerina.tools.text.TextEdit;
 import org.ballerinalang.annotation.JavaSPIService;
 import org.ballerinalang.langserver.LSClientLogger;
@@ -235,10 +236,9 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
 
         // Obtain the module details
         String[] split = importStatement.split("/");
-        PackageUtil.pullModuleAndNotify(lsClientLogger, ModuleInfo.from(moduleId),
-                expressionEditorContext.documentContext().project().orElseThrow());
+        Project project = expressionEditorContext.documentContext().project().orElseThrow();
+        PackageUtil.pullModuleAndNotify(lsClientLogger, ModuleInfo.from(moduleId), project);
         Module module = expressionEditorContext.documentContext().module().orElseThrow();
-        module.packageInstance().getResolution();
         ModuleDescriptor descriptor = module.moduleDependencies().stream()
                 .map(ModuleDependency::descriptor)
                 .filter(moduleDependencyDescriptor ->

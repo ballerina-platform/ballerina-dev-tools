@@ -21,6 +21,7 @@ package io.ballerina.modelgenerator.commons;
 import io.ballerina.centralconnector.CentralAPI;
 import io.ballerina.centralconnector.RemoteCentral;
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.projects.CompilationOptions;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.ModuleId;
 import io.ballerina.projects.ModuleName;
@@ -64,6 +65,8 @@ public class PackageUtil {
 
     private static final String BALLERINA_HOME_PROPERTY = "ballerina.home";
     private static final BuildProject SAMPLE_PROJECT = getSampleProject();
+    private static final CompilationOptions COMPILATION_OPTIONS =
+            CompilationOptions.builder().setSticky(false).setOffline(false).build();
 
     private static final String PULLING_THE_MODULE_MESSAGE = "Pulling the module '%s' from the central";
     private static final String MODULE_PULLING_FAILED_MESSAGE = "Failed to pull the module: %s";
@@ -261,7 +264,8 @@ public class PackageUtil {
         return moduleInfo;
     }
 
-    public static Optional<Package> pullModuleAndNotify(LSClientLogger lsClientLogger, ModuleInfo moduleInfo) {
+    public static Optional<Package> pullModuleAndNotify(LSClientLogger lsClientLogger, ModuleInfo moduleInfo,
+                                                        Project project) {
         ModuleInfo completeModuleInfo = fetchVersionIfNotExists(moduleInfo);
         Optional<Package> modulePackage;
         if (PackageUtil.isModuleUnresolved(completeModuleInfo.org(), completeModuleInfo.packageName(),
@@ -272,6 +276,7 @@ public class PackageUtil {
             if (modulePackage.isEmpty()) {
                 notifyClient(lsClientLogger, completeModuleInfo, MessageType.Error, MODULE_PULLING_FAILED_MESSAGE);
             } else {
+                project.currentPackage().getResolution(COMPILATION_OPTIONS);
                 notifyClient(lsClientLogger, completeModuleInfo, MessageType.Info, MODULE_PULLING_SUCCESS_MESSAGE);
             }
         } else {
@@ -279,24 +284,6 @@ public class PackageUtil {
                     completeModuleInfo.version());
         }
         return modulePackage;
-    }
-
-    public static void pullModuleAndNotify(LSClientLogger lsClientLogger, ModuleInfo moduleInfo,
-                                           Project project) {
-        ModuleInfo completeModuleInfo = fetchVersionIfNotExists(moduleInfo);
-        if (!PackageUtil.isModuleUnresolved(completeModuleInfo.org(), completeModuleInfo.packageName(),
-                completeModuleInfo.version())) {
-            return;
-        }
-        notifyClient(lsClientLogger, completeModuleInfo, MessageType.Info, PULLING_THE_MODULE_MESSAGE);
-        PackageUtil.getModulePackage(SAMPLE_PROJECT, completeModuleInfo.org(), completeModuleInfo.packageName(),
-                completeModuleInfo.version());
-        if (PackageUtil.isModuleUnresolved(completeModuleInfo.org(), completeModuleInfo.packageName(),
-                completeModuleInfo.version())) {
-            notifyClient(lsClientLogger, completeModuleInfo, MessageType.Error, MODULE_PULLING_FAILED_MESSAGE);
-        } else {
-            notifyClient(lsClientLogger, completeModuleInfo, MessageType.Info, MODULE_PULLING_SUCCESS_MESSAGE);
-        }
     }
 
     private static void notifyClient(LSClientLogger lsClientLogger, ModuleInfo moduleInfo, MessageType messageType,
