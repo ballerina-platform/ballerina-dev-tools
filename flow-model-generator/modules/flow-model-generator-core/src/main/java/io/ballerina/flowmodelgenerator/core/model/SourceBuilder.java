@@ -142,7 +142,7 @@ public class SourceBuilder {
         defaultRange = CommonUtils.toRange(lineRange);
 
         // If the file name is not a bal file, then defaults to the filename in the line range.
-        if (!inputPath.getFileName().toString().endsWith(BALLERINA_FILE_SUFFIX)) {
+        if (!inputPath.toString().endsWith(BALLERINA_FILE_SUFFIX)) {
             return inputPath.resolve(lineRange.fileName());
         }
         return inputPath;
