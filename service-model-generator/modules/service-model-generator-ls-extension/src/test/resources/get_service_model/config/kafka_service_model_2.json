@@ -37,7 +37,9 @@
           "placeholder": "",
           "optional": false,
           "advanced": false,
-          "items": [],
+          "items": [
+            "(+) Create and use a kafka listener with default configurations"
+          ],
           "codedata": {
             "inListenerInit": false,
             "isBasePath": false,
