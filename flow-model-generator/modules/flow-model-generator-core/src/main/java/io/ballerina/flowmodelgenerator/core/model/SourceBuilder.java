@@ -268,7 +268,7 @@ public class SourceBuilder {
     }
 
     public Optional<String> getExpressionBodyText(String typeName, Map<String, String> imports) {
-        Project project = PackageUtil.loadProject(workspaceManager, filePath);
+        PackageUtil.loadProject(workspaceManager, filePath);
         Document document = FileSystemUtils.getDocument(workspaceManager, filePath);
 
         // Obtain the symbols of the imports
@@ -276,7 +276,7 @@ public class SourceBuilder {
         if (imports != null) {
             imports.values().forEach(moduleId -> {
                 ModuleInfo moduleInfo = ModuleInfo.from(moduleId);
-                PackageUtil.pullModuleAndNotify(lsClientLogger, moduleInfo, project).ifPresent(pkg ->
+                PackageUtil.pullModuleAndNotify(lsClientLogger, moduleInfo).ifPresent(pkg ->
                         packageMap.put(CommonUtils.getDefaultModulePrefix(pkg.packageName().value()),
                                 pkg.getCompilation().defaultModuleBLangPackage())
                 );

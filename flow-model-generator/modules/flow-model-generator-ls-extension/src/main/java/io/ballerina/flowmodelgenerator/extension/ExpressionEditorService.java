@@ -42,6 +42,7 @@ import io.ballerina.flowmodelgenerator.extension.response.VisibleVariableTypesRe
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.ModuleInfo;
 import io.ballerina.modelgenerator.commons.PackageUtil;
+import io.ballerina.projects.CompilationOptions;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.ModuleDependency;
@@ -73,6 +74,8 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
     private WorkspaceManagerProxy workspaceManagerProxy;
     private LanguageServer langServer;
     private LSClientLogger lsClientLogger;
+    private static final CompilationOptions COMPILATION_OPTIONS =
+            CompilationOptions.builder().setSticky(false).setOffline(false).build();
 
     @Override
     public void init(LanguageServer langServer, WorkspaceManagerProxy workspaceManagerProxy,
@@ -224,6 +227,7 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
 
     private void applyModuleImport(String filePathString, String moduleId, String importStatement,
                                    ImportModuleResponse response) {
+        // Generate the module import and apply it
         String fileUri = CommonUtils.getExprUri(filePathString);
         Path filePath = Path.of(filePathString);
         ExpressionEditorContext expressionEditorContext = new ExpressionEditorContext(
@@ -232,12 +236,16 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                 filePath,
                 null);
         Optional<TextEdit> importTextEdit = expressionEditorContext.getImport(importStatement);
-        importTextEdit.ifPresent(textEdit -> expressionEditorContext.applyTextEdits(List.of(textEdit)));
+        importTextEdit.ifPresent(textEdit -> {
+            expressionEditorContext.applyTextEdits(List.of(textEdit));
+            PackageUtil.pullModuleAndNotify(lsClientLogger, ModuleInfo.from(moduleId));
+        });
 
-        // Obtain the module details
+
+        // Get the imported module details
         String[] split = importStatement.split("/");
         Project project = expressionEditorContext.documentContext().project().orElseThrow();
-        PackageUtil.pullModuleAndNotify(lsClientLogger, ModuleInfo.from(moduleId), project);
+        project.currentPackage().getResolution(COMPILATION_OPTIONS);
         Module module = expressionEditorContext.documentContext().module().orElseThrow();
         ModuleDescriptor descriptor = module.moduleDependencies().stream()
                 .map(ModuleDependency::descriptor)

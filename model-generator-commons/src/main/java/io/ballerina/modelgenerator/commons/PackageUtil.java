@@ -65,8 +65,6 @@ public class PackageUtil {
 
     private static final String BALLERINA_HOME_PROPERTY = "ballerina.home";
     private static final BuildProject SAMPLE_PROJECT = getSampleProject();
-    private static final CompilationOptions COMPILATION_OPTIONS =
-            CompilationOptions.builder().setSticky(false).setOffline(false).build();
 
     private static final String PULLING_THE_MODULE_MESSAGE = "Pulling the module '%s' from the central";
     private static final String MODULE_PULLING_FAILED_MESSAGE = "Failed to pull the module: %s";
@@ -264,8 +262,7 @@ public class PackageUtil {
         return moduleInfo;
     }
 
-    public static Optional<Package> pullModuleAndNotify(LSClientLogger lsClientLogger, ModuleInfo moduleInfo,
-                                                        Project project) {
+    public static Optional<Package> pullModuleAndNotify(LSClientLogger lsClientLogger, ModuleInfo moduleInfo) {
         ModuleInfo completeModuleInfo = fetchVersionIfNotExists(moduleInfo);
         Optional<Package> modulePackage;
         if (PackageUtil.isModuleUnresolved(completeModuleInfo.org(), completeModuleInfo.packageName(),
@@ -276,7 +273,6 @@ public class PackageUtil {
             if (modulePackage.isEmpty()) {
                 notifyClient(lsClientLogger, completeModuleInfo, MessageType.Error, MODULE_PULLING_FAILED_MESSAGE);
             } else {
-                project.currentPackage().getResolution(COMPILATION_OPTIONS);
                 notifyClient(lsClientLogger, completeModuleInfo, MessageType.Info, MODULE_PULLING_SUCCESS_MESSAGE);
             }
         } else {
