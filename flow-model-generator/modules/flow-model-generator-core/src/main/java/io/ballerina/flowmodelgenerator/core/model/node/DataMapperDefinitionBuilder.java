@@ -52,7 +52,6 @@ public class DataMapperDefinitionBuilder extends NodeBuilder {
     public static final String PARAMETERS_LABEL = "Inputs";
     public static final String PARAMETERS_DOC = "Input variables of the data mapper function";
 
-    private static final String DATA_MAPPINGS_BAL = "data_mappings.bal";
     private static final Gson gson = new Gson();
 
     public static final String RETURN_TYPE = TypeKind.JSON.typeName();

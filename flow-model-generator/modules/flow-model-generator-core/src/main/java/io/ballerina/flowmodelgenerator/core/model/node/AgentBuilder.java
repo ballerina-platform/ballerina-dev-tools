@@ -38,7 +38,6 @@ import java.util.Set;
 public class AgentBuilder extends CallBuilder {
 
     private static final String AGENT_LABEL = "Agent";
-    private static final String AGENT_FILE = "agents.bal";
     public static final String PARAMS_TO_HIDE = "paramsToHide";
     public static final String MODEL = "model";
     public static final String TYPE = "type";

@@ -21,7 +21,6 @@ package io.ballerina.modelgenerator.commons;
 import io.ballerina.centralconnector.CentralAPI;
 import io.ballerina.centralconnector.RemoteCentral;
 import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.projects.CompilationOptions;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.ModuleId;
 import io.ballerina.projects.ModuleName;
