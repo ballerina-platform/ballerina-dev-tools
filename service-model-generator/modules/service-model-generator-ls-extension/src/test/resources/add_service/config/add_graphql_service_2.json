@@ -1,0 +1,190 @@
+{
+  "filePath": "sample1/main.bal",
+  "description": "Test adding a rabbitmq service",
+  "service": {
+    "id": "2",
+    "name": "GraphQL Service",
+    "type": "graphql",
+    "displayName": "GraphQL Service",
+    "description": "Add the service documentation",
+    "displayAnnotation": {
+      "label": "GraphQL Service",
+      "iconPath": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.15.0.png"
+    },
+    "moduleName": "graphql",
+    "orgName": "ballerina",
+    "version": "1.15.0",
+    "packageName": "graphql",
+    "listenerProtocol": "graphql",
+    "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.15.0.png",
+    "properties": {
+      "listener": {
+        "metadata": {
+          "label": "Listeners",
+          "description": "The Listeners to be bound with the service"
+        },
+        "enabled": true,
+        "editable": true,
+        "value": "(+) Create and use a graphql listener with default configurations",
+        "values": [],
+        "valueType": "MULTIPLE_SELECT",
+        "valueTypeConstraint": "graphql:Listener",
+        "isType": false,
+        "placeholder": "",
+        "optional": false,
+        "advanced": false,
+        "items": [
+          "(+) Create and use a graphql listener with default configurations"
+        ],
+        "codedata": {
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false,
+          "type": "LISTENER"
+        },
+        "addNewButton": true
+      },
+      "serviceType": {
+        "metadata": {
+          "label": "GraphQL Service Type",
+          "description": "The name of the service contract type"
+        },
+        "enabled": false,
+        "editable": true,
+        "value": "Service",
+        "valueType": "SINGLE_SELECT",
+        "valueTypeConstraint": "string",
+        "isType": false,
+        "placeholder": "Service",
+        "optional": false,
+        "advanced": false,
+        "items": [
+          "",
+          "Service"
+        ],
+        "codedata": {
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false,
+          "type": "SERVICE_TYPE"
+        },
+        "addNewButton": false
+      },
+      "basePath": {
+        "metadata": {
+          "label": "Service Base Path",
+          "description": "The base path of the service"
+        },
+        "enabled": true,
+        "editable": true,
+        "value": "/graphql",
+        "values": [],
+        "valueType": "IDENTIFIER",
+        "valueTypeConstraint": "string",
+        "isType": false,
+        "placeholder": "/graphql",
+        "optional": false,
+        "advanced": false,
+        "codedata": {
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false,
+          "type": "SERVICE_BASE_PATH"
+        },
+        "addNewButton": false
+      },
+      "annotServiceConfig": {
+        "metadata": {
+          "label": "Service Configuration",
+          "description": "Configurations for the Graphql service"
+        },
+        "enabled": true,
+        "editable": true,
+        "value": "{\n    introspection: false\n}",
+        "values": [],
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "graphql:GraphqlServiceConfig",
+        "isType": false,
+        "placeholder": "{}",
+        "optional": true,
+        "advanced": true,
+        "codedata": {
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false,
+          "type": "ANNOTATION_ATTACHMENT",
+          "originalName": "ServiceConfig"
+        },
+        "addNewButton": false,
+        "typeMembers": [
+          {
+            "type": "GraphqlServiceConfig",
+            "packageInfo": "ballerina:graphql:1.15.0",
+            "kind": "RECORD_TYPE",
+            "selected": true
+          }
+        ]
+      }
+    },
+    "codedata": {
+      "lineRange": {
+        "fileName": "main.bal",
+        "startLine": {
+          "line": 17,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 59,
+          "offset": 1
+        }
+      },
+      "inListenerInit": false,
+      "isBasePath": false,
+      "inDisplayAnnotation": false
+    },
+    "functions": []
+  },
+  "output": {
+    "sample1/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "\nimport ballerina/graphql;\n"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "\nlistener graphql:Listener graphqlDefaultListener = new (listenTo = 8080);\n"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "\n@graphql:ServiceConfig{\n    introspection: false\n}\nservice /graphql on graphqlDefaultListener {\n\n}"
+      }
+    ]
+  }
+}

@@ -30,7 +30,6 @@ import io.ballerina.compiler.syntax.tree.ClassDefinitionNode;
 import io.ballerina.compiler.syntax.tree.ExplicitNewExpressionNode;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
-import io.ballerina.compiler.syntax.tree.ImportDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ListenerDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.NameReferenceNode;
@@ -127,6 +126,7 @@ import static io.ballerina.servicemodelgenerator.extension.ServiceModelGenerator
 import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.TWO_NEW_LINES;
 import static io.ballerina.servicemodelgenerator.extension.util.HttpUtil.updateHttpServiceContractModel;
 import static io.ballerina.servicemodelgenerator.extension.util.HttpUtil.updateHttpServiceModel;
+import static io.ballerina.servicemodelgenerator.extension.util.ListenerUtil.getDefaultListenerDeclarationStmt;
 import static io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtils.getProtocol;
 import static io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtils.populateRequiredFunctionsForServiceType;
 import static io.ballerina.servicemodelgenerator.extension.util.ServiceModelUtils.updateGenericServiceModel;
@@ -306,12 +306,10 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                     edits.add(new TextEdit(Utils.toRange(lineRange.startLine()), importText));
                 }
 
-                List<ImportDeclarationNode> importsList = node.imports().stream().toList();
-                LinePosition listenerDeclaringLoc = importsList.isEmpty() ? lineRange.endLine() :
-                        importsList.getLast().lineRange().endLine();
-                String listenerDeclarationStmt = ListenerUtil.getHttpDefaultListenerDeclarationStmt(
-                        semanticModel, document.get(), listenerDeclaringLoc);
-                edits.add(new TextEdit(Utils.toRange(listenerDeclaringLoc), listenerDeclarationStmt));
+                ListenerUtil.DefaultListener defaultListener = ListenerUtil.defaultListener(
+                        semanticModel, document.get(), node, "http");
+                String stmt = getDefaultListenerDeclarationStmt(defaultListener);
+                edits.add(new TextEdit(Utils.toRange(defaultListener.linePosition()), stmt));
 
                 response.setTextEdits(Map.of(request.filePath(), edits));
                 return response;
@@ -377,11 +375,12 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 Service service = request.service();
                 populateRequiredFuncsDesignApproachAndServiceType(service);
 
-                boolean createDefaultListener = ListenerUtil.createDefaultListener(service.getListener());
+                ListenerUtil.DefaultListener defaultListener = ListenerUtil.getDefaultListener(
+                        service.getListener(), semanticModel.get(), document.get(), node, service.getModuleName());
                 if (Objects.nonNull(service.getOpenAPISpec())) {
                     OpenApiServiceGenerator oasSvcGenerator = new OpenApiServiceGenerator(
                             Path.of(service.getOpenAPISpec().getValue()), project.sourceRoot(), workspaceManager);
-                    return new CommonSourceResponse(oasSvcGenerator.generateService(service, createDefaultListener));
+                    return new CommonSourceResponse(oasSvcGenerator.generateService(service, defaultListener));
                 }
 
                 List<String> importStmts = new ArrayList<>();
@@ -400,13 +399,9 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                     edits.add(new TextEdit(Utils.toRange(lineRange.startLine()), imports));
                 }
 
-                if (createDefaultListener) {
-                    List<ImportDeclarationNode> importsList = node.imports().stream().toList();
-                    LinePosition listenerDeclaringLoc = importsList.isEmpty() ? lineRange.endLine() :
-                            importsList.getLast().lineRange().endLine();
-                    String listenerDeclarationStmt = ListenerUtil.getHttpDefaultListenerDeclarationStmt(
-                            semanticModel.get(), document.get(), listenerDeclaringLoc);
-                    edits.add(new TextEdit(Utils.toRange(listenerDeclaringLoc), listenerDeclarationStmt));
+                if (Objects.nonNull(defaultListener)) {
+                    String stmt = getDefaultListenerDeclarationStmt(defaultListener);
+                    edits.add(new TextEdit(Utils.toRange(defaultListener.linePosition()), stmt));
                 }
 
                 Utils.FunctionAddContext context = Utils.getTriggerAddContext(service.getOrgName(),
@@ -837,9 +832,10 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 }
 
                 Value listener = service.getListener();
-                boolean createDefaultListener = false;
+                ListenerUtil.DefaultListener defaultListener = null;
                 if (Objects.nonNull(listener) && listener.isEnabledWithValue()) {
-                    createDefaultListener = ListenerUtil.createDefaultListener(service.getListener());
+                    defaultListener = ListenerUtil.getDefaultListener(service.getListener(), semanticModel.get(),
+                            document.get(), modulePartNode, service.getModuleName());
 
                     String listenerName = listener.getValue();
                     Optional<ExpressionNode> listenerExpression = getListenerExpression(serviceNode);
@@ -850,13 +846,9 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                     }
                 }
 
-                if (createDefaultListener) {
-                    List<ImportDeclarationNode> importsList = modulePartNode.imports().stream().toList();
-                    LinePosition listenerDeclaringLoc = importsList.isEmpty() ? lineRange.endLine() :
-                            importsList.getLast().lineRange().endLine();
-                    String listenerDeclarationStmt = ListenerUtil.getHttpDefaultListenerDeclarationStmt(
-                            semanticModel.get(), document.get(), listenerDeclaringLoc);
-                    edits.add(new TextEdit(Utils.toRange(listenerDeclaringLoc), listenerDeclarationStmt));
+                if (Objects.nonNull(defaultListener)) {
+                    String stmt = getDefaultListenerDeclarationStmt(defaultListener);
+                    edits.add(new TextEdit(Utils.toRange(defaultListener.linePosition()), stmt));
                 }
 
                 return new CommonSourceResponse(Map.of(request.filePath(), edits));

@@ -42,6 +42,7 @@
         "optional": false,
         "advanced": false,
         "items": [
+          "(+) Create and use a kafka listener with default configurations",
           "kafkaListener"
         ],
         "codedata": {
