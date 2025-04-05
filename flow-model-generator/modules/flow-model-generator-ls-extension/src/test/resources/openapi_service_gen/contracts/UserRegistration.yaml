@@ -1,0 +1,123 @@
+openapi: 3.0.1
+info:
+  title: UserRegistration
+  description: User registration with validation
+  version: "4.4"
+servers:
+  - url: http://localhost:8290/api/pixi
+paths:
+  /user/register:
+    post:
+      operationId: register
+      requestBody:
+        required: true
+        description: User registration with validation
+        content:
+          application/json:
+            schema:
+              required:
+              - role
+              - fullname
+              - pass
+              - email
+              type: object
+              additionalProperties: false
+              example:
+                email: foo@test.com
+                pass: mygood2!pass
+                fullname: PixiUser
+                role: customer
+              properties:
+                email:
+                  type: string
+                  maxLength: 320
+                  minLength: 6
+                  pattern: ^(?:[\w\-+!#$%&'*/=?^`|{}~]+(?:\.[\w\-+!#$%&'*/=?^`|{}~]+)*)@(?:(?:[A-Za-z0-9](?:[\w\-]{0,61}[A-Za-z0-9])?)(?:\.(?:[A-Za-z0-9](?:[\w\-]{0,61}[A-Za-z0-9])?))*\.[A-Za-z]{2,})$
+                  format: email
+                  example: foo@bar.com
+                  x-42c-format: o:email
+                pass:
+                  type: string
+                  maxLength: 64
+                  minLength: 8
+                  pattern: ^[\w&@#!?]{8,64}$
+                fullname:
+                  type: string
+                  maxLength: 30
+                  minLength: 5
+                  pattern: ^[\w\s\.]{5,30}$
+                role:
+                  type: string
+                  enum:
+                    - customer
+                    - employee
+              
+      responses:
+        "200":
+          description: successfully registered, token received
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  message:
+                    maxLength: 255
+                    minLength: 1
+                    pattern: ^[\w\s\.\-@:,;]{1,255}$
+                    type: string
+                  token:
+                    maxLength: 1000
+                    nullable: true
+                    pattern: ^([a-zA-Z0-9_=]{4,})\.([a-zA-Z0-9_=]{4,})\.([a-zA-Z0-9_\-\+\/=]{4,})
+                    type: string
+                  _id:
+                    type: string
+                    nullable: true
+                    format: uuid
+                    pattern: ^[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}$
+                    minLength: 36
+                    maxLength: 36
+                    x-42c-format: o:uuid
+                    example: a83a29f5-0d63-46f2-8f2e-44c2f1d2e07e
+        "202":
+          description: email address already registered
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+        "400":
+          description: unexpected request body
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+
+components:
+  schemas:
+    ErrorMessage:
+      required:
+        - message
+      type: object
+      additionalProperties: false
+      properties:
+        message:
+          maxLength: 255
+          minLength: 1
+          pattern: ^[\w\s\.\-@:,;]{1,255}$
+          type: string
+    AuthenticationError:
+      type: object
+      additionalProperties: false
+      properties:
+        success:
+          type: boolean
+        message:
+          maxLength: 255
+          minLength: 1
+          pattern: ^[\w\s\.\-@:,;]{1,255}$
+          type: string
+      required:
+        - success
+        - message
+      description: 403 response
