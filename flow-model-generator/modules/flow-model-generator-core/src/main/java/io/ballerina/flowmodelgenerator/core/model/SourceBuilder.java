@@ -24,6 +24,7 @@ import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.IdentifierToken;
+import io.ballerina.compiler.syntax.tree.ImportDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeParser;
@@ -38,6 +39,7 @@ import io.ballerina.modelgenerator.commons.ParameterData;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.ModuleDescriptor;
+import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.formatter.core.FormattingTreeModifier;
 import org.ballerinalang.formatter.core.options.FormattingOptions;
@@ -54,6 +56,7 @@ import org.wso2.ballerinalang.compiler.tree.BLangPackage;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -68,7 +71,7 @@ public class SourceBuilder {
     public final FlowNode flowNode;
     public final WorkspaceManager workspaceManager;
     private final Map<Path, List<TextEdit>> textEditsMap;
-    private final List<String> imports;
+    private final Set<String> imports;
     private final LSClientLogger lsClientLogger;
     private Range defaultRange;
 
@@ -88,7 +91,7 @@ public class SourceBuilder {
         this.flowNode = flowNode;
         this.workspaceManager = workspaceManager;
         this.filePath = resolvePath(flowNode, filePath);
-        this.imports = new ArrayList<>();
+        this.imports = new HashSet<>();
         this.lsClientLogger = lsClientLogger;
     }
 
@@ -234,10 +237,10 @@ public class SourceBuilder {
     }
 
     public SourceBuilder acceptImport(String org, String module) {
-        return acceptImport(filePath, org, module, false);
+        return acceptImport(org, module, false);
     }
 
-    public SourceBuilder acceptImport(Path resolvedPath, String org, String module, boolean defaultNamespace) {
+    public SourceBuilder acceptImport(String org, String module, boolean defaultNamespace) {
         if (org == null || module == null || org.equals(CommonUtil.BALLERINA_ORG_NAME) &&
                 CommonUtil.PRE_DECLARED_LANG_LIBS.contains(module)) {
             return this;
@@ -247,50 +250,13 @@ public class SourceBuilder {
         } catch (WorkspaceDocumentException | EventSyncException e) {
             return this;
         }
-        // TODO: Check how we can only use this logic once compared to the textEdit(fileName) method
-        Document document = FileSystemUtils.getDocument(workspaceManager, resolvedPath);
-        SyntaxTree syntaxTree = document.syntaxTree();
-        LineRange lineRange = syntaxTree.rootNode().lineRange();
 
-        Optional<Module> currentModule = this.workspaceManager.module(filePath);
-        String currentModuleName = "";
-        if (currentModule.isPresent()) {
-            ModuleDescriptor descriptor = currentModule.get().descriptor();
-            currentModuleName = descriptor.name().toString();
-            if (descriptor.org().value().equals(org) && currentModuleName.equals(module)) {
-                return this;
-            }
+        // Generate the import signature
+        String importSignature = CommonUtils.getImportStatement(org, module, module);
+        if (defaultNamespace) {
+            importSignature += " as _";
         }
-
-        boolean importExists = syntaxTree.rootNode().kind() == SyntaxKind.MODULE_PART &&
-                ((ModulePartNode) syntaxTree.rootNode()).imports().stream().anyMatch(importDeclarationNode -> {
-                    String moduleName = importDeclarationNode.moduleName().stream()
-                            .map(IdentifierToken::text)
-                            .collect(Collectors.joining("."));
-                    return importDeclarationNode.orgName().isPresent() &&
-                            org.equals(importDeclarationNode.orgName().get().orgName().text()) &&
-                            module.equals(moduleName);
-                });
-
-        // Add the import statement
-        if (!importExists) {
-            String importSignature;
-            Boolean generated = flowNode.codedata().isGenerated();
-            // TODO: Check this condition for other cases like persist module
-            if (!currentModuleName.isEmpty() && generated != null && generated) {
-                importSignature = currentModuleName + "." + module;
-            } else {
-                importSignature = CommonUtils.getImportStatement(org, module, module);
-            }
-            if (defaultNamespace) {
-                importSignature += " as _";
-            }
-            tokenBuilder
-                    .keyword(SyntaxKind.IMPORT_KEYWORD)
-                    .name(importSignature)
-                    .endOfStatement();
-            textEdit(false, resolvedPath, CommonUtils.toRange(lineRange.startLine()));
-        }
+        imports.add(importSignature);
         return this;
     }
 
@@ -604,11 +570,58 @@ public class SourceBuilder {
 
     public Map<Path, List<TextEdit>> build() {
         // Add the imports if exists
-        imports.forEach(moduleImport -> {
-            String[] split = moduleImport.split("/");
-            acceptImport(split[0], split[1]);
-        });
+        addImports();
         return textEditsMap;
+    }
+
+    private void addImports() {
+        try {
+            this.workspaceManager.loadProject(filePath);
+        } catch (WorkspaceDocumentException | EventSyncException e) {
+            return;
+        }
+        // Obtain the start line of the document
+        Document document = FileSystemUtils.getDocument(workspaceManager, filePath);
+        SyntaxTree syntaxTree = document.syntaxTree();
+        LinePosition startLine = syntaxTree.rootNode().lineRange().startLine();
+        Range startLineRange = CommonUtils.toRange(startLine);
+
+        // Obtain the module descriptor of the current module
+        String currentModuleOrg;
+        String currentModuleName;
+        Optional<Module> currentModule = this.workspaceManager.module(filePath);
+        boolean isGenerated;
+        if (currentModule.isPresent()) {
+            ModuleDescriptor descriptor = currentModule.get().descriptor();
+            currentModuleName = descriptor.name().toString();
+            currentModuleOrg = descriptor.org().value();
+            imports.remove(currentModuleOrg + "/" + currentModuleName);
+            isGenerated = Boolean.TRUE.equals(flowNode.codedata().isGenerated());
+        } else {
+            currentModuleName = "";
+            isGenerated = false;
+        }
+
+        // Remove the existing imports
+        ModulePartNode rootNode = syntaxTree.rootNode();
+        for (ImportDeclarationNode existingImport : rootNode.imports()) {
+            String moduleName = existingImport.moduleName().stream()
+                    .map(IdentifierToken::text)
+                    .collect(Collectors.joining("."));
+            String prefix = existingImport.orgName().map(org -> org.orgName().text() + "/").orElse("");
+            imports.remove(prefix + moduleName);
+        }
+
+        // Generate the text edits for the imports
+        for (String moduleImport : imports) {
+            // TODO: Check this condition for other cases like persist module
+            String importPrefix = isGenerated ? currentModuleName + "." : "";
+            tokenBuilder
+                    .keyword(SyntaxKind.IMPORT_KEYWORD)
+                    .name(importPrefix + moduleImport)
+                    .endOfStatement();
+            textEdit(false, filePath, startLineRange);
+        }
     }
 
     public static class TokenBuilder extends FacetedBuilder<SourceBuilder> {
