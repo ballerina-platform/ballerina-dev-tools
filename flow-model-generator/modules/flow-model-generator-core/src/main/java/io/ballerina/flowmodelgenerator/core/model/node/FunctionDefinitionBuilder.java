@@ -52,8 +52,6 @@ public class FunctionDefinitionBuilder extends NodeBuilder {
     public static final String PARAMETERS_LABEL = "Parameters";
     public static final String PARAMETERS_DOC = "Function parameters";
 
-    private static final String FUNCTIONS_BAL = "functions.bal";
-
     private static final Gson gson = new Gson();
 
     public static Property getParameterSchema() {
@@ -187,12 +185,12 @@ public class FunctionDefinitionBuilder extends NodeBuilder {
                         .openBrace()
                         .closeBrace()
                         .stepOut()
-                    .textEdit(false)
+                    .textEdit(SourceBuilder.SourceKind.DECLARATION)
                     .acceptImport();
         } else {
             sourceBuilder
                     .token().skipFormatting().stepOut()
-                    .textEdit(false);
+                    .textEdit();
         }
         return sourceBuilder.build();
     }

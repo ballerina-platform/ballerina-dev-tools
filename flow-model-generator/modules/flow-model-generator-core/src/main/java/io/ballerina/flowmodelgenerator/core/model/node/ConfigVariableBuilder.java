@@ -75,7 +75,7 @@ public class ConfigVariableBuilder extends NodeBuilder {
         }
         sourceBuilder.token().expression(value).endOfStatement();
 
-        return sourceBuilder.textEdit(false).build();
+        return sourceBuilder.textEdit().build();
     }
 
     @Override

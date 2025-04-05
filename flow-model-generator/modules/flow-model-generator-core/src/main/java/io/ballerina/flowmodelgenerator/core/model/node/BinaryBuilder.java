@@ -60,6 +60,6 @@ public class BinaryBuilder extends NodeBuilder {
         Optional<Property> exprProperty = sourceBuilder.flowNode.getProperty(Property.EXPRESSION_KEY);
         exprProperty.ifPresent(value -> sourceBuilder.token().expression(value).endOfStatement());
 
-        return sourceBuilder.textEdit(false).build();
+        return sourceBuilder.textEdit().build();
     }
 }

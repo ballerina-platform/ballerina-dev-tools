@@ -51,7 +51,7 @@ public class StopBuilder extends NodeBuilder {
                     .keyword(SyntaxKind.RETURN_KEYWORD)
                     .endOfStatement()
                     .stepOut()
-                .textEdit(false)
+                .textEdit()
                 .build();
     }
 

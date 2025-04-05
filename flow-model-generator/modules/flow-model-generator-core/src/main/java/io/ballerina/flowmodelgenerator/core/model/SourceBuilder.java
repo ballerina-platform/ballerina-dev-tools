@@ -543,26 +543,30 @@ public class SourceBuilder {
         }
     }
 
-    public SourceBuilder textEdit(boolean isExpression) {
-        return textEdit(isExpression, filePath, defaultRange);
+    public SourceBuilder textEdit() {
+        return textEdit(SourceKind.STATEMENT, filePath, defaultRange);
     }
 
-    public SourceBuilder textEdit(boolean isExpression, Path filePath, Range range) {
-        String text = token().build(isExpression);
+    public SourceBuilder textEdit(SourceKind sourceKind) {
+        return textEdit(sourceKind, filePath, defaultRange);
+    }
+
+    public SourceBuilder textEdit(SourceKind sourceKind, Path filePath, Range range) {
+        String text = token().build(sourceKind);
         tokenBuilder = new TokenBuilder(this);
 
         List<TextEdit> textEdits = textEditsMap.get(filePath);
         if (textEdits == null) {
             textEdits = new ArrayList<>();
         }
-        textEdits.add(0, new TextEdit(range, text));
+        textEdits.addFirst(new TextEdit(range, text));
         textEditsMap.put(filePath, textEdits);
 
         return this;
     }
 
     public SourceBuilder comment() {
-        String comment = token().skipFormatting().build(false);
+        String comment = token().skipFormatting().build(SourceKind.STATEMENT);
         tokenBuilder = new TokenBuilder(this);
 
         List<TextEdit> textEdits = textEditsMap.get(filePath);
@@ -627,7 +631,7 @@ public class SourceBuilder {
                     .keyword(SyntaxKind.IMPORT_KEYWORD)
                     .name(importPrefix + moduleImport)
                     .endOfStatement();
-            textEdit(false, filePath, startLineRange);
+            textEdit(SourceKind.IMPORT, filePath, startLineRange);
         }
     }
 
@@ -784,14 +788,26 @@ public class SourceBuilder {
             return this;
         }
 
-        public String build(boolean isExpression) {
+        public String build(SourceKind kind) {
             String outputStr = sb.toString();
             if (skipFormatting) {
                 return outputStr;
             }
-            Node modifiedNode = isExpression ? NodeParser.parseExpression(outputStr).apply(treeModifier) :
-                    NodeParser.parseStatement(outputStr).apply(treeModifier);
-            return modifiedNode.toSourceCode().strip();
+
+            Node parsedNode = switch (kind) {
+                case DECLARATION -> NodeParser.parseModuleMemberDeclaration(outputStr);
+                case STATEMENT -> NodeParser.parseStatement(outputStr);
+                case EXPRESSION -> NodeParser.parseExpression(outputStr);
+                case IMPORT -> NodeParser.parseImportDeclaration(outputStr);
+            };
+            return parsedNode.apply(treeModifier).toSourceCode().strip();
         }
+    }
+
+    public enum SourceKind {
+        DECLARATION,
+        STATEMENT,
+        EXPRESSION,
+        IMPORT
     }
 }

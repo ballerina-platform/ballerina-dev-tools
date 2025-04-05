@@ -105,6 +105,6 @@ public class MatchBuilder extends NodeBuilder {
 
         sourceBuilder.token().closeBrace();
         sourceBuilder.onFailure();
-        return sourceBuilder.textEdit(false).build();
+        return sourceBuilder.textEdit().build();
     }
 }

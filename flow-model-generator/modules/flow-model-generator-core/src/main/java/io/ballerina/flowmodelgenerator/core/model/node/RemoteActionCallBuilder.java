@@ -64,7 +64,7 @@ public class RemoteActionCallBuilder extends CallBuilder {
                 .functionParameters(flowNode,
                         Set.of(Property.CONNECTION_KEY, Property.VARIABLE_KEY, Property.TYPE_KEY,
                                 Property.CHECK_ERROR_KEY))
-                .textEdit(false)
+                .textEdit()
                 .acceptImportWithVariableType()
                 .build();
     }

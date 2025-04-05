@@ -237,7 +237,7 @@
             "character": 0
           }
         },
-        "newText": "public function main( int divisor, float... numbers) returns error?{\ndo {\n} on fail error e {\nlog:printError(\"Error occurred\", 'error=e);\nreturn e;\n} }"
+        "newText": "public function main(int divisor, float... numbers) returns error? {\n    do {\n    } on fail error e {\n        log:printError(\"Error occurred\", 'error = e);\n        return e;\n    }\n}"
       }
     ]
   }

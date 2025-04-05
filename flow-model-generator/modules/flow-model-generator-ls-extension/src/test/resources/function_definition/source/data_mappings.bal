@@ -65,3 +65,8 @@ function mapPersonOrAccess(string name, int age) returns nats:AnydataMessage|htt
         }
     ]
 };
+
+function transformNat(nats:BytesMessage bytesMsg, string subject) returns nats:AnydataMessage => {
+    subject: subject,
+    content: [...bytesMsg.content]
+};

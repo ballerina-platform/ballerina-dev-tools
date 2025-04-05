@@ -216,7 +216,7 @@
             "character": 0
           }
         },
-        "newText": "# Divide a/b\n# + a - Parameter a\n# + return - Return a/b\nfunction divide( int a, int b) returns int|error{\n}"
+        "newText": "# Divide a/b\n# + a - Parameter a\n# + return - Return a/b\nfunction divide(int a, int b) returns int|error {\n}"
       }
     ]
   }

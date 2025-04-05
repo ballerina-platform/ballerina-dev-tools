@@ -251,7 +251,7 @@
             "character": 0
           }
         },
-        "newText": "function mapPersonOrAccess(string name, int age) returns nats:AnydataMessage|http:AccessLogConfiguration=> {content: {}, subject: \"\"};"
+        "newText": "function mapPersonOrAccess(string name, int age) returns nats:AnydataMessage|http:AccessLogConfiguration => {content: {}, subject: \"\"};"
       }
     ]
   }

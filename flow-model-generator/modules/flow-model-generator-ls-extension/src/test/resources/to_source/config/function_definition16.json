@@ -216,7 +216,7 @@
             "character": 0
           }
         },
-        "newText": "function divide(int a, int b) returns int|error{\n}"
+        "newText": "function divide(int a, int b) returns int|error {\n}"
       }
     ]
   }

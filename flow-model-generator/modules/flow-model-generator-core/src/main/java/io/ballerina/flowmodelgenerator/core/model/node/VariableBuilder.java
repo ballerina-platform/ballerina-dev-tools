@@ -63,7 +63,7 @@ public class VariableBuilder extends NodeBuilder {
         }
         sourceBuilder.token().endOfStatement();
         return sourceBuilder
-                .textEdit(false)
+                .textEdit()
                 .build();
     }
 

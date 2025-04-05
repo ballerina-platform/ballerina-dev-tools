@@ -58,7 +58,7 @@ public class ExpressionBuilder extends NodeBuilder {
             sourceBuilder.token()
                     .expression(expression.get())
                     .endOfStatement();
-            return sourceBuilder.textEdit(false).build();
+            return sourceBuilder.textEdit().build();
         }
 
         Optional<Property> statement = sourceBuilder.flowNode.getProperty(STATEMENT_KEY);
@@ -68,7 +68,7 @@ public class ExpressionBuilder extends NodeBuilder {
         }
         sourceBuilder.token()
                 .expression(statement.get());
-        return sourceBuilder.textEdit(false).build();
+        return sourceBuilder.textEdit().build();
     }
 
     @Override

@@ -68,7 +68,7 @@ public class AssignBuilder extends NodeBuilder {
         }
         sourceBuilder.token().expression(expression.get()).endOfStatement();
 
-        return sourceBuilder.textEdit(false).build();
+        return sourceBuilder.textEdit().build();
     }
 
     @Override

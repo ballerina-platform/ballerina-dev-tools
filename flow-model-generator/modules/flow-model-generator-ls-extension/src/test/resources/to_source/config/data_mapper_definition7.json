@@ -169,7 +169,7 @@
             "character": 0
           }
         },
-        "newText": "\nfunction transformToEmployee(Person person, Admission admission) returns float=> 0.0;"
+        "newText": "\nfunction transformToEmployee(Person person, Admission admission) returns float => 0.0;"
       }
     ]
   }

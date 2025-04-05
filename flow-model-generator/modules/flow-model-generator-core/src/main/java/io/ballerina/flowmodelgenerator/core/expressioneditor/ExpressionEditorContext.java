@@ -139,7 +139,7 @@ public class ExpressionEditorContext {
                     .keyword(SyntaxKind.IMPORT_KEYWORD)
                     .name(importStatement)
                     .endOfStatement()
-                    .build(false);
+                    .build(SourceBuilder.SourceKind.IMPORT);
             TextEdit textEdit = TextEdit.from(TextRange.from(0, 0), stmt + System.lineSeparator());
             return Optional.of(textEdit);
         }

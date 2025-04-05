@@ -161,7 +161,7 @@ public class ResourceActionCallBuilder extends CallBuilder {
                 .name(sourceBuilder.flowNode.codedata().symbol())
                 .stepOut()
                 .functionParameters(flowNode, ignoredKeys)
-                .textEdit(false)
+                .textEdit()
                 .acceptImportWithVariableType()
                 .build();
     }

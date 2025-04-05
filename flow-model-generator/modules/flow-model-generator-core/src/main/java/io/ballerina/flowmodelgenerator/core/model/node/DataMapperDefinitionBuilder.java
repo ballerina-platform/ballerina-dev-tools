@@ -151,11 +151,11 @@ public class DataMapperDefinitionBuilder extends NodeBuilder {
                         .name(returnBody.get())
                         .endOfStatement()
                         .stepOut()
-                    .textEdit(false);
+                    .textEdit(SourceBuilder.SourceKind.DECLARATION);
         } else {
             sourceBuilder
                     .token().skipFormatting().stepOut()
-                    .textEdit(false);
+                    .textEdit();
         }
         return sourceBuilder
                 .build();

@@ -56,7 +56,7 @@ public class FunctionCall extends CallBuilder {
                     .stepOut()
                     .functionParameters(flowNode,
                             Set.of(Property.VARIABLE_KEY, Property.TYPE_KEY, Property.CHECK_ERROR_KEY, "view"))
-                    .textEdit(false)
+                    .textEdit()
                     .acceptImport()
                     .build();
         }
@@ -69,7 +69,7 @@ public class FunctionCall extends CallBuilder {
                 .name(methodCall)
                 .stepOut()
                 .functionParameters(flowNode, Set.of("variable", "type", "view", "checkError"))
-                .textEdit(false)
+                .textEdit()
                 .acceptImportWithVariableType()
                 .build();
     }

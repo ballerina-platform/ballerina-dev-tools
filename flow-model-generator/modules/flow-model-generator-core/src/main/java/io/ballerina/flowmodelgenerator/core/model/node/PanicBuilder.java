@@ -56,7 +56,7 @@ public class PanicBuilder extends NodeBuilder {
                 .whiteSpace()
                 .expression(value));
         sourceBuilder.token().endOfStatement();
-        return sourceBuilder.textEdit(false).build();
+        return sourceBuilder.textEdit().build();
     }
 
     @Override

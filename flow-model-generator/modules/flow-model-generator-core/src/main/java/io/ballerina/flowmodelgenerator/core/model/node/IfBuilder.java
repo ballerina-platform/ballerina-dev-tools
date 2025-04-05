@@ -98,7 +98,7 @@ public class IfBuilder extends NodeBuilder {
                     .stepOut()
                 .body(branch.children()));
 
-        return sourceBuilder.textEdit(false).build();
+        return sourceBuilder.textEdit().build();
     }
 
     @Override

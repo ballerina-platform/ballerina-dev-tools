@@ -164,12 +164,12 @@ public class AutomationBuilder extends FunctionDefinitionBuilder {
             }
             sourceBuilder.token().closeBrace()
                     .stepOut()
-                    .textEdit(false);
+                    .textEdit(SourceBuilder.SourceKind.DECLARATION);
             sourceBuilder.acceptImport("ballerina", "log");
         } else {
             sourceBuilder
                     .token().skipFormatting().stepOut()
-                    .textEdit(false);
+                    .textEdit();
         }
         return sourceBuilder.build();
     }

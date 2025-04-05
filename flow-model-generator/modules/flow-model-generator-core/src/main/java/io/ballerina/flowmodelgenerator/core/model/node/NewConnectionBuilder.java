@@ -91,11 +91,11 @@ public class NewConnectionBuilder extends CallBuilder {
         Path filePath = sourceBuilder.filePath;
         switch (scope.get().value().toString()) {
             case Property.LOCAL_SCOPE -> {
-                sourceBuilder.textEdit(false);
+                sourceBuilder.textEdit();
                 checkDriverImport(sourceBuilder, codedata, filePath);
             }
             case Property.GLOBAL_SCOPE -> {
-                sourceBuilder.textEdit(false);
+                sourceBuilder.textEdit();
                 Path projectRoot = sourceBuilder.workspaceManager.projectRoot(filePath);
                 checkDriverImport(sourceBuilder, codedata, projectRoot.resolve(CONNECTIONS_BAL));
             }

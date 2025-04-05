@@ -126,6 +126,6 @@ public class WaitBuilder extends NodeBuilder {
             sourceBuilder.token().keyword(SyntaxKind.CLOSE_BRACE_TOKEN);
         }
 
-        return sourceBuilder.token().endOfStatement().stepOut().textEdit(false).build();
+        return sourceBuilder.token().endOfStatement().stepOut().textEdit().build();
     }
 }

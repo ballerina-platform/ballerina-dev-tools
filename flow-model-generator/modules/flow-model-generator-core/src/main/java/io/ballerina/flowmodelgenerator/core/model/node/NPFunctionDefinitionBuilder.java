@@ -59,8 +59,6 @@ public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
     public static final String PARAMETERS_LABEL = "Parameters";
     public static final String PARAMETERS_DOC = "Function parameters";
 
-    private static final String FUNCTIONS_BAL = "functions.bal";
-
     private static final String BALLERINAX_ORG = "ballerinax";
     private static final String NP_PACKAGE = "np";
 
@@ -225,12 +223,12 @@ public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
                         .semicolon()
                         .skipFormatting()
                         .stepOut()
-                    .textEdit(false)
+                    .textEdit(SourceBuilder.SourceKind.DECLARATION)
                     .acceptImport();
         } else {
             sourceBuilder
                     .token().skipFormatting().stepOut()
-                    .textEdit(false);
+                    .textEdit();
         }
         return sourceBuilder.build();
     }

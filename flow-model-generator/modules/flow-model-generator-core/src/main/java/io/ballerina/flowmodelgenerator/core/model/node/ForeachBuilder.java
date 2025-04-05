@@ -62,7 +62,7 @@ public class ForeachBuilder extends NodeBuilder {
 
         return sourceBuilder
                 .onFailure()
-                .textEdit(false)
+                .textEdit()
                 .build();
     }
 

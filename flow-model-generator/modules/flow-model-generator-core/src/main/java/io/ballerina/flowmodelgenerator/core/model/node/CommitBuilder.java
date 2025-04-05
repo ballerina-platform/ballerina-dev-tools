@@ -60,6 +60,6 @@ public class CommitBuilder extends NodeBuilder {
                 .keyword(SyntaxKind.COMMIT_KEYWORD)
                 .endOfStatement()
                 .stepOut()
-                .textEdit(false).build();
+                .textEdit().build();
     }
 }

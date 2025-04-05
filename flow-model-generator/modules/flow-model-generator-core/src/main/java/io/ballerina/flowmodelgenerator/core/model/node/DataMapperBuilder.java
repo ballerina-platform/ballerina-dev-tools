@@ -230,8 +230,8 @@ public class DataMapperBuilder extends NodeBuilder {
                 .endOfStatement();
 
         getTransformFunctionLocation(sourceBuilder, functionNameString).ifPresentOrElse(
-                lineRange -> sourceBuilder.textEdit(false),
-                () -> sourceBuilder.textEdit(false));
+                lineRange -> sourceBuilder.textEdit(),
+                () -> sourceBuilder.textEdit());
 
         return sourceBuilder.build();
     }
