@@ -1,0 +1,279 @@
+{
+  "filePath": "function_def",
+  "fileName": "functions.bal",
+  "functionName": "divide2",
+  "description": "",
+  "output": {
+    "id": "43883",
+    "metadata": {
+      "label": "Function Definition",
+      "description": "Define a function"
+    },
+    "codedata": {
+      "node": "FUNCTION_DEFINITION",
+      "lineRange": {
+        "fileName": "functions.bal",
+        "startLine": {
+          "line": 12,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 18,
+          "offset": 49
+        }
+      }
+    },
+    "returning": false,
+    "properties": {
+      "functionName": {
+        "metadata": {
+          "label": "Name",
+          "description": "Name of the function"
+        },
+        "valueType": "IDENTIFIER",
+        "valueTypeConstraint": "Global",
+        "value": "divide2",
+        "optional": false,
+        "editable": false,
+        "advanced": false,
+        "hidden": false,
+        "codedata": {
+          "lineRange": {
+            "fileName": "functions.bal",
+            "startLine": {
+              "line": 18,
+              "offset": 9
+            },
+            "endLine": {
+              "line": 18,
+              "offset": 16
+            }
+          }
+        }
+      },
+      "functionNameDescription": {
+        "metadata": {
+          "label": "Description",
+          "description": "Description of the function"
+        },
+        "valueType": "STRING",
+        "value": "Divide a/b\n",
+        "optional": true,
+        "editable": true,
+        "advanced": false,
+        "hidden": false
+      },
+      "type": {
+        "metadata": {
+          "label": "Return Type",
+          "description": "Type of the return value"
+        },
+        "valueType": "TYPE",
+        "value": "int|error",
+        "optional": true,
+        "editable": true,
+        "advanced": false,
+        "hidden": false
+      },
+      "typeDescription": {
+        "metadata": {
+          "label": "Description",
+          "description": "Description of the return value"
+        },
+        "valueType": "STRING",
+        "value": "The result of the division\n",
+        "optional": true,
+        "editable": true,
+        "advanced": false,
+        "hidden": false
+      },
+      "parameters": {
+        "metadata": {
+          "label": "Parameters",
+          "description": "Function parameters"
+        },
+        "valueType": "REPEATABLE_PROPERTY",
+        "valueTypeConstraint": {
+          "metadata": {
+            "label": "Parameter",
+            "description": "Function parameter"
+          },
+          "valueType": "FIXED_PROPERTY",
+          "value": {
+            "type": {
+              "metadata": {
+                "label": "Type",
+                "description": "Type of the parameter"
+              },
+              "valueType": "TYPE",
+              "value": "",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "variable": {
+              "metadata": {
+                "label": "Name",
+                "description": "Name of the parameter"
+              },
+              "valueType": "IDENTIFIER",
+              "value": "",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "parameterDescription": {
+              "metadata": {
+                "label": "Description",
+                "description": "Description of the parameter"
+              },
+              "valueType": "STRING",
+              "value": "",
+              "optional": true,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            }
+          },
+          "optional": false,
+          "editable": false,
+          "advanced": false,
+          "hidden": false
+        },
+        "value": {
+          "a": {
+            "metadata": {
+              "label": "Parameter",
+              "description": "Function parameter"
+            },
+            "valueType": "FIXED_PROPERTY",
+            "value": {
+              "type": {
+                "metadata": {
+                  "label": "Type",
+                  "description": "Type of the parameter"
+                },
+                "valueType": "TYPE",
+                "value": "int",
+                "optional": false,
+                "editable": true,
+                "advanced": false,
+                "hidden": false
+              },
+              "variable": {
+                "metadata": {
+                  "label": "Name",
+                  "description": "Name of the parameter"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "a",
+                "optional": false,
+                "editable": true,
+                "advanced": false,
+                "hidden": false,
+                "codedata": {
+                  "lineRange": {
+                    "fileName": "functions.bal",
+                    "startLine": {
+                      "line": 18,
+                      "offset": 22
+                    },
+                    "endLine": {
+                      "line": 18,
+                      "offset": 23
+                    }
+                  }
+                }
+              },
+              "parameterDescription": {
+                "metadata": {
+                  "label": "Description",
+                  "description": "Description of the parameter"
+                },
+                "valueType": "STRING",
+                "value": "Paramter a\n",
+                "optional": true,
+                "editable": true,
+                "advanced": false,
+                "hidden": false
+              }
+            },
+            "optional": false,
+            "editable": false,
+            "advanced": false,
+            "hidden": false
+          },
+          "b": {
+            "metadata": {
+              "label": "Parameter",
+              "description": "Function parameter"
+            },
+            "valueType": "FIXED_PROPERTY",
+            "value": {
+              "type": {
+                "metadata": {
+                  "label": "Type",
+                  "description": "Type of the parameter"
+                },
+                "valueType": "TYPE",
+                "value": "int",
+                "optional": false,
+                "editable": true,
+                "advanced": false,
+                "hidden": false
+              },
+              "variable": {
+                "metadata": {
+                  "label": "Name",
+                  "description": "Name of the parameter"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "b",
+                "optional": false,
+                "editable": true,
+                "advanced": false,
+                "hidden": false,
+                "codedata": {
+                  "lineRange": {
+                    "fileName": "functions.bal",
+                    "startLine": {
+                      "line": 18,
+                      "offset": 29
+                    },
+                    "endLine": {
+                      "line": 18,
+                      "offset": 30
+                    }
+                  }
+                }
+              },
+              "parameterDescription": {
+                "metadata": {
+                  "label": "Description",
+                  "description": "Description of the parameter"
+                },
+                "valueType": "STRING",
+                "value": "Parameter b\n",
+                "optional": true,
+                "editable": true,
+                "advanced": false,
+                "hidden": false
+              }
+            },
+            "optional": false,
+            "editable": false,
+            "advanced": false,
+            "hidden": false
+          }
+        },
+        "optional": true,
+        "editable": false,
+        "advanced": false,
+        "hidden": false
+      }
+    },
+    "flags": 0
+  }
+}

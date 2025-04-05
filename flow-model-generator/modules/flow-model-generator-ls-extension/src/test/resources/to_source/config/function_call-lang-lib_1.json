@@ -13,7 +13,7 @@
       "org": "ballerina",
       "module": "lang.decimal",
       "symbol": "fromString",
-      "version": "2201.10.0",
+      "version": "0.0.0",
       "lineRange": {
         "fileName": "function_call.bal",
         "startLine": {
@@ -24,8 +24,7 @@
           "line": 22,
           "offset": 61
         }
-      },
-      "sourceCode": "Apple apple = check jsondata:parseAsType(jsonResult);"
+      }
     },
     "returning": false,
     "properties": {

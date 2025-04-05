@@ -30,7 +30,7 @@
     },
     "returning": false,
     "properties": {
-      "connection": {
+      "$connection": {
         "metadata": {
           "label": "connection",
           "description": ""

@@ -1,0 +1,64 @@
+{
+  "source": "new/config.bal",
+  "description": "",
+  "output": {
+    "Configurations": {
+      "additions": {
+        "port": {
+          "id": "port",
+          "location": {
+            "fileName": "config.bal",
+            "startLine": {
+              "line": 0,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 0,
+              "offset": 26
+            }
+          },
+          "type": "CONFIGURABLE",
+          "name": "port",
+          "scope": "Global",
+          "children": {}
+        },
+        "telegramChatId": {
+          "id": "telegramChatId",
+          "location": {
+            "fileName": "config.bal",
+            "startLine": {
+              "line": 2,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 2,
+              "offset": 39
+            }
+          },
+          "type": "CONFIGURABLE",
+          "name": "telegramChatId",
+          "scope": "Global",
+          "children": {}
+        },
+        "telegramToken": {
+          "id": "telegramToken",
+          "location": {
+            "fileName": "config.bal",
+            "startLine": {
+              "line": 1,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 1,
+              "offset": 38
+            }
+          },
+          "type": "CONFIGURABLE",
+          "name": "telegramToken",
+          "scope": "Global",
+          "children": {}
+        }
+      }
+    }
+  }
+}

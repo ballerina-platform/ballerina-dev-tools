@@ -1,0 +1,69 @@
+{
+  "description": "",
+  "source": "rabbitmq.bal",
+  "output": {
+    "Listeners": {
+      "rabbitmqListener": {
+        "id": "rabbitmqListener",
+        "location": {
+          "fileName": "rabbitmq.bal",
+          "startLine": {
+            "line": 2,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 2,
+            "offset": 84
+          }
+        },
+        "type": "LISTENER",
+        "name": "rabbitmqListener",
+        "scope": "Global",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_rabbitmq_3.2.0.png",
+        "module": "rabbitmq",
+        "children": {}
+      }
+    },
+    "Entry Points": {
+      "799770358": {
+        "id": "799770358",
+        "location": {
+          "fileName": "rabbitmq.bal",
+          "startLine": {
+            "line": 4,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 11,
+            "offset": 1
+          }
+        },
+        "type": "SERVICE",
+        "name": "\"queueName\"",
+        "scope": "Global",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_rabbitmq_3.2.0.png",
+        "module": "rabbitmq",
+        "children": {
+          "onMessage": {
+            "id": "onMessage",
+            "location": {
+              "fileName": "rabbitmq.bal",
+              "startLine": {
+                "line": 5,
+                "offset": 4
+              },
+              "endLine": {
+                "line": 10,
+                "offset": 5
+              }
+            },
+            "type": "REMOTE",
+            "name": "onMessage",
+            "scope": "Global",
+            "children": {}
+          }
+        }
+      }
+    }
+  }
+}

@@ -55,4 +55,17 @@ public class FlowNodeUtil {
         return CommonUtils.withinDoClause(context.workspaceManager(), context.filePath(),
                 context.codedata().lineRange());
     }
+
+    /**
+     * Get the property key for a given key. If the key is a reserved property key, append an underscore to it.
+     *
+     * @param key the key to check
+     * @return the property key
+     */
+    public static String getPropertyKey(String key) {
+        if (Property.RESERVED_PROPERTY_KEYS.contains(key)) {
+            return "$" + key;
+        }
+        return key;
+    }
 }

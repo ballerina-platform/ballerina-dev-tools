@@ -25,6 +25,8 @@ under the License.
             <class name="io.ballerina.architecturemodelgenerator.extension.ArchitectureModelGeneratorServiceTests"/>
             <class name="io.ballerina.architecturemodelgenerator.extension.PersistERModelGeneratorTests"/>
             <class name="io.ballerina.designmodelgenerator.extension.DesignModelGeneratorTest"/>
+            <class name="io.ballerina.designmodelgenerator.extension.ArtifactsTest"/>
+            <class name="io.ballerina.designmodelgenerator.extension.PublishArtifactsSubscriberTest"/>
         </classes>
     </test>
 </suite>

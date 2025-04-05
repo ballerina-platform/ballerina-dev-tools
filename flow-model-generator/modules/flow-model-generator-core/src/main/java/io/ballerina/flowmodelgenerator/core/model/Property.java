@@ -29,6 +29,7 @@ import io.ballerina.modelgenerator.commons.ParameterMemberTypeData;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Represents an expression in the flow model.
@@ -77,6 +78,9 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
 
     public static final String NAME_KEY = "name";
     public static final String DESCRIPTION_KEY = "description";
+    public static final String FUNCTION_NAME_DESCRIPTION_KEY = "functionNameDescription";
+    public static final String PARAMETER_DESCRIPTION_KEY = "parameterDescription";
+    public static final String RETURN_DESCRIPTION_KEY = "typeDescription";
     public static final String IS_ARRAY_KEY = "isArray";
     public static final String ARRAY_SIZE = "arraySize";
 
@@ -109,7 +113,9 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
     public static final String PARAMETER_TYPE_DOC = "Type of the parameter";
     public static final String IMPLICIT_TYPE_LABEL = "Type";
     public static final String DESCRIPTION_LABEL = "Description";
+    public static final String RETURN_DESCRIPTION_LABEL = "Description";
     public static final String DESCRIPTION_TYPE_DOC = "Description of the function";
+    public static final String RETURN_DESCRIPTION_TYPE_DOC = "Description of the return value";
     public static final String PARAMETER_DESCRIPTION_TYPE_DOC = "Description of the parameter";
 
     public static final String TYPE_DOC = "Type of the variable";
@@ -203,6 +209,13 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
 
     public static final String FUNCTION_NAME_KEY = "functionName";
     public static final String PARAMETERS_KEY = "parameters";
+
+    public static final Set<String> RESERVED_PROPERTY_KEYS = Set.of(VARIABLE_KEY, NAME_KEY, TYPE_KEY,
+            DESCRIPTION_KEY, IS_ARRAY_KEY, IS_PUBLIC_KEY, IS_PRIVATE_KEY, IS_ISOLATED_KEY, IS_READ_ONLY_KEY,
+            IS_DISTINCT_KEY, NETWORK_QUALIFIER_KEY, QUALIFIERS_KEY, EXPRESSION_KEY,
+            CONDITION_KEY, IGNORE_KEY, ON_ERROR_VARIABLE_KEY, ON_ERROR_TYPE_KEY, COLLECTION_KEY,
+            CHECK_ERROR_KEY, SCOPE_KEY, CONNECTION_KEY, RESOURCE_PATH_KEY, COMMENT_KEY,
+            PATTERNS_KEY, GUARD_KEY, RETRY_COUNT_KEY);
 
     public String toSourceCode() {
         if (value == null || value.toString().isEmpty()) {

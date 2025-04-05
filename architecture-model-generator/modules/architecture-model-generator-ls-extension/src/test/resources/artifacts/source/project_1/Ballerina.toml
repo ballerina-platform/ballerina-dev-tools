@@ -1,0 +1,4 @@
+[package]
+org = "wso2"
+name = "multi_component"
+version = "0.1.0"

@@ -51,6 +51,18 @@
           }
         }
       },
+      "functionNameDescription": {
+        "metadata": {
+          "label": "Description",
+          "description": "Description of the function"
+        },
+        "valueType": "STRING",
+        "value": "Divide a/b\n",
+        "optional": true,
+        "editable": true,
+        "advanced": false,
+        "hidden": false
+      },
       "type": {
         "metadata": {
           "label": "Return Type",
@@ -63,13 +75,13 @@
         "advanced": false,
         "hidden": false
       },
-      "description": {
+      "typeDescription": {
         "metadata": {
           "label": "Description",
-          "description": "Description of the function"
+          "description": "Description of the return value"
         },
         "valueType": "STRING",
-        "value": "Divide a/b\n",
+        "value": "",
         "optional": true,
         "editable": true,
         "advanced": false,
@@ -112,7 +124,7 @@
               "advanced": false,
               "hidden": false
             },
-            "description": {
+            "parameterDescription": {
               "metadata": {
                 "label": "Description",
                 "description": "Description of the parameter"
@@ -175,7 +187,7 @@
                   }
                 }
               },
-              "description": {
+              "parameterDescription": {
                 "metadata": {
                   "label": "Description",
                   "description": "Description of the parameter"
@@ -237,7 +249,7 @@
                   }
                 }
               },
-              "description": {
+              "parameterDescription": {
                 "metadata": {
                   "label": "Description",
                   "description": "Description of the parameter"

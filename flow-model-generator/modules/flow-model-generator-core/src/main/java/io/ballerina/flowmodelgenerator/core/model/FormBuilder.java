@@ -214,7 +214,7 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
         return this;
     }
 
-    public FormBuilder<T> description(String value) {
+    public FormBuilder<T> functionDescription(String value) {
         propertyBuilder
                 .metadata()
                 .label(Property.DESCRIPTION_LABEL)
@@ -225,7 +225,22 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
                 .optional(true)
                 .editable();
 
-        addProperty(Property.DESCRIPTION_KEY);
+        addProperty(Property.FUNCTION_NAME_DESCRIPTION_KEY);
+        return this;
+    }
+
+    public FormBuilder<T> returnDescription(String value) {
+        propertyBuilder
+                .metadata()
+                .label(Property.RETURN_DESCRIPTION_LABEL)
+                .description(Property.RETURN_DESCRIPTION_TYPE_DOC)
+                .stepOut()
+                .value(value == null ? "" : value)
+                .type(Property.ValueType.STRING)
+                .optional(true)
+                .editable();
+
+        addProperty(Property.RETURN_DESCRIPTION_KEY);
         return this;
     }
 
@@ -1084,7 +1099,7 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
                 .value(description)
                 .optional(true)
                 .editable();
-        addProperty(Property.DESCRIPTION_KEY);
+        addProperty(Property.PARAMETER_DESCRIPTION_KEY);
 
         return endNestedProperty(Property.ValueType.FIXED_PROPERTY, name, Property.PARAMETER_LABEL,
                 Property.PARAMETER_DOC);

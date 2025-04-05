@@ -34,6 +34,7 @@ dependencies {
     implementation project(":model-generator-commons")
 
     implementation "org.ballerinalang:ballerina-lang:${ballerinaLangVersion}"
+    implementation "org.ballerinalang:ballerina-parser:${ballerinaLangVersion}"
     implementation "org.ballerinalang:ballerina-tools-api:${ballerinaLangVersion}"
     implementation "org.ballerinalang:language-server-commons:${ballerinaLangVersion}"
     implementation "org.eclipse.lsp4j:org.eclipse.lsp4j:${eclipseLsp4jVersion}"
@@ -43,6 +44,7 @@ dependencies {
     testImplementation "org.ballerinalang:language-server-core:${ballerinaLangVersion}"
     testImplementation "org.eclipse.lsp4j:org.eclipse.lsp4j:${eclipseLsp4jVersion}"
     testImplementation "org.testng:testng:${testngVersion}"
+    testImplementation "org.mockito:mockito-core:${mockitoVersion}"
 
     balTools ("org.ballerinalang:jballerina-tools:${ballerinaLangVersion}") {
         transitive = false

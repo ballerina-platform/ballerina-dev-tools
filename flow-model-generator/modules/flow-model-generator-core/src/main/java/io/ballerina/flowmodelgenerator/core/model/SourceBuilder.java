@@ -441,6 +441,7 @@ public class SourceBuilder {
                         continue;
                     }
                     if (hasRestParamValues(prop)) {
+                        tokenBuilder.keyword(SyntaxKind.COMMA_TOKEN);
                         addRestParamValues(prop);
                         continue;
                     }

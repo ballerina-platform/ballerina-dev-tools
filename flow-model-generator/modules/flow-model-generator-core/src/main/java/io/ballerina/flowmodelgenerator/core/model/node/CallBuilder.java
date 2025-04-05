@@ -24,6 +24,7 @@ import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
+import io.ballerina.flowmodelgenerator.core.utils.FlowNodeUtil;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.FunctionData;
@@ -207,7 +208,7 @@ public abstract class CallBuilder extends NodeBuilder {
 
             customPropBuilder
                     .stepOut()
-                    .addProperty(unescapedParamName);
+                    .addProperty(FlowNodeUtil.getPropertyKey(unescapedParamName));
         }
     }
 

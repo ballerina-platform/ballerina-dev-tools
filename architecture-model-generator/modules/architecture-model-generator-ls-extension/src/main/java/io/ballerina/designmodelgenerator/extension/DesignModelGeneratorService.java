@@ -18,9 +18,13 @@
 
 package io.ballerina.designmodelgenerator.extension;
 
+import io.ballerina.artifactsgenerator.ArtifactsCache;
+import io.ballerina.artifactsgenerator.ArtifactsGenerator;
 import io.ballerina.designmodelgenerator.core.DesignModelGenerator;
 import io.ballerina.designmodelgenerator.core.model.DesignModel;
+import io.ballerina.designmodelgenerator.extension.request.ArtifactsRequest;
 import io.ballerina.designmodelgenerator.extension.request.GetDesignModelRequest;
+import io.ballerina.designmodelgenerator.extension.response.ArtifactResponse;
 import io.ballerina.designmodelgenerator.extension.response.GetDesignModelResponse;
 import io.ballerina.projects.Project;
 import org.ballerinalang.annotation.JavaSPIService;
@@ -42,6 +46,7 @@ public class DesignModelGeneratorService implements ExtendedLanguageServerServic
     @Override
     public void init(LanguageServer langServer, WorkspaceManager workspaceManager) {
         this.workspaceManager = workspaceManager;
+        ArtifactsCache.initialize();
     }
 
     @Override
@@ -55,11 +60,25 @@ public class DesignModelGeneratorService implements ExtendedLanguageServerServic
             GetDesignModelResponse response = new GetDesignModelResponse();
             try {
                 Path projectPath = Path.of(request.projectPath());
-
                 Project project = workspaceManager.loadProject(projectPath);
                 DesignModelGenerator designModelGenerator = new DesignModelGenerator(project.currentPackage());
                 DesignModel designModel = designModelGenerator.generate();
                 response.setDesignModel(designModel);
+            } catch (Throwable e) {
+                response.setError(e);
+            }
+            return response;
+        });
+    }
+
+    @JsonRequest
+    public CompletableFuture<ArtifactResponse> artifacts(ArtifactsRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            ArtifactResponse response = new ArtifactResponse();
+            try {
+                Path projectPath = Path.of(request.projectPath());
+                Project project = workspaceManager.loadProject(projectPath);
+                response.setArtifacts(ArtifactsGenerator.artifacts(project));
             } catch (Throwable e) {
                 response.setError(e);
             }
