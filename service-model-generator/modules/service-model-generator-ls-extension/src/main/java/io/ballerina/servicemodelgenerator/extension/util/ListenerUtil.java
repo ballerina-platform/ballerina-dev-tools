@@ -64,6 +64,8 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.DEFAULT_LISTENER_ITEM_LABEL;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_ITEM_LABEL;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.removeLeadingSingleQuote;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.upperCaseFirstLetter;
 
@@ -122,7 +124,11 @@ public class ListenerUtil {
         }
 
         if (isHttp && !isHttpDefaultListenerDefined) {
-            listeners.add(ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_ITEM_LABEL);
+            listeners.add(HTTP_DEFAULT_LISTENER_ITEM_LABEL);
+        }
+
+        if (!isHttp && listeners.isEmpty()) {
+            listeners.add(DEFAULT_LISTENER_ITEM_LABEL.formatted(moduleName));
         }
 
         return listeners;
@@ -179,7 +185,7 @@ public class ListenerUtil {
                 }};
                 for (int i = 0; i < values.size(); i++) {
                     if (values.get(i).equals(
-                            ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_ITEM_LABEL)) {
+                            HTTP_DEFAULT_LISTENER_ITEM_LABEL)) {
                         valuesList.set(i, ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_VAR_NAME);
                         listener.setValues(valuesList);
                         return true;
@@ -187,7 +193,7 @@ public class ListenerUtil {
                 }
             } else {
                 if (listener.getValue().equals(
-                        ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_ITEM_LABEL)) {
+                        HTTP_DEFAULT_LISTENER_ITEM_LABEL)) {
                     listener.setValue(ServiceModelGeneratorConstants.HTTP_DEFAULT_LISTENER_VAR_NAME);
                     return true;
                 }

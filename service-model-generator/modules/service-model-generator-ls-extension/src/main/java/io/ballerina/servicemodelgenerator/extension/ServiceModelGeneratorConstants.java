@@ -45,6 +45,7 @@ public class ServiceModelGeneratorConstants {
             "listener http:Listener %s = http:getDefaultListener();" + NEW_LINE;
     public static final String HTTP_DEFAULT_LISTENER_ITEM_LABEL = "(+) Create and use the default HTTP listener" +
             " (port: 9090)";
+    public static final String DEFAULT_LISTENER_ITEM_LABEL = "(+) Create and use a %s listener with default configurations";
     public static final String HTTP_DEFAULT_LISTENER_VAR_NAME = "httpDefaultListener";
     public static final String HTTP_DEFAULT_LISTENER_EXPR = "http:getDefaultListener()";
 
