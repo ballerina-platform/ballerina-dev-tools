@@ -86,7 +86,7 @@ public class SourceGeneratorTest extends AbstractLSTest {
         if (assertFailure) {
             TestConfig updatedConfig =
                     new TestConfig(testConfig.source(), testConfig.description(), testConfig.diagram(), newMap);
-//            updateConfig(configJsonPath, updatedConfig);
+            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
     }
@@ -118,6 +118,7 @@ public class SourceGeneratorTest extends AbstractLSTest {
                 "resource_action_call-http-get6.json",
                 "resource_action_call-http-post5.json",
                 // The following nodes are deprecated
+                "data_mapper1.json",
                 "data_mapper2.json",
                 "data_mapper-main.json",
                 "data_mapper-service.json",

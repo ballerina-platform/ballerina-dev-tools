@@ -63,10 +63,10 @@ public class SourceGenerator {
      */
     public JsonElement toSourceCode(JsonElement diagramNode, LSClientLogger lsClientLogger) {
         FlowNode flowNode = gson.fromJson(diagramNode, FlowNode.class);
-        SourceBuilder sourceBuilder = new SourceBuilder(flowNode, workspaceManager, filePath, lsClientLogger);
         if (!filePath.toString().endsWith(".bal") && hasFileName(flowNode)) {
             filePath = filePath.resolve(flowNode.codedata().lineRange().fileName());
         }
+        SourceBuilder sourceBuilder = new SourceBuilder(flowNode, workspaceManager, filePath, lsClientLogger);
         Map<Path, List<TextEdit>> textEdits =
                 NodeBuilder.getNodeFromKind(flowNode.codedata().node()).toSource(sourceBuilder);
         addNewLine(textEdits);

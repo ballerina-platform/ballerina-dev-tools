@@ -184,7 +184,7 @@
           "module": "mysql",
           "object": "Client",
           "symbol": "query",
-          "version": "1.15.0",
+          "version": "1.14.0",
           "lineRange": {
             "fileName": "mysql.bal",
             "startLine": {
@@ -252,7 +252,7 @@
                 "type": "ParameterizedQuery",
                 "packageInfo": "ballerina:sql:1.16.0",
                 "kind": "OBJECT_TYPE",
-                "selected": false
+                "selected": true
               }
             ],
             "imports": {
@@ -540,7 +540,10 @@
                 "kind": "BASIC_TYPE",
                 "selected": false
               }
-            ]
+            ],
+            "imports": {
+              "sql": "ballerina/sql"
+            }
           },
           "checkError": {
             "metadata": {
@@ -552,7 +555,10 @@
             "optional": false,
             "editable": false,
             "advanced": true,
-            "hidden": false
+            "hidden": false,
+            "imports": {
+              "sql": "ballerina/sql"
+            }
           },
           "scope": {
             "metadata": {
@@ -564,7 +570,10 @@
             "optional": false,
             "editable": true,
             "advanced": true,
-            "hidden": false
+            "hidden": false,
+            "imports": {
+              "sql": "ballerina/sql"
+            }
           },
           "variable": {
             "metadata": {
@@ -589,6 +598,9 @@
                   "offset": 30
                 }
               }
+            },
+            "imports": {
+              "sql": "ballerina/sql"
             }
           },
           "type": {
@@ -603,7 +615,10 @@
             "editable": false,
             "advanced": false,
             "hidden": false,
-            "codedata": {}
+            "codedata": {},
+            "imports": {
+              "sql": "ballerina/sql"
+            }
           }
         },
         "flags": 1
