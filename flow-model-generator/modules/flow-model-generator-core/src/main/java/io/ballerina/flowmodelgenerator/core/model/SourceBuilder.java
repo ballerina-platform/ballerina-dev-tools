@@ -286,12 +286,14 @@ public class SourceBuilder {
 
         // Obtain the symbols of the imports
         Map<String, BLangPackage> packageMap = new HashMap<>();
-        imports.values().forEach(moduleId -> {
-            ModuleInfo moduleInfo = ModuleInfo.from(moduleId);
-            PackageUtil.pullModuleAndNotify(lsClientLogger, moduleInfo).ifPresent(pkg ->
-                    packageMap.put(pkg.packageName().value(), pkg.getCompilation().defaultModuleBLangPackage())
-            );
-        });
+        if (imports != null) {
+            imports.values().forEach(moduleId -> {
+                ModuleInfo moduleInfo = ModuleInfo.from(moduleId);
+                PackageUtil.pullModuleAndNotify(lsClientLogger, moduleInfo).ifPresent(pkg ->
+                        packageMap.put(pkg.packageName().value(), pkg.getCompilation().defaultModuleBLangPackage())
+                );
+            });
+        }
 
         Optional<TypeSymbol> optionalType = semanticModel.types().getType(document, typeName, packageMap);
         if (optionalType.isEmpty()) {

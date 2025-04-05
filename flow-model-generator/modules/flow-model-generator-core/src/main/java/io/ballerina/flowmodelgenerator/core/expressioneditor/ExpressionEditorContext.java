@@ -242,10 +242,10 @@ public class ExpressionEditorContext {
      * @param textDocument The TextDocument containing the new content
      */
     public void applyContent(TextDocument textDocument) {
-        Document newDocument = documentContext.document().modify()
+        documentContext.document().modify()
                 .withContent(String.join(System.lineSeparator(), textDocument.textLines()))
                 .apply();
-        documentContext.updateContext(newDocument);
+        documentContext.clear();
     }
 
     public String fileUri() {
