@@ -39,7 +39,6 @@ import io.ballerina.projects.environment.ResolutionOptions;
 import io.ballerina.projects.environment.ResolutionRequest;
 import io.ballerina.projects.environment.ResolutionResponse;
 import io.ballerina.projects.repos.TempDirCompilationCache;
-import io.ballerina.projects.util.DependencyUtils;
 import org.ballerinalang.langserver.LSClientLogger;
 import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
@@ -138,7 +137,7 @@ public class PackageUtil {
         Collection<ResolutionResponse> resolutionResponses =
                 buildProject.projectEnvironmentContext().getService(PackageResolver.class)
                         .resolvePackages(Collections.singletonList(resolutionRequest),
-                                ResolutionOptions.builder().setOffline(false).build());
+                                ResolutionOptions.builder().setOffline(false).setSticky(false).build());
         Optional<ResolutionResponse> resolutionResponse = resolutionResponses.stream().findFirst();
         if (resolutionResponse.isEmpty()) {
             return Optional.empty();
@@ -290,7 +289,8 @@ public class PackageUtil {
             return;
         }
         notifyClient(lsClientLogger, completeModuleInfo, MessageType.Info, PULLING_THE_MODULE_MESSAGE);
-        DependencyUtils.pullMissingDependencies(project);
+        PackageUtil.getModulePackage(SAMPLE_PROJECT, completeModuleInfo.org(), completeModuleInfo.packageName(),
+                completeModuleInfo.version());
         if (PackageUtil.isModuleUnresolved(completeModuleInfo.org(), completeModuleInfo.packageName(),
                 completeModuleInfo.version())) {
             notifyClient(lsClientLogger, completeModuleInfo, MessageType.Error, MODULE_PULLING_FAILED_MESSAGE);
@@ -298,7 +298,6 @@ public class PackageUtil {
             notifyClient(lsClientLogger, completeModuleInfo, MessageType.Info, MODULE_PULLING_SUCCESS_MESSAGE);
         }
     }
-
 
     private static void notifyClient(LSClientLogger lsClientLogger, ModuleInfo moduleInfo, MessageType messageType,
                                      String message) {

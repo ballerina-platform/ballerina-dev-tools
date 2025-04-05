@@ -75,7 +75,7 @@ public class AgentBuilder extends CallBuilder {
                 .functionParameters(sourceBuilder.flowNode, Set.of(Property.VARIABLE_KEY, Property.TYPE_KEY,
                         Property.SCOPE_KEY, Property.CHECK_ERROR_KEY), true);
 
-        return sourceBuilder.textEdit(false, AGENT_FILE).build();
+        return sourceBuilder.textEdit(false).acceptImport().build();
     }
 
     @Override

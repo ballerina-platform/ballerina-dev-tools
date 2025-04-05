@@ -140,8 +140,7 @@ public class DataMapperDefinitionBuilder extends NodeBuilder {
         if (lineRange == null) {
             // The return type symbol should be present
             Optional<String> returnBody =
-                    sourceBuilder.getExpressionBodyText(returnTypeString, DATA_MAPPINGS_BAL,
-                            returnType.get().imports());
+                    sourceBuilder.getExpressionBodyText(returnTypeString, returnType.get().imports());
             if (returnBody.isEmpty()) {
                 throw new IllegalStateException("Failed to produce the data mapper output");
             }
@@ -152,14 +151,13 @@ public class DataMapperDefinitionBuilder extends NodeBuilder {
                         .name(returnBody.get())
                         .endOfStatement()
                         .stepOut()
-                    .textEdit(false, DATA_MAPPINGS_BAL);
+                    .textEdit(false);
         } else {
             sourceBuilder
                     .token().skipFormatting().stepOut()
                     .textEdit(false);
         }
         return sourceBuilder
-                .acceptPropertyImports(DATA_MAPPINGS_BAL)
                 .build();
     }
 

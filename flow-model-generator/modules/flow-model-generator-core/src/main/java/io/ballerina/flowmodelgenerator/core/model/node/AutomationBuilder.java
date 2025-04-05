@@ -164,9 +164,8 @@ public class AutomationBuilder extends FunctionDefinitionBuilder {
             }
             sourceBuilder.token().closeBrace()
                     .stepOut()
-                    .textEdit(false, AUTOMATIONS_BAL);
-            Path path = sourceBuilder.workspaceManager.projectRoot(sourceBuilder.filePath).resolve(AUTOMATIONS_BAL);
-            sourceBuilder.acceptImport(path, "ballerina", "log");
+                    .textEdit(false);
+            sourceBuilder.acceptImport("ballerina", "log");
         } else {
             sourceBuilder
                     .token().skipFormatting().stepOut()

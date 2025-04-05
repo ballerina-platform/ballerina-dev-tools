@@ -91,15 +91,21 @@ public class NewConnectionBuilder extends CallBuilder {
         Path filePath = sourceBuilder.filePath;
         switch (scope.get().value().toString()) {
             case Property.LOCAL_SCOPE -> {
-                sourceBuilder.textEdit(false).acceptImport();
+                sourceBuilder.textEdit(false);
                 checkDriverImport(sourceBuilder, codedata, filePath);
             }
             case Property.GLOBAL_SCOPE -> {
-                sourceBuilder.textEdit(false, CONNECTIONS_BAL);
+                sourceBuilder.textEdit(false);
                 Path projectRoot = sourceBuilder.workspaceManager.projectRoot(filePath);
                 checkDriverImport(sourceBuilder, codedata, projectRoot.resolve(CONNECTIONS_BAL));
             }
             default -> throw new IllegalStateException("Invalid scope for the new connection node");
+        }
+        // TODO: This should be removed once the codedata is refactored to capture the module name
+        if (Boolean.TRUE.equals(codedata.isGenerated())) {
+            sourceBuilder.addImport(codedata.module());
+        } else {
+            sourceBuilder.acceptImport();
         }
 
         return sourceBuilder.build();
@@ -109,7 +115,7 @@ public class NewConnectionBuilder extends CallBuilder {
         // TODO: This information should be embedded to the package index.
         // Check if the new connection requires a driver import
         if (CONNECTION_DRIVERS.contains(codedata.getImportSignature())) {
-            sourceBuilder.acceptImport(filePath, codedata.org(), codedata.module() + DRIVER_SUB_PACKAGE, true);
+            sourceBuilder.acceptImport(codedata.org(), codedata.module() + DRIVER_SUB_PACKAGE, true);
         }
     }
 

@@ -1,0 +1,114 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "35881",
+    "metadata": {
+      "label": "Declare Variable",
+      "description": "Assign a value to a variable"
+    },
+    "codedata": {
+      "node": "VARIABLE",
+      "lineRange": {
+        "fileName": "imported_expressions.bal",
+        "startLine": {
+          "line": 4,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 4,
+          "offset": 45
+        }
+      },
+      "sourceCode": "float value = 2 + random:createDecimal();"
+    },
+    "returning": false,
+    "properties": {
+      "expression": {
+        "metadata": {
+          "label": "Expression",
+          "description": "Initialize with value"
+        },
+        "imports": {
+          "random": "ballerina/random:1.7.0"
+        },
+        "valueType": "EXPRESSION",
+        "value": "2 + random:createDecimal()",
+        "optional": true,
+        "editable": true,
+        "advanced": false,
+        "hidden": false
+      },
+      "variable": {
+        "metadata": {
+          "label": "Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "value",
+        "optional": false,
+        "editable": false,
+        "advanced": false,
+        "hidden": false,
+        "codedata": {
+          "lineRange": {
+            "fileName": "imported_expressions.bal",
+            "startLine": {
+              "line": 4,
+              "offset": 10
+            },
+            "endLine": {
+              "line": 4,
+              "offset": 15
+            }
+          }
+        }
+      },
+      "type": {
+        "metadata": {
+          "label": "Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "float",
+        "placeholder": "var",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "hidden": false,
+        "codedata": {}
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import ballerina/random;"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 4,
+            "character": 4
+          },
+          "end": {
+            "line": 4,
+            "character": 45
+          }
+        },
+        "newText": "float value = 2 + random:createDecimal();"
+      }
+    ]
+  }
+}

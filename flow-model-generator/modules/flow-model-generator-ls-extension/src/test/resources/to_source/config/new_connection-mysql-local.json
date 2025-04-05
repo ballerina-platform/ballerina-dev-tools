@@ -281,7 +281,7 @@
     "flags": 0
   },
   "output": {
-    "new_connection7/main.bal": [
+    "new_connection7/connections.bal": [
       {
         "range": {
           "start": {
