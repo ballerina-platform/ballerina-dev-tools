@@ -1316,7 +1316,7 @@ class CodeAnalyzer extends NodeVisitor {
                     .metadata()
                     .description(AssignBuilder.DESCRIPTION)
                     .stepOut()
-                    .properties().expression((ExpressionNode) null, VariableBuilder.EXPRESSION_DOC, true);
+                    .properties().expression(null, VariableBuilder.EXPRESSION_DOC, true);
         } else {
             ExpressionNode initializerNode = initializer.get();
             initializerNode.accept(this);

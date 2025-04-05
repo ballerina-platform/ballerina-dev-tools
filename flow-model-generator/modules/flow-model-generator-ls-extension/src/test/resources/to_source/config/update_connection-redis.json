@@ -15,7 +15,6 @@
       "object": "Client",
       "symbol": "init",
       "id": 16,
-      "isNew": true,
       "lineRange": {
         "fileName": "connections.bal",
         "startLine": {

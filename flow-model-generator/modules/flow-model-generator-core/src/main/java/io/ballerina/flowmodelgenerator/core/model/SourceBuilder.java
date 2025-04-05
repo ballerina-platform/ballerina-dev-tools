@@ -38,7 +38,6 @@ import io.ballerina.modelgenerator.commons.ParameterData;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.ModuleDescriptor;
-import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.formatter.core.FormattingTreeModifier;
 import org.ballerinalang.formatter.core.options.FormattingOptions;
@@ -65,13 +64,22 @@ import java.util.stream.Collectors;
 public class SourceBuilder {
 
     private TokenBuilder tokenBuilder;
-    private Path resolvedPath;
+    public final Path filePath;
     public final FlowNode flowNode;
     public final WorkspaceManager workspaceManager;
-    public final Path filePath;
     private final Map<Path, List<TextEdit>> textEditsMap;
     private final List<String> imports;
     private final LSClientLogger lsClientLogger;
+    private Range defaultRange;
+
+    // Project file names
+    private static final String CONNECTIONS_BAL = "connections.bal";
+    private static final String AUTOMATION_BAL = "automation.bal";
+    private static final String AGENTS_BAL = "agents.bal";
+    private static final String DATA_MAPPINGS_BAL = "data_mappings.bal";
+    private static final String FUNCTIONS_BAL = "functions.bal";
+
+    private static final String BALLERINA_FILE_SUFFIX = ".bal";
 
     public SourceBuilder(FlowNode flowNode, WorkspaceManager workspaceManager, Path filePath,
                          LSClientLogger lsClientLogger) {
@@ -79,13 +87,62 @@ public class SourceBuilder {
         this.textEditsMap = new HashMap<>();
         this.flowNode = flowNode;
         this.workspaceManager = workspaceManager;
-        this.filePath = filePath;
+        this.filePath = resolvePath(flowNode, filePath);
         this.imports = new ArrayList<>();
         this.lsClientLogger = lsClientLogger;
     }
 
     public SourceBuilder(FlowNode flowNode, WorkspaceManager workspaceManager, Path filePath) {
         this(flowNode, workspaceManager, filePath, null);
+    }
+
+    private Path resolvePath(FlowNode flowNode, Path inputPath) {
+        // Each node should have a codedata
+        if (flowNode.codedata() == null) {
+            return inputPath;
+        }
+        Codedata codedata = flowNode.codedata();
+
+        // If the node is a new node, we need to resolve the path to the default file
+        LineRange lineRange = codedata.lineRange();
+        if (Boolean.TRUE.equals(codedata.isNew()) || lineRange == null) {
+            String defaultFile = switch (codedata.node()) {
+                case NEW_CONNECTION -> CONNECTIONS_BAL;
+                case DATA_MAPPER_DEFINITION -> DATA_MAPPINGS_BAL;
+                case FUNCTION_DEFINITION, NP_FUNCTION -> FUNCTIONS_BAL;
+                case AUTOMATION -> AUTOMATION_BAL;
+                case AGENT -> AGENTS_BAL;
+                default -> null;
+            };
+            if (defaultFile == null) {
+                if (lineRange == null) {
+                    throw new IllegalArgumentException("Cannot determine the line range");
+                }
+                defaultRange = CommonUtils.toRange(lineRange);
+                return inputPath;
+            }
+
+            // Create the document if not exists
+            Path resolvedPath = workspaceManager.projectRoot(inputPath).resolve(defaultFile);
+            try {
+                workspaceManager.loadProject(inputPath);
+                Document document = FileSystemUtils.getDocument(workspaceManager, resolvedPath);
+                // If the file exists, get the end of the file
+                defaultRange = CommonUtils.toRange(document.syntaxTree().rootNode().lineRange().endLine());
+            } catch (WorkspaceDocumentException | EventSyncException e) {
+                throw new RuntimeException(e);
+            }
+            return resolvedPath;
+        }
+
+        // Set the default range using the codedata
+        defaultRange = CommonUtils.toRange(lineRange);
+
+        // If the file name is not a bal file, then defaults to the filename in the line range.
+        if (!inputPath.getFileName().toString().endsWith(BALLERINA_FILE_SUFFIX)) {
+            return inputPath.resolve(lineRange.fileName());
+        }
+        return inputPath;
     }
 
     public TokenBuilder token() {
@@ -137,54 +194,9 @@ public class SourceBuilder {
     }
 
     public SourceBuilder textEdit(boolean isExpression, String fileName) {
-        // If it is not new, use the existing file
-        if (flowNode.codedata().isNew() == null || !flowNode.codedata().isNew()) {
-            return textEdit(isExpression);
-        }
-
-        Path resolvedPath = workspaceManager.projectRoot(filePath).resolve(fileName);
-
-        LinePosition linePosition;
-        try {
-            // If the file exists, get the end line of the file
-            workspaceManager.loadProject(filePath);
-            Document document = FileSystemUtils.getDocument(workspaceManager, resolvedPath);
-            linePosition = document.syntaxTree().rootNode().lineRange().endLine();
-        } catch (WorkspaceDocumentException | EventSyncException e) {
-            throw new RuntimeException(e);
-        }
-
-        // Add the current source to the end of the file
-        textEdit(isExpression, resolvedPath, CommonUtils.toRange(linePosition));
-        acceptImport(resolvedPath);
+        textEdit(isExpression, filePath, defaultRange);
+        acceptImport(filePath);
         return this;
-    }
-
-    // TODO: Need to reuse other textEdit methods
-    public SourceBuilder textEdit(boolean isExpression, String fileName, LineRange lineRange, boolean allowEdits) {
-        Path resolvedPath = workspaceManager.projectRoot(filePath).resolve(fileName);
-        LineRange flowNodeLineRange = flowNode.codedata().lineRange();
-        if (flowNodeLineRange != null && allowEdits) {
-            LinePosition startLine = flowNodeLineRange.startLine();
-            LinePosition endLine = flowNodeLineRange.endLine();
-
-            if (startLine.line() != 0 || startLine.offset() != 0 || endLine.line() != 0 || endLine.offset() != 0) {
-                textEdit(isExpression, resolvedPath, CommonUtils.toRange(flowNodeLineRange));
-                acceptImport(resolvedPath);
-                return this;
-            }
-        }
-
-        textEdit(isExpression, resolvedPath, CommonUtils.toRange(lineRange));
-        acceptImport(resolvedPath);
-        return this;
-    }
-
-    public SourceBuilder acceptImport(Path resolvedPath) {
-        Codedata codedata = flowNode.codedata();
-        String org = codedata.org();
-        String module = codedata.module();
-        return acceptImport(resolvedPath, org, module);
     }
 
     public SourceBuilder acceptImportWithVariableType() {
@@ -220,24 +232,15 @@ public class SourceBuilder {
         return property;
     }
 
-    public SourceBuilder acceptPropertyImports(String fileName) {
-        return acceptPropertyImports(getResolvedPath(fileName));
-    }
-
-    public SourceBuilder acceptPropertyImports() {
-        return acceptPropertyImports(filePath);
-    }
-
-    public SourceBuilder acceptPropertyImports(Path resolvedPath) {
-        imports.forEach(moduleImport -> {
-            String[] split = moduleImport.split("/");
-            acceptImport(resolvedPath, split[0], split[1]);
-        });
-        return this;
-    }
-
     public SourceBuilder acceptImport() {
         return acceptImport(filePath);
+    }
+
+    public SourceBuilder acceptImport(Path resolvedPath) {
+        Codedata codedata = flowNode.codedata();
+        String org = codedata.org();
+        String module = codedata.module();
+        return acceptImport(resolvedPath, org, module);
     }
 
     public SourceBuilder acceptImport(String org, String module) {
@@ -305,15 +308,13 @@ public class SourceBuilder {
         return this;
     }
 
-    public Optional<String> getExpressionBodyText(String typeName, String fileName, Map<String, String> imports) {
+    public Optional<String> getExpressionBodyText(String typeName, Map<String, String> imports) {
         try {
             workspaceManager.loadProject(filePath);
         } catch (WorkspaceDocumentException | EventSyncException e) {
             throw new RuntimeException(e);
         }
-        // Obtain the document
-        Path resolvedPath = getResolvedPath(fileName);
-        Document document = FileSystemUtils.getDocument(workspaceManager, resolvedPath);
+        Document document = FileSystemUtils.getDocument(workspaceManager, filePath);
 
         // Obtain the symbols of the imports
         Map<String, BLangPackage> packageMap = new HashMap<>();
@@ -447,7 +448,7 @@ public class SourceBuilder {
         boolean firstParamAdded = false;
         boolean missedDefaultValue = false;
         for (String key : keys) {
-            Optional<Property> property = flowNode.getProperty(key);
+            Optional<Property> property = getProperty(key);
             if (property.isEmpty()) {
                 continue;
             }
@@ -584,7 +585,7 @@ public class SourceBuilder {
     }
 
     public SourceBuilder textEdit(boolean isExpression) {
-        return textEdit(isExpression, filePath, CommonUtils.toRange(flowNode.codedata().lineRange()));
+        return textEdit(isExpression, filePath, defaultRange);
     }
 
     public SourceBuilder textEdit(boolean isExpression, Path filePath, Range range) {
@@ -599,17 +600,6 @@ public class SourceBuilder {
         textEditsMap.put(filePath, textEdits);
 
         return this;
-    }
-
-    public Path getResolvedPath(String fileName) {
-        if (resolvedPath != null) {
-            return resolvedPath;
-        }
-        if (flowNode.codedata().isNew() == null || !flowNode.codedata().isNew()) {
-            resolvedPath = filePath;
-        }
-        resolvedPath = workspaceManager.projectRoot(filePath).resolve(fileName);
-        return resolvedPath;
     }
 
     public SourceBuilder comment() {
@@ -627,6 +617,11 @@ public class SourceBuilder {
     }
 
     public Map<Path, List<TextEdit>> build() {
+        // Add the imports if exists
+        imports.forEach(moduleImport -> {
+            String[] split = moduleImport.split("/");
+            acceptImport(filePath, split[0], split[1]);
+        });
         return textEditsMap;
     }
 
