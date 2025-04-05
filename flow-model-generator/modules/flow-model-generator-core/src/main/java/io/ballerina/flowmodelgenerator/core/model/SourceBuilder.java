@@ -275,14 +275,20 @@ public class SourceBuilder {
         return this;
     }
 
-    public Optional<String> getExpressionBodyText(String typeName, Map<String, String> imports) {
+    public Optional<String> getExpressionBodyText(String typeName, String fileName, Map<String, String> imports) {
         try {
             workspaceManager.loadProject(filePath);
         } catch (WorkspaceDocumentException | EventSyncException e) {
             throw new RuntimeException(e);
         }
-        SemanticModel semanticModel = FileSystemUtils.getSemanticModel(workspaceManager, filePath);
-        Document document = FileSystemUtils.getDocument(workspaceManager, filePath);
+        // Obtain the document
+        Path resolvedPath;
+        if (flowNode.codedata().isNew() == null || !flowNode.codedata().isNew()) {
+            resolvedPath = filePath;
+        } else {
+            resolvedPath = workspaceManager.projectRoot(filePath).resolve(fileName);
+        }
+        Document document = FileSystemUtils.getDocument(workspaceManager, resolvedPath);
 
         // Obtain the symbols of the imports
         Map<String, BLangPackage> packageMap = new HashMap<>();
@@ -295,6 +301,7 @@ public class SourceBuilder {
             });
         }
 
+        SemanticModel semanticModel = FileSystemUtils.getSemanticModel(workspaceManager, filePath);
         Optional<TypeSymbol> optionalType = semanticModel.types().getType(document, typeName, packageMap);
         if (optionalType.isEmpty()) {
             return Optional.empty();

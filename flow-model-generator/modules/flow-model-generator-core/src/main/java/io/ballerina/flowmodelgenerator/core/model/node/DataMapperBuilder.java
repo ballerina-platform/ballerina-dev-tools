@@ -213,7 +213,8 @@ public class DataMapperBuilder extends NodeBuilder {
             throw new IllegalStateException("Output must be defined for a data mapper node");
         }
 
-        String bodyText = sourceBuilder.getExpressionBodyText(output.get().value().toString(), null).orElse("");
+        String bodyText = sourceBuilder.getExpressionBodyText(output.get().value().toString(),
+                null, null).orElse("");
 
         sourceBuilder.token()
                 .keyword(SyntaxKind.FUNCTION_KEYWORD)
