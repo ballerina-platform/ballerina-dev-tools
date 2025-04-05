@@ -152,7 +152,7 @@ public class ListenerUtil {
             listeners.add(HTTP_DEFAULT_LISTENER_ITEM_LABEL);
         }
 
-        if (!isHttp && listeners.isEmpty()) {
+        if (!isHttp && !moduleName.equals("ai") && listeners.isEmpty()) {
             listeners.add(DEFAULT_LISTENER_ITEM_LABEL.formatted(moduleName(moduleName)));
         }
 
