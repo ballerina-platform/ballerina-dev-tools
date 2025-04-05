@@ -110,8 +110,7 @@
             "hidden": false,
             "codedata": {
               "kind": "REQUIRED",
-              "originalName": "sqlQuery",
-              "importStatements": "ballerina/sql"
+              "originalName": "sqlQuery"
             },
             "typeMembers": [
               {
@@ -120,7 +119,10 @@
                 "kind": "OBJECT_TYPE",
                 "selected": true
               }
-            ]
+            ],
+            "imports": {
+              "sql": "ballerina/sql"
+            }
           },
           "checkError": {
             "metadata": {
@@ -132,7 +134,10 @@
             "optional": false,
             "editable": true,
             "advanced": true,
-            "hidden": false
+            "hidden": false,
+            "imports": {
+              "sql": "ballerina/sql"
+            }
           },
           "variable": {
             "metadata": {
@@ -157,6 +162,9 @@
                   "offset": 16
                 }
               }
+            },
+            "imports": {
+              "sql": "ballerina/sql"
             }
           },
           "type": {
@@ -171,7 +179,10 @@
             "editable": false,
             "advanced": false,
             "hidden": false,
-            "codedata": {}
+            "codedata": {},
+            "imports": {
+              "sql": "ballerina/sql"
+            }
           }
         },
         "flags": 1
@@ -394,8 +405,7 @@
             "hidden": false,
             "codedata": {
               "kind": "DEFAULTABLE",
-              "originalName": "connectionPool",
-              "importStatements": "ballerina/sql"
+              "originalName": "connectionPool"
             },
             "typeMembers": [
               {
@@ -410,7 +420,10 @@
                 "kind": "BASIC_TYPE",
                 "selected": false
               }
-            ]
+            ],
+            "imports": {
+              "sql": "ballerina/sql"
+            }
           },
           "checkError": {
             "metadata": {
@@ -422,7 +435,10 @@
             "optional": false,
             "editable": false,
             "advanced": true,
-            "hidden": false
+            "hidden": false,
+            "imports": {
+              "sql": "ballerina/sql"
+            }
           },
           "scope": {
             "metadata": {
@@ -434,7 +450,10 @@
             "optional": false,
             "editable": true,
             "advanced": true,
-            "hidden": false
+            "hidden": false,
+            "imports": {
+              "sql": "ballerina/sql"
+            }
           },
           "variable": {
             "metadata": {
@@ -459,6 +478,9 @@
                   "offset": 30
                 }
               }
+            },
+            "imports": {
+              "sql": "ballerina/sql"
             }
           },
           "type": {
@@ -473,7 +495,10 @@
             "editable": false,
             "advanced": false,
             "hidden": false,
-            "codedata": {}
+            "codedata": {},
+            "imports": {
+              "sql": "ballerina/sql"
+            }
           }
         },
         "flags": 1

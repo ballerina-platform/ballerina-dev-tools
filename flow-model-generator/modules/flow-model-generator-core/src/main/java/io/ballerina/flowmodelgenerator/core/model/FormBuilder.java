@@ -187,10 +187,10 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
                     .description(Property.TYPE_DOC)
                     .stepOut()
                 .codedata()
-                    .importStatements(importStatements)
                     .stepOut()
                 .placeholder("var")
                 .value(typeName)
+                .imports(importStatements)
                 .type(Property.ValueType.TYPE)
                 .editable(editable);
 

@@ -40,12 +40,15 @@ import io.ballerina.flowmodelgenerator.extension.response.FunctionCallTemplateRe
 import io.ballerina.flowmodelgenerator.extension.response.ImportModuleResponse;
 import io.ballerina.flowmodelgenerator.extension.response.VisibleVariableTypesResponse;
 import io.ballerina.modelgenerator.commons.CommonUtils;
+import io.ballerina.modelgenerator.commons.ModuleInfo;
+import io.ballerina.modelgenerator.commons.PackageUtil;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.ModuleDependency;
 import io.ballerina.projects.ModuleDescriptor;
 import io.ballerina.tools.text.TextEdit;
 import org.ballerinalang.annotation.JavaSPIService;
+import org.ballerinalang.langserver.LSClientLogger;
 import org.ballerinalang.langserver.commons.LanguageServerContext;
 import org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManagerProxy;
@@ -68,12 +71,14 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
 
     private WorkspaceManagerProxy workspaceManagerProxy;
     private LanguageServer langServer;
+    private LSClientLogger lsClientLogger;
 
     @Override
     public void init(LanguageServer langServer, WorkspaceManagerProxy workspaceManagerProxy,
                      LanguageServerContext serverContext) {
         this.workspaceManagerProxy = workspaceManagerProxy;
         this.langServer = langServer;
+        this.lsClientLogger = LSClientLogger.getInstance(serverContext);
     }
 
     @Override
@@ -177,7 +182,8 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                     }
                     case AVAILABLE -> {
                         template = codedata.getModulePrefix() + ":" + codedata.symbol();
-                        applyModuleImport(request.filePath(), codedata.getImportSignature(), response);
+                        applyModuleImport(request.filePath(), codedata.getModuleId(), codedata.getImportSignature(),
+                                response);
                     }
                     default -> {
                         response.setError(new IllegalArgumentException("Invalid kind: " + request.kind() +
@@ -206,8 +212,8 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
             try {
                 String importStatement = request.importStatement()
                         .replaceFirst("^import\\s+", "")
-                        .replaceAll(";\\n$", "");
-                applyModuleImport(request.filePath(), importStatement, response);
+                        .replaceAll(";\\n?$", "");
+                applyModuleImport(request.filePath(), importStatement, importStatement, response);
             } catch (Exception e) {
                 response.setError(e);
             }
@@ -215,7 +221,8 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
         });
     }
 
-    private void applyModuleImport(String filePathString, String importStatement, ImportModuleResponse response) {
+    private void applyModuleImport(String filePathString, String moduleId, String importStatement,
+                                   ImportModuleResponse response) {
         String fileUri = CommonUtils.getExprUri(filePathString);
         Path filePath = Path.of(filePathString);
         ExpressionEditorContext expressionEditorContext = new ExpressionEditorContext(
@@ -228,6 +235,8 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
 
         // Obtain the module details
         String[] split = importStatement.split("/");
+        PackageUtil.pullModuleAndNotify(lsClientLogger, ModuleInfo.from(moduleId),
+                expressionEditorContext.documentContext().project().orElseThrow());
         Module module = expressionEditorContext.documentContext().module().orElseThrow();
         module.packageInstance().getResolution();
         ModuleDescriptor descriptor = module.moduleDependencies().stream()

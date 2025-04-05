@@ -40,6 +40,7 @@ import org.eclipse.lsp4j.Position;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -163,10 +164,10 @@ public class ExpressionEditorContext {
             }
 
             // Add the import statements of the dependent types
-            String importStatements = property.importStatements();
-            if (importStatements != null && !importStatements.isEmpty()) {
-                for (String importStmt : importStatements.split(",")) {
-                    Optional<TextEdit> textEdit = getImport(importStmt);
+            Map<String, String> imports = property.importStatements();
+            if (imports != null && !imports.isEmpty()) {
+                for (String importStmt : imports.values()) {
+                    Optional<TextEdit> textEdit = getImport(importStmt.split(":")[0]);
                     if (textEdit.isPresent()) {
                         textEdits.add(textEdit.get());
                         lineOffset++;
@@ -241,10 +242,10 @@ public class ExpressionEditorContext {
      * @param textDocument The TextDocument containing the new content
      */
     public void applyContent(TextDocument textDocument) {
-        Document newDocument = documentContext.document().modify()
+        documentContext.document().modify()
                 .withContent(String.join(System.lineSeparator(), textDocument.textLines()))
                 .apply();
-        documentContext.updateContext(newDocument);
+        documentContext.clear();
     }
 
     public String fileUri() {
@@ -298,9 +299,9 @@ public class ExpressionEditorContext {
         private String value;
         private String valueType;
         private String typeConstraint;
+        private Map<String, String> imports;
 
         // Codedata values
-        private String importStatements;
         private String org;
         private String module;
         private NodeKind nodeKind;
@@ -308,8 +309,7 @@ public class ExpressionEditorContext {
         private static final String VALUE_KEY = "value";
         private static final String VALUE_TYPE_KEY = "valueType";
         private static final String TYPE_CONSTRAINT_KEY = "valueTypeConstraint";
-        private static final String CODEDATA_KEY = "codedata";
-        private static final String IMPORT_STATEMENTS_KEY = "importStatements";
+        private static final String IMPORTS_KEY = "imports";
         private static final String ORG_KEY = "org";
         private static final String MODULE_KEY = "module";
         private static final String NODE_KEY = "node";
@@ -332,16 +332,21 @@ public class ExpressionEditorContext {
                 valueType = property.has(VALUE_TYPE_KEY) ? property.get(VALUE_TYPE_KEY).getAsString() : "";
                 typeConstraint =
                         property.has(TYPE_CONSTRAINT_KEY) ? property.get(TYPE_CONSTRAINT_KEY).getAsString() : null;
-                JsonObject propertyCodedata =
-                        property.has(CODEDATA_KEY) ? property.getAsJsonObject(CODEDATA_KEY) : null;
-                if (propertyCodedata != null) {
-                    importStatements = propertyCodedata.has(IMPORT_STATEMENTS_KEY)
-                            ? propertyCodedata.get(IMPORT_STATEMENTS_KEY).getAsString() : "";
+                if (property.has(IMPORTS_KEY) && property.get(IMPORTS_KEY).isJsonObject()) {
+                    JsonObject imports = property.getAsJsonObject(IMPORTS_KEY);
+                    this.imports = new java.util.HashMap<>();
+                    for (String key : imports.keySet()) {
+                        if (imports.get(key).isJsonPrimitive()) {
+                            this.imports.put(key, imports.get(key).getAsString());
+                        }
+                    }
+                } else {
+                    imports = null;
                 }
             }
 
             if (codedata == null) {
-                importStatements = "";
+                imports = null;
                 org = "";
                 module = "";
                 nodeKind = null;
@@ -368,9 +373,9 @@ public class ExpressionEditorContext {
             return typeConstraint;
         }
 
-        public String importStatements() {
+        public Map<String, String> importStatements() {
             initialize();
-            return importStatements;
+            return imports;
         }
 
         public String org() {

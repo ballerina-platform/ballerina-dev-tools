@@ -47,6 +47,15 @@ public record ModuleInfo(String org, String packageName, String moduleName, Stri
                 packageDescriptor.version().value().toString());
     }
 
+    public static ModuleInfo from(String moduleId) {
+        String[] parts = moduleId.split(":");
+        String version = parts.length != 2 ? null : parts[1];
+        String[] packagePath = parts[0].split("/");
+        String org = packagePath.length != 2 ? null : packagePath[0];
+        String packageName = packagePath[1];
+        return new ModuleInfo(org, packageName, packageName, version);
+    }
+
     public boolean isComplete() {
         return org != null && packageName != null && moduleName != null && version != null;
     }

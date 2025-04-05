@@ -32,6 +32,8 @@ import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.flowmodelgenerator.core.utils.FileSystemUtils;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.DefaultValueGeneratorUtil;
+import io.ballerina.modelgenerator.commons.ModuleInfo;
+import io.ballerina.modelgenerator.commons.PackageUtil;
 import io.ballerina.modelgenerator.commons.ParameterData;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Module;
@@ -40,6 +42,7 @@ import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.formatter.core.FormattingTreeModifier;
 import org.ballerinalang.formatter.core.options.FormattingOptions;
+import org.ballerinalang.langserver.LSClientLogger;
 import org.ballerinalang.langserver.common.utils.CommonUtil;
 import org.ballerinalang.langserver.common.utils.RecordUtil;
 import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
@@ -47,6 +50,7 @@ import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.Range;
 import org.eclipse.lsp4j.TextEdit;
+import org.wso2.ballerinalang.compiler.tree.BLangPackage;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -61,17 +65,27 @@ import java.util.stream.Collectors;
 public class SourceBuilder {
 
     private TokenBuilder tokenBuilder;
+    private Path resolvedPath;
     public final FlowNode flowNode;
     public final WorkspaceManager workspaceManager;
     public final Path filePath;
     private final Map<Path, List<TextEdit>> textEditsMap;
+    private final List<String> imports;
+    private final LSClientLogger lsClientLogger;
 
-    public SourceBuilder(FlowNode flowNode, WorkspaceManager workspaceManager, Path filePath) {
+    public SourceBuilder(FlowNode flowNode, WorkspaceManager workspaceManager, Path filePath,
+                         LSClientLogger lsClientLogger) {
         this.tokenBuilder = new TokenBuilder(this);
         this.textEditsMap = new HashMap<>();
         this.flowNode = flowNode;
         this.workspaceManager = workspaceManager;
         this.filePath = filePath;
+        this.imports = new ArrayList<>();
+        this.lsClientLogger = lsClientLogger;
+    }
+
+    public SourceBuilder(FlowNode flowNode, WorkspaceManager workspaceManager, Path filePath) {
+        this(flowNode, workspaceManager, filePath, null);
     }
 
     public TokenBuilder token() {
@@ -182,17 +196,43 @@ public class SourceBuilder {
             //  have to optimize how we handle the return type, as the current implementation does not allow the user
             //  to assign the error to a variable and handle it.
             // Add the import statements if exists in the return type
-            if (type.codedata() != null && type.codedata().importStatements() != null &&
-                    flowNode.getProperty(Property.CHECK_ERROR_KEY).map(property -> property.value().equals("false"))
-                            .orElse(true)) {
+            if (type.imports() != null && flowNode.getProperty(Property.CHECK_ERROR_KEY)
+                    .map(property -> property.value().equals("false")).orElse(true)) {
                 // TODO: Improve this logic to process all the imports at once
-                for (String importStatement : type.codedata().importStatements().split(",")) {
-                    String[] importParts = importStatement.split("/");
-                    acceptImport(importParts[0], importParts[1]);
-                }
+                type.imports().values().forEach(moduleId -> {
+                    String[] importParts = moduleId.split("/");
+                    acceptImport(importParts[0], importParts[1].split(":")[0]);
+                });
             }
         }
         acceptImport();
+        return this;
+    }
+
+    public Optional<Property> getProperty(String key) {
+        Optional<Property> property = flowNode.getProperty(key);
+        property.ifPresent(prop -> {
+            Map<String, String> propImports = prop.imports();
+            if (propImports != null) {
+                propImports.values().forEach(propImport -> imports.add(propImport.split(":")[0]));
+            }
+        });
+        return property;
+    }
+
+    public SourceBuilder acceptPropertyImports(String fileName) {
+        return acceptPropertyImports(getResolvedPath(fileName));
+    }
+
+    public SourceBuilder acceptPropertyImports() {
+        return acceptPropertyImports(filePath);
+    }
+
+    public SourceBuilder acceptPropertyImports(Path resolvedPath) {
+        imports.forEach(moduleImport -> {
+            String[] split = moduleImport.split("/");
+            acceptImport(resolvedPath, split[0], split[1]);
+        });
         return this;
     }
 
@@ -265,14 +305,29 @@ public class SourceBuilder {
         return this;
     }
 
-    public Optional<String> getExpressionBodyText(String typeName) {
+    public Optional<String> getExpressionBodyText(String typeName, String fileName, Map<String, String> imports) {
         try {
             workspaceManager.loadProject(filePath);
         } catch (WorkspaceDocumentException | EventSyncException e) {
             throw new RuntimeException(e);
         }
+        // Obtain the document
+        Path resolvedPath = getResolvedPath(fileName);
+        Document document = FileSystemUtils.getDocument(workspaceManager, resolvedPath);
+
+        // Obtain the symbols of the imports
+        Map<String, BLangPackage> packageMap = new HashMap<>();
+        if (imports != null) {
+            imports.values().forEach(moduleId -> {
+                ModuleInfo moduleInfo = ModuleInfo.from(moduleId);
+                PackageUtil.pullModuleAndNotify(lsClientLogger, moduleInfo).ifPresent(pkg ->
+                        packageMap.put(pkg.packageName().value(), pkg.getCompilation().defaultModuleBLangPackage())
+                );
+            });
+        }
+
         SemanticModel semanticModel = FileSystemUtils.getSemanticModel(workspaceManager, filePath);
-        Optional<TypeSymbol> optionalType = semanticModel.types().getType(typeName);
+        Optional<TypeSymbol> optionalType = semanticModel.types().getType(document, typeName, packageMap);
         if (optionalType.isEmpty()) {
             return Optional.empty();
         }
@@ -317,7 +372,7 @@ public class SourceBuilder {
 
     public SourceBuilder children(List<FlowNode> flowNodes) {
         for (FlowNode node : flowNodes) {
-            SourceBuilder sourceBuilder = new SourceBuilder(node, workspaceManager, filePath);
+            SourceBuilder sourceBuilder = new SourceBuilder(node, workspaceManager, filePath, lsClientLogger);
             Map<Path, List<TextEdit>> textEdits =
                     NodeBuilder.getNodeFromKind(node.codedata().node()).toSource(sourceBuilder);
             List<TextEdit> filePathTextEdits = textEdits.get(filePath);
@@ -544,6 +599,17 @@ public class SourceBuilder {
         textEditsMap.put(filePath, textEdits);
 
         return this;
+    }
+
+    public Path getResolvedPath(String fileName) {
+        if (resolvedPath != null) {
+            return resolvedPath;
+        }
+        if (flowNode.codedata().isNew() == null || !flowNode.codedata().isNew()) {
+            resolvedPath = filePath;
+        }
+        resolvedPath = workspaceManager.projectRoot(filePath).resolve(fileName);
+        return resolvedPath;
     }
 
     public SourceBuilder comment() {

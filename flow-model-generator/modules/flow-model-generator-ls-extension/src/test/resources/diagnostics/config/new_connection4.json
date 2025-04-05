@@ -39,10 +39,12 @@
       "optional": true,
       "editable": true,
       "advanced": true,
+      "imports": {
+        "sql": "ballerina/sql:1.15.0"
+      },
       "codedata": {
         "kind": "DEFAULTABLE",
-        "originalName": "connectionPool",
-        "importStatements": "ballerina/sql"
+        "originalName": "connectionPool"
       }
     }
   },

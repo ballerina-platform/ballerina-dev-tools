@@ -49,8 +49,7 @@
         "hidden": false,
         "codedata": {
           "kind": "DEFAULTABLE",
-          "originalName": "config",
-          "importStatements": "oas/client1.client1.mod1"
+          "originalName": "config"
         },
         "typeMembers": [
           {
@@ -59,7 +58,10 @@
             "kind": "RECORD_TYPE",
             "selected": false
           }
-        ]
+        ],
+        "imports": {
+          "mod1": "oas/client1.client1.mod1"
+        }
       },
       "serviceUrl": {
         "metadata": {
@@ -84,7 +86,10 @@
             "kind": "BASIC_TYPE",
             "selected": false
           }
-        ]
+        ],
+        "imports": {
+          "mod1": "oas/client1.client1.mod1"
+        }
       },
       "type": {
         "metadata": {
@@ -98,7 +103,10 @@
         "editable": false,
         "advanced": false,
         "hidden": false,
-        "codedata": {}
+        "codedata": {},
+        "imports": {
+          "mod1": "oas/client1.client1.mod1"
+        }
       },
       "variable": {
         "metadata": {
@@ -110,7 +118,10 @@
         "optional": false,
         "editable": true,
         "advanced": false,
-        "hidden": false
+        "hidden": false,
+        "imports": {
+          "mod1": "oas/client1.client1.mod1"
+        }
       },
       "scope": {
         "metadata": {
@@ -122,7 +133,10 @@
         "optional": false,
         "editable": true,
         "advanced": true,
-        "hidden": false
+        "hidden": false,
+        "imports": {
+          "mod1": "oas/client1.client1.mod1"
+        }
       },
       "checkError": {
         "metadata": {
@@ -134,7 +148,10 @@
         "optional": false,
         "editable": false,
         "advanced": true,
-        "hidden": false
+        "hidden": false,
+        "imports": {
+          "mod1": "oas/client1.client1.mod1"
+        }
       }
     },
     "flags": 0
