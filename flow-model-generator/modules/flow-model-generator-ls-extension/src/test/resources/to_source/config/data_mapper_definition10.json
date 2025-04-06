@@ -2,7 +2,7 @@
   "source": "data_mapper/data_mappings.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "91349",
+    "id": "99294",
     "metadata": {
       "label": "Data Mapper",
       "description": "Define a data mapper"
@@ -20,7 +20,7 @@
         },
         "valueType": "IDENTIFIER",
         "valueTypeConstraint": "Global",
-        "value": "mapPersonOrAccess",
+        "value": "transformNat",
         "optional": false,
         "editable": false,
         "advanced": false,
@@ -29,12 +29,12 @@
           "lineRange": {
             "fileName": "data_mappings.bal",
             "startLine": {
-              "line": 60,
+              "line": 68,
               "offset": 9
             },
             "endLine": {
-              "line": 60,
-              "offset": 26
+              "line": 68,
+              "offset": 21
             }
           }
         }
@@ -46,15 +46,14 @@
         },
         "valueType": "TYPE",
         "valueTypeConstraint": "json",
-        "value": "nats:AnydataMessage|http:AccessLogConfiguration",
+        "value": "nats:AnydataMessage",
+        "imports": {
+          "nats": "ballerinax/nats:3.2.0"
+        },
         "optional": false,
         "editable": true,
         "advanced": false,
-        "hidden": false,
-        "imports": {
-          "nats": "ballerinax/nats:3.2.0",
-          "http": "ballerina/http:2.14.0"
-        }
+        "hidden": false
       },
       "parameters": {
         "metadata": {
@@ -101,7 +100,61 @@
           "hidden": false
         },
         "value": {
-          "name": {
+          "bytesMsg": {
+            "metadata": {
+              "label": "Parameter",
+              "description": "Function parameter"
+            },
+            "valueType": "FIXED_PROPERTY",
+            "value": {
+              "type": {
+                "metadata": {
+                  "label": "Type",
+                  "description": "Type of the parameter"
+                },
+                "valueType": "TYPE",
+                "valueTypeConstraint": "json",
+                "value": "nats:BytesMessage",
+                "imports": {
+                  "nats": "ballerinax/nats:3.2.0"
+                },
+                "optional": false,
+                "editable": true,
+                "advanced": false,
+                "hidden": false
+              },
+              "variable": {
+                "metadata": {
+                  "label": "Name",
+                  "description": "Name of the parameter"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "bytesMsg",
+                "optional": false,
+                "editable": true,
+                "advanced": false,
+                "hidden": false,
+                "codedata": {
+                  "lineRange": {
+                    "fileName": "data_mappings.bal",
+                    "startLine": {
+                      "line": 68,
+                      "offset": 40
+                    },
+                    "endLine": {
+                      "line": 68,
+                      "offset": 48
+                    }
+                  }
+                }
+              }
+            },
+            "optional": false,
+            "editable": false,
+            "advanced": false,
+            "hidden": false
+          },
+          "subject": {
             "metadata": {
               "label": "Parameter",
               "description": "Function parameter"
@@ -127,7 +180,7 @@
                   "description": "Name of the parameter"
                 },
                 "valueType": "IDENTIFIER",
-                "value": "name",
+                "value": "subject",
                 "optional": false,
                 "editable": true,
                 "advanced": false,
@@ -136,63 +189,12 @@
                   "lineRange": {
                     "fileName": "data_mappings.bal",
                     "startLine": {
-                      "line": 48,
-                      "offset": 26
+                      "line": 68,
+                      "offset": 57
                     },
                     "endLine": {
-                      "line": 48,
-                      "offset": 30
-                    }
-                  }
-                }
-              }
-            },
-            "optional": false,
-            "editable": false,
-            "advanced": false,
-            "hidden": false
-          },
-          "age": {
-            "metadata": {
-              "label": "Parameter",
-              "description": "Function parameter"
-            },
-            "valueType": "FIXED_PROPERTY",
-            "value": {
-              "type": {
-                "metadata": {
-                  "label": "Type",
-                  "description": "Type of the parameter"
-                },
-                "valueType": "TYPE",
-                "valueTypeConstraint": "json",
-                "value": "int",
-                "optional": false,
-                "editable": true,
-                "advanced": false,
-                "hidden": false
-              },
-              "variable": {
-                "metadata": {
-                  "label": "Name",
-                  "description": "Name of the parameter"
-                },
-                "valueType": "IDENTIFIER",
-                "value": "age",
-                "optional": false,
-                "editable": true,
-                "advanced": false,
-                "hidden": false,
-                "codedata": {
-                  "lineRange": {
-                    "fileName": "data_mappings.bal",
-                    "startLine": {
-                      "line": 48,
-                      "offset": 36
-                    },
-                    "endLine": {
-                      "line": 48,
-                      "offset": 39
+                      "line": 68,
+                      "offset": 64
                     }
                   }
                 }
@@ -230,19 +232,6 @@
       {
         "range": {
           "start": {
-            "line": 1,
-            "character": 0
-          },
-          "end": {
-            "line": 1,
-            "character": 0
-          }
-        },
-        "newText": "import ballerina/http;"
-      },
-      {
-        "range": {
-          "start": {
             "line": 17,
             "character": 0
           },
@@ -251,7 +240,7 @@
             "character": 0
           }
         },
-        "newText": "function mapPersonOrAccess(string name, int age) returns nats:AnydataMessage|http:AccessLogConfiguration => {content: {}, subject: \"\"};"
+        "newText": "function transformNat(nats:BytesMessage bytesMsg, string subject) returns nats:AnydataMessage => {\n    subject: \"\",\n    content:\n};"
       }
     ]
   }

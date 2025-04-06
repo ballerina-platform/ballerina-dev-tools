@@ -127,7 +127,7 @@ public class AutomationBuilder extends FunctionDefinitionBuilder {
                 .keyword(SyntaxKind.OPEN_PAREN_TOKEN);
 
         // Write the automation parameters
-        Optional<Property> parameters = sourceBuilder.flowNode.getProperty(Property.PARAMETERS_KEY);
+        Optional<Property> parameters = sourceBuilder.getProperty(Property.PARAMETERS_KEY);
         if (parameters.isPresent() && parameters.get().value() instanceof Map<?, ?> paramMap) {
             List<String> paramList = new ArrayList<>();
             for (Object obj : paramMap.values()) {
@@ -147,7 +147,7 @@ public class AutomationBuilder extends FunctionDefinitionBuilder {
         sourceBuilder.token().keyword(SyntaxKind.CLOSE_PAREN_TOKEN);
 
         // Write the return type
-        Optional<Property> returnError = sourceBuilder.flowNode.getProperty(RETURN_ERROR_KEY);
+        Optional<Property> returnError = sourceBuilder.getProperty(RETURN_ERROR_KEY);
         boolean hasReturnError = returnError.isPresent() && returnError.get().value().equals(true);
         if (hasReturnError) {
             sourceBuilder.token()
@@ -164,13 +164,12 @@ public class AutomationBuilder extends FunctionDefinitionBuilder {
             }
             sourceBuilder.token().closeBrace()
                     .stepOut()
-                    .textEdit(false, AUTOMATIONS_BAL);
-            Path path = sourceBuilder.workspaceManager.projectRoot(sourceBuilder.filePath).resolve(AUTOMATIONS_BAL);
-            sourceBuilder.acceptImport(path, "ballerina", "log");
+                    .textEdit(SourceBuilder.SourceKind.DECLARATION);
+            sourceBuilder.acceptImport("ballerina", "log");
         } else {
             sourceBuilder
                     .token().skipFormatting().stepOut()
-                    .textEdit(false);
+                    .textEdit();
         }
         return sourceBuilder.build();
     }

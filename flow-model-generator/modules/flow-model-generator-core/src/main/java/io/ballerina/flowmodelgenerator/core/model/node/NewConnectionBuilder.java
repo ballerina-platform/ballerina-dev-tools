@@ -83,7 +83,7 @@ public class NewConnectionBuilder extends CallBuilder {
                         Set.of(Property.VARIABLE_KEY, Property.TYPE_KEY, Property.SCOPE_KEY,
                                 Property.CHECK_ERROR_KEY));
 
-        Optional<Property> scope = sourceBuilder.flowNode.getProperty(Property.SCOPE_KEY);
+        Optional<Property> scope = sourceBuilder.getProperty(Property.SCOPE_KEY);
         if (scope.isEmpty()) {
             throw new IllegalStateException("Scope is not defined for the new connection node");
         }
@@ -91,15 +91,21 @@ public class NewConnectionBuilder extends CallBuilder {
         Path filePath = sourceBuilder.filePath;
         switch (scope.get().value().toString()) {
             case Property.LOCAL_SCOPE -> {
-                sourceBuilder.textEdit(false).acceptImport();
+                sourceBuilder.textEdit();
                 checkDriverImport(sourceBuilder, codedata, filePath);
             }
             case Property.GLOBAL_SCOPE -> {
-                sourceBuilder.textEdit(false, CONNECTIONS_BAL);
+                sourceBuilder.textEdit();
                 Path projectRoot = sourceBuilder.workspaceManager.projectRoot(filePath);
                 checkDriverImport(sourceBuilder, codedata, projectRoot.resolve(CONNECTIONS_BAL));
             }
             default -> throw new IllegalStateException("Invalid scope for the new connection node");
+        }
+        // TODO: This should be removed once the codedata is refactored to capture the module name
+        if (Boolean.TRUE.equals(codedata.isGenerated())) {
+            sourceBuilder.addImport(codedata.module());
+        } else {
+            sourceBuilder.acceptImport();
         }
 
         return sourceBuilder.build();
@@ -109,7 +115,7 @@ public class NewConnectionBuilder extends CallBuilder {
         // TODO: This information should be embedded to the package index.
         // Check if the new connection requires a driver import
         if (CONNECTION_DRIVERS.contains(codedata.getImportSignature())) {
-            sourceBuilder.acceptImport(filePath, codedata.org(), codedata.module() + DRIVER_SUB_PACKAGE, true);
+            sourceBuilder.acceptImport(codedata.org(), codedata.module() + DRIVER_SUB_PACKAGE, true);
         }
     }
 

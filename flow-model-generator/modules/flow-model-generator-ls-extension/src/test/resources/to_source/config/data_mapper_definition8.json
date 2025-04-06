@@ -237,7 +237,7 @@
             "character": 0
           }
         },
-        "newText": "function mapPerson(string name, int age) returns nats:AnydataMessage=> {\n    subject: \"\",\n    content:\n};"
+        "newText": "function mapPerson(string name, int age) returns nats:AnydataMessage => {\n    subject: \"\",\n    content:\n};"
       }
     ]
   }

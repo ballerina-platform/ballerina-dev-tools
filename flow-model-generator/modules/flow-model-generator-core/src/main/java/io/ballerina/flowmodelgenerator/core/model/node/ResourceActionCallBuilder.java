@@ -112,7 +112,7 @@ public class ResourceActionCallBuilder extends CallBuilder {
             sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
         }
 
-        Optional<Property> connection = flowNode.getProperty(Property.CONNECTION_KEY);
+        Optional<Property> connection = sourceBuilder.getProperty(Property.CONNECTION_KEY);
         if (connection.isEmpty()) {
             throw new IllegalStateException("Client must be defined for an action call node");
         }
@@ -132,7 +132,7 @@ public class ResourceActionCallBuilder extends CallBuilder {
         keys.removeAll(ignoredKeys);
 
         for (String key : keys) {
-            Optional<Property> property = flowNode.getProperty(key);
+            Optional<Property> property = sourceBuilder.getProperty(key);
             if (property.isEmpty()) {
                 continue;
             }
@@ -161,7 +161,7 @@ public class ResourceActionCallBuilder extends CallBuilder {
                 .name(sourceBuilder.flowNode.codedata().symbol())
                 .stepOut()
                 .functionParameters(flowNode, ignoredKeys)
-                .textEdit(false)
+                .textEdit()
                 .acceptImportWithVariableType()
                 .build();
     }

@@ -1,0 +1,128 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "36908",
+    "metadata": {
+      "label": "Declare Variable",
+      "description": "Assign a value to a variable"
+    },
+    "codedata": {
+      "node": "VARIABLE",
+      "lineRange": {
+        "fileName": "imported_expressions.bal",
+        "startLine": {
+          "line": 5,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 5,
+          "offset": 80
+        }
+      },
+      "sourceCode": "string someId = random:createDecimal().toString() + uuid:createRandomUuid();"
+    },
+    "returning": false,
+    "properties": {
+      "expression": {
+        "metadata": {
+          "label": "Expression",
+          "description": "Initialize with value"
+        },
+        "valueType": "EXPRESSION",
+        "value": "random:createDecimal().toString() + uuid:createRandomUuid()",
+        "imports": {
+          "random": "ballerina/random:1.7.0",
+          "uuid": "ballerina/uuid:1.10.0"
+        },
+        "optional": true,
+        "editable": true,
+        "advanced": false,
+        "hidden": false
+      },
+      "variable": {
+        "metadata": {
+          "label": "Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "someId",
+        "optional": false,
+        "editable": false,
+        "advanced": false,
+        "hidden": false,
+        "codedata": {
+          "lineRange": {
+            "fileName": "imported_expressions.bal",
+            "startLine": {
+              "line": 5,
+              "offset": 11
+            },
+            "endLine": {
+              "line": 5,
+              "offset": 17
+            }
+          }
+        }
+      },
+      "type": {
+        "metadata": {
+          "label": "Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "string",
+        "placeholder": "var",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "hidden": false,
+        "codedata": {}
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import ballerina/uuid;"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import ballerina/random;"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 5,
+            "character": 4
+          },
+          "end": {
+            "line": 5,
+            "character": 80
+          }
+        },
+        "newText": "string someId = random:createDecimal().toString() + uuid:createRandomUuid();"
+      }
+    ]
+  }
+}

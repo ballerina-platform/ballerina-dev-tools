@@ -52,7 +52,6 @@ public class DataMapperDefinitionBuilder extends NodeBuilder {
     public static final String PARAMETERS_LABEL = "Inputs";
     public static final String PARAMETERS_DOC = "Input variables of the data mapper function";
 
-    private static final String DATA_MAPPINGS_BAL = "data_mappings.bal";
     private static final Gson gson = new Gson();
 
     public static final String RETURN_TYPE = TypeKind.JSON.typeName();
@@ -97,7 +96,7 @@ public class DataMapperDefinitionBuilder extends NodeBuilder {
         sourceBuilder.token().keyword(SyntaxKind.FUNCTION_KEYWORD);
 
         // Write the data mapper name
-        Optional<Property> property = sourceBuilder.flowNode.getProperty(Property.FUNCTION_NAME_KEY);
+        Optional<Property> property = sourceBuilder.getProperty(Property.FUNCTION_NAME_KEY);
         if (property.isEmpty()) {
             throw new IllegalStateException("Data mapper name is not present");
         }
@@ -140,8 +139,7 @@ public class DataMapperDefinitionBuilder extends NodeBuilder {
         if (lineRange == null) {
             // The return type symbol should be present
             Optional<String> returnBody =
-                    sourceBuilder.getExpressionBodyText(returnTypeString, DATA_MAPPINGS_BAL,
-                            returnType.get().imports());
+                    sourceBuilder.getExpressionBodyText(returnTypeString, returnType.get().imports());
             if (returnBody.isEmpty()) {
                 throw new IllegalStateException("Failed to produce the data mapper output");
             }
@@ -152,14 +150,13 @@ public class DataMapperDefinitionBuilder extends NodeBuilder {
                         .name(returnBody.get())
                         .endOfStatement()
                         .stepOut()
-                    .textEdit(false, DATA_MAPPINGS_BAL);
+                    .textEdit(SourceBuilder.SourceKind.DECLARATION);
         } else {
             sourceBuilder
                     .token().skipFormatting().stepOut()
-                    .textEdit(false);
+                    .textEdit();
         }
         return sourceBuilder
-                .acceptPropertyImports(DATA_MAPPINGS_BAL)
                 .build();
     }
 

@@ -213,8 +213,7 @@ public class DataMapperBuilder extends NodeBuilder {
             throw new IllegalStateException("Output must be defined for a data mapper node");
         }
 
-        String bodyText = sourceBuilder.getExpressionBodyText(output.get().value().toString(),
-                null, null).orElse("");
+        String bodyText = sourceBuilder.getExpressionBodyText(output.get().value().toString(), null).orElse("");
 
         sourceBuilder.token()
                 .keyword(SyntaxKind.FUNCTION_KEYWORD)
@@ -231,8 +230,8 @@ public class DataMapperBuilder extends NodeBuilder {
                 .endOfStatement();
 
         getTransformFunctionLocation(sourceBuilder, functionNameString).ifPresentOrElse(
-                lineRange -> sourceBuilder.textEdit(false, "data_mappings.bal", lineRange, false),
-                () -> sourceBuilder.textEdit(false, "data_mappings.bal"));
+                lineRange -> sourceBuilder.textEdit(),
+                () -> sourceBuilder.textEdit());
 
         return sourceBuilder.build();
     }

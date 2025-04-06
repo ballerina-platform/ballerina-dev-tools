@@ -49,7 +49,7 @@ public class MethodCall extends CallBuilder {
             sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
         }
 
-        Optional<Property> connection = flowNode.getProperty(Property.CONNECTION_KEY);
+        Optional<Property> connection = sourceBuilder.getProperty(Property.CONNECTION_KEY);
         if (connection.isEmpty()) {
             throw new IllegalStateException("Object must be defined for a method call node");
         }
@@ -61,7 +61,7 @@ public class MethodCall extends CallBuilder {
                 .stepOut()
                 .functionParameters(flowNode, Set.of(Property.CONNECTION_KEY, Property.VARIABLE_KEY, Property.TYPE_KEY,
                         Property.CHECK_ERROR_KEY, "view"))
-                .textEdit(false)
+                .textEdit()
                 .acceptImportWithVariableType()
                 .build();
     }

@@ -63,6 +63,7 @@ import io.ballerina.compiler.syntax.tree.ForEachStatementNode;
 import io.ballerina.compiler.syntax.tree.ForkStatementNode;
 import io.ballerina.compiler.syntax.tree.FunctionArgumentNode;
 import io.ballerina.compiler.syntax.tree.FunctionBodyBlockNode;
+import io.ballerina.compiler.syntax.tree.FunctionBodyNode;
 import io.ballerina.compiler.syntax.tree.FunctionCallExpressionNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.IfElseStatementNode;
@@ -226,11 +227,12 @@ class CodeAnalyzer extends NodeVisitor {
             return;
         }
 
+        FunctionBodyNode functionBodyNode = functionDefinitionNode.functionBody();
         startNode(NodeKind.EVENT_START, functionDefinitionNode).codedata()
-                .lineRange(functionDefinitionNode.functionBody().lineRange())
+                .lineRange(functionBodyNode.lineRange())
                 .sourceCode(functionDefinitionNode.toSourceCode().strip());
         endNode();
-        super.visit(functionDefinitionNode);
+        functionBodyNode.accept(this);
     }
 
     @Override
@@ -1314,7 +1316,7 @@ class CodeAnalyzer extends NodeVisitor {
                     .metadata()
                     .description(AssignBuilder.DESCRIPTION)
                     .stepOut()
-                    .properties().expression((ExpressionNode) null, VariableBuilder.EXPRESSION_DOC, true);
+                    .properties().expression(null, VariableBuilder.EXPRESSION_DOC, true);
         } else {
             ExpressionNode initializerNode = initializer.get();
             initializerNode.accept(this);
@@ -1414,7 +1416,7 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(ExpressionStatementNode expressionStatementNode) {
-        super.visit(expressionStatementNode);
+        expressionStatementNode.expression().accept(this);
         if (isNodeUnidentified()) {
             handleExpressionNode(expressionStatementNode);
         }
@@ -2114,6 +2116,11 @@ class CodeAnalyzer extends NodeVisitor {
             statementOrComment.accept(this);
             branchBuilder.node(buildNode());
         }
+    }
+
+    @Override
+    protected void visitSyntaxNode(Node node) {
+        // SKip visiting the child node of non-overridden nodes
     }
 
     private void genCommentNode(CommentMetadata comment) {

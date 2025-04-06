@@ -90,7 +90,7 @@ public class WaitBuilder extends NodeBuilder {
             sourceBuilder.token().keyword(SyntaxKind.OPEN_BRACE_TOKEN);
         }
 
-        Optional<Property> futures = sourceBuilder.flowNode.getProperty(FUTURES_KEY);
+        Optional<Property> futures = sourceBuilder.getProperty(FUTURES_KEY);
         if (futures.isEmpty() || !(futures.get().value() instanceof Map<?, ?> futureMap)) {
             throw new IllegalStateException("Wait node does not have futures to wait for");
         }
@@ -126,6 +126,6 @@ public class WaitBuilder extends NodeBuilder {
             sourceBuilder.token().keyword(SyntaxKind.CLOSE_BRACE_TOKEN);
         }
 
-        return sourceBuilder.token().endOfStatement().stepOut().textEdit(false).build();
+        return sourceBuilder.token().endOfStatement().stepOut().textEdit().build();
     }
 }

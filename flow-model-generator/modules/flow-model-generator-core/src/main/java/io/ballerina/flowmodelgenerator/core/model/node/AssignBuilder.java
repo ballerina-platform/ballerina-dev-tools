@@ -19,7 +19,6 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
@@ -50,9 +49,7 @@ public class AssignBuilder extends NodeBuilder {
 
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
-        FlowNode flowNode = sourceBuilder.flowNode;
-
-        Optional<Property> variable = flowNode.getProperty(Property.VARIABLE_KEY);
+        Optional<Property> variable = sourceBuilder.getProperty(Property.VARIABLE_KEY);
         if (variable.isEmpty()) {
             throw new RuntimeException("Variable is not set for the Assign node");
         }
@@ -62,13 +59,13 @@ public class AssignBuilder extends NodeBuilder {
                 .keyword(SyntaxKind.EQUAL_TOKEN)
                 .whiteSpace();
 
-        Optional<Property> expression = sourceBuilder.flowNode.getProperty(Property.EXPRESSION_KEY);
+        Optional<Property> expression = sourceBuilder.getProperty(Property.EXPRESSION_KEY);
         if (expression.isEmpty()) {
             throw new RuntimeException("Expression is not set for the Assign node");
         }
         sourceBuilder.token().expression(expression.get()).endOfStatement();
 
-        return sourceBuilder.textEdit(false).build();
+        return sourceBuilder.textEdit().build();
     }
 
     @Override

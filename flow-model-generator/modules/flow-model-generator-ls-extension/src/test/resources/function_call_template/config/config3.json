@@ -6,7 +6,7 @@
     "org": "ballerina",
     "module": "io",
     "symbol": "println",
-    "version": "1.6.1"
+    "version": "1.8.0"
   },
   "kind": "AVAILABLE",
   "functionCall": "io:println(${1})",

@@ -51,7 +51,7 @@ public class CommentBuilder extends NodeBuilder {
 
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
-        Optional<Property> property = sourceBuilder.flowNode.getProperty(Property.COMMENT_KEY);
+        Optional<Property> property = sourceBuilder.getProperty(Property.COMMENT_KEY);
         if (property.isEmpty()) {
             throw new IllegalStateException("Comment must be defined for a comment node");
         }

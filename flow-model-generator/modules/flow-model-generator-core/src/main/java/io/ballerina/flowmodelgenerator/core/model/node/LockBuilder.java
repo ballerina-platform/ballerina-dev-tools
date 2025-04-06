@@ -55,7 +55,7 @@ public class LockBuilder extends NodeBuilder {
                 .stepOut()
                 .body(body.isPresent() ? body.get().children() : Collections.emptyList())
                 .onFailure()
-                .textEdit(false)
+                .textEdit()
                 .build();
     }
 
