@@ -66,6 +66,7 @@ import io.ballerina.compiler.syntax.tree.FunctionBodyBlockNode;
 import io.ballerina.compiler.syntax.tree.FunctionBodyNode;
 import io.ballerina.compiler.syntax.tree.FunctionCallExpressionNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
+import io.ballerina.compiler.syntax.tree.FunctionSignatureNode;
 import io.ballerina.compiler.syntax.tree.IfElseStatementNode;
 import io.ballerina.compiler.syntax.tree.ImplicitNewExpressionNode;
 import io.ballerina.compiler.syntax.tree.ListConstructorExpressionNode;
@@ -126,6 +127,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.CallBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.DataMapperBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.FailBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.FunctionCall;
+import io.ballerina.flowmodelgenerator.core.model.node.FunctionDefinitionBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.IfBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.JsonPayloadBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.MethodCall;
@@ -226,11 +228,23 @@ class CodeAnalyzer extends NodeVisitor {
         if (symbol.isEmpty()) {
             return;
         }
-
+        // Create the start event node
         FunctionBodyNode functionBodyNode = functionDefinitionNode.functionBody();
         startNode(NodeKind.EVENT_START, functionDefinitionNode).codedata()
                 .lineRange(functionBodyNode.lineRange())
                 .sourceCode(functionDefinitionNode.toSourceCode().strip());
+
+        // Add the function signature to the metadata
+        FunctionSignatureNode functionSignatureNode = functionDefinitionNode.functionSignature();
+        List<String> parametersList = functionSignatureNode.parameters().stream()
+                .map(parameter -> parameter.toSourceCode().strip())
+                .toList();
+        if (!parametersList.isEmpty()) {
+            nodeBuilder.metadata().addData(FunctionDefinitionBuilder.METADATA_PARAMETERS_KEY, parametersList);
+        }
+        functionSignatureNode.returnTypeDesc().ifPresent(returnTypeDesc -> nodeBuilder.metadata()
+                .addData(FunctionDefinitionBuilder.METADATA_RETURN_KEY, returnTypeDesc.type().toSourceCode().strip()));
+
         endNode();
         functionBodyNode.accept(this);
     }
@@ -1447,7 +1461,6 @@ class CodeAnalyzer extends NodeVisitor {
             handleExpressionNode(methodCallExpressionNode);
             return;
         }
-
 
         ExpressionNode expressionNode = methodCallExpressionNode.expression();
         NameReferenceNode nameReferenceNode = methodCallExpressionNode.methodName();

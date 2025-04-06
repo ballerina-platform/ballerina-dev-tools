@@ -15,7 +15,10 @@
       {
         "id": "43523",
         "metadata": {
-          "label": "Start"
+          "label": "Start",
+          "data": {
+            "return": "Menu"
+          }
         },
         "codedata": {
           "node": "EVENT_START",

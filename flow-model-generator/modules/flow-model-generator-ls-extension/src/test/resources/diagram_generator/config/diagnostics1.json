@@ -15,7 +15,12 @@
       {
         "id": "33450",
         "metadata": {
-          "label": "Start"
+          "label": "Start",
+          "data": {
+            "parameters": [
+              "string c"
+            ]
+          }
         },
         "codedata": {
           "node": "EVENT_START",

@@ -52,6 +52,9 @@ public class FunctionDefinitionBuilder extends NodeBuilder {
     public static final String PARAMETERS_LABEL = "Parameters";
     public static final String PARAMETERS_DOC = "Function parameters";
 
+    public static final String METADATA_RETURN_KEY = "return";
+    public static final String METADATA_PARAMETERS_KEY = "parameters";
+
     private static final Gson gson = new Gson();
 
     public static Property getParameterSchema() {
