@@ -1,0 +1,133 @@
+{
+  "start": {
+    "line": 52,
+    "offset": 0
+  },
+  "end": {
+    "line": 54,
+    "offset": 1
+  },
+  "source": "new_data.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "new_data.bal",
+    "nodes": [
+      {
+        "id": "84104",
+        "metadata": {
+          "label": "Start"
+        },
+        "codedata": {
+          "node": "EVENT_START",
+          "lineRange": {
+            "fileName": "new_data.bal",
+            "startLine": {
+              "line": 52,
+              "offset": 23
+            },
+            "endLine": {
+              "line": 54,
+              "offset": 1
+            }
+          },
+          "sourceCode": "function invalidType() {\n    str s = \"Hello world\";\n}"
+        },
+        "returning": false,
+        "diagnostics": {
+          "hasDiagnostics": true
+        },
+        "flags": 0
+      },
+      {
+        "id": "84470",
+        "metadata": {
+          "label": "Declare Variable",
+          "description": "Assign a value to a variable"
+        },
+        "codedata": {
+          "node": "VARIABLE",
+          "lineRange": {
+            "fileName": "new_data.bal",
+            "startLine": {
+              "line": 53,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 53,
+              "offset": 26
+            }
+          },
+          "sourceCode": "str s = \"Hello world\";"
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Initialize with value"
+            },
+            "valueType": "EXPRESSION",
+            "value": "\"Hello world\"",
+            "optional": true,
+            "editable": true,
+            "advanced": false,
+            "hidden": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Name",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "s",
+            "optional": false,
+            "editable": false,
+            "advanced": false,
+            "hidden": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "new_data.bal",
+                "startLine": {
+                  "line": 53,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 53,
+                  "offset": 9
+                }
+              }
+            }
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "Unknown Type",
+            "placeholder": "var",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "hidden": false,
+            "diagnostics": {
+              "hasDiagnostics": true,
+              "diagnostics": [
+                {
+                  "severity": "ERROR",
+                  "message": "unknown type 'str'"
+                }
+              ]
+            },
+            "codedata": {}
+          }
+        },
+        "diagnostics": {
+          "hasDiagnostics": true
+        },
+        "flags": 0
+      }
+    ],
+    "connections": []
+  }
+}

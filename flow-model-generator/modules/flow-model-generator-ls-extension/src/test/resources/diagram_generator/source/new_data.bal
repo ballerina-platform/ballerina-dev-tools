@@ -49,3 +49,7 @@ function testNewDataWithoutExpression() returns error? {
 function calculate(int i) returns int|error {
     return 3;
 }
+
+function invalidType() {
+    str s = "Hello world";
+}
