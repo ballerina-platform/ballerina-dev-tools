@@ -15,7 +15,15 @@
       {
         "id": "51465",
         "metadata": {
-          "label": "Start"
+          "label": "Start",
+          "data": {
+            "parameters": [
+              "string 'from",
+              "string to",
+              "decimal amount"
+            ],
+            "return": "json|http:InternalServerError"
+          }
         },
         "codedata": {
           "node": "EVENT_START",

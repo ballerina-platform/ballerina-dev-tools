@@ -15,7 +15,13 @@
       {
         "id": "44924",
         "metadata": {
-          "label": "Start"
+          "label": "Start",
+          "data": {
+            "parameters": [
+              "boolean isKandy"
+            ],
+            "return": "error?"
+          }
         },
         "codedata": {
           "node": "EVENT_START",

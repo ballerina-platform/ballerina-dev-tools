@@ -15,7 +15,13 @@
       {
         "id": "55154",
         "metadata": {
-          "label": "Start"
+          "label": "Start",
+          "data": {
+            "parameters": [
+              "string payload"
+            ],
+            "return": "Apple|jsondata:Error"
+          }
         },
         "codedata": {
           "node": "EVENT_START",

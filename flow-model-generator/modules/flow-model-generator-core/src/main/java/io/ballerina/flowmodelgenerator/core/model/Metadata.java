@@ -88,6 +88,14 @@ public record Metadata(String label, String description, List<String> keywords, 
             return this;
         }
 
+        public Builder<T> data(String key, Object value) {
+            if (data == null) {
+                data = new LinkedHashMap<>();
+            }
+            data.put(key, value);
+            return this;
+        }
+
         public Builder<T> data(Map<String, Object> data) {
             this.data = data;
             return this;

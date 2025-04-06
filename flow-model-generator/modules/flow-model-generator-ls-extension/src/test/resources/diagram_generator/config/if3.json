@@ -15,7 +15,13 @@
       {
         "id": "69755",
         "metadata": {
-          "label": "Start"
+          "label": "Start",
+          "data": {
+            "parameters": [
+              "Food food"
+            ],
+            "return": "Food"
+          }
         },
         "codedata": {
           "node": "EVENT_START",
