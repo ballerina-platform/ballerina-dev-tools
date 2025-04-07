@@ -28,7 +28,8 @@
       "DELETE",
       "PATCH",
       "OPTIONS",
-      "HEAD"
+      "HEAD",
+      "DEFAULT"
     ]
   },
   "name": {
