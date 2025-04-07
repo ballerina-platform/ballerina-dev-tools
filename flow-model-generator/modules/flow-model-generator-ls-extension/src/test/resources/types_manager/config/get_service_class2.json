@@ -47,7 +47,6 @@
         "valueType": "MULTIPLE_SELECT",
         "value": [
           "distinct",
-          "isolated",
           "service"
         ],
         "optional": true,
@@ -109,7 +108,7 @@
           "description": "Is this isolated"
         },
         "valueType": "FLAG",
-        "value": "true",
+        "value": "false",
         "optional": true,
         "editable": true,
         "advanced": false,
@@ -161,7 +160,6 @@
       {
         "accessor": "get",
         "qualifiers": [
-          "ISOLATED",
           "RESOURCE"
         ],
         "parameters": [],
@@ -201,7 +199,7 @@
               "description": "Is this isolated"
             },
             "valueType": "FLAG",
-            "value": "true",
+            "value": "false",
             "optional": true,
             "editable": true,
             "advanced": false,

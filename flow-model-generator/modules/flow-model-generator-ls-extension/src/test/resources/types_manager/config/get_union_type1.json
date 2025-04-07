@@ -4,7 +4,7 @@
     "line": 63,
     "offset": 5
   },
-  "description": "Get a record type data",
+  "description": "Get a union type data",
   "type": {
     "name": "Misc",
     "editable": true,
@@ -486,6 +486,102 @@
             "allowAdditionalFields": false
           },
           "name": "[int, decimal]",
+          "optional": false
+        }
+      ],
+      "allowAdditionalFields": false
+    },
+    {
+      "name": "Color",
+      "editable": true,
+      "metadata": {
+        "label": "Color",
+        "description": ""
+      },
+      "codedata": {
+        "node": "ENUM",
+        "lineRange": {
+          "fileName": "types.bal",
+          "startLine": {
+            "line": 42,
+            "offset": 5
+          },
+          "endLine": {
+            "line": 42,
+            "offset": 10
+          }
+        }
+      },
+      "properties": {
+        "name": {
+          "metadata": {
+            "label": "Type name",
+            "description": "Unique name to identify the type"
+          },
+          "valueType": "IDENTIFIER",
+          "value": "Color",
+          "optional": false,
+          "editable": false,
+          "advanced": false,
+          "hidden": false
+        },
+        "isArray": {
+          "metadata": {
+            "label": "Is array type",
+            "description": "Is this type an array or list value"
+          },
+          "valueType": "FLAG",
+          "value": "false",
+          "optional": true,
+          "editable": true,
+          "advanced": true,
+          "hidden": false
+        },
+        "arraySize": {
+          "metadata": {
+            "label": "Size of the array",
+            "description": "Array dimensions"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": false,
+          "advanced": false,
+          "hidden": false
+        },
+        "description": {
+          "metadata": {
+            "label": "Type description",
+            "description": "Detailed description about the type"
+          },
+          "valueType": "STRING",
+          "value": "",
+          "optional": false,
+          "editable": true,
+          "advanced": false,
+          "hidden": false
+        }
+      },
+      "members": [
+        {
+          "kind": "NAME",
+          "refs": [],
+          "type": "\"RED\"",
+          "name": "RED",
+          "optional": false
+        },
+        {
+          "kind": "NAME",
+          "refs": [],
+          "type": "\"YELLOW\"",
+          "name": "YELLOW",
+          "optional": false
+        },
+        {
+          "kind": "NAME",
+          "refs": [],
+          "type": "\"GREEN\"",
+          "name": "GREEN",
           "optional": false
         }
       ],
