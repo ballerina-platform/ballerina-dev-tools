@@ -531,6 +531,14 @@
           ]
 
         }
+      },
+      "annotations": {
+        "ServiceConfig": {
+          "attachmentPoints": ["SERVICE"],
+          "displayName": "Service Configuration",
+          "description": "Define advanced queue configurations ",
+          "typeConstrain": "rabbitmq:RabbitMQServiceConfig"
+        }
       }
     },
     {
