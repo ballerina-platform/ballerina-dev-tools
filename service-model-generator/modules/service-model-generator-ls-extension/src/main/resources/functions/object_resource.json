@@ -82,7 +82,7 @@
         "advanced": false,
         "addNewButton": false
       },
-      "enabled": false,
+      "enabled": true,
       "editable": false,
       "optional": false,
       "advanced": false
