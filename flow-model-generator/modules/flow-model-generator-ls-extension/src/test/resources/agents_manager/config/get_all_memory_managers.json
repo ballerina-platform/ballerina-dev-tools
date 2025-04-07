@@ -7,9 +7,9 @@
       "node": "CLASS_INIT",
       "org": "ballerinax",
       "module": "ai",
-      "object": "DefaultMessageWindowChatMemoryManager",
+      "object": "MessageWindowChatMemory",
       "symbol": "init",
-      "version": "1.0.0"
+      "version": "1.0.1"
     }
   ]
 }

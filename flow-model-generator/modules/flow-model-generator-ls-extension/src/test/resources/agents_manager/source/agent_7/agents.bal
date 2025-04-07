@@ -80,7 +80,7 @@ isolated function getChatAssistantMessage(string content) returns ai:ChatAssista
 // final MockLlm model = new;
 final ai:Agent agent = check new (model = myModel,
     systemPrompt = {role: "Math tutor", instructions: "Help the students with their questions."},
-    tools = [set, sum, mutiply], agentType = ai:REACT_AGENT);
+    tools = [set, sum, mutiply], agentType = ai:REACT_AGENT, memory = new ai:MessageWindowChatMemory(20));
 
 public function main() returns error? {
     string result = check agent->run("What is the sum of 1 and 2?");

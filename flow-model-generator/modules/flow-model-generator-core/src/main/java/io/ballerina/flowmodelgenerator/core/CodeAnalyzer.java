@@ -377,7 +377,7 @@ class CodeAnalyzer extends NodeVisitor {
                 ExpressionNode toolsArg = null;
                 ExpressionNode modelArg = null;
                 ExpressionNode systemPromptArg = null;
-                ExpressionNode memoryManager = null;
+                ExpressionNode memory = null;
                 for (FunctionArgumentNode arg : argList.get().arguments()) {
                     if (arg.kind() == SyntaxKind.NAMED_ARG) {
                         NamedArgumentNode namedArgumentNode = (NamedArgumentNode) arg;
@@ -387,8 +387,8 @@ class CodeAnalyzer extends NodeVisitor {
                             modelArg = namedArgumentNode.expression();
                         } else if (namedArgumentNode.argumentName().name().text().equals("systemPrompt")) {
                             systemPromptArg = namedArgumentNode.expression();
-                        } else if (namedArgumentNode.argumentName().name().text().equals("memoryManager")) {
-                            memoryManager = namedArgumentNode.expression();
+                        } else if (namedArgumentNode.argumentName().name().text().equals("memory")) {
+                            memory = namedArgumentNode.expression();
                         }
                     }
                 }
@@ -436,13 +436,19 @@ class CodeAnalyzer extends NodeVisitor {
                     nodeBuilder.metadata().addData("agent", agentData);
                 }
 
-                if (memoryManager == null) {
+                if (memory == null) {
                     String defaultMemoryManagerName = getDefaultMemoryManagerName(classSymbol.get());
-                    nodeBuilder.metadata().addData("memoryManager",
-                            new MemoryManagerData("", defaultMemoryManagerName));
-                } else if (memoryManager.kind() == SyntaxKind.SIMPLE_NAME_REFERENCE) {
-                    nodeBuilder.metadata().addData("memoryManager",
-                            new MemoryManagerData(((SimpleNameReferenceNode) memoryManager).name().text().trim(), ""));
+                    nodeBuilder.metadata().addData("memory",
+                            new MemoryManagerData(defaultMemoryManagerName, "10"));
+                } else if (memory.kind() == SyntaxKind.EXPLICIT_NEW_EXPRESSION) {
+                    ExplicitNewExpressionNode newExpr = (ExplicitNewExpressionNode) memory;
+                    SeparatedNodeList<FunctionArgumentNode> arguments = newExpr.parenthesizedArgList().arguments();
+                    String size = "";
+                    if (arguments.size() == 1) {
+                        size = arguments.get(0).toSourceCode();
+                    }
+                    nodeBuilder.metadata().addData("memory",
+                            new MemoryManagerData(newExpr.typeDescriptor().toSourceCode(), size));
                 }
 
                 ModelData modelUrl = getModelIconUrl(modelArg);
@@ -471,16 +477,13 @@ class CodeAnalyzer extends NodeVisitor {
                     break;
                 }
                 RecordFieldSymbol recordFieldSymbol =
-                        ((RecordTypeSymbol) rawType).fieldDescriptors().get("memoryManager");
+                        ((RecordTypeSymbol) rawType).fieldDescriptors().get("memory");
                 if (recordFieldSymbol == null) {
                     break;
                 }
                 if (recordFieldSymbol.hasDefaultValue()) {
-                    Optional<String> optName = recordFieldSymbol.typeDescriptor().getName();
-                    if (optName.isEmpty()) {
-                        break;
-                    }
-                    return optName.get();
+                    // TODO: This should be derived from the default value of memory parameter
+                    return "ai:MessageWindowChatMemory";
                 }
             }
         }
@@ -2237,7 +2240,7 @@ class CodeAnalyzer extends NodeVisitor {
     }
 
     // TODO: Update data based on requirements
-    private record MemoryManagerData(String name, String type) {
+    private record MemoryManagerData(String type, String size) {
 
     }
 }
