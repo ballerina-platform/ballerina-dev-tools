@@ -382,8 +382,8 @@ public class TypesManager {
                 addDependencyTypes(((ArrayTypeSymbol) typeSymbol).memberTypeDescriptor(), references);
             }
             case UNION -> {
-                ((UnionTypeSymbol) typeSymbol).userSpecifiedMemberTypes().forEach(memberTypes -> {
-                    addDependencyTypes(memberTypes, references);
+                ((UnionTypeSymbol) typeSymbol).userSpecifiedMemberTypes().forEach(memberType -> {
+                    addDependencyTypes(memberType, references);
                 });
             }
             case ERROR -> {
