@@ -43,22 +43,22 @@ public class Value {
     private List<Value> choices;
     private boolean addNewButton = false;
     private List<PropertyTypeMemberInfo> typeMembers;
-    private Map<String, String> imports;
+    private final Map<String, String> imports;
 
     public Value(MetaData metadata, String valueType, boolean editable, boolean optional) {
         this(metadata, true, editable, null, valueType,
                 null, false, null, optional, false,
-                null, null, null, null);
+                null, null, null, new HashMap<>());
     }
 
     public Value() {
         this(new MetaData("", ""), false, true, null, null,
                 null, false, null, false, false,
-                null, null, null, null);
+                null, null, null, new HashMap<>());
     }
 
     public Value(String value, String valueType, boolean isEnabled) {
-        this(null, isEnabled, true, value, valueType, null, false, null, false, false, null, null, null, null);
+        this(null, isEnabled, true, value, valueType, null, false, null, false, false, null, null, null, new HashMap<>());
     }
 
     public Value(MetaData metadata, boolean enabled, boolean editable, String value, String valueType,
@@ -290,14 +290,10 @@ public class Value {
         return imports;
     }
 
-    public void setImports(Map<String, String> imports) {
-        this.imports = imports;
-    }
-
     public static Value getTcpValue(String value) {
         return new Value(null, true, true, value,
                 null, null, false, null, false, false,
-                null, null, null, null);
+                null, null, null, new HashMap<>());
     }
 
     public static class ValueBuilder {

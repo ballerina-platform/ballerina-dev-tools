@@ -514,7 +514,8 @@ public final class HttpUtil {
         };
     }
 
-    public static String getStatusCodeResponse(HttpResponse response, List<String> statusCodeResponses) {
+    public static String getStatusCodeResponse(HttpResponse response, List<String> statusCodeResponses,
+                                               Map<String, String> imports) {
         Value name = response.getName();
         if (Objects.nonNull(name) && name.isEnabledWithValue()) {
             String statusCode = response.getStatusCode().getValue();
@@ -523,13 +524,19 @@ public final class HttpUtil {
                 return response.getName().getValue();
             }
             statusCodeResponses.add(getNewResponseTypeStr(statusCodeRes, name.getValue(), response.getBody(),
-                    response.getHeaders()));
+                    response.getHeaders(), imports));
             return response.getName().getValue();
         }
         if (response.getType().isEnabledWithValue()) {
+            if (Objects.nonNull(response.getType().getImports())) {
+                imports.putAll(response.getType().getImports());
+            }
             return response.getType().getValue();
         }
         if (Objects.nonNull(response.getBody()) && response.getBody().isEnabledWithValue()) {
+            if (Objects.nonNull(response.getBody().getImports())) {
+                imports.putAll(response.getBody().getImports());
+            }
             return response.getBody().getValue();
         }
         Value statusCode = response.getStatusCode();
@@ -542,10 +549,14 @@ public final class HttpUtil {
         return null;
     }
 
-    private static String getNewResponseTypeStr(String statusCodeTypeName, String name, Value body, Value headers) {
+    private static String getNewResponseTypeStr(String statusCodeTypeName, String name, Value body, Value headers,
+                                                Map<String, String> imports) {
         String template = "public type %s record {|%n\t*http:%s;".formatted(name, statusCodeTypeName);
         if (Objects.nonNull(body) && body.isEnabledWithValue()) {
             template += "\t%s body;%n".formatted(body.getValue());
+            if (Objects.nonNull(body.getImports())) {
+                imports.putAll(body.getImports());
+            }
         }
         if (Objects.nonNull(headers) && headers.isEnabledWithValue()) {
             template += "\tmap<%s> headers;%n".formatted(String.join("|", headers.getValues()));
