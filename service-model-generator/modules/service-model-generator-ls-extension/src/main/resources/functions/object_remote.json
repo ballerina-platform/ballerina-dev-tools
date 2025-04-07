@@ -41,6 +41,7 @@
           "label": "Parameter Type",
           "description": "The type of the parameter"
         },
+        "valueType": "TYPE",
         "enabled": false,
         "editable": true,
         "isType": false,
@@ -53,6 +54,7 @@
           "label": "Parameter Name",
           "description": "The name of the parameter"
         },
+        "valueType": "IDENTIFIER",
         "enabled": false,
         "editable": true,
         "isType": false,
@@ -65,6 +67,7 @@
           "label": "Default Value",
           "description": "The default value of the parameter"
         },
+        "valueType": "EXPRESSION",
         "enabled": false,
         "editable": true,
         "isType": false,

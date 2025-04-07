@@ -448,7 +448,7 @@ public class ListenerUtil {
                 .setCodedata(new Codedata("LISTENER_VAR_NAME"))
                 .value("")
                 .valueType("IDENTIFIER")
-                .setValueTypeConstraint("string")
+                .setValueTypeConstraint("Global")
                 .isType(false)
                 .editable(true)
                 .enabled(true)
