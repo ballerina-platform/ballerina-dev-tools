@@ -320,7 +320,11 @@ public class SourceCodeGenerator {
     }
 
     private String generateArrayTypeDescriptor(TypeData typeData) {
-        String arraySize = typeData.properties().get(Property.ARRAY_SIZE).value().toString();
+        Property arraySizeProperty = typeData.properties().get(Property.ARRAY_SIZE);
+        String arraySize = "";
+        if (arraySizeProperty != null) {
+            arraySize =  arraySizeProperty.value().toString();
+        }
 
         if (typeData.members().size() != 1) {
             return "[" + arraySize + "]";
@@ -331,6 +335,7 @@ public class SourceCodeGenerator {
 
         if (!(type instanceof String)) {
             NodeKind nodeKind = toTypeData(type).codedata().node();
+            // Add parenthesis to union and intersection types
             if (nodeKind == NodeKind.UNION || nodeKind == NodeKind.INTERSECTION) {
                 transformed = "(" + transformed + ")";
             }

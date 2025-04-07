@@ -87,6 +87,7 @@ public class CreateAndUpdateTypeTest extends AbstractLSTest {
                 {Path.of("create_array_type1.json")},
                 {Path.of("create_array_type2.json")},
                 {Path.of("create_array_type3.json")},
+                {Path.of("create_array_type4.json")},
                 {Path.of("create_record_type1.json")},
                 {Path.of("create_record_type2.json")},
                 {Path.of("create_record_type3.json")},
