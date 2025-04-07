@@ -1,6 +1,6 @@
 {
-  "source": "type.bal",
   "description": "",
+  "source": "type.bal",
   "output": {
     "Types": {
       "PositiveInt": {
@@ -18,24 +18,6 @@
         },
         "type": "TYPE",
         "name": "PositiveInt",
-        "scope": "Global",
-        "children": {}
-      },
-      "AppError": {
-        "id": "AppError",
-        "location": {
-          "fileName": "type.bal",
-          "startLine": {
-            "line": 59,
-            "offset": 0
-          },
-          "endLine": {
-            "line": 59,
-            "offset": 36
-          }
-        },
-        "type": "TYPE",
-        "name": "AppError",
         "scope": "Global",
         "children": {}
       },
@@ -57,6 +39,24 @@
         "scope": "Global",
         "children": {}
       },
+      "AppError": {
+        "id": "AppError",
+        "location": {
+          "fileName": "type.bal",
+          "startLine": {
+            "line": 59,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 59,
+            "offset": 36
+          }
+        },
+        "type": "TYPE",
+        "name": "AppError",
+        "scope": "Global",
+        "children": {}
+      },
       "StringMap": {
         "id": "StringMap",
         "location": {
@@ -72,6 +72,42 @@
         },
         "type": "TYPE",
         "name": "StringMap",
+        "scope": "Global",
+        "children": {}
+      },
+      "PersonService": {
+        "id": "PersonService",
+        "location": {
+          "fileName": "type.bal",
+          "startLine": {
+            "line": 105,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 130,
+            "offset": 1
+          }
+        },
+        "type": "TYPE",
+        "name": "PersonService",
+        "scope": "Global",
+        "children": {}
+      },
+      "MyDecimal": {
+        "id": "MyDecimal",
+        "location": {
+          "fileName": "type.bal",
+          "startLine": {
+            "line": 6,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 6,
+            "offset": 30
+          }
+        },
+        "type": "TYPE",
+        "name": "MyDecimal",
         "scope": "Global",
         "children": {}
       },
@@ -93,21 +129,21 @@
         "scope": "Global",
         "children": {}
       },
-      "MyDecimal": {
-        "id": "MyDecimal",
+      "Direction": {
+        "id": "Direction",
         "location": {
           "fileName": "type.bal",
           "startLine": {
-            "line": 6,
+            "line": 97,
             "offset": 0
           },
           "endLine": {
-            "line": 6,
-            "offset": 30
+            "line": 102,
+            "offset": 1
           }
         },
         "type": "TYPE",
-        "name": "MyDecimal",
+        "name": "Direction",
         "scope": "Global",
         "children": {}
       },
@@ -273,6 +309,24 @@
         "scope": "Global",
         "children": {}
       },
+      "KeyedPersonTable": {
+        "id": "KeyedPersonTable",
+        "location": {
+          "fileName": "type.bal",
+          "startLine": {
+            "line": 67,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 67,
+            "offset": 53
+          }
+        },
+        "type": "TYPE",
+        "name": "KeyedPersonTable",
+        "scope": "Global",
+        "children": {}
+      },
       "XMLText": {
         "id": "XMLText",
         "location": {
@@ -291,21 +345,21 @@
         "scope": "Global",
         "children": {}
       },
-      "KeyedPersonTable": {
-        "id": "KeyedPersonTable",
+      "Color": {
+        "id": "Color",
         "location": {
           "fileName": "type.bal",
           "startLine": {
-            "line": 67,
+            "line": 88,
             "offset": 0
           },
           "endLine": {
-            "line": 67,
-            "offset": 53
+            "line": 94,
+            "offset": 1
           }
         },
         "type": "TYPE",
-        "name": "KeyedPersonTable",
+        "name": "Color",
         "scope": "Global",
         "children": {}
       },
@@ -489,24 +543,6 @@
         "scope": "Global",
         "children": {}
       },
-      "ReadOnlyPerson": {
-        "id": "ReadOnlyPerson",
-        "location": {
-          "fileName": "type.bal",
-          "startLine": {
-            "line": 63,
-            "offset": 0
-          },
-          "endLine": {
-            "line": 63,
-            "offset": 45
-          }
-        },
-        "type": "TYPE",
-        "name": "ReadOnlyPerson",
-        "scope": "Global",
-        "children": {}
-      },
       "MyString": {
         "id": "MyString",
         "location": {
@@ -525,21 +561,21 @@
         "scope": "Global",
         "children": {}
       },
-      "ClosedRecord": {
-        "id": "ClosedRecord",
+      "ReadOnlyPerson": {
+        "id": "ReadOnlyPerson",
         "location": {
           "fileName": "type.bal",
           "startLine": {
-            "line": 28,
+            "line": 63,
             "offset": 0
           },
           "endLine": {
-            "line": 31,
-            "offset": 3
+            "line": 63,
+            "offset": 45
           }
         },
         "type": "TYPE",
-        "name": "ClosedRecord",
+        "name": "ReadOnlyPerson",
         "scope": "Global",
         "children": {}
       },
@@ -558,6 +594,24 @@
         },
         "type": "TYPE",
         "name": "Person",
+        "scope": "Global",
+        "children": {}
+      },
+      "ClosedRecord": {
+        "id": "ClosedRecord",
+        "location": {
+          "fileName": "type.bal",
+          "startLine": {
+            "line": 28,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 31,
+            "offset": 3
+          }
+        },
+        "type": "TYPE",
+        "name": "ClosedRecord",
         "scope": "Global",
         "children": {}
       },

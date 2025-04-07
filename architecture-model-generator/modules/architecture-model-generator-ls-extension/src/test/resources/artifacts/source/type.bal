@@ -84,3 +84,48 @@ public type Employee record {|
 // Constrained types
 public type SmallInt int:Signed16;
 public type PositiveInt int:Unsigned32;
+
+// Enum type
+public enum Color {
+    RED,
+    GREEN,
+    BLUE,
+    YELLOW,
+    BLACK
+}
+
+// Direction enum type
+public enum Direction {
+    NORTH,
+    EAST,
+    SOUTH,
+    WEST
+}
+
+// Service class definition
+public service class PersonService {
+    private final Person[] people = [];
+    
+    public function init() {
+        // Initialize service
+        self.people.push({name: "John", age: 30, hobbies: ["Reading", "Swimming"]});
+    }
+    
+    resource function get people() returns Person[] {
+        return self.people;
+    }
+    
+    resource function get person/[string name]() returns Person|error {
+        foreach Person p in self.people {
+            if p.name == name {
+                return p;
+            }
+        }
+        return error("Person not found");
+    }
+    
+    resource function post person(Person newPerson) returns Person|error {
+        self.people.push(newPerson);
+        return newPerson;
+    }
+}
