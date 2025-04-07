@@ -58,7 +58,8 @@ public class Value {
     }
 
     public Value(String value, String valueType, boolean isEnabled) {
-        this(null, isEnabled, true, value, valueType, null, false, null, false, false, null, null, null, new HashMap<>());
+        this(null, isEnabled, true, value, valueType, null, false, null,
+                false, false, null, null, null, new HashMap<>());
     }
 
     public Value(MetaData metadata, boolean enabled, boolean editable, String value, String valueType,
