@@ -50,7 +50,8 @@
           "inDisplayAnnotation": false,
           "type": "LISTENER"
         },
-        "addNewButton": true
+        "addNewButton": true,
+        "imports": {}
       },
       "serviceType": {
         "metadata": {
@@ -76,7 +77,8 @@
           "inDisplayAnnotation": false,
           "type": "SERVICE_TYPE"
         },
-        "addNewButton": false
+        "addNewButton": false,
+        "imports": {}
       },
       "stringLiteral": {
         "metadata": {
@@ -99,7 +101,8 @@
           "inDisplayAnnotation": false,
           "type": "STRING_LITERAL"
         },
-        "addNewButton": false
+        "addNewButton": false,
+        "imports": {}
       },
       "annotServiceConfig": {
         "metadata": {
@@ -131,7 +134,8 @@
             "kind": "RECORD_TYPE",
             "selected": true
           }
-        ]
+        ],
+        "imports": {}
       }
     },
     "codedata": {
@@ -177,7 +181,8 @@
             "inDisplayAnnotation": false,
             "type": "FUNCTION_NAME"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "parameters": [
           {
@@ -200,7 +205,8 @@
               "placeholder": "rabbitmq:AnydataMessage",
               "optional": true,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "name": {
               "metadata": {
@@ -222,7 +228,8 @@
                 "inDisplayAnnotation": false,
                 "type": "PARAMETER_NAME"
               },
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "defaultValue": {
               "metadata": {
@@ -238,7 +245,8 @@
               "placeholder": "",
               "optional": true,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "enabled": true,
             "editable": true,
@@ -265,7 +273,8 @@
               "placeholder": "rabbitmq:Caller",
               "optional": true,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "name": {
               "metadata": {
@@ -287,7 +296,8 @@
                 "inDisplayAnnotation": false,
                 "type": "PARAMETER_NAME"
               },
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "defaultValue": {
               "metadata": {
@@ -303,7 +313,8 @@
               "placeholder": "",
               "optional": true,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "enabled": true,
             "editable": true,
@@ -373,7 +384,8 @@
             "inDisplayAnnotation": false,
             "type": "FUNCTION_NAME"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "parameters": [
           {
@@ -396,7 +408,8 @@
               "placeholder": "rabbitmq:AnydataMessage",
               "optional": true,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "name": {
               "metadata": {
@@ -418,7 +431,8 @@
                 "inDisplayAnnotation": false,
                 "type": "PARAMETER_NAME"
               },
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "defaultValue": {
               "metadata": {
@@ -434,7 +448,8 @@
               "placeholder": "",
               "optional": true,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "enabled": true,
             "editable": true,
@@ -461,7 +476,8 @@
               "placeholder": "rabbitmq:Error",
               "optional": true,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "name": {
               "metadata": {
@@ -483,7 +499,8 @@
                 "inDisplayAnnotation": false,
                 "type": "PARAMETER_NAME"
               },
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "defaultValue": {
               "metadata": {
@@ -499,7 +516,8 @@
               "placeholder": "",
               "optional": true,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "enabled": true,
             "editable": true,

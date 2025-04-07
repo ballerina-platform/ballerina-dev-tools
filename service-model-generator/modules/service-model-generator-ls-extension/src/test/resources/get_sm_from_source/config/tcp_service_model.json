@@ -50,7 +50,8 @@
           "inDisplayAnnotation": false,
           "type": "LISTENER"
         },
-        "addNewButton": true
+        "addNewButton": true,
+        "imports": {}
       },
       "serviceType": {
         "metadata": {
@@ -76,7 +77,8 @@
           "inDisplayAnnotation": false,
           "type": "SERVICE_TYPE"
         },
-        "addNewButton": false
+        "addNewButton": false,
+        "imports": {}
       }
     },
     "codedata": {
@@ -122,7 +124,8 @@
             "inDisplayAnnotation": false,
             "type": "FUNCTION_NAME"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "parameters": [
           {
@@ -145,7 +148,8 @@
               "placeholder": "tcp:Caller",
               "optional": true,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "name": {
               "metadata": {
@@ -167,7 +171,8 @@
                 "inDisplayAnnotation": false,
                 "type": "PARAMETER_NAME"
               },
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "defaultValue": {
               "metadata": {
@@ -183,7 +188,8 @@
               "placeholder": "",
               "optional": true,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "enabled": true,
             "editable": true,
