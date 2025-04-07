@@ -66,8 +66,10 @@ public class SourceCodeGenerator {
 
         // Build the resource functions.
         StringBuilder resourceFunctions = new StringBuilder();
-        for (Function function : typeData.functions()) {
-            resourceFunctions.append(generateResourceFunction(function));
+        if (typeData.functions() != null) {
+            for (Function function : typeData.functions()) {
+                resourceFunctions.append(generateResourceFunction(function));
+            }
         }
 
         String template = "%nservice class %s {%s%n\tfunction init() {%n\t}%s%n}";
