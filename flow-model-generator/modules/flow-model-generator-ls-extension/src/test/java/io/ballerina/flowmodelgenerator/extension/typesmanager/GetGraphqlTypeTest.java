@@ -65,7 +65,8 @@ public class GetGraphqlTypeTest extends AbstractLSTest {
                 {Path.of("get_service_class1.json")},
                 {Path.of("get_service_class2.json")},
                 {Path.of("get_service_class3.json")},
-                {Path.of("get_gql_service_class_with_annotation.json")}
+                {Path.of("get_gql_service_class_with_annotation.json")},
+                {Path.of("get_gql_service_class1.json")}
         };
     }
 

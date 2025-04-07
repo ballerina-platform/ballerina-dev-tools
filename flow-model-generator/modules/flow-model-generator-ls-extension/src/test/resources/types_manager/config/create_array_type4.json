@@ -1,0 +1,132 @@
+{
+  "filePath": "test_pack1/types.bal",
+  "description": "Create a new array type",
+  "type": {
+    "name": "Parents",
+    "editable": true,
+    "metadata": {
+      "label": "Parents",
+      "description": ""
+    },
+    "codedata": {
+      "node": "ARRAY"
+    },
+    "properties": {
+      "name": {
+        "metadata": {
+          "label": "Type name",
+          "description": "Unique name to identify the type"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "Parents",
+        "optional": false,
+        "editable": false,
+        "advanced": false,
+        "hidden": false
+      },
+      "isPublic": {
+        "metadata": {
+          "label": "public",
+          "description": "Is this public"
+        },
+        "valueType": "FLAG",
+        "value": "false",
+        "optional": true,
+        "editable": true,
+        "advanced": false,
+        "hidden": false
+      },
+      "description": {
+        "metadata": {
+          "label": "Type description",
+          "description": "Detailed description about the type"
+        },
+        "valueType": "STRING",
+        "value": "",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "hidden": false
+      }
+    },
+    "members": [
+      {
+        "kind": "TYPE",
+        "refs": [],
+        "type": {
+          "editable": false,
+          "codedata": {
+            "node": "UNION"
+          },
+          "properties": {
+            "isArray": {
+              "metadata": {
+                "label": "Is array type",
+                "description": "Is this type an array or list value"
+              },
+              "valueType": "FLAG",
+              "value": "false",
+              "optional": true,
+              "editable": true,
+              "advanced": true,
+              "hidden": false
+            },
+            "arraySize": {
+              "metadata": {
+                "label": "Size of the array",
+                "description": "Array dimensions"
+              },
+              "valueType": "STRING",
+              "value": "",
+              "optional": false,
+              "editable": false,
+              "advanced": false,
+              "hidden": false
+            }
+          },
+          "members": [
+            {
+              "kind": "TYPE",
+              "refs": [
+                "PersonWithChildren"
+              ],
+              "type": "PersonWithChildren",
+              "name": "PersonWithChildren",
+              "optional": false
+            },
+            {
+              "kind": "TYPE",
+              "refs": [
+                "Person"
+              ],
+              "type": "Person",
+              "name": "Person",
+              "optional": false
+            }
+          ],
+          "allowAdditionalFields": false
+        },
+        "name": "PersonWithChildren|Person",
+        "optional": false
+      }
+    ],
+    "allowAdditionalFields": false
+  },
+  "output": {
+    "test_pack1/types.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 111,
+            "character": 1
+          },
+          "end": {
+            "line": 111,
+            "character": 1
+          }
+        },
+        "newText": "\ntype Parents (PersonWithChildren|Person)[];"
+      }
+    ]
+  }
+}

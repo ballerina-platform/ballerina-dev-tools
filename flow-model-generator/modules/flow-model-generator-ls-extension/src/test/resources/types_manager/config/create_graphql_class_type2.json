@@ -49,8 +49,7 @@
       }
     },
     "members": [],
-    "includes": [],
-    "functions": []
+    "includes": []
   },
   "output": {
     "test_pack3/graphql_types.bal": [

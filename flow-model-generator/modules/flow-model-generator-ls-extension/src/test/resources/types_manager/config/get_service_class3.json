@@ -81,7 +81,6 @@
       {
         "accessor": "get",
         "qualifiers": [
-          "ISOLATED",
           "RESOURCE"
         ],
         "parameters": [],
@@ -123,7 +122,7 @@
               "description": "Is this isolated"
             },
             "valueType": "FLAG",
-            "value": "true",
+            "value": "false",
             "optional": true,
             "editable": true,
             "advanced": false,
@@ -134,7 +133,6 @@
       {
         "accessor": "get",
         "qualifiers": [
-          "ISOLATED",
           "RESOURCE"
         ],
         "parameters": [],
@@ -176,7 +174,7 @@
               "description": "Is this isolated"
             },
             "valueType": "FLAG",
-            "value": "true",
+            "value": "false",
             "optional": true,
             "editable": true,
             "advanced": false,
@@ -186,7 +184,6 @@
       },
       {
         "qualifiers": [
-          "ISOLATED",
           "REMOTE"
         ],
         "parameters": [
@@ -238,7 +235,7 @@
               "description": "Is this isolated"
             },
             "valueType": "FLAG",
-            "value": "true",
+            "value": "false",
             "optional": true,
             "editable": true,
             "advanced": false,
@@ -499,7 +496,6 @@
           },
           "valueType": "MULTIPLE_SELECT",
           "value": [
-            "isolated",
             "service"
           ],
           "optional": true,
@@ -561,7 +557,7 @@
             "description": "Is this isolated"
           },
           "valueType": "FLAG",
-          "value": "true",
+          "value": "false",
           "optional": true,
           "editable": true,
           "advanced": false,
@@ -619,7 +615,6 @@
         {
           "accessor": "get",
           "qualifiers": [
-            "ISOLATED",
             "RESOURCE"
           ],
           "parameters": [],
@@ -659,7 +654,7 @@
                 "description": "Is this isolated"
               },
               "valueType": "FLAG",
-              "value": "true",
+              "value": "false",
               "optional": true,
               "editable": true,
               "advanced": false,
@@ -670,7 +665,6 @@
         {
           "accessor": "get",
           "qualifiers": [
-            "ISOLATED",
             "RESOURCE"
           ],
           "parameters": [],
@@ -710,7 +704,7 @@
                 "description": "Is this isolated"
               },
               "valueType": "FLAG",
-              "value": "true",
+              "value": "false",
               "optional": true,
               "editable": true,
               "advanced": false,
@@ -721,7 +715,6 @@
         {
           "accessor": "get",
           "qualifiers": [
-            "ISOLATED",
             "RESOURCE"
           ],
           "parameters": [],
@@ -761,7 +754,7 @@
                 "description": "Is this isolated"
               },
               "valueType": "FLAG",
-              "value": "true",
+              "value": "false",
               "optional": true,
               "editable": true,
               "advanced": false,
