@@ -260,7 +260,8 @@
             "DELETE",
             "PATCH",
             "OPTIONS",
-            "HEAD"
+            "HEAD",
+            "DEFAULT"
           ],
           "addNewButton": false
         },

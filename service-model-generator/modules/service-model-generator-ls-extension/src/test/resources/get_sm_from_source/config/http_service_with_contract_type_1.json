@@ -118,7 +118,8 @@
             "DELETE",
             "PATCH",
             "OPTIONS",
-            "HEAD"
+            "HEAD",
+            "DEFAULT"
           ],
           "addNewButton": false
         },
@@ -789,7 +790,8 @@
             "DELETE",
             "PATCH",
             "OPTIONS",
-            "HEAD"
+            "HEAD",
+            "DEFAULT"
           ],
           "addNewButton": false
         },
@@ -1513,7 +1515,8 @@
             "DELETE",
             "PATCH",
             "OPTIONS",
-            "HEAD"
+            "HEAD",
+            "DEFAULT"
           ],
           "addNewButton": false
         },
@@ -2313,7 +2316,8 @@
             "DELETE",
             "PATCH",
             "OPTIONS",
-            "HEAD"
+            "HEAD",
+            "DEFAULT"
           ],
           "addNewButton": false
         },
@@ -3060,7 +3064,8 @@
             "DELETE",
             "PATCH",
             "OPTIONS",
-            "HEAD"
+            "HEAD",
+            "DEFAULT"
           ],
           "addNewButton": false
         },
