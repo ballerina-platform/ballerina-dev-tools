@@ -200,7 +200,6 @@
               "editable": true,
               "value": "rabbitmq:AnydataMessage",
               "valueType": "TYPE",
-              "valueTypeConstraint": "string",
               "isType": true,
               "placeholder": "rabbitmq:AnydataMessage",
               "optional": true,
@@ -214,10 +213,9 @@
                 "description": "The message received from the RabbitMQ queue"
               },
               "enabled": true,
-              "editable": false,
+              "editable": true,
               "value": "message",
               "valueType": "IDENTIFIER",
-              "valueTypeConstraint": "string",
               "isType": false,
               "placeholder": "message",
               "optional": false,
@@ -240,8 +238,7 @@
               "editable": true,
               "value": "",
               "valueType": "EXPRESSION",
-              "valueTypeConstraint": "string",
-              "isType": true,
+              "isType": false,
               "placeholder": "",
               "optional": true,
               "advanced": false,
@@ -250,7 +247,7 @@
             },
             "enabled": true,
             "editable": true,
-            "optional": true,
+            "optional": false,
             "advanced": false
           },
           {
@@ -258,17 +255,16 @@
               "label": "caller",
               "description": "The RabbitMQ caller object to acknowledge the message"
             },
-            "kind": "REQUIRED",
+            "kind": "OPTIONAL",
             "type": {
               "metadata": {
                 "label": "Type",
                 "description": "The type of the parameter"
               },
               "enabled": true,
-              "editable": true,
+              "editable": false,
               "value": "rabbitmq:Caller",
               "valueType": "TYPE",
-              "valueTypeConstraint": "string",
               "isType": true,
               "placeholder": "rabbitmq:Caller",
               "optional": true,
@@ -282,10 +278,9 @@
                 "description": "The RabbitMQ caller object to acknowledge the message"
               },
               "enabled": true,
-              "editable": false,
+              "editable": true,
               "value": "caller",
               "valueType": "IDENTIFIER",
-              "valueTypeConstraint": "string",
               "isType": false,
               "placeholder": "caller",
               "optional": false,
@@ -308,8 +303,7 @@
               "editable": true,
               "value": "",
               "valueType": "EXPRESSION",
-              "valueTypeConstraint": "string",
-              "isType": true,
+              "isType": false,
               "placeholder": "",
               "optional": true,
               "advanced": false,
@@ -341,6 +335,7 @@
         "enabled": true,
         "optional": false,
         "editable": true,
+        "canAddParameters": false,
         "codedata": {
           "lineRange": {
             "fileName": "main.bal",
@@ -403,7 +398,6 @@
               "editable": true,
               "value": "rabbitmq:AnydataMessage",
               "valueType": "TYPE",
-              "valueTypeConstraint": "string",
               "isType": true,
               "placeholder": "rabbitmq:AnydataMessage",
               "optional": true,
@@ -417,10 +411,9 @@
                 "description": "The message received from the RabbitMQ queue"
               },
               "enabled": true,
-              "editable": false,
+              "editable": true,
               "value": "message",
               "valueType": "IDENTIFIER",
-              "valueTypeConstraint": "string",
               "isType": false,
               "placeholder": "message",
               "optional": false,
@@ -443,8 +436,7 @@
               "editable": true,
               "value": "",
               "valueType": "EXPRESSION",
-              "valueTypeConstraint": "string",
-              "isType": true,
+              "isType": false,
               "placeholder": "",
               "optional": true,
               "advanced": false,
@@ -453,7 +445,7 @@
             },
             "enabled": true,
             "editable": true,
-            "optional": true,
+            "optional": false,
             "advanced": false
           },
           {
@@ -468,10 +460,9 @@
                 "description": "The type of the parameter"
               },
               "enabled": true,
-              "editable": true,
+              "editable": false,
               "value": "rabbitmq:Error",
               "valueType": "TYPE",
-              "valueTypeConstraint": "string",
               "isType": true,
               "placeholder": "rabbitmq:Error",
               "optional": true,
@@ -485,10 +476,9 @@
                 "description": "The error occurred during the message processing"
               },
               "enabled": true,
-              "editable": false,
+              "editable": true,
               "value": "rabbitmqError",
               "valueType": "IDENTIFIER",
-              "valueTypeConstraint": "string",
               "isType": false,
               "placeholder": "rabbitmqError",
               "optional": false,
@@ -511,8 +501,7 @@
               "editable": true,
               "value": "",
               "valueType": "EXPRESSION",
-              "valueTypeConstraint": "string",
-              "isType": true,
+              "isType": false,
               "placeholder": "",
               "optional": true,
               "advanced": false,
@@ -521,7 +510,7 @@
             },
             "enabled": true,
             "editable": true,
-            "optional": true,
+            "optional": false,
             "advanced": false
           }
         ],
@@ -543,7 +532,8 @@
         },
         "enabled": false,
         "optional": false,
-        "editable": true
+        "editable": true,
+        "canAddParameters": false
       }
     ]
   }

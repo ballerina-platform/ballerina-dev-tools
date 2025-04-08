@@ -140,10 +140,9 @@
                 "description": "The type of the parameter"
               },
               "enabled": true,
-              "editable": true,
+              "editable": false,
               "value": "tcp:Caller",
               "valueType": "TYPE",
-              "valueTypeConstraint": "string",
               "isType": true,
               "placeholder": "tcp:Caller",
               "optional": true,
@@ -157,10 +156,9 @@
                 "description": "The new client connection"
               },
               "enabled": true,
-              "editable": false,
+              "editable": true,
               "value": "caller",
               "valueType": "IDENTIFIER",
-              "valueTypeConstraint": "string",
               "isType": false,
               "placeholder": "caller",
               "optional": false,
@@ -183,8 +181,7 @@
               "editable": true,
               "value": "",
               "valueType": "EXPRESSION",
-              "valueTypeConstraint": "string",
-              "isType": true,
+              "isType": false,
               "placeholder": "",
               "optional": true,
               "advanced": false,
@@ -193,7 +190,7 @@
             },
             "enabled": true,
             "editable": true,
-            "optional": true,
+            "optional": false,
             "advanced": false
           }
         ],
@@ -216,6 +213,7 @@
         "enabled": true,
         "optional": false,
         "editable": true,
+        "canAddParameters": false,
         "codedata": {
           "lineRange": {
             "fileName": "tcp.bal",
