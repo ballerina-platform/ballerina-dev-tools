@@ -19,27 +19,7 @@
       "items": [
         {
           "metadata": {
-            "label": "gRPC Client",
-            "description": "The base client used in the generated client code to provide the capability for initiating the contact and executing remote calls with a remote gRPC service.",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.13.2.png",
-            "data": {
-              "isAgentSupport": false
-            }
-          },
-          "codedata": {
-            "node": "NEW_CONNECTION",
-            "org": "ballerina",
-            "module": "grpc",
-            "object": "Client",
-            "symbol": "init",
-            "version": "1.13.2",
-            "isGenerated": false
-          },
-          "enabled": true
-        },
-        {
-          "metadata": {
-            "label": "HTTP Client",
+            "label": "HTTP",
             "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.3.png",
             "data": {
@@ -59,7 +39,7 @@
         },
         {
           "metadata": {
-            "label": "UDP Client",
+            "label": "UDP",
             "description": "Initializes the UDP connectionless client based on the provided configurations.",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_udp_1.12.1.png",
             "data": {
@@ -79,7 +59,7 @@
         },
         {
           "metadata": {
-            "label": "FTP Client",
+            "label": "FTP",
             "description": "Represents an FTP client that intracts with an FTP server",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_ftp_2.12.0.png",
             "data": {
@@ -99,7 +79,7 @@
         },
         {
           "metadata": {
-            "label": "Websocket Client",
+            "label": "Websocket",
             "description": "Represents a WebSocket synchronous client endpoint.",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.13.1.png",
             "data": {
@@ -119,7 +99,7 @@
         },
         {
           "metadata": {
-            "label": "GraphQL Client",
+            "label": "GraphQL",
             "description": "The Ballerina GraphQL client that can be used to communicate with GraphQL APIs.",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.15.0.png",
             "data": {
@@ -139,7 +119,7 @@
         },
         {
           "metadata": {
-            "label": "TCP Client",
+            "label": "TCP",
             "description": "Initializes the TCP connection client based on the provided configurations.",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_tcp_1.12.1.png",
             "data": {
@@ -166,7 +146,7 @@
       "items": [
         {
           "metadata": {
-            "label": "MS SQL Client",
+            "label": "MS SQL",
             "description": "Represents an MSSQL database client.",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mssql_1.14.0.png",
             "data": {
@@ -186,7 +166,7 @@
         },
         {
           "metadata": {
-            "label": "MongoDB Client",
+            "label": "MongoDB",
             "description": "Represents a MongoDB client that can be used to interact with a MongoDB server.",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mongodb_5.1.0.png",
             "data": {
@@ -206,7 +186,7 @@
         },
         {
           "metadata": {
-            "label": "MySQL Client",
+            "label": "MySQL",
             "description": "Represents a MySQL database client.",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mysql_1.14.0.png",
             "data": {
@@ -226,7 +206,7 @@
         },
         {
           "metadata": {
-            "label": "Redis Client",
+            "label": "Redis",
             "description": "Ballerina Redis connector provides the capability to access Redis cache.\nThis connector lets you to perform operations to access and manipulate key-value data stored in a Redis database. \n",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.1.0.png",
             "data": {
@@ -246,7 +226,7 @@
         },
         {
           "metadata": {
-            "label": "PostgreSQL Client",
+            "label": "PostgreSQL",
             "description": "Represents a PostgreSQL database client.",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_postgresql_1.14.0.png",
             "data": {
@@ -271,26 +251,6 @@
         "label": "Messaging"
       },
       "items": [
-        {
-          "metadata": {
-            "label": "Kafka Caller",
-            "description": "Represents a Kafka caller, which can be used to commit the offsets consumed by the service.",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_kafka_4.4.1.png",
-            "data": {
-              "isAgentSupport": false
-            }
-          },
-          "codedata": {
-            "node": "NEW_CONNECTION",
-            "org": "ballerinax",
-            "module": "kafka",
-            "object": "Caller",
-            "symbol": "init",
-            "version": "4.4.1",
-            "isGenerated": false
-          },
-          "enabled": true
-        },
         {
           "metadata": {
             "label": "Kafka Consumer",
@@ -333,7 +293,7 @@
         },
         {
           "metadata": {
-            "label": "RabbitMQ Client",
+            "label": "RabbitMQ",
             "description": "The Ballerina interface to provide AMQP Channel related functionality.",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_rabbitmq_3.2.0.png",
             "data": {
@@ -360,7 +320,7 @@
       "items": [
         {
           "metadata": {
-            "label": "DynamoDB Client",
+            "label": "DynamoDB",
             "description": "The Ballerina AWS DynamoDB connector provides the capability to access AWS Simple Email Service related operations.\nThis connector lets you to to send email messages to your customers.\n",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_aws.dynamodb_2.3.0.png",
             "data": {
@@ -380,7 +340,7 @@
         },
         {
           "metadata": {
-            "label": "SQS Client",
+            "label": "SQS",
             "description": "Ballerina Amazon SQS connector provides the capability to access Amazon SQS API.\nThis connector lets you to perform operations related to manage queues, send and receive messages. \n",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_aws.sqs_3.1.0.png",
             "data": {
@@ -400,7 +360,7 @@
         },
         {
           "metadata": {
-            "label": "S3 Client",
+            "label": "S3",
             "description": "Ballerina Amazon S3 connector provides the capability to access AWS S3 API.\nThis connector lets you to get authorized access to AWS S3 buckets and objects.\n",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_aws.s3_3.5.0.png",
             "data": {
@@ -420,7 +380,7 @@
         },
         {
           "metadata": {
-            "label": "Gmail Client",
+            "label": "Gmail",
             "description": "The Gmail API lets you view and manage Gmail mailbox data like threads, messages, and labels.",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.gmail_4.0.1.png",
             "data": {
@@ -440,7 +400,7 @@
         },
         {
           "metadata": {
-            "label": "Gcalendar Client",
+            "label": "Gcalendar",
             "description": "Manipulates events and other calendar data.",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.gcalendar_4.0.1.png",
             "data": {
@@ -467,7 +427,7 @@
       "items": [
         {
           "metadata": {
-            "label": "Stripe Client",
+            "label": "Stripe",
             "description": "The Stripe REST API. Please see https://stripe.com/docs/api for more details.",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_stripe_2.0.0.png",
             "data": {
@@ -487,7 +447,7 @@
         },
         {
           "metadata": {
-            "label": "Slack Client",
+            "label": "Slack",
             "description": "One way to interact with the Slack platform is its HTTP RPC-based Web API, a collection of methods requiring OAuth 2.0-based user, bot, or workspace tokens blessed with related OAuth scopes.",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_slack_4.0.0.png",
             "data": {
@@ -507,7 +467,7 @@
         },
         {
           "metadata": {
-            "label": "Twilio Client",
+            "label": "Twilio",
             "description": "This is the public Twilio REST API.",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_twilio_5.0.0.png",
             "data": {
@@ -527,7 +487,7 @@
         },
         {
           "metadata": {
-            "label": "Salesforce Client",
+            "label": "Salesforce",
             "description": "Ballerina Salesforce connector provides the capability to access Salesforce REST API.\nThis connector lets you to perform operations for SObjects, query using SOQL, search using SOSL, and describe SObjects\nand organizational data.",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_salesforce_8.1.0.png",
             "data": {
@@ -547,7 +507,7 @@
         },
         {
           "metadata": {
-            "label": "Github Client",
+            "label": "Github",
             "description": "GitHub's v3 REST API.",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_github_5.1.0.png",
             "data": {

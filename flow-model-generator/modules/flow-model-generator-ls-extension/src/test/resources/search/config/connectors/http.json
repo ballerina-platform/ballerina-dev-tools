@@ -8,7 +8,7 @@
   "categories": [
     {
       "metadata": {
-        "label": "HTTP Client",
+        "label": "HTTP",
         "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.3.png",
         "data": {
@@ -28,7 +28,7 @@
     },
     {
       "metadata": {
-        "label": "Extpose Client",
+        "label": "Extpose",
         "description": "This is a generated connector from [Extpose API v1](https://extpose.com/) OpenAPI Specification. \nExtpose — in‑store performance analytics and optimization tool for Chrome extensions. [https://extpose.com](https://extpose.com)",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_extpose_1.5.1.png",
         "data": {
@@ -48,7 +48,7 @@
     },
     {
       "metadata": {
-        "label": "Discord Client",
+        "label": "Discord",
         "description": "Preview of the Discord v10 HTTP API specification. See https://discord.com/developers/docs for more details.",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_discord_1.0.0.png",
         "data": {
@@ -68,7 +68,7 @@
     },
     {
       "metadata": {
-        "label": "Flatapi Client",
+        "label": "Flatapi",
         "description": "This is a generated connector for [Flat API v2.13.0](https://flat.io/developers/docs/api/) OpenAPI specification.\nThe Flat API allows you to easily extend the abilities of the [Flat Platform](https://flat.io), with a wide range of use cases including the following:\n* Creating and importing new music scores using MusicXML, MIDI, Guitar Pro (GP3, GP4, GP5, GPX, GP), PowerTab, TuxGuitar and MuseScore files\n* Browsing, updating, copying, exporting the user's scores (for example in MP3, WAV or MIDI)\n* Managing educational resources with Flat for Education: creating & updating the organization accounts, the classes, rosters and assignments.\nThe Flat API is built on HTTP. Our API is RESTful It has predictable resource URLs. It returns HTTP response codes to indicate errors. It also accepts and returns JSON in the HTTP body.\nThe [schema](/swagger.yaml) of this API follows the [OpenAPI Initiative (OAI) specification](https://www.openapis.org/), you can use and work with [compatible Swagger tools](http://swagger.io/open-source-integrations/).\nThis API features Cross-Origin Resource Sharing (CORS) implemented in compliance with [W3C spec](https://www.w3.org/TR/cors/).\nYou can use your favorite HTTP/REST library for your programming language to use Flat's API. This specification and reference is [available on Github](https://github.com/FlatIO/api-reference).\nGetting Started and learn more:\n* [API Overview and introduction](https://flat.io/developers/docs/api/)\n* [Authentication (Personal Access Tokens or OAuth2)](https://flat.io/developers/docs/api/authentication.html)\n* [SDKs](https://flat.io/developers/docs/api/sdks.html)\n* [Rate Limits](https://flat.io/developers/docs/api/rate-limits.html)\n* [Changelog](https://flat.io/developers/docs/api/changelog.html)",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_flatapi_1.5.1.png",
         "data": {
@@ -88,7 +88,7 @@
     },
     {
       "metadata": {
-        "label": "Sakari Client",
+        "label": "Sakari",
         "description": "This is a generated connector from [Sakari](https://sakari.io/) OpenAPI Specification.\nSakari provides an advanced platform to drive large scale customized SMS communication\nTo find out more about our product offering, please visit [https://sakari.io](https://sakari.io).",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_sakari_1.5.1.png",
         "data": {
@@ -108,7 +108,7 @@
     },
     {
       "metadata": {
-        "label": "Ynab Client",
+        "label": "Ynab",
         "description": "This is a generated connector for [YNAB API v1.0.0](https://api.youneedabudget.com) OpenAPI specification.\nYNAB API uses a REST based design, leverages the JSON data format, and relies upon HTTPS for transport. \nWe respond with meaningful HTTP response codes and if an error occurs, we include error details in the response body. \nAPI Documentation is at https://api.youneedabudget.com",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ynab_1.5.1.png",
         "data": {
@@ -128,7 +128,7 @@
     },
     {
       "metadata": {
-        "label": "Public Client",
+        "label": "Public",
         "description": "This is a generated connector from [Dracoon API v4.28.3](https://www.dracoon.com/en/home) OpenAPI specification.\nREST Web Services for DRACOON. <a title='Developer Information' href='https://developer.dracoon.com'>Developer Information</a>&emsp;&emsp;<a title='Get SDKs on GitHub' href='https://github.com/dracoon'>Get SDKs on GitHub</a><br><br><a title='Terms of service' href='https://www.dracoon.com/terms/general-terms-and-conditions/'>Terms of service</a>",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_dracoon.public_1.5.1.png",
         "data": {
@@ -148,7 +148,7 @@
     },
     {
       "metadata": {
-        "label": "Sap Client",
+        "label": "Sap",
         "description": "The `sap` client provides the capability for initiating contact with a remote HTTP service provided by any SAP products. The API it\nprovides includes the functions for the standard HTTP methods.",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_sap_1.1.0.png",
         "data": {
@@ -168,7 +168,7 @@
     },
     {
       "metadata": {
-        "label": "Zoom Client",
+        "label": "Zoom",
         "description": "This is a generated connector for [Zoom API Version 2.0.0](https://marketplace.zoom.us/docs/api-reference/zoom-api) OpenAPI Specification.\nThe Zoom API allows developers to access information from Zoom. You can use this API to build private services or public applications on the [Zoom App Marketplace](http://marketplace.zoom.us). To learn how to get your credentials and create private/public applications, read our [Authorization Guide](https://marketplace.zoom.us/docs/guides/authorization/credentials). \nAll endpoints are available via `https` and are located at `api.zoom.us/v2/`. For instance you can list all users on an account via `https://api.zoom.us/v2/users/`.",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_zoom_1.7.1.png",
         "data": {
@@ -188,7 +188,7 @@
     },
     {
       "metadata": {
-        "label": "Elmah Client",
+        "label": "Elmah",
         "description": "This is a generated connector for [Elmah.io REST API v3](https://elmah.io) OpenAPI Specification.\nThe public REST API for elmah.io. All of the integrations communicates with elmah.io through this API.\nFor additional help getting started with the API, visit the following help articles:\n<ul><li>[Using the REST API](https://docs.elmah.io/using-the-rest-api/)</li><li>[Where is my API key?](https://docs.elmah.io/where-is-my-api-key/)</li><li>[Where is my log ID?](https://docs.elmah.io/where-is-my-log-id/)</li><li>[How to configure API key permissions](https://docs.elmah.io/how-to-configure-api-key-permissions/)</li></ul>",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_elmah_1.5.1.png",
         "data": {
@@ -208,7 +208,7 @@
     },
     {
       "metadata": {
-        "label": "Asana Client",
+        "label": "Asana",
         "description": "This is the interface for interacting with the [Asana Platform](https://developers.asana.com). Our API reference is generated from our [OpenAPI spec] (https://raw.githubusercontent.com/Asana/openapi/master/defs/asana_oas.yaml).",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_asana_2.0.0.png",
         "data": {
@@ -228,7 +228,7 @@
     },
     {
       "metadata": {
-        "label": "Connect Client",
+        "label": "Connect",
         "description": "The [Ballerina](https://ballerina.io/) connector for [CData Connect](https://cloud.cdata.com/docs/JDBC.html) \nallows you to programmatically access all of the CData Connect applications, databases, APIs, and services\nacross an organization via the Java Database Connectivity (JDBC) API using [Ballerina](https://ballerina.io/). \nFor detailed information on working with each data source, see [Data Sources](https://cloud.cdata.com/docs/Data-Sources.html).\nCData Connect supports a wide range of standard DDL commands, SQL commands, and SQL functions to query data sources. \nFor reference information on all the CData Connect SQL commands (i.e., DDL, DML, and query syntax), \nsee the [SQL Reference](https://cloud.cdata.com/docs/SQL-Reference.html).",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_cdata.connect_1.2.0.png",
         "data": {
@@ -248,7 +248,7 @@
     },
     {
       "metadata": {
-        "label": "Openweathermap Client",
+        "label": "Openweathermap",
         "description": "This is a generated connector from [Open Weather Map API version 2.5](https://openweathermap.org/) OpenAPI Specification. \nThe Open Weather Map API provides access to current weather data and weather forecast of any location worldwide including 200,000 cities by consuming the [`Current Weather Data`](https://openweathermap.org/current) and [`One Call`](https://openweathermap.org/api/one-call-api) API endpoints.  ",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_openweathermap_1.5.1.png",
         "data": {
@@ -268,7 +268,7 @@
     },
     {
       "metadata": {
-        "label": "Customer Client",
+        "label": "Customer",
         "description": "This is a generated connector for [Commercetools API v1](https://docs.commercetools.com/api/) OpenAPI specification. \nThe commercetools Platform HTTP API(Customer) offers an interface for programmatic access to retrieve certain information on customer related operations.",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_commercetools.customer_1.4.1.png",
         "data": {
@@ -288,7 +288,7 @@
     },
     {
       "metadata": {
-        "label": "Cartsordershoppinglists Client",
+        "label": "Cartsordershoppinglists",
         "description": "This is a generated connector for [Commercetools API v1](https://docs.commercetools.com/api/) OpenAPI specification. \nThe commercetools Platform HTTP API offers an interface for programmatic access to operations related to carts, orders and shopping lists.",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_commercetools.cartsordershoppinglists_1.4.1.png",
         "data": {
@@ -348,7 +348,7 @@
     },
     {
       "metadata": {
-        "label": "Box Client",
+        "label": "Box",
         "description": "This is a generated connector for [Box Platform API v2.0.0](https://developer.box.com/guides/) OpenAPI specification.\n[Box Platform](https://box.dev) provides functionality to provide access to content stored within [Box](https://box.com). It provides endpoints for basic manipulation of files and folders, management of users within an enterprise, as well as more complex topics such as legal holds and retention policies.",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_box_1.5.1.png",
         "data": {
@@ -368,7 +368,7 @@
     },
     {
       "metadata": {
-        "label": "Numbers Client",
+        "label": "Numbers",
         "description": "This is a generated connector for [Numbers API v1.5](https://math.tools/api/numbers/) OpenAPI specification.  \nNumbers API of [Math Tools](https://math.tools/) provides the capability to access the operations that are all about numbers",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mathtools.numbers_1.5.1.png",
         "data": {
@@ -388,7 +388,7 @@
     },
     {
       "metadata": {
-        "label": "Bisstats Client",
+        "label": "Bisstats",
         "description": "This is a generated connector for [BIS SDMX RESTful API v1](https://stats.bis.org/api-doc/v1/) OpenAPI specification.\nThe BIS SDMX RESTful API is a subset of the official SDMX RESTful API v1.4.0, released in June 2019.\nThis service offers programmatic access to the BIS statistical data and metadata published on the [BIS statistics pages](https://www.bis.org/statistics/index.htm) released to the public.\nFor additional information about the SDMX RESTful API, check the [official sdmx-rest specification](https://github.com/sdmx-twg/sdmx-rest/tree/master/v2_1/ws/rest/docs) or the [dedicated Wiki](https://github.com/sdmx-twg/sdmx-rest/wiki), including [**useful tips for consumers**](https://github.com/sdmx-twg/sdmx-rest/wiki/Tips-for-consumers).",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_bisstats_1.5.1.png",
         "data": {
