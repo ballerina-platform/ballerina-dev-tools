@@ -2,7 +2,6 @@
   "Network": [
     "http:Client",
     "graphql:Client",
-    "grpc:Client",
     "websocket:Client",
     "tcp:Client",
     "udp:Client",

@@ -10,6 +10,9 @@
     "Caller"
   ],
   "grpc": [
+    "Client",
+    "Caller",
+    "StreamingClient",
     "ClientOAuth2Handler",
     "ListenerLdapUserStoreBasicAuthHandler",
     "ListenerOAuth2Handler",
