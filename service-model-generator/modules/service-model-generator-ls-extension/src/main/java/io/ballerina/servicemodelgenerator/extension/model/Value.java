@@ -44,28 +44,29 @@ public class Value {
     private boolean addNewButton = false;
     private List<PropertyTypeMemberInfo> typeMembers;
     private final Map<String, String> imports;
+    private Diagnostics diagnostics;
 
     public Value(MetaData metadata, String valueType, boolean editable, boolean optional) {
         this(metadata, true, editable, null, valueType,
                 null, false, null, optional, false,
-                null, null, null, new HashMap<>());
+                null, null, null, new HashMap<>(), null);
     }
 
     public Value() {
         this(new MetaData("", ""), false, true, null, null,
                 null, false, null, false, false,
-                null, null, null, new HashMap<>());
+                null, null, null, new HashMap<>(), null);
     }
 
     public Value(String value, String valueType, boolean isEnabled) {
         this(null, isEnabled, true, value, valueType, null, false, null,
-                false, false, null, null, null, new HashMap<>());
+                false, false, null, null, null, new HashMap<>(), null);
     }
 
     public Value(MetaData metadata, boolean enabled, boolean editable, String value, String valueType,
                  String valueTypeConstraint, boolean isType, String placeholder, boolean optional,
                  boolean advanced, Map<String, Value> properties, List<String> items, Codedata codedata,
-                 Map<String, String> imports) {
+                 Map<String, String> imports, Diagnostics diagnostics) {
         this.metadata = metadata;
         this.enabled = enabled;
         this.editable = editable;
@@ -80,6 +81,7 @@ public class Value {
         this.items = items;
         this.codedata = codedata;
         this.imports = imports;
+        this.diagnostics = diagnostics;
     }
 
     public Value(Value value) {
@@ -101,14 +103,15 @@ public class Value {
         this.addNewButton = value.addNewButton;
         this.typeMembers = value.typeMembers;
         this.imports = value.imports;
+        this.diagnostics = value.diagnostics;
     }
 
     public Value(MetaData metadata, boolean enabled, boolean editable, String value, List<String> values,
                  String valueType,
                  String valueTypeConstraint, boolean isType, String placeholder, boolean optional,
                  boolean advanced, Map<String, Value> properties, List<String> items, Codedata codedata,
-                 boolean addNewButton,
-                 List<PropertyTypeMemberInfo> typeMembers, Map<String, String> imports) {
+                 boolean addNewButton, List<PropertyTypeMemberInfo> typeMembers, Map<String, String> imports,
+                 Diagnostics diagnostics) {
         this.metadata = metadata;
         this.enabled = enabled;
         this.editable = editable;
@@ -126,6 +129,7 @@ public class Value {
         this.addNewButton = addNewButton;
         this.typeMembers = typeMembers;
         this.imports = imports;
+        this.diagnostics = diagnostics;
     }
 
     public MetaData getMetadata() {
@@ -291,10 +295,18 @@ public class Value {
         return imports;
     }
 
+    public void setDiagnostics(Diagnostics diagnostics) {
+        this.diagnostics = diagnostics;
+    }
+
+    public Diagnostics getDiagnostics() {
+        return diagnostics;
+    }
+
     public static Value getTcpValue(String value) {
         return new Value(null, true, true, value,
                 null, null, false, null, false, false,
-                null, null, null, new HashMap<>());
+                null, null, null, new HashMap<>(), null);
     }
 
     public static class ValueBuilder {
@@ -305,6 +317,7 @@ public class Value {
         private String valueType;
         private String valueTypeConstraint;
         private String placeholder;
+        private Diagnostics diagnostics;
         private List<String> items;
         private Map<String, Value> properties;
         private List<PropertyTypeMemberInfo> typeMembers;
@@ -420,9 +433,15 @@ public class Value {
             return this;
         }
 
+        public ValueBuilder diagnostics(Diagnostics diagnostics) {
+            this.diagnostics = diagnostics;
+            return this;
+        }
+
         public Value build() {
             return new Value(metadata, enabled, editable, value, values, valueType, valueTypeConstraint, isType,
-                    placeholder, optional, advanced, properties, items, codedata, addNewButton, typeMembers, imports);
+                    placeholder, optional, advanced, properties, items, codedata, addNewButton, typeMembers, imports,
+                    diagnostics);
         }
     }
 }
