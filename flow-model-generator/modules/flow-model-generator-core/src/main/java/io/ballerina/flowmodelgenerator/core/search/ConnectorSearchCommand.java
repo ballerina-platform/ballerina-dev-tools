@@ -144,7 +144,10 @@ public class ConnectorSearchCommand extends SearchCommand {
         String connectorName = searchResult.name();
         String rawPackageName = packageInfo.name();
         String packageName = CONNECTOR_NAME_MAP.getOrDefault(rawPackageName, getLastPackagePrefix(rawPackageName));
-        return packageName + " " + connectorName;
+
+        // TODO: Remove the replacement once a proper solution comes from the index
+        return packageName + " " + (connectorName.endsWith("Client") ?
+                connectorName.substring(0, connectorName.length() - 6) + "Connection" : connectorName);
     }
 
     private static String getLastPackagePrefix(String rawPackageName) {
