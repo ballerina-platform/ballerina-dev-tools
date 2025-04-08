@@ -106,6 +106,7 @@
     },
     "enabled": true,
     "optional": false,
-    "editable": false
+    "editable": false,
+    "canAddParameters": false
   }
 }
