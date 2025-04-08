@@ -549,33 +549,6 @@ public final class Utils {
         }
     }
 
-    public static void updateFunction(Function target, Function source, Service service) {
-        target.setEnabled(source.isEnabled());
-        target.setCodedata(source.getCodedata());
-        updateValue(target.getAccessor(), source.getAccessor());
-        updateValue(target.getName(), source.getName());
-        target.getParameters().forEach(param -> {
-            Optional<Parameter> parameter = source.getParameters().stream()
-                    .filter(p -> p.getName().getValue().equals(param.getName().getValue()))
-                    .findFirst();
-            parameter.ifPresent(value -> updateParameter(param, value));
-        });
-        updateValue(target.getReturnType(), source.getReturnType());
-        Value requiredFunctions = service.getProperty(ServiceModelGeneratorConstants.PROPERTY_REQUIRED_FUNCTIONS);
-        if (Objects.nonNull(requiredFunctions)) {
-            if (source.isEnabled() && requiredFunctions.getItems().contains(source.getName().getValue())) {
-                requiredFunctions.setValue(source.getName().getValue());
-            }
-        }
-    }
-
-    public static void updateParameter(Parameter target, Parameter source) {
-        target.setEnabled(source.isEnabled());
-        target.setKind(source.getKind());
-        updateValue(target.getType(), source.getType());
-        updateValue(target.getName(), source.getName());
-    }
-
     public static String getServiceDeclarationNode(Service service, FunctionAddContext context,
                                                    Map<String, String> imports) {
         StringBuilder builder = new StringBuilder();

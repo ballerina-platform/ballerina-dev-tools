@@ -260,7 +260,7 @@
               "addNewButton": false,
               "imports": {}
             },
-            "enabled": true,
+            "enabled": false,
             "editable": true,
             "optional": true,
             "advanced": false

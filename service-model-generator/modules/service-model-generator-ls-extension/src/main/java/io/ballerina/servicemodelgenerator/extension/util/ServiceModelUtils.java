@@ -52,13 +52,14 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.getFunctionModel;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.getPath;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.isPresent;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.populateListenerInfo;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateAnnotationAttachmentProperty;
-import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateFunction;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateValue;
 
 public class ServiceModelUtils {
 
@@ -160,6 +161,47 @@ public class ServiceModelUtils {
         });
     }
 
+    private static void updateFunction(Function target, Function source, Service service) {
+        target.setEnabled(source.isEnabled());
+        target.setCodedata(source.getCodedata());
+        updateValue(target.getAccessor(), source.getAccessor());
+        updateValue(target.getName(), source.getName());
+
+        List<Parameter> sourceParameters = source.getParameters();
+        for (Parameter targetParameter: target.getParameters()) {
+            AtomicReference<Optional<Parameter>> parameter = new AtomicReference<>(Optional.empty());
+            sourceParameters.removeIf(sourceParam -> {
+                if (isEqual(targetParameter.getType(), sourceParam.getType())) {
+                    parameter.set(Optional.of(sourceParam));
+                    return true;
+                }
+                return false;
+            });
+            Optional<Parameter> foundSourceParam = parameter.get();
+            if (foundSourceParam.isEmpty()) {
+                targetParameter.setEnabled(false);
+            }
+            foundSourceParam.ifPresent(value -> updateParameter(targetParameter, value));
+        }
+        updateValue(target.getReturnType(), source.getReturnType());
+        Value requiredFunctions = service.getProperty(ServiceModelGeneratorConstants.PROPERTY_REQUIRED_FUNCTIONS);
+        if (Objects.nonNull(requiredFunctions)) {
+            if (source.isEnabled() && requiredFunctions.getItems().contains(source.getName().getValue())) {
+                requiredFunctions.setValue(source.getName().getValue());
+            }
+        }
+    }
+
+    private static boolean isEqual(Value target, Value source) {
+        return Objects.nonNull(target) && target.getValue().equals(source.getValue());
+    }
+
+    private static void updateParameter(Parameter target, Parameter source) {
+        target.setEnabled(source.isEnabled());
+        target.setKind(source.getKind());
+        updateValue(target.getType(), source.getType());
+        updateValue(target.getName(), source.getName());
+    }
 
     /**
      * Get the service model of the given module without the function list.
