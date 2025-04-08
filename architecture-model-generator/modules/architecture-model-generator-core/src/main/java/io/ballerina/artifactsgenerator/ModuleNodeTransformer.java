@@ -32,6 +32,8 @@ import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
+import io.ballerina.compiler.syntax.tree.ClassDefinitionNode;
+import io.ballerina.compiler.syntax.tree.EnumDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.ListenerDeclarationNode;
@@ -189,6 +191,22 @@ public class ModuleNodeTransformer extends NodeTransformer<Optional<Artifact>> {
     public Optional<Artifact> transform(TypeDefinitionNode typeDefinitionNode) {
         Artifact.Builder typeBuilder = new Artifact.Builder(typeDefinitionNode)
                 .name(typeDefinitionNode.typeName().text())
+                .type(Artifact.Type.TYPE);
+        return Optional.of(typeBuilder.build());
+    }
+
+    @Override
+    public Optional<Artifact> transform(EnumDeclarationNode enumDeclarationNode) {
+        Artifact.Builder typeBuilder = new Artifact.Builder(enumDeclarationNode)
+                .name(enumDeclarationNode.identifier().text())
+                .type(Artifact.Type.TYPE);
+        return Optional.of(typeBuilder.build());
+    }
+
+    @Override
+    public Optional<Artifact> transform(ClassDefinitionNode classDefinitionNode) {
+        Artifact.Builder typeBuilder = new Artifact.Builder(classDefinitionNode)
+                .name(classDefinitionNode.className().text())
                 .type(Artifact.Type.TYPE);
         return Optional.of(typeBuilder.build());
     }

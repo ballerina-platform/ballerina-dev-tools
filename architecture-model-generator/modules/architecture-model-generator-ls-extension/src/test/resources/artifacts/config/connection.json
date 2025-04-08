@@ -83,6 +83,26 @@
         "module": "graphql",
         "children": {}
       }
+    },
+    "Types": {
+      "LocalClient": {
+        "id": "LocalClient",
+        "location": {
+          "fileName": "connection.bal",
+          "startLine": {
+            "line": 29,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 44,
+            "offset": 1
+          }
+        },
+        "type": "TYPE",
+        "name": "LocalClient",
+        "scope": "Global",
+        "children": {}
+      }
     }
   }
 }
