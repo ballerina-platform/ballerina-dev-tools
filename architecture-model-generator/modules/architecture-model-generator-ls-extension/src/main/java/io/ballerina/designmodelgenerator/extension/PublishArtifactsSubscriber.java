@@ -22,6 +22,7 @@ import io.ballerina.artifactsgenerator.ArtifactGenerationDebouncer;
 import io.ballerina.artifactsgenerator.ArtifactsGenerator;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
+import io.ballerina.designmodelgenerator.extension.response.ArtifactsParams;
 import org.ballerinalang.annotation.JavaSPIService;
 import org.ballerinalang.langserver.commons.DocumentServiceContext;
 import org.ballerinalang.langserver.commons.LanguageServerContext;
@@ -59,8 +60,11 @@ public class PublishArtifactsSubscriber implements EventSubscriber {
 
         // Use the debouncer to schedule the artifact generation
         ArtifactGenerationDebouncer.getInstance().debounce(context.fileUri(), () -> {
-            client.publishArtifacts(ArtifactsGenerator.artifactChanges(projectPath.toString(),
-                    syntaxTree.get(), semanticModel.get()));
+            ArtifactsParams artifactsParams = new ArtifactsParams();
+            artifactsParams.setUri(projectPath.toUri().toString());
+            artifactsParams.setArtifacts(
+                    ArtifactsGenerator.artifactChanges(projectPath.toString(), syntaxTree.get(), semanticModel.get()));
+            client.publishArtifacts(artifactsParams);
         });
     }
 
