@@ -102,7 +102,7 @@ public class ServiceDesignerDiagnosticsTest extends AbstractLSTest {
 
     private JsonElement composeFunctionSourceRequest(TestConfig config) {
         JsonObject jsonMap = new JsonObject();
-        Path filePath = configDir.resolve(config.filePath());
+        Path filePath = sourceDir.resolve(config.filePath());
         jsonMap.addProperty("filePath", filePath.toAbsolutePath().toString());
         jsonMap.add("function", config.requestModel());
         jsonMap.add("codedata", config.codedata());

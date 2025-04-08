@@ -51,7 +51,7 @@ public class ResourcePathParser {
 
         List<SegmentPart> segments = splitSegments(input);
         for (SegmentPart segment : segments) {
-            String value = segment.getValue();
+            String value = segment.value();
             if (value.startsWith("[") && value.endsWith("]")) {
                 processParam(segment, result);
             } else {
@@ -73,6 +73,8 @@ public class ResourcePathParser {
                 if (start != current) {
                     String value = input.substring(start, current);
                     segments.add(new SegmentPart(value, start, current - 1));
+                } else {
+                    segments.add(new SegmentPart("", start, current));
                 }
                 start = current + 1;
             }
@@ -88,39 +90,42 @@ public class ResourcePathParser {
     }
 
     private static void processSegment(SegmentPart segment, ParseResult result) {
-        TokenizeResult tokenResult = tokenize(segment.getValue(), segment.getStart());
-        result.getErrors().addAll(tokenResult.getErrors());
+        TokenizeResult tokenResult = tokenize(segment.value(), segment.start());
+        result.addErrors(tokenResult.errors());
 
-        if (tokenResult.getTokens().size() != 1) {
-            result.addError(new ParseError(segment.getStart(), "Invalid segment: " + segment.getValue()));
+        if (tokenResult.tokens().isEmpty() && segment.value().isEmpty())  {
+            result.addSegment(new ValueSegment("", segment.start(), segment.end()));
+            return;
+        } else if (tokenResult.errors().isEmpty() && tokenResult.tokens().size() != 1) {
+            result.addError(new ParseError(segment.start(), "Invalid segment: " + segment.value()));
             return;
         }
 
-        result.addSegment(new ValueSegment(segment.getValue(), segment.getStart(), segment.getEnd()));
+        result.addSegment(new ValueSegment(segment.value(), segment.start(), segment.end()));
     }
 
     private static void processParam(SegmentPart segment, ParseResult result) {
-        String content = segment.getValue().substring(1, segment.getValue().length() - 1);
+        String content = segment.value().substring(1, segment.value().length() - 1);
 
         if (isConstantLiteral(content)) {
-            result.addSegment(new ParamSegment(Segment.Type.CONST_PARAM, Collections.emptyList(), content, content, segment.getStart(), segment.getEnd()));
+            result.addSegment(new ParamSegment(Segment.Type.CONST_PARAM, Collections.emptyList(), content, content, segment.start(), segment.end()));
             return;
         }
 
-        TokenizeResult tokenResult = tokenize(content, segment.getStart() + 1);
-        result.getErrors().addAll(tokenResult.getErrors());
+        TokenizeResult tokenResult = tokenize(content, segment.start() + 1);
+        result.addErrors(tokenResult.errors());
 
-        boolean hasRest = tokenResult.getTokens().stream().anyMatch(t -> t.getValue().equals("..."));
+        boolean hasRest = tokenResult.tokens().stream().anyMatch(t -> t.value().equals("..."));
         if (hasRest) {
-            handleRestParam(tokenResult.getTokens(), segment, result);
+            handleRestParam(tokenResult.tokens(), segment, result);
         } else {
-            handleRegularParam(tokenResult.getTokens(), segment, result);
+            handleRegularParam(tokenResult.tokens(), segment, result);
         }
     }
 
     private static void handleRegularParam(List<Token> tokens, SegmentPart segment, ParseResult result) {
         if (tokens.isEmpty()) {
-            result.addError(new ParseError(segment.getStart() + 2, "Empty parameter"));
+            result.addError(new ParseError(segment.start() + 2, "Empty parameter"));
             return;
         }
 
@@ -129,22 +134,22 @@ public class ResourcePathParser {
         List<Token> remaining = tokens.subList(0, tokens.size() - 1);
 
         if (remaining.isEmpty()) {
-            result.addError(new ParseError(segment.getStart() + 2, "Missing type descriptor"));
+            result.addError(new ParseError(segment.start() + 2, "Missing type descriptor"));
             return;
         }
 
-        String typeDescriptor = remaining.get(remaining.size() - 1).getValue();
+        String typeDescriptor = remaining.get(remaining.size() - 1).value();
         List<String> annots = remaining.subList(0, remaining.size() - 1).stream()
-                .map(Token::getValue)
+                .map(Token::value)
                 .collect(Collectors.toList());
 
-        result.addSegment(new ParamSegment(Segment.Type.PARAM, annots, typeDescriptor, paramName, segment.getStart(), segment.getEnd()));
+        result.addSegment(new ParamSegment(Segment.Type.PARAM, annots, typeDescriptor, paramName, segment.start(), segment.end()));
     }
 
     private static void handleRestParam(List<Token> tokens, SegmentPart segment, ParseResult result) {
         int dotIndex = -1;
         for (int i = 0; i < tokens.size(); i++) {
-            if (tokens.get(i).getValue().equals("...")) {
+            if (tokens.get(i).value().equals("...")) {
                 dotIndex = i;
                 break;
             }
@@ -155,30 +160,30 @@ public class ResourcePathParser {
         List<Token> afterDot = tokens.subList(dotIndex + 1, tokens.size());
 
         if (beforeDot.isEmpty()) {
-            result.addError(new ParseError(segment.getStart() + 2, "Missing type descriptor in rest parameter"));
+            result.addError(new ParseError(segment.start() + 2, "Missing type descriptor in rest parameter"));
         }
 
         if (afterDot.size() > 1) {
-            result.addError(new ParseError(afterDot.get(1).getStart(), "Extra tokens after rest parameter"));
+            result.addError(new ParseError(afterDot.get(1).start(), "Extra tokens after rest parameter"));
         }
 
-        String typeDescriptor = beforeDot.isEmpty() ? "" : beforeDot.get(beforeDot.size() - 1).getValue();
+        String typeDescriptor = beforeDot.isEmpty() ? "" : beforeDot.get(beforeDot.size() - 1).value();
         List<String> annots = beforeDot.subList(0, beforeDot.size() - 1).stream()
-                .map(Token::getValue)
+                .map(Token::value)
                 .collect(Collectors.toList());
 
         String paramName = afterDot.isEmpty() ? null : validateParamName(afterDot.get(0), result);
 
-        result.addSegment(new ParamSegment(Segment.Type.REST_PARAM, annots, typeDescriptor, paramName, segment.getStart(), segment.getEnd()));
+        result.addSegment(new ParamSegment(Segment.Type.REST_PARAM, annots, typeDescriptor, paramName, segment.start(), segment.end()));
     }
 
     private static String validateParamName(Token token, ParseResult result) {
         if (token == null) {
             return null;
         }
-        String value = token.getValue();
+        String value = token.value();
         if (!isValidIdentifier(value)) {
-            result.addError(new ParseError(token.getStart(), "Invalid parameter name: " + value));
+            result.addError(new ParseError(token.start(), "Invalid parameter name: " + value));
             return null;
         }
         return value;
@@ -204,20 +209,20 @@ public class ResourcePathParser {
 
             if (c == '\'' || c == '"') {
                 QuotedReadResult quotedResult = readQuoted(content, pos, offset);
-                pos = quotedResult.getNewPos();
-                errors.addAll(quotedResult.getErrors());
-                if (quotedResult.getValue() != null) {
-                    tokens.add(new Token(quotedResult.getValue(), start, pos + offset - 1));
+                pos = quotedResult.newPos();
+                errors.addAll(quotedResult.errors());
+                if (quotedResult.value() != null) {
+                    tokens.add(new Token(quotedResult.value(), start, pos + offset - 1));
                 }
             } else if (c == '.' && pos + 2 < content.length() && content.substring(pos, pos + 3).equals("...")) {
                 tokens.add(new Token("...", start, start + 2));
                 pos += 3;
             } else {
                 UnquotedReadResult unquotedResult = readUnquoted(content, pos, offset);
-                pos = unquotedResult.getNewPos();
-                errors.addAll(unquotedResult.getErrors());
-                if (unquotedResult.getValue() != null) {
-                    tokens.add(new Token(unquotedResult.getValue(), start, pos + offset - 1));
+                pos = unquotedResult.newPos();
+                errors.addAll(unquotedResult.errors());
+                if (unquotedResult.value() != null) {
+                    tokens.add(new Token(unquotedResult.value(), start, pos + offset - 1));
                 }
             }
         }
@@ -291,6 +296,11 @@ public class ResourcePathParser {
                 }
                 errors.add(new ParseError(pos + offset, "Backslash is not allowed"));
                 return new UnquotedReadResult(null, pos + 1, errors);
+            } else if (c == '.') {
+                if (pos + 2 < content.length() && content.substring(pos, pos + 3).equals("...")) {
+                    value.append("...");
+                    pos += 3;
+                }
             } else {
                 errors.add(new ParseError(pos + offset, "Invalid character: " + c));
                 return new UnquotedReadResult(null, pos + 1, errors);
@@ -442,122 +452,27 @@ public class ResourcePathParser {
             errors.add(error);
         }
 
+        public void addErrors(List<ParseError> errors) {
+            this.errors.addAll(errors);
+        }
+
         public void addSegment(Segment segment) {
             segments.add(segment);
         }
     }
 
-    private static class SegmentPart {
-        private final String value;
-        private final int start;
-        private final int end;
-
-        public SegmentPart(String value, int start, int end) {
-            this.value = value;
-            this.start = start;
-            this.end = end;
-        }
-
-        public String getValue() {
-            return value;
-        }
-
-        public int getStart() {
-            return start;
-        }
-
-        public int getEnd() {
-            return end;
-        }
+    private record SegmentPart(String value, int start, int end) {
     }
 
-    private static class Token {
-        private final String value;
-        private final int start;
-        private final int end;
-
-        public Token(String value, int start, int end) {
-            this.value = value;
-            this.start = start;
-            this.end = end;
-        }
-
-        public String getValue() {
-            return value;
-        }
-
-        public int getStart() {
-            return start;
-        }
-
-        public int getEnd() {
-            return end;
-        }
+    private record Token(String value, int start, int end) {
     }
 
-    private static class TokenizeResult {
-        private final List<Token> tokens;
-        private final List<ParseError> errors;
-
-        public TokenizeResult(List<Token> tokens, List<ParseError> errors) {
-            this.tokens = tokens;
-            this.errors = errors;
-        }
-
-        public List<Token> getTokens() {
-            return tokens;
-        }
-
-        public List<ParseError> getErrors() {
-            return errors;
-        }
+    private record TokenizeResult(List<Token> tokens, List<ParseError> errors) {
     }
 
-    private static class QuotedReadResult {
-        private final String value;
-        private final int newPos;
-        private final List<ParseError> errors;
-
-        public QuotedReadResult(String value, int newPos, List<ParseError> errors) {
-            this.value = value;
-            this.newPos = newPos;
-            this.errors = errors;
-        }
-
-        public String getValue() {
-            return value;
-        }
-
-        public int getNewPos() {
-            return newPos;
-        }
-
-        public List<ParseError> getErrors() {
-            return errors;
-        }
+    private record QuotedReadResult(String value, int newPos, List<ParseError> errors) {
     }
 
-    private static class UnquotedReadResult {
-        private final String value;
-        private final int newPos;
-        private final List<ParseError> errors;
-
-        public UnquotedReadResult(String value, int newPos, List<ParseError> errors) {
-            this.value = value;
-            this.newPos = newPos;
-            this.errors = errors;
-        }
-
-        public String getValue() {
-            return value;
-        }
-
-        public int getNewPos() {
-            return newPos;
-        }
-
-        public List<ParseError> getErrors() {
-            return errors;
-        }
+    private record UnquotedReadResult(String value, int newPos, List<ParseError> errors) {
     }
 }

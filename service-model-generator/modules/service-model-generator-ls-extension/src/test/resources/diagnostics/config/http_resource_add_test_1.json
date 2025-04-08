@@ -56,7 +56,7 @@
       },
       "enabled": true,
       "editable": false,
-      "value": "response//",
+      "value": "medicalcenter/[string name]/[int name]",
       "valueType": "IDENTIFIER",
       "valueTypeConstraint": "string",
       "isType": false,
@@ -194,6 +194,119 @@
         "editable": true,
         "optional": true,
         "advanced": true
+      },
+      {
+        "metadata": {
+          "label": "header",
+          "description": "header"
+        },
+        "kind": "REQUIRED",
+        "type": {
+          "metadata": {
+            "label": "Parameter Type",
+            "description": "The type of the parameter"
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "string",
+          "valueType": "TYPE",
+          "isType": true,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false,
+          "imports": {}
+        },
+        "name": {
+          "metadata": {
+            "label": "Parameter Name",
+            "description": "The name of the parameter"
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "header",
+          "valueType": "IDENTIFIER",
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false,
+          "imports": {}
+        },
+        "defaultValue": {
+          "metadata": {
+            "label": "Default Value",
+            "description": "The default value of the parameter"
+          },
+          "enabled": true,
+          "editable": true,
+          "valueType": "EXPRESSION",
+          "isType": false,
+          "optional": true,
+          "advanced": false,
+          "addNewButton": false,
+          "imports": {}
+        },
+        "enabled": true,
+        "editable": true,
+        "optional": false,
+        "advanced": false,
+        "httpParamType": "HEADER"
+      },
+      {
+        "metadata": {
+          "label": "id",
+          "description": "id"
+        },
+        "kind": "DEFAULTABLE",
+        "type": {
+          "metadata": {
+            "label": "Parameter Type",
+            "description": "The type of the parameter"
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "int",
+          "valueType": "TYPE",
+          "isType": true,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false,
+          "imports": {}
+        },
+        "name": {
+          "metadata": {
+            "label": "Parameter Name",
+            "description": "The name of the parameter"
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "id",
+          "valueType": "IDENTIFIER",
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false,
+          "imports": {}
+        },
+        "defaultValue": {
+          "metadata": {
+            "label": "Default Value",
+            "description": "The default value of the parameter"
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "45",
+          "valueType": "EXPRESSION",
+          "isType": false,
+          "optional": true,
+          "advanced": false,
+          "addNewButton": false,
+          "imports": {}
+        },
+        "enabled": true,
+        "editable": true,
+        "optional": false,
+        "advanced": false,
+        "httpParamType": "QUERY"
       }
     ],
     "returnType": {

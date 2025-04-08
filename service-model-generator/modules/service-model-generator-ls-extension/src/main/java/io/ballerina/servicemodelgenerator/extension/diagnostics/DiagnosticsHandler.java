@@ -227,9 +227,15 @@ public class DiagnosticsHandler {
                 if (!paramNames.add(paramName)) {
                     diagnostics.add(new Diagnostics.Info(DiagnosticSeverity.ERROR,
                             "Duplicate parameter name: " + paramName));
+                    return false;
                 }
             } else if (segment instanceof ResourcePathParser.ValueSegment valueSegment) {
                 String value = valueSegment.getValue();
+                if (value.isEmpty()) {
+                    diagnostics.add(new Diagnostics.Info(DiagnosticSeverity.ERROR,
+                            "Resource path contains invalid characters"));
+                    return false;
+                }
             }
         }
 
