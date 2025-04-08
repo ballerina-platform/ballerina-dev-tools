@@ -24,6 +24,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.projects.Document;
 import io.ballerina.tools.diagnostics.DiagnosticSeverity;
 import io.ballerina.tools.text.LineRange;
@@ -72,10 +73,10 @@ public class SuggestedModelGenerator {
                         }
                         setSuggestedNodes(newBranch);
                     }
+                    setSuggestedNodes(newNode);
                 } else {
                     i = handleSuggestedNode(newNodes, i, newNode);
                 }
-                setSuggestedNodes(newNode);
                 continue;
             }
 
@@ -101,7 +102,7 @@ public class SuggestedModelGenerator {
     }
 
     private int handleSuggestedNode(JsonArray newNodes, int newIndex, JsonObject newNode) {
-        if (errorLocations.isEmpty() || !foundError && !isErrorInNode(newNode)) {
+        if (errorLocations.isEmpty() || !foundError && !isErrorInNode(newNode) && !isCustomExpression(newNode)) {
             setSuggestedNodes(newNode);
             return newIndex;
         }
@@ -122,6 +123,15 @@ public class SuggestedModelGenerator {
         LineRange lineRange =
                 gson.fromJson(newNode.get("codedata").getAsJsonObject().get("lineRange"), LineRange.class);
         return PositionUtil.isWithinLineRange(errorLocations.get(errorIndex), lineRange);
+    }
+
+    private boolean isCustomExpression(JsonObject newNode) {
+        return newNode != null
+                && newNode.has("codedata")
+                && newNode.get("codedata").isJsonObject()
+                && newNode.get("codedata").getAsJsonObject().has("node")
+                && NodeKind.EXPRESSION.name()
+                    .equals(newNode.get("codedata").getAsJsonObject().get("node").getAsString());
     }
 
     private static String getSourceText(JsonObject oldNode) {
