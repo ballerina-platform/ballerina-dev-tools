@@ -1,0 +1,124 @@
+{
+  "description": "",
+  "source": "graphql.bal",
+  "output": {
+    "Variables": {
+      "people": {
+        "id": "people",
+        "location": {
+          "fileName": "graphql.bal",
+          "startLine": {
+            "line": 11,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 15,
+            "offset": 2
+          }
+        },
+        "type": "VARIABLE",
+        "name": "people",
+        "scope": "Global",
+        "children": {}
+      }
+    },
+    "Types": {
+      "Query": {
+        "id": "Query",
+        "location": {
+          "fileName": "graphql.bal",
+          "startLine": {
+            "line": 18,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 31,
+            "offset": 1
+          }
+        },
+        "type": "TYPE",
+        "name": "Query",
+        "scope": "Global",
+        "children": {}
+      },
+      "Mutation": {
+        "id": "Mutation",
+        "location": {
+          "fileName": "graphql.bal",
+          "startLine": {
+            "line": 34,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 41,
+            "offset": 1
+          }
+        },
+        "type": "TYPE",
+        "name": "Mutation",
+        "scope": "Global",
+        "children": {}
+      },
+      "Person": {
+        "id": "Person",
+        "location": {
+          "fileName": "graphql.bal",
+          "startLine": {
+            "line": 3,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 8,
+            "offset": 3
+          }
+        },
+        "type": "TYPE",
+        "name": "Person",
+        "scope": "Global",
+        "children": {}
+      }
+    },
+    "Entry Points": {
+      "1778553472": {
+        "id": "1778553472",
+        "location": {
+          "fileName": "graphql.bal",
+          "startLine": {
+            "line": 44,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 52,
+            "offset": 1
+          }
+        },
+        "type": "SERVICE",
+        "name": "GraphQL Service - /graphql",
+        "scope": "Global",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.16.0.png",
+        "module": "graphql",
+        "children": {
+          "get#greeting": {
+            "id": "get#greeting",
+            "location": {
+              "fileName": "graphql.bal",
+              "startLine": {
+                "line": 45,
+                "offset": 4
+              },
+              "endLine": {
+                "line": 47,
+                "offset": 5
+              }
+            },
+            "type": "RESOURCE",
+            "name": "greeting",
+            "accessor": "get",
+            "scope": "Global",
+            "children": {}
+          }
+        }
+      }
+    }
+  }
+}

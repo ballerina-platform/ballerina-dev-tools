@@ -61,7 +61,7 @@ public record Artifact(String id, LineRange location, String type, String name, 
     private static final String CATEGORY_CONNECTIONS = "Connections";
     private static final String CATEGORY_VARIABLES = "Variables";
     private static final String CATEGORY_DEFAULT = "Others";
-    
+
     private static final Map<String, String> typeCategoryMap = Map.ofEntries(
             Map.entry(Type.SERVICE.name(), CATEGORY_ENTRY_POINTS),
             Map.entry(Type.AUTOMATION.name(), CATEGORY_ENTRY_POINTS),
@@ -75,6 +75,21 @@ public record Artifact(String id, LineRange location, String type, String name, 
             Map.entry(Type.TYPE.name(), CATEGORY_TYPES),
             Map.entry(Type.CONNECTION.name(), CATEGORY_CONNECTIONS),
             Map.entry(Type.VARIABLE.name(), CATEGORY_VARIABLES));
+
+    private static final Map<String, String> entryPointMap = Map.ofEntries(
+            Map.entry("http", "HTTP Service"),
+            Map.entry("graphql", "GraphQL Service"),
+            Map.entry("tcp", "TCP Service"),
+            Map.entry("file", "Directory Service"),
+            Map.entry("ftp", "FTP Service"),
+            Map.entry("mqtt", "MQTT Event Handler"),
+            Map.entry("asb", "Azure Service Bus Event Handler"),
+            Map.entry("rabbitmq", "RabbitMQ Event Handler"),
+            Map.entry("kafka", "Kafka Event Handler"),
+            Map.entry("salesforce", "Salesforce Event Handler"),
+            Map.entry("github", "GitHub Event Handler"),
+            Map.entry("ai", "AI Agent Services")
+    );
 
     public static String getCategory(String type) {
         return typeCategoryMap.getOrDefault(type, CATEGORY_DEFAULT);
@@ -189,6 +204,17 @@ public record Artifact(String id, LineRange location, String type, String name, 
             if (child != null && child.id() != null) {
                 this.children.put(child.id(), child);
             }
+            return this;
+        }
+
+        public Builder serviceNameWithPath(String path) {
+            String prefix = entryPointMap.containsKey(module) ? entryPointMap.get(module) + " - " : "";
+            this.name = prefix + path;
+            return this;
+        }
+
+        public Builder serviceName(String name) {
+            this.name = entryPointMap.getOrDefault(module, name);
             return this;
         }
 
