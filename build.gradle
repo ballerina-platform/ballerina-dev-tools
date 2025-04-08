@@ -303,6 +303,7 @@ test.dependsOn rootProject.pullBallerinaModule('ai.agent', ballerinaxAiAgent)
 test.dependsOn rootProject.pullBallerinaModule('np', ballerinaxNp)
 test.dependsOn rootProject.pullBallerinaModule('kafka', ballerinaxKafkaVersion)
 test.dependsOn rootProject.pullBallerinaModule('rabbitmq', ballerinaxRabbitmqVersion)
+test.dependsOn rootProject.pullBallerinaModule('trigger.github', ballerinaxGithubTriggerVersion)
 
 task build {
     dependsOn test
