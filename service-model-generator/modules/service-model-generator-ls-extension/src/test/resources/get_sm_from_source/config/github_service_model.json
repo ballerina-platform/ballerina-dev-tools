@@ -1,0 +1,1043 @@
+{
+  "filePath": "sample10/main.bal",
+  "description": "Test the generation of service model for a Kafka service",
+  "start": {
+    "line": 4,
+    "offset": 0
+  },
+  "end": {
+    "line": 60,
+    "offset": 0
+  },
+  "response": {
+    "id": "11",
+    "name": "GitHub Event Handler",
+    "type": "trigger.github",
+    "displayName": "GitHub Event Handler",
+    "description": "Add the service documentation",
+    "displayAnnotation": {
+      "label": "GitHub Event Handler",
+      "iconPath": "https://bcentral-packageicons.azureedge.net/images/ballerinax_trigger.github_0.10.0.png"
+    },
+    "moduleName": "trigger.github",
+    "orgName": "ballerinax",
+    "version": "0.10.0",
+    "packageName": "trigger.github",
+    "listenerProtocol": "github",
+    "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_trigger.github_0.10.0.png",
+    "properties": {
+      "listener": {
+        "metadata": {
+          "label": "Listeners",
+          "description": "The Listeners to be bound with the service"
+        },
+        "enabled": true,
+        "editable": true,
+        "value": "githubDefaultListener",
+        "values": [],
+        "valueType": "MULTIPLE_SELECT",
+        "valueTypeConstraint": "github:Listener",
+        "isType": false,
+        "placeholder": "",
+        "optional": false,
+        "advanced": false,
+        "items": [
+          "githubDefaultListener"
+        ],
+        "codedata": {
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false,
+          "type": "LISTENER"
+        },
+        "addNewButton": true,
+        "imports": {}
+      },
+      "serviceType": {
+        "metadata": {
+          "label": "Event Channel",
+          "description": "The event channel name"
+        },
+        "enabled": true,
+        "editable": true,
+        "value": "IssuesService",
+        "valueType": "SINGLE_SELECT",
+        "valueTypeConstraint": "string",
+        "isType": false,
+        "placeholder": "",
+        "optional": false,
+        "advanced": false,
+        "items": [
+          "",
+          "IssuesService",
+          "IssueCommentService",
+          "PullRequestService",
+          "PullRequestReviewService",
+          "PullRequestReviewCommentService",
+          "ReleaseService",
+          "LabelService",
+          "MilestoneService",
+          "PushService",
+          "ProjectCardService"
+        ],
+        "codedata": {
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false,
+          "type": "SERVICE_TYPE"
+        },
+        "addNewButton": false,
+        "imports": {}
+      }
+    },
+    "codedata": {
+      "lineRange": {
+        "fileName": "main.bal",
+        "startLine": {
+          "line": 4,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 60,
+          "offset": 1
+        }
+      },
+      "inListenerInit": false,
+      "isBasePath": false,
+      "inDisplayAnnotation": false
+    },
+    "functions": [
+      {
+        "metadata": {
+          "label": "onOpened",
+          "description": ""
+        },
+        "kind": "REMOTE",
+        "name": {
+          "metadata": {
+            "label": "onOpened",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": false,
+          "value": "onOpened",
+          "valueType": "IDENTIFIER",
+          "valueTypeConstraint": "string",
+          "isType": false,
+          "placeholder": "onOpened",
+          "optional": false,
+          "advanced": false,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "FUNCTION_NAME"
+          },
+          "addNewButton": false,
+          "imports": {}
+        },
+        "parameters": [
+          {
+            "metadata": {
+              "label": "payload",
+              "description": ""
+            },
+            "kind": "REQUIRED",
+            "type": {
+              "metadata": {
+                "label": "Type",
+                "description": "The type of the parameter"
+              },
+              "enabled": true,
+              "editable": false,
+              "value": "github:IssuesEvent",
+              "valueType": "TYPE",
+              "isType": true,
+              "placeholder": "github:IssuesEvent",
+              "optional": true,
+              "advanced": false,
+              "addNewButton": false,
+              "imports": {}
+            },
+            "name": {
+              "metadata": {
+                "label": "payload",
+                "description": ""
+              },
+              "enabled": true,
+              "editable": false,
+              "value": "payload",
+              "valueType": "IDENTIFIER",
+              "isType": false,
+              "placeholder": "payload",
+              "optional": false,
+              "advanced": false,
+              "codedata": {
+                "inListenerInit": false,
+                "isBasePath": false,
+                "inDisplayAnnotation": false,
+                "type": "PARAMETER_NAME"
+              },
+              "addNewButton": false,
+              "imports": {}
+            },
+            "defaultValue": {
+              "metadata": {
+                "label": "Default Value",
+                "description": "The default value of the parameter"
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "EXPRESSION",
+              "isType": false,
+              "placeholder": "",
+              "optional": true,
+              "advanced": false,
+              "addNewButton": false,
+              "imports": {}
+            },
+            "enabled": true,
+            "editable": true,
+            "optional": false,
+            "advanced": false
+          }
+        ],
+        "returnType": {
+          "hasError": true,
+          "metadata": {
+            "label": "Return Type",
+            "description": "The return type of the function"
+          },
+          "enabled": true,
+          "editable": false,
+          "value": "error|()",
+          "valueType": "TYPE",
+          "isType": true,
+          "placeholder": "error|()",
+          "optional": true,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "enabled": true,
+        "optional": false,
+        "editable": true,
+        "canAddParameters": false,
+        "codedata": {
+          "lineRange": {
+            "fileName": "main.bal",
+            "startLine": {
+              "line": 5,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 11,
+              "offset": 5
+            }
+          },
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false
+        }
+      },
+      {
+        "metadata": {
+          "label": "onClosed",
+          "description": ""
+        },
+        "kind": "REMOTE",
+        "name": {
+          "metadata": {
+            "label": "onClosed",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": false,
+          "value": "onClosed",
+          "valueType": "IDENTIFIER",
+          "valueTypeConstraint": "string",
+          "isType": false,
+          "placeholder": "onClosed",
+          "optional": false,
+          "advanced": false,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "FUNCTION_NAME"
+          },
+          "addNewButton": false,
+          "imports": {}
+        },
+        "parameters": [
+          {
+            "metadata": {
+              "label": "payload",
+              "description": ""
+            },
+            "kind": "REQUIRED",
+            "type": {
+              "metadata": {
+                "label": "Type",
+                "description": "The type of the parameter"
+              },
+              "enabled": true,
+              "editable": false,
+              "value": "github:IssuesEvent",
+              "valueType": "TYPE",
+              "isType": true,
+              "placeholder": "github:IssuesEvent",
+              "optional": true,
+              "advanced": false,
+              "addNewButton": false,
+              "imports": {}
+            },
+            "name": {
+              "metadata": {
+                "label": "payload",
+                "description": ""
+              },
+              "enabled": true,
+              "editable": false,
+              "value": "payload",
+              "valueType": "IDENTIFIER",
+              "isType": false,
+              "placeholder": "payload",
+              "optional": false,
+              "advanced": false,
+              "codedata": {
+                "inListenerInit": false,
+                "isBasePath": false,
+                "inDisplayAnnotation": false,
+                "type": "PARAMETER_NAME"
+              },
+              "addNewButton": false,
+              "imports": {}
+            },
+            "defaultValue": {
+              "metadata": {
+                "label": "Default Value",
+                "description": "The default value of the parameter"
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "EXPRESSION",
+              "isType": false,
+              "placeholder": "",
+              "optional": true,
+              "advanced": false,
+              "addNewButton": false,
+              "imports": {}
+            },
+            "enabled": true,
+            "editable": true,
+            "optional": false,
+            "advanced": false
+          }
+        ],
+        "returnType": {
+          "hasError": true,
+          "metadata": {
+            "label": "Return Type",
+            "description": "The return type of the function"
+          },
+          "enabled": true,
+          "editable": false,
+          "value": "error|()",
+          "valueType": "TYPE",
+          "isType": true,
+          "placeholder": "error|()",
+          "optional": true,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "enabled": true,
+        "optional": false,
+        "editable": true,
+        "canAddParameters": false,
+        "codedata": {
+          "lineRange": {
+            "fileName": "main.bal",
+            "startLine": {
+              "line": 13,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 19,
+              "offset": 5
+            }
+          },
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false
+        }
+      },
+      {
+        "metadata": {
+          "label": "onReopened",
+          "description": ""
+        },
+        "kind": "REMOTE",
+        "name": {
+          "metadata": {
+            "label": "onReopened",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": false,
+          "value": "onReopened",
+          "valueType": "IDENTIFIER",
+          "valueTypeConstraint": "string",
+          "isType": false,
+          "placeholder": "onReopened",
+          "optional": false,
+          "advanced": false,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "FUNCTION_NAME"
+          },
+          "addNewButton": false,
+          "imports": {}
+        },
+        "parameters": [
+          {
+            "metadata": {
+              "label": "payload",
+              "description": ""
+            },
+            "kind": "REQUIRED",
+            "type": {
+              "metadata": {
+                "label": "Type",
+                "description": "The type of the parameter"
+              },
+              "enabled": true,
+              "editable": false,
+              "value": "github:IssuesEvent",
+              "valueType": "TYPE",
+              "isType": true,
+              "placeholder": "github:IssuesEvent",
+              "optional": true,
+              "advanced": false,
+              "addNewButton": false,
+              "imports": {}
+            },
+            "name": {
+              "metadata": {
+                "label": "payload",
+                "description": ""
+              },
+              "enabled": true,
+              "editable": false,
+              "value": "payload",
+              "valueType": "IDENTIFIER",
+              "isType": false,
+              "placeholder": "payload",
+              "optional": false,
+              "advanced": false,
+              "codedata": {
+                "inListenerInit": false,
+                "isBasePath": false,
+                "inDisplayAnnotation": false,
+                "type": "PARAMETER_NAME"
+              },
+              "addNewButton": false,
+              "imports": {}
+            },
+            "defaultValue": {
+              "metadata": {
+                "label": "Default Value",
+                "description": "The default value of the parameter"
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "EXPRESSION",
+              "isType": false,
+              "placeholder": "",
+              "optional": true,
+              "advanced": false,
+              "addNewButton": false,
+              "imports": {}
+            },
+            "enabled": true,
+            "editable": true,
+            "optional": false,
+            "advanced": false
+          }
+        ],
+        "returnType": {
+          "hasError": true,
+          "metadata": {
+            "label": "Return Type",
+            "description": "The return type of the function"
+          },
+          "enabled": true,
+          "editable": false,
+          "value": "error|()",
+          "valueType": "TYPE",
+          "isType": true,
+          "placeholder": "error|()",
+          "optional": true,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "enabled": true,
+        "optional": false,
+        "editable": true,
+        "canAddParameters": false,
+        "codedata": {
+          "lineRange": {
+            "fileName": "main.bal",
+            "startLine": {
+              "line": 21,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 27,
+              "offset": 5
+            }
+          },
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false
+        }
+      },
+      {
+        "metadata": {
+          "label": "onAssigned",
+          "description": ""
+        },
+        "kind": "REMOTE",
+        "name": {
+          "metadata": {
+            "label": "onAssigned",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": false,
+          "value": "onAssigned",
+          "valueType": "IDENTIFIER",
+          "valueTypeConstraint": "string",
+          "isType": false,
+          "placeholder": "onAssigned",
+          "optional": false,
+          "advanced": false,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "FUNCTION_NAME"
+          },
+          "addNewButton": false,
+          "imports": {}
+        },
+        "parameters": [
+          {
+            "metadata": {
+              "label": "payload",
+              "description": ""
+            },
+            "kind": "REQUIRED",
+            "type": {
+              "metadata": {
+                "label": "Type",
+                "description": "The type of the parameter"
+              },
+              "enabled": true,
+              "editable": false,
+              "value": "github:IssuesEvent",
+              "valueType": "TYPE",
+              "isType": true,
+              "placeholder": "github:IssuesEvent",
+              "optional": true,
+              "advanced": false,
+              "addNewButton": false,
+              "imports": {}
+            },
+            "name": {
+              "metadata": {
+                "label": "payload",
+                "description": ""
+              },
+              "enabled": true,
+              "editable": false,
+              "value": "payload",
+              "valueType": "IDENTIFIER",
+              "isType": false,
+              "placeholder": "payload",
+              "optional": false,
+              "advanced": false,
+              "codedata": {
+                "inListenerInit": false,
+                "isBasePath": false,
+                "inDisplayAnnotation": false,
+                "type": "PARAMETER_NAME"
+              },
+              "addNewButton": false,
+              "imports": {}
+            },
+            "defaultValue": {
+              "metadata": {
+                "label": "Default Value",
+                "description": "The default value of the parameter"
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "EXPRESSION",
+              "isType": false,
+              "placeholder": "",
+              "optional": true,
+              "advanced": false,
+              "addNewButton": false,
+              "imports": {}
+            },
+            "enabled": true,
+            "editable": true,
+            "optional": false,
+            "advanced": false
+          }
+        ],
+        "returnType": {
+          "hasError": true,
+          "metadata": {
+            "label": "Return Type",
+            "description": "The return type of the function"
+          },
+          "enabled": true,
+          "editable": false,
+          "value": "error|()",
+          "valueType": "TYPE",
+          "isType": true,
+          "placeholder": "error|()",
+          "optional": true,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "enabled": true,
+        "optional": false,
+        "editable": true,
+        "canAddParameters": false,
+        "codedata": {
+          "lineRange": {
+            "fileName": "main.bal",
+            "startLine": {
+              "line": 29,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 35,
+              "offset": 5
+            }
+          },
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false
+        }
+      },
+      {
+        "metadata": {
+          "label": "onUnassigned",
+          "description": ""
+        },
+        "kind": "REMOTE",
+        "name": {
+          "metadata": {
+            "label": "onUnassigned",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": false,
+          "value": "onUnassigned",
+          "valueType": "IDENTIFIER",
+          "valueTypeConstraint": "string",
+          "isType": false,
+          "placeholder": "onUnassigned",
+          "optional": false,
+          "advanced": false,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "FUNCTION_NAME"
+          },
+          "addNewButton": false,
+          "imports": {}
+        },
+        "parameters": [
+          {
+            "metadata": {
+              "label": "payload",
+              "description": ""
+            },
+            "kind": "REQUIRED",
+            "type": {
+              "metadata": {
+                "label": "Type",
+                "description": "The type of the parameter"
+              },
+              "enabled": true,
+              "editable": false,
+              "value": "github:IssuesEvent",
+              "valueType": "TYPE",
+              "isType": true,
+              "placeholder": "github:IssuesEvent",
+              "optional": true,
+              "advanced": false,
+              "addNewButton": false,
+              "imports": {}
+            },
+            "name": {
+              "metadata": {
+                "label": "payload",
+                "description": ""
+              },
+              "enabled": true,
+              "editable": false,
+              "value": "payload",
+              "valueType": "IDENTIFIER",
+              "isType": false,
+              "placeholder": "payload",
+              "optional": false,
+              "advanced": false,
+              "codedata": {
+                "inListenerInit": false,
+                "isBasePath": false,
+                "inDisplayAnnotation": false,
+                "type": "PARAMETER_NAME"
+              },
+              "addNewButton": false,
+              "imports": {}
+            },
+            "defaultValue": {
+              "metadata": {
+                "label": "Default Value",
+                "description": "The default value of the parameter"
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "EXPRESSION",
+              "isType": false,
+              "placeholder": "",
+              "optional": true,
+              "advanced": false,
+              "addNewButton": false,
+              "imports": {}
+            },
+            "enabled": true,
+            "editable": true,
+            "optional": false,
+            "advanced": false
+          }
+        ],
+        "returnType": {
+          "hasError": true,
+          "metadata": {
+            "label": "Return Type",
+            "description": "The return type of the function"
+          },
+          "enabled": true,
+          "editable": false,
+          "value": "error|()",
+          "valueType": "TYPE",
+          "isType": true,
+          "placeholder": "error|()",
+          "optional": true,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "enabled": true,
+        "optional": false,
+        "editable": true,
+        "canAddParameters": false,
+        "codedata": {
+          "lineRange": {
+            "fileName": "main.bal",
+            "startLine": {
+              "line": 37,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 43,
+              "offset": 5
+            }
+          },
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false
+        }
+      },
+      {
+        "metadata": {
+          "label": "onLabeled",
+          "description": ""
+        },
+        "kind": "REMOTE",
+        "name": {
+          "metadata": {
+            "label": "onLabeled",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": false,
+          "value": "onLabeled",
+          "valueType": "IDENTIFIER",
+          "valueTypeConstraint": "string",
+          "isType": false,
+          "placeholder": "onLabeled",
+          "optional": false,
+          "advanced": false,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "FUNCTION_NAME"
+          },
+          "addNewButton": false,
+          "imports": {}
+        },
+        "parameters": [
+          {
+            "metadata": {
+              "label": "payload",
+              "description": ""
+            },
+            "kind": "REQUIRED",
+            "type": {
+              "metadata": {
+                "label": "Type",
+                "description": "The type of the parameter"
+              },
+              "enabled": true,
+              "editable": false,
+              "value": "github:IssuesEvent",
+              "valueType": "TYPE",
+              "isType": true,
+              "placeholder": "github:IssuesEvent",
+              "optional": true,
+              "advanced": false,
+              "addNewButton": false,
+              "imports": {}
+            },
+            "name": {
+              "metadata": {
+                "label": "payload",
+                "description": ""
+              },
+              "enabled": true,
+              "editable": false,
+              "value": "payload",
+              "valueType": "IDENTIFIER",
+              "isType": false,
+              "placeholder": "payload",
+              "optional": false,
+              "advanced": false,
+              "codedata": {
+                "inListenerInit": false,
+                "isBasePath": false,
+                "inDisplayAnnotation": false,
+                "type": "PARAMETER_NAME"
+              },
+              "addNewButton": false,
+              "imports": {}
+            },
+            "defaultValue": {
+              "metadata": {
+                "label": "Default Value",
+                "description": "The default value of the parameter"
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "EXPRESSION",
+              "isType": false,
+              "placeholder": "",
+              "optional": true,
+              "advanced": false,
+              "addNewButton": false,
+              "imports": {}
+            },
+            "enabled": true,
+            "editable": true,
+            "optional": false,
+            "advanced": false
+          }
+        ],
+        "returnType": {
+          "hasError": true,
+          "metadata": {
+            "label": "Return Type",
+            "description": "The return type of the function"
+          },
+          "enabled": true,
+          "editable": false,
+          "value": "error|()",
+          "valueType": "TYPE",
+          "isType": true,
+          "placeholder": "error|()",
+          "optional": true,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "enabled": true,
+        "optional": false,
+        "editable": true,
+        "canAddParameters": false,
+        "codedata": {
+          "lineRange": {
+            "fileName": "main.bal",
+            "startLine": {
+              "line": 45,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 51,
+              "offset": 5
+            }
+          },
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false
+        }
+      },
+      {
+        "metadata": {
+          "label": "onUnlabeled",
+          "description": ""
+        },
+        "kind": "REMOTE",
+        "name": {
+          "metadata": {
+            "label": "onUnlabeled",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": false,
+          "value": "onUnlabeled",
+          "valueType": "IDENTIFIER",
+          "valueTypeConstraint": "string",
+          "isType": false,
+          "placeholder": "onUnlabeled",
+          "optional": false,
+          "advanced": false,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "FUNCTION_NAME"
+          },
+          "addNewButton": false,
+          "imports": {}
+        },
+        "parameters": [
+          {
+            "metadata": {
+              "label": "payload",
+              "description": ""
+            },
+            "kind": "REQUIRED",
+            "type": {
+              "metadata": {
+                "label": "Type",
+                "description": "The type of the parameter"
+              },
+              "enabled": true,
+              "editable": false,
+              "value": "github:IssuesEvent",
+              "valueType": "TYPE",
+              "isType": true,
+              "placeholder": "github:IssuesEvent",
+              "optional": true,
+              "advanced": false,
+              "addNewButton": false,
+              "imports": {}
+            },
+            "name": {
+              "metadata": {
+                "label": "payload",
+                "description": ""
+              },
+              "enabled": true,
+              "editable": false,
+              "value": "payload",
+              "valueType": "IDENTIFIER",
+              "isType": false,
+              "placeholder": "payload",
+              "optional": false,
+              "advanced": false,
+              "codedata": {
+                "inListenerInit": false,
+                "isBasePath": false,
+                "inDisplayAnnotation": false,
+                "type": "PARAMETER_NAME"
+              },
+              "addNewButton": false,
+              "imports": {}
+            },
+            "defaultValue": {
+              "metadata": {
+                "label": "Default Value",
+                "description": "The default value of the parameter"
+              },
+              "enabled": true,
+              "editable": true,
+              "value": "",
+              "valueType": "EXPRESSION",
+              "isType": false,
+              "placeholder": "",
+              "optional": true,
+              "advanced": false,
+              "addNewButton": false,
+              "imports": {}
+            },
+            "enabled": true,
+            "editable": true,
+            "optional": false,
+            "advanced": false
+          }
+        ],
+        "returnType": {
+          "hasError": true,
+          "metadata": {
+            "label": "Return Type",
+            "description": "The return type of the function"
+          },
+          "enabled": true,
+          "editable": false,
+          "value": "error|()",
+          "valueType": "TYPE",
+          "isType": true,
+          "placeholder": "error|()",
+          "optional": true,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "enabled": true,
+        "optional": false,
+        "editable": true,
+        "canAddParameters": false,
+        "codedata": {
+          "lineRange": {
+            "fileName": "main.bal",
+            "startLine": {
+              "line": 53,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 59,
+              "offset": 5
+            }
+          },
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false
+        }
+      }
+    ]
+  }
+}
