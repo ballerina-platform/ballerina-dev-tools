@@ -28,7 +28,7 @@
     },
     {
       "metadata": {
-        "label": "SQLDB Client",
+        "label": "SQLDB",
         "description": "This is a generated connector from [Azure SQL DB API v1.0](https://docs.microsoft.com/en-us/azure/azure-sql/database/sql-database-paas-overview)  OpenAPI specification.\nThis Azure SQL Database management API provides a RESTful set of web APIs that interact with Azure SQL Database services to manage your databases. The API enables users to create, retrieve, update, and delete databases, servers, and other entities.",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure.sqldb_1.5.1.png",
         "data": {
@@ -48,7 +48,7 @@
     },
     {
       "metadata": {
-        "label": "Snowflake Client",
+        "label": "Snowflake",
         "description": "Represents a Snowflake database client.",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_snowflake_2.1.0.png",
         "data": {
@@ -68,7 +68,7 @@
     },
     {
       "metadata": {
-        "label": "MS SQL Client",
+        "label": "MS SQL",
         "description": "Represents an MSSQL database client.",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mssql_1.14.0.png",
         "data": {
@@ -88,7 +88,7 @@
     },
     {
       "metadata": {
-        "label": "MySQL Client",
+        "label": "MySQL",
         "description": "Represents a MySQL database client.",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mysql_1.14.0.png",
         "data": {
@@ -108,7 +108,7 @@
     },
     {
       "metadata": {
-        "label": "PostgreSQL Client",
+        "label": "PostgreSQL",
         "description": "Represents a PostgreSQL database client.",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_postgresql_1.14.0.png",
         "data": {
@@ -128,7 +128,7 @@
     },
     {
       "metadata": {
-        "label": "Themoviedb Client",
+        "label": "Themoviedb",
         "description": "This is a generated connector for [The Movie Database (TMDB) API v3](https://www.themoviedb.org/documentation/api) OpenAPI specification.\nThe Movie Database (TMDB) API provide data about movies and tv shows around the world.",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_themoviedb_1.5.1.png",
         "data": {
@@ -148,7 +148,7 @@
     },
     {
       "metadata": {
-        "label": "Vector Client",
+        "label": "Vector",
         "description": "This is a generated connector for the `Vector Operations` under [Pinecone Vector Database API](https://docs.pinecone.io/reference) OpenAPI specification. Pinecone is a fully managed vector database which supports building developer-friendly, easily scalable, and high-performance vector search applications without infrastructure hassles.",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_pinecone.vector_1.0.2.png",
         "data": {
@@ -168,7 +168,7 @@
     },
     {
       "metadata": {
-        "label": "Index Client",
+        "label": "Index",
         "description": "This is a generated connector for the `Index Operations` under [Pinecone Vector Database API](https://docs.pinecone.io/reference) OpenAPI specification. Pinecone is a fully managed vector database which supports building developer-friendly, easily scalable, and high-performance vector search applications without infrastructure hassles.",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_pinecone.index_1.0.2.png",
         "data": {
@@ -188,7 +188,7 @@
     },
     {
       "metadata": {
-        "label": "Bintable Client",
+        "label": "Bintable",
         "description": "This is a generated connector from [BINTable API v1](https://bintable.com/get-api) OpenAPI Specification. \nBIN lookup API, the free api service from bintable.com to lookup card information using it's BIN. \nThe service maintains updated database based on the comunity and other third party services to make sure all BINs in the database are accurate and up to date.",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_bintable_1.5.1.png",
         "data": {
@@ -208,27 +208,7 @@
     },
     {
       "metadata": {
-        "label": "Persist RedisClient",
-        "description": "The client used by the generated persist clients to abstract and \nexecute Redis database operations that are required to perform CRUD operations.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_persist.redis_0.3.0.png",
-        "data": {
-          "isAgentSupport": false
-        }
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "persist.redis",
-        "object": "RedisClient",
-        "symbol": "init",
-        "version": "0.3.0",
-        "isGenerated": false
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "Redis Client",
+        "label": "Redis",
         "description": "Ballerina Redis connector provides the capability to access Redis cache.\nThis connector lets you to perform operations to access and manipulate key-value data stored in a Redis database. \n",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.1.0.png",
         "data": {
@@ -248,7 +228,7 @@
     },
     {
       "metadata": {
-        "label": "Geonames Client",
+        "label": "Geonames",
         "description": "This is a generated connector for [Geonames API](https://www.geonames.org/export/JSON-webservices.html) OpenAPI specification.\nGeonames is a geographical database where users can retrieve geo location information.",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_geonames_1.3.1.png",
         "data": {
@@ -308,7 +288,7 @@
     },
     {
       "metadata": {
-        "label": "Mailchimp Client",
+        "label": "Mailchimp",
         "description": "This is a generated connector for [Mailchimp Marketing API v3.0.52](https://mailchimp.com/developer/marketing/) OpenAPI Specification. \nThe Mailchimp Marketing API allow to manage audiences, control automation workflows, sync email activity with your database and more.",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mailchimp_1.5.1.png",
         "data": {
@@ -328,7 +308,7 @@
     },
     {
       "metadata": {
-        "label": "Rest Client",
+        "label": "Rest",
         "description": "This is a generated connector for [Zoho CRM](https://www.zoho.com/crm/developer/docs/api/v2/modules-api.html) OpenAPI specification.\nZoho CRM REST API provides the capability to unify customer data from across different applications and databases.",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_zoho.crm.rest_1.3.1.png",
         "data": {
@@ -348,7 +328,7 @@
     },
     {
       "metadata": {
-        "label": "Connect Client",
+        "label": "Connect",
         "description": "The [Ballerina](https://ballerina.io/) connector for [CData Connect](https://cloud.cdata.com/docs/JDBC.html) \nallows you to programmatically access all of the CData Connect applications, databases, APIs, and services\nacross an organization via the Java Database Connectivity (JDBC) API using [Ballerina](https://ballerina.io/). \nFor detailed information on working with each data source, see [Data Sources](https://cloud.cdata.com/docs/Data-Sources.html).\nCData Connect supports a wide range of standard DDL commands, SQL commands, and SQL functions to query data sources. \nFor reference information on all the CData Connect SQL commands (i.e., DDL, DML, and query syntax), \nsee the [SQL Reference](https://cloud.cdata.com/docs/SQL-Reference.html).",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_cdata.connect_1.2.0.png",
         "data": {
@@ -368,7 +348,7 @@
     },
     {
       "metadata": {
-        "label": "Com Client",
+        "label": "Com",
         "description": "This is a generated connector from [Files.com API v1.0](https://www.files.com/) OpenAPI specification.\nWelcome to the Files.com API. Our REST API are designed for people who require the highest level of integration between Files.com and their own application, website, or database.",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_files.com_1.5.1.png",
         "data": {
@@ -388,7 +368,7 @@
     },
     {
       "metadata": {
-        "label": "Cloud Datastore Client",
+        "label": "Cloud Datastore",
         "description": "This is a generated connector for [Google Cloud Datastore REST API v1](https://cloud.google.com/datastore/docs/reference/data/rest) OpenAPI specification.\nThe Google Cloud Datastore API provides the capability to access the schemaless NoSQL database to provide fully managed, robust, scalable storage for your application.",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.clouddatastore_1.5.1.png",
         "data": {
