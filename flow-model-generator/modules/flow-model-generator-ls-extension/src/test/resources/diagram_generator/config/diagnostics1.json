@@ -1257,7 +1257,7 @@
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
-            "value": "$CompilationError$",
+            "value": "Unknown Type",
             "placeholder": "var",
             "optional": false,
             "editable": true,

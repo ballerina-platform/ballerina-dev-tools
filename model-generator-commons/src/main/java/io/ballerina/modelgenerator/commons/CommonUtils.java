@@ -95,6 +95,7 @@ public class CommonUtils {
     public static final String LANG_LIB_PREFIX = "lang.";
     private static final String NATURAL_FUNCTION = "NaturalFunction";
     private static final String CALL_LLM = "callLlm";
+    private static final String UNKNOWN_TYPE = "Unknown Type";
 
     /**
      * Removes the quotes from the given string.
@@ -123,6 +124,7 @@ public class CommonUtils {
     public static String getTypeSignature(SemanticModel semanticModel, TypeSymbol typeSymbol, boolean ignoreError,
                                           ModuleInfo moduleInfo) {
         return switch (typeSymbol.typeKind()) {
+            case COMPILATION_ERROR -> UNKNOWN_TYPE;
             case UNION -> {
                 UnionTypeSymbol unionTypeSymbol = (UnionTypeSymbol) typeSymbol;
                 yield unionTypeSymbol.memberTypeDescriptors().stream()
