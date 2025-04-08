@@ -59,7 +59,9 @@ public record ServiceTypeFunction(
             String kind,
             String type, // Store JSON as String
             String defaultValue,
-            String importStatements
+            String importStatements,
+            int nameEditable,
+            int typeEditable
     ) {
     }
 }
