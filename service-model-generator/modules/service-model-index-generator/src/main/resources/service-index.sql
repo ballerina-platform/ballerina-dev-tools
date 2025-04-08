@@ -1,13 +1,13 @@
 -- Drop tables if they already exist to prevent conflicts
-DROP TABLE IF EXISTS Package;
-DROP TABLE IF EXISTS Listener;
-DROP TABLE IF EXISTS Parameter;
-DROP TABLE IF EXISTS ParameterMemberType;
-DROP TABLE IF EXISTS Annotation;
-DROP TABLE IF EXISTS ServiceDeclaration;
-DROP TABLE IF EXISTS ServiceType;
-DROP TABLE IF EXISTS ServiceTypeFunction;
 DROP TABLE IF EXISTS ServiceTypeFunctionParameter;
+DROP TABLE IF EXISTS ServiceTypeFunction;
+DROP TABLE IF EXISTS ServiceType;
+DROP TABLE IF EXISTS ServiceDeclaration;
+DROP TABLE IF EXISTS Annotation;
+DROP TABLE IF EXISTS ParameterMemberType;
+DROP TABLE IF EXISTS Parameter;
+DROP TABLE IF EXISTS Listener;
+DROP TABLE IF EXISTS Package;
 
 -- Create Package table
 CREATE TABLE Package (
@@ -123,8 +123,8 @@ CREATE TABLE ServiceTypeFunctionParameter (
     type JSON, -- JSON type for parameter type information
     default_value TEXT,
     import_statements TEXT,
+    editable_name INTEGER,
+    editable_type INTEGER,
     function_id INTEGER,
-    editable_name INTEGER CHECK(editable_name IN (0, 1)),
-    editable_param INTEGER CHECK(editable_param IN (0, 1)),
     FOREIGN KEY (function_id) REFERENCES ServiceTypeFunction(function_id) ON DELETE CASCADE
 );
