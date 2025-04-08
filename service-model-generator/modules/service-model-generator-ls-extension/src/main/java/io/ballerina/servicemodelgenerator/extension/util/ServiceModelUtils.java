@@ -369,39 +369,30 @@ public class ServiceModelUtils {
                 .setCodedata(new Codedata("PARAMETER_NAME"))
                 .value(parameter.name())
                 .valueType("IDENTIFIER")
-                .setValueTypeConstraint("string")
                 .setPlaceholder(parameter.name())
                 .enabled(true)
-                .editable(false)
-                .isType(false)
-                .optional(false)
-                .setAdvanced(false);
+                .editable(parameter.nameEditable() == 1);
 
         Value.ValueBuilder parameterType = new Value.ValueBuilder();
         parameterType
                 .setMetadata(new MetaData("Type", "The type of the parameter"))
                 .value(parameter.type())
                 .valueType("TYPE")
-                .setValueTypeConstraint("string")
                 .setPlaceholder(parameter.type())
                 .enabled(true)
-                .editable(true)
+                .editable(parameter.typeEditable() == 1)
                 .isType(true)
-                .optional(true)
-                .setAdvanced(false);
+                .optional(true);
 
         Value.ValueBuilder parameterDefaultValue = new Value.ValueBuilder();
         parameterDefaultValue
                 .setMetadata(new MetaData("Default Value", "The default value of the parameter"))
                 .value(parameter.defaultValue())
                 .valueType("EXPRESSION")
-                .setValueTypeConstraint("string")
                 .setPlaceholder(parameter.defaultValue())
                 .enabled(true)
                 .editable(true)
-                .isType(true)
-                .optional(true)
-                .setAdvanced(false);
+                .optional(true);
 
         Parameter.Builder parameterBuilder = new Parameter.Builder();
         parameterBuilder
@@ -412,7 +403,7 @@ public class ServiceModelUtils {
                 .defaultValue(parameterDefaultValue.build())
                 .enabled(true)
                 .editable(true)
-                .optional(true)
+                .optional(parameter.kind().equals("OPTIONAL"))
                 .advanced(false)
                 .httpParamType(null);
 
