@@ -52,13 +52,14 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.getFunctionModel;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.getPath;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.isPresent;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.populateListenerInfo;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateAnnotationAttachmentProperty;
-import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateFunction;
+import static io.ballerina.servicemodelgenerator.extension.util.Utils.updateValue;
 
 public class ServiceModelUtils {
 
@@ -160,6 +161,47 @@ public class ServiceModelUtils {
         });
     }
 
+    private static void updateFunction(Function target, Function source, Service service) {
+        target.setEnabled(source.isEnabled());
+        target.setCodedata(source.getCodedata());
+        updateValue(target.getAccessor(), source.getAccessor());
+        updateValue(target.getName(), source.getName());
+
+        List<Parameter> sourceParameters = source.getParameters();
+        for (Parameter targetParameter: target.getParameters()) {
+            AtomicReference<Optional<Parameter>> parameter = new AtomicReference<>(Optional.empty());
+            sourceParameters.removeIf(sourceParam -> {
+                if (isEqual(targetParameter.getType(), sourceParam.getType())) {
+                    parameter.set(Optional.of(sourceParam));
+                    return true;
+                }
+                return false;
+            });
+            Optional<Parameter> foundSourceParam = parameter.get();
+            if (foundSourceParam.isEmpty()) {
+                targetParameter.setEnabled(false);
+            }
+            foundSourceParam.ifPresent(value -> updateParameter(targetParameter, value));
+        }
+        updateValue(target.getReturnType(), source.getReturnType());
+        Value requiredFunctions = service.getProperty(ServiceModelGeneratorConstants.PROPERTY_REQUIRED_FUNCTIONS);
+        if (Objects.nonNull(requiredFunctions)) {
+            if (source.isEnabled() && requiredFunctions.getItems().contains(source.getName().getValue())) {
+                requiredFunctions.setValue(source.getName().getValue());
+            }
+        }
+    }
+
+    private static boolean isEqual(Value target, Value source) {
+        return Objects.nonNull(target) && target.getValue().equals(source.getValue());
+    }
+
+    private static void updateParameter(Parameter target, Parameter source) {
+        target.setEnabled(source.isEnabled());
+        target.setKind(source.getKind());
+        updateValue(target.getType(), source.getType());
+        updateValue(target.getName(), source.getName());
+    }
 
     /**
      * Get the service model of the given module without the function list.
@@ -327,39 +369,30 @@ public class ServiceModelUtils {
                 .setCodedata(new Codedata("PARAMETER_NAME"))
                 .value(parameter.name())
                 .valueType("IDENTIFIER")
-                .setValueTypeConstraint("string")
                 .setPlaceholder(parameter.name())
                 .enabled(true)
-                .editable(false)
-                .isType(false)
-                .optional(false)
-                .setAdvanced(false);
+                .editable(parameter.nameEditable() == 1);
 
         Value.ValueBuilder parameterType = new Value.ValueBuilder();
         parameterType
                 .setMetadata(new MetaData("Type", "The type of the parameter"))
                 .value(parameter.type())
                 .valueType("TYPE")
-                .setValueTypeConstraint("string")
                 .setPlaceholder(parameter.type())
                 .enabled(true)
-                .editable(true)
+                .editable(parameter.typeEditable() == 1)
                 .isType(true)
-                .optional(true)
-                .setAdvanced(false);
+                .optional(true);
 
         Value.ValueBuilder parameterDefaultValue = new Value.ValueBuilder();
         parameterDefaultValue
                 .setMetadata(new MetaData("Default Value", "The default value of the parameter"))
                 .value(parameter.defaultValue())
                 .valueType("EXPRESSION")
-                .setValueTypeConstraint("string")
                 .setPlaceholder(parameter.defaultValue())
                 .enabled(true)
                 .editable(true)
-                .isType(true)
-                .optional(true)
-                .setAdvanced(false);
+                .optional(true);
 
         Parameter.Builder parameterBuilder = new Parameter.Builder();
         parameterBuilder
@@ -370,7 +403,7 @@ public class ServiceModelUtils {
                 .defaultValue(parameterDefaultValue.build())
                 .enabled(true)
                 .editable(true)
-                .optional(true)
+                .optional(parameter.kind().equals("OPTIONAL"))
                 .advanced(false)
                 .httpParamType(null);
 

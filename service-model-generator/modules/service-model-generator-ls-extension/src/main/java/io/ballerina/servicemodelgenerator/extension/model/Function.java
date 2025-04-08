@@ -56,12 +56,13 @@ public class Function {
     private boolean enabled;
     private boolean optional;
     private boolean editable;
+    private boolean canAddParameters;
     private Codedata codedata;
     private Map<String, Value> annotations;
 
     public Function(MetaData metadata, List<String> qualifiers, String kind, Value accessor, Value name,
                     List<Parameter> parameters, Map<String, Parameter> schema, FunctionReturnType returnType,
-                    boolean enabled, boolean optional, boolean editable, Codedata codedata,
+                    boolean enabled, boolean optional, boolean editable, boolean canAddParameters, Codedata codedata,
                     Map<String, Value> annotations) {
         this.metadata = metadata;
         this.qualifiers = qualifiers;
@@ -280,6 +281,14 @@ public class Function {
         this.annotations = annotations;
     }
 
+    public boolean isCanAddParameters() {
+        return canAddParameters;
+    }
+
+    public void setCanAddParameters(boolean canAddParameters) {
+        this.canAddParameters = canAddParameters;
+    }
+
     public static class FunctionBuilder {
         private MetaData metadata;
         private Codedata codedata;
@@ -293,6 +302,7 @@ public class Function {
         private boolean enabled = false;
         private boolean optional = false;
         private boolean editable = false;
+        private boolean canAddParameters = false;
         private Map<String, Value> annotations;
 
         public FunctionBuilder metadata(String label, String description) {
@@ -355,6 +365,11 @@ public class Function {
             return this;
         }
 
+        public FunctionBuilder canAddParameters(boolean canAddParameters) {
+            this.canAddParameters = canAddParameters;
+            return this;
+        }
+
         public FunctionBuilder setCodedata(Codedata codedata) {
             this.codedata = codedata;
             return this;
@@ -367,7 +382,7 @@ public class Function {
 
         public Function build() {
             return new Function(metadata, qualifiers, kind, accessor, name, parameters, schema, returnType, enabled,
-                    optional, editable, codedata, annotations);
+                    optional, editable, canAddParameters, codedata, annotations);
         }
     }
 }

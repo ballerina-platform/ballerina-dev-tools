@@ -499,7 +499,7 @@ class ServiceIndexGenerator {
                         ServiceTypeFunctionParameter parameter = new ServiceTypeFunctionParameter(
                                 paramName, paramName, paramDescription, param.paramKind().name(),
                                 CommonUtils.getTypeSignature(semanticModel, param.typeDescriptor(), false),
-                                "", ""
+                                "", "", 0, 0
                         );
                         DatabaseManager.insertServiceTypeFunctionParameter(functionId, parameter);
                     }
@@ -538,7 +538,7 @@ class ServiceIndexGenerator {
                         ServiceTypeFunctionParameter parameter = new ServiceTypeFunctionParameter(
                                 paramName, paramName, paramDescription, param.paramKind().name(),
                                 CommonUtils.getTypeSignature(semanticModel, param.typeDescriptor(), false),
-                                "", ""
+                                "", "", 0, 0
                         );
                         DatabaseManager.insertServiceTypeFunctionParameter(functionId, parameter);
                     }
@@ -664,7 +664,9 @@ class ServiceIndexGenerator {
             String kind,
             String type, // Store JSON as String
             String defaultValue,
-            String importStatements
+            String importStatements,
+            int nameEditable,
+            int typeEditable
     ) {
     }
 

@@ -96,6 +96,38 @@
             "type": "STRING_LITERAL"
           },
           "addNewButton": false
+        },
+        "annotServiceConfig": {
+          "metadata": {
+            "label": "Service Configuration",
+            "description": "Define advanced queue configurations "
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "values": [],
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "rabbitmq:RabbitMQServiceConfig",
+          "isType": false,
+          "placeholder": "{}",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "ANNOTATION_ATTACHMENT",
+            "originalName": "ServiceConfig"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "RabbitMQServiceConfig",
+              "packageInfo": "ballerinax:rabbitmq:3.2.0",
+              "kind": "RECORD_TYPE",
+              "selected": true
+            }
+          ]
         }
       },
       "functions": []

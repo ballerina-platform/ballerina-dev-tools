@@ -36,7 +36,7 @@
           "editable": false,
           "value": "listener2",
           "valueType": "IDENTIFIER",
-          "valueTypeConstraint": "string",
+          "valueTypeConstraint": "Global",
           "isType": false,
           "optional": false,
           "advanced": false,

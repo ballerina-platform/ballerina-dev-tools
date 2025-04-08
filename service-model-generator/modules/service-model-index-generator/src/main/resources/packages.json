@@ -119,7 +119,9 @@
                   "kind": "REQUIRED",
                   "type": "tcp:Caller",
                   "defaultValue": "",
-                  "importStatements": ""
+                  "importStatements": "",
+                  "nameEditable": 1,
+                  "typeEditable": 0
                 }
               ]
             }
@@ -171,7 +173,9 @@
                   "kind": "REQUIRED",
                   "type": "file:FileEvent",
                   "defaultValue": "",
-                  "importStatements": ""
+                  "importStatements": "",
+                  "nameEditable": 1,
+                  "typeEditable": 0
                 }
               ]
             },
@@ -192,7 +196,9 @@
                   "kind": "REQUIRED",
                   "type": "file:FileEvent",
                   "defaultValue": "",
-                  "importStatements": ""
+                  "importStatements": "",
+                  "nameEditable": 1,
+                  "typeEditable": 0
                 }
               ]
             },
@@ -213,7 +219,9 @@
                   "kind": "REQUIRED",
                   "type": "file:FileEvent",
                   "defaultValue": "",
-                  "importStatements": ""
+                  "importStatements": "",
+                  "nameEditable": 1,
+                  "typeEditable": 0
                 }
               ]
             }
@@ -266,7 +274,9 @@
                   "kind": "REQUIRED",
                   "type": "ftp:WatchEvent & readonly",
                   "defaultValue": "",
-                  "importStatements": ""
+                  "importStatements": "",
+                  "nameEditable": 1,
+                  "typeEditable": 0
                 },
                 {
                   "name": "caller",
@@ -275,7 +285,9 @@
                   "kind": "REQUIRED",
                   "type": "ftp:Caller",
                   "defaultValue": "",
-                  "importStatements": ""
+                  "importStatements": "",
+                  "nameEditable": 1,
+                  "typeEditable": 0
                 }
               ]
             }
@@ -319,6 +331,7 @@
               "returnError": 1,
               "returnTypeEditable": 0,
               "enable": 1,
+              "canAddParameter": 0,
               "parameters": [
                 {
                   "name": "message",
@@ -327,7 +340,9 @@
                   "kind": "REQUIRED",
                   "type": "mqtt:Message",
                   "defaultValue": "",
-                  "importStatements": ""
+                  "importStatements": "",
+                  "nameEditable": 1,
+                  "typeEditable": 0
                 }
               ]
             }
@@ -382,7 +397,9 @@
                   "kind": "REQUIRED",
                   "type": "asb:Message",
                   "defaultValue": "",
-                  "importStatements": ""
+                  "importStatements": "",
+                  "nameEditable": 1,
+                  "typeEditable": 0
                 }
               ]
             },
@@ -403,7 +420,9 @@
                   "kind": "REQUIRED",
                   "type": "asb:MessageRetrievalError",
                   "defaultValue": "",
-                  "importStatements": ""
+                  "importStatements": "",
+                  "nameEditable": 1,
+                  "typeEditable": 0
                 }
               ]
             }
@@ -455,16 +474,20 @@
                   "kind": "REQUIRED",
                   "type": "rabbitmq:AnydataMessage",
                   "defaultValue": "",
-                  "importStatements": ""
+                  "importStatements": "",
+                  "nameEditable": 1,
+                  "typeEditable": 1
                 },
                 {
                   "name": "caller",
                   "label": "Caller",
                   "description": "The RabbitMQ caller object to acknowledge the message",
-                  "kind": "REQUIRED",
+                  "kind": "OPTIONAL",
                   "type": "rabbitmq:Caller",
                   "defaultValue": "",
-                  "importStatements": ""
+                  "importStatements": "",
+                  "nameEditable": 1,
+                  "typeEditable": 0
                 }
               ]
             },
@@ -485,16 +508,20 @@
                   "kind": "REQUIRED",
                   "type": "rabbitmq:AnydataMessage",
                   "defaultValue": "",
-                  "importStatements": ""
+                  "importStatements": "",
+                  "nameEditable": 1,
+                  "typeEditable": 1
                 },
                 {
                   "name": "caller",
                   "label": "Caller",
                   "description": "The RabbitMQ caller object to acknowledge the message",
-                  "kind": "REQUIRED",
+                  "kind": "OPTIONAL",
                   "type": "rabbitmq:Caller",
                   "defaultValue": "",
-                  "importStatements": ""
+                  "importStatements": "",
+                  "nameEditable": 1,
+                  "typeEditable": 0
                 }
               ]
             },
@@ -515,7 +542,9 @@
                   "kind": "REQUIRED",
                   "type": "rabbitmq:AnydataMessage",
                   "defaultValue": "",
-                  "importStatements": ""
+                  "importStatements": "",
+                  "nameEditable": 1,
+                  "typeEditable": 1
                 },
                 {
                   "name": "rabbitmqError",
@@ -524,12 +553,22 @@
                   "kind": "REQUIRED",
                   "type": "rabbitmq:Error",
                   "defaultValue": "",
-                  "importStatements": ""
+                  "importStatements": "",
+                  "nameEditable": 1,
+                  "typeEditable": 0
                 }
               ]
             }
           ]
 
+        }
+      },
+      "annotations": {
+        "ServiceConfig": {
+          "attachmentPoints": ["SERVICE"],
+          "displayName": "Service Configuration",
+          "description": "Define advanced queue configurations ",
+          "typeConstrain": "rabbitmq:RabbitMQServiceConfig"
         }
       }
     },
@@ -577,16 +616,20 @@
                   "kind": "REQUIRED",
                   "type": "kafka:AnydataConsumerRecord[]",
                   "defaultValue": "",
-                  "importStatements": ""
+                  "importStatements": "",
+                  "nameEditable": 1,
+                  "typeEditable": 1
                 },
                 {
                   "name": "caller",
                   "label": "Caller",
                   "description": "The Kafka caller object to commit the offsets",
-                  "kind": "REQUIRED",
+                  "kind": "OPTIONAL",
                   "type": "kafka:Caller",
                   "defaultValue": "",
-                  "importStatements": ""
+                  "importStatements": "",
+                  "nameEditable": 1,
+                  "typeEditable": 0
                 }
               ]
             },
@@ -607,7 +650,9 @@
                   "kind": "REQUIRED",
                   "type": "kafka:Error",
                   "defaultValue": "",
-                  "importStatements": ""
+                  "importStatements": "",
+                  "nameEditable": 1,
+                  "typeEditable": 0
                 }
               ]
             }

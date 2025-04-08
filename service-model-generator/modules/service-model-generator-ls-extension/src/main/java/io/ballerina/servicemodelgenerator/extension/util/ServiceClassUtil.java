@@ -242,7 +242,7 @@ public class ServiceClassUtil {
                 "        }%n" +
                 "    }%n" +
                 "%n" +
-                "    remote function onError(tcp:Error tcpError) tcp:Error? {%n" +
+                "    remote function onError(tcp:Error tcpError) returns tcp:Error? {%n" +
                 "        do {%n" +
                 "%n" +
                 "        } on fail error err {%n" +
@@ -251,7 +251,7 @@ public class ServiceClassUtil {
                 "        }%n" +
                 "    }%n" +
                 "%n" +
-                "    remote function onClose() tcp:Error? {%n" +
+                "    remote function onClose() returns tcp:Error? {%n" +
                 "        do {%n" +
                 "%n" +
                 "        } on fail error err {%n" +

@@ -30,8 +30,8 @@
       },
       "enabled": true,
       "editable": true,
-      "value": "get",
-      "valueType": "IDENTIFIER",
+      "value": "GET",
+      "valueType": "SINGLE_SELECT",
       "valueTypeConstraint": "http:Method",
       "isType": false,
       "placeholder": "GET",
@@ -55,8 +55,8 @@
         "description": "The resource path"
       },
       "enabled": true,
-      "editable": false,
-      "value": "customHttpOK",
+      "editable": true,
+      "value": "testPath",
       "valueType": "IDENTIFIER",
       "valueTypeConstraint": "string",
       "isType": false,
@@ -80,7 +80,7 @@
           },
           "enabled": true,
           "editable": false,
-          "value": "",
+          "value": "http:Request",
           "valueType": "TYPE",
           "valueTypeConstraint": "http:Request",
           "isType": true,
@@ -125,7 +125,7 @@
           },
           "enabled": true,
           "editable": false,
-          "value": "",
+          "value": "http:Caller",
           "valueType": "TYPE",
           "valueTypeConstraint": "http:Caller",
           "isType": true,
@@ -146,7 +146,7 @@
           "valueType": "IDENTIFIER",
           "valueTypeConstraint": "string",
           "isType": false,
-          "placeholder": "request",
+          "placeholder": "caller",
           "optional": false,
           "advanced": false,
           "addNewButton": false,
@@ -170,7 +170,7 @@
           },
           "enabled": true,
           "editable": false,
-          "value": "",
+          "value": "http:Headers",
           "valueType": "TYPE",
           "valueTypeConstraint": "http:Headers",
           "isType": true,
@@ -191,7 +191,7 @@
           "valueType": "IDENTIFIER",
           "valueTypeConstraint": "string",
           "isType": false,
-          "placeholder": "request",
+          "placeholder": "headers",
           "optional": false,
           "advanced": false,
           "addNewButton": false,
@@ -201,6 +201,71 @@
         "editable": true,
         "optional": true,
         "advanced": true
+      },
+      {
+        "metadata": {
+          "label": "Query",
+          "description": "The Query Parameter"
+        },
+        "kind": "REQUIRED",
+        "type": {
+          "metadata": {
+            "label": "",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "international401:Patient",
+          "valueType": "TYPE",
+          "valueTypeConstraint": "anydata",
+          "isType": true,
+          "placeholder": "",
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false,
+          "imports": {
+            "international401": "ballerinax/health.fhir.r4.international401:2.2.0"
+          }
+        },
+        "name": {
+          "metadata": {
+            "label": "",
+            "description": ""
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "param1",
+          "valueType": "IDENTIFIER",
+          "valueTypeConstraint": "string",
+          "isType": false,
+          "placeholder": "",
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false,
+          "imports": {}
+        },
+        "defaultValue": {
+          "metadata": {
+            "label": "Default Value",
+            "description": "The default value"
+          },
+          "enabled": false,
+          "editable": true,
+          "value": "",
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "string",
+          "isType": false,
+          "placeholder": "",
+          "optional": true,
+          "advanced": false,
+          "addNewButton": false,
+          "imports": {}
+        },
+        "enabled": true,
+        "editable": true,
+        "optional": false,
+        "advanced": false,
+        "httpParamType": "QUERY"
       }
     ],
     "schema": {
@@ -252,7 +317,7 @@
           "enabled": false,
           "editable": true,
           "value": "",
-          "valueType": "STRING",
+          "valueType": "EXPRESSION",
           "valueTypeConstraint": "string",
           "isType": false,
           "placeholder": "",
@@ -388,7 +453,7 @@
             "enabled": true,
             "editable": true,
             "value": "200",
-            "valueType": "EXPRESSION",
+            "valueType": "SINGLE_SELECT",
             "isType": false,
             "optional": false,
             "advanced": false,
@@ -458,7 +523,7 @@
           "enabled": false,
           "editable": true,
           "advanced": true,
-          "isHttpResponseType": false
+          "isHttpResponseType": true
         },
         {
           "statusCode": {
@@ -469,7 +534,7 @@
             "enabled": true,
             "editable": true,
             "value": "200",
-            "valueType": "EXPRESSION",
+            "valueType": "SINGLE_SELECT",
             "isType": false,
             "optional": false,
             "advanced": false,
@@ -483,15 +548,13 @@
             },
             "enabled": true,
             "editable": true,
-            "value": "international401:Patient",
-            "valueType": "EXPRESSION",
+            "value": "json",
+            "valueType": "TYPE",
             "isType": false,
             "optional": false,
             "advanced": false,
             "addNewButton": false,
-            "imports": {
-              "international401": "ballerinax/health.fhir.r4.international401:2.2.0"
-            }
+            "imports": {}
           },
           "name": {
             "metadata": {
@@ -500,8 +563,8 @@
             },
             "enabled": true,
             "editable": true,
-            "value": "MyCustomHttpOK",
-            "valueType": "EXPRESSION",
+            "value": "",
+            "valueType": "IDENTIFIER",
             "isType": false,
             "optional": false,
             "advanced": false,
@@ -515,8 +578,8 @@
             },
             "enabled": true,
             "editable": true,
-            "value": "http:Ok",
-            "valueType": "EXPRESSION",
+            "value": "json",
+            "valueType": "TYPE",
             "isType": false,
             "optional": false,
             "advanced": false,
@@ -530,10 +593,7 @@
             },
             "enabled": true,
             "editable": true,
-            "values": [
-              "string",
-              "int"
-            ],
+            "value": "",
             "valueType": "EXPRESSION_SET",
             "isType": false,
             "optional": false,
@@ -542,8 +602,8 @@
             "imports": {}
           },
           "enabled": true,
-          "editable": false,
-          "advanced": false,
+          "editable": true,
+          "advanced": true,
           "isHttpResponseType": false
         }
       ],
@@ -552,15 +612,15 @@
           "statusCode": {
             "metadata": {
               "label": "Status Code",
-              "description": "Response status code"
+              "description": "The status code"
             },
-            "enabled": false,
-            "editable": false,
+            "enabled": true,
+            "editable": true,
             "value": "",
             "valueType": "SINGLE_SELECT",
             "valueTypeConstraint": "http:StatusCode",
             "isType": false,
-            "placeholder": "",
+            "placeholder": "200",
             "optional": false,
             "advanced": false,
             "items": [
@@ -580,52 +640,70 @@
           },
           "body": {
             "metadata": {
-              "label": "Body type",
-              "description": "Type of the response body field"
+              "label": "Body",
+              "description": "Response Body"
             },
-            "enabled": false,
-            "editable": false,
+            "enabled": true,
+            "editable": true,
             "value": "",
             "valueType": "TYPE",
-            "valueTypeConstraint": "anydata",
-            "isType": true,
-            "placeholder": "",
+            "isType": false,
             "optional": true,
-            "advanced": true,
+            "advanced": false,
             "addNewButton": false,
             "imports": {}
           },
           "name": {
             "metadata": {
-              "label": "Name of the Response Status Code Type",
-              "description": "Type name of the status code response"
+              "label": "Name of the response",
+              "description": "Create a new response type"
             },
-            "enabled": false,
-            "editable": false,
+            "enabled": true,
+            "editable": true,
             "value": "",
-            "valueType": "EXPRESSION",
-            "valueTypeConstraint": "anydata",
-            "isType": true,
-            "placeholder": "",
-            "optional": false,
-            "advanced": true,
+            "valueType": "IDENTIFIER",
+            "isType": false,
+            "optional": true,
+            "advanced": false,
             "addNewButton": false,
             "imports": {}
           },
           "type": {
             "metadata": {
               "label": "Response Type",
-              "description": "The response type"
+              "description": "Select a response type"
             },
-            "enabled": false,
-            "editable": false,
+            "enabled": true,
+            "editable": true,
             "value": "",
             "valueType": "TYPE",
-            "valueTypeConstraint": "anydata|http:StatusCodeResponse",
-            "isType": true,
-            "placeholder": "",
+            "isType": false,
+            "optional": false,
+            "advanced": false,
+            "addNewButton": false,
+            "imports": {}
+          },
+          "headers": {
+            "metadata": {
+              "label": "Header types",
+              "description": "Response header types"
+            },
+            "enabled": true,
+            "editable": true,
+            "value": "",
+            "valueType": "MULTIPLE_SELECT",
+            "isType": false,
             "optional": true,
             "advanced": false,
+            "items": [
+              "",
+              "string",
+              "int",
+              "boolean",
+              "string[]",
+              "int[]",
+              "boolean[]"
+            ],
             "addNewButton": false,
             "imports": {}
           },
@@ -654,22 +732,6 @@
     "enabled": true,
     "optional": false,
     "editable": true,
-    "codedata": {
-      "lineRange": {
-        "fileName": "main.bal",
-        "startLine": {
-          "line": 22,
-          "offset": 4
-        },
-        "endLine": {
-          "line": 24,
-          "offset": 5
-        }
-      },
-      "inListenerInit": false,
-      "isBasePath": false,
-      "inDisplayAnnotation": false
-    },
     "annotations": {
       "annotResourceConfig": {
         "metadata": {
@@ -733,20 +795,7 @@
             "character": 0
           }
         },
-        "newText": "\n\tresource function get customHttpOK() returns error|MyCustomHttpOK {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t\treturn error(\"unhandled error\", err);\n\t\t}\n\t}\n"
-      },
-      {
-        "range": {
-          "start": {
-            "line": 12,
-            "character": 1
-          },
-          "end": {
-            "line": 12,
-            "character": 1
-          }
-        },
-        "newText": "\npublic type MyCustomHttpOK record {|\n\t*http:Ok;\tinternational401:Patient body;\n\tmap<string|int> headers;\n|};"
+        "newText": "\n\tresource function get testPath(international401:Patient param1) returns error|json {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t\treturn error(\"unhandled error\", err);\n\t\t}\n\t}\n"
       }
     ]
   }

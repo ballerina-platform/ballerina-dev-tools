@@ -21,7 +21,8 @@
       "isType": false,
       "optional": false,
       "advanced": false,
-      "addNewButton": false
+      "addNewButton": false,
+      "imports": {}
     },
     "name": {
       "metadata": {
@@ -35,7 +36,8 @@
       "isType": false,
       "optional": false,
       "advanced": false,
-      "addNewButton": false
+      "addNewButton": false,
+      "imports": {}
     },
     "parameters": [],
     "schema": {
@@ -52,7 +54,8 @@
           "isType": true,
           "optional": false,
           "advanced": false,
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "name": {
           "metadata": {
@@ -66,7 +69,8 @@
           "isType": false,
           "optional": false,
           "advanced": false,
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "defaultValue": {
           "metadata": {
@@ -78,7 +82,8 @@
           "isType": false,
           "optional": true,
           "advanced": false,
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "enabled": true,
         "editable": false,
@@ -103,6 +108,7 @@
     },
     "enabled": true,
     "optional": false,
-    "editable": false
+    "editable": false,
+    "canAddParameters": false
   }
 }

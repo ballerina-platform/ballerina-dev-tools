@@ -46,7 +46,8 @@
         "OPTIONS",
         "HEAD"
       ],
-      "addNewButton": false
+      "addNewButton": false,
+      "imports": {}
     },
     "name": {
       "metadata": {
@@ -62,7 +63,8 @@
       "placeholder": "",
       "optional": false,
       "advanced": false,
-      "addNewButton": false
+      "addNewButton": false,
+      "imports": {}
     },
     "parameters": [
       {
@@ -85,7 +87,8 @@
           "placeholder": "string",
           "optional": false,
           "advanced": false,
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "name": {
           "metadata": {
@@ -101,7 +104,8 @@
           "placeholder": "request",
           "optional": false,
           "advanced": false,
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "enabled": false,
         "editable": true,
@@ -128,7 +132,8 @@
           "placeholder": "string",
           "optional": false,
           "advanced": false,
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "name": {
           "metadata": {
@@ -144,7 +149,8 @@
           "placeholder": "request",
           "optional": false,
           "advanced": false,
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "enabled": false,
         "editable": true,
@@ -171,7 +177,8 @@
           "placeholder": "string",
           "optional": false,
           "advanced": false,
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "name": {
           "metadata": {
@@ -187,7 +194,8 @@
           "placeholder": "request",
           "optional": false,
           "advanced": false,
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "enabled": false,
         "editable": true,
@@ -216,7 +224,8 @@
           "placeholder": "",
           "optional": false,
           "advanced": false,
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "name": {
           "metadata": {
@@ -232,7 +241,8 @@
           "placeholder": "",
           "optional": false,
           "advanced": false,
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "defaultValue": {
           "metadata": {
@@ -248,7 +258,8 @@
           "placeholder": "",
           "optional": true,
           "advanced": false,
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "enabled": false,
         "editable": true,
@@ -276,7 +287,8 @@
           "placeholder": "string",
           "optional": false,
           "advanced": false,
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "name": {
           "metadata": {
@@ -292,7 +304,8 @@
           "placeholder": "name",
           "optional": false,
           "advanced": false,
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "defaultValue": {
           "metadata": {
@@ -308,7 +321,8 @@
           "placeholder": "",
           "optional": true,
           "advanced": false,
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "enabled": false,
         "editable": true,
@@ -336,7 +350,8 @@
           "placeholder": "",
           "optional": false,
           "advanced": false,
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "name": {
           "metadata": {
@@ -352,7 +367,8 @@
           "placeholder": "",
           "optional": false,
           "advanced": false,
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "enabled": false,
         "editable": true,
@@ -376,7 +392,8 @@
             "isType": false,
             "optional": false,
             "advanced": false,
-            "addNewButton": false
+            "addNewButton": false,
+            "imports": {}
           },
           "body": {
             "metadata": {
@@ -390,7 +407,8 @@
             "isType": false,
             "optional": false,
             "advanced": false,
-            "addNewButton": false
+            "addNewButton": false,
+            "imports": {}
           },
           "name": {
             "metadata": {
@@ -404,7 +422,8 @@
             "isType": false,
             "optional": false,
             "advanced": false,
-            "addNewButton": false
+            "addNewButton": false,
+            "imports": {}
           },
           "type": {
             "metadata": {
@@ -418,7 +437,8 @@
             "isType": false,
             "optional": false,
             "advanced": false,
-            "addNewButton": false
+            "addNewButton": false,
+            "imports": {}
           },
           "headers": {
             "metadata": {
@@ -432,7 +452,8 @@
             "isType": false,
             "optional": false,
             "advanced": false,
-            "addNewButton": false
+            "addNewButton": false,
+            "imports": {}
           },
           "enabled": false,
           "editable": true,
@@ -452,7 +473,8 @@
             "isType": false,
             "optional": false,
             "advanced": false,
-            "addNewButton": false
+            "addNewButton": false,
+            "imports": {}
           },
           "body": {
             "metadata": {
@@ -466,7 +488,8 @@
             "isType": false,
             "optional": false,
             "advanced": false,
-            "addNewButton": false
+            "addNewButton": false,
+            "imports": {}
           },
           "name": {
             "metadata": {
@@ -480,7 +503,8 @@
             "isType": false,
             "optional": false,
             "advanced": false,
-            "addNewButton": false
+            "addNewButton": false,
+            "imports": {}
           },
           "type": {
             "metadata": {
@@ -494,7 +518,8 @@
             "isType": false,
             "optional": false,
             "advanced": false,
-            "addNewButton": false
+            "addNewButton": false,
+            "imports": {}
           },
           "headers": {
             "metadata": {
@@ -508,7 +533,8 @@
             "isType": false,
             "optional": false,
             "advanced": false,
-            "addNewButton": false
+            "addNewButton": false,
+            "imports": {}
           },
           "enabled": true,
           "editable": false,
@@ -528,7 +554,8 @@
             "isType": false,
             "optional": false,
             "advanced": false,
-            "addNewButton": false
+            "addNewButton": false,
+            "imports": {}
           },
           "body": {
             "metadata": {
@@ -542,7 +569,8 @@
             "isType": false,
             "optional": false,
             "advanced": false,
-            "addNewButton": false
+            "addNewButton": false,
+            "imports": {}
           },
           "name": {
             "metadata": {
@@ -556,7 +584,8 @@
             "isType": false,
             "optional": false,
             "advanced": false,
-            "addNewButton": false
+            "addNewButton": false,
+            "imports": {}
           },
           "type": {
             "metadata": {
@@ -570,7 +599,8 @@
             "isType": false,
             "optional": false,
             "advanced": false,
-            "addNewButton": false
+            "addNewButton": false,
+            "imports": {}
           },
           "headers": {
             "metadata": {
@@ -584,7 +614,8 @@
             "isType": false,
             "optional": false,
             "advanced": false,
-            "addNewButton": false
+            "addNewButton": false,
+            "imports": {}
           },
           "enabled": true,
           "editable": false,
@@ -604,7 +635,8 @@
             "isType": false,
             "optional": false,
             "advanced": false,
-            "addNewButton": false
+            "addNewButton": false,
+            "imports": {}
           },
           "body": {
             "metadata": {
@@ -618,7 +650,8 @@
             "isType": false,
             "optional": false,
             "advanced": false,
-            "addNewButton": false
+            "addNewButton": false,
+            "imports": {}
           },
           "name": {
             "metadata": {
@@ -632,7 +665,8 @@
             "isType": false,
             "optional": false,
             "advanced": false,
-            "addNewButton": false
+            "addNewButton": false,
+            "imports": {}
           },
           "type": {
             "metadata": {
@@ -646,7 +680,8 @@
             "isType": false,
             "optional": false,
             "advanced": false,
-            "addNewButton": false
+            "addNewButton": false,
+            "imports": {}
           },
           "headers": {
             "metadata": {
@@ -660,7 +695,8 @@
             "isType": false,
             "optional": false,
             "advanced": false,
-            "addNewButton": false
+            "addNewButton": false,
+            "imports": {}
           },
           "enabled": true,
           "editable": false,
@@ -680,7 +716,8 @@
             "isType": false,
             "optional": false,
             "advanced": false,
-            "addNewButton": false
+            "addNewButton": false,
+            "imports": {}
           },
           "body": {
             "metadata": {
@@ -694,7 +731,8 @@
             "isType": false,
             "optional": false,
             "advanced": false,
-            "addNewButton": false
+            "addNewButton": false,
+            "imports": {}
           },
           "name": {
             "metadata": {
@@ -708,7 +746,8 @@
             "isType": false,
             "optional": false,
             "advanced": false,
-            "addNewButton": false
+            "addNewButton": false,
+            "imports": {}
           },
           "type": {
             "metadata": {
@@ -717,12 +756,15 @@
             },
             "enabled": true,
             "editable": true,
-            "value": "int",
+            "value": "international401:Patient",
             "valueType": "TYPE",
             "isType": false,
             "optional": false,
             "advanced": false,
-            "addNewButton": false
+            "addNewButton": false,
+            "imports": {
+              "international401": "ballerinax/health.fhir.r4.international401:2.2.0"
+            }
           },
           "headers": {
             "metadata": {
@@ -736,7 +778,8 @@
             "isType": false,
             "optional": false,
             "advanced": false,
-            "addNewButton": false
+            "addNewButton": false,
+            "imports": {}
           },
           "enabled": true,
           "editable": true,
@@ -772,7 +815,8 @@
               "405",
               "500"
             ],
-            "addNewButton": false
+            "addNewButton": false,
+            "imports": {}
           },
           "body": {
             "metadata": {
@@ -788,7 +832,8 @@
             "placeholder": "",
             "optional": true,
             "advanced": true,
-            "addNewButton": false
+            "addNewButton": false,
+            "imports": {}
           },
           "name": {
             "metadata": {
@@ -804,7 +849,8 @@
             "placeholder": "",
             "optional": false,
             "advanced": true,
-            "addNewButton": false
+            "addNewButton": false,
+            "imports": {}
           },
           "type": {
             "metadata": {
@@ -820,7 +866,8 @@
             "placeholder": "",
             "optional": true,
             "advanced": false,
-            "addNewButton": false
+            "addNewButton": false,
+            "imports": {}
           },
           "enabled": true,
           "editable": false,
@@ -895,12 +942,26 @@
             "kind": "RECORD_TYPE",
             "selected": true
           }
-        ]
+        ],
+        "imports": {}
       }
     }
   },
   "output": {
     "http_service.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "\nimport ballerinax/health.fhir.r4.international401;\n"
+      },
       {
         "range": {
           "start": {
@@ -912,7 +973,7 @@
             "character": 0
           }
         },
-        "newText": "\n\tresource function get allUnion() returns error|http:Ok|HttpOk|CustomHttpOk|int {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t\treturn error(\"unhandled error\", err);\n\t\t}\n\t}\n"
+        "newText": "\n\tresource function get allUnion() returns error|http:Ok|HttpOk|CustomHttpOk|international401:Patient {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t\treturn error(\"unhandled error\", err);\n\t\t}\n\t}\n"
       },
       {
         "range": {

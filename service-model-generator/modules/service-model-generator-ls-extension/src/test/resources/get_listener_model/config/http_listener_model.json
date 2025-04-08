@@ -30,7 +30,7 @@
           "editable": true,
           "value": "",
           "valueType": "IDENTIFIER",
-          "valueTypeConstraint": "string",
+          "valueTypeConstraint": "Global",
           "isType": false,
           "optional": false,
           "advanced": false,

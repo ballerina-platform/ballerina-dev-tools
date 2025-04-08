@@ -42,7 +42,8 @@
           "inDisplayAnnotation": false,
           "type": "LISTENER"
         },
-        "addNewButton": true
+        "addNewButton": true,
+        "imports": {}
       },
       "serviceType": {
         "metadata": {
@@ -112,7 +113,7 @@
             "character": 0
           }
         },
-        "newText": "\nservice class TcpEchoService {\n    *tcp:ConnectionService;\n\n    remote function onBytes(tcp:Caller caller, readonly & byte[] data) returns tcp:Error? {\n        do {\n\n        } on fail error err {\n            // handle error\n            return error(\"unhandled error\", err);\n        }\n    }\n\n    remote function onError(tcp:Error tcpError) tcp:Error? {\n        do {\n\n        } on fail error err {\n            // handle error\n            return error(\"unhandled error\", err);\n        }\n    }\n\n    remote function onClose() tcp:Error? {\n        do {\n\n        } on fail error err {\n            // handle error\n            return error(\"unhandled error\", err);\n        }\n    }\n}\n\n"
+        "newText": "\nservice class TcpEchoService {\n    *tcp:ConnectionService;\n\n    remote function onBytes(tcp:Caller caller, readonly & byte[] data) returns tcp:Error? {\n        do {\n\n        } on fail error err {\n            // handle error\n            return error(\"unhandled error\", err);\n        }\n    }\n\n    remote function onError(tcp:Error tcpError) returns tcp:Error? {\n        do {\n\n        } on fail error err {\n            // handle error\n            return error(\"unhandled error\", err);\n        }\n    }\n\n    remote function onClose() returns tcp:Error? {\n        do {\n\n        } on fail error err {\n            // handle error\n            return error(\"unhandled error\", err);\n        }\n    }\n}\n\n"
       }
     ]
   }

@@ -45,7 +45,8 @@
           "isBasePath": false,
           "inDisplayAnnotation": false
         },
-        "addNewButton": false
+        "addNewButton": false,
+        "imports": {}
       }
     },
     "codedata": {
@@ -82,7 +83,8 @@
           "isType": false,
           "optional": false,
           "advanced": false,
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "name": {
           "metadata": {
@@ -112,7 +114,8 @@
             "isBasePath": false,
             "inDisplayAnnotation": false
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "parameters": [
           {
@@ -133,7 +136,8 @@
               "isType": true,
               "optional": false,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "name": {
               "metadata": {
@@ -147,7 +151,8 @@
               "isType": false,
               "optional": false,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "defaultValue": {
               "metadata": {
@@ -160,7 +165,8 @@
               "isType": false,
               "optional": true,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "enabled": true,
             "editable": true,
@@ -181,7 +187,8 @@
               "isType": true,
               "optional": false,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "name": {
               "metadata": {
@@ -194,7 +201,8 @@
               "isType": false,
               "optional": false,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "defaultValue": {
               "metadata": {
@@ -207,7 +215,8 @@
               "isType": false,
               "optional": true,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "enabled": true,
             "editable": true,
@@ -233,6 +242,7 @@
         "enabled": true,
         "optional": false,
         "editable": true,
+        "canAddParameters": false,
         "codedata": {
           "lineRange": {
             "fileName": "main.bal",
@@ -268,7 +278,8 @@
           "isType": false,
           "optional": false,
           "advanced": false,
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "name": {
           "metadata": {
@@ -298,7 +309,8 @@
             "isBasePath": false,
             "inDisplayAnnotation": false
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "parameters": [],
         "schema": {
@@ -314,7 +326,8 @@
               "isType": true,
               "optional": false,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "name": {
               "metadata": {
@@ -327,7 +340,8 @@
               "isType": false,
               "optional": false,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "defaultValue": {
               "metadata": {
@@ -340,7 +354,8 @@
               "isType": false,
               "optional": true,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "enabled": true,
             "editable": true,
@@ -366,6 +381,7 @@
         "enabled": true,
         "optional": false,
         "editable": true,
+        "canAddParameters": false,
         "codedata": {
           "lineRange": {
             "fileName": "main.bal",
@@ -400,7 +416,8 @@
           "isType": false,
           "optional": false,
           "advanced": false,
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "name": {
           "metadata": {
@@ -430,7 +447,8 @@
             "isBasePath": false,
             "inDisplayAnnotation": false
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "parameters": [
           {
@@ -451,7 +469,8 @@
               "isType": true,
               "optional": false,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "name": {
               "metadata": {
@@ -465,7 +484,8 @@
               "isType": false,
               "optional": false,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "defaultValue": {
               "metadata": {
@@ -478,7 +498,8 @@
               "isType": false,
               "optional": true,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "enabled": true,
             "editable": true,
@@ -499,7 +520,8 @@
               "isType": true,
               "optional": false,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "name": {
               "metadata": {
@@ -512,7 +534,8 @@
               "isType": false,
               "optional": false,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "defaultValue": {
               "metadata": {
@@ -525,7 +548,8 @@
               "isType": false,
               "optional": true,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "enabled": true,
             "editable": true,
@@ -550,6 +574,7 @@
         "enabled": true,
         "optional": false,
         "editable": true,
+        "canAddParameters": false,
         "codedata": {
           "lineRange": {
             "fileName": "main.bal",
@@ -600,7 +625,8 @@
           "isType": true,
           "optional": false,
           "advanced": false,
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "name": {
           "metadata": {
@@ -630,7 +656,8 @@
             "isBasePath": false,
             "inDisplayAnnotation": false
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "defaultValue": {
           "metadata": {
@@ -643,7 +670,8 @@
           "isType": false,
           "optional": true,
           "advanced": false,
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "enabled": true,
         "editable": false,
@@ -681,7 +709,8 @@
           "isType": true,
           "optional": false,
           "advanced": false,
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "name": {
           "metadata": {
@@ -711,7 +740,8 @@
             "isBasePath": false,
             "inDisplayAnnotation": false
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "defaultValue": {
           "metadata": {
@@ -724,7 +754,8 @@
           "isType": false,
           "optional": true,
           "advanced": false,
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "enabled": true,
         "editable": false,
@@ -762,7 +793,8 @@
           "isType": true,
           "optional": false,
           "advanced": false,
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "name": {
           "metadata": {
@@ -792,7 +824,8 @@
             "isBasePath": false,
             "inDisplayAnnotation": false
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "defaultValue": {
           "metadata": {
@@ -806,7 +839,8 @@
           "isType": false,
           "optional": true,
           "advanced": false,
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "enabled": true,
         "editable": false,

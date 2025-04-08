@@ -51,7 +51,8 @@
           "inDisplayAnnotation": false,
           "type": "LISTENER"
         },
-        "addNewButton": false
+        "addNewButton": false,
+        "imports": {}
       },
       "serviceType": {
         "metadata": {
@@ -77,7 +78,8 @@
           "inDisplayAnnotation": false,
           "type": "SERVICE_TYPE"
         },
-        "addNewButton": false
+        "addNewButton": false,
+        "imports": {}
       }
     },
     "codedata": {
@@ -123,7 +125,8 @@
             "inDisplayAnnotation": false,
             "type": "FUNCTION_NAME"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "parameters": [
           {
@@ -141,12 +144,12 @@
               "editable": true,
               "value": "kafka:AnydataConsumerRecord[]",
               "valueType": "TYPE",
-              "valueTypeConstraint": "string",
               "isType": true,
               "placeholder": "kafka:AnydataConsumerRecord[]",
               "optional": true,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "name": {
               "metadata": {
@@ -154,10 +157,9 @@
                 "description": "The records received for Kafka topic(s)"
               },
               "enabled": true,
-              "editable": false,
+              "editable": true,
               "value": "records",
               "valueType": "IDENTIFIER",
-              "valueTypeConstraint": "string",
               "isType": false,
               "placeholder": "records",
               "optional": false,
@@ -168,7 +170,8 @@
                 "inDisplayAnnotation": false,
                 "type": "PARAMETER_NAME"
               },
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "defaultValue": {
               "metadata": {
@@ -179,16 +182,16 @@
               "editable": true,
               "value": "",
               "valueType": "EXPRESSION",
-              "valueTypeConstraint": "string",
-              "isType": true,
+              "isType": false,
               "placeholder": "",
               "optional": true,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "enabled": true,
             "editable": true,
-            "optional": true,
+            "optional": false,
             "advanced": false
           },
           {
@@ -196,22 +199,22 @@
               "label": "caller",
               "description": "The Kafka caller object to commit the offsets"
             },
-            "kind": "REQUIRED",
+            "kind": "OPTIONAL",
             "type": {
               "metadata": {
                 "label": "Type",
                 "description": "The type of the parameter"
               },
               "enabled": true,
-              "editable": true,
+              "editable": false,
               "value": "kafka:Caller",
               "valueType": "TYPE",
-              "valueTypeConstraint": "string",
               "isType": true,
               "placeholder": "kafka:Caller",
               "optional": true,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "name": {
               "metadata": {
@@ -219,10 +222,9 @@
                 "description": "The Kafka caller object to commit the offsets"
               },
               "enabled": true,
-              "editable": false,
+              "editable": true,
               "value": "caller",
               "valueType": "IDENTIFIER",
-              "valueTypeConstraint": "string",
               "isType": false,
               "placeholder": "caller",
               "optional": false,
@@ -233,7 +235,8 @@
                 "inDisplayAnnotation": false,
                 "type": "PARAMETER_NAME"
               },
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "defaultValue": {
               "metadata": {
@@ -244,14 +247,14 @@
               "editable": true,
               "value": "",
               "valueType": "EXPRESSION",
-              "valueTypeConstraint": "string",
-              "isType": true,
+              "isType": false,
               "placeholder": "",
               "optional": true,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
-            "enabled": true,
+            "enabled": false,
             "editable": true,
             "optional": true,
             "advanced": false
@@ -276,6 +279,7 @@
         "enabled": true,
         "optional": false,
         "editable": true,
+        "canAddParameters": false,
         "codedata": {
           "lineRange": {
             "fileName": "main.bal",
@@ -319,7 +323,8 @@
             "inDisplayAnnotation": false,
             "type": "FUNCTION_NAME"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "parameters": [
           {
@@ -334,15 +339,15 @@
                 "description": "The type of the parameter"
               },
               "enabled": true,
-              "editable": true,
+              "editable": false,
               "value": "kafka:Error",
               "valueType": "TYPE",
-              "valueTypeConstraint": "string",
               "isType": true,
               "placeholder": "kafka:Error",
               "optional": true,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "name": {
               "metadata": {
@@ -350,10 +355,9 @@
                 "description": "The error occurred during the message processing"
               },
               "enabled": true,
-              "editable": false,
+              "editable": true,
               "value": "kafkaError",
               "valueType": "IDENTIFIER",
-              "valueTypeConstraint": "string",
               "isType": false,
               "placeholder": "kafkaError",
               "optional": false,
@@ -364,7 +368,8 @@
                 "inDisplayAnnotation": false,
                 "type": "PARAMETER_NAME"
               },
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "defaultValue": {
               "metadata": {
@@ -375,16 +380,16 @@
               "editable": true,
               "value": "",
               "valueType": "EXPRESSION",
-              "valueTypeConstraint": "string",
-              "isType": true,
+              "isType": false,
               "placeholder": "",
               "optional": true,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "enabled": true,
             "editable": true,
-            "optional": true,
+            "optional": false,
             "advanced": false
           }
         ],
@@ -406,7 +411,8 @@
         },
         "enabled": false,
         "optional": false,
-        "editable": true
+        "editable": true,
+        "canAddParameters": false
       }
     ]
   }

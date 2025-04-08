@@ -389,7 +389,9 @@ public class ServiceDatabaseManager {
                 "kind, " +
                 "type, " +
                 "default_value, " +
-                "import_statements " +
+                "import_statements, " +
+                "editable_name, " +
+                "editable_type " +
                 "FROM ServiceTypeFunctionParameter " +
                 "WHERE function_id = ?";
 
@@ -408,7 +410,9 @@ public class ServiceDatabaseManager {
                         rs.getString("kind"),
                         rs.getString("type"),
                         rs.getString("default_value"),
-                        rs.getString("import_statements")
+                        rs.getString("import_statements"),
+                        rs.getInt("editable_name"),
+                        rs.getInt("editable_type")
                 ));
             }
             conn.close();

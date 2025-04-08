@@ -50,7 +50,8 @@
           "inDisplayAnnotation": false,
           "type": "LISTENER"
         },
-        "addNewButton": true
+        "addNewButton": true,
+        "imports": {}
       },
       "serviceType": {
         "metadata": {
@@ -76,7 +77,8 @@
           "inDisplayAnnotation": false,
           "type": "SERVICE_TYPE"
         },
-        "addNewButton": false
+        "addNewButton": false,
+        "imports": {}
       },
       "stringLiteral": {
         "metadata": {
@@ -99,7 +101,41 @@
           "inDisplayAnnotation": false,
           "type": "STRING_LITERAL"
         },
-        "addNewButton": false
+        "addNewButton": false,
+        "imports": {}
+      },
+      "annotServiceConfig": {
+        "metadata": {
+          "label": "Service Configuration",
+          "description": "Define advanced queue configurations "
+        },
+        "enabled": true,
+        "editable": true,
+        "value": "",
+        "values": [],
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "rabbitmq:RabbitMQServiceConfig",
+        "isType": false,
+        "placeholder": "{}",
+        "optional": true,
+        "advanced": true,
+        "codedata": {
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false,
+          "type": "ANNOTATION_ATTACHMENT",
+          "originalName": "ServiceConfig"
+        },
+        "addNewButton": false,
+        "typeMembers": [
+          {
+            "type": "RabbitMQServiceConfig",
+            "packageInfo": "ballerinax:rabbitmq:3.2.0",
+            "kind": "RECORD_TYPE",
+            "selected": true
+          }
+        ],
+        "imports": {}
       }
     },
     "codedata": {
@@ -145,7 +181,8 @@
             "inDisplayAnnotation": false,
             "type": "FUNCTION_NAME"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "parameters": [
           {
@@ -163,12 +200,12 @@
               "editable": true,
               "value": "rabbitmq:AnydataMessage",
               "valueType": "TYPE",
-              "valueTypeConstraint": "string",
               "isType": true,
               "placeholder": "rabbitmq:AnydataMessage",
               "optional": true,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "name": {
               "metadata": {
@@ -176,10 +213,9 @@
                 "description": "The message received from the RabbitMQ queue"
               },
               "enabled": true,
-              "editable": false,
+              "editable": true,
               "value": "message",
               "valueType": "IDENTIFIER",
-              "valueTypeConstraint": "string",
               "isType": false,
               "placeholder": "message",
               "optional": false,
@@ -190,7 +226,8 @@
                 "inDisplayAnnotation": false,
                 "type": "PARAMETER_NAME"
               },
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "defaultValue": {
               "metadata": {
@@ -201,16 +238,16 @@
               "editable": true,
               "value": "",
               "valueType": "EXPRESSION",
-              "valueTypeConstraint": "string",
-              "isType": true,
+              "isType": false,
               "placeholder": "",
               "optional": true,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "enabled": true,
             "editable": true,
-            "optional": true,
+            "optional": false,
             "advanced": false
           },
           {
@@ -218,22 +255,22 @@
               "label": "caller",
               "description": "The RabbitMQ caller object to acknowledge the message"
             },
-            "kind": "REQUIRED",
+            "kind": "OPTIONAL",
             "type": {
               "metadata": {
                 "label": "Type",
                 "description": "The type of the parameter"
               },
               "enabled": true,
-              "editable": true,
+              "editable": false,
               "value": "rabbitmq:Caller",
               "valueType": "TYPE",
-              "valueTypeConstraint": "string",
               "isType": true,
               "placeholder": "rabbitmq:Caller",
               "optional": true,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "name": {
               "metadata": {
@@ -241,10 +278,9 @@
                 "description": "The RabbitMQ caller object to acknowledge the message"
               },
               "enabled": true,
-              "editable": false,
+              "editable": true,
               "value": "caller",
               "valueType": "IDENTIFIER",
-              "valueTypeConstraint": "string",
               "isType": false,
               "placeholder": "caller",
               "optional": false,
@@ -255,7 +291,8 @@
                 "inDisplayAnnotation": false,
                 "type": "PARAMETER_NAME"
               },
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "defaultValue": {
               "metadata": {
@@ -266,14 +303,14 @@
               "editable": true,
               "value": "",
               "valueType": "EXPRESSION",
-              "valueTypeConstraint": "string",
-              "isType": true,
+              "isType": false,
               "placeholder": "",
               "optional": true,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
-            "enabled": true,
+            "enabled": false,
             "editable": true,
             "optional": true,
             "advanced": false
@@ -298,6 +335,7 @@
         "enabled": true,
         "optional": false,
         "editable": true,
+        "canAddParameters": false,
         "codedata": {
           "lineRange": {
             "fileName": "main.bal",
@@ -341,7 +379,8 @@
             "inDisplayAnnotation": false,
             "type": "FUNCTION_NAME"
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "parameters": [
           {
@@ -359,12 +398,12 @@
               "editable": true,
               "value": "rabbitmq:AnydataMessage",
               "valueType": "TYPE",
-              "valueTypeConstraint": "string",
               "isType": true,
               "placeholder": "rabbitmq:AnydataMessage",
               "optional": true,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "name": {
               "metadata": {
@@ -372,10 +411,9 @@
                 "description": "The message received from the RabbitMQ queue"
               },
               "enabled": true,
-              "editable": false,
+              "editable": true,
               "value": "message",
               "valueType": "IDENTIFIER",
-              "valueTypeConstraint": "string",
               "isType": false,
               "placeholder": "message",
               "optional": false,
@@ -386,7 +424,8 @@
                 "inDisplayAnnotation": false,
                 "type": "PARAMETER_NAME"
               },
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "defaultValue": {
               "metadata": {
@@ -397,16 +436,16 @@
               "editable": true,
               "value": "",
               "valueType": "EXPRESSION",
-              "valueTypeConstraint": "string",
-              "isType": true,
+              "isType": false,
               "placeholder": "",
               "optional": true,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "enabled": true,
             "editable": true,
-            "optional": true,
+            "optional": false,
             "advanced": false
           },
           {
@@ -421,15 +460,15 @@
                 "description": "The type of the parameter"
               },
               "enabled": true,
-              "editable": true,
+              "editable": false,
               "value": "rabbitmq:Error",
               "valueType": "TYPE",
-              "valueTypeConstraint": "string",
               "isType": true,
               "placeholder": "rabbitmq:Error",
               "optional": true,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "name": {
               "metadata": {
@@ -437,10 +476,9 @@
                 "description": "The error occurred during the message processing"
               },
               "enabled": true,
-              "editable": false,
+              "editable": true,
               "value": "rabbitmqError",
               "valueType": "IDENTIFIER",
-              "valueTypeConstraint": "string",
               "isType": false,
               "placeholder": "rabbitmqError",
               "optional": false,
@@ -451,7 +489,8 @@
                 "inDisplayAnnotation": false,
                 "type": "PARAMETER_NAME"
               },
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "defaultValue": {
               "metadata": {
@@ -462,16 +501,16 @@
               "editable": true,
               "value": "",
               "valueType": "EXPRESSION",
-              "valueTypeConstraint": "string",
-              "isType": true,
+              "isType": false,
               "placeholder": "",
               "optional": true,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "enabled": true,
             "editable": true,
-            "optional": true,
+            "optional": false,
             "advanced": false
           }
         ],
@@ -493,7 +532,8 @@
         },
         "enabled": false,
         "optional": false,
-        "editable": true
+        "editable": true,
+        "canAddParameters": false
       }
     ]
   }

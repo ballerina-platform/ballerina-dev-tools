@@ -315,6 +315,7 @@ public final class Utils {
         });
         functionModel.setParameters(parameterModels);
         functionModel.setCodedata(new Codedata(functionDefinitionNode.lineRange()));
+        functionModel.setCanAddParameters(true);
         updateAnnotationAttachmentProperty(functionDefinitionNode, functionModel);
         return functionModel;
     }
@@ -549,34 +550,8 @@ public final class Utils {
         }
     }
 
-    public static void updateFunction(Function target, Function source, Service service) {
-        target.setEnabled(source.isEnabled());
-        target.setCodedata(source.getCodedata());
-        updateValue(target.getAccessor(), source.getAccessor());
-        updateValue(target.getName(), source.getName());
-        target.getParameters().forEach(param -> {
-            Optional<Parameter> parameter = source.getParameters().stream()
-                    .filter(p -> p.getName().getValue().equals(param.getName().getValue()))
-                    .findFirst();
-            parameter.ifPresent(value -> updateParameter(param, value));
-        });
-        updateValue(target.getReturnType(), source.getReturnType());
-        Value requiredFunctions = service.getProperty(ServiceModelGeneratorConstants.PROPERTY_REQUIRED_FUNCTIONS);
-        if (Objects.nonNull(requiredFunctions)) {
-            if (source.isEnabled() && requiredFunctions.getItems().contains(source.getName().getValue())) {
-                requiredFunctions.setValue(source.getName().getValue());
-            }
-        }
-    }
-
-    public static void updateParameter(Parameter target, Parameter source) {
-        target.setEnabled(source.isEnabled());
-        target.setKind(source.getKind());
-        updateValue(target.getType(), source.getType());
-        updateValue(target.getName(), source.getName());
-    }
-
-    public static String getServiceDeclarationNode(Service service, FunctionAddContext context) {
+    public static String getServiceDeclarationNode(Service service, FunctionAddContext context,
+                                                   Map<String, String> imports) {
         StringBuilder builder = new StringBuilder();
         List<String> annots = getAnnotationEdits(service);
 
@@ -626,7 +601,7 @@ public final class Utils {
             service.getFunctions().forEach(function -> {
                 if (function.isEnabled()) {
                     String functionNode = "\t" + generateFunctionDefSource(function, new ArrayList<>(), context,
-                            FunctionSignatureContext.FUNCTION_ADD)
+                            FunctionSignatureContext.FUNCTION_ADD, imports)
                             .replace(System.lineSeparator(), System.lineSeparator() + "\t");
                     functions.add(functionNode);
                 }
@@ -799,7 +774,8 @@ public final class Utils {
 
     public static String generateFunctionDefSource(Function function, List<String> statusCodeResponses,
                                                    FunctionAddContext addContext,
-                                                   FunctionSignatureContext signatureContext) {
+                                                   FunctionSignatureContext signatureContext,
+                                                   Map<String, String> imports) {
         StringBuilder builder = new StringBuilder();
 
         List<String> functionAnnotations = getAnnotationEdits(function);
@@ -830,7 +806,7 @@ public final class Utils {
 
         FunctionSignatureContext sigContext = addContext.equals(FunctionAddContext.HTTP_SERVICE_ADD) ?
                 FunctionSignatureContext.HTTP_RESOURCE_ADD : signatureContext;
-        String functionSignature = generateFunctionSignatureSource(function, statusCodeResponses, sigContext);
+        String functionSignature = generateFunctionSignatureSource(function, statusCodeResponses, sigContext, imports);
         builder.append(functionSignature);
 
         FunctionReturnType returnType = function.getReturnType();
@@ -865,10 +841,11 @@ public final class Utils {
     }
 
     public static String generateFunctionSignatureSource(Function function, List<String> statusCodeResponses,
-                                                         FunctionSignatureContext context) {
+                                                         FunctionSignatureContext context,
+                                                         Map<String, String> imports) {
         StringBuilder builder = new StringBuilder();
         builder.append("(");
-        builder.append(generateFunctionParamListSource(function.getParameters()));
+        builder.append(generateFunctionParamListSource(function.getParameters(), imports));
         builder.append(")");
 
         FunctionReturnType returnType = function.getReturnType();
@@ -881,11 +858,14 @@ public final class Utils {
                     returnTypeStr = "error|" + returnTypeStr;
                 }
                 builder.append(returnTypeStr);
+                if (Objects.nonNull(returnType.getImports())) {
+                    imports.putAll(returnType.getImports());
+                }
             } else if (returnType.isEnabled() && Objects.nonNull(returnType.getResponses()) &&
                     !returnType.getResponses().isEmpty()) {
                 List<String> responses = new ArrayList<>(returnType.getResponses().stream()
                         .filter(HttpResponse::isEnabled)
-                        .map(response -> HttpUtil.getStatusCodeResponse(response, statusCodeResponses))
+                        .map(response -> HttpUtil.getStatusCodeResponse(response, statusCodeResponses, imports))
                         .filter(Objects::nonNull)
                         .toList());
                 if (!responses.isEmpty()) {
@@ -901,7 +881,7 @@ public final class Utils {
         return builder.toString();
     }
 
-    private static String generateFunctionParamListSource(List<Parameter> parameters) {
+    private static String generateFunctionParamListSource(List<Parameter> parameters, Map<String, String> imports) {
         // sort params list where required params come first
         parameters.sort(new Parameter.RequiredParamSorter());
 
@@ -912,11 +892,18 @@ public final class Utils {
                 Value defaultValue = param.getDefaultValue();
                 if (Objects.nonNull(defaultValue) && defaultValue.isEnabled() &&
                         Objects.nonNull(defaultValue.getValue()) && !defaultValue.getValue().isEmpty()) {
-                    paramDef = String.format("%s %s = %s", getValueString(param.getType()),
-                            getValueString(param.getName()), getValueString(defaultValue));
+                    Value paramType = param.getType();
+                    paramDef = String.format("%s %s = %s", getValueString(paramType), getValueString(param.getName()),
+                            getValueString(defaultValue));
+                    if (Objects.nonNull(paramType.getImports())) {
+                        imports.putAll(paramType.getImports());
+                    }
                 } else {
-                    paramDef = String.format("%s %s", getValueString(param.getType()),
-                            getValueString(param.getName()));
+                    Value paramType = param.getType();
+                    if (Objects.nonNull(paramType.getImports())) {
+                        imports.putAll(paramType.getImports());
+                    }
+                    paramDef = String.format("%s %s", getValueString(paramType), getValueString(param.getName()));
                 }
                 if (Objects.nonNull(param.getHttpParamType()) && !param.getHttpParamType().equals("Query")) {
                     paramDef = String.format("@http:%s %s", param.getHttpParamType(), paramDef);

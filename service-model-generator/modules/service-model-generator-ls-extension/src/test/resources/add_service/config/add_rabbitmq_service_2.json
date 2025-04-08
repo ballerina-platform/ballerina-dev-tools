@@ -100,7 +100,7 @@
         },
         "enabled": true,
         "editable": true,
-        "value": "",
+        "value": "{queueName: \"\"}",
         "values": [],
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "rabbitmq:RabbitMQServiceConfig",
@@ -154,7 +154,7 @@
             "character": 0
           }
         },
-        "newText": "\nservice on rabbitmqListener {\n\tremote function onMessage(rabbitmq:AnydataMessage message, rabbitmq:Caller caller) returns error? {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t\treturn error(\"unhandled error\", err);\n\t\t}\n\t}\n\n\tremote function onError(rabbitmq:AnydataMessage message, rabbitmq:Error rabbitmqError) returns error? {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t\treturn error(\"unhandled error\", err);\n\t\t}\n\t}\n}"
+        "newText": "\n@rabbitmq:ServiceConfig{queueName: \"\"}\nservice on rabbitmqListener {\n\tremote function onMessage(rabbitmq:AnydataMessage message, rabbitmq:Caller caller) returns error? {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t\treturn error(\"unhandled error\", err);\n\t\t}\n\t}\n\n\tremote function onError(rabbitmq:AnydataMessage message, rabbitmq:Error rabbitmqError) returns error? {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t\treturn error(\"unhandled error\", err);\n\t\t}\n\t}\n}"
       }
     ]
   }

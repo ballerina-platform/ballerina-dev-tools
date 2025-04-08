@@ -111,6 +111,8 @@ import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -383,7 +385,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                     return new CommonSourceResponse(oasSvcGenerator.generateService(service, defaultListener));
                 }
 
-                List<String> importStmts = new ArrayList<>();
+                Set<String> importStmts = new HashSet<>();
                 if (isAiAgentModule(service.getOrgName(), service.getModuleName()) &&
                         !importExists(node, "ballerina", "http")) {
                     importStmts.add(Utils.getImportStmt("ballerina", "http"));
@@ -394,11 +396,6 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 }
 
                 List<TextEdit> edits = new ArrayList<>();
-                if (!importStmts.isEmpty()) {
-                    String imports = String.join(NEW_LINE, importStmts);
-                    edits.add(new TextEdit(Utils.toRange(lineRange.startLine()), imports));
-                }
-
                 if (Objects.nonNull(defaultListener)) {
                     String stmt = getDefaultListenerDeclarationStmt(defaultListener);
                     edits.add(new TextEdit(Utils.toRange(defaultListener.linePosition()), stmt));
@@ -413,8 +410,24 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 }
 
                 populateRequiredFunctionsForServiceType(service);
-                String serviceDeclaration = getServiceDeclarationNode(service, context);
+                Map<String, String> imports = new HashMap<>();
+                String serviceDeclaration = getServiceDeclarationNode(service, context, imports);
                 edits.add(new TextEdit(Utils.toRange(lineRange.endLine()), NEW_LINE + serviceDeclaration));
+
+                ModulePartNode rootNode = document.get().syntaxTree().rootNode();
+                imports.values().forEach(moduleId -> {
+                    String[] importParts = moduleId.split("/");
+                    String orgName = importParts[0];
+                    String moduleName = importParts[1].split(":")[0];
+                    if (!importExists(rootNode, orgName, moduleName)) {
+                        importStmts.add(getImportStmt(orgName, moduleName));
+                    }
+                });
+
+                if (!importStmts.isEmpty()) {
+                    String importsStmts = String.join(NEW_LINE, importStmts);
+                    edits.addFirst(new TextEdit(Utils.toRange(rootNode.lineRange().startLine()), importsStmts));
+                }
 
                 if (context.equals(TCP_SERVICE_ADD)) {
                     String serviceName = service.getProperties().get("returningServiceClass").getValue();
@@ -487,11 +500,28 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 }
                 ServiceDeclarationNode serviceNode = (ServiceDeclarationNode) node;
                 List<String> newStatusCodeTypesDef = new ArrayList<>();
+                Map<String, String> imports = new HashMap<>();
                 String functionDefinition = NEW_LINE_WITH_TAB + generateFunctionDefSource(request.function(),
-                        newStatusCodeTypesDef, RESOURCE_ADD, HTTP_RESOURCE_ADD)
+                        newStatusCodeTypesDef, RESOURCE_ADD, HTTP_RESOURCE_ADD, imports)
                         .replace(NEW_LINE, NEW_LINE_WITH_TAB) + NEW_LINE;
 
                 List<TextEdit> textEdits = new ArrayList<>();
+                List<String> importStmts = new ArrayList<>();
+                ModulePartNode rootNode = document.get().syntaxTree().rootNode();
+                imports.values().forEach(moduleId -> {
+                    String[] importParts = moduleId.split("/");
+                    String orgName = importParts[0];
+                    String moduleName = importParts[1].split(":")[0];
+                    if (!importExists(rootNode, orgName, moduleName)) {
+                        importStmts.add(getImportStmt(orgName, moduleName));
+                    }
+                });
+
+                if (!importStmts.isEmpty()) {
+                    String importsStmts = String.join(NEW_LINE, importStmts);
+                    textEdits.add(new TextEdit(Utils.toRange(rootNode.lineRange().startLine()), importsStmts));
+                }
+
                 LineRange serviceEnd = serviceNode.closeBraceToken().lineRange();
                 textEdits.add(new TextEdit(Utils.toRange(serviceEnd.startLine()), functionDefinition));
                 if (!newStatusCodeTypesDef.isEmpty()) {
@@ -692,8 +722,27 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 if (!members.isEmpty()) {
                     functionLineRange = members.get(members.size() - 1).lineRange();
                 }
+                Map<String, String> imports = new HashMap<>();
                 String functionNode = NEW_LINE_WITH_TAB + generateFunctionDefSource(request.function(), List.of(),
-                        Utils.FunctionAddContext.FUNCTION_ADD, FUNCTION_ADD).replace(NEW_LINE, NEW_LINE_WITH_TAB);
+                        Utils.FunctionAddContext.FUNCTION_ADD, FUNCTION_ADD, imports)
+                        .replace(NEW_LINE, NEW_LINE_WITH_TAB);
+
+                List<String> importStmts = new ArrayList<>();
+                ModulePartNode rootNode = document.get().syntaxTree().rootNode();
+                imports.values().forEach(moduleId -> {
+                    String[] importParts = moduleId.split("/");
+                    String orgName = importParts[0];
+                    String moduleName = importParts[1].split(":")[0];
+                    if (!importExists(rootNode, orgName, moduleName)) {
+                        importStmts.add(getImportStmt(orgName, moduleName));
+                    }
+                });
+
+                if (!importStmts.isEmpty()) {
+                    String importsStmts = String.join(NEW_LINE, importStmts);
+                    edits.add(new TextEdit(Utils.toRange(rootNode.lineRange().startLine()), importsStmts));
+                }
+
                 edits.add(new TextEdit(Utils.toRange(functionLineRange.endLine()), functionNode));
                 return new CommonSourceResponse(Map.of(request.filePath(), edits));
             } catch (Throwable e) {
@@ -755,10 +804,27 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                     }
                 }
 
+                Map<String, String> imports = new HashMap<>();
                 LineRange signatureRange = functionDefinitionNode.functionSignature().lineRange();
                 List<String> newStatusCodeTypesDef = new ArrayList<>();
                 String functionSignature = generateFunctionSignatureSource(function, newStatusCodeTypesDef,
-                        FUNCTION_UPDATE);
+                        FUNCTION_UPDATE, imports);
+                List<String> importStmts = new ArrayList<>();
+                ModulePartNode rootNode = document.get().syntaxTree().rootNode();
+                imports.values().forEach(moduleId -> {
+                    String[] importParts = moduleId.split("/");
+                    String orgName = importParts[0];
+                    String moduleName = importParts[1].split(":")[0];
+                    if (!importExists(rootNode, orgName, moduleName)) {
+                        importStmts.add(getImportStmt(orgName, moduleName));
+                    }
+                });
+
+                if (!importStmts.isEmpty()) {
+                    String importsStmts = String.join(NEW_LINE, importStmts);
+                    edits.addFirst(new TextEdit(Utils.toRange(rootNode.lineRange().startLine()), importsStmts));
+                }
+
                 edits.add(new TextEdit(Utils.toRange(signatureRange), functionSignature));
 
                 if (!newStatusCodeTypesDef.isEmpty() && parentNode instanceof ServiceDeclarationNode serviceNode) {

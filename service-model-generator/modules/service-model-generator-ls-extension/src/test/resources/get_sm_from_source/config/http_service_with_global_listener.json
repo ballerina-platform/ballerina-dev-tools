@@ -57,7 +57,8 @@
           "inDisplayAnnotation": false,
           "type": "LISTENER"
         },
-        "addNewButton": true
+        "addNewButton": true,
+        "imports": {}
       },
       "basePath": {
         "metadata": {
@@ -79,7 +80,8 @@
           "inDisplayAnnotation": false,
           "type": "SERVICE_BASEPATH"
         },
-        "addNewButton": false
+        "addNewButton": false,
+        "imports": {}
       },
       "annotServiceConfig": {
         "metadata": {
@@ -110,7 +112,8 @@
             "kind": "RECORD_TYPE",
             "selected": true
           }
-        ]
+        ],
+        "imports": {}
       }
     },
     "codedata": {
@@ -147,7 +150,8 @@
           "isType": false,
           "optional": false,
           "advanced": false,
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "name": {
           "metadata": {
@@ -161,7 +165,8 @@
           "isType": false,
           "optional": false,
           "advanced": false,
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "parameters": [],
         "returnType": {
@@ -182,6 +187,7 @@
         "enabled": true,
         "optional": false,
         "editable": true,
+        "canAddParameters": true,
         "codedata": {
           "lineRange": {
             "fileName": "main.bal",
@@ -229,7 +235,8 @@
                 "kind": "RECORD_TYPE",
                 "selected": false
               }
-            ]
+            ],
+            "imports": {}
           }
         }
       },
@@ -260,9 +267,11 @@
             "DELETE",
             "PATCH",
             "OPTIONS",
-            "HEAD"
+            "HEAD",
+            "DEFAULT"
           ],
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "name": {
           "metadata": {
@@ -278,7 +287,8 @@
           "placeholder": "",
           "optional": false,
           "advanced": false,
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "parameters": [
           {
@@ -301,7 +311,8 @@
               "placeholder": "string",
               "optional": false,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "name": {
               "metadata": {
@@ -317,7 +328,8 @@
               "placeholder": "request",
               "optional": false,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "enabled": false,
             "editable": true,
@@ -344,7 +356,8 @@
               "placeholder": "string",
               "optional": false,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "name": {
               "metadata": {
@@ -360,7 +373,8 @@
               "placeholder": "caller",
               "optional": false,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "enabled": false,
             "editable": true,
@@ -387,7 +401,8 @@
               "placeholder": "string",
               "optional": false,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "name": {
               "metadata": {
@@ -403,7 +418,8 @@
               "placeholder": "headers",
               "optional": false,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "enabled": false,
             "editable": true,
@@ -432,7 +448,8 @@
               "placeholder": "",
               "optional": false,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "name": {
               "metadata": {
@@ -448,7 +465,8 @@
               "placeholder": "",
               "optional": false,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "defaultValue": {
               "metadata": {
@@ -464,7 +482,8 @@
               "placeholder": "",
               "optional": true,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "enabled": false,
             "editable": true,
@@ -492,7 +511,8 @@
               "placeholder": "string",
               "optional": false,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "name": {
               "metadata": {
@@ -508,7 +528,8 @@
               "placeholder": "name",
               "optional": false,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "defaultValue": {
               "metadata": {
@@ -524,7 +545,8 @@
               "placeholder": "",
               "optional": true,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "enabled": false,
             "editable": true,
@@ -552,7 +574,8 @@
               "placeholder": "",
               "optional": false,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "name": {
               "metadata": {
@@ -568,7 +591,8 @@
               "placeholder": "",
               "optional": false,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "enabled": false,
             "editable": true,
@@ -592,7 +616,8 @@
                 "isType": false,
                 "optional": false,
                 "advanced": false,
-                "addNewButton": false
+                "addNewButton": false,
+                "imports": {}
               },
               "body": {
                 "metadata": {
@@ -606,7 +631,8 @@
                 "isType": false,
                 "optional": false,
                 "advanced": false,
-                "addNewButton": false
+                "addNewButton": false,
+                "imports": {}
               },
               "name": {
                 "metadata": {
@@ -620,7 +646,8 @@
                 "isType": false,
                 "optional": false,
                 "advanced": false,
-                "addNewButton": false
+                "addNewButton": false,
+                "imports": {}
               },
               "type": {
                 "metadata": {
@@ -634,7 +661,8 @@
                 "isType": false,
                 "optional": false,
                 "advanced": false,
-                "addNewButton": false
+                "addNewButton": false,
+                "imports": {}
               },
               "headers": {
                 "metadata": {
@@ -648,7 +676,8 @@
                 "isType": false,
                 "optional": false,
                 "advanced": false,
-                "addNewButton": false
+                "addNewButton": false,
+                "imports": {}
               },
               "enabled": false,
               "editable": true,
@@ -684,7 +713,8 @@
                   "405",
                   "500"
                 ],
-                "addNewButton": false
+                "addNewButton": false,
+                "imports": {}
               },
               "body": {
                 "metadata": {
@@ -698,7 +728,8 @@
                 "isType": false,
                 "optional": true,
                 "advanced": false,
-                "addNewButton": false
+                "addNewButton": false,
+                "imports": {}
               },
               "name": {
                 "metadata": {
@@ -712,7 +743,8 @@
                 "isType": false,
                 "optional": true,
                 "advanced": false,
-                "addNewButton": false
+                "addNewButton": false,
+                "imports": {}
               },
               "type": {
                 "metadata": {
@@ -726,7 +758,8 @@
                 "isType": false,
                 "optional": false,
                 "advanced": false,
-                "addNewButton": false
+                "addNewButton": false,
+                "imports": {}
               },
               "headers": {
                 "metadata": {
@@ -749,7 +782,8 @@
                   "int[]",
                   "boolean[]"
                 ],
-                "addNewButton": false
+                "addNewButton": false,
+                "imports": {}
               },
               "enabled": true,
               "editable": false,
@@ -775,6 +809,7 @@
         "enabled": true,
         "optional": false,
         "editable": true,
+        "canAddParameters": false,
         "codedata": {
           "lineRange": {
             "fileName": "main.bal",
@@ -823,7 +858,8 @@
                 "kind": "RECORD_TYPE",
                 "selected": true
               }
-            ]
+            ],
+            "imports": {}
           }
         }
       }
