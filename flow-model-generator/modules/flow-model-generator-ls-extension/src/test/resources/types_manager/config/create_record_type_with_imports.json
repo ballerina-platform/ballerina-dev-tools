@@ -1,0 +1,277 @@
+{
+  "filePath": "test_pack2/types.bal",
+  "description": "Create a new record type",
+  "type": {
+    "name": "User",
+    "editable": true,
+    "metadata": {
+      "label": "User",
+      "description": "User record type\nSimple record type with docs, anonymous field types (union, record)"
+    },
+    "codedata": {
+      "node": "RECORD"
+    },
+    "allowAdditionalFields": true,
+    "properties": {
+      "name": {
+        "metadata": {
+          "label": "Type name",
+          "description": "Unique name to identify the type"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "User",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "description": {
+        "metadata": {
+          "label": "Type description",
+          "description": "Detailed description about the type"
+        },
+        "valueType": "STRING",
+        "value": "User record type\nSimple record type with docs, anonymous field types (union, record)",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "isArray": {
+        "metadata": {
+          "label": "Is array type",
+          "description": "Is this type an array or list value"
+        },
+        "valueType": "FLAG",
+        "value": "false",
+        "optional": true,
+        "editable": true,
+        "advanced": true
+      },
+      "arraySize": {
+        "metadata": {
+          "label": "Size of the array",
+          "description": "Array dimensions"
+        },
+        "valueType": "STRING",
+        "value": "",
+        "optional": true,
+        "editable": true,
+        "advanced": true
+      }
+    },
+    "members": [
+      {
+        "kind": "FIELD",
+        "refs": [],
+        "type": {
+          "editable": false,
+          "codedata": {
+            "node": "RECORD"
+          },
+          "allowAdditionalFields": true,
+          "properties": {
+            "isArray": {
+              "metadata": {
+                "label": "Is array type",
+                "description": "Is this type an array or list value"
+              },
+              "valueType": "FLAG",
+              "value": "false",
+              "optional": true,
+              "editable": true,
+              "advanced": true
+            },
+            "arraySize": {
+              "metadata": {
+                "label": "Size of the array",
+                "description": "Array dimensions"
+              },
+              "valueType": "STRING",
+              "value": "",
+              "optional": true,
+              "editable": true,
+              "advanced": true
+            }
+          },
+          "members": [
+            {
+              "kind": "FIELD",
+              "refs": [],
+              "type": "time:Utc",
+              "name": "iA",
+              "docs": "",
+              "imports": {
+                "Utc": "ballerina/time:2.0.0"
+              }
+            },
+            {
+              "kind": "FIELD",
+              "refs": [],
+              "type": {
+                "editable": false,
+                "codedata": {
+                  "node": "RECORD"
+                },
+                "allowAdditionalFields": true,
+                "properties": {
+                  "isArray": {
+                    "metadata": {
+                      "label": "Is array type",
+                      "description": "Is this type an array or list value"
+                    },
+                    "valueType": "FLAG",
+                    "value": "false",
+                    "optional": true,
+                    "editable": true,
+                    "advanced": true
+                  },
+                  "arraySize": {
+                    "metadata": {
+                      "label": "Size of the array",
+                      "description": "Array dimensions"
+                    },
+                    "valueType": "STRING",
+                    "value": "",
+                    "optional": true,
+                    "editable": true,
+                    "advanced": true
+                  }
+                },
+                "members": [
+                  {
+                    "kind": "FIELD",
+                    "refs": [],
+                    "type": "int",
+                    "name": "iiA",
+                    "docs": ""
+                  }
+                ],
+                "includes": []
+              },
+              "name": "iB",
+              "docs": ""
+            }
+          ],
+          "includes": []
+        },
+        "name": "field1",
+        "docs": "Anonymous nested record type"
+      },
+      {
+        "kind": "FIELD",
+        "refs": [],
+        "type": {
+          "editable": false,
+          "codedata": {
+            "node": "UNION"
+          },
+          "properties": {
+            "isArray": {
+              "metadata": {
+                "label": "Is array type",
+                "description": "Is this type an array or list value"
+              },
+              "valueType": "FLAG",
+              "value": "false",
+              "optional": true,
+              "editable": true,
+              "advanced": true
+            },
+            "arraySize": {
+              "metadata": {
+                "label": "Size of the array",
+                "description": "Array dimensions"
+              },
+              "valueType": "STRING",
+              "value": "",
+              "optional": false,
+              "editable": false,
+              "advanced": false
+            }
+          },
+          "members": [
+            {
+              "kind": "TYPE",
+              "refs": [],
+              "type": "xml",
+              "name": "xml",
+              "imports": {
+                "xml": "ballerina/xml:2.0.0"
+              }
+            },
+            {
+              "kind": "TYPE",
+              "refs": [
+                "UserAddress"
+              ],
+              "type": "UserAddress",
+              "name": "UserAddress"
+            },
+            {
+              "kind": "TYPE",
+              "refs": [
+                "City"
+              ],
+              "type": "City",
+              "name": "City",
+              "imports": {
+                "Utc": "ballerina/time:2.0.0"
+              }
+            }
+          ]
+        },
+        "name": "address",
+        "docs": "Union of of type-refs and a built-in type"
+      },
+      {
+        "kind": "FIELD",
+        "refs": [],
+        "type": "string",
+        "name": "name",
+        "docs": "Name of the employee"
+      },
+      {
+        "kind": "FIELD",
+        "refs": [],
+        "type": "int",
+        "name": "age",
+        "docs": "Age of the employee"
+      }
+    ],
+    "restMember": {
+      "kind": "FIELD",
+      "refs": [],
+      "type": "anydata"
+    },
+    "includes": []
+  },
+  "output": {
+    "test_pack2/types.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 3,
+            "character": 3
+          },
+          "end": {
+            "line": 3,
+            "character": 3
+          }
+        },
+        "newText": "\nimport ballerina/time;\n\n\nimport ballerina/xml;\n"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 3,
+            "character": 3
+          },
+          "end": {
+            "line": 3,
+            "character": 3
+          }
+        },
+        "newText": "\n# User record type\n# Simple record type with docs, anonymous field types (union, record)\ntype User record {\n\t# Anonymous nested record type\n\trecord {\n\ttime:Utc iA;\n\trecord {\n\tint iiA;\n} iB;\n} field1;\n\t# Union of of type-refs and a built-in type\n\txml|UserAddress|City address;\n\t# Name of the employee\n\tstring name;\n\t# Age of the employee\n\tint age;\n};"
+      }
+    ]
+  }
+}

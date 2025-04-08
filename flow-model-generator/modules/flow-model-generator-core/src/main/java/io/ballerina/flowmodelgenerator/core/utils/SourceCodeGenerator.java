@@ -27,7 +27,9 @@ import io.ballerina.flowmodelgenerator.core.model.TypeData;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import org.ballerinalang.langserver.common.utils.CommonUtil;
 
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.StringJoiner;
 
 /**
@@ -38,6 +40,7 @@ import java.util.StringJoiner;
 public class SourceCodeGenerator {
 
     private final Gson gson = new Gson();
+    private final Map<String, String> imports = new HashMap<>();
 
     private static final String LS = System.lineSeparator();
 
@@ -79,6 +82,10 @@ public class SourceCodeGenerator {
                 fieldBuilder.toString(),
                 resourceFunctions.toString()
         );
+    }
+
+    public Map<String, String> getImports () {
+        return this.imports;
     }
 
     private String generateEnumCodeSnippet(TypeData typeData) {
@@ -201,7 +208,7 @@ public class SourceCodeGenerator {
         }
 
         // Build the base table type descriptor.
-        String rowType = generateTypeDescriptor(typeData.members().getFirst().type());
+        String rowType = generateTypeFromMember(typeData.members().getFirst());
 
         // Build the key type constraint if available.
         String keyInformation = "";
@@ -226,13 +233,13 @@ public class SourceCodeGenerator {
                 if (((TypeData) member.type()).codedata().node() == NodeKind.INTERSECTION) {
                     stringBuilder
                             .append("(")
-                            .append(generateTypeDescriptor(member.type()))
+                            .append(generateTypeFromMember(member))
                             .append(")");
                 } else {
-                    stringBuilder.append(generateTypeDescriptor(member.type()));
+                    stringBuilder.append(generateTypeFromMember(member));
                 }
             } else {
-                stringBuilder.append(generateTypeDescriptor(member.type()));
+                stringBuilder.append(generateTypeFromMember(member));
             }
             if (i < typeData.members().size() - 1) {
                 stringBuilder.append(" & ");
@@ -252,7 +259,7 @@ public class SourceCodeGenerator {
         // Build the dynamic list of tuple elements.
         StringJoiner joiner = new StringJoiner(", ");
         for (Member member : typeData.members()) {
-            joiner.add(generateTypeDescriptor(member.type()));
+            joiner.add(generateTypeFromMember(member));
         }
 
         String template = "[%s]";
@@ -271,13 +278,13 @@ public class SourceCodeGenerator {
                 if (((TypeData) member.type()).codedata().node() == NodeKind.UNION) {
                     stringBuilder
                             .append("(")
-                            .append(generateTypeDescriptor(member.type()))
+                            .append(generateTypeFromMember(member))
                             .append(")");
                 } else {
-                    stringBuilder.append(generateTypeDescriptor(member.type()));
+                    stringBuilder.append(generateTypeFromMember(member));
                 }
             } else {
-                stringBuilder.append(generateTypeDescriptor(member.type()));
+                stringBuilder.append(generateTypeFromMember(member));
             }
             if (i < typeData.members().size() - 1) {
                 stringBuilder.append("|");
@@ -288,35 +295,35 @@ public class SourceCodeGenerator {
 
     private String generateErrorTypeDescriptor(TypeData typeData) {
         if (typeData.members().size() == 1) {
-            return "error<" + generateTypeDescriptor(typeData.members().getFirst().type()) + ">";
+            return "error<" + generateTypeFromMember(typeData.members().getFirst()) + ">";
         }
         return "error";
     }
 
     private String generateTypedescTypeDescriptor(TypeData typeData) {
         if (typeData.members().size() == 1) {
-            return "typedesc<" + generateTypeDescriptor(typeData.members().getFirst().type()) + ">";
+            return "typedesc<" + generateTypeFromMember(typeData.members().getFirst()) + ">";
         }
         return "typedesc<>";
     }
 
     private String generateFutureTypeDescriptor(TypeData typeData) {
         if (typeData.members().size() == 1) {
-            return "future<" + generateTypeDescriptor(typeData.members().getFirst().type()) + ">";
+            return "future<" + generateTypeFromMember(typeData.members().getFirst()) + ">";
         }
         return "future<>";
     }
 
     private String generateStreamTypeDescriptor(TypeData typeData) {
         if (typeData.members().size() == 1) {
-            return "stream<" + generateTypeDescriptor(typeData.members().getFirst().type()) + ">";
+            return "stream<" + generateTypeFromMember(typeData.members().getFirst()) + ">";
         }
         return "stream<>";
     }
 
     private String generateMapTypeDescriptor(TypeData typeData) {
         if (typeData.members().size() == 1) {
-            return "map<" + generateTypeDescriptor(typeData.members().getFirst().type()) + ">";
+            return "map<" + generateTypeFromMember(typeData.members().getFirst()) + ">";
         }
         return "map<>";
     }
@@ -332,8 +339,9 @@ public class SourceCodeGenerator {
             return "[" + arraySize + "]";
         }
 
-        Object type = typeData.members().getFirst().type();
-        String transformed = generateTypeDescriptor(type);
+        Member typeMember = typeData.members().getFirst();
+        Object type = typeMember.type();
+        String transformed = generateTypeFromMember(typeMember);
 
         if (!(type instanceof String)) {
             NodeKind nodeKind = toTypeData(type).codedata().node();
@@ -346,6 +354,16 @@ public class SourceCodeGenerator {
         return transformed + "[" + arraySize + "]";
     }
 
+    private String generateTypeFromMember(Member member) {
+        // Add the imports
+        if (Objects.nonNull(member.imports())) {
+            member.imports().forEach(this.imports::putIfAbsent);
+        }
+
+        // Generate the type descriptor
+        return generateTypeDescriptor(member.type());
+    }
+
     private String generateDocs(String docs, String indent) {
         return (docs != null && !docs.isEmpty())
                 ? LS + indent + CommonUtils.convertToBalDocs(docs)
@@ -353,8 +371,7 @@ public class SourceCodeGenerator {
     }
 
     private String generateMember(Member member, boolean withDefaultValue) {
-        String typeDescriptor = generateTypeDescriptor(member.type());
-
+        String typeDescriptor = generateTypeFromMember(member);
         String template = "%s %s%s"; // <type descriptor> <identifier> [= <default value>]
 
         String fieldName = CommonUtil.escapeReservedKeyword(member.name());
