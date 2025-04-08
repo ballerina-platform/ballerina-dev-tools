@@ -72,6 +72,7 @@ import io.ballerina.servicemodelgenerator.extension.request.ListenerModelRequest
 import io.ballerina.servicemodelgenerator.extension.request.ListenerModifierRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ListenerSourceRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ServiceClassSourceRequest;
+import io.ballerina.servicemodelgenerator.extension.request.ServiceDesignerDiagnosticRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ServiceModelRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ServiceModifierRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ServiceSourceRequest;
@@ -84,6 +85,7 @@ import io.ballerina.servicemodelgenerator.extension.response.ListenerDiscoveryRe
 import io.ballerina.servicemodelgenerator.extension.response.ListenerFromSourceResponse;
 import io.ballerina.servicemodelgenerator.extension.response.ListenerModelResponse;
 import io.ballerina.servicemodelgenerator.extension.response.ServiceClassModelResponse;
+import io.ballerina.servicemodelgenerator.extension.response.ServiceDesignerDiagnosticResponse;
 import io.ballerina.servicemodelgenerator.extension.response.ServiceFromSourceResponse;
 import io.ballerina.servicemodelgenerator.extension.response.ServiceModelResponse;
 import io.ballerina.servicemodelgenerator.extension.response.TriggerListResponse;
@@ -1107,6 +1109,24 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 return new CommonSourceResponse(Map.of(request.filePath(), edits));
             } catch (Throwable e) {
                 return new CommonSourceResponse(e);
+            }
+        });
+    }
+
+    /**
+     * API to validate the service designer models.
+     *
+     * @param request Service designer diagnostic request
+     * @return {@link ServiceDesignerDiagnosticResponse} of the service designer diagnostic response
+     */
+    @JsonRequest
+    public CompletableFuture<ServiceDesignerDiagnosticResponse> diagnostics(ServiceDesignerDiagnosticRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                ServiceDesignerDiagnosticResponse response = new ServiceDesignerDiagnosticResponse();
+                return response;
+            } catch (Throwable e) {
+                return new ServiceDesignerDiagnosticResponse(e);
             }
         });
     }
