@@ -119,10 +119,12 @@ CREATE TABLE ServiceTypeFunctionParameter (
     name TEXT NOT NULL,
     label TEXT NOT NULL,
     description TEXT,
-    kind TEXT CHECK(kind IN ('REQUIRED', 'DEFAULTABLE', 'INCLUDED_RECORD', 'REST')),
+    kind TEXT CHECK(kind IN ('REQUIRED', 'DEFAULTABLE', 'INCLUDED_RECORD', 'REST', 'OPTIONAL')),
     type JSON, -- JSON type for parameter type information
     default_value TEXT,
     import_statements TEXT,
     function_id INTEGER,
+    editable_name INTEGER CHECK(editable_name IN (0, 1)),
+    editable_param INTEGER CHECK(editable_param IN (0, 1)),
     FOREIGN KEY (function_id) REFERENCES ServiceTypeFunction(function_id) ON DELETE CASCADE
 );

@@ -159,9 +159,11 @@ class DatabaseManager {
     public static void insertServiceTypeFunctionParameter(int functionId,
                                                           ServiceIndexGenerator.ServiceTypeFunctionParameter param) {
         String sql = "INSERT INTO ServiceTypeFunctionParameter (name, label, description, kind, type, default_value, "
-                + "import_statements, function_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                + "import_statements, editable_name, editable_type, function_id) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         insertEntry(sql, new Object[]{param.name(), param.label(), param.description(), param.kind(), param.type(),
-                param.defaultValue(), param.importStatements(), functionId});
+                param.defaultValue(), param.importStatements(), param.nameEditable(), param.typeEditable(),
+                functionId});
     }
 
     public static void insertAnnotation(int packageId, String annotName, String attachmentPoints,
