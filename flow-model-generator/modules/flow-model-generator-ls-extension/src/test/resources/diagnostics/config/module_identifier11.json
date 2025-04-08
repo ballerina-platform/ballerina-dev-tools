@@ -1,0 +1,43 @@
+{
+  "description": "",
+  "filePath": "source.bal",
+  "context": {
+    "expression": "MyRecord",
+    "startLine": {
+      "line": 15,
+      "offset": 35
+    },
+    "offset": 2,
+    "property": {
+      "metadata": {
+        "label": "Name",
+        "description": "Name of the variable"
+      },
+      "valueType": "IDENTIFIER",
+      "valueTypeConstraint": "Global",
+      "value": "moduleVar",
+      "optional": false,
+      "editable": true,
+      "advanced": false
+    }
+  },
+  "diagnostics": [
+    {
+      "range": {
+        "start": {
+          "line": 15,
+          "character": 35
+        },
+        "end": {
+          "line": 15,
+          "character": 43
+        }
+      },
+      "severity": "Error",
+      "code": {
+        "left": "BCE2008"
+      },
+      "message": "redeclared symbol 'MyRecord'"
+    }
+  ]
+}
