@@ -208,13 +208,20 @@ public record Artifact(String id, LineRange location, String type, String name, 
         }
 
         public Builder serviceNameWithPath(String path) {
-            String prefix = entryPointMap.containsKey(module) ? entryPointMap.get(module) + " - " : "";
-            this.name = prefix + path;
+            if (module == null || !entryPointMap.containsKey(module)) {
+                this.name = path;
+            } else {
+                this.name = entryPointMap.get(module) + " - " + path;
+            }
             return this;
         }
 
         public Builder serviceName(String name) {
-            this.name = entryPointMap.getOrDefault(module, name);
+            if (module == null || !entryPointMap.containsKey(module)) {
+                this.name = name;
+            } else {
+                this.name = entryPointMap.get(module);
+            }
             return this;
         }
 

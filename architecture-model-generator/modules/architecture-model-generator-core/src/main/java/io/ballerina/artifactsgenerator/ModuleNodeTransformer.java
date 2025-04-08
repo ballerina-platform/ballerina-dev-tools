@@ -126,7 +126,6 @@ public class ModuleNodeTransformer extends NodeTransformer<Optional<Artifact>> {
         }
 
         // Derive the entry point name
-        String entryPointName;
         Optional<TypeDescriptorNode> typeDescriptorNode = serviceDeclarationNode.typeDescriptor();
         NodeList<Node> resourcePaths = serviceDeclarationNode.absoluteResourcePath();
         if (typeDescriptorNode.isPresent()) {

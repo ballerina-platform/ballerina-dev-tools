@@ -42,6 +42,8 @@ import java.util.Optional;
 public class PublishArtifactsSubscriber implements EventSubscriber {
 
     public static final String NAME = "Publish artifacts subscriber";
+    private static final String EXPR_URI = "expr";
+    private static final String LOAD_PROJECT = "loadProject";
 
     @Override
     public EventKind eventKind() {
@@ -51,6 +53,13 @@ public class PublishArtifactsSubscriber implements EventSubscriber {
     @Override
     public void onEvent(ExtendedLanguageClient client, DocumentServiceContext context,
                         LanguageServerContext serverContext) {
+        // Skip producing events for the following cases
+        // 1. If the event occurred in the cloned project
+        // 2. During the loading of the project
+        if (context.fileUri().startsWith(EXPR_URI) || LOAD_PROJECT.equals(context.operation().getName())) {
+            return;
+        }
+
         Optional<SyntaxTree> syntaxTree = context.currentSyntaxTree();
         Optional<SemanticModel> semanticModel = context.currentSemanticModel();
         if (syntaxTree.isEmpty() || semanticModel.isEmpty()) {
