@@ -88,7 +88,7 @@ public class AgentsGenerator {
 
     public static final String MODEL = "ModelProvider";
     public static final String TOOL_ANNOTATION = "AgentTool";
-    public static final String MEMORY_MANAGER = "MemoryManager";
+    public static final String MEMORY = "Memory";
     public static final String TARGET_TYPE = "targetType";
     private final Gson gson;
     private final SemanticModel semanticModel;
@@ -184,7 +184,7 @@ public class AgentsGenerator {
             ClassSymbol classSymbol = (ClassSymbol) symbol;
             List<TypeSymbol> inclusionsTypes = classSymbol.typeInclusions();
             for (TypeSymbol typeSymbol : inclusionsTypes) {
-                if (typeSymbol.getName().isPresent() && typeSymbol.getName().get().equals(MEMORY_MANAGER)) {
+                if (typeSymbol.getName().isPresent() && typeSymbol.getName().get().equals(MEMORY)) {
                     memoryManagerSymbols.add(classSymbol);
                     break;
                 }
@@ -202,7 +202,7 @@ public class AgentsGenerator {
                     .org(id.orgName())
                     .module(id.packageName())
                     .version(id.version())
-                    .object(model.getName().orElse(MEMORY_MANAGER))
+                    .object(model.getName().orElse(MEMORY))
                     .symbol(INIT)
                     .build());
         }
