@@ -59,7 +59,7 @@
           }
         },
         "type": "SERVICE",
-        "name": "orderListener",
+        "name": "Kafka Event Handler",
         "scope": "Global",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_kafka_4.5.0.png",
         "module": "kafka",

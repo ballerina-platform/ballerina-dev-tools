@@ -159,7 +159,7 @@
           }
         },
         "type": "SERVICE",
-        "name": "/",
+        "name": "HTTP Service - /",
         "scope": "Global",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
         "module": "http",
@@ -235,7 +235,7 @@
           }
         },
         "type": "SERVICE",
-        "name": "/api1",
+        "name": "HTTP Service - /api1",
         "scope": "Global",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
         "module": "http",
@@ -293,7 +293,7 @@
           }
         },
         "type": "SERVICE",
-        "name": "/api2",
+        "name": "HTTP Service - /api2",
         "scope": "Global",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
         "module": "http",
@@ -333,7 +333,7 @@
           }
         },
         "type": "SERVICE",
-        "name": "/",
+        "name": "HTTP Service - /",
         "scope": "Global",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
         "module": "http",

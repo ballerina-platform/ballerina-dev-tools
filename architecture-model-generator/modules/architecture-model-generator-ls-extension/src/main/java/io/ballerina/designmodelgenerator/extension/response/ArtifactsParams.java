@@ -23,28 +23,29 @@ import io.ballerina.artifactsgenerator.Artifact;
 import java.util.Map;
 
 /**
- * Represents the response for artifact related operations. s
- *
+ * Represents parameters for publishing artifacts notification.
+ * 
  * @since 2.3.0
  */
-public class ArtifactResponse extends AbstractResponse {
+public class ArtifactsParams {
 
     private String uri;
-    private Map<String, Map<String, Artifact>> artifacts;
-
-    public Map<String, Map<String, Artifact>> getArtifacts() {
-        return artifacts;
-    }
-
-    public void setArtifacts(Map<String, Map<String, Artifact>> artifacts) {
-        this.artifacts = artifacts;
-    }
-
-    public String getUri() {
-        return uri;
-    }
+    Map<String, Map<String, Map<String, Artifact>>> artifacts;
 
     public void setUri(String uri) {
         this.uri = uri;
+    }
+
+    public void setArtifacts(
+            Map<String, Map<String, Map<String, Artifact>>> artifacts) {
+        this.artifacts = artifacts;
+    }
+
+    public String uri() {
+        return uri;
+    }
+
+    public Map<String, Map<String, Map<String, Artifact>>> artifacts() {
+        return artifacts;
     }
 }

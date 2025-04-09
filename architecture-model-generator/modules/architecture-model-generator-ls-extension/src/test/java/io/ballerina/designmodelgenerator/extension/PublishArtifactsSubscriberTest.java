@@ -22,6 +22,7 @@ import io.ballerina.artifactsgenerator.Artifact;
 import io.ballerina.artifactsgenerator.ArtifactGenerationDebouncer;
 import io.ballerina.artifactsgenerator.ArtifactsCache;
 import io.ballerina.designmodelgenerator.extension.request.ArtifactsRequest;
+import io.ballerina.designmodelgenerator.extension.response.ArtifactsParams;
 import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import org.ballerinalang.langserver.LSContextOperation;
 import org.ballerinalang.langserver.commons.DocumentServiceContext;
@@ -182,12 +183,22 @@ public class PublishArtifactsSubscriberTest extends AbstractLSTest {
         // Verify the client was called with the expected artifacts
         Mockito.verify(mockClient).publishArtifacts(artifactsCaptor.capture());
         Object capturedValue = artifactsCaptor.getValue();
+        
         @SuppressWarnings("unchecked")
-        Map<String, Map<String, Map<String, Artifact>>> publishedArtifacts =
-                (Map<String, Map<String, Map<String, Artifact>>>) capturedValue;
+        ArtifactsParams artifactsParams = (ArtifactsParams) capturedValue;
         Map<String, Map<String, Map<String, Artifact>>> expectedArtifacts = testConfig.output();
 
+        // Retrieve and validate the captured URI
+        String uri = artifactsParams.uri();
+        if (uri == null) {
+            Assert.fail("Failed to capture the uri");
+        }
+        if (!workspaceManager.projectRoot(filePath).toUri().toString().equals(uri)) {
+            Assert.fail("Failed to capture the correct uri");
+        }
+
         // Assert the published artifacts
+        Map<String, Map<String, Map<String, Artifact>>> publishedArtifacts = artifactsParams.artifacts();
         if (!publishedArtifacts.equals(expectedArtifacts)) {
             TestConfig updatedConfig =
                     new TestConfig(testConfig.source(), testConfig.description(), publishedArtifacts);
