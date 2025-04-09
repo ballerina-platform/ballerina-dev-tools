@@ -268,7 +268,7 @@
     },
     {
       "metadata": {
-        "label": "Websubhub HubClient",
+        "label": "Websubhub Hub",
         "description": "HTTP Based client for WebSub content publishing to subscribers",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websubhub_1.15.0.png",
         "data": {
@@ -288,7 +288,7 @@
     },
     {
       "metadata": {
-        "label": "Websub SubscriptionClient",
+        "label": "Websub Subscription",
         "description": "The HTTP based client for WebSub subscription and unsubscription.",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websub_2.14.0.png",
         "data": {

@@ -108,7 +108,7 @@
     },
     {
       "metadata": {
-        "label": "Snowflake AdvancedClient",
+        "label": "Snowflake Advanced",
         "description": "Represents a Snowflake database client.",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_snowflake_2.2.0.png",
         "data": {
@@ -268,7 +268,7 @@
     },
     {
       "metadata": {
-        "label": "Azure_cosmosdb DataPlaneClient",
+        "label": "Azure_cosmosdb DataPlane",
         "description": "This is the Azure Cosmos DB SQL API, a fast NoSQL database servic offers rich querying over diverse data, helps \ndeliver configurable and reliable performance, is globally distributed, and enables rapid development. ",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure_cosmosdb_4.2.0.png",
         "data": {
@@ -288,7 +288,7 @@
     },
     {
       "metadata": {
-        "label": "Azure_cosmosdb ManagementClient",
+        "label": "Azure_cosmosdb Management",
         "description": "This is the Azure Cosmos DB SQL API, a fast NoSQL database servic offers rich querying over diverse data, helps \ndeliver configurable and reliable performance, is globally distributed, and enables rapid development. \n",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure_cosmosdb_4.2.0.png",
         "data": {

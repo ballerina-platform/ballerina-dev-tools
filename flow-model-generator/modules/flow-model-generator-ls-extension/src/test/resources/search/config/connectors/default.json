@@ -253,6 +253,26 @@
       "items": [
         {
           "metadata": {
+            "label": "Kafka Caller",
+            "description": "Represents a Kafka caller, which can be used to commit the offsets consumed by the service.",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_kafka_4.5.0.png",
+            "data": {
+              "isAgentSupport": false
+            }
+          },
+          "codedata": {
+            "node": "NEW_CONNECTION",
+            "org": "ballerinax",
+            "module": "kafka",
+            "object": "Caller",
+            "symbol": "init",
+            "version": "4.5.0",
+            "isGenerated": false
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
             "label": "Kafka Consumer",
             "description": "Represents a Kafka consumer endpoint.\n",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_kafka_4.5.0.png",
