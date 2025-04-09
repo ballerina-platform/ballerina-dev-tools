@@ -1,7 +1,36 @@
 {
   "description": "",
-  "source": "data_mapper",
+  "source": "data_mapper/clone.bal",
+  "position": {
+    "line": 7,
+    "offset": 0
+  },
   "visibleTypes": [
+    {
+      "name": "Local Variables",
+      "types": [
+        {
+          "name": "cl",
+          "type": {
+            "typeName": "$CompilationError$",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          }
+        },
+        {
+          "name": "name",
+          "type": {
+            "typeName": "string",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          }
+        }
+      ]
+    },
     {
       "name": "Module Variables",
       "types": [

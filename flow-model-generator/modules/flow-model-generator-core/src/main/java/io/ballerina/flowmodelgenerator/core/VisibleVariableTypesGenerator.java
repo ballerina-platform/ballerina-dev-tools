@@ -89,10 +89,6 @@ public class VisibleVariableTypesGenerator {
                         isInFunctionRange(variableSymbol, functionLineRange.get())) {
                     addCategoryValue(Category.LOCAL_CATEGORY, name, type);
                 }
-                // TODO: Enable after resolving #723
-//                else {
-//                    addCategoryValue(Category.MODULE_CATEGORY, name, type);
-//                }
             } else if (symbol.kind() == SymbolKind.PARAMETER) {
                 String name = symbol.getName().orElse("");
                 Type type = Type.fromSemanticSymbol(symbol);
@@ -132,8 +128,13 @@ public class VisibleVariableTypesGenerator {
     }
 
     private boolean isInFunctionRange(VariableSymbol variableSymbol, LineRange functionLineRange) {
-        return variableSymbol.getLocation().isPresent() &&
-                PositionUtil.isWithinLineRange(variableSymbol.getLocation().get().lineRange(), functionLineRange);
+        return variableSymbol.getLocation().map(loc -> {
+            LineRange variableLineRange = loc.lineRange();
+            if (!variableLineRange.fileName().equals(functionLineRange.fileName())) {
+                return false;
+            }
+            return PositionUtil.isWithinLineRange(variableLineRange, functionLineRange);
+        }).orElse(false);
     }
 
     private Optional<LineRange> findFunctionLineRange() {
