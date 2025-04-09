@@ -7,21 +7,23 @@
   "description": "Sample diagram node",
   "codedata": {
     "node": "FUNCTION_CALL",
-    "symbol": "customFnWithImportedType"
+    "symbol": "customFnWithImportedType",
+    "org": "nipunaf",
+    "module": "new_connection1"
   },
   "output": {
     "id": "31",
     "metadata": {
       "label": "customFnWithImportedType",
       "description": "",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/null_null_null.png"
+      "icon": "https://bcentral-packageicons.azureedge.net/images/nipunaf_new_connection1_null.png"
     },
     "codedata": {
       "node": "FUNCTION_CALL",
+      "org": "nipunaf",
+      "module": "new_connection1",
       "symbol": "customFnWithImportedType",
-      "isNew": true,
-      "org" : "nipunaf",
-      "name" : "new_connection1"
+      "isNew": true
     },
     "returning": false,
     "properties": {
