@@ -339,10 +339,10 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 Service serviceModel = service.get();
                 Path filePath = Path.of(request.filePath());
                 Project project = this.workspaceManager.loadProject(filePath);
+
                 Package currentPackage = project.currentPackage();
                 Module module = currentPackage.module(ModuleName.from(currentPackage.packageName()));
-                SemanticModel semanticModel = PackageUtil.getCompilation(currentPackage)
-                        .getSemanticModel(module.moduleId());
+                SemanticModel semanticModel = currentPackage.getCompilation().getSemanticModel(module.moduleId());
                 Optional<Document> document = this.workspaceManager.document(filePath);
                 if (document.isEmpty()) {
                     return new ServiceModelResponse();
