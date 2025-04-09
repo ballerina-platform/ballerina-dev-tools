@@ -64,11 +64,10 @@ import org.eclipse.lsp4j.TextEdit;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import static io.ballerina.flowmodelgenerator.core.utils.TypeTransformer.BUILT_IN_ERROR;
@@ -538,7 +537,7 @@ public class TypesManager {
     private static void addImportsToTextEdits(Map<String, String> imports,
                                               ModulePartNode rootNode,
                                               List<TextEdit> textEdits) {
-        Set<String> importStmts = new HashSet<>();
+        TreeSet<String> importStmts = new TreeSet<>();
         imports.values().forEach(moduleId -> {
             String[] importParts = moduleId.split("/");
             String orgName = importParts[0];
