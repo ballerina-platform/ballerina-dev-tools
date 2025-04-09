@@ -1077,24 +1077,15 @@
           },
           "variable": {
             "metadata": {
-              "label": "Name",
-              "description": "Name of the variable"
+              "label": "Variable",
+              "description": "Name of the variable/field"
             },
-            "valueType": "IDENTIFIER",
+            "valueType": "LV_EXPRESSION",
             "value": "c",
             "optional": false,
             "editable": true,
             "advanced": false,
-            "hidden": false,
-            "diagnostics": {
-              "hasDiagnostics": true,
-              "diagnostics": [
-                {
-                  "severity": "ERROR",
-                  "message": "cannot assign a value to function argument 'c'"
-                }
-              ]
-            }
+            "hidden": false
           }
         },
         "diagnostics": {

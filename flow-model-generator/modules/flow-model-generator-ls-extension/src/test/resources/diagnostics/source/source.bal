@@ -40,3 +40,6 @@ enum MyEnum {
     EN_A,
     EN_B
 }
+
+MyRecord rec = { id: 1 };
+map<string> mapVar = { "key": "value" };

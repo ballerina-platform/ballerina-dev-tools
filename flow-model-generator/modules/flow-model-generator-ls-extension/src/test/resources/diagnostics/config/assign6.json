@@ -1,0 +1,39 @@
+{
+  "description": "",
+  "filePath": "source.bal",
+  "context": {
+    "expression": "mapVar[\"key\"]",
+    "startLine": {
+      "line": 1,
+      "offset": 0
+    },
+    "offset": 2,
+    "codedata": {
+      "node": "VARIABLE",
+      "lineRange": {
+        "fileName": "new_data.bal",
+        "startLine": {
+          "line": 1,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 1,
+          "offset": 14
+        }
+      },
+      "sourceCode": "int i = 12;"
+    },
+    "property": {
+      "metadata": {
+        "label": "Variable",
+        "description": "Name of the variable/field"
+      },
+      "valueType": "LV_EXPRESSION",
+      "value": "12",
+      "optional": true,
+      "editable": true,
+      "advanced": false
+    }
+  },
+  "diagnostics": []
+}

@@ -51,6 +51,7 @@ public abstract class DiagnosticsRequest extends DebouncedExpressionEditorReques
 
         return switch (Property.ValueType.valueOf(property.valueType())) {
             case EXPRESSION -> new ExpressionDiagnosticsRequest(context);
+            case LV_EXPRESSION -> new LvExpressionDiagnosticRequest(context);
             case IDENTIFIER -> new IdentifierDiagnosticsRequest(context);
             case TYPE -> new TypeDiagnosticRequest(context);
             default -> throw new IllegalArgumentException("Unsupported property type: " + property.valueType());
@@ -73,7 +74,7 @@ public abstract class DiagnosticsRequest extends DebouncedExpressionEditorReques
      */
     protected abstract Set<Diagnostic> getSemanticDiagnostics(ExpressionEditorContext context);
 
-    private Set<Diagnostic> getSyntaxDiagnostics(ExpressionEditorContext context) {
+    protected Set<Diagnostic> getSyntaxDiagnostics(ExpressionEditorContext context) {
         Node parsedNode = getParsedNode(context.info().expression());
         return StreamSupport.stream(parsedNode.diagnostics().spliterator(), true)
                 .map(CommonUtils::transformBallerinaDiagnostic)

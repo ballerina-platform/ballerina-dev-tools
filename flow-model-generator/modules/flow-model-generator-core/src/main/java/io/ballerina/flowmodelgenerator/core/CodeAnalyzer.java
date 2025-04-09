@@ -404,7 +404,7 @@ class CodeAnalyzer extends NodeVisitor {
                     throw new IllegalStateException("SystemPrompt argument not found for the new expression: " +
                             newExpressionNode);
                 }
-                
+
                 if (toolsArg.kind() == SyntaxKind.LIST_CONSTRUCTOR) {
                     List<ToolData> toolsData = new ArrayList<>();
                     ListConstructorExpressionNode listCtrExprNode = (ListConstructorExpressionNode) toolsArg;
@@ -1216,9 +1216,8 @@ class CodeAnalyzer extends NodeVisitor {
             return;
         }
         switch (name) {
-            case OPEN_AI_MODEL ->
-                    setAIModelType(OPEN_AI_MODEL_TYPES, OPEN_AI_MODEL_DESC, "ai:OPEN_AI_MODEL_NAMES",
-                            "\"gpt-3.5-turbo-16k-0613\"");
+            case OPEN_AI_MODEL -> setAIModelType(OPEN_AI_MODEL_TYPES, OPEN_AI_MODEL_DESC, "ai:OPEN_AI_MODEL_NAMES",
+                    "\"gpt-3.5-turbo-16k-0613\"");
             case ANTHROPIC_MODEL ->
                     setAIModelType(ANTHROPIC_MODEL_TYPES, ANTHROPIC_MODEL_DESC, "ai:ANTHROPIC_MODEL_NAMES",
                             "\"claude-3-haiku-20240307\"");
@@ -1391,13 +1390,18 @@ class CodeAnalyzer extends NodeVisitor {
                     .description(AssignBuilder.DESCRIPTION)
                     .stepOut()
                     .properties()
-                    .expression(expression, AssignBuilder.EXPRESSION_DOC, false)
-                    .data(assignmentStatementNode.varRef(), true, new HashSet<>(), true);
-        }
+                    .expression(expression, AssignBuilder.EXPRESSION_DOC, false);
 
-        if (nodeBuilder instanceof XmlPayloadBuilder || nodeBuilder instanceof JsonPayloadBuilder
-                || nodeBuilder instanceof BinaryBuilder) {
-            nodeBuilder.properties().data(assignmentStatementNode.varRef(), false, new HashSet<>(), true);
+            nodeBuilder.properties().custom()
+                    .metadata()
+                        .label(AssignBuilder.VARIABLE_LABEL)
+                        .description(AssignBuilder.VARIABLE_DOC)
+                        .stepOut()
+                    .type(Property.ValueType.LV_EXPRESSION)
+                    .value(CommonUtils.getVariableName(assignmentStatementNode.varRef()))
+                    .editable()
+                    .stepOut()
+                    .addProperty(Property.VARIABLE_KEY);
         }
         endNode(assignmentStatementNode);
     }
