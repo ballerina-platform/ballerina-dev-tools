@@ -1,0 +1,128 @@
+{
+  "source": "new/data_mappings.bal",
+  "description": "",
+  "output": {
+    "Functions": {
+      "deletions": {
+        "calculateOrderTotal": {
+          "id": "calculateOrderTotal",
+          "children": {}
+        }
+      }
+    },
+    "Data Mappers": {
+      "additions": {
+        "calculateOrderTotal": {
+          "id": "calculateOrderTotal",
+          "location": {
+            "fileName": "data_mappings.bal",
+            "startLine": {
+              "line": 20,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 20,
+              "offset": 91
+            }
+          },
+          "type": "DATA_MAPPER",
+          "name": "calculateOrderTotal",
+          "scope": "Global",
+          "children": {}
+        },
+        "toOrder": {
+          "id": "toOrder",
+          "location": {
+            "fileName": "data_mappings.bal",
+            "startLine": {
+              "line": 16,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 16,
+              "offset": 88
+            }
+          },
+          "type": "DATA_MAPPER",
+          "name": "toOrder",
+          "scope": "Global",
+          "children": {}
+        }
+      },
+      "deletions": {
+        "orderRequestToOrder": {
+          "id": "orderRequestToOrder",
+          "children": {}
+        },
+        "jsonToOrderItem": {
+          "id": "jsonToOrderItem",
+          "children": {}
+        },
+        "jsonToOrder": {
+          "id": "jsonToOrder",
+          "children": {}
+        },
+        "jsonToMenuItem": {
+          "id": "jsonToMenuItem",
+          "children": {}
+        }
+      },
+      "updates": {
+        "mapMenuItemV1ToV2": {
+          "id": "mapMenuItemV1ToV2",
+          "location": {
+            "fileName": "data_mappings.bal",
+            "startLine": {
+              "line": 23,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 31,
+              "offset": 2
+            }
+          },
+          "type": "DATA_MAPPER",
+          "name": "mapMenuItemV1ToV2",
+          "scope": "Global",
+          "children": {}
+        },
+        "menuItemToJson": {
+          "id": "menuItemToJson",
+          "location": {
+            "fileName": "data_mappings.bal",
+            "startLine": {
+              "line": 3,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 7,
+              "offset": 2
+            }
+          },
+          "type": "DATA_MAPPER",
+          "name": "menuItemToJson",
+          "scope": "Global",
+          "children": {}
+        },
+        "orderItemToJson": {
+          "id": "orderItemToJson",
+          "location": {
+            "fileName": "data_mappings.bal",
+            "startLine": {
+              "line": 10,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 13,
+              "offset": 2
+            }
+          },
+          "type": "DATA_MAPPER",
+          "name": "orderItemToJson",
+          "scope": "Global",
+          "children": {}
+        }
+      }
+    }
+  }
+}

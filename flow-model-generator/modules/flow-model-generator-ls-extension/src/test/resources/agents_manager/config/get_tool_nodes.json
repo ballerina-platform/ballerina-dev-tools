@@ -29,15 +29,61 @@
       "items": [
         {
           "metadata": {
-            "label": "main",
+            "label": "fn",
             "data": {
+              "isDataMappedFunction": false,
               "isAgentTool": false,
-              "isDataMappedFunction": false
+              "isIsolatedFunction": true
             }
           },
           "codedata": {
             "node": "FUNCTION_CALL",
-            "symbol": "main"
+            "symbol": "fn"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "fn2",
+            "data": {
+              "isDataMappedFunction": false,
+              "isAgentTool": false,
+              "isIsolatedFunction": true
+            }
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "symbol": "fn2"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "fn1",
+            "data": {
+              "isDataMappedFunction": false,
+              "isAgentTool": false,
+              "isIsolatedFunction": false
+            }
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "symbol": "fn1"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "foo",
+            "data": {
+              "isDataMappedFunction": false,
+              "isAgentTool": false,
+              "isIsolatedFunction": false
+            }
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "symbol": "foo"
           },
           "enabled": true
         }
@@ -53,50 +99,7 @@
           "Function"
         ]
       },
-      "items": [
-        {
-          "metadata": {
-            "label": "fn",
-            "data": {
-              "isAgentTool": true,
-              "isDataMappedFunction": false
-            }
-          },
-          "codedata": {
-            "node": "FUNCTION_CALL",
-            "symbol": "fn"
-          },
-          "enabled": true
-        },
-        {
-          "metadata": {
-            "label": "fn1",
-            "data": {
-              "isAgentTool": true,
-              "isDataMappedFunction": false
-            }
-          },
-          "codedata": {
-            "node": "FUNCTION_CALL",
-            "symbol": "fn1"
-          },
-          "enabled": true
-        },
-        {
-          "metadata": {
-            "label": "fn2",
-            "data": {
-              "isAgentTool": true,
-              "isDataMappedFunction": false
-            }
-          },
-          "codedata": {
-            "node": "FUNCTION_CALL",
-            "symbol": "fn2"
-          },
-          "enabled": true
-        }
-      ]
+      "items": []
     },
     {
       "metadata": {

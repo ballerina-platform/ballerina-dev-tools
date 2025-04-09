@@ -151,6 +151,7 @@
       }
     ],
     "returnType": {
+      "hasError": false,
       "metadata": {
         "label": "Return Type",
         "description": "The return type of the function"
@@ -182,7 +183,8 @@
       "inListenerInit": false,
       "isBasePath": false,
       "inDisplayAnnotation": false
-    }
+    },
+    "annotations": {}
   },
   "output": {
     "add_functions_for_graphql.bal": [
@@ -197,7 +199,7 @@
             "character": 5
           }
         },
-        "newText": "\n\tremote function updateName(int id, string name) returns Profile|error {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t\treturn error(\"Not implemented\", err);\n\t\t}\n\t}"
+        "newText": "\n\tremote function updateName(int id, string name) returns Profile|error {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t\treturn error(\"unhandled error\", err);\n\t\t}\n\t}"
       }
     ]
   }

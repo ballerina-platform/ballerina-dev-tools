@@ -28,6 +28,8 @@ public class Codedata {
     private String type;
     private String argType;
     private String originalName;
+    private String orgName;
+    private String moduleName;
 
     public Codedata() {
     }
@@ -106,5 +108,95 @@ public class Codedata {
 
     public void setOriginalName(String originalName) {
         this.originalName = originalName;
+    }
+
+    public String getOrgName() {
+        return orgName;
+    }
+
+    public void setOrgName(String orgName) {
+        this.orgName = orgName;
+    }
+
+    public String getModuleName() {
+        return moduleName;
+    }
+
+    public void setModuleName(String moduleName) {
+        this.moduleName = moduleName;
+    }
+
+    public static class Builder {
+        private LineRange lineRange;
+        private boolean inListenerInit = false;
+        private boolean isBasePath = false;
+        private boolean inDisplayAnnotation = false;
+        private String type;
+        private String argType;
+        private String originalName;
+        private String orgName;
+        private String moduleName;
+
+        public Builder() {
+        }
+
+        public Builder setLineRange(LineRange lineRange) {
+            this.lineRange = lineRange;
+            return this;
+        }
+
+        public Builder setInListenerInit(boolean inListenerInit) {
+            this.inListenerInit = inListenerInit;
+            return this;
+        }
+
+        public Builder setBasePath(boolean isBasePath) {
+            this.isBasePath = isBasePath;
+            return this;
+        }
+
+        public Builder setInDisplayAnnotation(boolean inDisplayAnnotation) {
+            this.inDisplayAnnotation = inDisplayAnnotation;
+            return this;
+        }
+
+        public Builder setType(String type) {
+            this.type = type;
+            return this;
+        }
+
+        public Builder setArgType(String argType) {
+            this.argType = argType;
+            return this;
+        }
+
+        public Builder setOriginalName(String originalName) {
+            this.originalName = originalName;
+            return this;
+        }
+
+        public Builder setOrgName(String orgName) {
+            this.orgName = orgName;
+            return this;
+        }
+
+        public Builder setModuleName(String moduleName) {
+            this.moduleName = moduleName;
+            return this;
+        }
+
+        public Codedata build() {
+            Codedata codedata = new Codedata();
+            codedata.setLineRange(lineRange);
+            codedata.setInListenerInit(inListenerInit);
+            codedata.setBasePath(isBasePath);
+            codedata.setInDisplayAnnotation(inDisplayAnnotation);
+            codedata.setType(type);
+            codedata.setArgType(argType);
+            codedata.setOriginalName(originalName);
+            codedata.setOrgName(orgName);
+            codedata.setModuleName(moduleName);
+            return codedata;
+        }
     }
 }

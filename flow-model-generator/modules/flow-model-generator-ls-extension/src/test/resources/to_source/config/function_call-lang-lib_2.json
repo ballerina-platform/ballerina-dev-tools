@@ -1,0 +1,104 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "31",
+    "metadata": {
+      "label": "add",
+      "description": "Adds a member to a table.\n\nIt will be added as the last member.\nIt panics if parameter `val` has the same key as an existing member of parameter `t`,\nor if parameter `val` is inconsistent with the inherent type of `t`.\n\n```ballerina\ntable<record {|int id; string name;|}> employees = table [\n    {id: 1, name: \"Jo\"},\n    {id: 2, name: \"Sam\"}\n];\nemployees.add({id: 1, name: \"Pat\"});\nemployees ⇒ [{\"id\":1,\"name\":\"Jo\"},{\"id\":2,\"name\":\"Sam\"},{\"id\":1,\"name\":\"Pat\"}]\ntable<record {|readonly int id; string name;|}> key(id) students = table [\n    {id: 1, name: \"Jo\"},\n    {id: 2, name: \"Sam\"}\n];\nstudents.add({id: 3, name: \"Pat\"});\nstudents ⇒ [{\"id\":1,\"name\":\"Jo\"},{\"id\":2,\"name\":\"Sam\"},{\"id\":3,\"name\":\"Pat\"}]\nstudents.add({id: 1, name: \"James\"}) ⇒ panic\ntable<record {readonly int id;}> key(id) studentIds = students;\nstudentIds.add({id: 7}) ⇒ panic\n```\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.table_0.0.0.png"
+    },
+    "codedata": {
+      "node": "FUNCTION_CALL",
+      "org": "ballerina",
+      "module": "lang.table",
+      "symbol": "add",
+      "version": "0.0.0",
+      "isNew": true,
+      "lineRange": {
+        "fileName": "function_call.bal",
+        "startLine": {
+          "line": 22,
+          "offset": 8
+        },
+        "endLine": {
+          "line": 22,
+          "offset": 61
+        }
+      }
+    },
+    "returning": false,
+    "properties": {
+      "t": {
+        "metadata": {
+          "label": "t",
+          "description": "the table"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "table<map<any|error>>",
+        "placeholder": "table []",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "hidden": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "t"
+        },
+        "typeMembers": [
+          {
+            "type": "MapType>",
+            "packageInfo": "ballerina:lang.table:0.0.0",
+            "kind": "TABLE_TYPE",
+            "selected": false
+          }
+        ],
+        "value": "ordersTbl"
+      },
+      "val": {
+        "metadata": {
+          "label": "val",
+          "description": "the member"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "map<any|error>",
+        "placeholder": "{}",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "hidden": false,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "val"
+        },
+        "typeMembers": [
+          {
+            "type": "MapType",
+            "packageInfo": "ballerina:lang.table:0.0.0",
+            "kind": "MAP_TYPE",
+            "selected": false
+          }
+        ],
+        "value": "newOrder"
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 22,
+            "character": 8
+          },
+          "end": {
+            "line": 22,
+            "character": 61
+          }
+        },
+        "newText": "table:add(ordersTbl, newOrder);"
+      }
+    ]
+  }
+}

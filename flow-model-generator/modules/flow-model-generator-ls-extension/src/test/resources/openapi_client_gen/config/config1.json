@@ -10,7 +10,7 @@
   "description": "Sample diagram node",
   "codedata": {
     "node": "NEW_CONNECTION",
-    "org": "",
+    "org": "oas",
     "module": "mod1",
     "object": "Client",
     "symbol": "init",
@@ -22,11 +22,11 @@
     "metadata": {
       "label": "New Connection",
       "description": "",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/_mod1_null.png"
+      "icon": "https://bcentral-packageicons.azureedge.net/images/oas_mod1_null.png"
     },
     "codedata": {
       "node": "NEW_CONNECTION",
-      "org": "",
+      "org": "oas",
       "module": "mod1",
       "object": "Client",
       "symbol": "init",
@@ -49,8 +49,7 @@
         "hidden": false,
         "codedata": {
           "kind": "DEFAULTABLE",
-          "originalName": "config",
-          "importStatements": "oas/client1.client1.mod1"
+          "originalName": "config"
         },
         "typeMembers": [
           {
@@ -59,7 +58,8 @@
             "kind": "RECORD_TYPE",
             "selected": false
           }
-        ]
+        ],
+        "imports": {}
       },
       "serviceUrl": {
         "metadata": {
@@ -84,7 +84,8 @@
             "kind": "BASIC_TYPE",
             "selected": false
           }
-        ]
+        ],
+        "imports": {}
       },
       "type": {
         "metadata": {
@@ -98,7 +99,8 @@
         "editable": false,
         "advanced": false,
         "hidden": false,
-        "codedata": {}
+        "codedata": {},
+        "imports": {}
       },
       "variable": {
         "metadata": {
@@ -110,7 +112,8 @@
         "optional": false,
         "editable": true,
         "advanced": false,
-        "hidden": false
+        "hidden": false,
+        "imports": {}
       },
       "scope": {
         "metadata": {
@@ -122,7 +125,8 @@
         "optional": false,
         "editable": true,
         "advanced": true,
-        "hidden": false
+        "hidden": false,
+        "imports": {}
       },
       "checkError": {
         "metadata": {
@@ -134,7 +138,8 @@
         "optional": false,
         "editable": false,
         "advanced": true,
-        "hidden": false
+        "hidden": false,
+        "imports": {}
       }
     },
     "flags": 0

@@ -1139,5 +1139,5 @@
     "value": "",
     "selected": true
   },
-  "output": "{username: \"\", scopes: []}"
+  "output": "{\n    username: \"\",\n    scopes: []\n}"
 }

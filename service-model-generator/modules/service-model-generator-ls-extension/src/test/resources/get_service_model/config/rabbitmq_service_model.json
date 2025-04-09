@@ -1,0 +1,134 @@
+{
+  "description": "Test getting rabbitmq service model",
+  "filePath": "sample3/main.bal",
+  "orgName": "ballerina",
+  "pkgName": "rabbitmq",
+  "moduleName": "rabbitmq",
+  "response": {
+    "service": {
+      "id": "8",
+      "name": "RabbitMQ Event Handler",
+      "type": "rabbitmq",
+      "displayName": "RabbitMQ Event Handler",
+      "description": "Add the service documentation",
+      "displayAnnotation": {
+        "label": "RabbitMQ Event Handler",
+        "iconPath": "https://bcentral-packageicons.azureedge.net/images/ballerinax_rabbitmq_3.2.0.png"
+      },
+      "moduleName": "rabbitmq",
+      "orgName": "ballerinax",
+      "version": "3.2.0",
+      "packageName": "rabbitmq",
+      "listenerProtocol": "rabbitmq",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_rabbitmq_3.2.0.png",
+      "properties": {
+        "listener": {
+          "metadata": {
+            "label": "Listeners",
+            "description": "The Listeners to be bound with the service"
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "values": [],
+          "valueType": "MULTIPLE_SELECT",
+          "valueTypeConstraint": "rabbitmq:Listener",
+          "isType": false,
+          "placeholder": "",
+          "optional": false,
+          "advanced": false,
+          "items": [],
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER"
+          },
+          "addNewButton": true
+        },
+        "serviceType": {
+          "metadata": {
+            "label": "Service Type",
+            "description": "The name of the service contract type"
+          },
+          "enabled": false,
+          "editable": true,
+          "value": "Service",
+          "valueType": "SINGLE_SELECT",
+          "valueTypeConstraint": "string",
+          "isType": false,
+          "placeholder": "Service",
+          "optional": false,
+          "advanced": false,
+          "items": [
+            "",
+            "Service"
+          ],
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "SERVICE_TYPE"
+          },
+          "addNewButton": false
+        },
+        "stringLiteral": {
+          "metadata": {
+            "label": "Queue Name",
+            "description": "The name of the queue"
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "values": [],
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "string",
+          "isType": false,
+          "placeholder": "\"\"",
+          "optional": false,
+          "advanced": false,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "STRING_LITERAL"
+          },
+          "addNewButton": false
+        },
+        "annotServiceConfig": {
+          "metadata": {
+            "label": "Service Configuration",
+            "description": "Define advanced queue configurations "
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "values": [],
+          "valueType": "EXPRESSION",
+          "valueTypeConstraint": "rabbitmq:RabbitMQServiceConfig",
+          "isType": false,
+          "placeholder": "{}",
+          "optional": true,
+          "advanced": true,
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "ANNOTATION_ATTACHMENT",
+            "originalName": "ServiceConfig"
+          },
+          "addNewButton": false,
+          "typeMembers": [
+            {
+              "type": "RabbitMQServiceConfig",
+              "packageInfo": "ballerinax:rabbitmq:3.2.0",
+              "kind": "RECORD_TYPE",
+              "selected": true
+            }
+          ]
+        }
+      },
+      "functions": []
+    }
+  }
+}

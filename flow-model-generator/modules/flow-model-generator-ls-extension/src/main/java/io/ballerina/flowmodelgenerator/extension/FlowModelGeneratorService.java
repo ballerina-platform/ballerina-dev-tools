@@ -260,8 +260,9 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
         return CompletableFuture.supplyAsync(() -> {
             FlowModelSourceGeneratorResponse response = new FlowModelSourceGeneratorResponse();
             try {
-                SourceGenerator sourceGenerator = new SourceGenerator(workspaceManager, Path.of(request.filePath()));
-                response.setTextEdits(sourceGenerator.toSourceCode(request.flowNode()));
+                SourceGenerator sourceGenerator =
+                        new SourceGenerator(workspaceManager, Path.of(request.filePath()));
+                response.setTextEdits(sourceGenerator.toSourceCode(request.flowNode(), lsClientLogger));
             } catch (Throwable e) {
                 response.setError(e);
             }

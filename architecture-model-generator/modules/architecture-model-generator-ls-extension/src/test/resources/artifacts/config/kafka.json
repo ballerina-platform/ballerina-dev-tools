@@ -1,0 +1,89 @@
+{
+  "description": "",
+  "source": "kafka.bal",
+  "output": {
+    "Types": {
+      "Order": {
+        "id": "Order",
+        "location": {
+          "fileName": "kafka.bal",
+          "startLine": {
+            "line": 3,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 8,
+            "offset": 2
+          }
+        },
+        "type": "TYPE",
+        "name": "Order",
+        "scope": "Global",
+        "children": {}
+      }
+    },
+    "Listeners": {
+      "orderListener": {
+        "id": "orderListener",
+        "location": {
+          "fileName": "kafka.bal",
+          "startLine": {
+            "line": 10,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 13,
+            "offset": 3
+          }
+        },
+        "type": "LISTENER",
+        "name": "orderListener",
+        "scope": "Global",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_kafka_4.5.0.png",
+        "module": "kafka",
+        "children": {}
+      }
+    },
+    "Entry Points": {
+      "-1457798181": {
+        "id": "-1457798181",
+        "location": {
+          "fileName": "kafka.bal",
+          "startLine": {
+            "line": 15,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 25,
+            "offset": 1
+          }
+        },
+        "type": "SERVICE",
+        "name": "Kafka Event Handler",
+        "scope": "Global",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_kafka_4.5.0.png",
+        "module": "kafka",
+        "children": {
+          "onConsumerRecord": {
+            "id": "onConsumerRecord",
+            "location": {
+              "fileName": "kafka.bal",
+              "startLine": {
+                "line": 17,
+                "offset": 4
+              },
+              "endLine": {
+                "line": 24,
+                "offset": 5
+              }
+            },
+            "type": "REMOTE",
+            "name": "onConsumerRecord",
+            "scope": "Global",
+            "children": {}
+          }
+        }
+      }
+    }
+  }
+}

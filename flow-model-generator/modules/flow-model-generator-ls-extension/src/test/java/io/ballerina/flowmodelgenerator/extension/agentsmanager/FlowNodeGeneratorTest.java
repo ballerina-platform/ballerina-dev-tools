@@ -42,7 +42,10 @@ public class FlowNodeGeneratorTest extends AbstractLSTest {
     @Override
     protected Object[] getConfigsList() {
         return new Object[][]{
-                {Path.of("agent_call_flow_node.json")},
+                {Path.of("agent_call_flow_node_1.json")},
+                {Path.of("agent_call_flow_node_2.json")},
+                {Path.of("agent_call_flow_node_3.json")},
+                {Path.of("agent_call_flow_node_4.json")},
         };
     }
 

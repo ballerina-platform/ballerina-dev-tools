@@ -32,9 +32,8 @@ public class NodeTemplateTest extends AbstractLSTest {
         JsonElement nodeTemplate = getResponse(request).get("flowNode");
 
         if (!nodeTemplate.equals(testConfig.output())) {
-            TestConfig updateConfig =
-                    new TestConfig(testConfig.source(), testConfig.position(), testConfig.description(),
-                            testConfig.codedata(), nodeTemplate);
+            TestConfig updateConfig = new TestConfig(testConfig.source(), testConfig.position(),
+                    testConfig.description(), testConfig.codedata(), nodeTemplate);
 //            updateConfig(configJsonPath, updateConfig);
             compareJsonElements(nodeTemplate, testConfig.output());
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
@@ -44,7 +43,7 @@ public class NodeTemplateTest extends AbstractLSTest {
     @Override
     protected String[] skipList() {
         // TODO: Re-enable once the ballerinax/np module is available
-        return new String[] {
+        return new String[]{
                 "np_function_call_1.json",
                 "np_function_call_2.json",
                 "np_function_call_3.json",

@@ -15,7 +15,14 @@
       {
         "id": "48923",
         "metadata": {
-          "label": "Start"
+          "label": "Start",
+          "data": {
+            "parameters": [
+              "ftp:Caller caller",
+              "ftp:WatchEvent & readonly event"
+            ],
+            "return": "ftp:Error?"
+          }
         },
         "codedata": {
           "node": "EVENT_START",

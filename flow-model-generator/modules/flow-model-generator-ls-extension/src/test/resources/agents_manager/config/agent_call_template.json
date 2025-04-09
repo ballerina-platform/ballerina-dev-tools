@@ -8,26 +8,26 @@
   "codedata": {
     "node": "AGENT_CALL",
     "org": "ballerinax",
-    "module": "ai.agent",
+    "module": "ai",
     "object": "Agent",
     "symbol": "run",
     "parentSymbol": "agentRun",
-    "version": "0.7.15"
+    "version": "1.0.0"
   },
   "output": {
     "id": "31",
     "metadata": {
       "label": "run",
       "description": "Executes the agent for a given user query.\n",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai.agent_0.7.15.png"
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai_1.0.0.png"
     },
     "codedata": {
       "node": "AGENT_CALL",
       "org": "ballerinax",
-      "module": "ai.agent",
+      "module": "ai",
       "object": "Agent",
       "symbol": "run",
-      "version": "0.7.15",
+      "version": "1.0.0",
       "isNew": true
     },
     "returning": false,
@@ -38,7 +38,7 @@
           "description": "Connection to use"
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "agent:Agent",
+        "valueTypeConstraint": "ai:Agent",
         "value": "agentRun",
         "optional": false,
         "editable": false,
@@ -70,9 +70,9 @@
           }
         ]
       },
-      "memoryId": {
+      "sessionId": {
         "metadata": {
-          "label": "Memory ID",
+          "label": "Session ID",
           "description": "The ID associated with the agent memory"
         },
         "valueType": "EXPRESSION",
@@ -84,7 +84,7 @@
         "hidden": false,
         "codedata": {
           "kind": "DEFAULTABLE",
-          "originalName": "memoryId"
+          "originalName": "sessionId"
         },
         "typeMembers": [
           {

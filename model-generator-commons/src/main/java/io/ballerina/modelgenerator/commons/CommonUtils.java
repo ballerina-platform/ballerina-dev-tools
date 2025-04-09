@@ -52,6 +52,7 @@ import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.DocumentId;
+import io.ballerina.projects.ModuleDescriptor;
 import io.ballerina.projects.Project;
 import io.ballerina.projects.ProjectKind;
 import io.ballerina.tools.diagnostics.DiagnosticInfo;
@@ -94,6 +95,7 @@ public class CommonUtils {
     public static final String LANG_LIB_PREFIX = "lang.";
     private static final String NATURAL_FUNCTION = "NaturalFunction";
     private static final String CALL_LLM = "callLlm";
+    private static final String UNKNOWN_TYPE = "Unknown Type";
 
     /**
      * Removes the quotes from the given string.
@@ -122,6 +124,7 @@ public class CommonUtils {
     public static String getTypeSignature(SemanticModel semanticModel, TypeSymbol typeSymbol, boolean ignoreError,
                                           ModuleInfo moduleInfo) {
         return switch (typeSymbol.typeKind()) {
+            case COMPILATION_ERROR -> UNKNOWN_TYPE;
             case UNION -> {
                 UnionTypeSymbol unionTypeSymbol = (UnionTypeSymbol) typeSymbol;
                 yield unionTypeSymbol.memberTypeDescriptors().stream()
@@ -655,12 +658,19 @@ public class CommonUtils {
                 String orgName = moduleId.orgName();
                 String packageName = moduleId.packageName();
                 String moduleName = moduleId.moduleName();
+                String modulePrefix = moduleId.modulePrefix();
 
                 if (isPredefinedLangLib(orgName, packageName) || isAnnotationLangLib(orgName, packageName) ||
                         isWithinCurrentModule(moduleInfo, orgName, packageName, moduleName)) {
                     return;
                 }
-                imports.add(getImportStatement(orgName, packageName, moduleName));
+
+                // Check if this is within the current package
+                if (orgName.equals(moduleInfo.org()) && modulePrefix.equals((moduleInfo.moduleName()))) {
+                    imports.add(getImportStatement("", packageName, modulePrefix));
+                } else {
+                    imports.add(getImportStatement(orgName, packageName, moduleName));
+                }
             }
         }
     }
@@ -678,8 +688,12 @@ public class CommonUtils {
      * @return the import statement
      */
     public static String getImportStatement(String orgName, String packageName, String moduleName) {
-        StringBuilder importStatement = new StringBuilder(orgName).append("/").append(packageName);
-        if (!packageName.equals(moduleName)) {
+        StringBuilder importStatement = new StringBuilder();
+        if (!orgName.isEmpty()) {
+            importStatement.append(orgName).append("/");
+        }
+        importStatement.append(packageName);
+        if (moduleName != null && !packageName.equals(moduleName)) {
             importStatement.append(".").append(moduleName);
         }
         return importStatement.toString();
@@ -829,5 +843,45 @@ public class CommonUtils {
         TextDocument textDocument = document.textDocument();
         int textPosition = textDocument.toCharArray().length;
         return textDocument.linePositionFrom(textPosition);
+    }
+
+    /**
+     * Extracts the default module prefix from a package name.
+     * The prefix is the last segment of the package name after splitting by dots.
+     *
+     * @param packageName The fully qualified package name to extract the prefix from
+     * @return The last segment of the package name as the default module prefix
+     */
+    public static String getDefaultModulePrefix(String packageName) {
+        String[] parts = packageName.split("\\.");
+        return parts.length > 0 ? parts[parts.length - 1] : packageName;
+    }
+
+    /**
+     * Constructs a fully qualified ID from a module descriptor in the format:
+     * <org>/<package-name>.<module-name>:<version>
+     *
+     * @param descriptor The module descriptor to construct ID from
+     * @return The formatted ID string
+     */
+    public static String constructModuleId(ModuleDescriptor descriptor) {
+        StringBuilder idBuilder = new StringBuilder();
+        
+        // Add organization
+        idBuilder.append(descriptor.org().value()).append('/');
+        
+        // Add package name
+        idBuilder.append(descriptor.name().packageName().value());
+        
+        // Add module name if it's not the default module
+        String moduleNamePart = descriptor.name().moduleNamePart();
+        if (moduleNamePart != null && !moduleNamePart.isEmpty()) {
+            idBuilder.append('.').append(moduleNamePart);
+        }
+        
+        // Add version
+        idBuilder.append(':').append(descriptor.version());
+        
+        return idBuilder.toString();
     }
 }

@@ -340,6 +340,7 @@ public class ServiceDatabaseManager {
                 "f.accessor, " +
                 "f.kind, " +
                 "f.return_type, " +
+                "f.return_error, " +
                 "f.return_type_editable, " +
                 "f.import_statements, " +
                 "f.enable " +
@@ -364,6 +365,7 @@ public class ServiceDatabaseManager {
                         rs.getString("accessor"),
                         rs.getString("kind"),
                         rs.getString("return_type"),
+                        rs.getInt("return_error"),
                         rs.getInt("return_type_editable"),
                         rs.getString("import_statements"),
                         rs.getInt("enable"),
@@ -387,7 +389,9 @@ public class ServiceDatabaseManager {
                 "kind, " +
                 "type, " +
                 "default_value, " +
-                "import_statements " +
+                "import_statements, " +
+                "editable_name, " +
+                "editable_type " +
                 "FROM ServiceTypeFunctionParameter " +
                 "WHERE function_id = ?";
 
@@ -406,7 +410,9 @@ public class ServiceDatabaseManager {
                         rs.getString("kind"),
                         rs.getString("type"),
                         rs.getString("default_value"),
-                        rs.getString("import_statements")
+                        rs.getString("import_statements"),
+                        rs.getInt("editable_name"),
+                        rs.getInt("editable_type")
                 ));
             }
             conn.close();
@@ -415,6 +421,45 @@ public class ServiceDatabaseManager {
             Logger.getGlobal().severe("Error executing query: " + e.getMessage());
             return List.of();
         }
+    }
+
+    // join the package and annotation by name and org then on the attachment points contains point get the annotation
+    public List<Annotation> getAnnotationAttachments(String org, String packageName, String attachPoint) {
+        String sql = "SELECT " +
+                "a.annot_name, " +
+                "a.display_name, " +
+                "a.description, " +
+                "a.type_constrain, " +
+                "a.package " +
+                "FROM Annotation a " +
+                "JOIN Package p ON a.package_id = p.package_id " +
+                "WHERE p.name = ? AND p.org = ? AND a.attachment_points LIKE ?";
+        try (Connection conn = DriverManager.getConnection(dbPath);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, packageName);
+            stmt.setString(2, org);
+            stmt.setString(3, "%" + attachPoint + "%");
+
+            ResultSet rs = stmt.executeQuery();
+            List<Annotation> annotations = new ArrayList<>();
+            while (rs.next()) {
+                annotations.add(new Annotation(
+                        rs.getString("annot_name"),
+                        rs.getString("display_name"),
+                        rs.getString("description"),
+                        rs.getString("type_constrain"),
+                        rs.getString("package"),
+                        org,
+                        packageName
+                ));
+            }
+            conn.close();
+            return annotations;
+        } catch (SQLException e) {
+            Logger.getGlobal().severe("Error executing query: " + e.getMessage());
+            return List.of();
+        }
+
     }
 
     // Helper builder class

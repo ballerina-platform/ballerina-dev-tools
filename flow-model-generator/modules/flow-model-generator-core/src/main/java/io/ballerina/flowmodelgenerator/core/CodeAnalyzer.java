@@ -27,8 +27,11 @@ import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
 import io.ballerina.compiler.api.symbols.MethodSymbol;
 import io.ballerina.compiler.api.symbols.ModuleSymbol;
+import io.ballerina.compiler.api.symbols.ParameterKind;
 import io.ballerina.compiler.api.symbols.ParameterSymbol;
 import io.ballerina.compiler.api.symbols.Qualifier;
+import io.ballerina.compiler.api.symbols.RecordFieldSymbol;
+import io.ballerina.compiler.api.symbols.RecordTypeSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
@@ -60,8 +63,10 @@ import io.ballerina.compiler.syntax.tree.ForEachStatementNode;
 import io.ballerina.compiler.syntax.tree.ForkStatementNode;
 import io.ballerina.compiler.syntax.tree.FunctionArgumentNode;
 import io.ballerina.compiler.syntax.tree.FunctionBodyBlockNode;
+import io.ballerina.compiler.syntax.tree.FunctionBodyNode;
 import io.ballerina.compiler.syntax.tree.FunctionCallExpressionNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
+import io.ballerina.compiler.syntax.tree.FunctionSignatureNode;
 import io.ballerina.compiler.syntax.tree.IfElseStatementNode;
 import io.ballerina.compiler.syntax.tree.ImplicitNewExpressionNode;
 import io.ballerina.compiler.syntax.tree.ListConstructorExpressionNode;
@@ -122,6 +127,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.CallBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.DataMapperBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.FailBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.FunctionCall;
+import io.ballerina.flowmodelgenerator.core.model.node.FunctionDefinitionBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.IfBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.JsonPayloadBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.MethodCall;
@@ -136,12 +142,14 @@ import io.ballerina.flowmodelgenerator.core.model.node.StartBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.VariableBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.WaitBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.XmlPayloadBuilder;
+import io.ballerina.flowmodelgenerator.core.utils.FlowNodeUtil;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.FunctionData;
 import io.ballerina.modelgenerator.commons.FunctionDataBuilder;
 import io.ballerina.modelgenerator.commons.ModuleInfo;
 import io.ballerina.modelgenerator.commons.ParameterData;
+import io.ballerina.modelgenerator.commons.ParameterMemberTypeData;
 import io.ballerina.projects.Project;
 import io.ballerina.tools.diagnostics.Location;
 import io.ballerina.tools.text.LinePosition;
@@ -161,6 +169,18 @@ import java.util.Optional;
 import java.util.Queue;
 import java.util.Stack;
 import java.util.stream.Collectors;
+
+import static io.ballerina.flowmodelgenerator.core.model.node.ClassInitBuilder.ANTHROPIC_MODEL;
+import static io.ballerina.flowmodelgenerator.core.model.node.ClassInitBuilder.ANTHROPIC_MODEL_DESC;
+import static io.ballerina.flowmodelgenerator.core.model.node.ClassInitBuilder.ANTHROPIC_MODEL_TYPES;
+import static io.ballerina.flowmodelgenerator.core.model.node.ClassInitBuilder.MISTRAL_AI_MODEL;
+import static io.ballerina.flowmodelgenerator.core.model.node.ClassInitBuilder.MISTRAL_AI_MODEL_DESC;
+import static io.ballerina.flowmodelgenerator.core.model.node.ClassInitBuilder.MISTRAL_AI_MODEL_TYPES;
+import static io.ballerina.flowmodelgenerator.core.model.node.ClassInitBuilder.MODEL_TYPE;
+import static io.ballerina.flowmodelgenerator.core.model.node.ClassInitBuilder.OPEN_AI_MODEL;
+import static io.ballerina.flowmodelgenerator.core.model.node.ClassInitBuilder.OPEN_AI_MODEL_DESC;
+import static io.ballerina.flowmodelgenerator.core.model.node.ClassInitBuilder.OPEN_AI_MODEL_TYPES;
+import static io.ballerina.flowmodelgenerator.core.model.node.ClassInitBuilder.REQUIRED;
 
 /**
  * Analyzes the source code and generates the flow model.
@@ -185,7 +205,7 @@ class CodeAnalyzer extends NodeVisitor {
     private final Stack<NodeBuilder> flowNodeBuilderStack;
     private TypedBindingPatternNode typedBindingPatternNode;
     private static final String BALLERINAX = "ballerinax";
-    private static final String AI_AGENT = "ai.agent";
+    private static final String AI_AGENT = "ai";
 
     public CodeAnalyzer(Project project, SemanticModel semanticModel, String connectionScope,
                         Map<String, LineRange> dataMappings, TextDocument textDocument, ModuleInfo moduleInfo,
@@ -208,12 +228,25 @@ class CodeAnalyzer extends NodeVisitor {
         if (symbol.isEmpty()) {
             return;
         }
-
+        // Create the start event node
+        FunctionBodyNode functionBodyNode = functionDefinitionNode.functionBody();
         startNode(NodeKind.EVENT_START, functionDefinitionNode).codedata()
-                .lineRange(functionDefinitionNode.functionBody().lineRange())
+                .lineRange(functionBodyNode.lineRange())
                 .sourceCode(functionDefinitionNode.toSourceCode().strip());
+
+        // Add the function signature to the metadata
+        FunctionSignatureNode functionSignatureNode = functionDefinitionNode.functionSignature();
+        List<String> parametersList = functionSignatureNode.parameters().stream()
+                .map(parameter -> parameter.toSourceCode().strip())
+                .toList();
+        if (!parametersList.isEmpty()) {
+            nodeBuilder.metadata().addData(FunctionDefinitionBuilder.METADATA_PARAMETERS_KEY, parametersList);
+        }
+        functionSignatureNode.returnTypeDesc().ifPresent(returnTypeDesc -> nodeBuilder.metadata()
+                .addData(FunctionDefinitionBuilder.METADATA_RETURN_KEY, returnTypeDesc.type().toSourceCode().strip()));
+
         endNode();
-        super.visit(functionDefinitionNode);
+        functionBodyNode.accept(this);
     }
 
     @Override
@@ -344,6 +377,7 @@ class CodeAnalyzer extends NodeVisitor {
                 ExpressionNode toolsArg = null;
                 ExpressionNode modelArg = null;
                 ExpressionNode systemPromptArg = null;
+                ExpressionNode memory = null;
                 for (FunctionArgumentNode arg : argList.get().arguments()) {
                     if (arg.kind() == SyntaxKind.NAMED_ARG) {
                         NamedArgumentNode namedArgumentNode = (NamedArgumentNode) arg;
@@ -353,6 +387,8 @@ class CodeAnalyzer extends NodeVisitor {
                             modelArg = namedArgumentNode.expression();
                         } else if (namedArgumentNode.argumentName().name().text().equals("systemPrompt")) {
                             systemPromptArg = namedArgumentNode.expression();
+                        } else if (namedArgumentNode.argumentName().name().text().equals("memory")) {
+                            memory = namedArgumentNode.expression();
                         }
                     }
                 }
@@ -370,7 +406,7 @@ class CodeAnalyzer extends NodeVisitor {
                 }
                 
                 if (toolsArg.kind() == SyntaxKind.LIST_CONSTRUCTOR) {
-                    List<ToolData> toolUrls = new ArrayList<>();
+                    List<ToolData> toolsData = new ArrayList<>();
                     ListConstructorExpressionNode listCtrExprNode = (ListConstructorExpressionNode) toolsArg;
                     for (Node node : listCtrExprNode.expressions()) {
                         if (node.kind() != SyntaxKind.SIMPLE_NAME_REFERENCE) {
@@ -378,9 +414,9 @@ class CodeAnalyzer extends NodeVisitor {
                         }
                         SimpleNameReferenceNode simpleNameReferenceNode = (SimpleNameReferenceNode) node;
                         String toolName = simpleNameReferenceNode.name().text();
-                        toolUrls.add(new ToolData(toolName, getIcon(toolName), getToolDescription(toolName)));
+                        toolsData.add(new ToolData(toolName, getIcon(toolName), getToolDescription(toolName)));
                     }
-                    nodeBuilder.metadata().addData("tools", toolUrls);
+                    nodeBuilder.metadata().addData("tools", toolsData);
                 }
 
                 if (systemPromptArg.kind() == SyntaxKind.MAPPING_CONSTRUCTOR) {
@@ -400,6 +436,21 @@ class CodeAnalyzer extends NodeVisitor {
                     nodeBuilder.metadata().addData("agent", agentData);
                 }
 
+                if (memory == null) {
+                    String defaultMemoryManagerName = getDefaultMemoryManagerName(classSymbol.get());
+                    nodeBuilder.metadata().addData("memory",
+                            new MemoryManagerData(defaultMemoryManagerName, "10"));
+                } else if (memory.kind() == SyntaxKind.EXPLICIT_NEW_EXPRESSION) {
+                    ExplicitNewExpressionNode newExpr = (ExplicitNewExpressionNode) memory;
+                    SeparatedNodeList<FunctionArgumentNode> arguments = newExpr.parenthesizedArgList().arguments();
+                    String size = "";
+                    if (arguments.size() == 1) {
+                        size = arguments.get(0).toSourceCode();
+                    }
+                    nodeBuilder.metadata().addData("memory",
+                            new MemoryManagerData(newExpr.typeDescriptor().toSourceCode(), size));
+                }
+
                 ModelData modelUrl = getModelIconUrl(modelArg);
                 if (modelUrl != null) {
                     nodeBuilder.metadata().addData("model", modelUrl);
@@ -407,6 +458,36 @@ class CodeAnalyzer extends NodeVisitor {
                 break;
             }
         }
+    }
+
+    private String getDefaultMemoryManagerName(ClassSymbol classSymbol) {
+        Optional<MethodSymbol> initMethodSymbol = classSymbol.initMethod();
+        if (initMethodSymbol.isEmpty()) {
+            return "";
+        }
+        Optional<List<ParameterSymbol>> optParams = initMethodSymbol.get().typeDescriptor().params();
+        if (optParams.isEmpty()) {
+            return "";
+        }
+        for (ParameterSymbol param : optParams.get()) {
+            ParameterKind paramKind = param.paramKind();
+            if (paramKind == ParameterKind.INCLUDED_RECORD) {
+                TypeSymbol rawType = CommonUtils.getRawType(param.typeDescriptor());
+                if (rawType.typeKind() != TypeDescKind.RECORD) {
+                    break;
+                }
+                RecordFieldSymbol recordFieldSymbol =
+                        ((RecordTypeSymbol) rawType).fieldDescriptors().get("memory");
+                if (recordFieldSymbol == null) {
+                    break;
+                }
+                if (recordFieldSymbol.hasDefaultValue()) {
+                    // TODO: This should be derived from the default value of memory parameter
+                    return "ai:MessageWindowChatMemory";
+                }
+            }
+        }
+        return "";
     }
 
     @Override
@@ -520,11 +601,11 @@ class CodeAnalyzer extends NodeVisitor {
                     .codedata()
                         .kind(paramResult.kind().name())
                         .originalName(paramResult.name())
-                        .importStatements(paramResult.importStatements())
                         .stepOut()
                     .placeholder(paramResult.defaultValue())
                     .typeConstraint(paramResult.type())
                     .typeMembers(paramResult.typeMembers())
+                    .imports(paramResult.importStatements())
                     .editable()
                     .defaultable(paramResult.optional());
 
@@ -596,11 +677,11 @@ class CodeAnalyzer extends NodeVisitor {
                         .codedata()
                             .kind(paramKind.name())
                             .originalName(paramResult.name())
-                            .importStatements(paramResult.importStatements())
                             .stepOut()
                         .placeholder(paramResult.defaultValue())
                         .typeConstraint(paramResult.type())
                         .typeMembers(paramResult.typeMembers())
+                        .imports(paramResult.importStatements())
                         .editable()
                         .defaultable(paramResult.optional());
 
@@ -619,7 +700,7 @@ class CodeAnalyzer extends NodeVisitor {
                 }
                 customPropBuilder
                         .stepOut()
-                        .addProperty(unescapedParamName);
+                        .addProperty(FlowNodeUtil.getPropertyKey(unescapedParamName));
             }
             return;
         }
@@ -673,6 +754,7 @@ class CodeAnalyzer extends NodeVisitor {
                             .type(getPropertyTypeFromParam(parameterSymbol, paramResult.kind()))
                             .typeConstraint(paramResult.type())
                             .typeMembers(paramResult.typeMembers(), selectedType)
+                            .imports(paramResult.importStatements())
                             .value(value)
                             .placeholder(paramResult.defaultValue())
                             .editable()
@@ -680,10 +762,9 @@ class CodeAnalyzer extends NodeVisitor {
                             .codedata()
                                 .kind(paramResult.kind().name())
                                 .originalName(paramResult.name())
-                                .importStatements(paramResult.importStatements())
                                 .stepOut()
                             .stepOut()
-                            .addProperty(unescapedParamName);
+                            .addProperty(FlowNodeUtil.getPropertyKey(unescapedParamName));
                 }
 
                 for (int i = paramCount; i < argCount; i++) {
@@ -703,6 +784,7 @@ class CodeAnalyzer extends NodeVisitor {
                         .type(getPropertyTypeFromParam(restParamSymbol, restParamResult.kind()))
                         .typeConstraint(restParamResult.type())
                         .typeMembers(restParamResult.typeMembers())
+                        .imports(restParamResult.importStatements())
                         .value(restArgs)
                         .placeholder(restParamResult.defaultValue())
                         .editable()
@@ -710,10 +792,9 @@ class CodeAnalyzer extends NodeVisitor {
                         .codedata()
                             .kind(restParamResult.kind().name())
                             .originalName(restParamResult.name())
-                            .importStatements(restParamResult.importStatements())
                             .stepOut()
                         .stepOut()
-                        .addProperty(unescapedParamName);
+                        .addProperty(FlowNodeUtil.getPropertyKey(unescapedParamName));
             }
             // iterate over functionParamMap
             addRemainingParamsToPropertyMap(funcParamMap, hasOnlyRestParams);
@@ -772,6 +853,7 @@ class CodeAnalyzer extends NodeVisitor {
                                     .type(getPropertyTypeFromParam(parameterSymbol, paramResult.kind()))
                                     .typeConstraint(paramResult.type())
                                     .typeMembers(paramResult.typeMembers(), selectedType)
+                                    .imports(paramResult.importStatements())
                                     .value(value)
                                     .placeholder(paramResult.defaultValue())
                                     .editable()
@@ -779,10 +861,9 @@ class CodeAnalyzer extends NodeVisitor {
                                     .codedata()
                                         .kind(paramResult.kind().name())
                                         .originalName(paramResult.name())
-                                        .importStatements(paramResult.importStatements())
                                         .stepOut()
                                     .stepOut()
-                                    .addProperty(unescapedParamName, paramValue);
+                                    .addProperty(FlowNodeUtil.getPropertyKey(unescapedParamName), paramValue);
                         } else {
                             if (funcParamMap.containsKey(argName)) { // included record attribute
                                 paramResult = funcParamMap.get(argName);
@@ -819,6 +900,7 @@ class CodeAnalyzer extends NodeVisitor {
                                         .type(getPropertyTypeFromParam(parameterSymbol, paramResult.kind()))
                                         .typeConstraint(paramResult.type())
                                         .typeMembers(paramResult.typeMembers(), selectedType)
+                                        .imports(paramResult.importStatements())
                                         .value(value)
                                         .placeholder(paramResult.defaultValue())
                                         .editable()
@@ -826,10 +908,9 @@ class CodeAnalyzer extends NodeVisitor {
                                         .codedata()
                                             .kind(paramResult.kind().name())
                                             .originalName(paramResult.name())
-                                            .importStatements(paramResult.importStatements())
                                             .stepOut()
                                         .stepOut()
-                                        .addProperty(unescapedParamName, paramValue);
+                                        .addProperty(FlowNodeUtil.getPropertyKey(unescapedParamName), paramValue);
 
                             }
                         }
@@ -861,6 +942,7 @@ class CodeAnalyzer extends NodeVisitor {
                                     .type(getPropertyTypeFromParam(parameterSymbol, paramResult.kind()))
                                     .typeConstraint(paramResult.type())
                                     .typeMembers(paramResult.typeMembers(), selectedType)
+                                    .imports(paramResult.importStatements())
                                     .value(value)
                                     .placeholder(paramResult.defaultValue())
                                     .editable()
@@ -868,10 +950,9 @@ class CodeAnalyzer extends NodeVisitor {
                                     .codedata()
                                         .kind(paramResult.kind().name())
                                         .originalName(paramResult.name())
-                                        .importStatements(paramResult.importStatements())
                                         .stepOut()
                                     .stepOut()
-                                    .addProperty(unescapedParamName, paramValue);
+                                    .addProperty(FlowNodeUtil.getPropertyKey(unescapedParamName), paramValue);
                             return;
                         }
                     }
@@ -908,6 +989,7 @@ class CodeAnalyzer extends NodeVisitor {
                         .type(getPropertyTypeFromParam(parameterSymbol, paramResult.kind()))
                         .typeConstraint(paramResult.type())
                         .typeMembers(paramResult.typeMembers(), selectedType)
+                        .imports(paramResult.importStatements())
                         .value(value)
                         .placeholder(paramResult.defaultValue())
                         .editable()
@@ -915,10 +997,9 @@ class CodeAnalyzer extends NodeVisitor {
                         .codedata()
                             .kind(paramResult.kind().name())
                             .originalName(paramResult.name())
-                            .importStatements(paramResult.importStatements())
                             .stepOut()
                         .stepOut()
-                        .addProperty(unescapedParamName, paramValue);
+                        .addProperty(FlowNodeUtil.getPropertyKey(unescapedParamName), paramValue);
             }
 
             for (Map.Entry<String, Node> entry : namedArgValueMap.entrySet()) { // handle remaining named args
@@ -957,6 +1038,7 @@ class CodeAnalyzer extends NodeVisitor {
                         .type(getPropertyTypeFromParam(null, paramResult.kind()))
                         .typeConstraint(paramResult.type())
                         .typeMembers(paramResult.typeMembers(), selectedType)
+                        .imports(paramResult.importStatements())
                         .value(value)
                         .placeholder(paramResult.defaultValue())
                         .editable()
@@ -964,10 +1046,9 @@ class CodeAnalyzer extends NodeVisitor {
                         .codedata()
                         .kind(paramResult.kind().name())
                         .originalName(paramResult.name())
-                        .importStatements(paramResult.importStatements())
                         .stepOut()
                         .stepOut()
-                        .addProperty(unescapedParamName, paramValue);
+                        .addProperty(FlowNodeUtil.getPropertyKey(unescapedParamName), paramValue);
             }
             ParameterData includedRecordRest = funcParamMap.get("Additional Values");
             if (includedRecordRest != null) {
@@ -983,6 +1064,7 @@ class CodeAnalyzer extends NodeVisitor {
                         .type(getPropertyTypeFromParam(null, includedRecordRest.kind()))
                         .typeConstraint(includedRecordRest.type())
                         .typeMembers(includedRecordRest.typeMembers())
+                        .imports(includedRecordRest.importStatements())
                         .value(includedRecordRestArgs)
                         .placeholder(includedRecordRest.defaultValue())
                         .editable()
@@ -990,7 +1072,6 @@ class CodeAnalyzer extends NodeVisitor {
                         .codedata()
                             .kind(includedRecordRest.kind().name())
                             .originalName(includedRecordRest.name())
-                            .importStatements(includedRecordRest.importStatements())
                             .stepOut()
                         .stepOut()
                         .addProperty("additionalValues");
@@ -1114,6 +1195,7 @@ class CodeAnalyzer extends NodeVisitor {
 
         String org = functionData.org();
         String packageName = functionData.packageName();
+        String name = classSymbol.getName().orElse("");
         nodeBuilder
                 .metadata()
                     .label(packageName)
@@ -1123,12 +1205,51 @@ class CodeAnalyzer extends NodeVisitor {
                 .codedata()
                     .org(org)
                     .module(packageName)
-                    .object(classSymbol.getName().orElse(""))
+                    .object(name)
                     .symbol(NewConnectionBuilder.INIT_SYMBOL)
                     .stepOut()
                 .properties()
                 .scope(connectionScope)
                 .checkError(true, NewConnectionBuilder.CHECK_ERROR_DOC, false);
+
+        if (!org.equals(BALLERINAX) || !packageName.equals(AI_AGENT)) {
+            return;
+        }
+        switch (name) {
+            case OPEN_AI_MODEL ->
+                    setAIModelType(OPEN_AI_MODEL_TYPES, OPEN_AI_MODEL_DESC, "ai:OPEN_AI_MODEL_NAMES",
+                            "\"gpt-3.5-turbo-16k-0613\"");
+            case ANTHROPIC_MODEL ->
+                    setAIModelType(ANTHROPIC_MODEL_TYPES, ANTHROPIC_MODEL_DESC, "ai:ANTHROPIC_MODEL_NAMES",
+                            "\"claude-3-haiku-20240307\"");
+            case MISTRAL_AI_MODEL ->
+                    setAIModelType(MISTRAL_AI_MODEL_TYPES, MISTRAL_AI_MODEL_DESC, "ai:MISTRAL_AI_MODEL_NAMES",
+                            "\"mistral-large-latest\"");
+            default -> {
+                return;
+            }
+        }
+    }
+
+    private void setAIModelType(List<String> modelType, String description, String kind, String defaultValue) {
+        nodeBuilder.properties()
+                .custom()
+                .metadata()
+                .label("Model Type")
+                .description(description)
+                .stepOut()
+                .type(Property.ValueType.SINGLE_SELECT)
+                .typeConstraint(modelType)
+                .placeholder(defaultValue)
+                .editable()
+                .codedata()
+                .kind(REQUIRED)
+                .originalName(MODEL_TYPE)
+                .stepOut()
+                .typeMembers(List.of(new ParameterMemberTypeData(kind, "BASIC_TYPE",
+                        moduleInfo.org() + ":" + moduleInfo.moduleName() + ":" + moduleInfo.version())))
+                .stepOut()
+                .addProperty(MODEL_TYPE);
     }
 
     private Optional<ClassSymbol> getClassSymbol(ExpressionNode newExpressionNode) {
@@ -1212,7 +1333,7 @@ class CodeAnalyzer extends NodeVisitor {
                     .metadata()
                     .description(AssignBuilder.DESCRIPTION)
                     .stepOut()
-                    .properties().expression((ExpressionNode) null, VariableBuilder.EXPRESSION_DOC, true);
+                    .properties().expression(null, VariableBuilder.EXPRESSION_DOC, true);
         } else {
             ExpressionNode initializerNode = initializer.get();
             initializerNode.accept(this);
@@ -1312,7 +1433,7 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(ExpressionStatementNode expressionStatementNode) {
-        super.visit(expressionStatementNode);
+        expressionStatementNode.expression().accept(this);
         if (isNodeUnidentified()) {
             handleExpressionNode(expressionStatementNode);
         }
@@ -1343,7 +1464,6 @@ class CodeAnalyzer extends NodeVisitor {
             handleExpressionNode(methodCallExpressionNode);
             return;
         }
-
 
         ExpressionNode expressionNode = methodCallExpressionNode.expression();
         NameReferenceNode nameReferenceNode = methodCallExpressionNode.methodName();
@@ -1446,6 +1566,11 @@ class CodeAnalyzer extends NodeVisitor {
                 // Skip if `prompt` param of a np function
                 return;
             }
+            if (paramResult.kind() == ParameterData.Kind.PATH_PARAM) {
+                // Skip if `path` param
+                return;
+            }
+
             if (paramResult.kind() != ParameterData.Kind.PARAM_FOR_TYPE_INFER) {
                 funcParamMap.put(key, paramResult);
                 return;
@@ -1524,8 +1649,12 @@ class CodeAnalyzer extends NodeVisitor {
         }
 
         for (TypeSymbol typeSymbol : classSymbol.typeInclusions()) {
-            if (typeSymbol.getName().isPresent() && typeSymbol.getName().get().equals("Model")) {
-                return true;
+            Optional<String> optName = typeSymbol.getName();
+            if (optName.isPresent()) {
+                String name = optName.get();
+                if (name.equals("ModelProvider") || name.equals("MemoryManager")) {
+                    return true;
+                }
             }
         }
         return false;
@@ -1989,6 +2118,11 @@ class CodeAnalyzer extends NodeVisitor {
     }
 
     private void handleExpressionNode(NonTerminalNode statementNode) {
+        // If there is a type binding pattern node, then default to the variable node
+        if (typedBindingPatternNode != null) {
+            return;
+        }
+
         startNode(NodeKind.EXPRESSION, statementNode)
                 .properties().statement(statementNode);
     }
@@ -1998,6 +2132,11 @@ class CodeAnalyzer extends NodeVisitor {
             statementOrComment.accept(this);
             branchBuilder.node(buildNode());
         }
+    }
+
+    @Override
+    protected void visitSyntaxNode(Node node) {
+        // SKip visiting the child node of non-overridden nodes
     }
 
     private void genCommentNode(CommentMetadata comment) {
@@ -2097,6 +2236,11 @@ class CodeAnalyzer extends NodeVisitor {
     }
 
     private record ModelData(String name, String path, String type) {
+
+    }
+
+    // TODO: Update data based on requirements
+    private record MemoryManagerData(String type, String size) {
 
     }
 }

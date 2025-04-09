@@ -24,6 +24,7 @@ import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
+import io.ballerina.flowmodelgenerator.core.utils.FlowNodeUtil;
 import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.FunctionData;
@@ -135,12 +136,12 @@ public abstract class CallBuilder extends NodeBuilder {
                 .codedata()
                     .kind(paramData.kind().name())
                     .originalName(paramData.name())
-                    .importStatements(paramData.importStatements())
                     .stepOut()
                 .value(value)
                 .placeholder(paramData.defaultValue())
                 .type(Property.ValueType.TYPE)
                 .typeConstraint(paramData.type())
+                .imports(paramData.importStatements())
                 .editable()
                 .stepOut()
                 .addProperty(unescapedParamName);
@@ -175,11 +176,11 @@ public abstract class CallBuilder extends NodeBuilder {
                     .codedata()
                         .kind(paramResult.kind().name())
                         .originalName(paramResult.name())
-                        .importStatements(paramResult.importStatements())
                         .stepOut()
                     .placeholder(paramResult.defaultValue())
                     .typeConstraint(paramResult.type())
                     .typeMembers(paramResult.typeMembers())
+                    .imports(paramResult.importStatements())
                     .editable()
                     .defaultable(paramResult.optional());
 
@@ -207,7 +208,7 @@ public abstract class CallBuilder extends NodeBuilder {
 
             customPropBuilder
                     .stepOut()
-                    .addProperty(unescapedParamName);
+                    .addProperty(FlowNodeUtil.getPropertyKey(unescapedParamName));
         }
     }
 

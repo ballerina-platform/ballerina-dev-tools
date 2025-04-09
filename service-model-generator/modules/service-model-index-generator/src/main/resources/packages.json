@@ -40,7 +40,7 @@
         "ResourceConfig": {
           "attachmentPoints": ["OBJECT_METHOD"],
           "displayName": "Resource Configuration",
-          "description": "Configurations for the HTTP resource",
+          "description": "Define advanced configurations like resource level media types, security, etc.",
           "typeConstrain": "http:HttpResourceConfig"
         }
       }
@@ -72,20 +72,6 @@
           "name": "Service",
           "description": "",
           "functions": []
-        }
-      },
-      "annotations": {
-        "ServiceConfig": {
-          "attachmentPoints": ["SERVICE"],
-          "displayName": "Service Configuration",
-          "description": "Configurations for the Graphql service",
-          "typeConstrain": "graphql:GraphqlServiceConfig"
-        },
-        "ResourceConfig": {
-          "attachmentPoints": ["OBJECT_METHOD"],
-          "displayName": "Resource Configuration",
-          "description": "Configurations for the Grapqhl field",
-          "typeConstrain": "graphql:GraphqlResourceConfig"
         }
       }
     },
@@ -121,8 +107,9 @@
               "description": "The `onConnect` remote method will be triggered when a message is received from a tcp client",
               "accessor": "",
               "kind": "REMOTE",
-              "returnType": "tcp:ConnectionService",
-              "returnTypeEditable": 1,
+              "returnType": "tcp:ConnectionService|tcp:Error?",
+              "returnError": 1,
+              "returnTypeEditable": 0,
               "enable": 0,
               "parameters": [
                 {
@@ -132,7 +119,9 @@
                   "kind": "REQUIRED",
                   "type": "tcp:Caller",
                   "defaultValue": "",
-                  "importStatements": ""
+                  "importStatements": "",
+                  "nameEditable": 1,
+                  "typeEditable": 0
                 }
               ]
             }
@@ -173,8 +162,9 @@
               "accessor": "",
               "kind": "REMOTE",
               "returnType": "",
+              "returnError": 0,
               "returnTypeEditable": 0,
-              "enable": 0,
+              "enable": 1,
               "parameters": [
                 {
                   "name": "event",
@@ -183,7 +173,9 @@
                   "kind": "REQUIRED",
                   "type": "file:FileEvent",
                   "defaultValue": "",
-                  "importStatements": ""
+                  "importStatements": "",
+                  "nameEditable": 1,
+                  "typeEditable": 0
                 }
               ]
             },
@@ -193,6 +185,7 @@
               "accessor": "",
               "kind": "REMOTE",
               "returnType": "",
+              "returnError": 0,
               "returnTypeEditable": 0,
               "enable": 0,
               "parameters": [
@@ -203,7 +196,9 @@
                   "kind": "REQUIRED",
                   "type": "file:FileEvent",
                   "defaultValue": "",
-                  "importStatements": ""
+                  "importStatements": "",
+                  "nameEditable": 1,
+                  "typeEditable": 0
                 }
               ]
             },
@@ -213,6 +208,7 @@
               "accessor": "",
               "kind": "REMOTE",
               "returnType": "",
+              "returnError": 0,
               "returnTypeEditable": 0,
               "enable": 0,
               "parameters": [
@@ -223,7 +219,9 @@
                   "kind": "REQUIRED",
                   "type": "file:FileEvent",
                   "defaultValue": "",
-                  "importStatements": ""
+                  "importStatements": "",
+                  "nameEditable": 1,
+                  "typeEditable": 0
                 }
               ]
             }
@@ -265,8 +263,9 @@
               "accessor": "",
               "kind": "REMOTE",
               "returnType": "error?",
-              "returnTypeEditable": 1,
-              "enable": 0,
+              "returnError": 1,
+              "returnTypeEditable": 0,
+              "enable": 1,
               "parameters": [
                 {
                   "name": "event",
@@ -275,7 +274,9 @@
                   "kind": "REQUIRED",
                   "type": "ftp:WatchEvent & readonly",
                   "defaultValue": "",
-                  "importStatements": ""
+                  "importStatements": "",
+                  "nameEditable": 1,
+                  "typeEditable": 0
                 },
                 {
                   "name": "caller",
@@ -284,7 +285,9 @@
                   "kind": "REQUIRED",
                   "type": "ftp:Caller",
                   "defaultValue": "",
-                  "importStatements": ""
+                  "importStatements": "",
+                  "nameEditable": 1,
+                  "typeEditable": 0
                 }
               ]
             }
@@ -325,8 +328,10 @@
               "accessor": "",
               "kind": "REMOTE",
               "returnType": "error?",
-              "returnTypeEditable": 1,
-              "enable": 0,
+              "returnError": 1,
+              "returnTypeEditable": 0,
+              "enable": 1,
+              "canAddParameter": 0,
               "parameters": [
                 {
                   "name": "message",
@@ -335,7 +340,9 @@
                   "kind": "REQUIRED",
                   "type": "mqtt:Message",
                   "defaultValue": "",
-                  "importStatements": ""
+                  "importStatements": "",
+                  "nameEditable": 1,
+                  "typeEditable": 0
                 }
               ]
             }
@@ -379,8 +386,9 @@
               "accessor": "",
               "kind": "REMOTE",
               "returnType": "error?",
-              "returnTypeEditable": 1,
-              "enable": 0,
+              "returnError": 1,
+              "returnTypeEditable": 0,
+              "enable": 1,
               "parameters": [
                 {
                   "name": "message",
@@ -389,7 +397,9 @@
                   "kind": "REQUIRED",
                   "type": "asb:Message",
                   "defaultValue": "",
-                  "importStatements": ""
+                  "importStatements": "",
+                  "nameEditable": 1,
+                  "typeEditable": 0
                 }
               ]
             },
@@ -399,7 +409,8 @@
               "accessor": "",
               "kind": "REMOTE",
               "returnType": "error?",
-              "returnTypeEditable": 1,
+              "returnError": 1,
+              "returnTypeEditable": 0,
               "enable": 0,
               "parameters": [
                 {
@@ -409,12 +420,13 @@
                   "kind": "REQUIRED",
                   "type": "asb:MessageRetrievalError",
                   "defaultValue": "",
-                  "importStatements": ""
+                  "importStatements": "",
+                  "nameEditable": 1,
+                  "typeEditable": 0
                 }
               ]
             }
           ]
-
         }
       }
     },
@@ -451,8 +463,9 @@
               "accessor": "",
               "kind": "REMOTE",
               "returnType": "error?",
-              "returnTypeEditable": 1,
-              "enable": 0,
+              "returnError": 1,
+              "returnTypeEditable": 0,
+              "enable": 1,
               "parameters": [
                 {
                   "name": "message",
@@ -461,16 +474,20 @@
                   "kind": "REQUIRED",
                   "type": "rabbitmq:AnydataMessage",
                   "defaultValue": "",
-                  "importStatements": ""
+                  "importStatements": "",
+                  "nameEditable": 1,
+                  "typeEditable": 1
                 },
                 {
                   "name": "caller",
                   "label": "Caller",
                   "description": "The RabbitMQ caller object to acknowledge the message",
-                  "kind": "REQUIRED",
+                  "kind": "OPTIONAL",
                   "type": "rabbitmq:Caller",
                   "defaultValue": "",
-                  "importStatements": ""
+                  "importStatements": "",
+                  "nameEditable": 1,
+                  "typeEditable": 0
                 }
               ]
             },
@@ -480,7 +497,8 @@
               "accessor": "",
               "kind": "REMOTE",
               "returnType": "anydata|error",
-              "returnTypeEditable": 1,
+              "returnError": 1,
+              "returnTypeEditable": 0,
               "enable": 0,
               "parameters": [
                 {
@@ -490,16 +508,20 @@
                   "kind": "REQUIRED",
                   "type": "rabbitmq:AnydataMessage",
                   "defaultValue": "",
-                  "importStatements": ""
+                  "importStatements": "",
+                  "nameEditable": 1,
+                  "typeEditable": 1
                 },
                 {
                   "name": "caller",
                   "label": "Caller",
                   "description": "The RabbitMQ caller object to acknowledge the message",
-                  "kind": "REQUIRED",
+                  "kind": "OPTIONAL",
                   "type": "rabbitmq:Caller",
                   "defaultValue": "",
-                  "importStatements": ""
+                  "importStatements": "",
+                  "nameEditable": 1,
+                  "typeEditable": 0
                 }
               ]
             },
@@ -509,8 +531,9 @@
               "accessor": "",
               "kind": "REMOTE",
               "returnType": "error?",
-              "returnTypeEditable": 1,
-              "enable": 0,
+              "returnError": 1,
+              "returnTypeEditable": 0,
+              "enable": 1,
               "parameters": [
                 {
                   "name": "message",
@@ -519,7 +542,9 @@
                   "kind": "REQUIRED",
                   "type": "rabbitmq:AnydataMessage",
                   "defaultValue": "",
-                  "importStatements": ""
+                  "importStatements": "",
+                  "nameEditable": 1,
+                  "typeEditable": 1
                 },
                 {
                   "name": "rabbitmqError",
@@ -528,12 +553,22 @@
                   "kind": "REQUIRED",
                   "type": "rabbitmq:Error",
                   "defaultValue": "",
-                  "importStatements": ""
+                  "importStatements": "",
+                  "nameEditable": 1,
+                  "typeEditable": 0
                 }
               ]
             }
           ]
 
+        }
+      },
+      "annotations": {
+        "ServiceConfig": {
+          "attachmentPoints": ["SERVICE"],
+          "displayName": "Service Configuration",
+          "description": "Define advanced queue configurations ",
+          "typeConstrain": "rabbitmq:RabbitMQServiceConfig"
         }
       }
     },
@@ -570,8 +605,9 @@
               "accessor": "",
               "kind": "REMOTE",
               "returnType": "error?",
-              "returnTypeEditable": 1,
-              "enable": 0,
+              "returnError": 1,
+              "returnTypeEditable": 0,
+              "enable": 1,
               "parameters": [
                 {
                   "name": "records",
@@ -580,16 +616,20 @@
                   "kind": "REQUIRED",
                   "type": "kafka:AnydataConsumerRecord[]",
                   "defaultValue": "",
-                  "importStatements": ""
+                  "importStatements": "",
+                  "nameEditable": 1,
+                  "typeEditable": 1
                 },
                 {
                   "name": "caller",
                   "label": "Caller",
                   "description": "The Kafka caller object to commit the offsets",
-                  "kind": "REQUIRED",
+                  "kind": "OPTIONAL",
                   "type": "kafka:Caller",
                   "defaultValue": "",
-                  "importStatements": ""
+                  "importStatements": "",
+                  "nameEditable": 1,
+                  "typeEditable": 0
                 }
               ]
             },
@@ -599,8 +639,9 @@
               "accessor": "",
               "kind": "REMOTE",
               "returnType": "error?",
-              "returnTypeEditable": 1,
-              "enable": 0,
+              "returnError": 1,
+              "returnTypeEditable": 0,
+              "enable": 1,
               "parameters": [
                 {
                   "name": "kafkaError",
@@ -609,7 +650,9 @@
                   "kind": "REQUIRED",
                   "type": "kafka:Error",
                   "defaultValue": "",
-                  "importStatements": ""
+                  "importStatements": "",
+                  "nameEditable": 1,
+                  "typeEditable": 0
                 }
               ]
             }
@@ -668,8 +711,8 @@
       }
     },
     {
-      "name": "ai.agent",
-      "version": "0.7.16",
+      "name": "ai",
+      "version": "1.0.0",
       "serviceTypeSkipList": [],
       "serviceDeclaration": {
         "displayName": "AI Agent Service",

@@ -102,6 +102,7 @@
       }
     ],
     "returnType": {
+      "hasError": false,
       "metadata": {
         "label": "Return Type",
         "description": "The return type of the function"
@@ -133,7 +134,8 @@
       "inListenerInit": false,
       "isBasePath": false,
       "inDisplayAnnotation": false
-    }
+    },
+    "annotations": {}
   },
   "output": {
     "add_functions_for_graphql.bal": [
@@ -148,7 +150,7 @@
             "character": 5
           }
         },
-        "newText": "\n\tresource function get greeting(string name) returns error|string {\n\t\tdo {\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t\treturn error(\"Not implemented\", err);\n\t\t}\n\t}"
+        "newText": "\n\tresource function get greeting(string name) returns string {\n\t}"
       }
     ]
   }

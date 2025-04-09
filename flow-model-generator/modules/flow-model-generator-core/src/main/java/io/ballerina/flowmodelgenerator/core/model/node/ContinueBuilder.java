@@ -51,7 +51,7 @@ public class ContinueBuilder extends NodeBuilder {
                     .keyword(SyntaxKind.CONTINUE_KEYWORD)
                     .endOfStatement()
                     .stepOut()
-                .textEdit(false)
+                .textEdit()
                 .build();
     }
 

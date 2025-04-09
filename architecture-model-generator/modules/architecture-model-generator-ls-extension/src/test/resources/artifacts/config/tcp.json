@@ -1,0 +1,89 @@
+{
+  "description": "",
+  "source": "tcp.bal",
+  "output": {
+    "Types": {
+      "TcpEchoService": {
+        "id": "TcpEchoService",
+        "location": {
+          "fileName": "tcp.bal",
+          "startLine": {
+            "line": 16,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 45,
+            "offset": 1
+          }
+        },
+        "type": "TYPE",
+        "name": "TcpEchoService",
+        "scope": "Global",
+        "children": {}
+      }
+    },
+    "Listeners": {
+      "tcpListener": {
+        "id": "tcpListener",
+        "location": {
+          "fileName": "tcp.bal",
+          "startLine": {
+            "line": 2,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 2,
+            "offset": 59
+          }
+        },
+        "type": "LISTENER",
+        "name": "tcpListener",
+        "scope": "Global",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_tcp_1.13.0.png",
+        "module": "tcp",
+        "children": {}
+      }
+    },
+    "Entry Points": {
+      "-740087370": {
+        "id": "-740087370",
+        "location": {
+          "fileName": "tcp.bal",
+          "startLine": {
+            "line": 4,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 14,
+            "offset": 1
+          }
+        },
+        "type": "SERVICE",
+        "name": "TCP Service",
+        "scope": "Global",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_tcp_1.13.0.png",
+        "module": "tcp",
+        "children": {
+          "onConnect": {
+            "id": "onConnect",
+            "location": {
+              "fileName": "tcp.bal",
+              "startLine": {
+                "line": 5,
+                "offset": 4
+              },
+              "endLine": {
+                "line": 13,
+                "offset": 5
+              }
+            },
+            "type": "REMOTE",
+            "name": "onConnect",
+            "scope": "Global",
+            "children": {}
+          }
+        }
+      }
+    }
+  }
+}

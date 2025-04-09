@@ -86,13 +86,14 @@ import java.util.Set;
  */
 public class AgentsGenerator {
 
-    public static final String MODEL = "Model";
-    public static final String TOOL_ANNOTATION = "Tool";
+    public static final String MODEL = "ModelProvider";
+    public static final String TOOL_ANNOTATION = "AgentTool";
+    public static final String MEMORY = "Memory";
     public static final String TARGET_TYPE = "targetType";
     private final Gson gson;
     private final SemanticModel semanticModel;
     private static final String BALLERINAX = "ballerinax";
-    private static final String AI_AGENT = "ai.agent";
+    private static final String AI_AGENT = "ai";
     private static final String INIT = "init";
     private static final String AGENT_FILE = "agents.bal";
     public static final String AGENT = "Agent";
@@ -174,6 +175,40 @@ public class AgentsGenerator {
         return gson.toJsonTree(models).getAsJsonArray();
     }
 
+    public JsonArray getAllMemoryManagers(SemanticModel agentSymbol) {
+        List<ClassSymbol> memoryManagerSymbols = new ArrayList<>();
+        for (Symbol symbol : agentSymbol.moduleSymbols()) {
+            if (symbol.kind() != SymbolKind.CLASS) {
+                continue;
+            }
+            ClassSymbol classSymbol = (ClassSymbol) symbol;
+            List<TypeSymbol> inclusionsTypes = classSymbol.typeInclusions();
+            for (TypeSymbol typeSymbol : inclusionsTypes) {
+                if (typeSymbol.getName().isPresent() && typeSymbol.getName().get().equals(MEMORY)) {
+                    memoryManagerSymbols.add(classSymbol);
+                    break;
+                }
+            }
+        }
+
+        List<Codedata> models = new ArrayList<>();
+        for (ClassSymbol model : memoryManagerSymbols) {
+            Optional<ModuleSymbol> optModule = model.getModule();
+            if (optModule.isEmpty()) {
+                throw new IllegalStateException("Memory Manager module id not found");
+            }
+            ModuleID id = optModule.get().id();
+            models.add(new Codedata.Builder<>(null).node(NodeKind.CLASS_INIT)
+                    .org(id.orgName())
+                    .module(id.packageName())
+                    .version(id.version())
+                    .object(model.getName().orElse(MEMORY))
+                    .symbol(INIT)
+                    .build());
+        }
+        return gson.toJsonTree(models).getAsJsonArray();
+    }
+
     public JsonArray getModels() {
         List<Symbol> moduleSymbols = semanticModel.moduleSymbols();
         List<String> models = new ArrayList<>();
@@ -247,9 +282,12 @@ public class AgentsGenerator {
         List<String> args = new ArrayList<>();
         String path = flowNode.metadata().icon();
         if (nodeKind == NodeKind.FUNCTION_DEFINITION) {
+            if (description != null && !description.isEmpty()) {
+                sourceBuilder.token().descriptionDoc(description);
+            }
             sourceBuilder.token()
-                    .name("@agent:Tool").
-                    name(System.lineSeparator());
+                    .name("@ai:AgentTool")
+                    .name(System.lineSeparator());
             sourceBuilder.token()
                     .name("@display {")
                     .name("label: \"\",")
@@ -317,7 +355,7 @@ public class AgentsGenerator {
 
             sourceBuilder.token()
                     .keyword(SyntaxKind.CLOSE_BRACE_TOKEN);
-            sourceBuilder.textEdit(false, AGENT_FILE);
+            sourceBuilder.textEdit().acceptImport();
             Map<Path, List<TextEdit>> textEdits = sourceBuilder.build();
             List<TextEdit> te = new ArrayList<>();
             Path p = addIsolateKeyword(optFuncName.get().value().toString().trim(), filePath, te, workspaceManager);
@@ -357,7 +395,7 @@ public class AgentsGenerator {
             }
 
             sourceBuilder.token()
-                    .name("@agent:Tool").
+                    .name("@ai:AgentTool").
                     name(System.lineSeparator());
             sourceBuilder.token()
                     .name("@display {")
@@ -407,7 +445,7 @@ public class AgentsGenerator {
             }
             sourceBuilder.token()
                     .keyword(SyntaxKind.CLOSE_BRACE_TOKEN);
-            sourceBuilder.textEdit(false, AGENT_FILE);
+            sourceBuilder.textEdit().acceptImport();
             return gson.toJsonTree(sourceBuilder.build());
         } else if (nodeKind == NodeKind.RESOURCE_ACTION_CALL) {
             boolean hasDescription = genDescription(description, flowNode, sourceBuilder);
@@ -430,7 +468,7 @@ public class AgentsGenerator {
             }
 
             sourceBuilder.token()
-                    .name("@agent:Tool")
+                    .name("@ai:AgentTool")
                     .name(System.lineSeparator());
             sourceBuilder.token()
                     .name("@display {")
@@ -517,7 +555,7 @@ public class AgentsGenerator {
             }
             sourceBuilder.token()
                     .keyword(SyntaxKind.CLOSE_BRACE_TOKEN);
-            sourceBuilder.textEdit(false, AGENT_FILE);
+            sourceBuilder.textEdit().acceptImport();
             return gson.toJsonTree(sourceBuilder.build());
         }
         throw new IllegalStateException("Unsupported node kind to generate tool");
@@ -683,12 +721,12 @@ public class AgentsGenerator {
 
             for (AnnotationAttachmentSymbol annotAttachment : functionSymbol.annotAttachments()) {
                 AnnotationSymbol annotationSymbol = annotAttachment.typeDescriptor();
-                if (!annotationSymbol.getName().orElseThrow().equals("Tool")) {
+                if (!annotationSymbol.getName().orElseThrow().equals("AgentTool")) {
                     continue;
                 }
                 Location location = annotAttachment.getLocation().orElseThrow();
                 textEdits.add(new TextEdit(CommonUtils.toRange(location.lineRange()),
-                        "@agent:Tool {description: \"" + description + "\"}" + System.lineSeparator()));
+                        "@ai:AgentTool {description: \"" + description + "\"}" + System.lineSeparator()));
                 break;
             }
             textEditsMap.put(projectPath.resolve(functionSymbol.getLocation().orElseThrow().lineRange().fileName()),

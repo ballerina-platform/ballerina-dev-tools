@@ -26,6 +26,7 @@
           "description": "Name of the data mapper"
         },
         "valueType": "IDENTIFIER",
+        "valueTypeConstraint": "Global",
         "value": "transform1",
         "optional": false,
         "editable": true,
@@ -38,7 +39,7 @@
           "description": "Type of the return value"
         },
         "valueType": "TYPE",
-        "valueTypeConstraint": "anydata",
+        "valueTypeConstraint": "json",
         "value": "",
         "optional": false,
         "editable": true,
@@ -64,7 +65,7 @@
                 "description": "Type of the parameter"
               },
               "valueType": "TYPE",
-              "valueTypeConstraint": "anydata",
+              "valueTypeConstraint": "json",
               "value": "",
               "optional": false,
               "editable": true,

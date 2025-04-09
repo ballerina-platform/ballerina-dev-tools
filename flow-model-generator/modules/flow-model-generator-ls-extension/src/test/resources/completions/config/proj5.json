@@ -28,10 +28,12 @@
       "optional": false,
       "editable": true,
       "advanced": false,
+      "imports": {
+        "sql": "ballerina/sql:1.15.0"
+      },
       "codedata": {
         "kind": "REQUIRED",
-        "originalName": "sqlQuery",
-        "importStatements": "ballerina/sql"
+        "originalName": "sqlQuery"
       }
     }
   },

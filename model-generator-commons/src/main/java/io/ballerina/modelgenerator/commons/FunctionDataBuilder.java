@@ -49,6 +49,7 @@ import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TableTypeSymbol;
 import io.ballerina.compiler.api.symbols.TupleTypeSymbol;
+import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
@@ -66,7 +67,9 @@ import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.DocumentId;
 import io.ballerina.projects.Module;
+import io.ballerina.projects.ModuleName;
 import io.ballerina.projects.Package;
+import io.ballerina.projects.PackageDescriptor;
 import io.ballerina.projects.Project;
 import io.ballerina.tools.diagnostics.Location;
 import io.ballerina.tools.text.LinePosition;
@@ -110,6 +113,7 @@ public class FunctionDataBuilder {
     private ObjectTypeSymbol parentSymbol;
     private String parentSymbolType;
     private LSClientLogger lsClientLogger;
+    private Project project;
     private boolean isCurrentModule;
 
     public static final String REST_RESOURCE_PATH = "/path/to/subdirectory";
@@ -204,6 +208,11 @@ public class FunctionDataBuilder {
         return this;
     }
 
+    public FunctionDataBuilder project(Project project) {
+        this.project = project;
+        return this;
+    }
+
     private void setParentSymbol(Stream<Symbol> symbolStream, String parentSymbolName) {
         this.parentSymbol = symbolStream
                 .filter(symbol -> symbol.kind() == SymbolKind.VARIABLE && symbol.nameEquals(parentSymbolName))
@@ -235,6 +244,8 @@ public class FunctionDataBuilder {
         if (functionKind == null) {
             functionKind = FunctionData.Kind.FUNCTION;
         }
+
+        checkLocalModule();
 
         // Check if the package is pulled
         if (semanticModel == null) {
@@ -321,6 +332,13 @@ public class FunctionDataBuilder {
                                                 .equals(resourcePath))
                                 .findFirst()
                                 .orElse(null);
+                    } else if (functionKind == FunctionData.Kind.CLASS_INIT) {
+                        if (parentSymbol.kind() != SymbolKind.CLASS) {
+                            throw new IllegalStateException("Parent symbol should be a class symbol");
+                        }
+                        ClassSymbol classSymbol = (ClassSymbol) parentSymbol;
+                        Optional<MethodSymbol> initMethod = classSymbol.initMethod();
+                        initMethod.ifPresent(methodSymbol -> functionSymbol = methodSymbol);
                     } else {
                         // Fetch the respective method using the function name
                         functionSymbol = parentSymbol.methods().get(functionName);
@@ -371,12 +389,33 @@ public class FunctionDataBuilder {
         return functionData;
     }
 
+    private void checkLocalModule() {
+        if (project != null && moduleInfo != null && isLocal()) {
+            for (Module module : project.currentPackage().modules()) {
+                ModuleName moduleName = module.moduleName();
+                if ((moduleName.packageName() + "." + moduleName.moduleNamePart()).equals(moduleInfo.moduleName())) {
+                    semanticModel(project.currentPackage().getCompilation().getSemanticModel(module.moduleId()));
+                    break;
+                }
+            }
+        }
+    }
+
+    public boolean isLocal() {
+        if (project != null && moduleInfo != null) {
+            PackageDescriptor descriptor = project.currentPackage().descriptor();
+            return moduleInfo.org().equals(descriptor.org().value()) &&
+                    moduleInfo.packageName().startsWith(descriptor.name().value());
+        }
+        return false;
+    }
+
     private ReturnData getReturnData(FunctionSymbol symbol) {
         FunctionTypeSymbol functionTypeSymbol = symbol.typeDescriptor();
         Optional<TypeSymbol> returnTypeSymbol = functionTypeSymbol.returnTypeDescriptor();
         String returnType = returnTypeSymbol
                 .map(typeSymbol -> {
-                    if (functionKind == FunctionData.Kind.CONNECTOR) {
+                    if (functionKind == FunctionData.Kind.CONNECTOR || functionKind == FunctionData.Kind.CLASS_INIT) {
                         return CommonUtils.getClassType(moduleInfo.packageName(),
                                 parentSymbol.getName().orElse("Client"));
                     }
@@ -458,6 +497,8 @@ public class FunctionDataBuilder {
         if (this.parentSymbol == null && this.parentSymbolType == null) {
             throw new IllegalStateException("Parent symbol must be provided");
         }
+
+        checkLocalModule();
 
         // Derive if the semantic model is not provided
         if (semanticModel == null) {
@@ -557,10 +598,22 @@ public class FunctionDataBuilder {
                     ((ArrayTypeSymbol) typeSymbol).memberTypeDescriptor());
             paramType = getTypeSignature(((ArrayTypeSymbol) typeSymbol).memberTypeDescriptor());
         } else if (parameterKind == ParameterData.Kind.INCLUDED_RECORD) {
+            Map<String, String> includedRecordParamDocs = new HashMap<>();
+            if (typeSymbol.getModule().isPresent() && typeSymbol.getName().isPresent()) {
+                ModuleID id = typeSymbol.getModule().get().id();
+                if (semanticModel != null) {
+                    Optional<Symbol> typeByName = semanticModel.types().getTypeByName(id.orgName(), id.moduleName(),
+                            "", typeSymbol.getName().get());
+                    if (typeByName.isPresent() && typeByName.get() instanceof TypeDefinitionSymbol typeDefSymbol) {
+                        Optional<Documentation> documentation = typeDefSymbol.documentation();
+                        documentation.ifPresent(documentation1 -> includedRecordParamDocs.putAll(
+                                documentation1.parameterMap()));
+                    }
+                }
+            }
             paramType = getTypeSignature(typeSymbol);
-            Map<String, ParameterData> includedParameters =
-                    getIncludedRecordParams((RecordTypeSymbol) CommonUtil.getRawType(typeSymbol), true,
-                            new HashMap<>(), union);
+            Map<String, ParameterData> includedParameters = getIncludedRecordParams(
+                    (RecordTypeSymbol) CommonUtil.getRawType(typeSymbol), true, includedRecordParamDocs, union);
             parameters.putAll(includedParameters);
             defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(typeSymbol);
         } else if (parameterKind == ParameterData.Kind.REQUIRED) {
@@ -668,10 +721,21 @@ public class FunctionDataBuilder {
                                                                Map<String, String> documentationMap,
                                                                UnionTypeSymbol union) {
         Map<String, ParameterData> parameters = new LinkedHashMap<>();
-        recordTypeSymbol.typeInclusions().forEach(includedType -> parameters.putAll(
-                getIncludedRecordParams((RecordTypeSymbol) CommonUtils.getRawType(includedType), insert,
-                        documentationMap, union))
-        );
+        recordTypeSymbol.typeInclusions().forEach(includedType -> {
+            if (includedType.getModule().isPresent() && includedType.getName().isPresent()) {
+                ModuleID id = includedType.getModule().get().id();
+                if (semanticModel != null) {
+                    Optional<Symbol> typeByName = semanticModel.types().getTypeByName(id.orgName(), id.moduleName(),
+                            "", includedType.getName().get());
+                    if (typeByName.isPresent() && typeByName.get() instanceof TypeDefinitionSymbol typeDefSymbol) {
+                        Optional<Documentation> documentation = typeDefSymbol.documentation();
+                        documentation.ifPresent(doc -> documentationMap.putAll(doc.parameterMap()));
+                    }
+                }
+            }
+            parameters.putAll(getIncludedRecordParams((RecordTypeSymbol) CommonUtils.getRawType(includedType), insert,
+                    documentationMap, union));
+            });
         for (Map.Entry<String, RecordFieldSymbol> entry : recordTypeSymbol.fieldDescriptors().entrySet()) {
             RecordFieldSymbol recordFieldSymbol = entry.getValue();
             TypeSymbol typeSymbol = recordFieldSymbol.typeDescriptor();

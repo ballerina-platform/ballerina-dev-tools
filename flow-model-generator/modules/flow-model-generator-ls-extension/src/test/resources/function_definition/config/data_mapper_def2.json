@@ -4,7 +4,7 @@
   "functionName": "createEmployee",
   "description": "",
   "output": {
-    "id": "62575",
+    "id": "65551",
     "metadata": {
       "label": "Data Mapper",
       "description": "Define a data mapper"
@@ -14,11 +14,11 @@
       "lineRange": {
         "fileName": "data_mappings.bal",
         "startLine": {
-          "line": 31,
+          "line": 34,
           "offset": 0
         },
         "endLine": {
-          "line": 31,
+          "line": 34,
           "offset": 79
         }
       }
@@ -31,6 +31,7 @@
           "description": "Name of the function"
         },
         "valueType": "IDENTIFIER",
+        "valueTypeConstraint": "Global",
         "value": "createEmployee",
         "optional": false,
         "editable": false,
@@ -40,11 +41,11 @@
           "lineRange": {
             "fileName": "data_mappings.bal",
             "startLine": {
-              "line": 31,
+              "line": 34,
               "offset": 9
             },
             "endLine": {
-              "line": 31,
+              "line": 34,
               "offset": 23
             }
           }
@@ -56,7 +57,7 @@
           "description": "Type of the return value"
         },
         "valueType": "TYPE",
-        "valueTypeConstraint": "anydata",
+        "valueTypeConstraint": "json",
         "value": "Employee",
         "optional": false,
         "editable": true,
@@ -82,7 +83,7 @@
                 "description": "Type of the parameter"
               },
               "valueType": "TYPE",
-              "valueTypeConstraint": "anydata",
+              "valueTypeConstraint": "json",
               "value": "",
               "optional": false,
               "editable": true,
@@ -121,7 +122,7 @@
                   "description": "Type of the parameter"
                 },
                 "valueType": "TYPE",
-                "valueTypeConstraint": "anydata",
+                "valueTypeConstraint": "json",
                 "value": "string",
                 "optional": false,
                 "editable": true,
@@ -143,11 +144,11 @@
                   "lineRange": {
                     "fileName": "data_mappings.bal",
                     "startLine": {
-                      "line": 31,
+                      "line": 34,
                       "offset": 31
                     },
                     "endLine": {
-                      "line": 31,
+                      "line": 34,
                       "offset": 35
                     }
                   }
@@ -172,7 +173,7 @@
                   "description": "Type of the parameter"
                 },
                 "valueType": "TYPE",
-                "valueTypeConstraint": "anydata",
+                "valueTypeConstraint": "json",
                 "value": "int",
                 "optional": false,
                 "editable": true,
@@ -194,11 +195,11 @@
                   "lineRange": {
                     "fileName": "data_mappings.bal",
                     "startLine": {
-                      "line": 31,
+                      "line": 34,
                       "offset": 41
                     },
                     "endLine": {
-                      "line": 31,
+                      "line": 34,
                       "offset": 44
                     }
                   }
@@ -223,7 +224,7 @@
                   "description": "Type of the parameter"
                 },
                 "valueType": "TYPE",
-                "valueTypeConstraint": "anydata",
+                "valueTypeConstraint": "json",
                 "value": "decimal",
                 "optional": false,
                 "editable": true,
@@ -245,11 +246,11 @@
                   "lineRange": {
                     "fileName": "data_mappings.bal",
                     "startLine": {
-                      "line": 31,
+                      "line": 34,
                       "offset": 54
                     },
                     "endLine": {
-                      "line": 31,
+                      "line": 34,
                       "offset": 60
                     }
                   }

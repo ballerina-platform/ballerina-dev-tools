@@ -19,9 +19,12 @@
 package io.ballerina.flowmodelgenerator.core.model;
 
 import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.api.symbols.SymbolKind;
-import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
+import io.ballerina.compiler.api.symbols.RecordTypeSymbol;
+import io.ballerina.compiler.api.symbols.TypeDescKind;
+import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
+import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.IdentifierToken;
+import io.ballerina.compiler.syntax.tree.ImportDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeParser;
@@ -29,6 +32,9 @@ import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.flowmodelgenerator.core.utils.FileSystemUtils;
 import io.ballerina.modelgenerator.commons.CommonUtils;
+import io.ballerina.modelgenerator.commons.DefaultValueGeneratorUtil;
+import io.ballerina.modelgenerator.commons.ModuleInfo;
+import io.ballerina.modelgenerator.commons.PackageUtil;
 import io.ballerina.modelgenerator.commons.ParameterData;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Module;
@@ -37,16 +43,20 @@ import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.formatter.core.FormattingTreeModifier;
 import org.ballerinalang.formatter.core.options.FormattingOptions;
+import org.ballerinalang.langserver.LSClientLogger;
 import org.ballerinalang.langserver.common.utils.CommonUtil;
+import org.ballerinalang.langserver.common.utils.RecordUtil;
 import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.Range;
 import org.eclipse.lsp4j.TextEdit;
+import org.wso2.ballerinalang.compiler.tree.BLangPackage;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -57,17 +67,86 @@ import java.util.stream.Collectors;
 public class SourceBuilder {
 
     private TokenBuilder tokenBuilder;
+    public final Path filePath;
     public final FlowNode flowNode;
     public final WorkspaceManager workspaceManager;
-    public final Path filePath;
     private final Map<Path, List<TextEdit>> textEditsMap;
+    private final Set<String> imports;
+    private final LSClientLogger lsClientLogger;
+    private Range defaultRange;
 
-    public SourceBuilder(FlowNode flowNode, WorkspaceManager workspaceManager, Path filePath) {
+    // Project file names
+    private static final String CONNECTIONS_BAL = "connections.bal";
+    private static final String AUTOMATION_BAL = "automation.bal";
+    private static final String AGENTS_BAL = "agents.bal";
+    private static final String DATA_MAPPINGS_BAL = "data_mappings.bal";
+    private static final String FUNCTIONS_BAL = "functions.bal";
+    private static final String BALLERINA_FILE_SUFFIX = ".bal";
+
+    public SourceBuilder(FlowNode flowNode, WorkspaceManager workspaceManager, Path filePath,
+                         LSClientLogger lsClientLogger) {
         this.tokenBuilder = new TokenBuilder(this);
         this.textEditsMap = new HashMap<>();
         this.flowNode = flowNode;
         this.workspaceManager = workspaceManager;
-        this.filePath = filePath;
+        this.imports = new HashSet<>();
+        this.lsClientLogger = lsClientLogger;
+
+        Codedata codedata = flowNode.codedata();
+        if (codedata == null) {
+            this.filePath = filePath;
+        } else {
+            NodeKind nodeKind = codedata.node();
+            if (filePath.endsWith(AGENTS_BAL)) {
+                nodeKind = NodeKind.AGENT;
+            }
+            this.filePath = resolvePath(filePath, nodeKind, codedata.lineRange(), codedata.isNew());
+        }
+    }
+
+    public SourceBuilder(FlowNode flowNode, WorkspaceManager workspaceManager, Path filePath) {
+        this(flowNode, workspaceManager, filePath, null);
+    }
+
+    private Path resolvePath(Path inputPath, NodeKind node, LineRange lineRange, Boolean isNew) {
+        if (Boolean.TRUE.equals(isNew) || lineRange == null) {
+            String defaultFile = switch (node) {
+                case NEW_CONNECTION -> CONNECTIONS_BAL;
+                case DATA_MAPPER_DEFINITION -> DATA_MAPPINGS_BAL;
+                case FUNCTION_DEFINITION, NP_FUNCTION -> FUNCTIONS_BAL;
+                case AUTOMATION -> AUTOMATION_BAL;
+                case AGENT -> AGENTS_BAL;
+                default -> null;
+            };
+            if (defaultFile == null) {
+                if (lineRange == null) {
+                    throw new IllegalArgumentException("Cannot determine the line range");
+                }
+                defaultRange = CommonUtils.toRange(lineRange);
+                return inputPath;
+            }
+
+            // Create the document if not exists
+            Path resolvedPath = workspaceManager.projectRoot(inputPath).resolve(defaultFile);
+            try {
+                workspaceManager.loadProject(inputPath);
+                Document document = FileSystemUtils.getDocument(workspaceManager, resolvedPath);
+                // If the file exists, get the end of the file
+                defaultRange = CommonUtils.toRange(document.syntaxTree().rootNode().lineRange().endLine());
+            } catch (WorkspaceDocumentException | EventSyncException e) {
+                throw new RuntimeException(e);
+            }
+            return resolvedPath;
+        }
+
+        // Set the default range using the codedata
+        defaultRange = CommonUtils.toRange(lineRange);
+
+        // If the file name is not a bal file, then defaults to the filename in the line range.
+        if (!inputPath.toString().endsWith(BALLERINA_FILE_SUFFIX)) {
+            return inputPath.resolve(lineRange.fileName());
+        }
+        return inputPath;
     }
 
     public TokenBuilder token() {
@@ -79,8 +158,8 @@ public class SourceBuilder {
     }
 
     public SourceBuilder newVariableWithInferredType() {
-        Optional<Property> optionalType = flowNode.getProperty(Property.TYPE_KEY);
-        Optional<Property> variable = flowNode.getProperty(Property.VARIABLE_KEY);
+        Optional<Property> optionalType = getProperty(Property.TYPE_KEY);
+        Optional<Property> variable = getProperty(Property.VARIABLE_KEY);
 
         if (optionalType.isEmpty() || variable.isEmpty()) {
             return this;
@@ -108,8 +187,8 @@ public class SourceBuilder {
     }
 
     public SourceBuilder newVariable(String typeKey) {
-        Optional<Property> type = flowNode.getProperty(typeKey);
-        Optional<Property> variable = flowNode.getProperty(Property.VARIABLE_KEY);
+        Optional<Property> type = getProperty(typeKey);
+        Optional<Property> variable = getProperty(Property.VARIABLE_KEY);
 
         if (type.isPresent() && variable.isPresent()) {
             tokenBuilder.expressionWithType(type.get(), variable.get())
@@ -118,59 +197,8 @@ public class SourceBuilder {
         return this;
     }
 
-    public SourceBuilder textEdit(boolean isExpression, String fileName) {
-        // If it is not new, use the existing file
-        if (flowNode.codedata().isNew() == null || !flowNode.codedata().isNew()) {
-            return textEdit(isExpression);
-        }
-
-        Path resolvedPath = workspaceManager.projectRoot(filePath).resolve(fileName);
-
-        LinePosition linePosition;
-        try {
-            // If the file exists, get the end line of the file
-            workspaceManager.loadProject(filePath);
-            Document document = FileSystemUtils.getDocument(workspaceManager, resolvedPath);
-            linePosition = document.syntaxTree().rootNode().lineRange().endLine();
-        } catch (WorkspaceDocumentException | EventSyncException e) {
-            throw new RuntimeException(e);
-        }
-
-        // Add the current source to the end of the file
-        textEdit(isExpression, resolvedPath, CommonUtils.toRange(linePosition));
-        acceptImport(resolvedPath);
-        return this;
-    }
-
-    // TODO: Need to reuse other textEdit methods
-    public SourceBuilder textEdit(boolean isExpression, String fileName, LineRange lineRange, boolean allowEdits) {
-        Path resolvedPath = workspaceManager.projectRoot(filePath).resolve(fileName);
-        LineRange flowNodeLineRange = flowNode.codedata().lineRange();
-        if (flowNodeLineRange != null && allowEdits) {
-            LinePosition startLine = flowNodeLineRange.startLine();
-            LinePosition endLine = flowNodeLineRange.endLine();
-
-            if (startLine.line() != 0 || startLine.offset() != 0 || endLine.line() != 0 || endLine.offset() != 0) {
-                textEdit(isExpression, resolvedPath, CommonUtils.toRange(flowNodeLineRange));
-                acceptImport(resolvedPath);
-                return this;
-            }
-        }
-
-        textEdit(isExpression, resolvedPath, CommonUtils.toRange(lineRange));
-        acceptImport(resolvedPath);
-        return this;
-    }
-
-    public SourceBuilder acceptImport(Path resolvedPath) {
-        Codedata codedata = flowNode.codedata();
-        String org = codedata.org();
-        String module = codedata.module();
-        return acceptImport(resolvedPath, org, module);
-    }
-
     public SourceBuilder acceptImportWithVariableType() {
-        Optional<Property> optionalType = flowNode.getProperty(Property.TYPE_KEY);
+        Optional<Property> optionalType = getProperty(Property.TYPE_KEY);
         if (optionalType.isPresent()) {
             Property type = optionalType.get();
 
@@ -178,33 +206,48 @@ public class SourceBuilder {
             //  have to optimize how we handle the return type, as the current implementation does not allow the user
             //  to assign the error to a variable and handle it.
             // Add the import statements if exists in the return type
-            if (type.codedata() != null && type.codedata().importStatements() != null &&
-                    flowNode.getProperty(Property.CHECK_ERROR_KEY).map(property -> property.value().equals("false"))
-                            .orElse(true)) {
+            if (type.imports() != null && getProperty(Property.CHECK_ERROR_KEY)
+                    .map(property -> property.value().equals("false")).orElse(true)) {
                 // TODO: Improve this logic to process all the imports at once
-                for (String importStatement : type.codedata().importStatements().split(",")) {
-                    String[] importParts = importStatement.split("/");
-                    acceptImport(importParts[0], importParts[1]);
-                }
+                type.imports().values().forEach(moduleId -> {
+                    String[] importParts = moduleId.split("/");
+                    acceptImport(importParts[0], importParts[1].split(":")[0]);
+                });
             }
         }
         acceptImport();
         return this;
     }
 
+    public Optional<Property> getProperty(String key) {
+        Optional<Property> property = flowNode.getProperty(key);
+        property.ifPresent(prop -> {
+            Map<String, String> propImports = prop.imports();
+            if (propImports != null) {
+                propImports.values().forEach(propImport -> imports.add(propImport.split(":")[0]));
+            }
+        });
+        return property;
+    }
+
     public SourceBuilder acceptImport() {
-        return acceptImport(filePath);
+        Codedata codedata = flowNode.codedata();
+        String org = codedata.org();
+        String module = codedata.module();
+        return acceptImport(org, module);
+    }
+
+    // TODO: This should be removed once the codedata is refactored to capture the module name
+    public SourceBuilder addImport(String text) {
+        imports.add(text);
+        return this;
     }
 
     public SourceBuilder acceptImport(String org, String module) {
-        return acceptImport(filePath, org, module);
+        return acceptImport(org, module, false);
     }
 
-    public SourceBuilder acceptImport(Path resolvedPath, String org, String module) {
-        return acceptImport(resolvedPath, org, module, false);
-    }
-
-    public SourceBuilder acceptImport(Path resolvedPath, String org, String module, boolean defaultNamespace) {
+    public SourceBuilder acceptImport(String org, String module, boolean defaultNamespace) {
         if (org == null || module == null || org.equals(CommonUtil.BALLERINA_ORG_NAME) &&
                 CommonUtil.PRE_DECLARED_LANG_LIBS.contains(module)) {
             return this;
@@ -214,65 +257,53 @@ public class SourceBuilder {
         } catch (WorkspaceDocumentException | EventSyncException e) {
             return this;
         }
-        // TODO: Check how we can only use this logic once compared to the textEdit(fileName) method
-        Document document = FileSystemUtils.getDocument(workspaceManager, resolvedPath);
-        SyntaxTree syntaxTree = document.syntaxTree();
-        LineRange lineRange = syntaxTree.rootNode().lineRange();
 
-        Optional<Module> currentModule = this.workspaceManager.module(filePath);
-        String currentModuleName = "";
-        if (currentModule.isPresent()) {
-            ModuleDescriptor descriptor = currentModule.get().descriptor();
-            currentModuleName = descriptor.name().toString();
-            if (descriptor.org().value().equals(org) && currentModuleName.equals(module)) {
-                return this;
-            }
+        // Generate the import signature
+        String importSignature = CommonUtils.getImportStatement(org, module, module);
+        if (defaultNamespace) {
+            importSignature += " as _";
         }
-
-        boolean importExists = syntaxTree.rootNode().kind() == SyntaxKind.MODULE_PART &&
-                ((ModulePartNode) syntaxTree.rootNode()).imports().stream().anyMatch(importDeclarationNode -> {
-                    String moduleName = importDeclarationNode.moduleName().stream()
-                            .map(IdentifierToken::text)
-                            .collect(Collectors.joining("."));
-                    return importDeclarationNode.orgName().isPresent() &&
-                            org.equals(importDeclarationNode.orgName().get().orgName().text()) &&
-                            module.equals(moduleName);
-                });
-
-        // Add the import statement
-        if (!importExists) {
-            String importSignature;
-            Boolean generated = flowNode.codedata().isGenerated();
-            // TODO: Check this condition for other cases like persist module
-            if (!currentModuleName.isEmpty() && generated != null && generated) {
-                importSignature = currentModuleName + "." + module;
-            } else {
-                importSignature = CommonUtils.getImportStatement(org, module, module);
-            }
-            if (defaultNamespace) {
-                importSignature += " as _";
-            }
-            tokenBuilder
-                    .keyword(SyntaxKind.IMPORT_KEYWORD)
-                    .name(importSignature)
-                    .endOfStatement();
-            textEdit(false, resolvedPath, CommonUtils.toRange(lineRange.startLine()));
-        }
+        imports.add(importSignature);
         return this;
     }
 
-    public Optional<TypeDefinitionSymbol> getTypeDefinitionSymbol(String typeName) {
-        try {
-            workspaceManager.loadProject(filePath);
-        } catch (WorkspaceDocumentException | EventSyncException e) {
-            throw new RuntimeException(e);
+    public Optional<String> getExpressionBodyText(String typeName, Map<String, String> imports) {
+        PackageUtil.loadProject(workspaceManager, filePath);
+        Document document = FileSystemUtils.getDocument(workspaceManager, filePath);
+
+        // Obtain the symbols of the imports
+        Map<String, BLangPackage> packageMap = new HashMap<>();
+        if (imports != null) {
+            imports.values().forEach(moduleId -> {
+                ModuleInfo moduleInfo = ModuleInfo.from(moduleId);
+                PackageUtil.pullModuleAndNotify(lsClientLogger, moduleInfo).ifPresent(pkg ->
+                        packageMap.put(CommonUtils.getDefaultModulePrefix(pkg.packageName().value()),
+                                pkg.getCompilation().defaultModuleBLangPackage())
+                );
+            });
         }
+
         SemanticModel semanticModel = FileSystemUtils.getSemanticModel(workspaceManager, filePath);
-        return semanticModel.moduleSymbols().stream()
-                .filter(symbol -> symbol.kind() == SymbolKind.TYPE_DEFINITION && symbol.getName().isPresent() &&
-                        symbol.getName().get().equals(typeName))
-                .map(symbol -> (TypeDefinitionSymbol) symbol)
-                .findFirst();
+        Optional<TypeSymbol> optionalType = semanticModel.types().getType(document, typeName, packageMap);
+        if (optionalType.isEmpty()) {
+            return Optional.empty();
+        }
+        TypeSymbol typeSymbol = optionalType.get();
+
+        if (typeSymbol.typeKind() == TypeDescKind.TYPE_REFERENCE) {
+            TypeReferenceTypeSymbol typeDefinitionSymbol = (TypeReferenceTypeSymbol) typeSymbol;
+            typeSymbol = typeDefinitionSymbol.typeDescriptor();
+        }
+
+        String bodyText;
+        if (typeSymbol.typeKind() == TypeDescKind.RECORD) {
+            String recordFields =
+                    RecordUtil.getFillAllRecordFieldInsertText(((RecordTypeSymbol) typeSymbol).fieldDescriptors());
+            bodyText = String.format("{%n%s%n}", recordFields);
+        } else {
+            bodyText = DefaultValueGeneratorUtil.getDefaultValueForType(typeSymbol);
+        }
+        return Optional.of(bodyText);
     }
 
     public SourceBuilder typedBindingPattern() {
@@ -280,8 +311,8 @@ public class SourceBuilder {
     }
 
     public SourceBuilder typedBindingPattern(String typeKey) {
-        Optional<Property> type = flowNode.getProperty(typeKey);
-        Optional<Property> variable = flowNode.getProperty(Property.VARIABLE_KEY);
+        Optional<Property> type = getProperty(typeKey);
+        Optional<Property> variable = getProperty(Property.VARIABLE_KEY);
 
         if (type.isPresent() && variable.isPresent()) {
             tokenBuilder.expressionWithType(type.get(), variable.get());
@@ -298,7 +329,7 @@ public class SourceBuilder {
 
     public SourceBuilder children(List<FlowNode> flowNodes) {
         for (FlowNode node : flowNodes) {
-            SourceBuilder sourceBuilder = new SourceBuilder(node, workspaceManager, filePath);
+            SourceBuilder sourceBuilder = new SourceBuilder(node, workspaceManager, filePath, lsClientLogger);
             Map<Path, List<TextEdit>> textEdits =
                     NodeBuilder.getNodeFromKind(node.codedata().node()).toSource(sourceBuilder);
             List<TextEdit> filePathTextEdits = textEdits.get(filePath);
@@ -373,7 +404,7 @@ public class SourceBuilder {
         boolean firstParamAdded = false;
         boolean missedDefaultValue = false;
         for (String key : keys) {
-            Optional<Property> property = flowNode.getProperty(key);
+            Optional<Property> property = getProperty(key);
             if (property.isEmpty()) {
                 continue;
             }
@@ -392,6 +423,7 @@ public class SourceBuilder {
                         continue;
                     }
                     if (hasRestParamValues(prop)) {
+                        tokenBuilder.keyword(SyntaxKind.COMMA_TOKEN);
                         addRestParamValues(prop);
                         continue;
                     }
@@ -508,26 +540,30 @@ public class SourceBuilder {
         }
     }
 
-    public SourceBuilder textEdit(boolean isExpression) {
-        return textEdit(isExpression, filePath, CommonUtils.toRange(flowNode.codedata().lineRange()));
+    public SourceBuilder textEdit() {
+        return textEdit(SourceKind.STATEMENT, filePath, defaultRange);
     }
 
-    public SourceBuilder textEdit(boolean isExpression, Path filePath, Range range) {
-        String text = token().build(isExpression);
+    public SourceBuilder textEdit(SourceKind sourceKind) {
+        return textEdit(sourceKind, filePath, defaultRange);
+    }
+
+    public SourceBuilder textEdit(SourceKind sourceKind, Path filePath, Range range) {
+        String text = token().build(sourceKind);
         tokenBuilder = new TokenBuilder(this);
 
         List<TextEdit> textEdits = textEditsMap.get(filePath);
         if (textEdits == null) {
             textEdits = new ArrayList<>();
         }
-        textEdits.add(0, new TextEdit(range, text));
+        textEdits.addFirst(new TextEdit(range, text));
         textEditsMap.put(filePath, textEdits);
 
         return this;
     }
 
     public SourceBuilder comment() {
-        String comment = token().skipFormatting().build(false);
+        String comment = token().skipFormatting().build(SourceKind.STATEMENT);
         tokenBuilder = new TokenBuilder(this);
 
         List<TextEdit> textEdits = textEditsMap.get(filePath);
@@ -541,7 +577,59 @@ public class SourceBuilder {
     }
 
     public Map<Path, List<TextEdit>> build() {
+        // Add the imports if exists
+        addImports();
         return textEditsMap;
+    }
+
+    private void addImports() {
+        try {
+            this.workspaceManager.loadProject(filePath);
+        } catch (WorkspaceDocumentException | EventSyncException e) {
+            return;
+        }
+        // Obtain the start line of the document
+        Document document = FileSystemUtils.getDocument(workspaceManager, filePath);
+        SyntaxTree syntaxTree = document.syntaxTree();
+        LinePosition startLine = syntaxTree.rootNode().lineRange().startLine();
+        Range startLineRange = CommonUtils.toRange(startLine);
+
+        // Obtain the module descriptor of the current module
+        String currentModuleOrg;
+        String currentModuleName;
+        Optional<Module> currentModule = this.workspaceManager.module(filePath);
+        boolean isGenerated;
+        if (currentModule.isPresent()) {
+            ModuleDescriptor descriptor = currentModule.get().descriptor();
+            currentModuleName = descriptor.name().toString();
+            currentModuleOrg = descriptor.org().value();
+            imports.remove(currentModuleOrg + "/" + currentModuleName);
+            isGenerated = Boolean.TRUE.equals(flowNode.codedata().isGenerated());
+        } else {
+            currentModuleName = "";
+            isGenerated = false;
+        }
+
+        // Remove the existing imports
+        ModulePartNode rootNode = syntaxTree.rootNode();
+        for (ImportDeclarationNode existingImport : rootNode.imports()) {
+            String moduleName = existingImport.moduleName().stream()
+                    .map(IdentifierToken::text)
+                    .collect(Collectors.joining("."));
+            String prefix = existingImport.orgName().map(org -> org.orgName().text() + "/").orElse("");
+            imports.remove(prefix + moduleName);
+        }
+
+        // Generate the text edits for the imports
+        for (String moduleImport : imports) {
+            // TODO: Check this condition for other cases like persist module
+            String importPrefix = isGenerated ? currentModuleName + "." : "";
+            tokenBuilder
+                    .keyword(SyntaxKind.IMPORT_KEYWORD)
+                    .name(importPrefix + moduleImport)
+                    .endOfStatement();
+            textEdit(SourceKind.IMPORT, filePath, startLineRange);
+        }
     }
 
     public static class TokenBuilder extends FacetedBuilder<SourceBuilder> {
@@ -666,41 +754,57 @@ public class SourceBuilder {
         }
 
         public TokenBuilder parameterDoc(String paramName, String description) {
-            sb.append(SyntaxKind.HASH_TOKEN.stringValue())
-                    .append(WHITE_SPACE)
-                    .append(SyntaxKind.PLUS_TOKEN.stringValue())
-                    .append(WHITE_SPACE)
-                    .append(paramName)
-                    .append(WHITE_SPACE)
-                    .append("-")
-                    .append(WHITE_SPACE)
-                    .append(description)
-                    .append(System.lineSeparator());
+            if (!description.isEmpty()) {
+                sb.append(SyntaxKind.HASH_TOKEN.stringValue())
+                        .append(WHITE_SPACE)
+                        .append(SyntaxKind.PLUS_TOKEN.stringValue())
+                        .append(WHITE_SPACE)
+                        .append(paramName)
+                        .append(WHITE_SPACE)
+                        .append("-")
+                        .append(WHITE_SPACE)
+                        .append(description)
+                        .append(System.lineSeparator());
+            }
             return this;
         }
 
         public TokenBuilder returnDoc(String returnDescription) {
-            sb.append(SyntaxKind.HASH_TOKEN.stringValue())
-                    .append(WHITE_SPACE)
-                    .append(SyntaxKind.PLUS_TOKEN.stringValue())
-                    .append(WHITE_SPACE)
-                    .append(SyntaxKind.RETURN_KEYWORD.stringValue())
-                    .append(WHITE_SPACE)
-                    .append("-")
-                    .append(WHITE_SPACE)
-                    .append(returnDescription)
-                    .append(System.lineSeparator());
+            if (!returnDescription.isEmpty()) {
+                sb.append(SyntaxKind.HASH_TOKEN.stringValue())
+                        .append(WHITE_SPACE)
+                        .append(SyntaxKind.PLUS_TOKEN.stringValue())
+                        .append(WHITE_SPACE)
+                        .append(SyntaxKind.RETURN_KEYWORD.stringValue())
+                        .append(WHITE_SPACE)
+                        .append("-")
+                        .append(WHITE_SPACE)
+                        .append(returnDescription)
+                        .append(System.lineSeparator());
+            }
             return this;
         }
 
-        public String build(boolean isExpression) {
+        public String build(SourceKind kind) {
             String outputStr = sb.toString();
             if (skipFormatting) {
                 return outputStr;
             }
-            Node modifiedNode = isExpression ? NodeParser.parseExpression(outputStr).apply(treeModifier) :
-                    NodeParser.parseStatement(outputStr).apply(treeModifier);
-            return modifiedNode.toSourceCode().strip();
+
+            Node parsedNode = switch (kind) {
+                case DECLARATION -> NodeParser.parseModuleMemberDeclaration(outputStr);
+                case STATEMENT -> NodeParser.parseStatement(outputStr);
+                case EXPRESSION -> NodeParser.parseExpression(outputStr);
+                case IMPORT -> NodeParser.parseImportDeclaration(outputStr);
+            };
+            return parsedNode.apply(treeModifier).toSourceCode().strip();
         }
+    }
+
+    public enum SourceKind {
+        DECLARATION,
+        STATEMENT,
+        EXPRESSION,
+        IMPORT
     }
 }

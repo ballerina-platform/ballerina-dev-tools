@@ -63,7 +63,7 @@
         },
         "returning": false,
         "properties": {
-          "name": {
+          "$name": {
             "metadata": {
               "label": "name"
             },

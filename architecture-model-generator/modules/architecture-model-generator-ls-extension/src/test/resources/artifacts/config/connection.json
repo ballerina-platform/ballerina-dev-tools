@@ -1,0 +1,108 @@
+{
+  "description": "",
+  "source": "connection.bal",
+  "output": {
+    "Connections": {
+      "localClient": {
+        "id": "localClient",
+        "location": {
+          "fileName": "connection.bal",
+          "startLine": {
+            "line": 26,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 26,
+            "offset": 72
+          }
+        },
+        "type": "CONNECTION",
+        "name": "localClient",
+        "scope": "Global",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/$anon_._0.0.0.png",
+        "module": ".",
+        "children": {}
+      },
+      "tcpConnection": {
+        "id": "tcpConnection",
+        "location": {
+          "fileName": "connection.bal",
+          "startLine": {
+            "line": 21,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 23,
+            "offset": 3
+          }
+        },
+        "type": "CONNECTION",
+        "name": "tcpConnection",
+        "scope": "Global",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_tcp_1.13.0.png",
+        "module": "tcp",
+        "children": {}
+      },
+      "httpConnection": {
+        "id": "httpConnection",
+        "location": {
+          "fileName": "connection.bal",
+          "startLine": {
+            "line": 6,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 13,
+            "offset": 3
+          }
+        },
+        "type": "CONNECTION",
+        "name": "httpConnection",
+        "scope": "Global",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
+        "module": "http",
+        "children": {}
+      },
+      "graphQlConnection": {
+        "id": "graphQlConnection",
+        "location": {
+          "fileName": "connection.bal",
+          "startLine": {
+            "line": 16,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 18,
+            "offset": 3
+          }
+        },
+        "type": "CONNECTION",
+        "name": "graphQlConnection",
+        "scope": "Global",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.16.0.png",
+        "module": "graphql",
+        "children": {}
+      }
+    },
+    "Types": {
+      "LocalClient": {
+        "id": "LocalClient",
+        "location": {
+          "fileName": "connection.bal",
+          "startLine": {
+            "line": 29,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 44,
+            "offset": 1
+          }
+        },
+        "type": "TYPE",
+        "name": "LocalClient",
+        "scope": "Global",
+        "children": {}
+      }
+    }
+  }
+}

@@ -31,25 +31,34 @@ public class ServiceModelGeneratorConstants {
     public static final String SPACE = " ";
     public static final String OPEN_BRACE = "{";
     public static final String CLOSE_BRACE = "}";
-    public static final String LINE_SEPARATOR = System.lineSeparator();
+    public static final String NEW_LINE = System.lineSeparator();
+    public static final String TWO_NEW_LINES = NEW_LINE + NEW_LINE;
+    public static final String NEW_LINE_WITH_TAB = NEW_LINE + "\t";
     public static final String IMPORT_STMT_TEMPLATE = "%nimport %s/%s;%n";
     public static final String AT = "@";
     public static final String COLON = ":";
 
     public static final String SINGLE_SELECT_VALUE = "SINGLE_SELECT";
     public static final String MULTIPLE_SELECT_VALUE = "MULTIPLE_SELECT";
-
-    public static final String HTTP_DEFAULT_LISTENER_STMT = LINE_SEPARATOR +
-            "listener http:Listener %s = http:getDefaultListener();" + LINE_SEPARATOR;
     public static final String HTTP_DEFAULT_LISTENER_ITEM_LABEL = "(+) Create and use the default HTTP listener" +
             " (port: 9090)";
-    public static final String HTTP_DEFAULT_LISTENER_VAR_NAME = "httpDefaultListener";
-    public static final String HTTP_DEFAULT_LISTENER_EXPR = "http:getDefaultListener()";
+    public static final String DEFAULT_LISTENER_ITEM_LABEL = "(+) Create and use a %s listener with " +
+            "default configurations";
+    public static final String DEFAULT_LISTENER_VAR_NAME = "%sDefaultListener";
 
-    public static final String KAFKA = "kafka";
     public static final String HTTP = "http";
     public static final String GRAPHQL = "graphql";
     public static final String TCP = "tcp";
+
+    public static final String KAFKA = "kafka";
+    public static final String RABBITMQ = "rabbitmq";
+    public static final String MQTT = "mqtt";
+    public static final String ASB = "asb";
+    public static final String SF = "salesforce";
+    public static final String TRIGGER_GITHUB = "trigger.github";
+
+    public static final String FTP = "ftp";
+    public static final String FILE = "file";
 
     public static final String PROPERTY_REQUIRED_FUNCTIONS = "requiredFunctions";
     public static final String PROPERTY_DESIGN_APPROACH = "designApproach";
@@ -63,6 +72,7 @@ public class ServiceModelGeneratorConstants {
     public static final String KIND_DEFAULT = "DEFAULT";
     public static final String KIND_REQUIRED = "REQUIRED";
     public static final String KIND_DEFAULTABLE = "DEFAULTABLE";
+    public static final String KIND_OBJECT_METHOD = "OBJECT_METHOD";
 
     public static final String PARAMETER = "parameter";
     public static final String SERVICE = "service";
@@ -85,6 +95,25 @@ public class ServiceModelGeneratorConstants {
 
     public static final String TYPE_HTTP_SERVICE_CONFIG = "http:ServiceConfig";
 
+
+    // protocol listeners
+    public static final String HTTP_DEFAULT_LISTENER_EXPR = "http:getDefaultListener()";
+    public static final String GRAPHQL_DEFAULT_LISTENER_EXPR = "new (listenTo = 8080)";
+    public static final String TCP_DEFAULT_LISTENER_EXPR = "new (localPort = 8080)";
+
+    // event listeners
+    public static final String KAFKA_DEFAULT_LISTENER_EXPR = "new (bootstrapServers = \"\")";
+    public static final String RABBITMQ_DEFAULT_LISTENER_EXPR = "new (host = \"localhost\", port = 5672)";
+    public static final String MQTT_DEFAULT_LISTENER_EXPR = "new(\"tcp://localhost:1883\", \"listener-unique-id\", " +
+            "\"mqtt/topic\")";
+    public static final String ASB_DEFAULT_LISTENER_EXPR = "new (connectionString = \"\", " +
+            "entityConfig = {queueName: \"test-queue\"}, autoComplete = false)";
+    public static final String SF_DEFAULT_LISTENER_EXPR = "new (auth = {username: \"\", password: \"\"})";
+    public static final String GITHUB_DEFAULT_LISTENER_EXPR = "new ()";
+
+    // file listeners
+    public static final String FTP_DEFAULT_LISTENER_EXPR = "new ()";
+    public static final String FILE_DEFAULT_LISTENER_EXPR = "new (path = \"\")";
 
     public static final MetaData SERCVICE_CLASS_NAME_METADATA = new MetaData("Class Name",
             "The name of the class definition");
@@ -114,6 +143,10 @@ public class ServiceModelGeneratorConstants {
             "The name of the function");
     public static final MetaData FUNCTION_ACCESSOR_METADATA = new MetaData("Accessor",
             "The accessor of the function");
+    public static final MetaData RESOURCE_NAME_METADATA = new MetaData("Resource Path",
+            "The resource path");
+    public static final MetaData RESOURCE_FUNCTION_RETURN_TYPE_METADATA = new MetaData("Return Type",
+            "The return type of the resource");
 
     private ServiceModelGeneratorConstants() {
     }

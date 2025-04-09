@@ -45,7 +45,8 @@
           "isBasePath": false,
           "inDisplayAnnotation": false
         },
-        "addNewButton": false
+        "addNewButton": false,
+        "imports": {}
       }
     },
     "codedata": {
@@ -70,19 +71,20 @@
           "label": "Init Method",
           "description": "Init Method"
         },
-        "qualifiers": [],
         "kind": "INIT",
         "accessor": {
           "metadata": {
             "label": "Accessor",
             "description": "The accessor of the function"
           },
-          "enabled": false,
+          "enabled": true,
           "editable": true,
+          "valueType": "IDENTIFIER",
           "isType": false,
           "optional": false,
           "advanced": false,
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "name": {
           "metadata": {
@@ -90,12 +92,10 @@
             "description": "The name of the function"
           },
           "enabled": true,
-          "editable": false,
+          "editable": true,
           "value": "init",
           "valueType": "IDENTIFIER",
-          "valueTypeConstraint": "string",
           "isType": false,
-          "placeholder": "",
           "optional": false,
           "advanced": false,
           "codedata": {
@@ -114,7 +114,8 @@
             "isBasePath": false,
             "inDisplayAnnotation": false
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "parameters": [
           {
@@ -135,7 +136,8 @@
               "isType": true,
               "optional": false,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "name": {
               "metadata": {
@@ -149,7 +151,8 @@
               "isType": false,
               "optional": false,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "defaultValue": {
               "metadata": {
@@ -162,10 +165,11 @@
               "isType": false,
               "optional": true,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "enabled": true,
-            "editable": false,
+            "editable": true,
             "optional": false,
             "advanced": false
           }
@@ -180,10 +184,11 @@
               "enabled": true,
               "editable": true,
               "valueType": "TYPE",
-              "isType": false,
+              "isType": true,
               "optional": false,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "name": {
               "metadata": {
@@ -196,7 +201,8 @@
               "isType": false,
               "optional": false,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "defaultValue": {
               "metadata": {
@@ -209,15 +215,17 @@
               "isType": false,
               "optional": true,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "enabled": true,
-            "editable": false,
+            "editable": true,
             "optional": false,
             "advanced": false
           }
         },
         "returnType": {
+          "hasError": false,
           "metadata": {
             "label": "Return Type",
             "description": "The return type of the function"
@@ -234,6 +242,7 @@
         "enabled": true,
         "optional": false,
         "editable": true,
+        "canAddParameters": false,
         "codedata": {
           "lineRange": {
             "fileName": "main.bal",
@@ -256,7 +265,6 @@
           "label": "Resource Method",
           "description": "Resource Method"
         },
-        "qualifiers": [],
         "kind": "RESOURCE",
         "accessor": {
           "metadata": {
@@ -270,20 +278,19 @@
           "isType": false,
           "optional": false,
           "advanced": false,
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "name": {
           "metadata": {
-            "label": "Function Name",
-            "description": "The name of the function"
+            "label": "Resource Path",
+            "description": "The resource path"
           },
           "enabled": true,
-          "editable": false,
+          "editable": true,
           "value": "author/[int id]",
           "valueType": "IDENTIFIER",
-          "valueTypeConstraint": "string",
           "isType": false,
-          "placeholder": "",
           "optional": false,
           "advanced": false,
           "codedata": {
@@ -302,7 +309,8 @@
             "isBasePath": false,
             "inDisplayAnnotation": false
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "parameters": [],
         "schema": {
@@ -315,10 +323,11 @@
               "enabled": true,
               "editable": true,
               "valueType": "TYPE",
-              "isType": false,
+              "isType": true,
               "optional": false,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "name": {
               "metadata": {
@@ -331,7 +340,8 @@
               "isType": false,
               "optional": false,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "defaultValue": {
               "metadata": {
@@ -344,18 +354,20 @@
               "isType": false,
               "optional": true,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "enabled": true,
-            "editable": false,
+            "editable": true,
             "optional": false,
             "advanced": false
           }
         },
         "returnType": {
+          "hasError": false,
           "metadata": {
             "label": "Return Type",
-            "description": "The return type of the function"
+            "description": "The return type of the resource"
           },
           "enabled": true,
           "editable": true,
@@ -369,6 +381,7 @@
         "enabled": true,
         "optional": false,
         "editable": true,
+        "canAddParameters": false,
         "codedata": {
           "lineRange": {
             "fileName": "main.bal",
@@ -391,32 +404,31 @@
           "label": "Remote Method",
           "description": "Remote Method"
         },
-        "qualifiers": [],
         "kind": "REMOTE",
         "accessor": {
           "metadata": {
             "label": "Accessor",
             "description": "The accessor of the function"
           },
-          "enabled": false,
+          "enabled": true,
           "editable": true,
+          "valueType": "IDENTIFIER",
           "isType": false,
           "optional": false,
           "advanced": false,
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "name": {
           "metadata": {
-            "label": "Function Name",
-            "description": "The name of the function"
+            "label": "Resource Path",
+            "description": "The resource path"
           },
           "enabled": true,
-          "editable": false,
+          "editable": true,
           "value": "addAuthor",
           "valueType": "IDENTIFIER",
-          "valueTypeConstraint": "string",
           "isType": false,
-          "placeholder": "",
           "optional": false,
           "advanced": false,
           "codedata": {
@@ -435,7 +447,8 @@
             "isBasePath": false,
             "inDisplayAnnotation": false
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "parameters": [
           {
@@ -456,7 +469,8 @@
               "isType": true,
               "optional": false,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "name": {
               "metadata": {
@@ -470,7 +484,8 @@
               "isType": false,
               "optional": false,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "defaultValue": {
               "metadata": {
@@ -483,10 +498,11 @@
               "isType": false,
               "optional": true,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "enabled": true,
-            "editable": false,
+            "editable": true,
             "optional": false,
             "advanced": false
           }
@@ -501,10 +517,11 @@
               "enabled": true,
               "editable": true,
               "valueType": "TYPE",
-              "isType": false,
+              "isType": true,
               "optional": false,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "name": {
               "metadata": {
@@ -517,7 +534,8 @@
               "isType": false,
               "optional": false,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "defaultValue": {
               "metadata": {
@@ -530,29 +548,33 @@
               "isType": false,
               "optional": true,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "enabled": true,
-            "editable": false,
+            "editable": true,
             "optional": false,
             "advanced": false
           }
         },
         "returnType": {
+          "hasError": false,
           "metadata": {
             "label": "Return Type",
-            "description": "The return type of the function"
+            "description": "The return type of the resource"
           },
-          "enabled": false,
+          "enabled": true,
           "editable": true,
+          "valueType": "TYPE",
           "isType": false,
-          "optional": false,
+          "optional": true,
           "advanced": false,
           "addNewButton": false
         },
         "enabled": true,
         "optional": false,
         "editable": true,
+        "canAddParameters": false,
         "codedata": {
           "lineRange": {
             "fileName": "main.bal",
@@ -603,7 +625,8 @@
           "isType": true,
           "optional": false,
           "advanced": false,
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "name": {
           "metadata": {
@@ -633,19 +656,22 @@
             "isBasePath": false,
             "inDisplayAnnotation": false
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "defaultValue": {
           "metadata": {
             "label": "Initial Value",
             "description": "The initial value of the filed"
           },
-          "enabled": false,
+          "enabled": true,
           "editable": true,
+          "valueType": "EXPRESSION",
           "isType": false,
-          "optional": false,
+          "optional": true,
           "advanced": false,
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "enabled": true,
         "editable": false,
@@ -683,7 +709,8 @@
           "isType": true,
           "optional": false,
           "advanced": false,
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "name": {
           "metadata": {
@@ -713,19 +740,22 @@
             "isBasePath": false,
             "inDisplayAnnotation": false
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "defaultValue": {
           "metadata": {
             "label": "Initial Value",
             "description": "The initial value of the filed"
           },
-          "enabled": false,
+          "enabled": true,
           "editable": true,
+          "valueType": "EXPRESSION",
           "isType": false,
-          "optional": false,
+          "optional": true,
           "advanced": false,
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "enabled": true,
         "editable": false,
@@ -763,7 +793,8 @@
           "isType": true,
           "optional": false,
           "advanced": false,
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "name": {
           "metadata": {
@@ -793,7 +824,8 @@
             "isBasePath": false,
             "inDisplayAnnotation": false
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "defaultValue": {
           "metadata": {
@@ -805,9 +837,10 @@
           "value": "[]",
           "valueType": "EXPRESSION",
           "isType": false,
-          "optional": false,
+          "optional": true,
           "advanced": false,
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "enabled": true,
         "editable": false,

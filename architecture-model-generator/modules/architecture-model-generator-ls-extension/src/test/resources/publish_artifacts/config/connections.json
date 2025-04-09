@@ -1,0 +1,30 @@
+{
+  "source": "new/connections.bal",
+  "description": "",
+  "output": {
+    "Connections": {
+      "updates": {
+        "httpEp": {
+          "id": "httpEp",
+          "location": {
+            "fileName": "connections.bal",
+            "startLine": {
+              "line": 2,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 2,
+              "offset": 64
+            }
+          },
+          "type": "CONNECTION",
+          "name": "httpEp",
+          "scope": "Global",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
+          "module": "http",
+          "children": {}
+        }
+      }
+    }
+  }
+}

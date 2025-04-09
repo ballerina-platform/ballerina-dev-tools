@@ -26,19 +26,16 @@ import io.ballerina.tools.text.LineRange;
  *
  * @param kind              The kind of the property
  * @param originalName      The original name of the property
- * @param importStatements  import statements of the dependent types
  * @param dependentProperty The property that is dependent for this property to be enabled
  * @param lineRange         The line range of the property
  * @since 2.0.0
  */
-public record PropertyCodedata(String kind, String originalName, String importStatements,
-                               String dependentProperty, LineRange lineRange) {
+public record PropertyCodedata(String kind, String originalName, String dependentProperty, LineRange lineRange) {
 
     public static class Builder<T> extends FacetedBuilder<T> {
 
         private String kind;
         private String originalName;
-        private String importStatements;
         private String dependentProperty;
         private LineRange lineRange;
 
@@ -56,11 +53,6 @@ public record PropertyCodedata(String kind, String originalName, String importSt
             return this;
         }
 
-        public Builder<T> importStatements(String importStatements) {
-            this.importStatements = importStatements;
-            return this;
-        }
-
         public Builder<T> dependentProperty(String dependentProperty) {
             this.dependentProperty = dependentProperty;
             return this;
@@ -72,7 +64,7 @@ public record PropertyCodedata(String kind, String originalName, String importSt
         }
 
         public PropertyCodedata build() {
-            return new PropertyCodedata(kind, originalName, importStatements, dependentProperty, lineRange);
+            return new PropertyCodedata(kind, originalName, dependentProperty, lineRange);
         }
     }
 }

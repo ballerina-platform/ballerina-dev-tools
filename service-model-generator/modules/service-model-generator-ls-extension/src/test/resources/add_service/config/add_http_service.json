@@ -606,6 +606,7 @@
               "isHttpResponseType": false
             }
           },
+          "hasError": false,
           "metadata": {
             "label": "Return type",
             "description": "Return type of the function"
@@ -623,7 +624,8 @@
         },
         "enabled": true,
         "optional": false,
-        "editable": true
+        "editable": true,
+        "annotations": {}
       }
     ]
   },
@@ -666,7 +668,7 @@
             "character": 0
           }
         },
-        "newText": "\nservice / on httpDefaultListener {\n\tresource function get greeting() returns error|json|http:InternalServerError {\n\t\tdo {\n\t\t\treturn \"Hello, Greetings!\";\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t\treturn error(\"Not implemented\", err);\n\t\t}\n\t}\n}"
+        "newText": "\nservice / on httpDefaultListener {\n\tresource function get greeting() returns error|json|http:InternalServerError {\n\t\tdo {\n\t\t\treturn \"Hello, Greetings!\";\n\t\t} on fail error err {\n\t\t\t// handle error\n\t\t\treturn error(\"unhandled error\", err);\n\t\t}\n\t}\n}"
       }
     ]
   }

@@ -435,47 +435,7 @@
               "sourceCode": "{\n       z += 5;\n            print(\"Sum is less than or equal to 30);\n        z += 10; \n}"
             },
             "repeatable": "ZERO_OR_ONE",
-            "children": [
-              {
-                "id": "44871",
-                "metadata": {
-                  "label": "Custom Expression",
-                  "description": "Represents a custom Ballerina expression"
-                },
-                "codedata": {
-                  "node": "EXPRESSION",
-                  "lineRange": {
-                    "fileName": "if.bal",
-                    "startLine": {
-                      "line": 13,
-                      "offset": 7
-                    },
-                    "endLine": {
-                      "line": 13,
-                      "offset": 14
-                    }
-                  },
-                  "sourceCode": "z += 5;"
-                },
-                "returning": false,
-                "properties": {
-                  "statement": {
-                    "metadata": {
-                      "label": "Statement",
-                      "description": "Ballerina statement"
-                    },
-                    "valueType": "EXPRESSION",
-                    "value": "z += 5;",
-                    "optional": false,
-                    "editable": true,
-                    "advanced": false,
-                    "hidden": false
-                  }
-                },
-                "flags": 0,
-                "suggested": true
-              }
-            ]
+            "children": []
           }
         ],
         "diagnostics": {

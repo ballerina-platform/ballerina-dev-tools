@@ -62,7 +62,7 @@
           "timeout": {
             "metadata": {
               "label": "timeout",
-              "description": ""
+              "description": "The maximum time to wait(in seconds) for a response before closing the connection"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "decimal",
@@ -87,7 +87,7 @@
           "poolConfig": {
             "metadata": {
               "label": "poolConfig",
-              "description": ""
+              "description": "Connection pool configuration"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "grpc:PoolConfiguration|()",
@@ -118,7 +118,7 @@
           "secureSocket": {
             "metadata": {
               "label": "secureSocket",
-              "description": ""
+              "description": "SSL/TLS related options"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "grpc:ClientSecureSocket|()",
@@ -149,7 +149,7 @@
           "compression": {
             "metadata": {
               "label": "compression",
-              "description": ""
+              "description": "Specifies the way of handling compression (`accept-encoding`) header"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "grpc:Compression",
@@ -174,7 +174,7 @@
           "retryConfiguration": {
             "metadata": {
               "label": "retryConfiguration",
-              "description": ""
+              "description": "Configures the retry functionality"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "grpc:RetryConfiguration|()",
@@ -205,7 +205,7 @@
           "auth": {
             "metadata": {
               "label": "auth",
-              "description": ""
+              "description": "Configurations related to client authentication"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "grpc:CredentialsConfig|grpc:BearerTokenConfig|grpc:JwtIssuerConfig|grpc:OAuth2ClientCredentialsGrantConfig|grpc:OAuth2PasswordGrantConfig|grpc:OAuth2RefreshTokenGrantConfig|grpc:OAuth2JwtBearerGrantConfig|()",
@@ -272,7 +272,7 @@
           "maxInboundMessageSize": {
             "metadata": {
               "label": "maxInboundMessageSize",
-              "description": ""
+              "description": "The maximum message size to be permitted for inbound messages. Default value is 4 MB"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "int",
@@ -945,7 +945,7 @@
           "secureSocket": {
             "metadata": {
               "label": "secureSocket",
-              "description": ""
+              "description": "SSL/TLS-related options"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:ClientSecureSocket|()",
@@ -1070,7 +1070,7 @@
           "connection": {
             "metadata": {
               "label": "Connection Type",
-              "description": ""
+              "description": "Connection configurations of the Redis server. This can be either a single URI or a set of parameters"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "redis:ConnectionUri|redis:ConnectionParams",
@@ -1101,7 +1101,7 @@
           "connectionPooling": {
             "metadata": {
               "label": "Connection Pooling Enabled",
-              "description": ""
+              "description": "Flag to indicate whether connection pooling is enabled"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "boolean",
@@ -1126,7 +1126,7 @@
           "isClusterConnection": {
             "metadata": {
               "label": "Cluster Mode Enabled",
-              "description": ""
+              "description": "Flag to indicate whether the connection is a cluster connection"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "boolean",
@@ -1151,7 +1151,7 @@
           "secureSocket": {
             "metadata": {
               "label": "Secure Socket Configurations",
-              "description": ""
+              "description": "Configurations related to SSL/TLS encryption"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "redis:SecureSocket",

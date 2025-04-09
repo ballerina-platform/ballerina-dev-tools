@@ -22,6 +22,7 @@ import com.google.gson.Gson;
 import io.ballerina.flowmodelgenerator.core.model.Function;
 import io.ballerina.flowmodelgenerator.core.model.Member;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
+import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.TypeData;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import org.ballerinalang.langserver.common.utils.CommonUtil;
@@ -65,8 +66,10 @@ public class SourceCodeGenerator {
 
         // Build the resource functions.
         StringBuilder resourceFunctions = new StringBuilder();
-        for (Function function : typeData.functions()) {
-            resourceFunctions.append(generateResourceFunction(function));
+        if (typeData.functions() != null) {
+            for (Function function : typeData.functions()) {
+                resourceFunctions.append(generateResourceFunction(function));
+            }
         }
 
         String template = "%nservice class %s {%s%n\tfunction init() {%n\t}%s%n}";
@@ -113,13 +116,7 @@ public class SourceCodeGenerator {
             return (String) typeDescriptor;
         }
 
-        TypeData typeData;
-        if (typeDescriptor instanceof Map) {
-            String json = gson.toJson(typeDescriptor);
-            typeData = gson.fromJson(json, TypeData.class);
-        } else {
-            typeData = (TypeData) typeDescriptor;
-        }
+        TypeData typeData = toTypeData(typeDescriptor);
 
         return switch (typeData.codedata().node()) {
             case RECORD -> generateRecordTypeDescriptor(typeData);
@@ -325,11 +322,28 @@ public class SourceCodeGenerator {
     }
 
     private String generateArrayTypeDescriptor(TypeData typeData) {
-        if (typeData.members().size() == 1) {
-            String transformed = generateTypeDescriptor(typeData.members().getFirst().type());
-            return transformed + "[]";
+        Property arraySizeProperty = typeData.properties().get(Property.ARRAY_SIZE);
+        String arraySize = "";
+        if (arraySizeProperty != null) {
+            arraySize =  arraySizeProperty.value().toString();
         }
-        return "[]";
+
+        if (typeData.members().size() != 1) {
+            return "[" + arraySize + "]";
+        }
+
+        Object type = typeData.members().getFirst().type();
+        String transformed = generateTypeDescriptor(type);
+
+        if (!(type instanceof String)) {
+            NodeKind nodeKind = toTypeData(type).codedata().node();
+            // Add parenthesis to union and intersection types
+            if (nodeKind == NodeKind.UNION || nodeKind == NodeKind.INTERSECTION) {
+                transformed = "(" + transformed + ")";
+            }
+        }
+
+        return transformed + "[" + arraySize + "]";
     }
 
     private String generateDocs(String docs, String indent) {
@@ -380,5 +394,16 @@ public class SourceCodeGenerator {
                 generateTypeDescriptor(function.returnType()),
                 function.name()
         );
+    }
+
+    private TypeData toTypeData(Object typeDescAsObject) {
+        TypeData typeData;
+        if (typeDescAsObject instanceof Map) {
+            String json = gson.toJson(typeDescAsObject);
+            typeData = gson.fromJson(json, TypeData.class);
+        } else {
+            typeData = (TypeData) typeDescAsObject;
+        }
+        return typeData;
     }
 }

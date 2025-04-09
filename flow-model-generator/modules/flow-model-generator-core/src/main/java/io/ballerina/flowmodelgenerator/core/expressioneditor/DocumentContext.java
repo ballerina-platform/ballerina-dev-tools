@@ -124,7 +124,7 @@ public class DocumentContext {
 
     public Document document() {
         if (document == null) {
-            fileUri();
+            initialize();
         }
         return document;
     }
@@ -165,6 +165,7 @@ public class DocumentContext {
             document = inputDoc.get();
             filePath = inputFilePath;
             fileUri = fileUri == null ? CommonUtils.getExprUri(filePath.toString()) : inputFileUri;
+            initialized = true;
             return;
         }
 
@@ -184,6 +185,7 @@ public class DocumentContext {
         // If the file is not found, it defaults to the end of a random file. Although we can create a
         // private document using the project API, this approach is not feasible because the
         // BallerinaWorkspaceManager is tightly coupled with the file system.
+
         // Get the first document ID from the module
         Collection<DocumentId> documentIds = module.documentIds();
         if (documentIds.isEmpty()) {
@@ -193,5 +195,14 @@ public class DocumentContext {
         document = module.document(documentId);
         filePath = inputFilePath.resolve(document.name());
         fileUri = CommonUtils.getExprUri(filePath.toString());
+        initialized = true;
+    }
+
+    public void clear() {
+        this.initialized = false;
+        this.document = null;
+        this.module = null;
+        this.project = null;
+        this.semanticModel = null;
     }
 }

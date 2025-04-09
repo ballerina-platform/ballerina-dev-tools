@@ -33,7 +33,6 @@ import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
-import io.ballerina.compiler.syntax.tree.ImportDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.openapi.core.generators.common.GeneratorUtils;
@@ -80,7 +79,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static io.ballerina.openapi.core.generators.common.GeneratorConstants.DEFAULT_FILE_HEADER;
-import static io.ballerina.servicemodelgenerator.extension.util.Utils.getAnnotationEdits;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.importExists;
 
 /**
@@ -114,7 +112,8 @@ public class OpenApiServiceGenerator {
         this.workspaceManager = workspaceManager;
     }
 
-    public Map<String, List<TextEdit>> generateService(Service service, boolean isDefaultListenerCreationRequired)
+    public Map<String, List<TextEdit>> generateService(Service service, ListenerUtil.DefaultListener
+            defaultListener)
             throws IOException,
             BallerinaOpenApiException, FormatterException, WorkspaceDocumentException, EventSyncException {
         Filter filter = new Filter(new ArrayList<>(), new ArrayList<>());
@@ -155,27 +154,12 @@ public class OpenApiServiceGenerator {
                 textEdits.add(new TextEdit(Utils.toRange(modulePartNode.lineRange().startLine()), importText));
             }
 
-            if (isDefaultListenerCreationRequired) {
-                List<ImportDeclarationNode> importsList = modulePartNode.imports().stream().toList();
-                LinePosition listenerDeclaringLoc;
-                if (!importsList.isEmpty()) {
-                    listenerDeclaringLoc = importsList.get(importsList.size() - 1).lineRange().endLine();
-                } else {
-                    listenerDeclaringLoc = modulePartNode.lineRange().endLine();
-                }
-                String listenerDeclarationStmt = ListenerUtil.getListenerDeclarationStmt(
-                        semanticModel.get(), document.get(), listenerDeclaringLoc);
-                textEdits.add(new TextEdit(Utils.toRange(listenerDeclaringLoc), listenerDeclarationStmt));
+            if (Objects.nonNull(defaultListener)) {
+                String stmt = ListenerUtil.getDefaultListenerDeclarationStmt(defaultListener);
+                textEdits.add(new TextEdit(Utils.toRange(defaultListener.linePosition()), stmt));
             }
 
             StringBuilder serviceBuilder = new StringBuilder();
-
-            List<String> annotations = getAnnotationEdits(service);
-
-            if (!annotations.isEmpty()) {
-                serviceBuilder.append(String.join(System.lineSeparator(), annotations));
-                serviceBuilder.append(System.lineSeparator());
-            }
 
             String serviceImplContent = genServiceImplementation(serviceTypeFile, typeName, listeners, project,
                     mainFile);
@@ -317,7 +301,7 @@ public class OpenApiServiceGenerator {
             if (possibleErrorReturningType.isEmpty()) {
                 possibleErrorReturningType = getDefaultValue(typeSymbol);
             }
-            if (possibleErrorReturningType.isEmpty()) {
+            if (possibleErrorReturningType.isEmpty()) { // TODO: fix this
                 throw new BallerinaOpenApiException("Cannot find default return value for: "
                         + resourceMethodSymbol.signature() + "and " + typeSymbol.signature());
             }

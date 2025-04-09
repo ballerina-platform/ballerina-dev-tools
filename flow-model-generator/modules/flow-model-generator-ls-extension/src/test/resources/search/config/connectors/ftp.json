@@ -8,7 +8,7 @@
   "categories": [
     {
       "metadata": {
-        "label": "FTP Client",
+        "label": "FTP",
         "description": "Represents an FTP client that intracts with an FTP server",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_ftp_2.12.0.png",
         "data": {
@@ -20,26 +20,6 @@
         "org": "ballerina",
         "module": "ftp",
         "object": "Client",
-        "symbol": "init",
-        "version": "2.12.0",
-        "isGenerated": false
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "FTP Caller",
-        "description": "Represents an FTP caller that is passed to the onFileChange function",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_ftp_2.12.0.png",
-        "data": {
-          "isAgentSupport": false
-        }
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerina",
-        "module": "ftp",
-        "object": "Caller",
         "symbol": "init",
         "version": "2.12.0",
         "isGenerated": false

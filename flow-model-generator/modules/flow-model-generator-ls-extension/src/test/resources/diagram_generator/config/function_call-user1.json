@@ -84,7 +84,7 @@
             "advanced": false,
             "hidden": false
           },
-          "name": {
+          "$name": {
             "metadata": {
               "label": "name"
             },
@@ -1540,7 +1540,7 @@
           "secureSocket": {
             "metadata": {
               "label": "secureSocket",
-              "description": ""
+              "description": "SSL/TLS-related options"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:ClientSecureSocket|()",

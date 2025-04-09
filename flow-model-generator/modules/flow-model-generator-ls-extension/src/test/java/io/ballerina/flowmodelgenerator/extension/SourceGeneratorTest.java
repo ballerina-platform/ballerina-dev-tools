@@ -118,6 +118,7 @@ public class SourceGeneratorTest extends AbstractLSTest {
                 "resource_action_call-http-get6.json",
                 "resource_action_call-http-post5.json",
                 // The following nodes are deprecated
+                "data_mapper1.json",
                 "data_mapper2.json",
                 "data_mapper-main.json",
                 "data_mapper-service.json",

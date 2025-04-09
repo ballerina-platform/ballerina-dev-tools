@@ -26,7 +26,10 @@ import io.ballerina.flowmodelgenerator.core.DiagnosticHandler;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.ParameterMemberTypeData;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Represents an expression in the flow model.
@@ -44,12 +47,13 @@ import java.util.List;
  * @param codedata            codedata of the property
  * @param typeMembers         member types of the type constrain
  * @param advancedValue       advanced value of the property
+ * @param imports             import statements of the dependent types in the format prefix -> moduleId
  * @since 2.0.0
  */
 public record Property(Metadata metadata, String valueType, Object valueTypeConstraint, Object value,
                        String placeholder, boolean optional, boolean editable, boolean advanced, boolean hidden,
                        Diagnostics diagnostics, PropertyCodedata codedata, List<PropertyTypeMemberInfo> typeMembers,
-                       Object advancedValue) {
+                       Object advancedValue, Map<String, String> imports) {
 
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 
@@ -74,6 +78,9 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
 
     public static final String NAME_KEY = "name";
     public static final String DESCRIPTION_KEY = "description";
+    public static final String FUNCTION_NAME_DESCRIPTION_KEY = "functionNameDescription";
+    public static final String PARAMETER_DESCRIPTION_KEY = "parameterDescription";
+    public static final String RETURN_DESCRIPTION_KEY = "typeDescription";
     public static final String IS_ARRAY_KEY = "isArray";
     public static final String ARRAY_SIZE = "arraySize";
 
@@ -105,6 +112,12 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
     public static final String TYPE_LABEL = "Variable Type";
     public static final String PARAMETER_TYPE_DOC = "Type of the parameter";
     public static final String IMPLICIT_TYPE_LABEL = "Type";
+    public static final String DESCRIPTION_LABEL = "Description";
+    public static final String RETURN_DESCRIPTION_LABEL = "Description";
+    public static final String DESCRIPTION_TYPE_DOC = "Description of the function";
+    public static final String RETURN_DESCRIPTION_TYPE_DOC = "Description of the return value";
+    public static final String PARAMETER_DESCRIPTION_TYPE_DOC = "Description of the parameter";
+
     public static final String TYPE_DOC = "Type of the variable";
 
     public static final String TYPE_NAME_LABEL = "Type name";
@@ -156,6 +169,7 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
     public static final String SCOPE_DOC = "Scope of the connection, Global or Local";
     public static final String GLOBAL_SCOPE = "Global";
     public static final String SERVICE_SCOPE = "Service";
+    public static final String OBJECT_SCOPE = "Object";
     public static final String LOCAL_SCOPE = "Local";
 
     public static final String CONNECTION_KEY = "connection";
@@ -195,6 +209,13 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
 
     public static final String FUNCTION_NAME_KEY = "functionName";
     public static final String PARAMETERS_KEY = "parameters";
+
+    public static final Set<String> RESERVED_PROPERTY_KEYS = Set.of(VARIABLE_KEY, NAME_KEY, TYPE_KEY,
+            DESCRIPTION_KEY, IS_ARRAY_KEY, IS_PUBLIC_KEY, IS_PRIVATE_KEY, IS_ISOLATED_KEY, IS_READ_ONLY_KEY,
+            IS_DISTINCT_KEY, NETWORK_QUALIFIER_KEY, QUALIFIERS_KEY, EXPRESSION_KEY,
+            CONDITION_KEY, IGNORE_KEY, ON_ERROR_VARIABLE_KEY, ON_ERROR_TYPE_KEY, COLLECTION_KEY,
+            CHECK_ERROR_KEY, SCOPE_KEY, CONNECTION_KEY, RESOURCE_PATH_KEY, COMMENT_KEY,
+            PATTERNS_KEY, GUARD_KEY, RETRY_COUNT_KEY);
 
     public String toSourceCode() {
         if (value == null || value.toString().isEmpty()) {
@@ -245,6 +266,7 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
         private PropertyCodedata.Builder<Builder<T>> codedataBuilder;
         private List<PropertyTypeMemberInfo> typeMembers;
         private Object advancedValue;
+        private Map<String, String> imports;
 
         public Builder(T parentBuilder) {
             super(parentBuilder);
@@ -330,6 +352,36 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
             return this;
         }
 
+        // TODO: Need to improve the index to obtain this structured information
+        public Builder<T> imports(String importStatements) {
+            if (importStatements == null) {
+                return this;
+            }
+            if (this.imports == null) {
+                this.imports = new HashMap<>();
+            }
+            String[] importList = importStatements.split(";");
+            for (String importStatement : importList) {
+                if (importStatement.trim().isEmpty()) {
+                    continue;
+                }
+                String[] parts = importStatement.split(":");
+                if (parts.length < 1) {
+                    continue;
+                }
+                String packagePath = parts[0];
+                if (packagePath.contains("/")) {
+                    String[] pathParts = packagePath.split("/");
+                    if (pathParts.length < 2) {
+                        continue;
+                    }
+                    String packageName = pathParts[1];
+                    this.imports.put(CommonUtils.getDefaultModulePrefix(packageName), importStatement);
+                }
+            }
+            return this;
+        }
+
         public PropertyCodedata.Builder<Builder<T>> codedata() {
             if (this.codedataBuilder == null) {
                 this.codedataBuilder = new PropertyCodedata.Builder<>(this);
@@ -346,11 +398,11 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
         }
 
         public Property build() {
-            Property property =
-                    new Property(metadataBuilder == null ? null : metadataBuilder.build(), type, typeConstraint, value,
-                            placeholder, optional, editable, advanced, hidden,
-                            diagnosticsBuilder == null ? null : diagnosticsBuilder.build(),
-                            codedataBuilder == null ? null : codedataBuilder.build(), typeMembers, advancedValue);
+            Property property = new Property(metadataBuilder == null ? null : metadataBuilder.build(), type,
+                    typeConstraint, value, placeholder, optional, editable, advanced, hidden,
+                    diagnosticsBuilder == null ? null : diagnosticsBuilder.build(),
+                    codedataBuilder == null ? null : codedataBuilder.build(), typeMembers, advancedValue,
+                    imports == null ? null : imports);
             this.metadataBuilder = null;
             this.type = null;
             this.typeConstraint = null;

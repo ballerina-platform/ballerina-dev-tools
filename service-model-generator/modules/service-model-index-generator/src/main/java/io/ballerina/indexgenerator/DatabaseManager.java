@@ -149,18 +149,21 @@ class DatabaseManager {
 
     public static int insertServiceTypeFunction(int serviceTypeId, ServiceIndexGenerator.ServiceTypeFunction func) {
         String sql = "INSERT INTO ServiceTypeFunction (name, description, accessor, kind, return_type, " +
-                "return_type_editable, import_statements, enable, service_type_id) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "return_type_editable, return_error, import_statements, enable, service_type_id) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         return insertEntry(sql, new Object[]{func.name(), func.description(), func.accessor(), func.kind(),
-                func.returnType(), func.returnTypeEditable(), func.importStatements(), func.enable(), serviceTypeId});
+                func.returnType(), func.returnTypeEditable(), func.returnError(), func.importStatements(),
+                func.enable(), serviceTypeId});
     }
 
     public static void insertServiceTypeFunctionParameter(int functionId,
                                                           ServiceIndexGenerator.ServiceTypeFunctionParameter param) {
         String sql = "INSERT INTO ServiceTypeFunctionParameter (name, label, description, kind, type, default_value, "
-                + "import_statements, function_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                + "import_statements, editable_name, editable_type, function_id) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         insertEntry(sql, new Object[]{param.name(), param.label(), param.description(), param.kind(), param.type(),
-                param.defaultValue(), param.importStatements(), functionId});
+                param.defaultValue(), param.importStatements(), param.nameEditable(), param.typeEditable(),
+                functionId});
     }
 
     public static void insertAnnotation(int packageId, String annotName, String attachmentPoints,

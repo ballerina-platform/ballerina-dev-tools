@@ -68,6 +68,6 @@ public class ForkBuilder extends ParallelFlowBuilder {
                     .endOfStatement();
         }
 
-        return sourceBuilder.textEdit(false).build();
+        return sourceBuilder.textEdit().build();
     }
 }

@@ -24,6 +24,7 @@ import com.google.gson.JsonElement;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import org.ballerinalang.langserver.LSClientLogger;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.Position;
 import org.eclipse.lsp4j.Range;
@@ -42,7 +43,7 @@ public class SourceGenerator {
 
     private final Gson gson;
     private final WorkspaceManager workspaceManager;
-    private final Path filePath;
+    private Path filePath;
 
     public SourceGenerator(WorkspaceManager workspaceManager, Path filePath) {
         this.workspaceManager = workspaceManager;
@@ -59,9 +60,9 @@ public class SourceGenerator {
      * @param diagramNode The flow model node to be converted.
      * @return The source code of the flow model node.
      */
-    public JsonElement toSourceCode(JsonElement diagramNode) {
+    public JsonElement toSourceCode(JsonElement diagramNode, LSClientLogger lsClientLogger) {
         FlowNode flowNode = gson.fromJson(diagramNode, FlowNode.class);
-        SourceBuilder sourceBuilder = new SourceBuilder(flowNode, workspaceManager, filePath);
+        SourceBuilder sourceBuilder = new SourceBuilder(flowNode, workspaceManager, filePath, lsClientLogger);
         Map<Path, List<TextEdit>> textEdits =
                 NodeBuilder.getNodeFromKind(flowNode.codedata().node()).toSource(sourceBuilder);
         addNewLine(textEdits);

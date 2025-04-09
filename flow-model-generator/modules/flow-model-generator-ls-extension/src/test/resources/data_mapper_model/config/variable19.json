@@ -101,32 +101,53 @@
         "typeName": "UserInfo[]",
         "kind": "array",
         "category": "variable"
-      }
-    ],
-    "output": {
-      "member": {
+      },
+      {
         "fields": [
           {
-            "id": "credentials.username",
+            "id": "item.username",
             "variableName": "username",
             "typeName": "string",
             "kind": "string"
           },
           {
-            "id": "credentials.password",
+            "id": "item.password",
             "variableName": "password",
             "typeName": "string",
             "kind": "string"
+          },
+          {
+            "id": "item.id",
+            "variableName": "id",
+            "typeName": "int",
+            "kind": "int"
           }
         ],
-        "id": "credentials",
-        "typeName": "Credentials",
+        "id": "item",
+        "variableName": "item",
+        "typeName": "UserInfo",
         "kind": "record"
-      },
+      }
+    ],
+    "output": {
+      "fields": [
+        {
+          "id": "credentials.username",
+          "variableName": "username",
+          "typeName": "string",
+          "kind": "string"
+        },
+        {
+          "id": "credentials.password",
+          "variableName": "password",
+          "typeName": "string",
+          "kind": "string"
+        }
+      ],
       "id": "credentials",
       "variableName": "credentials",
-      "typeName": "Credentials[]",
-      "kind": "array"
+      "typeName": "Credentials",
+      "kind": "record"
     },
     "mappings": [
       {

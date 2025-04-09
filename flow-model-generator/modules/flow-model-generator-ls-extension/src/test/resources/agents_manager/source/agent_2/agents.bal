@@ -1,3 +1,3 @@
-import ballerinax/ai.agent;
+import ballerinax/ai;
 
-agent:OpenAiModel chatGptModelAgent = new ({}, {});
+ai:OpenAiProvider chatGptModelAgent = new ({}, {});

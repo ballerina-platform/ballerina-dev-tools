@@ -1,0 +1,9 @@
+{
+  "contractFile": "UserRegistration.yaml",
+  "textEdits": {},
+  "listeners": [
+    "l1",
+    "l2",
+    "l3"
+  ]
+}

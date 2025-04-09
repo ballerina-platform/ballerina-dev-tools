@@ -31,6 +31,7 @@
           "description": "Name of the function"
         },
         "valueType": "IDENTIFIER",
+        "valueTypeConstraint": "Global",
         "value": "'from",
         "optional": false,
         "editable": false,
@@ -50,12 +51,36 @@
           }
         }
       },
+      "functionNameDescription": {
+        "metadata": {
+          "label": "Description",
+          "description": "Description of the function"
+        },
+        "valueType": "STRING",
+        "value": "",
+        "optional": true,
+        "editable": true,
+        "advanced": false,
+        "hidden": false
+      },
       "type": {
         "metadata": {
           "label": "Return Type",
           "description": "Type of the return value"
         },
         "valueType": "TYPE",
+        "value": "",
+        "optional": true,
+        "editable": true,
+        "advanced": false,
+        "hidden": false
+      },
+      "typeDescription": {
+        "metadata": {
+          "label": "Description",
+          "description": "Description of the return value"
+        },
+        "valueType": "STRING",
         "value": "",
         "optional": true,
         "editable": true,
@@ -95,6 +120,18 @@
               "valueType": "IDENTIFIER",
               "value": "",
               "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "parameterDescription": {
+              "metadata": {
+                "label": "Description",
+                "description": "Description of the parameter"
+              },
+              "valueType": "STRING",
+              "value": "",
+              "optional": true,
               "editable": true,
               "advanced": false,
               "hidden": false

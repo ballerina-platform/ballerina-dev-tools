@@ -51,7 +51,7 @@ public class BreakBuilder extends NodeBuilder {
                     .keyword(SyntaxKind.BREAK_KEYWORD)
                     .endOfStatement()
                     .stepOut()
-                .textEdit(false)
+                .textEdit()
                 .build();
     }
 

@@ -80,3 +80,20 @@ service /graphql2 on new graphql:Listener(9090) {
         return new (userName.value, 51);
     }
 }
+
+listener graphql:Listener gt = new (listenTo = 22);
+
+service graphql:Service /graphql on gt {
+    resource function get g() returns ProfileType|string {
+        do {
+        } on fail error err {
+            // handle error
+            return error("Not implemented", err);
+        }
+    }
+}
+
+enum ProfileType {
+    TEACHER = "teacher",
+    STUDENT
+}

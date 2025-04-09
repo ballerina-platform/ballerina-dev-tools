@@ -59,6 +59,7 @@
           "typeName": "string",
           "optional": false,
           "defaultable": false,
+          "documentation": "Token URL of the token endpoint",
           "isRestType": false,
           "value": "\"http://localhost:9090/token\"",
           "selected": true
@@ -68,6 +69,7 @@
           "typeName": "string",
           "optional": false,
           "defaultable": false,
+          "documentation": "Client ID of the client authentication",
           "isRestType": false,
           "value": "\"my-client-id\"",
           "selected": true
@@ -77,6 +79,7 @@
           "typeName": "string",
           "optional": false,
           "defaultable": false,
+          "documentation": "Client secret of the client authentication",
           "isRestType": false,
           "value": "\"secret\"",
           "selected": true
@@ -109,6 +112,7 @@
           "typeName": "union",
           "optional": true,
           "defaultable": false,
+          "documentation": "Scope(s) of the access request",
           "isRestType": false,
           "selected": false
         },
@@ -117,6 +121,7 @@
           "typeName": "decimal",
           "optional": false,
           "defaultable": true,
+          "documentation": "Expiration time (in seconds) of the tokens if the token endpoint response does not contain an `expires_in` field",
           "isRestType": false,
           "selected": false
         },
@@ -125,6 +130,7 @@
           "typeName": "decimal",
           "optional": false,
           "defaultable": true,
+          "documentation": "Clock skew (in seconds) that can be used to avoid token validation failures due to clock synchronization problems",
           "isRestType": false,
           "selected": false
         },
@@ -140,6 +146,7 @@
           "typeName": "map",
           "optional": true,
           "defaultable": false,
+          "documentation": "Map of the optional parameters used for the token endpoint",
           "isRestType": false,
           "selected": false
         },
@@ -170,6 +177,7 @@
             "version": "2.13.0"
           },
           "defaultable": true,
+          "documentation": "Bearer of the authentication credentials, which is sent to the token endpoint",
           "isRestType": false,
           "selected": false
         },
@@ -202,6 +210,7 @@
                 "version": "2.13.0"
               },
               "defaultable": true,
+              "documentation": "",
               "isRestType": false,
               "selected": false
             },
@@ -217,6 +226,7 @@
               "typeName": "map",
               "optional": true,
               "defaultable": false,
+              "documentation": "",
               "isRestType": false,
               "selected": false
             },
@@ -225,6 +235,7 @@
               "typeName": "string",
               "optional": true,
               "defaultable": false,
+              "documentation": "",
               "isRestType": false,
               "selected": false
             },
@@ -237,6 +248,7 @@
                       "typeName": "string",
                       "optional": false,
                       "defaultable": false,
+                      "documentation": "Token URL of the token endpoint",
                       "isRestType": false,
                       "selected": false
                     },
@@ -245,6 +257,7 @@
                       "typeName": "string",
                       "optional": false,
                       "defaultable": false,
+                      "documentation": "Client ID of the client authentication",
                       "isRestType": false,
                       "selected": false
                     },
@@ -253,6 +266,7 @@
                       "typeName": "string",
                       "optional": false,
                       "defaultable": false,
+                      "documentation": "Client secret of the client authentication",
                       "isRestType": false,
                       "selected": false
                     },
@@ -284,6 +298,7 @@
                       "typeName": "union",
                       "optional": true,
                       "defaultable": false,
+                      "documentation": "Scope(s) of the access request",
                       "isRestType": false,
                       "selected": false
                     },
@@ -292,6 +307,7 @@
                       "typeName": "decimal",
                       "optional": false,
                       "defaultable": true,
+                      "documentation": "Expiration time (in seconds) of the tokens if the token endpoint response does not contain an `expires_in` field",
                       "isRestType": false,
                       "selected": false
                     },
@@ -300,6 +316,7 @@
                       "typeName": "decimal",
                       "optional": false,
                       "defaultable": true,
+                      "documentation": "Clock skew (in seconds) that can be used to avoid token validation failures due to clock synchronization problems",
                       "isRestType": false,
                       "selected": false
                     },
@@ -315,6 +332,7 @@
                       "typeName": "map",
                       "optional": true,
                       "defaultable": false,
+                      "documentation": "Map of the optional parameters used for the token endpoint",
                       "isRestType": false,
                       "selected": false
                     },
@@ -345,6 +363,7 @@
                         "version": "2.13.0"
                       },
                       "defaultable": true,
+                      "documentation": "Bearer of the authentication credentials, which is sent to the token endpoint",
                       "isRestType": false,
                       "selected": false
                     },
@@ -358,6 +377,7 @@
                         "version": "2.13.0"
                       },
                       "defaultable": true,
+                      "documentation": "HTTP client configurations, which are used to call the token endpoint",
                       "isRestType": false,
                       "selected": false
                     }
@@ -383,6 +403,7 @@
                       "typeName": "string",
                       "optional": false,
                       "defaultable": false,
+                      "documentation": "Token URL of the token endpoint",
                       "isRestType": false,
                       "selected": false
                     },
@@ -391,6 +412,7 @@
                       "typeName": "string",
                       "optional": false,
                       "defaultable": false,
+                      "documentation": "",
                       "isRestType": false,
                       "selected": false
                     },
@@ -399,6 +421,7 @@
                       "typeName": "string",
                       "optional": false,
                       "defaultable": false,
+                      "documentation": "",
                       "isRestType": false,
                       "selected": false
                     },
@@ -407,6 +430,7 @@
                       "typeName": "string",
                       "optional": true,
                       "defaultable": false,
+                      "documentation": "Client ID of the client authentication",
                       "isRestType": false,
                       "selected": false
                     },
@@ -415,6 +439,7 @@
                       "typeName": "string",
                       "optional": true,
                       "defaultable": false,
+                      "documentation": "Client secret of the client authentication",
                       "isRestType": false,
                       "selected": false
                     },
@@ -446,6 +471,7 @@
                       "typeName": "union",
                       "optional": true,
                       "defaultable": false,
+                      "documentation": "Scope(s) of the access request",
                       "isRestType": false,
                       "selected": false
                     },
@@ -458,6 +484,7 @@
                               "typeName": "string",
                               "optional": false,
                               "defaultable": false,
+                              "documentation": "",
                               "isRestType": false,
                               "selected": false
                             },
@@ -489,6 +516,7 @@
                               "typeName": "union",
                               "optional": true,
                               "defaultable": false,
+                              "documentation": "Scope(s) of the access request",
                               "isRestType": false,
                               "selected": false
                             },
@@ -504,6 +532,7 @@
                               "typeName": "map",
                               "optional": true,
                               "defaultable": false,
+                              "documentation": "Map of the optional parameters used for the token endpoint",
                               "isRestType": false,
                               "selected": false
                             },
@@ -534,6 +563,7 @@
                                 "version": "2.13.0"
                               },
                               "defaultable": true,
+                              "documentation": "Bearer of the authentication credentials, which is sent to the token endpoint",
                               "isRestType": false,
                               "selected": false
                             },
@@ -547,6 +577,7 @@
                                 "version": "2.13.0"
                               },
                               "defaultable": true,
+                              "documentation": "HTTP client configurations, which are used to call the token endpoint",
                               "isRestType": false,
                               "selected": false
                             }
@@ -577,6 +608,7 @@
                       "typeName": "union",
                       "optional": true,
                       "defaultable": false,
+                      "documentation": "",
                       "isRestType": false,
                       "selected": false
                     },
@@ -585,6 +617,7 @@
                       "typeName": "decimal",
                       "optional": false,
                       "defaultable": true,
+                      "documentation": "Expiration time (in seconds) of the tokens if the token endpoint response does not contain an `expires_in` field",
                       "isRestType": false,
                       "selected": false
                     },
@@ -593,6 +626,7 @@
                       "typeName": "decimal",
                       "optional": false,
                       "defaultable": true,
+                      "documentation": "Clock skew (in seconds) that can be used to avoid token validation failures due to clock synchronization problems",
                       "isRestType": false,
                       "selected": false
                     },
@@ -608,6 +642,7 @@
                       "typeName": "map",
                       "optional": true,
                       "defaultable": false,
+                      "documentation": "Map of the optional parameters used for the token endpoint",
                       "isRestType": false,
                       "selected": false
                     },
@@ -638,6 +673,7 @@
                         "version": "2.13.0"
                       },
                       "defaultable": true,
+                      "documentation": "Bearer of the authentication credentials, which is sent to the token endpoint",
                       "isRestType": false,
                       "selected": false
                     },
@@ -651,6 +687,7 @@
                         "version": "2.13.0"
                       },
                       "defaultable": true,
+                      "documentation": "HTTP client configurations, which are used to call the token endpoint",
                       "isRestType": false,
                       "selected": false
                     }
@@ -676,6 +713,7 @@
                       "typeName": "string",
                       "optional": false,
                       "defaultable": false,
+                      "documentation": "",
                       "isRestType": false,
                       "selected": false
                     },
@@ -684,6 +722,7 @@
                       "typeName": "string",
                       "optional": false,
                       "defaultable": false,
+                      "documentation": "",
                       "isRestType": false,
                       "selected": false
                     },
@@ -692,6 +731,7 @@
                       "typeName": "string",
                       "optional": false,
                       "defaultable": false,
+                      "documentation": "Client ID of the client authentication",
                       "isRestType": false,
                       "selected": false
                     },
@@ -700,6 +740,7 @@
                       "typeName": "string",
                       "optional": false,
                       "defaultable": false,
+                      "documentation": "Client secret of the client authentication",
                       "isRestType": false,
                       "selected": false
                     },
@@ -731,6 +772,7 @@
                       "typeName": "union",
                       "optional": true,
                       "defaultable": false,
+                      "documentation": "Scope(s) of the access request",
                       "isRestType": false,
                       "selected": false
                     },
@@ -739,6 +781,7 @@
                       "typeName": "decimal",
                       "optional": false,
                       "defaultable": true,
+                      "documentation": "Expiration time (in seconds) of the tokens if the token endpoint response does not contain an `expires_in` field",
                       "isRestType": false,
                       "selected": false
                     },
@@ -747,6 +790,7 @@
                       "typeName": "decimal",
                       "optional": false,
                       "defaultable": true,
+                      "documentation": "Clock skew (in seconds) that can be used to avoid token validation failures due to clock synchronization problems",
                       "isRestType": false,
                       "selected": false
                     },
@@ -762,6 +806,7 @@
                       "typeName": "map",
                       "optional": true,
                       "defaultable": false,
+                      "documentation": "Map of the optional parameters used for the token endpoint",
                       "isRestType": false,
                       "selected": false
                     },
@@ -792,6 +837,7 @@
                         "version": "2.13.0"
                       },
                       "defaultable": true,
+                      "documentation": "Bearer of the authentication credentials, which is sent to the token endpoint",
                       "isRestType": false,
                       "selected": false
                     },
@@ -805,6 +851,7 @@
                         "version": "2.13.0"
                       },
                       "defaultable": true,
+                      "documentation": "HTTP client configurations, which are used to call the token endpoint",
                       "isRestType": false,
                       "selected": false
                     }
@@ -834,6 +881,7 @@
                 "version": "2.13.0"
               },
               "defaultable": false,
+              "documentation": "",
               "isRestType": false,
               "selected": false
             },
@@ -844,6 +892,7 @@
                   "typeName": "boolean",
                   "optional": false,
                   "defaultable": true,
+                  "documentation": "",
                   "isRestType": false,
                   "selected": false
                 },
@@ -856,6 +905,7 @@
                           "typeName": "string",
                           "optional": false,
                           "defaultable": false,
+                          "documentation": "",
                           "isRestType": false,
                           "selected": false
                         },
@@ -864,6 +914,7 @@
                           "typeName": "string",
                           "optional": false,
                           "defaultable": false,
+                          "documentation": "",
                           "isRestType": false,
                           "selected": false
                         }
@@ -894,6 +945,7 @@
                   "typeName": "union",
                   "optional": true,
                   "defaultable": false,
+                  "documentation": "",
                   "isRestType": false,
                   "selected": false
                 },
@@ -906,6 +958,7 @@
                           "typeName": "string",
                           "optional": false,
                           "defaultable": false,
+                          "documentation": "",
                           "isRestType": false,
                           "selected": false
                         },
@@ -914,6 +967,7 @@
                           "typeName": "string",
                           "optional": false,
                           "defaultable": false,
+                          "documentation": "",
                           "isRestType": false,
                           "selected": false
                         }
@@ -929,6 +983,7 @@
                         "version": "2.8.0"
                       },
                       "defaultable": false,
+                      "documentation": "",
                       "isRestType": false,
                       "selected": false
                     },
@@ -939,6 +994,7 @@
                           "typeName": "string",
                           "optional": false,
                           "defaultable": false,
+                          "documentation": "",
                           "isRestType": false,
                           "selected": false
                         },
@@ -947,6 +1003,7 @@
                           "typeName": "string",
                           "optional": false,
                           "defaultable": false,
+                          "documentation": "",
                           "isRestType": false,
                           "selected": false
                         },
@@ -955,6 +1012,7 @@
                           "typeName": "string",
                           "optional": true,
                           "defaultable": false,
+                          "documentation": "",
                           "isRestType": false,
                           "selected": false
                         }
@@ -978,6 +1036,7 @@
                   "typeName": "union",
                   "optional": true,
                   "defaultable": false,
+                  "documentation": "",
                   "isRestType": false,
                   "selected": false
                 }
@@ -993,6 +1052,7 @@
                 "version": "2.13.0"
               },
               "defaultable": false,
+              "documentation": "",
               "isRestType": false,
               "selected": false
             }
@@ -1008,6 +1068,7 @@
             "version": "2.13.0"
           },
           "defaultable": true,
+          "documentation": "HTTP client configurations, which are used to call the token endpoint",
           "isRestType": false,
           "selected": false
         }
@@ -1017,6 +1078,7 @@
       "typeName": "record",
       "optional": false,
       "defaultable": false,
+      "documentation": "Represents OAuth2 client credentials grant configurations for OAuth2 authentication.",
       "isRestType": false,
       "selected": true
     },

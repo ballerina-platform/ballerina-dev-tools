@@ -15,7 +15,13 @@
       {
         "id": "115263",
         "metadata": {
-          "label": "Start"
+          "label": "Start",
+          "data": {
+            "parameters": [
+              "int count"
+            ],
+            "return": "string"
+          }
         },
         "codedata": {
           "node": "EVENT_START",
@@ -836,7 +842,7 @@
           "secureSocket": {
             "metadata": {
               "label": "secureSocket",
-              "description": ""
+              "description": "SSL/TLS-related options"
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "http:ClientSecureSocket|()",

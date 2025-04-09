@@ -58,7 +58,7 @@ public class ErrorHandlerBuilder extends NodeBuilder {
                 .body(body.isPresent() ? body.get().children() : Collections.emptyList());
 
         sourceBuilder.onFailure();
-        return sourceBuilder.textEdit(false).build();
+        return sourceBuilder.textEdit().build();
     }
 
     @Override

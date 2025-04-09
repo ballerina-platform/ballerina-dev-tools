@@ -132,7 +132,7 @@ public class DataMapperService implements ExtendedLanguageServerService {
                 if (semanticModel.isEmpty() || document.isEmpty()) {
                     return response;
                 }
-                DataMapManager dataMapManager = new DataMapManager(null, document.get());
+                DataMapManager dataMapManager = new DataMapManager(workspaceManager, document.get());
                 response.setSource(dataMapManager.getQuery(request.flowNode(), request.targetField(),
                         Path.of(request.filePath()), request.position(), project));
             } catch (Throwable e) {

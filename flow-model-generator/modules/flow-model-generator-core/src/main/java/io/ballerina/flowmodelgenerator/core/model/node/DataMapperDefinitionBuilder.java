@@ -19,10 +19,6 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import com.google.gson.Gson;
-import io.ballerina.compiler.api.symbols.RecordTypeSymbol;
-import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
-import io.ballerina.compiler.api.symbols.TypeDescKind;
-import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.Token;
 import io.ballerina.flowmodelgenerator.core.model.FormBuilder;
@@ -31,7 +27,6 @@ import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.tools.text.LineRange;
-import org.ballerinalang.langserver.common.utils.RecordUtil;
 import org.ballerinalang.model.types.TypeKind;
 import org.eclipse.lsp4j.TextEdit;
 
@@ -57,10 +52,10 @@ public class DataMapperDefinitionBuilder extends NodeBuilder {
     public static final String PARAMETERS_LABEL = "Inputs";
     public static final String PARAMETERS_DOC = "Input variables of the data mapper function";
 
-    private static final String DATA_MAPPINGS_BAL = "data_mappings.bal";
     private static final Gson gson = new Gson();
 
-    public static final String ANYDATA_TYPE = TypeKind.ANYDATA.typeName();
+    public static final String RETURN_TYPE = TypeKind.JSON.typeName();
+    public static final String PARAMETER_TYPE = TypeKind.JSON.typeName();
 
     @Override
     public void setConcreteConstData() {
@@ -82,12 +77,12 @@ public class DataMapperDefinitionBuilder extends NodeBuilder {
 
     public static void setMandatoryProperties(NodeBuilder nodeBuilder, String returnType) {
         nodeBuilder.properties()
-                .returnType(returnType, ANYDATA_TYPE, false)
+                .returnType(returnType, RETURN_TYPE, false)
                 .nestedProperty();
     }
 
     public static void setProperty(FormBuilder<?> formBuilder, String type, String name, Token token) {
-        formBuilder.parameter(type, name, token, Property.ValueType.TYPE, TypeKind.ANYDATA.typeName());
+        formBuilder.parameter(type, name, token, Property.ValueType.TYPE, PARAMETER_TYPE);
     }
 
     public static void setOptionalProperties(NodeBuilder nodeBuilder) {
@@ -101,7 +96,7 @@ public class DataMapperDefinitionBuilder extends NodeBuilder {
         sourceBuilder.token().keyword(SyntaxKind.FUNCTION_KEYWORD);
 
         // Write the data mapper name
-        Optional<Property> property = sourceBuilder.flowNode.getProperty(Property.FUNCTION_NAME_KEY);
+        Optional<Property> property = sourceBuilder.getProperty(Property.FUNCTION_NAME_KEY);
         if (property.isEmpty()) {
             throw new IllegalStateException("Data mapper name is not present");
         }
@@ -110,7 +105,7 @@ public class DataMapperDefinitionBuilder extends NodeBuilder {
                 .keyword(SyntaxKind.OPEN_PAREN_TOKEN);
 
         // Write the data mapper parameters
-        Optional<Property> parameters = sourceBuilder.flowNode.getProperty(Property.PARAMETERS_KEY);
+        Optional<Property> parameters = sourceBuilder.getProperty(Property.PARAMETERS_KEY);
         if (parameters.isPresent() && parameters.get().value() instanceof Map<?, ?> paramMap) {
             List<String> paramList = new ArrayList<>();
             for (Object obj : paramMap.values()) {
@@ -129,7 +124,7 @@ public class DataMapperDefinitionBuilder extends NodeBuilder {
         sourceBuilder.token().keyword(SyntaxKind.CLOSE_PAREN_TOKEN);
 
         // Write the return type
-        Optional<Property> returnType = sourceBuilder.flowNode.getProperty(Property.TYPE_KEY);
+        Optional<Property> returnType = sourceBuilder.getProperty(Property.TYPE_KEY);
         if (returnType.isEmpty() || returnType.get().value().toString().isEmpty()) {
             throw new IllegalStateException("The data mapper should have an output");
         }
@@ -143,35 +138,26 @@ public class DataMapperDefinitionBuilder extends NodeBuilder {
         LineRange lineRange = sourceBuilder.flowNode.codedata().lineRange();
         if (lineRange == null) {
             // The return type symbol should be present
-            Optional<TypeDefinitionSymbol> returnTypeSymbol = sourceBuilder.getTypeDefinitionSymbol(returnTypeString);
-            if (returnTypeSymbol.isEmpty()) {
-                throw new IllegalStateException("Return type symbol not found: " + returnTypeString);
+            Optional<String> returnBody =
+                    sourceBuilder.getExpressionBodyText(returnTypeString, returnType.get().imports());
+            if (returnBody.isEmpty()) {
+                throw new IllegalStateException("Failed to produce the data mapper output");
             }
 
-            // The return type should a record type
-            TypeSymbol recordTypeSymbol = returnTypeSymbol.get().typeDescriptor();
-            if (recordTypeSymbol.typeKind() != TypeDescKind.RECORD) {
-                throw new IllegalStateException("Return type should be a record type: " + returnTypeString);
-            }
-
-            // Generate the body text
-            String bodyText = RecordUtil.getFillAllRecordFieldInsertText(
-                    ((RecordTypeSymbol) recordTypeSymbol).fieldDescriptors());
             sourceBuilder
                     .token()
                         .keyword(SyntaxKind.RIGHT_DOUBLE_ARROW_TOKEN)
-                        .openBrace()
-                        .name(bodyText)
-                        .closeBrace()
+                        .name(returnBody.get())
                         .endOfStatement()
                         .stepOut()
-                    .textEdit(false, DATA_MAPPINGS_BAL);
+                    .textEdit(SourceBuilder.SourceKind.DECLARATION);
         } else {
             sourceBuilder
                     .token().skipFormatting().stepOut()
-                    .textEdit(false);
+                    .textEdit();
         }
-        return sourceBuilder.build();
+        return sourceBuilder
+                .build();
     }
 
     private static class ParameterSchemaHolder {

@@ -93,9 +93,28 @@ subprojects {
     ext.defineSyncTask = { String pathParam ->
         tasks.register('localSync') {
             doLast {
-                def version = ballerinaLangVersion.contains('-') ? ballerinaLangVersion.split('-')[0] : ballerinaLangVersion
+                def distVersion = ""
+                def distributionsDir = new File("${System.getProperty('user.home')}/.ballerina/ballerina-home/distributions/")
+                if (distributionsDir.exists()) {
+                    def ballerinaDirectories = distributionsDir.listFiles().findAll { 
+                        it.isDirectory() && it.name.startsWith("ballerina-") 
+                    }
+                    
+                    if (ballerinaDirectories) {
+                        ballerinaDirectories.sort { a, b -> b.name <=> a.name }
+                        def latestDir = ballerinaDirectories[0]
+                        distVersion = latestDir.name.substring("ballerina-".length())
+                    } else {
+                        println "No Ballerina distributions found."
+                        return
+                    }
+                } else {
+                    println "Distributions directory does not exist at: ${distributionsDir.absolutePath}"
+                    return
+                }
+
                 def buildLibsDir = file('build/libs')
-                def destinationPath = "${System.getProperty('user.home')}/.ballerina/ballerina-home/distributions/ballerina-${version}/${pathParam}"
+                def destinationPath = "${System.getProperty('user.home')}/.ballerina/ballerina-home/distributions/ballerina-${distVersion}/${pathParam}"
 
                 if (buildLibsDir.exists() && buildLibsDir.listFiles()) {
                     def jarFiles = buildLibsDir.listFiles().findAll { it.name.endsWith('.jar') }
@@ -147,15 +166,15 @@ def targetSequenceDiagramGeneratorLSExt = file("$project.rootDir/sequence-model-
 def targetTestManagerServiceLSExt = file("$project.rootDir/test-manager-service/modules/test-manager-service-ls-extension/build/libs/test-manager-service-ls-extension-${project.version}.jar")
 
 // TODO: Remove this once the workspace manager is refactored to import modules where necessary.
-def pullBallerinaModule(String packageName) {
+def pullBallerinaModule(String packageName, String version = null, String orgName = "ballerinax") {
     tasks.register("pullBallerinaModule_${packageName.replace('/', '_')}") {
         doLast {
             def errOutput = new ByteArrayOutputStream()
             def result = exec {
                 ignoreExitValue = true
 
-                // Check if the package exists in the ballerina user 
-                def centralRepoDir = new File(System.getProperty("user.home"), ".ballerina/repositories/central.ballerina.io/bala/ballerinax")
+                // Check if the package exists in the ballerina user home
+                def centralRepoDir = new File(System.getProperty("user.home"), ".ballerina/repositories/central.ballerina.io/bala/${orgName}")
                 if (centralRepoDir.exists()) {
                     def pkgDir = new File(centralRepoDir, packageName)
                     if (pkgDir.exists()) {
@@ -164,11 +183,11 @@ def pullBallerinaModule(String packageName) {
                     }
                 }
 
-                def ballPullCommand = "bal pull ballerinax/${packageName}"
+                def balPullCommand = "bal pull ${orgName}/${packageName}${version ? ':' + version : ''} --sticky=false"
                 if (org.gradle.internal.os.OperatingSystem.current().isWindows()) {
-                    commandLine 'cmd', '/c', ballPullCommand
+                    commandLine 'cmd', '/c', balPullCommand
                 } else {
-                    commandLine '/bin/sh', '-c', ballPullCommand
+                    commandLine '/bin/sh', '-c', balPullCommand
                 }
                 errorOutput = errOutput
             }
@@ -279,6 +298,12 @@ release {
 task test {
     dependsOn(":graphql-model-generator:graphql-model-generator-ls-extension:test")
 }
+
+test.dependsOn rootProject.pullBallerinaModule('ai.agent', ballerinaxAiAgent)
+test.dependsOn rootProject.pullBallerinaModule('np', ballerinaxNp)
+test.dependsOn rootProject.pullBallerinaModule('kafka', ballerinaxKafkaVersion)
+test.dependsOn rootProject.pullBallerinaModule('rabbitmq', ballerinaxRabbitmqVersion)
+test.dependsOn rootProject.pullBallerinaModule('trigger.github', ballerinaxGithubTriggerVersion)
 
 task build {
     dependsOn test

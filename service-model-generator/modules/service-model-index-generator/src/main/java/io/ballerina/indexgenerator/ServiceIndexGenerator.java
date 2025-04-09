@@ -266,9 +266,19 @@ class ServiceIndexGenerator {
             paramType = CommonUtils.getTypeSignature(semanticModel,
                     ((ArrayTypeSymbol) typeSymbol).memberTypeDescriptor(), false);
         } else if (parameterKind == FunctionParameterKind.INCLUDED_RECORD) {
+            Map<String, String> docMap = new HashMap<>();
             paramType = CommonUtils.getTypeSignature(semanticModel, typeSymbol, false);
+            if (typeSymbol.getModule().isPresent() && typeSymbol.getName().isPresent()) {
+                ModuleID id = typeSymbol.getModule().get().id();
+                Optional<Symbol> typeByName = semanticModel.types().getTypeByName(id.orgName(), id.moduleName(),
+                        "", typeSymbol.getName().get());
+                if (typeByName.isPresent() && typeByName.get() instanceof TypeDefinitionSymbol typeDefinitionSymbol) {
+                    Optional<Documentation> documentation = typeDefinitionSymbol.documentation();
+                    documentation.ifPresent(documentation1 -> docMap.putAll(documentation1.parameterMap()));
+                }
+            }
             addIncludedRecordParamsToDb((RecordTypeSymbol) CommonUtils.getRawType(typeSymbol),
-                    functionId, resolvedPackage, defaultModuleInfo, semanticModel, true, new HashMap<>());
+                    functionId, resolvedPackage, defaultModuleInfo, semanticModel, true, docMap);
             defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(typeSymbol);
         } else if (parameterKind == FunctionParameterKind.REQUIRED) {
             paramType = CommonUtils.getTypeSignature(semanticModel, typeSymbol, false);
@@ -303,10 +313,20 @@ class ServiceIndexGenerator {
                                                       Package resolvedPackage, ModuleInfo defaultModuleInfo,
                                                       SemanticModel semanticModel, boolean insert,
                                                       Map<String, String> documentationMap) {
-        recordTypeSymbol.typeInclusions().forEach(includedType -> addIncludedRecordParamsToDb(
-                ((RecordTypeSymbol) CommonUtils.getRawType(includedType)), functionId, resolvedPackage,
-                defaultModuleInfo, semanticModel, false, documentationMap)
-        );
+        recordTypeSymbol.typeInclusions().forEach(includedType -> {
+            if (includedType.getModule().isPresent() && includedType.getName().isPresent()) {
+                ModuleID id = includedType.getModule().get().id();
+                Optional<Symbol> typeByName = semanticModel.types().getTypeByName(id.orgName(), id.moduleName(),
+                        "", includedType.getName().get());
+                if (typeByName.isPresent() && typeByName.get() instanceof TypeDefinitionSymbol typeDefinitionSymbol) {
+                    Optional<Documentation> documentation = typeDefinitionSymbol.documentation();
+                    documentation.ifPresent(documentation1 -> documentationMap.putAll(documentation1.parameterMap()));
+                }
+            }
+            addIncludedRecordParamsToDb(((RecordTypeSymbol) CommonUtils.getRawType(includedType)), functionId,
+                    resolvedPackage, defaultModuleInfo, semanticModel, false, documentationMap);
+        });
+
         for (Map.Entry<String, RecordFieldSymbol> entry : recordTypeSymbol.fieldDescriptors().entrySet()) {
             RecordFieldSymbol recordFieldSymbol = entry.getValue();
             TypeSymbol typeSymbol = recordFieldSymbol.typeDescriptor();
@@ -445,6 +465,8 @@ class ServiceIndexGenerator {
     private static void handleServiceType(ObjectTypeSymbol objectTypeSymbol, SemanticModel semanticModel,
                                           int serviceTypeId) {
 
+        TypeSymbol errorTypeSymbol = semanticModel.types().ERROR;
+
         objectTypeSymbol.methods().forEach((methodName, methodSymbol) -> {
             if (methodSymbol.qualifiers().contains(Qualifier.REMOTE)) {
                 Optional<Documentation> documentation = methodSymbol.documentation();
@@ -455,11 +477,16 @@ class ServiceIndexGenerator {
                     paramDocMap = documentation.get().parameterMap();
                 }
 
+                TypeSymbol returnType = methodSymbol.typeDescriptor().returnTypeDescriptor().orElse(null);
+                int returnError = returnType != null && CommonUtils.subTypeOf(returnType, errorTypeSymbol) ? 1 : 0;
+                String returnTypeSignature = Objects.isNull(returnType) ? "" : CommonUtils.getTypeSignature(
+                        semanticModel, returnType, false);
+
+
                 List<ServiceTypeFunctionParameter> parameters = new ArrayList<>();
                 ServiceTypeFunction function = new ServiceTypeFunction(methodName,
-                        methodDescription, "", "REMOTE", CommonUtils.getTypeSignature(
-                        semanticModel, methodSymbol.typeDescriptor().returnTypeDescriptor().get(), false),
-                        1, "", 1, parameters);
+                        methodDescription, "", "REMOTE", returnTypeSignature,
+                        0, returnError, "", 1, parameters);
 
                 int functionId = DatabaseManager.insertServiceTypeFunction(serviceTypeId, function);
 
@@ -472,7 +499,7 @@ class ServiceIndexGenerator {
                         ServiceTypeFunctionParameter parameter = new ServiceTypeFunctionParameter(
                                 paramName, paramName, paramDescription, param.paramKind().name(),
                                 CommonUtils.getTypeSignature(semanticModel, param.typeDescriptor(), false),
-                                "", ""
+                                "", "", 0, 0
                         );
                         DatabaseManager.insertServiceTypeFunctionParameter(functionId, parameter);
                     }
@@ -490,11 +517,15 @@ class ServiceIndexGenerator {
                 String path = getPath(resourceMethodSymbol, semanticModel);
 
                 List<ServiceTypeFunctionParameter> parameters = new ArrayList<>();
+
+                TypeSymbol returnType = methodSymbol.typeDescriptor().returnTypeDescriptor().orElse(null);
+                int returnError = returnType != null && CommonUtils.subTypeOf(returnType, errorTypeSymbol) ? 1 : 0;
+                String returnTypeSignature = Objects.isNull(returnType) ? "" : CommonUtils.getTypeSignature(
+                        semanticModel, returnType, false);
+
                 ServiceTypeFunction function = new ServiceTypeFunction(path,
                         methodDescription, resourceMethodSymbol.getName().orElse("get"), "RESOURCE",
-                        CommonUtils.getTypeSignature(semanticModel, methodSymbol.typeDescriptor()
-                                .returnTypeDescriptor().get(), false),
-                        1, "", 1, parameters);
+                        returnTypeSignature, 0, returnError, "", 1, parameters);
 
                 int functionId = DatabaseManager.insertServiceTypeFunction(serviceTypeId, function);
 
@@ -507,7 +538,7 @@ class ServiceIndexGenerator {
                         ServiceTypeFunctionParameter parameter = new ServiceTypeFunctionParameter(
                                 paramName, paramName, paramDescription, param.paramKind().name(),
                                 CommonUtils.getTypeSignature(semanticModel, param.typeDescriptor(), false),
-                                "", ""
+                                "", "", 0, 0
                         );
                         DatabaseManager.insertServiceTypeFunctionParameter(functionId, parameter);
                     }
@@ -619,6 +650,7 @@ class ServiceIndexGenerator {
             String kind,
             String returnType,
             int returnTypeEditable,
+            int returnError,
             String importStatements,
             int enable,
             List<ServiceTypeFunctionParameter> parameters
@@ -632,7 +664,9 @@ class ServiceIndexGenerator {
             String kind,
             String type, // Store JSON as String
             String defaultValue,
-            String importStatements
+            String importStatements,
+            int nameEditable,
+            int typeEditable
     ) {
     }
 

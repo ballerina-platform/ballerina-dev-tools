@@ -1,0 +1,79 @@
+{
+  "description": "Test getting graphql listener model",
+  "filePath": "sample1/main.bal",
+  "orgName": "ballerina",
+  "pkgName": "tcp",
+  "moduleName": "tcp",
+  "response": {
+    "service": {
+      "id": "3",
+      "name": "TCP Service",
+      "type": "tcp",
+      "displayName": "TCP Service",
+      "description": "Add the service documentation",
+      "displayAnnotation": {
+        "label": "TCP Service",
+        "iconPath": "https://bcentral-packageicons.azureedge.net/images/ballerina_tcp_1.13.0.png"
+      },
+      "moduleName": "tcp",
+      "orgName": "ballerina",
+      "version": "1.13.0",
+      "packageName": "tcp",
+      "listenerProtocol": "tcp",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_tcp_1.13.0.png",
+      "properties": {
+        "listener": {
+          "metadata": {
+            "label": "Listeners",
+            "description": "The Listeners to be bound with the service"
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "",
+          "values": [],
+          "valueType": "MULTIPLE_SELECT",
+          "valueTypeConstraint": "tcp:Listener",
+          "isType": false,
+          "placeholder": "",
+          "optional": false,
+          "advanced": false,
+          "items": [],
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "LISTENER"
+          },
+          "addNewButton": true
+        },
+        "serviceType": {
+          "metadata": {
+            "label": "TCP Service Type",
+            "description": ""
+          },
+          "enabled": false,
+          "editable": true,
+          "value": "Service",
+          "valueType": "SINGLE_SELECT",
+          "valueTypeConstraint": "string",
+          "isType": false,
+          "placeholder": "Service",
+          "optional": false,
+          "advanced": false,
+          "items": [
+            "",
+            "Service"
+          ],
+          "codedata": {
+            "inListenerInit": false,
+            "isBasePath": false,
+            "inDisplayAnnotation": false,
+            "type": "SERVICE_TYPE"
+          },
+          "addNewButton": false
+        }
+      },
+      "functions": []
+    }
+  }
+}

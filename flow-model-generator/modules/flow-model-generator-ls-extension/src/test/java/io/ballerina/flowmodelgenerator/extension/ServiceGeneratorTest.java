@@ -54,7 +54,8 @@ public class ServiceGeneratorTest extends AbstractLSTest {
                 {Path.of("config1.json")},
                 {Path.of("config2.json")},
                 {Path.of("config3.json")},
-                {Path.of("config4.json")}
+                {Path.of("config4.json")},
+                {Path.of("config5.json")}
         };
     }
 
@@ -72,33 +73,38 @@ public class ServiceGeneratorTest extends AbstractLSTest {
         OpenAPIServiceGenerationRequest request =
                 new OpenAPIServiceGenerationRequest(contractPath.toAbsolutePath().toString(), projectPath,
                         testConfig.name(), testConfig.listeners());
-        JsonObject jsonMap = getResponse(request).getAsJsonObject("textEdits");
-        deleteFolder(project.toFile());
-
-        Map<String, List<TextEdit>> actualTextEdits = gson.fromJson(jsonMap, textEditListType);
 
         boolean assertFailure = false;
-
-        if (actualTextEdits.size() != testConfig.textEdits().size()) {
-            log.info("The number of text edits does not match the expected output.");
-            assertFailure = true;
-        }
-
         Map<String, List<TextEdit>> newMap = new HashMap<>();
-        for (Map.Entry<String, List<TextEdit>> entry : actualTextEdits.entrySet()) {
-            Path fullPath = Paths.get(entry.getKey());
-            String relativePath = configDir.relativize(fullPath).toString();
+        try {
+            JsonObject jsonMap = getResponse(request).getAsJsonObject("textEdits");
+            Map<String, List<TextEdit>> actualTextEdits = gson.fromJson(jsonMap, textEditListType);
 
-            List<TextEdit> textEdits = testConfig.textEdits().get(relativePath.replace("\\", "/"));
-            if (textEdits == null) {
-                log.info("No text edits found for the file: " + relativePath);
-                assertFailure = true;
-            } else if (!assertArray("text edits", entry.getValue(), textEdits)) {
+            if (actualTextEdits.size() != testConfig.textEdits().size()) {
+                log.info("The number of text edits does not match the expected output.");
                 assertFailure = true;
             }
 
-            newMap.put(relativePath, entry.getValue());
+            for (Map.Entry<String, List<TextEdit>> entry : actualTextEdits.entrySet()) {
+                Path fullPath = Paths.get(entry.getKey());
+                String relativePath = configDir.relativize(fullPath).toString();
+
+                List<TextEdit> textEdits = testConfig.textEdits().get(relativePath.replace("\\", "/"));
+                if (textEdits == null) {
+                    log.info("No text edits found for the file: " + relativePath);
+                    assertFailure = true;
+                } else if (!assertArray("text edits", entry.getValue(), textEdits)) {
+                    assertFailure = true;
+                }
+
+                newMap.put(relativePath, entry.getValue());
+            }
+        } catch (Throwable e) {
+            assertFailure = !testConfig.textEdits().isEmpty();
         }
+
+        deleteFolder(project.toFile());
+
         if (assertFailure) {
             TestConfig updatedConfig = new TestConfig(testConfig.contractFile(), newMap, testConfig.name(),
                     testConfig.listeners());

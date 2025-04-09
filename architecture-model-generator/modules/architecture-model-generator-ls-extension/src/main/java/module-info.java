@@ -24,4 +24,5 @@ module io.ballerina.LSExtensions.ProjectDesignService {
     requires com.google.gson;
     requires io.ballerina.tools.api;
     requires io.ballerina.architecturemodelgenerator;
+    requires io.ballerina.parser;
 }

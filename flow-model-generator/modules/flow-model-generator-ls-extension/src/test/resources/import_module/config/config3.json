@@ -1,0 +1,8 @@
+{
+  "description": "",
+  "filePath": "source.bal",
+  "importStatement": "import ballerina/data.jsondata;\n",
+  "expression": "jsondata:f",
+  "prefix": "jsondata",
+  "moduleId": "ballerina/data.jsondata:1.1.0"
+}

@@ -59,8 +59,6 @@ public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
     public static final String PARAMETERS_LABEL = "Parameters";
     public static final String PARAMETERS_DOC = "Function parameters";
 
-    private static final String FUNCTIONS_BAL = "functions.bal";
-
     private static final String BALLERINAX_ORG = "ballerinax";
     private static final String NP_PACKAGE = "np";
 
@@ -150,7 +148,7 @@ public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
         FlowNode flowNode = sourceBuilder.flowNode;
 
         // Write the function name
-        Optional<Property> property = flowNode.getProperty(Property.FUNCTION_NAME_KEY);
+        Optional<Property> property = sourceBuilder.getProperty(Property.FUNCTION_NAME_KEY);
         if (property.isEmpty()) {
             throw new IllegalStateException("Function name is not present");
         }
@@ -160,7 +158,7 @@ public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
 
         // Write the context parameter
         Optional<Property> isModelContextEnabled =
-                flowNode.getProperty(NaturalFunctions.ENABLE_MODEL_CONTEXT);
+                sourceBuilder.getProperty(NaturalFunctions.ENABLE_MODEL_CONTEXT);
 
         if (isModelContextEnabled.isPresent() && (boolean) isModelContextEnabled.get().value()) {
             sourceBuilder.token().name(NaturalFunctions.MODULE_PREFIXED_CONTEXT_TYPE +
@@ -169,7 +167,7 @@ public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
         }
 
         // Write the function parameters
-        Optional<Property> parameters = flowNode.getProperty(Property.PARAMETERS_KEY);
+        Optional<Property> parameters = sourceBuilder.getProperty(Property.PARAMETERS_KEY);
         if (parameters.isPresent() && parameters.get().value() instanceof Map<?, ?> paramMap) {
             List<String> paramList = new ArrayList<>();
             for (Object obj : paramMap.values()) {
@@ -191,7 +189,7 @@ public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
         }
 
         // Write prompt parameter
-        Optional<Property> promptProperty = flowNode.getProperty(NaturalFunctions.PROMPT);
+        Optional<Property> promptProperty = sourceBuilder.getProperty(NaturalFunctions.PROMPT);
         String defaultValue = promptProperty.map(value -> " = " + value.value().toString()).orElse("");
         sourceBuilder.token().name(NaturalFunctions.MODULE_PREFIXED_PROMPT_TYPE + " "
                 + NaturalFunctions.PROMPT + defaultValue);
@@ -199,7 +197,7 @@ public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
         sourceBuilder.token().keyword(SyntaxKind.CLOSE_PAREN_TOKEN);
 
         // Write the return type
-        Optional<Property> returnType = flowNode.getProperty(Property.TYPE_KEY);
+        Optional<Property> returnType = sourceBuilder.getProperty(Property.TYPE_KEY);
         if (returnType.isPresent() && !returnType.get().value().toString().isEmpty()) {
             if (returnType.get().value().toString().contains("error")) {
                 sourceBuilder.token()
@@ -225,11 +223,12 @@ public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
                         .semicolon()
                         .skipFormatting()
                         .stepOut()
-                    .textEdit(false, FUNCTIONS_BAL);
+                    .textEdit(SourceBuilder.SourceKind.DECLARATION)
+                    .acceptImport();
         } else {
             sourceBuilder
                     .token().skipFormatting().stepOut()
-                    .textEdit(false);
+                    .textEdit();
         }
         return sourceBuilder.build();
     }

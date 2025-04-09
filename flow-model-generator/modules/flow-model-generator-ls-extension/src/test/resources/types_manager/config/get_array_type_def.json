@@ -82,9 +82,9 @@
         },
         "valueType": "STRING",
         "value": "",
-        "optional": false,
-        "editable": false,
-        "advanced": false,
+        "optional": true,
+        "editable": true,
+        "advanced": true,
         "hidden": false
       }
     },
@@ -238,9 +238,9 @@
           },
           "valueType": "STRING",
           "value": "",
-          "optional": false,
-          "editable": false,
-          "advanced": false,
+          "optional": true,
+          "editable": true,
+          "advanced": true,
           "hidden": false
         }
       },

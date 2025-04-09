@@ -79,8 +79,7 @@
         "hidden": false,
         "codedata": {
           "kind": "REQUIRED",
-          "originalName": "sqlQuery",
-          "importStatements": "ballerina/sql"
+          "originalName": "sqlQuery"
         },
         "typeMembers": [
           {
@@ -89,7 +88,10 @@
             "kind": "OBJECT_TYPE",
             "selected": false
           }
-        ]
+        ],
+        "imports": {
+          "sql": "ballerina/sql"
+        }
       },
       "type": {
         "metadata": {
@@ -103,8 +105,9 @@
         "editable": false,
         "advanced": false,
         "hidden": false,
-        "codedata": {
-          "importStatements": "ballerina/sql"
+        "codedata": {},
+        "imports": {
+          "sql": "ballerina/sql"
         }
       },
       "variable": {
@@ -117,7 +120,10 @@
         "optional": false,
         "editable": true,
         "advanced": false,
-        "hidden": false
+        "hidden": false,
+        "imports": {
+          "sql": "ballerina/sql"
+        }
       }
     },
     "flags": 0

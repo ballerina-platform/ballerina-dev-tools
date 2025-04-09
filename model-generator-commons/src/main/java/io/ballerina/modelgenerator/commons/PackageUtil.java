@@ -18,7 +18,12 @@
 
 package io.ballerina.modelgenerator.commons;
 
+import io.ballerina.centralconnector.CentralAPI;
+import io.ballerina.centralconnector.RemoteCentral;
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.projects.Module;
+import io.ballerina.projects.ModuleId;
+import io.ballerina.projects.ModuleName;
 import io.ballerina.projects.Package;
 import io.ballerina.projects.PackageDescriptor;
 import io.ballerina.projects.PackageName;
@@ -34,9 +39,11 @@ import io.ballerina.projects.environment.ResolutionOptions;
 import io.ballerina.projects.environment.ResolutionRequest;
 import io.ballerina.projects.environment.ResolutionResponse;
 import io.ballerina.projects.repos.TempDirCompilationCache;
+import org.ballerinalang.langserver.LSClientLogger;
 import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
+import org.eclipse.lsp4j.MessageType;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -57,6 +64,10 @@ public class PackageUtil {
 
     private static final String BALLERINA_HOME_PROPERTY = "ballerina.home";
     private static final BuildProject SAMPLE_PROJECT = getSampleProject();
+
+    private static final String PULLING_THE_MODULE_MESSAGE = "Pulling the module '%s' from the central";
+    private static final String MODULE_PULLING_FAILED_MESSAGE = "Failed to pull the module: %s";
+    private static final String MODULE_PULLING_SUCCESS_MESSAGE = "Successfully pulled the module: %s";
 
     public static BuildProject getSampleProject() {
         // Obtain the Ballerina distribution path
@@ -126,7 +137,7 @@ public class PackageUtil {
         Collection<ResolutionResponse> resolutionResponses =
                 buildProject.projectEnvironmentContext().getService(PackageResolver.class)
                         .resolvePackages(Collections.singletonList(resolutionRequest),
-                                ResolutionOptions.builder().setOffline(false).build());
+                                ResolutionOptions.builder().setOffline(false).setSticky(false).build());
         Optional<ResolutionResponse> resolutionResponse = resolutionResponses.stream().findFirst();
         if (resolutionResponse.isEmpty()) {
             return Optional.empty();
@@ -208,11 +219,13 @@ public class PackageUtil {
      * @param filePath         the path to the file from which the project should be loaded
      * @param orgName          the organization name that must match the package descriptor's organization value
      * @param packageName      the package name that must match the package descriptor's name value
+     * @param modulePartName   the module part name that must match the package descriptor's submodule part name value
      * @param version          the version that must match the package descriptor's version value
      * @return an Optional containing the semantic model
      */
     public static Optional<SemanticModel> getSemanticModelIfMatched(WorkspaceManager workspaceManager, Path filePath,
                                                                     String orgName, String packageName,
+                                                                    String modulePartName,
                                                                     String version) {
         try {
             Project project = workspaceManager.loadProject(filePath);
@@ -221,12 +234,59 @@ public class PackageUtil {
             if (descriptor.org().value().equals(orgName) &&
                     descriptor.name().value().equals(packageName) &&
                     descriptor.version().value().toString().equals(version)) {
+                ModuleId moduleId = currentPackage.getDefaultModule().moduleId();
+                if (Objects.nonNull(modulePartName) && !modulePartName.isEmpty()) {
+                    ModuleName subModuleName = ModuleName.from(PackageName.from(packageName), modulePartName);
+                    Module module = currentPackage.module(subModuleName);
+                    if (module == null) {
+                        return Optional.empty();
+                    }
+                    moduleId = module.moduleId();
+                }
                 return Optional.of(currentPackage
                         .getCompilation()
-                        .getSemanticModel(currentPackage.getDefaultModule().moduleId()));
+                        .getSemanticModel(moduleId));
             }
         } catch (WorkspaceDocumentException | EventSyncException e) {
         }
         return Optional.empty();
+    }
+
+    public static ModuleInfo fetchVersionIfNotExists(ModuleInfo moduleInfo) {
+        if (moduleInfo.version() == null) {
+            CentralAPI centralApi = RemoteCentral.getInstance();
+            return new ModuleInfo(moduleInfo.org(), moduleInfo.packageName(), moduleInfo.moduleName(),
+                    centralApi.latestPackageVersion(moduleInfo.org(), moduleInfo.packageName()));
+        }
+        return moduleInfo;
+    }
+
+    public static Optional<Package> pullModuleAndNotify(LSClientLogger lsClientLogger, ModuleInfo moduleInfo) {
+        ModuleInfo completeModuleInfo = fetchVersionIfNotExists(moduleInfo);
+        Optional<Package> modulePackage;
+        if (PackageUtil.isModuleUnresolved(completeModuleInfo.org(), completeModuleInfo.packageName(),
+                completeModuleInfo.version())) {
+            notifyClient(lsClientLogger, completeModuleInfo, MessageType.Info, PULLING_THE_MODULE_MESSAGE);
+            modulePackage = getModulePackage(SAMPLE_PROJECT, completeModuleInfo.org(), completeModuleInfo.packageName(),
+                    completeModuleInfo.version());
+            if (modulePackage.isEmpty()) {
+                notifyClient(lsClientLogger, completeModuleInfo, MessageType.Error, MODULE_PULLING_FAILED_MESSAGE);
+            } else {
+                notifyClient(lsClientLogger, completeModuleInfo, MessageType.Info, MODULE_PULLING_SUCCESS_MESSAGE);
+            }
+        } else {
+            modulePackage = getModulePackage(SAMPLE_PROJECT, completeModuleInfo.org(), completeModuleInfo.packageName(),
+                    completeModuleInfo.version());
+        }
+        return modulePackage;
+    }
+
+    private static void notifyClient(LSClientLogger lsClientLogger, ModuleInfo moduleInfo, MessageType messageType,
+                                     String message) {
+        if (lsClientLogger != null) {
+            String signature =
+                    String.format("%s/%s:%s", moduleInfo.org(), moduleInfo.packageName(), moduleInfo.version());
+            lsClientLogger.notifyClient(messageType, String.format(message, signature));
+        }
     }
 }

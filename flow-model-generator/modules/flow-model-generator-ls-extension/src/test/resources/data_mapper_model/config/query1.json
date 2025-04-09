@@ -1,0 +1,167 @@
+{
+  "source": "query1.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "69725",
+    "metadata": {
+      "label": "Declare Variable",
+      "description": "Assign a value to a variable"
+    },
+    "codedata": {
+      "node": "VARIABLE",
+      "lineRange": {
+        "fileName": "main.bal",
+        "startLine": {
+          "line": 21,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 26,
+          "offset": 6
+        }
+      },
+      "sourceCode": "Person p = {\n        contactDetails: {\n            phoneNumbers: from var secondaryPhonesItem in u.info.secondaryPhones\n                select secondaryPhonesItem\n        }\n    };"
+    },
+    "returning": false,
+    "properties": {
+      "expression": {
+        "metadata": {
+          "label": "Expression",
+          "description": "Initialize with value"
+        },
+        "valueType": "EXPRESSION",
+        "value": "{\n        contactDetails: {\n            phoneNumbers: from var secondaryPhonesItem in u.info.secondaryPhones\n                select secondaryPhonesItem\n        }\n    }",
+        "optional": true,
+        "editable": true,
+        "advanced": false,
+        "hidden": false
+      },
+      "variable": {
+        "metadata": {
+          "label": "Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "p",
+        "optional": false,
+        "editable": false,
+        "advanced": false,
+        "hidden": false,
+        "codedata": {
+          "lineRange": {
+            "fileName": "main.bal",
+            "startLine": {
+              "line": 38,
+              "offset": 11
+            },
+            "endLine": {
+              "line": 38,
+              "offset": 12
+            }
+          }
+        }
+      },
+      "type": {
+        "metadata": {
+          "label": "Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "Person",
+        "placeholder": "var",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "hidden": false,
+        "codedata": {}
+      }
+    },
+    "flags": 0
+  },
+  "propertyKey": "expression",
+  "position": {
+    "line": 21,
+    "offset": 4
+  },
+  "model": {
+    "inputs": [
+      {
+        "fields": [
+          {
+            "fields": [
+              {
+                "member": {
+                  "id": "u.info.secondaryPhones",
+                  "typeName": "string",
+                  "kind": "string"
+                },
+                "id": "u.info.secondaryPhones",
+                "variableName": "secondaryPhones",
+                "typeName": "string[]",
+                "kind": "array"
+              },
+              {
+                "member": {
+                  "id": "u.info.emails",
+                  "typeName": "string",
+                  "kind": "string"
+                },
+                "id": "u.info.emails",
+                "variableName": "emails",
+                "typeName": "string[]",
+                "kind": "array"
+              },
+              {
+                "member": {
+                  "member": {
+                    "id": "u.info.addresses",
+                    "typeName": "string",
+                    "kind": "string"
+                  },
+                  "id": "u.info.addresses",
+                  "typeName": "string[]",
+                  "kind": "array"
+                },
+                "id": "u.info.addresses",
+                "variableName": "addresses",
+                "typeName": "string[][]",
+                "kind": "array"
+              }
+            ],
+            "id": "u.info",
+            "variableName": "info",
+            "typeName": "Info",
+            "kind": "record"
+          }
+        ],
+        "id": "u",
+        "variableName": "u",
+        "typeName": "User",
+        "kind": "record",
+        "category": "variable"
+      },
+      {
+        "id": "secondaryPhonesItem",
+        "typeName": "string",
+        "kind": "string"
+      }
+    ],
+    "output": {
+      "id": "phoneNumbers",
+      "typeName": "string",
+      "kind": "string"
+    },
+    "mappings": [
+      {
+        "output": "phoneNumbers",
+        "inputs": [
+          "secondaryPhonesItem"
+        ],
+        "expression": "secondaryPhonesItem\n",
+        "diagnostics": [],
+        "elements": []
+      }
+    ]
+  },
+  "targetField": "p.contactDetails.phoneNumbers"
+}

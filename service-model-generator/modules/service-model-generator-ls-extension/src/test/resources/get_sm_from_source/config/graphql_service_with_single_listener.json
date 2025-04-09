@@ -42,7 +42,8 @@
         "optional": false,
         "advanced": false,
         "items": [
-          "graphQLListener"
+          "graphQLListener",
+          "(+) Create and use a graphql listener with default configurations"
         ],
         "codedata": {
           "inListenerInit": false,
@@ -50,7 +51,8 @@
           "inDisplayAnnotation": false,
           "type": "LISTENER"
         },
-        "addNewButton": true
+        "addNewButton": true,
+        "imports": {}
       },
       "serviceType": {
         "metadata": {
@@ -76,7 +78,8 @@
           "inDisplayAnnotation": false,
           "type": "SERVICE_TYPE"
         },
-        "addNewButton": false
+        "addNewButton": false,
+        "imports": {}
       },
       "basePath": {
         "metadata": {
@@ -99,39 +102,8 @@
           "inDisplayAnnotation": false,
           "type": "SERVICE_BASE_PATH"
         },
-        "addNewButton": false
-      },
-      "annotServiceConfig": {
-        "metadata": {
-          "label": "Service Configuration",
-          "description": "Configurations for the Graphql service"
-        },
-        "enabled": true,
-        "editable": true,
-        "value": "{\n    introspection: false\n}",
-        "values": [],
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "graphql:GraphqlServiceConfig",
-        "isType": false,
-        "placeholder": "{}",
-        "optional": true,
-        "advanced": true,
-        "codedata": {
-          "inListenerInit": false,
-          "isBasePath": false,
-          "inDisplayAnnotation": false,
-          "type": "ANNOTATION_ATTACHMENT",
-          "originalName": "ServiceConfig"
-        },
         "addNewButton": false,
-        "typeMembers": [
-          {
-            "type": "GraphqlServiceConfig",
-            "packageInfo": "ballerina:graphql:1.16.0",
-            "kind": "RECORD_TYPE",
-            "selected": true
-          }
-        ]
+        "imports": {}
       }
     },
     "codedata": {
@@ -156,19 +128,20 @@
           "label": "",
           "description": ""
         },
-        "qualifiers": [],
         "kind": "DEFAULT",
         "accessor": {
           "metadata": {
             "label": "Accessor",
             "description": "The accessor of the function"
           },
-          "enabled": false,
-          "editable": false,
+          "enabled": true,
+          "editable": true,
+          "valueType": "IDENTIFIER",
           "isType": false,
           "optional": false,
           "advanced": false,
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "name": {
           "metadata": {
@@ -182,7 +155,8 @@
           "isType": false,
           "optional": false,
           "advanced": false,
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "parameters": [],
         "schema": {
@@ -195,10 +169,11 @@
               "enabled": true,
               "editable": true,
               "valueType": "TYPE",
-              "isType": false,
+              "isType": true,
               "optional": false,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "name": {
               "metadata": {
@@ -211,7 +186,8 @@
               "isType": false,
               "optional": false,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "defaultValue": {
               "metadata": {
@@ -224,15 +200,17 @@
               "isType": false,
               "optional": true,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "enabled": true,
-            "editable": false,
+            "editable": true,
             "optional": false,
             "advanced": false
           }
         },
         "returnType": {
+          "hasError": false,
           "metadata": {
             "label": "Return Type",
             "description": "The return type of the function"
@@ -242,13 +220,14 @@
           "value": "error?",
           "valueType": "TYPE",
           "isType": false,
-          "optional": false,
+          "optional": true,
           "advanced": false,
           "addNewButton": false
         },
         "enabled": true,
         "optional": false,
         "editable": false,
+        "canAddParameters": true,
         "codedata": {
           "lineRange": {
             "fileName": "main.bal",
@@ -264,14 +243,14 @@
           "inListenerInit": false,
           "isBasePath": false,
           "inDisplayAnnotation": false
-        }
+        },
+        "annotations": {}
       },
       {
         "metadata": {
           "label": "Graphql Query",
           "description": "Graphql Query"
         },
-        "qualifiers": [],
         "kind": "QUERY",
         "accessor": {
           "metadata": {
@@ -279,13 +258,14 @@
             "description": "The accessor of the function"
           },
           "enabled": true,
-          "editable": false,
+          "editable": true,
           "value": "get",
           "valueType": "IDENTIFIER",
           "isType": false,
           "optional": false,
           "advanced": false,
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "name": {
           "metadata": {
@@ -299,7 +279,8 @@
           "isType": false,
           "optional": false,
           "advanced": false,
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "parameters": [
           {
@@ -320,7 +301,8 @@
               "isType": true,
               "optional": false,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "name": {
               "metadata": {
@@ -334,7 +316,8 @@
               "isType": false,
               "optional": false,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "defaultValue": {
               "metadata": {
@@ -347,10 +330,11 @@
               "isType": false,
               "optional": true,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "enabled": true,
-            "editable": false,
+            "editable": true,
             "optional": false,
             "advanced": false
           }
@@ -365,10 +349,11 @@
               "enabled": true,
               "editable": true,
               "valueType": "TYPE",
-              "isType": false,
+              "isType": true,
               "optional": false,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "name": {
               "metadata": {
@@ -381,7 +366,8 @@
               "isType": false,
               "optional": false,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "defaultValue": {
               "metadata": {
@@ -394,15 +380,17 @@
               "isType": false,
               "optional": true,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "enabled": true,
-            "editable": false,
+            "editable": true,
             "optional": false,
             "advanced": false
           }
         },
         "returnType": {
+          "hasError": false,
           "metadata": {
             "label": "Field Type",
             "description": "The type of the field"
@@ -412,13 +400,14 @@
           "value": "string",
           "valueType": "TYPE",
           "isType": false,
-          "optional": false,
+          "optional": true,
           "advanced": false,
           "addNewButton": false
         },
         "enabled": true,
         "optional": false,
         "editable": false,
+        "canAddParameters": true,
         "codedata": {
           "lineRange": {
             "fileName": "main.bal",
@@ -434,26 +423,28 @@
           "inListenerInit": false,
           "isBasePath": false,
           "inDisplayAnnotation": false
-        }
+        },
+        "annotations": {}
       },
       {
         "metadata": {
           "label": "Graphql Mutation",
           "description": "Graphql Mutation"
         },
-        "qualifiers": [],
         "kind": "MUTATION",
         "accessor": {
           "metadata": {
             "label": "Accessor",
             "description": "The accessor of the function"
           },
-          "enabled": false,
-          "editable": false,
+          "enabled": true,
+          "editable": true,
+          "valueType": "IDENTIFIER",
           "isType": false,
           "optional": false,
           "advanced": false,
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "name": {
           "metadata": {
@@ -467,7 +458,8 @@
           "isType": false,
           "optional": false,
           "advanced": false,
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "parameters": [
           {
@@ -488,7 +480,8 @@
               "isType": true,
               "optional": false,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "name": {
               "metadata": {
@@ -502,7 +495,8 @@
               "isType": false,
               "optional": false,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "defaultValue": {
               "metadata": {
@@ -515,10 +509,11 @@
               "isType": false,
               "optional": true,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "enabled": true,
-            "editable": false,
+            "editable": true,
             "optional": false,
             "advanced": false
           },
@@ -540,7 +535,8 @@
               "isType": true,
               "optional": false,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "name": {
               "metadata": {
@@ -554,7 +550,8 @@
               "isType": false,
               "optional": false,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "defaultValue": {
               "metadata": {
@@ -567,10 +564,11 @@
               "isType": false,
               "optional": true,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "enabled": true,
-            "editable": false,
+            "editable": true,
             "optional": false,
             "advanced": false
           }
@@ -585,10 +583,11 @@
               "enabled": true,
               "editable": true,
               "valueType": "TYPE",
-              "isType": false,
+              "isType": true,
               "optional": false,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "name": {
               "metadata": {
@@ -601,7 +600,8 @@
               "isType": false,
               "optional": false,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "defaultValue": {
               "metadata": {
@@ -614,15 +614,17 @@
               "isType": false,
               "optional": true,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "enabled": true,
-            "editable": false,
+            "editable": true,
             "optional": false,
             "advanced": false
           }
         },
         "returnType": {
+          "hasError": false,
           "metadata": {
             "label": "Field Type",
             "description": "The type of the field"
@@ -632,13 +634,14 @@
           "value": "Profile|error",
           "valueType": "TYPE",
           "isType": false,
-          "optional": false,
+          "optional": true,
           "advanced": false,
           "addNewButton": false
         },
         "enabled": true,
         "optional": false,
         "editable": false,
+        "canAddParameters": true,
         "codedata": {
           "lineRange": {
             "fileName": "main.bal",
@@ -654,14 +657,14 @@
           "inListenerInit": false,
           "isBasePath": false,
           "inDisplayAnnotation": false
-        }
+        },
+        "annotations": {}
       },
       {
         "metadata": {
           "label": "Graphql Subscription",
           "description": "Graphql Subscription"
         },
-        "qualifiers": [],
         "kind": "SUBSCRIPTION",
         "accessor": {
           "metadata": {
@@ -669,13 +672,14 @@
             "description": "The accessor of the function"
           },
           "enabled": true,
-          "editable": false,
+          "editable": true,
           "value": "subscribe",
           "valueType": "IDENTIFIER",
           "isType": false,
           "optional": false,
           "advanced": false,
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "name": {
           "metadata": {
@@ -689,7 +693,8 @@
           "isType": false,
           "optional": false,
           "advanced": false,
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "parameters": [],
         "schema": {
@@ -702,10 +707,11 @@
               "enabled": true,
               "editable": true,
               "valueType": "TYPE",
-              "isType": false,
+              "isType": true,
               "optional": false,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "name": {
               "metadata": {
@@ -718,7 +724,8 @@
               "isType": false,
               "optional": false,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "defaultValue": {
               "metadata": {
@@ -731,15 +738,17 @@
               "isType": false,
               "optional": true,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "enabled": true,
-            "editable": false,
+            "editable": true,
             "optional": false,
             "advanced": false
           }
         },
         "returnType": {
+          "hasError": false,
           "metadata": {
             "label": "Field Type",
             "description": "The type of the field"
@@ -749,13 +758,14 @@
           "value": "stream<string, error?>",
           "valueType": "TYPE",
           "isType": false,
-          "optional": false,
+          "optional": true,
           "advanced": false,
           "addNewButton": false
         },
         "enabled": true,
         "optional": false,
         "editable": false,
+        "canAddParameters": true,
         "codedata": {
           "lineRange": {
             "fileName": "main.bal",
@@ -771,7 +781,8 @@
           "inListenerInit": false,
           "isBasePath": false,
           "inDisplayAnnotation": false
-        }
+        },
+        "annotations": {}
       }
     ]
   }

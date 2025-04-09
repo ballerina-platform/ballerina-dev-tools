@@ -965,5 +965,5 @@
     "isRestType": false,
     "selected": true
   },
-  "output": "{tokenUrl: \"\", clientId: \"\", clientSecret: \"\", credentialBearer: \"POST_BODY_BEARER\"}"
+  "output": "{\n    tokenUrl: \"\",\n    clientId: \"\",\n    clientSecret: \"\",\n    credentialBearer: \"POST_BODY_BEARER\"\n}"
 }

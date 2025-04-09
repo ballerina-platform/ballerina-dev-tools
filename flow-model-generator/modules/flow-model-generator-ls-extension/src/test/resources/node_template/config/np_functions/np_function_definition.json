@@ -23,6 +23,7 @@
           "description": "Name of the natural function"
         },
         "valueType": "IDENTIFIER",
+        "valueTypeConstraint": "Global",
         "value": "naturalFunction",
         "optional": false,
         "editable": true,
@@ -74,6 +75,18 @@
               "valueType": "IDENTIFIER",
               "value": "",
               "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "parameterDescription": {
+              "metadata": {
+                "label": "Description",
+                "description": "Description of the parameter"
+              },
+              "valueType": "STRING",
+              "value": "",
+              "optional": true,
               "editable": true,
               "advanced": false,
               "hidden": false

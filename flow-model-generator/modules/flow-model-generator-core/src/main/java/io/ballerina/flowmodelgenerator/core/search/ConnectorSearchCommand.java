@@ -70,6 +70,10 @@ public class ConnectorSearchCommand extends SearchCommand {
     private static final Set<String> AGENT_SUPPORT_CONNECTORS = LocalIndexCentral.getInstance()
             .readJsonResource(AGENT_SUPPORT_CONNECTORS_JSON, AGENT_SUPPORT_CONNECTORS_LIST_TYPE);
     public static final String IS_AGENT_SUPPORT = "isAgentSupport";
+    public static final String CALLER = "Caller";
+    public static final String CLIENT = "Client";
+    public static final String GRPC = "grpc";
+    public static final String PERSIST = "persist";
 
     public ConnectorSearchCommand(Project project, LineRange position, Map<String, String> queryMap) {
         super(project, position, queryMap);
@@ -84,7 +88,10 @@ public class ConnectorSearchCommand extends SearchCommand {
         Map<String, List<SearchResult>> categories = fetchPopularItems();
         for (Map.Entry<String, List<SearchResult>> entry : categories.entrySet()) {
             Category.Builder categoryBuilder = rootBuilder.stepIn(entry.getKey(), null, null);
-            entry.getValue().forEach(searchResult -> categoryBuilder.node(generateAvailableNode(searchResult)));
+            entry.getValue().stream()
+                    .filter(searchResult -> !searchResult.name().equals(CALLER)
+                            && !searchResult.packageInfo().name().equals(GRPC))
+                    .forEach(searchResult -> categoryBuilder.node(generateAvailableNode(searchResult)));
         }
 
         return rootBuilder.build().items();
@@ -96,7 +103,11 @@ public class ConnectorSearchCommand extends SearchCommand {
         localConnectors.forEach(connector -> rootBuilder.node(generateAvailableNode(connector, true)));
 
         List<SearchResult> searchResults = dbManager.searchConnectors(query, limit, offset);
-        searchResults.forEach(searchResult -> rootBuilder.node(generateAvailableNode(searchResult)));
+        searchResults.stream()
+                .filter(searchResult -> !searchResult.name().equals(CALLER)
+                        && !searchResult.packageInfo().name().equals(GRPC)
+                        && !searchResult.packageInfo().name().startsWith(PERSIST))
+                .forEach(searchResult -> rootBuilder.node(generateAvailableNode(searchResult)));
 
         return rootBuilder.build().items();
     }
@@ -144,6 +155,9 @@ public class ConnectorSearchCommand extends SearchCommand {
         String connectorName = searchResult.name();
         String rawPackageName = packageInfo.name();
         String packageName = CONNECTOR_NAME_MAP.getOrDefault(rawPackageName, getLastPackagePrefix(rawPackageName));
+        if (connectorName.equals(CLIENT)) {
+            return packageName;
+        }
         return packageName + " " + connectorName;
     }
 
@@ -182,7 +196,7 @@ public class ConnectorSearchCommand extends SearchCommand {
                 }
                 SearchResult searchResult = SearchResult.from(id.orgName(),
                         id.moduleName().substring(id.packageName().length() + 1), id.version(),
-                        classSymbol.getName().orElse("Client"), doc);
+                        classSymbol.getName().orElse(CLIENT), doc);
                 localConnections.add(searchResult);
             }
         }

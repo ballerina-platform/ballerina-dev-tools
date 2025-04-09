@@ -1,0 +1,96 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "53877",
+    "metadata": {
+      "label": "fromString",
+      "description": "Returns the decimal value represented by a string.\n",
+      "icon": ""
+    },
+    "codedata": {
+      "node": "FUNCTION_CALL",
+      "org": "ballerina",
+      "module": "lang.decimal",
+      "symbol": "fromString",
+      "version": "0.0.0",
+      "lineRange": {
+        "fileName": "function_call.bal",
+        "startLine": {
+          "line": 22,
+          "offset": 8
+        },
+        "endLine": {
+          "line": 22,
+          "offset": 61
+        }
+      }
+    },
+    "returning": false,
+    "properties": {
+      "checkError": {
+        "metadata": {
+          "label": "Check function call error",
+          "description": "Check function call error"
+        },
+        "valueType": "EXPRESSION",
+        "value": true,
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "v": {
+        "metadata": {
+          "label": "v",
+          "description": "Source value\n"
+        },
+        "valueType": "EXPRESSION",
+        "value": "\"11.11\"",
+        "optional": false,
+        "editable": true,
+        "codedata": {
+          "kind": "REQUIRED",
+          "originalName": "v"
+        }
+      },
+      "variable": {
+        "metadata": {
+          "label": "Data variable",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "d",
+        "optional": false,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Data type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "decimal",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 1
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 22,
+            "character": 8
+          },
+          "end": {
+            "line": 22,
+            "character": 61
+          }
+        },
+        "newText": "decimal d = check decimal:fromString(\"11.11\");"
+      }
+    ]
+  }
+}

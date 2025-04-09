@@ -38,6 +38,7 @@ import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.modelgenerator.commons.CommonUtils;
+import io.ballerina.modelgenerator.commons.PackageUtil;
 import io.ballerina.openapi.core.generators.common.GeneratorUtils;
 import io.ballerina.openapi.core.generators.common.SingleFileGenerator;
 import io.ballerina.openapi.core.generators.common.TypeHandler;
@@ -46,6 +47,7 @@ import io.ballerina.openapi.core.generators.common.model.Filter;
 import io.ballerina.openapi.core.generators.common.model.GenSrcFile;
 import io.ballerina.openapi.core.generators.service.ServiceGenerationHandler;
 import io.ballerina.openapi.core.generators.service.model.OASServiceMetadata;
+import io.ballerina.projects.DiagnosticResult;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.DocumentConfig;
 import io.ballerina.projects.DocumentId;
@@ -54,6 +56,7 @@ import io.ballerina.projects.ModuleId;
 import io.ballerina.projects.ModuleName;
 import io.ballerina.projects.Package;
 import io.ballerina.projects.Project;
+import io.ballerina.projects.directory.BuildProject;
 import io.ballerina.tools.diagnostics.Diagnostic;
 import io.ballerina.tools.diagnostics.DiagnosticSeverity;
 import io.ballerina.tools.text.LinePosition;
@@ -72,6 +75,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -118,8 +122,24 @@ public class OpenApiServiceGenerator {
             WorkspaceDocumentException, EventSyncException {
         Filter filter = new Filter(new ArrayList<>(), new ArrayList<>());
 
+        OpenAPI openAPIDef = GeneratorUtils.normalizeOpenAPI(oAContractPath, false, false);
+        if (openAPIDef.getInfo() == null) {
+            throw new BallerinaOpenApiException("Info section of the definition file cannot be empty/null: " +
+                    oAContractPath);
+        }
+
+        String name = typeName;
+        if (name == null || name.isEmpty()) {
+            String[] types = openAPIDef.getInfo().getTitle().trim().split(" ");
+            StringBuilder serviceTypeName = new StringBuilder();
+            for (String type : types) {
+                serviceTypeName.append(type.substring(0, 1).toUpperCase(Locale.ROOT)).append(type.substring(1));
+            }
+            name = serviceTypeName.toString();
+        }
+
         List<Diagnostic> diagnostics = new ArrayList<>();
-        GenSrcFile serviceTypeFile = generateServiceType(oAContractPath, typeName, filter, diagnostics);
+        GenSrcFile serviceTypeFile = generateServiceType(openAPIDef, name, filter, diagnostics);
         List<String> errorMessages = new ArrayList<>();
         for (Diagnostic diagnostic : diagnostics) {
             DiagnosticSeverity severity = diagnostic.diagnosticInfo().severity();
@@ -127,6 +147,22 @@ public class OpenApiServiceGenerator {
                 errorMessages.add(diagnostic.message());
             }
         }
+        BuildProject sampleProject = PackageUtil.getSampleProject();
+        for (DocumentId documentId : sampleProject.currentPackage().getDefaultModule().documentIds()) {
+            Document document = sampleProject.currentPackage().getDefaultModule().document(documentId);
+            try {
+                Document apply = document.modify().withContent(serviceTypeFile.getContent()).apply();
+                DiagnosticResult diagnosticResult =
+                        apply.module().packageInstance().getCompilation().diagnosticResult();
+                if (diagnosticResult.hasErrors()) {
+                    throw new BallerinaOpenApiException("Error occurred while generating the service type: " +
+                            diagnosticResult.diagnostics());
+                }
+            } catch (Throwable e) {
+                throw new BallerinaOpenApiException(e.getMessage());
+            }
+        }
+
 
         if (!errorMessages.isEmpty()) {
             StringBuilder sb = new StringBuilder();
@@ -141,8 +177,8 @@ public class OpenApiServiceGenerator {
         Project project = this.workspaceManager.loadProject(mainFile);
         Optional<Document> document = this.workspaceManager.document(mainFile);
         if (document.isPresent()) {
-            String serviceImplContent = genServiceImplementation(serviceTypeFile, typeName, listeners, project,
-                    mainFile);
+            String serviceImplContent = genServiceImplementation(serviceTypeFile, name, listeners,
+                    project, mainFile);
             ModulePartNode modulePartNode = document.get().syntaxTree().rootNode();
             LinePosition startPos = LinePosition.from(modulePartNode.lineRange().endLine().line() + 1, 0);
             textEditsMap.put(mainFile, List.of(new TextEdit(CommonUtils.toRange(startPos), serviceImplContent)));
@@ -152,13 +188,9 @@ public class OpenApiServiceGenerator {
         return gson.toJsonTree(textEditsMap);
     }
 
-    public GenSrcFile generateServiceType(Path openAPI, String typeName, Filter filter, List<Diagnostic> diagnostics)
-            throws IOException, FormatterException, BallerinaOpenApiException {
-        OpenAPI openAPIDef = GeneratorUtils.normalizeOpenAPI(openAPI, false, false);
-        if (openAPIDef.getInfo() == null) {
-            throw new BallerinaOpenApiException("Info section of the definition file cannot be empty/null: " +
-                    openAPI);
-        }
+    public GenSrcFile generateServiceType(OpenAPI openAPIDef, String typeName, Filter filter,
+                                          List<Diagnostic> diagnostics)
+            throws FormatterException, BallerinaOpenApiException {
 
         checkOpenAPIVersion(openAPIDef);
 
@@ -177,7 +209,7 @@ public class OpenApiServiceGenerator {
         OASServiceMetadata oasServiceMetadata = new OASServiceMetadata.Builder()
                 .withOpenAPI(openAPIDef)
                 .withFilters(filter)
-                .withNullable(true)
+                .withNullable(false)
                 .withGenerateServiceType(false)
                 .withGenerateServiceContract(true)
                 .withGenerateWithoutDataBinding(false)

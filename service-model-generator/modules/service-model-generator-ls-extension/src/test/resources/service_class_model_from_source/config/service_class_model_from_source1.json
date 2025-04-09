@@ -45,7 +45,8 @@
           "isBasePath": false,
           "inDisplayAnnotation": false
         },
-        "addNewButton": false
+        "addNewButton": false,
+        "imports": {}
       }
     },
     "codedata": {
@@ -70,7 +71,6 @@
           "label": "Resource Method",
           "description": "Resource Method"
         },
-        "qualifiers": [],
         "kind": "RESOURCE",
         "accessor": {
           "metadata": {
@@ -84,20 +84,19 @@
           "isType": false,
           "optional": false,
           "advanced": false,
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "name": {
           "metadata": {
-            "label": "Function Name",
-            "description": "The name of the function"
+            "label": "Field Name",
+            "description": "The name of the field"
           },
           "enabled": true,
-          "editable": false,
+          "editable": true,
           "value": "author/[int id]",
           "valueType": "IDENTIFIER",
-          "valueTypeConstraint": "string",
           "isType": false,
-          "placeholder": "",
           "optional": false,
           "advanced": false,
           "codedata": {
@@ -116,7 +115,8 @@
             "isBasePath": false,
             "inDisplayAnnotation": false
           },
-          "addNewButton": false
+          "addNewButton": false,
+          "imports": {}
         },
         "parameters": [],
         "schema": {
@@ -129,10 +129,11 @@
               "enabled": true,
               "editable": true,
               "valueType": "TYPE",
-              "isType": false,
+              "isType": true,
               "optional": false,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "name": {
               "metadata": {
@@ -145,7 +146,8 @@
               "isType": false,
               "optional": false,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "defaultValue": {
               "metadata": {
@@ -158,15 +160,17 @@
               "isType": false,
               "optional": true,
               "advanced": false,
-              "addNewButton": false
+              "addNewButton": false,
+              "imports": {}
             },
             "enabled": true,
-            "editable": false,
+            "editable": true,
             "optional": false,
             "advanced": false
           }
         },
         "returnType": {
+          "hasError": false,
           "metadata": {
             "label": "Field Type",
             "description": "The type of the field"
@@ -183,6 +187,7 @@
         "enabled": true,
         "optional": false,
         "editable": true,
+        "canAddParameters": false,
         "codedata": {
           "lineRange": {
             "fileName": "main.bal",

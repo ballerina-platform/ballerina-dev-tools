@@ -2,5 +2,7 @@
   "description": "",
   "filePath": "source.bal",
   "importStatement": "import ballerina/io;\n",
-  "expression": "io:print"
+  "expression": "io:print",
+  "prefix": "io",
+  "moduleId": "ballerina/io:1.8.0"
 }

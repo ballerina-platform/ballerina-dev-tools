@@ -37,12 +37,20 @@ import io.ballerina.flowmodelgenerator.extension.request.FunctionCallTemplateReq
 import io.ballerina.flowmodelgenerator.extension.request.ImportModuleRequest;
 import io.ballerina.flowmodelgenerator.extension.request.VisibleVariableTypeRequest;
 import io.ballerina.flowmodelgenerator.extension.response.FunctionCallTemplateResponse;
-import io.ballerina.flowmodelgenerator.extension.response.SuccessResponse;
+import io.ballerina.flowmodelgenerator.extension.response.ImportModuleResponse;
 import io.ballerina.flowmodelgenerator.extension.response.VisibleVariableTypesResponse;
 import io.ballerina.modelgenerator.commons.CommonUtils;
+import io.ballerina.modelgenerator.commons.ModuleInfo;
+import io.ballerina.modelgenerator.commons.PackageUtil;
+import io.ballerina.projects.CompilationOptions;
 import io.ballerina.projects.Document;
+import io.ballerina.projects.Module;
+import io.ballerina.projects.ModuleDependency;
+import io.ballerina.projects.ModuleDescriptor;
+import io.ballerina.projects.Project;
 import io.ballerina.tools.text.TextEdit;
 import org.ballerinalang.annotation.JavaSPIService;
+import org.ballerinalang.langserver.LSClientLogger;
 import org.ballerinalang.langserver.commons.LanguageServerContext;
 import org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManagerProxy;
@@ -65,12 +73,16 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
 
     private WorkspaceManagerProxy workspaceManagerProxy;
     private LanguageServer langServer;
+    private LSClientLogger lsClientLogger;
+    private static final CompilationOptions COMPILATION_OPTIONS =
+            CompilationOptions.builder().setSticky(false).setOffline(false).build();
 
     @Override
     public void init(LanguageServer langServer, WorkspaceManagerProxy workspaceManagerProxy,
                      LanguageServerContext serverContext) {
         this.workspaceManagerProxy = workspaceManagerProxy;
         this.langServer = langServer;
+        this.lsClientLogger = LSClientLogger.getInstance(serverContext);
     }
 
     @Override
@@ -110,7 +122,7 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                 Path filePath = Path.of(request.filePath());
                 DocumentContext documentContext = new DocumentContext(workspaceManagerProxy, filePath);
                 return TypesGenerator.getInstance()
-                        .getTypes(documentContext.semanticModel().orElseThrow(), request.typeConstraint());
+                        .getTypes(documentContext, request.typeConstraint(), request.position());
             } catch (Throwable e) {
                 return Either.forRight(new CompletionList());
             }
@@ -167,19 +179,15 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                 String template;
                 switch (request.kind()) {
                     case CURRENT -> template = codedata.symbol();
-                    case IMPORTED -> template = codedata.getModulePrefix() + ":" + codedata.symbol();
-                    case AVAILABLE -> {
-                        String fileUri = CommonUtils.getExprUri(request.filePath());
-                        String importStatement = codedata.getImportSignature();
-                        ExpressionEditorContext expressionEditorContext = new ExpressionEditorContext(
-                                workspaceManagerProxy,
-                                fileUri,
-                                Path.of(request.filePath()),
-                                null);
-                        Optional<TextEdit> importTextEdit = expressionEditorContext.getImport(importStatement);
-                        importTextEdit.ifPresent(
-                                textEdit -> expressionEditorContext.applyTextEdits(List.of(textEdit)));
+                    case IMPORTED -> {
+                        response.setPrefix(codedata.getModulePrefix());
+                        response.setModuleId(codedata.getModuleId());
                         template = codedata.getModulePrefix() + ":" + codedata.symbol();
+                    }
+                    case AVAILABLE -> {
+                        template = codedata.getModulePrefix() + ":" + codedata.symbol();
+                        applyModuleImport(request.filePath(), codedata.getModuleId(), codedata.getImportSignature(),
+                                response);
                     }
                     default -> {
                         response.setError(new IllegalArgumentException("Invalid kind: " + request.kind() +
@@ -202,27 +210,51 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
     }
 
     @JsonRequest
-    public CompletableFuture<SuccessResponse> importModule(ImportModuleRequest request) {
+    public CompletableFuture<ImportModuleResponse> importModule(ImportModuleRequest request) {
         return CompletableFuture.supplyAsync(() -> {
-            SuccessResponse response = new SuccessResponse();
+            ImportModuleResponse response = new ImportModuleResponse();
             try {
-                String fileUri = CommonUtils.getExprUri(request.filePath());
-                ExpressionEditorContext expressionEditorContext = new ExpressionEditorContext(
-                        workspaceManagerProxy,
-                        fileUri,
-                        Path.of(request.filePath()),
-                        null);
                 String importStatement = request.importStatement()
                         .replaceFirst("^import\\s+", "")
-                        .replaceAll(";\\n$", "");
-                Optional<TextEdit> importTextEdit = expressionEditorContext.getImport(importStatement);
-                importTextEdit.ifPresent(textEdit -> expressionEditorContext.applyTextEdits(List.of(textEdit)));
-                response.setSuccess(true);
+                        .replaceAll(";\\n?$", "");
+                applyModuleImport(request.filePath(), importStatement, importStatement, response);
             } catch (Exception e) {
                 response.setError(e);
-                response.setSuccess(false);
             }
             return response;
         });
+    }
+
+    private void applyModuleImport(String filePathString, String moduleId, String importStatement,
+                                   ImportModuleResponse response) {
+        // Generate the module import and apply it
+        String fileUri = CommonUtils.getExprUri(filePathString);
+        Path filePath = Path.of(filePathString);
+        ExpressionEditorContext expressionEditorContext = new ExpressionEditorContext(
+                workspaceManagerProxy,
+                fileUri,
+                filePath,
+                null);
+        Optional<TextEdit> importTextEdit = expressionEditorContext.getImport(importStatement);
+        importTextEdit.ifPresent(textEdit -> {
+            expressionEditorContext.applyTextEdits(List.of(textEdit));
+            PackageUtil.pullModuleAndNotify(lsClientLogger, ModuleInfo.from(moduleId));
+        });
+
+
+        // Get the imported module details
+        String[] split = importStatement.split("/");
+        Project project = expressionEditorContext.documentContext().project().orElseThrow();
+        project.currentPackage().getResolution(COMPILATION_OPTIONS);
+        Module module = expressionEditorContext.documentContext().module().orElseThrow();
+        ModuleDescriptor descriptor = module.moduleDependencies().stream()
+                .map(ModuleDependency::descriptor)
+                .filter(moduleDependencyDescriptor ->
+                        moduleDependencyDescriptor.org().value().equals(split[0]) &&
+                                moduleDependencyDescriptor.packageName().value().equals(split[1]))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Module not found for: " + importStatement));
+        response.setPrefix(CommonUtils.getDefaultModulePrefix(descriptor.packageName().value()));
+        response.setModuleId(CommonUtils.constructModuleId(descriptor));
     }
 }

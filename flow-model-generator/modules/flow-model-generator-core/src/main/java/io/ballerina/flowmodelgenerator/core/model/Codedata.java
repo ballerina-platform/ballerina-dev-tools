@@ -62,6 +62,10 @@ public record Codedata(NodeKind node, String org, String module, String object, 
         return org + "/" + module;
     }
 
+    public String getModuleId() {
+        return org + "/" + module + ":" + version;
+    }
+
     public String getModulePrefix() {
         return module.substring(module.lastIndexOf('.') + 1);
     }
