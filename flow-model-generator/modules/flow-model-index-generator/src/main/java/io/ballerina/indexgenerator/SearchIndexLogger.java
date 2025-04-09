@@ -65,6 +65,14 @@ public class SearchIndexLogger {
         this.totalPackages = totalPackages;
     }
 
+    public void error(String msg) {
+        LOGGER.severe(msg);
+    }
+
+    public void log(String msg) {
+        LOGGER.info(msg);
+    }
+
     public void completion(String packageName) {
         int completed = completedPackages.incrementAndGet();
         LOGGER.info(
