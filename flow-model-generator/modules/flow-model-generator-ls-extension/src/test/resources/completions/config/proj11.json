@@ -1,0 +1,59 @@
+{
+  "description": "",
+  "filePath": "assign.bal",
+  "context": {
+    "expression": "rec.",
+    "startLine": {
+      "line": 13,
+      "offset": 0
+    },
+    "offset": 4,
+    "codedata": {
+      "node": "ASSIGN",
+      "lineRange": {
+        "fileName": "new_data.bal",
+        "startLine": {
+          "line": 1,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 1,
+          "offset": 14
+        }
+      },
+      "sourceCode": "i = 12;"
+    },
+    "property": {
+      "metadata": {
+        "label": "Variable",
+        "description": "Name of the variable/field"
+      },
+      "valueType": "LV_EXPRESSION",
+      "value": "12",
+      "optional": true,
+      "editable": true,
+      "advanced": false
+    }
+  },
+  "completionContext": {
+    "triggerKind": "Invoked"
+  },
+  "completions": [
+    {
+      "label": "id",
+      "kind": "Field",
+      "detail": "string",
+      "sortText": "AA",
+      "insertText": "id",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "value",
+      "kind": "Field",
+      "detail": "int",
+      "sortText": "AA",
+      "insertText": "value",
+      "insertTextFormat": "Snippet"
+    }
+  ]
+}
