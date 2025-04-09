@@ -174,7 +174,6 @@ public class AvailableNodesGenerator {
                         .module(AI_AGENT)
                         .symbol("run")
                         .object("Agent")
-                        .version("1.0.0")
                         .build(),
                 true
         );
