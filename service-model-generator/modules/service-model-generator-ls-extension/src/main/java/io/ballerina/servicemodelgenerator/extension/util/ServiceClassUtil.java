@@ -104,7 +104,7 @@ public class ServiceClassUtil {
         value.setEditable(false);
         value.setValue(className);
         value.setValueType(ServiceModelGeneratorConstants.VALUE_TYPE_IDENTIFIER);
-        value.setValueTypeConstraint("string");
+        value.setValueTypeConstraint("Global");
         value.setPlaceholder("");
         return value;
     }

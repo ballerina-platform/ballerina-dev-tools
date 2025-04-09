@@ -277,7 +277,7 @@
         },
         "enabled": true,
         "optional": false,
-        "editable": true,
+        "editable": false,
         "canAddParameters": false,
         "codedata": {
           "lineRange": {
@@ -410,7 +410,7 @@
         },
         "enabled": false,
         "optional": false,
-        "editable": true,
+        "editable": false,
         "canAddParameters": false
       }
     ]

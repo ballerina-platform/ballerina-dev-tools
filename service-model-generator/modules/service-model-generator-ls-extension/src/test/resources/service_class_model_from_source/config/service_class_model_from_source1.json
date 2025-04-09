@@ -24,7 +24,7 @@
         "editable": false,
         "value": "Book",
         "valueType": "IDENTIFIER",
-        "valueTypeConstraint": "string",
+        "valueTypeConstraint": "Global",
         "isType": false,
         "placeholder": "",
         "optional": false,
