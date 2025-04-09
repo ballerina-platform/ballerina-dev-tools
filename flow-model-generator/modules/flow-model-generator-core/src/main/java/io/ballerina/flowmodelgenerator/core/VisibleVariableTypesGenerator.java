@@ -21,10 +21,13 @@ package io.ballerina.flowmodelgenerator.core;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.ObjectTypeSymbol;
 import io.ballerina.compiler.api.symbols.PathParameterSymbol;
 import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
+import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
+import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.compiler.api.symbols.resourcepath.util.PathSegment;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
@@ -83,11 +86,25 @@ public class VisibleVariableTypesGenerator {
                 String name = variableSymbol.getName().orElse("");
                 Type type = Type.fromSemanticSymbol(variableSymbol);
 
+                // Skip the object types
+                TypeSymbol typeSymbol = variableSymbol.typeDescriptor();
+                TypeSymbol effectiveTypeSymbol;
+                if (typeSymbol instanceof TypeReferenceTypeSymbol typeReferenceTypeSymbol) {
+                    effectiveTypeSymbol = typeReferenceTypeSymbol.typeDescriptor();
+                } else {
+                    effectiveTypeSymbol = typeSymbol;
+                }
+                if (effectiveTypeSymbol instanceof ObjectTypeSymbol) {
+                    continue;
+                }
+
                 if (variableSymbol.qualifiers().contains(Qualifier.CONFIGURABLE)) {
                     addCategoryValue(Category.CONFIGURABLE_CATEGORY, name, type);
                 } else if (functionLineRange.isPresent() &&
                         isInFunctionRange(variableSymbol, functionLineRange.get())) {
                     addCategoryValue(Category.LOCAL_CATEGORY, name, type);
+                } else {
+                    addCategoryValue(Category.MODULE_CATEGORY, name, type);
                 }
             } else if (symbol.kind() == SymbolKind.PARAMETER) {
                 String name = symbol.getName().orElse("");
