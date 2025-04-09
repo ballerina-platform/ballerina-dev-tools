@@ -74,9 +74,17 @@ public class SearchIndexGenerator {
                     typeToken);
             int totalPackages = packagesMap.values().stream().mapToInt(List::size).sum();
             SearchIndexLogger logger = new SearchIndexLogger(totalPackages);
-            ForkJoinPool forkJoinPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors());
-            forkJoinPool.submit(() -> packagesMap.forEach((key, value) -> value.parallelStream().forEach(
-                    packageMetadataInfo -> resolvePackage(buildProject, key, packageMetadataInfo, logger)))).join();
+            try (ForkJoinPool forkJoinPool = new ForkJoinPool(4)) {
+                forkJoinPool.submit(() -> packagesMap.forEach((key, value) -> value.stream().forEach(
+                        packageMetadataInfo -> {
+                            try {
+                                resolvePackage(buildProject, key, packageMetadataInfo, logger);
+                            } catch (Throwable e) {
+                                logger.error("Error processing package: " + packageMetadataInfo.name() + " " +
+                                        e.getMessage());
+                            }
+                        }))).join();
+            }
         } catch (IOException e) {
             LOGGER.severe("Error reading packages JSON file: " + e.getMessage());
         }
@@ -103,18 +111,18 @@ public class SearchIndexGenerator {
             resolvedPackage = Objects.requireNonNull(PackageUtil.getModulePackage(buildProject, org,
                     packageMetadataInfo.name(), packageMetadataInfo.version())).orElseThrow();
         } catch (Throwable e) {
-            LOGGER.severe("Error resolving package: " + packageMetadataInfo.name() + e.getMessage());
+            logger.error("Error resolving package: " + packageMetadataInfo.name() + " " + e.getMessage());
             return;
         }
         PackageDescriptor descriptor = resolvedPackage.descriptor();
 
-        LOGGER.info("Processing package: " + descriptor.name().value());
+        logger.log("Processing package: " + descriptor.name().value());
         int packageId = SearchDatabaseManager.insertPackage(descriptor.org().value(), descriptor.name().value(),
                 descriptor.version().value().toString(), packageMetadataInfo.pullCount(),
                 resolvedPackage.manifest().keywords());
 
         if (packageId == -1) {
-            LOGGER.severe("Error inserting package to database: " + descriptor.name().value());
+            logger.error("Error inserting package to database: " + descriptor.name().value());
             return;
         }
 
@@ -123,7 +131,7 @@ public class SearchIndexGenerator {
             semanticModel = resolvedPackage.getCompilation()
                     .getSemanticModel(resolvedPackage.getDefaultModule().moduleId());
         } catch (Exception e) {
-            LOGGER.severe("Error reading semantic model: " + e.getMessage());
+            logger.error("Error reading semantic model: " + e.getMessage());
             return;
         }
 

@@ -47,7 +47,7 @@ class SearchListGenerator {
     private static final Map<String, List<String>> SKIPPED_PACKAGE_LIST = Map.of(
             "ballerina", List.of("xmldata", "regex", "persist", "persist.sql", "persist.inmemory",
                     "persist.googlesheets", "grpc"),
-            "ballerinax", List.of("persist.redis"));
+            "ballerinax", List.of("persist.redis", "health.hl7v2.utils.v2tofhirr4"));
 
     public static void main(String[] args) {
         List<PackageMetadataInfo> ballerinaPackages = getPackageList("ballerina");
