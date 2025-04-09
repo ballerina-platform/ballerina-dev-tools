@@ -86,7 +86,7 @@
         "addNewButton": false
       },
       "enabled": true,
-      "editable": false,
+      "editable": true,
       "optional": false,
       "advanced": false
     }
