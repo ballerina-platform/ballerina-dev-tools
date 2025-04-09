@@ -43,6 +43,7 @@ import io.ballerina.compiler.syntax.tree.BindingPatternNode;
 import io.ballerina.compiler.syntax.tree.BuiltinSimpleNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.ChildNodeList;
 import io.ballerina.compiler.syntax.tree.DoStatementNode;
+import io.ballerina.compiler.syntax.tree.IdentifierToken;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
@@ -79,6 +80,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
  * Common utility functions used in the project.
@@ -883,5 +885,24 @@ public class CommonUtils {
         idBuilder.append(':').append(descriptor.version());
         
         return idBuilder.toString();
+    }
+
+    /**
+     * Checks whether the given import exists in the given module part node.
+     *
+     * @param node module part node
+     * @param org organization name
+     * @param module module name
+     * @return true if the import exists, false otherwise
+     */
+    public static boolean importExists(ModulePartNode node, String org, String module) {
+        return node.imports().stream().anyMatch(importDeclarationNode -> {
+            String moduleName = importDeclarationNode.moduleName().stream()
+                    .map(IdentifierToken::text)
+                    .collect(Collectors.joining("."));
+            return importDeclarationNode.orgName().isPresent() &&
+                    org.equals(importDeclarationNode.orgName().get().orgName().text()) &&
+                    module.equals(moduleName);
+        });
     }
 }
