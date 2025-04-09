@@ -829,9 +829,6 @@ public final class Utils {
         builder.append("{").append(NEW_LINE);
         if (hasErrorInReturn) {
             builder.append("\tdo {").append(NEW_LINE);
-            if (addContext.equals(FunctionAddContext.HTTP_SERVICE_ADD)) {
-                builder.append("\t\treturn \"Hello, Greetings!\";").append(NEW_LINE);
-            }
             builder.append("\t} on fail error err {")
                     .append(NEW_LINE)
                     .append("\t\t// handle error")
