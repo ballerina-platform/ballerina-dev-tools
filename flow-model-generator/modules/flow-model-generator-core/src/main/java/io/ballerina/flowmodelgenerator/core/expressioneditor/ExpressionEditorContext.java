@@ -201,15 +201,19 @@ public class ExpressionEditorContext {
         LinePosition startLine = LinePosition.from(cursorStartLine.line() + lineOffset, cursorStartLine.offset());
         LinePosition endLineRange = LinePosition.from(startLine.line(),
                 startLine.offset() + statement.length());
-        this.statementLineRange = LineRange.from(documentContext.filePath().toString(), startLine, endLineRange);
+        this.statementLineRange = LineRange.from(getFileName(documentContext.filePath()), startLine, endLineRange);
         return statementLineRange;
     }
 
     public LineRange getExpressionLineRange() {
         LinePosition startLine = info().startLine();
         LinePosition endLine = LinePosition.from(startLine.line(), startLine.offset() + info().expression().length());
-        Path fileName = documentContext.filePath().getFileName();
-        return LineRange.from(fileName == null ? "" : fileName.toString(), startLine, endLine);
+        return LineRange.from(getFileName(documentContext.filePath()), startLine, endLine);
+    }
+
+    private String getFileName(Path filePath) {
+        Path fileName = filePath.getFileName();
+        return fileName == null ? filePath.toString() : fileName.toString();
     }
 
     /**
