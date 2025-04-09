@@ -29,14 +29,14 @@
               "metadata": {
                 "label": "Date",
                 "description": "Date in proleptic Gregorian calendar.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.6.0.png"
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.7.0.png"
               },
               "codedata": {
                 "node": "TYPEDESC",
                 "org": "ballerina",
                 "module": "time",
                 "symbol": "Date",
-                "version": "2.6.0"
+                "version": "2.7.0"
               },
               "enabled": true
             }
@@ -55,30 +55,6 @@
         ]
       },
       "items": [
-        {
-          "metadata": {
-            "label": "gotowebinar",
-            "description": "",
-            "keywords": []
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "DateTimeRangeArr",
-                "description": "",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_gotowebinar_1.5.1.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerinax",
-                "module": "gotowebinar",
-                "symbol": "DateTimeRangeArr",
-                "version": "1.5.1"
-              },
-              "enabled": true
-            }
-          ]
-        },
         {
           "metadata": {
             "label": "asana",
@@ -136,6 +112,30 @@
                 "org": "ballerinax",
                 "module": "worldtimeapi",
                 "symbol": "DateTimeJsonResponse",
+                "version": "1.5.1"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "gotowebinar",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "DateTimeRangeArr",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_gotowebinar_1.5.1.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "gotowebinar",
+                "symbol": "DateTimeRangeArr",
                 "version": "1.5.1"
               },
               "enabled": true
@@ -309,6 +309,84 @@
         },
         {
           "metadata": {
+            "label": "health.fhir.r4",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "DateExtension",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.fhir.r4_6.0.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "health.fhir.r4",
+                "symbol": "DateExtension",
+                "version": "6.0.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "DateTimeExtension",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.fhir.r4_6.0.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "health.fhir.r4",
+                "symbol": "DateTimeExtension",
+                "version": "6.0.0"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "health.fhir.r5",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "DateExtension",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.fhir.r5_0.9.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "health.fhir.r5",
+                "symbol": "DateExtension",
+                "version": "0.9.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "DateTimeExtension",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.fhir.r5_0.9.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "health.fhir.r5",
+                "symbol": "DateTimeExtension",
+                "version": "0.9.0"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
             "label": "microsoft.outlook.calendar",
             "description": "",
             "keywords": []
@@ -333,53 +411,23 @@
         },
         {
           "metadata": {
-            "label": "health.fhir.r4",
+            "label": "hubspot.crm.associations",
             "description": "",
             "keywords": []
           },
           "items": [
             {
               "metadata": {
-                "label": "DateExtension",
+                "label": "DateTime",
                 "description": "",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.fhir.r4_5.2.1.png"
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_hubspot.crm.associations_1.0.0.png"
               },
               "codedata": {
                 "node": "TYPEDESC",
                 "org": "ballerinax",
-                "module": "health.fhir.r4",
-                "symbol": "DateExtension",
-                "version": "5.2.1"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "DateTimeExtension",
-                "description": "",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.fhir.r4_5.2.1.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerinax",
-                "module": "health.fhir.r4",
-                "symbol": "DateTimeExtension",
-                "version": "5.2.1"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "DateSearchParameter",
-                "description": "Date type search parameter information.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.fhir.r4_5.2.1.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerinax",
-                "module": "health.fhir.r4",
-                "symbol": "DateSearchParameter",
-                "version": "5.2.1"
+                "module": "hubspot.crm.associations",
+                "symbol": "DateTime",
+                "version": "1.0.0"
               },
               "enabled": true
             }
@@ -396,14 +444,14 @@
               "metadata": {
                 "label": "DateAccuracyIndicator",
                 "description": "",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.fhir.r4.aubase410_1.2.0.png"
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.fhir.r4.aubase410_2.0.0.png"
               },
               "codedata": {
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "health.fhir.r4.aubase410",
                 "symbol": "DateAccuracyIndicator",
-                "version": "1.2.0"
+                "version": "2.0.0"
               },
               "enabled": true
             },
@@ -411,14 +459,14 @@
               "metadata": {
                 "label": "DateOfArrival",
                 "description": "",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.fhir.r4.aubase410_1.2.0.png"
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.fhir.r4.aubase410_2.0.0.png"
               },
               "codedata": {
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "health.fhir.r4.aubase410",
                 "symbol": "DateOfArrival",
-                "version": "1.2.0"
+                "version": "2.0.0"
               },
               "enabled": true
             }
@@ -508,60 +556,6 @@
                 "version": "1.5.1"
               },
               "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "DateTimeStandardizedParseResponse",
-                "description": "Result of performing a date time parsing",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_cloudmersive.validate_1.5.1.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerinax",
-                "module": "cloudmersive.validate",
-                "symbol": "DateTimeStandardizedParseResponse",
-                "version": "1.5.1"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
-            "label": "postgresql",
-            "description": "",
-            "keywords": []
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "DateRange",
-                "description": "Represents the `Date Range` datatype in PostgreSQL.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_postgresql_1.14.0.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerinax",
-                "module": "postgresql",
-                "symbol": "DateRange",
-                "version": "1.14.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "DateRecordRange",
-                "description": "Represents the `Date (Record) Range` datatype in PostgreSQL.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_postgresql_1.14.0.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerinax",
-                "module": "postgresql",
-                "symbol": "DateRecordRange",
-                "version": "1.14.0"
-              },
-              "enabled": true
             }
           ]
         },
@@ -576,14 +570,14 @@
               "metadata": {
                 "label": "DateOption",
                 "description": "Represents the date option to be validated.",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_constraint_1.6.0.png"
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_constraint_1.7.0.png"
               },
               "codedata": {
                 "node": "TYPEDESC",
                 "org": "ballerina",
                 "module": "constraint",
                 "symbol": "DateOption",
-                "version": "1.6.0"
+                "version": "1.7.0"
               },
               "enabled": true
             },
@@ -591,14 +585,14 @@
               "metadata": {
                 "label": "DateConstraints",
                 "description": "Represents the constraints associated with `Date` type.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_constraint_1.6.0.png"
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_constraint_1.7.0.png"
               },
               "codedata": {
                 "node": "TYPEDESC",
                 "org": "ballerina",
                 "module": "constraint",
                 "symbol": "DateConstraints",
-                "version": "1.6.0"
+                "version": "1.7.0"
               },
               "enabled": true
             }
@@ -615,14 +609,14 @@
               "metadata": {
                 "label": "DateOutParameter",
                 "description": "Represents Date Out Parameter in `sql:ParameterizedCallQuery`.",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_sql_1.15.0.png"
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_sql_1.16.0.png"
               },
               "codedata": {
                 "node": "TYPEDESC",
                 "org": "ballerina",
                 "module": "sql",
                 "symbol": "DateOutParameter",
-                "version": "1.15.0"
+                "version": "1.16.0"
               },
               "enabled": true
             },
@@ -630,13 +624,37 @@
               "metadata": {
                 "label": "DateTimeOutParameter",
                 "description": "Represents DateTime Out Parameter in `sql:ParameterizedCallQuery`.",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_sql_1.15.0.png"
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_sql_1.16.0.png"
               },
               "codedata": {
                 "node": "TYPEDESC",
                 "org": "ballerina",
                 "module": "sql",
                 "symbol": "DateTimeOutParameter",
+                "version": "1.16.0"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "postgresql",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "DateRange",
+                "description": "Represents the `Date Range` datatype in PostgreSQL.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_postgresql_1.15.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "postgresql",
+                "symbol": "DateRange",
                 "version": "1.15.0"
               },
               "enabled": true

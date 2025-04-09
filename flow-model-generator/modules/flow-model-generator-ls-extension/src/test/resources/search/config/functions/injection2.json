@@ -76,14 +76,14 @@
               "metadata": {
                 "label": "hashSha1",
                 "description": "Returns the SHA-1 hash of the given data.\n```ballerina\nstring dataString = \"Hello Ballerina\";\nbyte[] data = dataString.toBytes();\nbyte[] hash = crypto:hashSha1(data);\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_crypto_2.8.0.png"
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_crypto_2.9.0.png"
               },
               "codedata": {
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "crypto",
                 "symbol": "hashSha1",
-                "version": "2.8.0"
+                "version": "2.9.0"
               },
               "enabled": true
             },
@@ -91,14 +91,14 @@
               "metadata": {
                 "label": "hmacSha1",
                 "description": "Returns the HMAC using the SHA-1 hash function of the given data.\n```ballerina\nstring input = \"Hello Ballerina\";\nbyte[] data = input.toBytes();\nstring secret = \"some-secret\";\nbyte[] key = secret.toBytes();\nbyte[] hmac = check crypto:hmacSha1(data, key);\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_crypto_2.8.0.png"
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_crypto_2.9.0.png"
               },
               "codedata": {
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "crypto",
                 "symbol": "hmacSha1",
-                "version": "2.8.0"
+                "version": "2.9.0"
               },
               "enabled": true
             }

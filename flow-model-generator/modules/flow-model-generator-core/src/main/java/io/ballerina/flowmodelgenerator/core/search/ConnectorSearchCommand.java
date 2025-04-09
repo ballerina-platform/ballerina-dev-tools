@@ -89,10 +89,7 @@ public class ConnectorSearchCommand extends SearchCommand {
         Map<String, List<SearchResult>> categories = fetchPopularItems();
         for (Map.Entry<String, List<SearchResult>> entry : categories.entrySet()) {
             Category.Builder categoryBuilder = rootBuilder.stepIn(entry.getKey(), null, null);
-            entry.getValue().stream()
-                    .filter(searchResult -> !searchResult.name().equals(CALLER)
-                            && !searchResult.packageInfo().name().equals(GRPC))
-                    .forEach(searchResult -> categoryBuilder.node(generateAvailableNode(searchResult)));
+            entry.getValue().forEach(searchResult -> categoryBuilder.node(generateAvailableNode(searchResult)));
         }
 
         return rootBuilder.build().items();
@@ -104,11 +101,7 @@ public class ConnectorSearchCommand extends SearchCommand {
         localConnectors.forEach(connector -> rootBuilder.node(generateAvailableNode(connector, true)));
 
         List<SearchResult> searchResults = dbManager.searchConnectors(query, limit, offset);
-        searchResults.stream()
-                .filter(searchResult -> !searchResult.name().equals(CALLER)
-                        && !searchResult.packageInfo().name().equals(GRPC)
-                        && !searchResult.packageInfo().name().startsWith(PERSIST))
-                .forEach(searchResult -> rootBuilder.node(generateAvailableNode(searchResult)));
+        searchResults.forEach(searchResult -> rootBuilder.node(generateAvailableNode(searchResult)));
 
         return rootBuilder.build().items();
     }
@@ -159,7 +152,10 @@ public class ConnectorSearchCommand extends SearchCommand {
         if (connectorName.equals(CLIENT)) {
             return packageName;
         }
-        return packageName + " " + connectorName;
+
+        // TODO: Remove the replacement once a proper solution comes from the index
+        return packageName + " " + (connectorName.endsWith("Client") ?
+                connectorName.substring(0, connectorName.length() - 6) : connectorName);
     }
 
     private static String getLastPackagePrefix(String rawPackageName) {
@@ -168,7 +164,7 @@ public class ConnectorSearchCommand extends SearchCommand {
         return trimmedPackageName.substring(0, 1).toUpperCase(Locale.ROOT) + trimmedPackageName.substring(1);
     }
 
-    private  List<SearchResult> getLocalConnectors() {
+    private List<SearchResult> getLocalConnectors() {
         PackageCompilation compilation = PackageUtil.getCompilation(project);
         Iterable<Module> modules = project.currentPackage().modules();
         List<SearchResult> localConnections = new ArrayList<>();

@@ -29,7 +29,6 @@ import io.ballerina.flowmodelgenerator.core.expressioneditor.ExpressionEditorCon
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.tools.diagnostics.DiagnosticSeverity;
 import io.ballerina.tools.text.LineRange;
-import org.ballerinalang.langserver.common.utils.PositionUtil;
 import org.ballerinalang.util.diagnostic.DiagnosticErrorCode;
 import org.eclipse.lsp4j.Diagnostic;
 
@@ -105,9 +104,8 @@ public class LvExpressionDiagnosticRequest extends DiagnosticsRequest {
         LineRange lineRange = context.generateStatement();
         Optional<SemanticModel> semanticModel =
                 context.workspaceManager().semanticModel(context.filePath());
-        return semanticModel.map(model -> model.diagnostics().stream()
-                .filter(diagnostic -> diagnostic.diagnosticInfo().severity() == DiagnosticSeverity.ERROR &&
-                        PositionUtil.isWithinLineRange(diagnostic.location().lineRange(), lineRange))
+        return semanticModel.map(model -> model.diagnostics(lineRange).stream()
+                .filter(diagnostic -> diagnostic.diagnosticInfo().severity() == DiagnosticSeverity.ERROR)
                 .map(CommonUtils::transformBallerinaDiagnostic)
                 .collect(Collectors.toSet())).orElseGet(Set::of);
     }
