@@ -44,7 +44,10 @@ class SearchListGenerator {
     private static final int LIMIT = 50;
     public static final String PACKAGE_JSON_FILE = "search_list.json";
     private static final Logger LOGGER = Logger.getLogger(SearchListGenerator.class.getName());
-    private static final Map<String, String> SKIPPED_PACKAGE_LIST = Map.of("ballerina", "xmldata");
+    private static final Map<String, List<String>> SKIPPED_PACKAGE_LIST = Map.of(
+            "ballerina", List.of("xmldata", "regex", "persist", "persist.sql", "persist.inmemory",
+                    "persist.googlesheets", "grpc"),
+            "ballerinax", List.of("persist.redis"));
 
     public static void main(String[] args) {
         List<PackageMetadataInfo> ballerinaPackages = getPackageList("ballerina");
@@ -54,8 +57,9 @@ class SearchListGenerator {
                 Map.of("ballerina", ballerinaPackages, "ballerinax", ballerinaxPackages);
 
         // Remove the skipped package list
-        SKIPPED_PACKAGE_LIST.forEach((org, pkg) -> {
-            packagesMap.get(org).removeIf(packageMetadataInfo -> packageMetadataInfo.name().equals(pkg));
+        SKIPPED_PACKAGE_LIST.forEach((org, pkgs) -> {
+            pkgs.forEach(pkg -> packagesMap.get(org)
+                    .removeIf(packageMetadataInfo -> packageMetadataInfo.name().equals(pkg)));
         });
 
         Gson gson = new Gson();
