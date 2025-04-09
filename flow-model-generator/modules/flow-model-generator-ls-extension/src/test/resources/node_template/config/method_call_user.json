@@ -9,17 +9,21 @@
     "node": "METHOD_CALL",
     "object": "Cart",
     "symbol": "addItem",
-    "parentSymbol": "cart"
+    "parentSymbol": "cart",
+    "org": "nipunaf",
+    "module": "new_connection1"
   },
   "output": {
     "id": "31",
     "metadata": {
       "label": "addItem",
       "description": "",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/null_null_null.png"
+      "icon": "https://bcentral-packageicons.azureedge.net/images/nipunaf_new_connection1_null.png"
     },
     "codedata": {
       "node": "METHOD_CALL",
+      "org": "nipunaf",
+      "module": "new_connection1",
       "object": "Cart",
       "symbol": "addItem",
       "isNew": true

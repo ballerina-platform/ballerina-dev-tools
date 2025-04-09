@@ -226,6 +226,7 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
 
     public enum ValueType {
         EXPRESSION,
+        LV_EXPRESSION,
         IDENTIFIER,
         STRING,
         TYPE,
