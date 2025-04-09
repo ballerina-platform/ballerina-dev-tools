@@ -241,9 +241,10 @@ public class OpenApiServiceGenerator {
         DocumentId serviceObjDocId = DocumentId.create(mainFile.toString(), moduleId);
         DocumentConfig documentConfig = DocumentConfig.from(
                 serviceObjDocId, serviceType.getContent(), serviceType.getFileName());
-        module.modify().addDocument(documentConfig).apply();
+        Module apply = module.modify().addDocument(documentConfig).apply();
 
-        SemanticModel semanticModel = PackageUtil.getCompilation(currentPackage).getSemanticModel(moduleId);
+        SemanticModel semanticModel = PackageUtil.getCompilation(apply.packageInstance())
+                .getSemanticModel(apply.moduleId());
         TypeDefinitionSymbol symbol = getServiceTypeSymbol(semanticModel.moduleSymbols(), typeName);
         if (symbol == null) {
             throw new BallerinaOpenApiException("Cannot find service type definition");
