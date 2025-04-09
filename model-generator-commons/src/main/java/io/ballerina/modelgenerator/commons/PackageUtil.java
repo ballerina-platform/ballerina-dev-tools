@@ -25,6 +25,7 @@ import io.ballerina.projects.Module;
 import io.ballerina.projects.ModuleId;
 import io.ballerina.projects.ModuleName;
 import io.ballerina.projects.Package;
+import io.ballerina.projects.PackageCompilation;
 import io.ballerina.projects.PackageDescriptor;
 import io.ballerina.projects.PackageName;
 import io.ballerina.projects.PackageOrg;
@@ -54,6 +55,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Utility class that contains methods to perform package-related operations.
@@ -68,6 +72,9 @@ public class PackageUtil {
     private static final String PULLING_THE_MODULE_MESSAGE = "Pulling the module '%s' from the central";
     private static final String MODULE_PULLING_FAILED_MESSAGE = "Failed to pull the module: %s";
     private static final String MODULE_PULLING_SUCCESS_MESSAGE = "Successfully pulled the module: %s";
+
+    // Concurrent map to store locks for each project
+    private static final ConcurrentHashMap<Path, ReentrantLock> PROJECT_LOCKS = new ConcurrentHashMap<>();
 
     public static BuildProject getSampleProject() {
         // Obtain the Ballerina distribution path
@@ -111,12 +118,12 @@ public class PackageUtil {
      */
     public static Optional<SemanticModel> getSemanticModel(String org, String name, String version) {
         return getModulePackage(getSampleProject(), org, name, version).map(
-                pkg -> pkg.getCompilation().getSemanticModel(pkg.getDefaultModule().moduleId()));
+                pkg -> getCompilation(pkg).getSemanticModel(pkg.getDefaultModule().moduleId()));
     }
 
     public static Optional<SemanticModel> getSemanticModel(String org, String name) {
         return getModulePackage(getSampleProject(), org, name).map(
-                pkg -> pkg.getCompilation().getSemanticModel(pkg.getDefaultModule().moduleId()));
+                pkg -> getCompilation(pkg).getSemanticModel(pkg.getDefaultModule().moduleId()));
     }
 
     /**
@@ -243,9 +250,7 @@ public class PackageUtil {
                     }
                     moduleId = module.moduleId();
                 }
-                return Optional.of(currentPackage
-                        .getCompilation()
-                        .getSemanticModel(moduleId));
+                return Optional.of(PackageUtil.getCompilation(currentPackage).getSemanticModel(moduleId));
             }
         } catch (WorkspaceDocumentException | EventSyncException e) {
         }
@@ -288,5 +293,25 @@ public class PackageUtil {
                     String.format("%s/%s:%s", moduleInfo.org(), moduleInfo.packageName(), moduleInfo.version());
             lsClientLogger.notifyClient(messageType, String.format(message, signature));
         }
+    }
+
+    /**
+     * Safely retrieves compilation from a project using a lock to ensure thread safety.
+     *
+     * @param balPackage The package from which to retrieve the compilation
+     * @return The compilation of the project
+     */
+    public static PackageCompilation getCompilation(Package balPackage) {
+        Lock lock = PROJECT_LOCKS.computeIfAbsent(balPackage.project().sourceRoot(), k -> new ReentrantLock());
+        try {
+            lock.lock();
+            return balPackage.getCompilation();
+        } finally {
+            lock.unlock();
+        }
+    }
+
+    public static PackageCompilation getCompilation(Project project) {
+        return getCompilation(project.currentPackage());
     }
 }

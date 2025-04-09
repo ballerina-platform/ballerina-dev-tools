@@ -28,6 +28,7 @@ import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.Token;
 import io.ballerina.compiler.syntax.tree.TypeDescriptorNode;
 import io.ballerina.compiler.syntax.tree.UnionTypeDescriptorNode;
+import io.ballerina.modelgenerator.commons.PackageUtil;
 import io.ballerina.projects.Package;
 import io.ballerina.projects.Project;
 import io.ballerina.projects.ProjectException;
@@ -116,7 +117,7 @@ public final class JsonToRecordMapperConverterUtils {
                 // Since the project-root cannot be found, the provided file is considered as SingleFileProject.
                 project = SingleFileProject.load(filePath);
                 Package currentPackage = project.currentPackage();
-                moduleSymbols = currentPackage.getCompilation()
+                moduleSymbols = PackageUtil.getCompilation(currentPackage)
                         .getSemanticModel(currentPackage.getDefaultModule().moduleId())
                         .moduleSymbols();
                 moduleSymbols.forEach(symbol -> {
@@ -127,7 +128,7 @@ public final class JsonToRecordMapperConverterUtils {
             } else {
                 project = BuildProject.load(projectRoot);
                 Package currentPackage = project.currentPackage();
-                moduleSymbols = currentPackage.getCompilation()
+                moduleSymbols = PackageUtil.getCompilation(currentPackage)
                         .getSemanticModel(currentPackage.getDefaultModule().moduleId())
                         .moduleSymbols();
                 moduleSymbols.forEach(symbol -> {

@@ -62,6 +62,7 @@ import io.ballerina.flowmodelgenerator.extension.response.FlowNodeDeleteResponse
 import io.ballerina.flowmodelgenerator.extension.response.FunctionDefinitionResponse;
 import io.ballerina.flowmodelgenerator.extension.response.OpenApiServiceGenerationResponse;
 import io.ballerina.modelgenerator.commons.ModuleInfo;
+import io.ballerina.modelgenerator.commons.PackageUtil;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.DocumentId;
 import io.ballerina.projects.Module;
@@ -182,7 +183,7 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
                 DocumentId documentId = newProject.documentId(filePath);
                 Module newModule = newProject.currentPackage().module(documentId.moduleId());
                 SemanticModel newSemanticModel =
-                        newProject.currentPackage().getCompilation().getSemanticModel(newModule.moduleId());
+                        PackageUtil.getCompilation(newProject).getSemanticModel(newModule.moduleId());
                 Document newDocument = newModule.document(documentId);
                 if (newSemanticModel == null || newDocument == null) {
                     return response;
@@ -211,7 +212,7 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
                         newTextDocument.linePositionFrom(end + request.text().length()));
 
                 ModelGenerator suggestedModelGenerator =
-                        new ModelGenerator(newProject, newProject.currentPackage().getCompilation()
+                        new ModelGenerator(newProject, PackageUtil.getCompilation(newProject)
                                 .getSemanticModel(newDoc.module().moduleId()), filePath);
                 JsonElement newFlowModel = suggestedModelGenerator.getFlowModel(newDoc,
                         endLineRange, newDataMappingsDoc.orElse(null));

@@ -73,6 +73,7 @@ import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.DefaultValueGeneratorUtil;
+import io.ballerina.modelgenerator.commons.PackageUtil;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Project;
 import io.ballerina.tools.diagnostics.Diagnostic;
@@ -858,7 +859,7 @@ public class DataMapManager {
                         .document(document.documentId()).modify().withContent(String.join(System.lineSeparator(),
                                 modifiedTextDoc.textLines())).apply();
 
-        SemanticModel newSemanticModel = modifiedDoc.module().packageInstance().getCompilation()
+        SemanticModel newSemanticModel = PackageUtil.getCompilation(modifiedDoc.module().packageInstance())
                 .getSemanticModel(modifiedDoc.module().moduleId());
         LinePosition startLine = modifiedTextDoc.linePositionFrom(startTextPosition);
         LinePosition endLine = modifiedTextDoc.linePositionFrom(startTextPosition + source.length());
@@ -899,7 +900,7 @@ public class DataMapManager {
         if (optVariable.isEmpty()) {
             throw new IllegalStateException("Variable cannot be found for the connection");
         }
-        SemanticModel newSemanticModel = modifiedDoc.module().packageInstance().getCompilation()
+        SemanticModel newSemanticModel = PackageUtil.getCompilation(modifiedDoc.module().packageInstance())
                 .getSemanticModel(modifiedDoc.module().moduleId());
         return new SourceModification("", modifiedDoc, newSemanticModel, connectionNode(modifiedDoc,
                 optVariable.get().toSourceCode()));
