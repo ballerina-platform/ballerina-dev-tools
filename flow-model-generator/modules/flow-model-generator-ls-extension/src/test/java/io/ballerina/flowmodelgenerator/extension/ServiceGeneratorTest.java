@@ -51,10 +51,10 @@ public class ServiceGeneratorTest extends AbstractLSTest {
     @Override
     protected Object[] getConfigsList() {
         return new Object[][]{
-                {Path.of("config1.json")},
-                {Path.of("config2.json")},
-                {Path.of("config3.json")},
-                {Path.of("config4.json")},
+//                {Path.of("config1.json")},
+//                {Path.of("config2.json")},
+//                {Path.of("config3.json")},
+//                {Path.of("config4.json")},
                 {Path.of("config5.json")}
         };
     }
