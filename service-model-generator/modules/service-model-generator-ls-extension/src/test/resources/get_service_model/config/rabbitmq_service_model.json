@@ -37,9 +37,7 @@
           "placeholder": "",
           "optional": false,
           "advanced": false,
-          "items": [
-            "(+) Create and use a rabbitmq listener with default configurations"
-          ],
+          "items": [],
           "codedata": {
             "inListenerInit": false,
             "isBasePath": false,

@@ -53,7 +53,7 @@ public class IntermediateModel {
     public static class ServiceModel {
         protected List<FunctionModel> remoteFunctions;
         protected List<FunctionModel> resourceFunctions;
-        protected List<FunctionModel> otherFunctions;
+        protected Map<String, FunctionModel> otherFunctions;
         protected Location location;
         protected String absolutePath;
         protected String displayName;
@@ -68,13 +68,14 @@ public class IntermediateModel {
             this.location = location;
             this.remoteFunctions = new ArrayList<>();
             this.resourceFunctions = new ArrayList<>();
-            this.otherFunctions = new ArrayList<>();
+            this.otherFunctions = new HashMap<>();
         }
     }
 
     public static class FunctionModel {
         protected final String name;
         protected final Set<String> dependentFuncs;
+        protected final Set<String> dependentObjFuncs = new HashSet<>();
         protected boolean analyzed;
         protected boolean visited;
         protected final Set<String> allDependentConnections;

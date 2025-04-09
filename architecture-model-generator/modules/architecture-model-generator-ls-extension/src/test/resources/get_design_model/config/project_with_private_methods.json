@@ -1,0 +1,148 @@
+{
+  "description": "Project with imported listener",
+  "projectPath": "project_5",
+  "output": {
+    "designModel": {
+      "connections": [
+        {
+          "symbol": "User_API_Config",
+          "location": {
+            "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_5/main.bal",
+            "startLine": {
+              "line": 42,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 42,
+              "offset": 84
+            }
+          },
+          "scope": "LOCAL",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
+          "dependentFunctions": [],
+          "dependentConnection": [],
+          "uuid": "3f05dd8a-b9df-6942-dadf-c4cf7dbc8bc6",
+          "enableFlowModel": true,
+          "sortText": "main.bal42"
+        }
+      ],
+      "listeners": [
+        {
+          "symbol": "HTTP_Listener_Configuration",
+          "location": {
+            "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_5/main.bal",
+            "startLine": {
+              "line": 20,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 20,
+              "offset": 90
+            }
+          },
+          "attachedServices": [
+            "f7f0bcba-a81a-5123-445c-44a5e3919000"
+          ],
+          "kind": "NAMED",
+          "type": "http:Listener",
+          "args": [
+            {
+              "key": "port",
+              "value": "8081"
+            },
+            {
+              "key": "config",
+              "value": "{host: \"0.0.0.0\"}"
+            }
+          ],
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
+          "uuid": "a1c623a0-2066-70c9-7368-978d7f083631",
+          "enableFlowModel": true,
+          "sortText": "main.bal20"
+        }
+      ],
+      "services": [
+        {
+          "location": {
+            "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_5/main.bal",
+            "startLine": {
+              "line": 22,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 53,
+              "offset": 1
+            }
+          },
+          "attachedListeners": [
+            "a1c623a0-2066-70c9-7368-978d7f083631"
+          ],
+          "connections": [
+            "3f05dd8a-b9df-6942-dadf-c4cf7dbc8bc6"
+          ],
+          "functions": [
+            {
+              "name": "init",
+              "location": {
+                "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_5/main.bal",
+                "startLine": {
+                  "line": 25,
+                  "offset": 4
+                },
+                "endLine": {
+                  "line": 27,
+                  "offset": 5
+                }
+              },
+              "connections": []
+            },
+            {
+              "name": "_invokeEndPoint0_",
+              "location": {
+                "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_5/main.bal",
+                "startLine": {
+                  "line": 34,
+                  "offset": 4
+                },
+                "endLine": {
+                  "line": 52,
+                  "offset": 5
+                }
+              },
+              "connections": [
+                "3f05dd8a-b9df-6942-dadf-c4cf7dbc8bc6"
+              ]
+            }
+          ],
+          "remoteFunctions": [],
+          "resourceFunctions": [
+            {
+              "accessor": "get",
+              "path": "user/[string id]",
+              "location": {
+                "filePath": "/Users/lakshanweerasinghe/Documents/repos/ballerina-platform/ballerina-dev-tools/architecture-model-generator/modules/architecture-model-generator-ls-extension/src/test/resources/get_design_model/source/project_5/main.bal",
+                "startLine": {
+                  "line": 29,
+                  "offset": 4
+                },
+                "endLine": {
+                  "line": 32,
+                  "offset": 5
+                }
+              },
+              "connections": [
+                "3f05dd8a-b9df-6942-dadf-c4cf7dbc8bc6"
+              ]
+            }
+          ],
+          "absolutePath": "/ ",
+          "type": "http:Service",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
+          "uuid": "f7f0bcba-a81a-5123-445c-44a5e3919000",
+          "enableFlowModel": true,
+          "sortText": "main.bal22"
+        }
+      ]
+    }
+  }
+}

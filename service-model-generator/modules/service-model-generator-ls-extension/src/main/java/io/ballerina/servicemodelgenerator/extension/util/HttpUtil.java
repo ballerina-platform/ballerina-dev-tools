@@ -60,6 +60,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.KIND_RESOURCE;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.getFunctionModel;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.getPath;
 import static io.ballerina.servicemodelgenerator.extension.util.Utils.populateListenerInfo;
@@ -268,7 +269,7 @@ public final class HttpUtil {
 
         // functions contains in source but not enforced using the service contract type
         commonSvcModel.getFunctions().forEach(functionModel -> {
-            if (functionModel.getKind().equals(ServiceModelGeneratorConstants.KIND_RESOURCE)) {
+            if (functionModel.getKind().equals(KIND_RESOURCE)) {
                 getResourceFunctionModel().ifPresentOrElse(
                         resourceFunction -> {
                             // remove the default json response from the resource function
@@ -281,6 +282,8 @@ public final class HttpUtil {
                         () -> serviceModel.addFunction(functionModel)
                 );
             } else {
+                functionModel.setAnnotations(null);
+                functionModel.getAccessor().setEnabled(false);
                 serviceModel.addFunction(functionModel);
             }
         });

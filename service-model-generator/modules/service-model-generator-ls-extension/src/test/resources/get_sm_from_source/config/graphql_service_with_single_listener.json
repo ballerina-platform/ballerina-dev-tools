@@ -42,7 +42,8 @@
         "optional": false,
         "advanced": false,
         "items": [
-          "graphQLListener"
+          "graphQLListener",
+          "(+) Create and use a graphql listener with default configurations"
         ],
         "codedata": {
           "inListenerInit": false,
