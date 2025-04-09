@@ -383,10 +383,10 @@
           },
           "variable": {
             "metadata": {
-              "label": "Name",
-              "description": "Name of the variable"
+              "label": "Variable",
+              "description": "Name of the variable/field"
             },
-            "valueType": "IDENTIFIER",
+            "valueType": "LV_EXPRESSION",
             "value": "a",
             "optional": false,
             "editable": true,
@@ -433,10 +433,10 @@
           },
           "variable": {
             "metadata": {
-              "label": "Name",
-              "description": "Name of the variable"
+              "label": "Variable",
+              "description": "Name of the variable/field"
             },
-            "valueType": "IDENTIFIER",
+            "valueType": "LV_EXPRESSION",
             "value": "s",
             "optional": false,
             "editable": true,
@@ -483,10 +483,10 @@
           },
           "variable": {
             "metadata": {
-              "label": "Name",
-              "description": "Name of the variable"
+              "label": "Variable",
+              "description": "Name of the variable/field"
             },
-            "valueType": "IDENTIFIER",
+            "valueType": "LV_EXPRESSION",
             "value": "j",
             "optional": false,
             "editable": true,

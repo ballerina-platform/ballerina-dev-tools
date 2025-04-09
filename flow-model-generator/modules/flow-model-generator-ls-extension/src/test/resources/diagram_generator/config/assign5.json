@@ -155,10 +155,10 @@
           },
           "variable": {
             "metadata": {
-              "label": "Name",
-              "description": "Name of the variable"
+              "label": "Variable",
+              "description": "Name of the variable/field"
             },
-            "valueType": "IDENTIFIER",
+            "valueType": "LV_EXPRESSION",
             "value": "newData1",
             "optional": false,
             "editable": true,
@@ -282,10 +282,10 @@
           },
           "variable": {
             "metadata": {
-              "label": "Name",
-              "description": "Name of the variable"
+              "label": "Variable",
+              "description": "Name of the variable/field"
             },
-            "valueType": "IDENTIFIER",
+            "valueType": "LV_EXPRESSION",
             "value": "newData2",
             "optional": false,
             "editable": true,

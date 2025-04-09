@@ -18,6 +18,7 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
+import io.ballerina.compiler.syntax.tree.AssignmentStatementNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
@@ -40,6 +41,9 @@ public class AssignBuilder extends NodeBuilder {
     public static final String LABEL = "Assign";
     public static final String DESCRIPTION = "Assign a value to a variable";
     public static final String EXPRESSION_DOC = "Assign value";
+
+    public static String VARIABLE_LABEL = "Variable";
+    public static String VARIABLE_DOC = "Name of the variable/field";
 
     @Override
     public void setConcreteConstData() {
@@ -70,8 +74,15 @@ public class AssignBuilder extends NodeBuilder {
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
-        properties()
-                .data(null, true, context.getAllVisibleSymbolNames())
-                .expression("", EXPRESSION_DOC);
+        properties().custom()
+                .metadata()
+                    .label(VARIABLE_LABEL)
+                    .description(VARIABLE_DOC)
+                    .stepOut()
+                .type(Property.ValueType.LV_EXPRESSION)
+                .editable()
+                .stepOut()
+                .addProperty(Property.VARIABLE_KEY);
+        properties().expression("", EXPRESSION_DOC);
     }
 }

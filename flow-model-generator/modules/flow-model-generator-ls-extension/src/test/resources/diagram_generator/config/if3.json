@@ -136,10 +136,10 @@
                   },
                   "variable": {
                     "metadata": {
-                      "label": "Name",
-                      "description": "Name of the variable"
+                      "label": "Variable",
+                      "description": "Name of the variable/field"
                     },
-                    "valueType": "IDENTIFIER",
+                    "valueType": "LV_EXPRESSION",
                     "value": "food.comment",
                     "optional": false,
                     "editable": true,
@@ -319,10 +319,10 @@
                           },
                           "variable": {
                             "metadata": {
-                              "label": "Name",
-                              "description": "Name of the variable"
+                              "label": "Variable",
+                              "description": "Name of the variable/field"
                             },
-                            "valueType": "IDENTIFIER",
+                            "valueType": "LV_EXPRESSION",
                             "value": "food.comment",
                             "optional": false,
                             "editable": true,
@@ -391,10 +391,10 @@
                           },
                           "variable": {
                             "metadata": {
-                              "label": "Name",
-                              "description": "Name of the variable"
+                              "label": "Variable",
+                              "description": "Name of the variable/field"
                             },
-                            "valueType": "IDENTIFIER",
+                            "valueType": "LV_EXPRESSION",
                             "value": "food.comment",
                             "optional": false,
                             "editable": true,
@@ -544,10 +544,10 @@
                   },
                   "variable": {
                     "metadata": {
-                      "label": "Name",
-                      "description": "Name of the variable"
+                      "label": "Variable",
+                      "description": "Name of the variable/field"
                     },
-                    "valueType": "IDENTIFIER",
+                    "valueType": "LV_EXPRESSION",
                     "value": "food.comment",
                     "optional": false,
                     "editable": true,
