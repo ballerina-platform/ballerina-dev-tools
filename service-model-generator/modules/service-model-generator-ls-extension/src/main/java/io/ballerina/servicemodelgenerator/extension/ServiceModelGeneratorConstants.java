@@ -72,6 +72,7 @@ public class ServiceModelGeneratorConstants {
     public static final String KIND_DEFAULT = "DEFAULT";
     public static final String KIND_REQUIRED = "REQUIRED";
     public static final String KIND_DEFAULTABLE = "DEFAULTABLE";
+    public static final String KIND_OBJECT_METHOD = "OBJECT_METHOD";
 
     public static final String PARAMETER = "parameter";
     public static final String SERVICE = "service";

@@ -6,7 +6,7 @@
     "offset": 0
   },
   "end": {
-    "line": 25,
+    "line": 28,
     "offset": 0
   },
   "response": {
@@ -117,7 +117,7 @@
           "offset": 0
         },
         "endLine": {
-          "line": 25,
+          "line": 28,
           "offset": 1
         }
       },
@@ -137,7 +137,7 @@
             "label": "Accessor",
             "description": "The accessor of the function"
           },
-          "enabled": true,
+          "enabled": false,
           "editable": true,
           "valueType": "IDENTIFIER",
           "isType": false,
@@ -196,42 +196,6 @@
           "inListenerInit": false,
           "isBasePath": false,
           "inDisplayAnnotation": false
-        },
-        "annotations": {
-          "annotResourceConfig": {
-            "metadata": {
-              "label": "Resource Configuration",
-              "description": "Define advanced configurations like resource level media types, security, etc."
-            },
-            "enabled": true,
-            "editable": true,
-            "value": "{\n        consumes: []\n    }",
-            "valueType": "EXPRESSION",
-            "valueTypeConstraint": "http:HttpResourceConfig",
-            "isType": false,
-            "placeholder": "{}",
-            "optional": true,
-            "advanced": true,
-            "codedata": {
-              "inListenerInit": false,
-              "isBasePath": false,
-              "inDisplayAnnotation": false,
-              "type": "ANNOTATION_ATTACHMENT",
-              "originalName": "ResourceConfig",
-              "orgName": "ballerina",
-              "moduleName": "http"
-            },
-            "addNewButton": false,
-            "typeMembers": [
-              {
-                "type": "HttpResourceConfig",
-                "packageInfo": "ballerina:http:2.14.0",
-                "kind": "RECORD_TYPE",
-                "selected": false
-              }
-            ],
-            "imports": {}
-          }
         }
       },
       {
@@ -1050,6 +1014,127 @@
             ],
             "imports": {}
           }
+        }
+      },
+      {
+        "metadata": {
+          "label": "",
+          "description": ""
+        },
+        "kind": "OBJECT_METHOD",
+        "accessor": {
+          "metadata": {
+            "label": "Accessor",
+            "description": "The accessor of the function"
+          },
+          "enabled": false,
+          "editable": true,
+          "valueType": "IDENTIFIER",
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false,
+          "imports": {}
+        },
+        "name": {
+          "metadata": {
+            "label": "Function Name",
+            "description": "The name of the function"
+          },
+          "enabled": true,
+          "editable": true,
+          "value": "foo",
+          "valueType": "IDENTIFIER",
+          "isType": false,
+          "optional": false,
+          "advanced": false,
+          "addNewButton": false,
+          "imports": {}
+        },
+        "parameters": [],
+        "schema": {
+          "parameter": {
+            "type": {
+              "metadata": {
+                "label": "Parameter Type",
+                "description": "The type of the parameter"
+              },
+              "enabled": true,
+              "editable": true,
+              "valueType": "TYPE",
+              "isType": true,
+              "optional": false,
+              "advanced": false,
+              "addNewButton": false,
+              "imports": {}
+            },
+            "name": {
+              "metadata": {
+                "label": "Parameter Name",
+                "description": "The name of the parameter"
+              },
+              "enabled": true,
+              "editable": true,
+              "valueType": "IDENTIFIER",
+              "isType": false,
+              "optional": false,
+              "advanced": false,
+              "addNewButton": false,
+              "imports": {}
+            },
+            "defaultValue": {
+              "metadata": {
+                "label": "Default Value",
+                "description": "The default value of the parameter"
+              },
+              "enabled": true,
+              "editable": true,
+              "valueType": "EXPRESSION",
+              "isType": false,
+              "optional": true,
+              "advanced": false,
+              "addNewButton": false,
+              "imports": {}
+            },
+            "enabled": true,
+            "editable": true,
+            "optional": false,
+            "advanced": false
+          }
+        },
+        "returnType": {
+          "hasError": false,
+          "metadata": {
+            "label": "Return Type",
+            "description": "The return type of the function"
+          },
+          "enabled": true,
+          "editable": true,
+          "valueType": "TYPE",
+          "isType": false,
+          "optional": true,
+          "advanced": false,
+          "addNewButton": false
+        },
+        "enabled": true,
+        "optional": false,
+        "editable": true,
+        "canAddParameters": true,
+        "codedata": {
+          "lineRange": {
+            "fileName": "main.bal",
+            "startLine": {
+              "line": 26,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 27,
+              "offset": 5
+            }
+          },
+          "inListenerInit": false,
+          "isBasePath": false,
+          "inDisplayAnnotation": false
         }
       }
     ]
