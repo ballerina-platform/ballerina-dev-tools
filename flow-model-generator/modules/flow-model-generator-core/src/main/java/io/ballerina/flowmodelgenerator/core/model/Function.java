@@ -38,6 +38,7 @@ import java.util.Map;
  * @param returnType    Return type of the function.
  * @param refs          Type references associated with the return type of the function.
  * @param properties    Properties of the function.
+ * @param imports       Imports of the member.
  * @since 2.0.0
  */
 public record Function(
@@ -50,7 +51,8 @@ public record Function(
         String description,
         Object returnType,
         List<String> refs,
-        Map<String, Property> properties
+        Map<String, Property> properties,
+        Map<String, String> imports
 ) {
     public enum FunctionKind {
         FUNCTION,
@@ -72,6 +74,7 @@ public record Function(
         private ModuleInfo moduleInfo;
         private SemanticModel semanticModel;
         private DiagnosticHandler diagnosticHandler;
+        Map<String, String> imports;
 
         public FunctionBuilder() {
         }
@@ -136,6 +139,11 @@ public record Function(
             return this;
         }
 
+        public FunctionBuilder imports(Map<String, String> imports) {
+            this.imports = imports;
+            return this;
+        }
+
         public FormBuilder<FunctionBuilder> properties() {
             if (this.formBuilder == null) {
                 this.formBuilder = new FormBuilder<>(semanticModel, diagnosticHandler, moduleInfo, this);
@@ -144,8 +152,8 @@ public record Function(
         }
 
         public Function build() {
-            return new Function(accessor, qualifiers, parameters, restParameter, kind, name, docs,
-                    returnType, refs, formBuilder == null ? null : formBuilder.build());
+            return new Function(accessor, qualifiers, parameters, restParameter, kind, name, docs, returnType, refs,
+                    formBuilder == null ? null : formBuilder.build(), imports != null ? Map.copyOf(imports) : null);
         }
     }
 }
