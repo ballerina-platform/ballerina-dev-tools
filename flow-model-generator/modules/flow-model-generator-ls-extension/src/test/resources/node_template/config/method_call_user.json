@@ -22,7 +22,9 @@
       "node": "METHOD_CALL",
       "object": "Cart",
       "symbol": "addItem",
-      "isNew": true
+      "isNew": true,
+      "org" : "nipunaf",
+      "name" : "new_connection1"
     },
     "returning": false,
     "properties": {

@@ -19,7 +19,9 @@
     "codedata": {
       "node": "FUNCTION_CALL",
       "symbol": "customFnWithImportedType",
-      "isNew": true
+      "isNew": true,
+      "org" : "nipunaf",
+      "name" : "new_connection1"
     },
     "returning": false,
     "properties": {
