@@ -21,7 +21,7 @@
           "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
           "dependentFunctions": [],
           "dependentConnection": [],
-          "uuid": "0701e68c-d33a-fbf6-f4e9-23f1f080e8c4",
+          "uuid": "3f05dd8a-b9df-6942-dadf-c4cf7dbc8bc6",
           "enableFlowModel": true,
           "sortText": "main.bal42"
         }
@@ -41,7 +41,7 @@
             }
           },
           "attachedServices": [
-            "4b2ce25c-8e27-7432-7f07-0339a03b48aa"
+            "f7f0bcba-a81a-5123-445c-44a5e3919000"
           ],
           "kind": "NAMED",
           "type": "http:Listener",
@@ -56,7 +56,7 @@
             }
           ],
           "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
-          "uuid": "4aaaa860-5541-b7c0-4859-00bd0bbbd1ff",
+          "uuid": "a1c623a0-2066-70c9-7368-978d7f083631",
           "enableFlowModel": true,
           "sortText": "main.bal20"
         }
@@ -75,10 +75,10 @@
             }
           },
           "attachedListeners": [
-            "4aaaa860-5541-b7c0-4859-00bd0bbbd1ff"
+            "a1c623a0-2066-70c9-7368-978d7f083631"
           ],
           "connections": [
-            "0701e68c-d33a-fbf6-f4e9-23f1f080e8c4"
+            "3f05dd8a-b9df-6942-dadf-c4cf7dbc8bc6"
           ],
           "functions": [
             {
@@ -110,7 +110,7 @@
                 }
               },
               "connections": [
-                "0701e68c-d33a-fbf6-f4e9-23f1f080e8c4"
+                "3f05dd8a-b9df-6942-dadf-c4cf7dbc8bc6"
               ]
             }
           ],
@@ -130,13 +130,15 @@
                   "offset": 5
                 }
               },
-              "connections": []
+              "connections": [
+                "3f05dd8a-b9df-6942-dadf-c4cf7dbc8bc6"
+              ]
             }
           ],
           "absolutePath": "/ ",
           "type": "http:Service",
           "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
-          "uuid": "4b2ce25c-8e27-7432-7f07-0339a03b48aa",
+          "uuid": "f7f0bcba-a81a-5123-445c-44a5e3919000",
           "enableFlowModel": true,
           "sortText": "main.bal22"
         }

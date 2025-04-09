@@ -57,6 +57,7 @@ import io.ballerina.compiler.syntax.tree.ListenerDeclarationNode;
 import io.ballerina.compiler.syntax.tree.LockStatementNode;
 import io.ballerina.compiler.syntax.tree.MappingConstructorExpressionNode;
 import io.ballerina.compiler.syntax.tree.MatchStatementNode;
+import io.ballerina.compiler.syntax.tree.MethodCallExpressionNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.ModuleVariableDeclarationNode;
 import io.ballerina.compiler.syntax.tree.NameReferenceNode;
@@ -188,7 +189,7 @@ public class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(FunctionDefinitionNode functionDefinitionNode) {
-        String functionName = functionDefinitionNode.functionName().text();
+        String functionName = functionDefinitionNode.functionName().text().trim();
         this.currentFunctionModel = new IntermediateModel.FunctionModel(functionName);
         if (this.currentServiceModel != null) {
             Optional<Symbol> symbol = this.semanticModel.symbol(functionDefinitionNode);
@@ -200,7 +201,7 @@ public class CodeAnalyzer extends NodeVisitor {
                 } else if (methodSymbol.qualifiers().contains(Qualifier.REMOTE)) {
                     this.currentServiceModel.remoteFunctions.add(this.currentFunctionModel);
                 } else {
-                    this.currentServiceModel.otherFunctions.add(this.currentFunctionModel);
+                    this.currentServiceModel.otherFunctions.put(functionName, this.currentFunctionModel);
                 }
             }
         } else {
@@ -246,6 +247,15 @@ public class CodeAnalyzer extends NodeVisitor {
             }
             functionCallExpressionNode.arguments().forEach(arg -> arg.accept(this));
         }
+    }
+
+    @Override
+    public void visit(MethodCallExpressionNode methodCallExpressionNode) {
+        if (this.currentFunctionModel != null) {
+            String methodName = methodCallExpressionNode.methodName().toSourceCode().trim();
+            this.currentFunctionModel.dependentObjFuncs.add(methodName);
+        }
+        methodCallExpressionNode.arguments().forEach(arg -> arg.accept(this));
     }
 
     @Override

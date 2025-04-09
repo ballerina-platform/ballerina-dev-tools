@@ -88,7 +88,7 @@ public class DesignModelGenerator {
 
         if (intermediateModel.functionModelMap.containsKey(MAIN_FUNCTION_NAME)) {
             IntermediateModel.FunctionModel main = intermediateModel.functionModelMap.get(MAIN_FUNCTION_NAME);
-            buildConnectionGraph(intermediateModel, main);
+            buildConnectionGraph(intermediateModel, main, null);
             builder.setAutomation(new Automation(AUTOMATION, main.displayName, "Z", main.location,
                     main.allDependentConnections.stream().toList()));
         }
@@ -98,8 +98,8 @@ public class DesignModelGenerator {
             IntermediateModel.ServiceModel serviceModel = serviceEntry.getValue();
             Set<String> connections = new HashSet<>();
             List<Function> functions = new ArrayList<>();
-            serviceModel.otherFunctions.forEach(otherFunction -> {
-                buildConnectionGraph(intermediateModel, otherFunction);
+            serviceModel.otherFunctions.values().forEach(otherFunction -> {
+                buildConnectionGraph(intermediateModel, otherFunction, serviceModel);
                 functions.add(new Function(otherFunction.name, otherFunction.location,
                         otherFunction.allDependentConnections));
                 connections.addAll(otherFunction.allDependentConnections);
@@ -107,7 +107,7 @@ public class DesignModelGenerator {
 
             List<Function> remoteFunctions = new ArrayList<>();
             serviceModel.remoteFunctions.forEach(remoteFunction -> {
-                buildConnectionGraph(intermediateModel, remoteFunction);
+                buildConnectionGraph(intermediateModel, remoteFunction, serviceModel);
                 remoteFunction.connections.forEach(connection -> {
                     Connection conn = intermediateModel.uuidToConnectionMap.get(connection);
                     if (conn != null) {
@@ -125,7 +125,7 @@ public class DesignModelGenerator {
 
             List<ResourceFunction> resourceFunctions = new ArrayList<>();
             serviceModel.resourceFunctions.forEach(resourceFunction -> {
-                buildConnectionGraph(intermediateModel, resourceFunction);
+                buildConnectionGraph(intermediateModel, resourceFunction, serviceModel);
                 resourceFunction.connections.forEach(connection -> {
                     Connection conn = intermediateModel.uuidToConnectionMap.get(connection);
                     if (conn != null) {
@@ -136,7 +136,7 @@ public class DesignModelGenerator {
                 });
                 resourceFunction.analyzed = false;
                 resourceFunction.visited = false;
-                buildConnectionGraph(intermediateModel, resourceFunction);
+                buildConnectionGraph(intermediateModel, resourceFunction, serviceModel);
                 resourceFunctions.add(new ResourceFunction(resourceFunction.name, resourceFunction.path,
                         resourceFunction.location, resourceFunction.allDependentConnections));
                 connections.addAll(resourceFunction.allDependentConnections);
@@ -189,7 +189,8 @@ public class DesignModelGenerator {
     }
 
     private void buildConnectionGraph(IntermediateModel intermediateModel,
-                                      IntermediateModel.FunctionModel functionModel) {
+                                      IntermediateModel.FunctionModel functionModel,
+                                      IntermediateModel.ServiceModel serviceModel) {
         Set<String> connections = new HashSet<>();
         if (!functionModel.visited && !functionModel.analyzed) {
             functionModel.visited = true;
@@ -200,7 +201,23 @@ public class DesignModelGenerator {
                     return;
                 }
                 if (!dependentFunctionModel.analyzed) {
-                    buildConnectionGraph(intermediateModel, dependentFunctionModel);
+                    buildConnectionGraph(intermediateModel, dependentFunctionModel, serviceModel);
+                }
+                connections.addAll(dependentFunctionModel.allDependentConnections);
+                connections.addAll(dependentFunctionModel.connections);
+            });
+
+            functionModel.dependentObjFuncs.forEach(dependentObjFunc -> {
+                if (serviceModel == null) {
+                    return;
+                }
+                IntermediateModel.FunctionModel dependentFunctionModel = serviceModel.otherFunctions
+                        .get(dependentObjFunc);
+                if (dependentFunctionModel == null) {
+                    return;
+                }
+                if (!dependentFunctionModel.analyzed) {
+                    buildConnectionGraph(intermediateModel, dependentFunctionModel, serviceModel);
                 }
                 connections.addAll(dependentFunctionModel.allDependentConnections);
                 connections.addAll(dependentFunctionModel.connections);
