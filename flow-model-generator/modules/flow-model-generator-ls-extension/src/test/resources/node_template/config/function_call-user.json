@@ -7,17 +7,21 @@
   "description": "Sample diagram node",
   "codedata": {
     "node": "FUNCTION_CALL",
-    "symbol": "fn"
+    "symbol": "fn",
+    "org": "nipunaf",
+    "module": "new_connection1"
   },
   "output": {
     "id": "31",
     "metadata": {
       "label": "fn",
       "description": "",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/null_null_null.png"
+      "icon": "https://bcentral-packageicons.azureedge.net/images/nipunaf_new_connection1_null.png"
     },
     "codedata": {
       "node": "FUNCTION_CALL",
+      "org": "nipunaf",
+      "module": "new_connection1",
       "symbol": "fn",
       "isNew": true
     },
