@@ -241,7 +241,8 @@ public class CodeAnalyzer extends NodeVisitor {
     public void visit(FunctionCallExpressionNode functionCallExpressionNode) {
         if (!(functionCallExpressionNode.functionName() instanceof QualifiedNameReferenceNode)) {
             if (this.currentFunctionModel != null) {
-                this.currentFunctionModel.dependentFuncs.add(functionCallExpressionNode.functionName().toSourceCode());
+                this.currentFunctionModel.dependentFuncs.add(functionCallExpressionNode.functionName()
+                        .toSourceCode().trim());
             }
             functionCallExpressionNode.arguments().forEach(arg -> arg.accept(this));
         }

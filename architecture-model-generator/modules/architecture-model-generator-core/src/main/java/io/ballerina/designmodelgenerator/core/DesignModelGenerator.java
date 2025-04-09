@@ -196,6 +196,9 @@ public class DesignModelGenerator {
             functionModel.dependentFuncs.forEach(dependentFunc -> {
                 IntermediateModel.FunctionModel dependentFunctionModel = intermediateModel.functionModelMap
                         .get(dependentFunc);
+                if (dependentFunctionModel == null) {
+                    return;
+                }
                 if (!dependentFunctionModel.analyzed) {
                     buildConnectionGraph(intermediateModel, dependentFunctionModel);
                 }
