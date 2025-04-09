@@ -42,7 +42,7 @@
           "description": "The type of the parameter"
         },
         "valueType": "TYPE",
-        "enabled": false,
+        "enabled": true,
         "editable": true,
         "isType": false,
         "optional": false,
@@ -55,7 +55,7 @@
           "description": "The name of the parameter"
         },
         "valueType": "IDENTIFIER",
-        "enabled": false,
+        "enabled": true,
         "editable": true,
         "isType": false,
         "optional": false,
@@ -68,7 +68,7 @@
           "description": "The default value of the parameter"
         },
         "valueType": "EXPRESSION",
-        "enabled": false,
+        "enabled": true,
         "editable": true,
         "isType": false,
         "optional": false,
