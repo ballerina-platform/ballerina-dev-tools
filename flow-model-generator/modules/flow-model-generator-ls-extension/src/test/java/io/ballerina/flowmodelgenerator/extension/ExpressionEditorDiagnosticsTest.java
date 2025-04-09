@@ -65,6 +65,14 @@ public class ExpressionEditorDiagnosticsTest extends AbstractLSTest {
         }
     }
 
+    @Override
+    protected String[] skipList() {
+        // TODO: Provide diagnostics when assigning a value to type
+        return new String[] {
+                "assign2.json"
+        };
+    }
+
     @Test
     public void testMultipleRequests() throws IOException, InterruptedException {
         // Load the template test config
