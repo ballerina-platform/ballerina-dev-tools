@@ -386,6 +386,11 @@ public class SourceCodeGenerator {
     }
 
     private String generateResourceFunction(Function function) {
+        // Add the imports
+        if (Objects.nonNull(function.imports())) {
+            function.imports().forEach(this.imports::putIfAbsent);
+        }
+
         String docs = generateDocs(function.description(), "\t");
 
         StringJoiner paramJoiner = new StringJoiner(", ");
