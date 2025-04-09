@@ -21,7 +21,7 @@
           "metadata": {
             "label": "HTTP",
             "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.3.png",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
             "data": {
               "isAgentSupport": false
             }
@@ -32,47 +32,7 @@
             "module": "http",
             "object": "Client",
             "symbol": "init",
-            "version": "2.13.3",
-            "isGenerated": false
-          },
-          "enabled": true
-        },
-        {
-          "metadata": {
-            "label": "UDP",
-            "description": "Initializes the UDP connectionless client based on the provided configurations.",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_udp_1.12.1.png",
-            "data": {
-              "isAgentSupport": false
-            }
-          },
-          "codedata": {
-            "node": "NEW_CONNECTION",
-            "org": "ballerina",
-            "module": "udp",
-            "object": "Client",
-            "symbol": "init",
-            "version": "1.12.1",
-            "isGenerated": false
-          },
-          "enabled": true
-        },
-        {
-          "metadata": {
-            "label": "FTP",
-            "description": "Represents an FTP client that intracts with an FTP server",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_ftp_2.12.0.png",
-            "data": {
-              "isAgentSupport": false
-            }
-          },
-          "codedata": {
-            "node": "NEW_CONNECTION",
-            "org": "ballerina",
-            "module": "ftp",
-            "object": "Client",
-            "symbol": "init",
-            "version": "2.12.0",
+            "version": "2.14.0",
             "isGenerated": false
           },
           "enabled": true
@@ -81,7 +41,7 @@
           "metadata": {
             "label": "Websocket",
             "description": "Represents a WebSocket synchronous client endpoint.",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.13.1.png",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.14.0.png",
             "data": {
               "isAgentSupport": false
             }
@@ -92,7 +52,7 @@
             "module": "websocket",
             "object": "Client",
             "symbol": "init",
-            "version": "2.13.1",
+            "version": "2.14.0",
             "isGenerated": false
           },
           "enabled": true
@@ -101,7 +61,7 @@
           "metadata": {
             "label": "GraphQL",
             "description": "The Ballerina GraphQL client that can be used to communicate with GraphQL APIs.",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.15.0.png",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.16.1.png",
             "data": {
               "isAgentSupport": false
             }
@@ -112,7 +72,7 @@
             "module": "graphql",
             "object": "Client",
             "symbol": "init",
-            "version": "1.15.0",
+            "version": "1.16.1",
             "isGenerated": false
           },
           "enabled": true
@@ -121,7 +81,7 @@
           "metadata": {
             "label": "TCP",
             "description": "Initializes the TCP connection client based on the provided configurations.",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_tcp_1.12.1.png",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_tcp_1.13.0.png",
             "data": {
               "isAgentSupport": false
             }
@@ -132,7 +92,47 @@
             "module": "tcp",
             "object": "Client",
             "symbol": "init",
-            "version": "1.12.1",
+            "version": "1.13.0",
+            "isGenerated": false
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "UDP",
+            "description": "Initializes the UDP connectionless client based on the provided configurations.",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_udp_1.13.0.png",
+            "data": {
+              "isAgentSupport": false
+            }
+          },
+          "codedata": {
+            "node": "NEW_CONNECTION",
+            "org": "ballerina",
+            "module": "udp",
+            "object": "Client",
+            "symbol": "init",
+            "version": "1.13.0",
+            "isGenerated": false
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "FTP",
+            "description": "Represents an FTP client that intracts with an FTP server",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_ftp_2.13.0.png",
+            "data": {
+              "isAgentSupport": false
+            }
+          },
+          "codedata": {
+            "node": "NEW_CONNECTION",
+            "org": "ballerina",
+            "module": "ftp",
+            "object": "Client",
+            "symbol": "init",
+            "version": "2.13.0",
             "isGenerated": false
           },
           "enabled": true
@@ -146,49 +146,9 @@
       "items": [
         {
           "metadata": {
-            "label": "MS SQL",
-            "description": "Represents an MSSQL database client.",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mssql_1.14.0.png",
-            "data": {
-              "isAgentSupport": false
-            }
-          },
-          "codedata": {
-            "node": "NEW_CONNECTION",
-            "org": "ballerinax",
-            "module": "mssql",
-            "object": "Client",
-            "symbol": "init",
-            "version": "1.14.0",
-            "isGenerated": false
-          },
-          "enabled": true
-        },
-        {
-          "metadata": {
-            "label": "MongoDB",
-            "description": "Represents a MongoDB client that can be used to interact with a MongoDB server.",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mongodb_5.1.0.png",
-            "data": {
-              "isAgentSupport": false
-            }
-          },
-          "codedata": {
-            "node": "NEW_CONNECTION",
-            "org": "ballerinax",
-            "module": "mongodb",
-            "object": "Client",
-            "symbol": "init",
-            "version": "5.1.0",
-            "isGenerated": false
-          },
-          "enabled": true
-        },
-        {
-          "metadata": {
             "label": "MySQL",
             "description": "Represents a MySQL database client.",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mysql_1.14.0.png",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mysql_1.15.0.png",
             "data": {
               "isAgentSupport": false
             }
@@ -199,7 +159,7 @@
             "module": "mysql",
             "object": "Client",
             "symbol": "init",
-            "version": "1.14.0",
+            "version": "1.15.0",
             "isGenerated": false
           },
           "enabled": true
@@ -228,7 +188,7 @@
           "metadata": {
             "label": "PostgreSQL",
             "description": "Represents a PostgreSQL database client.",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_postgresql_1.14.0.png",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_postgresql_1.15.0.png",
             "data": {
               "isAgentSupport": false
             }
@@ -239,7 +199,47 @@
             "module": "postgresql",
             "object": "Client",
             "symbol": "init",
-            "version": "1.14.0",
+            "version": "1.15.0",
+            "isGenerated": false
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "MS SQL",
+            "description": "Represents an MSSQL database client.",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mssql_1.15.0.png",
+            "data": {
+              "isAgentSupport": false
+            }
+          },
+          "codedata": {
+            "node": "NEW_CONNECTION",
+            "org": "ballerinax",
+            "module": "mssql",
+            "object": "Client",
+            "symbol": "init",
+            "version": "1.15.0",
+            "isGenerated": false
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "MongoDB",
+            "description": "Represents a MongoDB client that can be used to interact with a MongoDB server.",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mongodb_5.1.0.png",
+            "data": {
+              "isAgentSupport": false
+            }
+          },
+          "codedata": {
+            "node": "NEW_CONNECTION",
+            "org": "ballerinax",
+            "module": "mongodb",
+            "object": "Client",
+            "symbol": "init",
+            "version": "5.1.0",
             "isGenerated": false
           },
           "enabled": true
@@ -255,7 +255,7 @@
           "metadata": {
             "label": "Kafka Consumer",
             "description": "Represents a Kafka consumer endpoint.\n",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_kafka_4.4.1.png",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_kafka_4.5.0.png",
             "data": {
               "isAgentSupport": false
             }
@@ -266,7 +266,7 @@
             "module": "kafka",
             "object": "Consumer",
             "symbol": "init",
-            "version": "4.4.1",
+            "version": "4.5.0",
             "isGenerated": false
           },
           "enabled": true
@@ -275,7 +275,7 @@
           "metadata": {
             "label": "Kafka Producer",
             "description": "Represents a Kafka producer endpoint.\n",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_kafka_4.4.1.png",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_kafka_4.5.0.png",
             "data": {
               "isAgentSupport": false
             }
@@ -286,7 +286,7 @@
             "module": "kafka",
             "object": "Producer",
             "symbol": "init",
-            "version": "4.4.1",
+            "version": "4.5.0",
             "isGenerated": false
           },
           "enabled": true
@@ -318,6 +318,46 @@
         "label": "Cloud"
       },
       "items": [
+        {
+          "metadata": {
+            "label": "S3",
+            "description": "Ballerina Amazon S3 connector provides the capability to access AWS S3 API.\nThis connector lets you to get authorized access to AWS S3 buckets and objects.\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_aws.s3_3.5.0.png",
+            "data": {
+              "isAgentSupport": false
+            }
+          },
+          "codedata": {
+            "node": "NEW_CONNECTION",
+            "org": "ballerinax",
+            "module": "aws.s3",
+            "object": "Client",
+            "symbol": "init",
+            "version": "3.5.0",
+            "isGenerated": false
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Gmail",
+            "description": "The Gmail API lets you view and manage Gmail mailbox data like threads, messages, and labels.",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.gmail_4.1.0.png",
+            "data": {
+              "isAgentSupport": true
+            }
+          },
+          "codedata": {
+            "node": "NEW_CONNECTION",
+            "org": "ballerinax",
+            "module": "googleapis.gmail",
+            "object": "Client",
+            "symbol": "init",
+            "version": "4.1.0",
+            "isGenerated": false
+          },
+          "enabled": true
+        },
         {
           "metadata": {
             "label": "DynamoDB",
@@ -360,46 +400,6 @@
         },
         {
           "metadata": {
-            "label": "S3",
-            "description": "Ballerina Amazon S3 connector provides the capability to access AWS S3 API.\nThis connector lets you to get authorized access to AWS S3 buckets and objects.\n",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_aws.s3_3.5.0.png",
-            "data": {
-              "isAgentSupport": false
-            }
-          },
-          "codedata": {
-            "node": "NEW_CONNECTION",
-            "org": "ballerinax",
-            "module": "aws.s3",
-            "object": "Client",
-            "symbol": "init",
-            "version": "3.5.0",
-            "isGenerated": false
-          },
-          "enabled": true
-        },
-        {
-          "metadata": {
-            "label": "Gmail",
-            "description": "The Gmail API lets you view and manage Gmail mailbox data like threads, messages, and labels.",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.gmail_4.0.1.png",
-            "data": {
-              "isAgentSupport": true
-            }
-          },
-          "codedata": {
-            "node": "NEW_CONNECTION",
-            "org": "ballerinax",
-            "module": "googleapis.gmail",
-            "object": "Client",
-            "symbol": "init",
-            "version": "4.0.1",
-            "isGenerated": false
-          },
-          "enabled": true
-        },
-        {
-          "metadata": {
             "label": "Gcalendar",
             "description": "Manipulates events and other calendar data.",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.gcalendar_4.0.1.png",
@@ -425,6 +425,66 @@
         "label": "SaaS"
       },
       "items": [
+        {
+          "metadata": {
+            "label": "Twilio",
+            "description": "This is the public Twilio REST API.",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_twilio_5.0.0.png",
+            "data": {
+              "isAgentSupport": true
+            }
+          },
+          "codedata": {
+            "node": "NEW_CONNECTION",
+            "org": "ballerinax",
+            "module": "twilio",
+            "object": "Client",
+            "symbol": "init",
+            "version": "5.0.0",
+            "isGenerated": false
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Salesforce",
+            "description": "Ballerina Salesforce connector provides the capability to access Salesforce REST API.\nThis connector lets you to perform operations for SObjects, query using SOQL, search using SOSL, and describe SObjects\nand organizational data.",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_salesforce_8.2.0.png",
+            "data": {
+              "isAgentSupport": false
+            }
+          },
+          "codedata": {
+            "node": "NEW_CONNECTION",
+            "org": "ballerinax",
+            "module": "salesforce",
+            "object": "Client",
+            "symbol": "init",
+            "version": "8.2.0",
+            "isGenerated": false
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Github",
+            "description": "GitHub's v3 REST API.",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_github_5.1.0.png",
+            "data": {
+              "isAgentSupport": true
+            }
+          },
+          "codedata": {
+            "node": "NEW_CONNECTION",
+            "org": "ballerinax",
+            "module": "github",
+            "object": "Client",
+            "symbol": "init",
+            "version": "5.1.0",
+            "isGenerated": false
+          },
+          "enabled": true
+        },
         {
           "metadata": {
             "label": "Stripe",
@@ -461,66 +521,6 @@
             "object": "Client",
             "symbol": "init",
             "version": "4.0.0",
-            "isGenerated": false
-          },
-          "enabled": true
-        },
-        {
-          "metadata": {
-            "label": "Twilio",
-            "description": "This is the public Twilio REST API.",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_twilio_5.0.0.png",
-            "data": {
-              "isAgentSupport": true
-            }
-          },
-          "codedata": {
-            "node": "NEW_CONNECTION",
-            "org": "ballerinax",
-            "module": "twilio",
-            "object": "Client",
-            "symbol": "init",
-            "version": "5.0.0",
-            "isGenerated": false
-          },
-          "enabled": true
-        },
-        {
-          "metadata": {
-            "label": "Salesforce",
-            "description": "Ballerina Salesforce connector provides the capability to access Salesforce REST API.\nThis connector lets you to perform operations for SObjects, query using SOQL, search using SOSL, and describe SObjects\nand organizational data.",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_salesforce_8.1.0.png",
-            "data": {
-              "isAgentSupport": false
-            }
-          },
-          "codedata": {
-            "node": "NEW_CONNECTION",
-            "org": "ballerinax",
-            "module": "salesforce",
-            "object": "Client",
-            "symbol": "init",
-            "version": "8.1.0",
-            "isGenerated": false
-          },
-          "enabled": true
-        },
-        {
-          "metadata": {
-            "label": "Github",
-            "description": "GitHub's v3 REST API.",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_github_5.1.0.png",
-            "data": {
-              "isAgentSupport": true
-            }
-          },
-          "codedata": {
-            "node": "NEW_CONNECTION",
-            "org": "ballerinax",
-            "module": "github",
-            "object": "Client",
-            "symbol": "init",
-            "version": "5.1.0",
             "isGenerated": false
           },
           "enabled": true

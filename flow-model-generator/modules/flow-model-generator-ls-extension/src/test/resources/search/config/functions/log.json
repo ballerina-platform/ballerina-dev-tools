@@ -113,14 +113,14 @@
               "metadata": {
                 "label": "printDebug",
                 "description": "Prints debug logs.\n```ballerina\nlog:printDebug(\"debug message\", id = 845315)\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.11.0.png"
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.12.0.png"
               },
               "codedata": {
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "log",
                 "symbol": "printDebug",
-                "version": "2.11.0"
+                "version": "2.12.0"
               },
               "enabled": true
             },
@@ -128,14 +128,14 @@
               "metadata": {
                 "label": "printInfo",
                 "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.11.0.png"
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.12.0.png"
               },
               "codedata": {
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "log",
                 "symbol": "printInfo",
-                "version": "2.11.0"
+                "version": "2.12.0"
               },
               "enabled": true
             },
@@ -143,14 +143,14 @@
               "metadata": {
                 "label": "printWarn",
                 "description": "Prints warn logs.\n```ballerina\nlog:printWarn(\"warn message\", id = 845315)\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.11.0.png"
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.12.0.png"
               },
               "codedata": {
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "log",
                 "symbol": "printWarn",
-                "version": "2.11.0"
+                "version": "2.12.0"
               },
               "enabled": true
             },
@@ -158,14 +158,14 @@
               "metadata": {
                 "label": "setOutputFile",
                 "description": "Set the log output to a file. Note that all the subsequent logs of the entire application will be written to this file.\n```ballerina\nvar result = log:setOutputFile(\"./resources/myfile.log\");\nvar result = log:setOutputFile(\"./resources/myfile.log\", log:OVERWRITE);\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.11.0.png"
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.12.0.png"
               },
               "codedata": {
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "log",
                 "symbol": "setOutputFile",
-                "version": "2.11.0"
+                "version": "2.12.0"
               },
               "enabled": true
             },
@@ -173,14 +173,14 @@
               "metadata": {
                 "label": "printError",
                 "description": "Prints error logs.\n```ballerina\nerror e = error(\"error occurred\");\nlog:printError(\"error log with cause\", 'error = e, id = 845315);\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.11.0.png"
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.12.0.png"
               },
               "codedata": {
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "log",
                 "symbol": "printError",
-                "version": "2.11.0"
+                "version": "2.12.0"
               },
               "enabled": true
             }
@@ -242,6 +242,30 @@
         },
         {
           "metadata": {
+            "label": "observe",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "isMetricsLogsEnabled",
+                "description": "Check whether metrics logs is enabled.",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_observe_1.5.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "observe",
+                "symbol": "isMetricsLogsEnabled",
+                "version": "1.5.0"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
             "label": "file",
             "description": "",
             "keywords": []
@@ -251,14 +275,14 @@
               "metadata": {
                 "label": "relativePath",
                 "description": "Returns a relative path, which is logically equivalent to the target path when joined to the base path with an\nintervening separator.\nAn error is returned if the target path cannot be made relative to the base path.\n```ballerina\n string relative = check file:relativePath(\"a/b/e\", \"a/c/d\");\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_file_1.11.0.png"
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_file_1.12.0.png"
               },
               "codedata": {
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "file",
                 "symbol": "relativePath",
-                "version": "1.11.0"
+                "version": "1.12.0"
               },
               "enabled": true
             }
