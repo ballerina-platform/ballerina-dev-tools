@@ -278,7 +278,7 @@ public class SourceBuilder {
                 ModuleInfo moduleInfo = ModuleInfo.from(moduleId);
                 PackageUtil.pullModuleAndNotify(lsClientLogger, moduleInfo).ifPresent(pkg ->
                         packageMap.put(CommonUtils.getDefaultModulePrefix(pkg.packageName().value()),
-                                pkg.getCompilation().defaultModuleBLangPackage())
+                                PackageUtil.getCompilation(pkg).defaultModuleBLangPackage())
                 );
             });
         }

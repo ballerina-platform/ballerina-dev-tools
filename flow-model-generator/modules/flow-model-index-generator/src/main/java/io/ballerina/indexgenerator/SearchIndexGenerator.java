@@ -128,7 +128,7 @@ public class SearchIndexGenerator {
 
         SemanticModel semanticModel;
         try {
-            semanticModel = resolvedPackage.getCompilation()
+            semanticModel = PackageUtil.getCompilation(resolvedPackage)
                     .getSemanticModel(resolvedPackage.getDefaultModule().moduleId());
         } catch (Exception e) {
             logger.error("Error reading semantic model: " + e.getMessage());

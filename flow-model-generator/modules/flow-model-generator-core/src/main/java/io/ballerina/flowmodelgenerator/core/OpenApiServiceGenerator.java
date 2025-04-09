@@ -152,8 +152,8 @@ public class OpenApiServiceGenerator {
             Document document = sampleProject.currentPackage().getDefaultModule().document(documentId);
             try {
                 Document apply = document.modify().withContent(serviceTypeFile.getContent()).apply();
-                DiagnosticResult diagnosticResult =
-                        apply.module().packageInstance().getCompilation().diagnosticResult();
+                Package currentPackage = apply.module().packageInstance();
+                DiagnosticResult diagnosticResult = PackageUtil.getCompilation(currentPackage).diagnosticResult();
                 if (diagnosticResult.hasErrors()) {
                     throw new BallerinaOpenApiException("Error occurred while generating the service type: " +
                             diagnosticResult.diagnostics());
@@ -241,9 +241,10 @@ public class OpenApiServiceGenerator {
         DocumentId serviceObjDocId = DocumentId.create(mainFile.toString(), moduleId);
         DocumentConfig documentConfig = DocumentConfig.from(
                 serviceObjDocId, serviceType.getContent(), serviceType.getFileName());
-        module.modify().addDocument(documentConfig).apply();
+        Module apply = module.modify().addDocument(documentConfig).apply();
 
-        SemanticModel semanticModel = project.currentPackage().getCompilation().getSemanticModel(moduleId);
+        SemanticModel semanticModel = PackageUtil.getCompilation(apply.packageInstance())
+                .getSemanticModel(apply.moduleId());
         TypeDefinitionSymbol symbol = getServiceTypeSymbol(semanticModel.moduleSymbols(), typeName);
         if (symbol == null) {
             throw new BallerinaOpenApiException("Cannot find service type definition");

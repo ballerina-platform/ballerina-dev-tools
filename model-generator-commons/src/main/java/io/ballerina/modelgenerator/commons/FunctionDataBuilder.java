@@ -133,7 +133,7 @@ public class FunctionDataBuilder {
 
     public FunctionDataBuilder resolvedPackage(Package resolvedPackage) {
         if (semanticModel == null) {
-            semanticModel(resolvedPackage.getCompilation().getSemanticModel(
+            semanticModel(PackageUtil.getCompilation(resolvedPackage).getSemanticModel(
                     resolvedPackage.getDefaultModule().moduleId()));
         }
         this.resolvedPackage = resolvedPackage;
@@ -394,7 +394,7 @@ public class FunctionDataBuilder {
             for (Module module : project.currentPackage().modules()) {
                 ModuleName moduleName = module.moduleName();
                 if ((moduleName.packageName() + "." + moduleName.moduleNamePart()).equals(moduleInfo.moduleName())) {
-                    semanticModel(project.currentPackage().getCompilation().getSemanticModel(module.moduleId()));
+                    semanticModel(PackageUtil.getCompilation(project).getSemanticModel(module.moduleId()));
                     break;
                 }
             }

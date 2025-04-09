@@ -25,6 +25,7 @@ import io.ballerina.flowmodelgenerator.core.model.Item;
 import io.ballerina.flowmodelgenerator.core.model.Metadata;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.modelgenerator.commons.CommonUtils;
+import io.ballerina.modelgenerator.commons.PackageUtil;
 import io.ballerina.modelgenerator.commons.SearchResult;
 import io.ballerina.projects.Package;
 import io.ballerina.projects.Project;
@@ -63,7 +64,7 @@ class TypeSearchCommand extends SearchCommand {
 
         // Obtain the imported project names
         Package currentPackage = project.currentPackage();
-        currentPackage.getCompilation();
+        PackageUtil.getCompilation(currentPackage);
         moduleNames = currentPackage.getDefaultModule().moduleDependencies().stream()
                 .map(moduleDependency -> moduleDependency.descriptor().name().packageName().value())
                 .toList();
