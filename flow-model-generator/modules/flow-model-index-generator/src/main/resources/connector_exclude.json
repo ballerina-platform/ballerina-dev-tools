@@ -14,5 +14,32 @@
     "ListenerLdapUserStoreBasicAuthHandler",
     "ListenerOAuth2Handler",
     "ServerReflectionServerReflectionResponseCaller"
+  ],
+  "kafka": [
+    "Caller"
+  ],
+  "ftp": [
+    "Caller"
+  ],
+  "websocket": [
+    "Caller"
+  ],
+  "tcp": [
+    "Caller"
+  ],
+  "udp": [
+    "Caller"
+  ],
+  "java.jms": [
+    "Caller"
+  ],
+  "mqtt": [
+    "Caller"
+  ],
+  "asb": [
+    "Caller"
+  ],
+  "rabbitmq": [
+    "Caller"
   ]
 }
