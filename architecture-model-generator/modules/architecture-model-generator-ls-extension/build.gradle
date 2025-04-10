@@ -99,11 +99,6 @@ task copyStdlibs() {
 test {
     dependsOn {
         copyStdlibs
-        rootProject.pullBallerinaModule('ai.agent', ballerinaxAiAgent)
-        rootProject.pullBallerinaModule('np', ballerinaxNp)
-        rootProject.pullBallerinaModule('kafka', ballerinaxKafkaVersion)
-        rootProject.pullBallerinaModule('rabbitmq', ballerinaxRabbitmqVersion)
-        rootProject.pullBallerinaModule('trigger.github', ballerinaxGithubTriggerVersion)
     }
     systemProperty "ballerina.home", balDistribution
 
