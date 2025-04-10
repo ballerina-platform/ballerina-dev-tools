@@ -754,7 +754,7 @@ public class SourceBuilder {
         }
 
         public TokenBuilder parameterDoc(String paramName, String description) {
-            if (!description.isEmpty()) {
+            if (description != null && !description.isEmpty()) {
                 sb.append(SyntaxKind.HASH_TOKEN.stringValue())
                         .append(WHITE_SPACE)
                         .append(SyntaxKind.PLUS_TOKEN.stringValue())
@@ -770,7 +770,7 @@ public class SourceBuilder {
         }
 
         public TokenBuilder returnDoc(String returnDescription) {
-            if (!returnDescription.isEmpty()) {
+            if (returnDescription != null && !returnDescription.isEmpty()) {
                 sb.append(SyntaxKind.HASH_TOKEN.stringValue())
                         .append(WHITE_SPACE)
                         .append(SyntaxKind.PLUS_TOKEN.stringValue())
