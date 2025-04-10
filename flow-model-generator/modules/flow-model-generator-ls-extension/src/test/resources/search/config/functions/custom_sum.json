@@ -38,7 +38,10 @@
           },
           "codedata": {
             "node": "FUNCTION_CALL",
-            "symbol": "sum"
+            "org": "nipunaf",
+            "module": "proj",
+            "symbol": "sum",
+            "version": "0.1.0"
           },
           "enabled": true
         },
@@ -54,7 +57,10 @@
           },
           "codedata": {
             "node": "FUNCTION_CALL",
-            "symbol": "prefixSum"
+            "org": "nipunaf",
+            "module": "proj",
+            "symbol": "prefixSum",
+            "version": "0.1.0"
           },
           "enabled": true
         },
@@ -69,7 +75,10 @@
           },
           "codedata": {
             "node": "FUNCTION_CALL",
-            "symbol": "sum2"
+            "org": "nipunaf",
+            "module": "proj",
+            "symbol": "sum2",
+            "version": "0.1.0"
           },
           "enabled": true
         }

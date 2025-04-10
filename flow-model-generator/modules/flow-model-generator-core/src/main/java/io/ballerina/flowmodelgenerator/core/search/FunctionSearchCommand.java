@@ -155,7 +155,6 @@ class FunctionSearchCommand extends SearchCommand {
                     continue;
                 }
             }
-            symbol.getName();
 
             if (symbol.getName().isEmpty() ||
                     (!query.isEmpty() && !symbol.getName().get().toLowerCase(Locale.ROOT)
@@ -175,20 +174,22 @@ class FunctionSearchCommand extends SearchCommand {
                     .addData("isIsolatedFunction", isIsolatedFunction)
                     .build();
 
-            Codedata.Builder<Object> codedata = new Codedata.Builder<>(null)
+            Codedata.Builder<Object> codedataBuilder = new Codedata.Builder<>(null)
                     .node(NodeKind.FUNCTION_CALL)
                     .symbol(symbol.getName().get());
             Optional<ModuleSymbol> moduleSymbol = functionSymbol.getModule();
             if (moduleSymbol.isPresent()) {
                 ModuleID id = moduleSymbol.get().id();
-                id.packageName();
-                id.moduleName();
+                codedataBuilder
+                        .org(id.orgName())
+                        .module(id.packageName())
+                        .version(id.version());
             }
 
             if (isAgentTool) {
-                availableTools.add(new AvailableNode(metadata, codedata.build(), true));
+                availableTools.add(new AvailableNode(metadata, codedataBuilder.build(), true));
             } else {
-                availableNodes.add(new AvailableNode(metadata, codedata.build(), true));
+                availableNodes.add(new AvailableNode(metadata, codedataBuilder.build(), true));
             }
         }
         projectBuilder.items(availableNodes);
