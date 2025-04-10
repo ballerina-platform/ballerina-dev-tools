@@ -778,7 +778,7 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
                 .stepOut()
                 .type(Property.ValueType.IDENTIFIER)
                 .hidden()
-                .value(anontations);
+                .value(annotations);
 
         addProperty(Property.ANNOTATIONS_KEY);
         return this;
