@@ -27,6 +27,7 @@ import io.ballerina.compiler.api.symbols.ParameterSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
+import io.ballerina.compiler.syntax.tree.AnnotationNode;
 import io.ballerina.compiler.syntax.tree.DefaultableParameterNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.MarkdownDocumentationLineNode;
@@ -207,6 +208,23 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
                         isContextParamAvailable);
             }
             default -> FunctionDefinitionBuilder.setOptionalProperties(nodeBuilder);
+        }
+
+        Optional<MetadataNode> optMetadata = functionDefinitionNode.metadata();
+        if (optMetadata.isPresent()) {
+            StringBuilder annot = new StringBuilder();
+            NodeList<AnnotationNode> annotations = optMetadata.get().annotations();
+            for (AnnotationNode annotation : annotations) {
+                annot.append(annotation.toSourceCode());
+            }
+            annot.append(System.lineSeparator());
+            nodeBuilder.properties().annotations(annot.toString());
+        }
+
+        for (Token token : functionDefinitionNode.qualifierList()) {
+            if (token.text().equals("isolated")) {
+                nodeBuilder.properties().isIsolated(true, true, false, false);
+            }
         }
 
         // Build the definition node

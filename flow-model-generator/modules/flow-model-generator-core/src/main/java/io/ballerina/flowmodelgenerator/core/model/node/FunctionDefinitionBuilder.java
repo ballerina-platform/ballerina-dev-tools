@@ -47,7 +47,9 @@ public class FunctionDefinitionBuilder extends NodeBuilder {
     public static final String DESCRIPTION = "Define a function";
 
     public static final String FUNCTION_NAME_LABEL = "Name";
+    public static final String ANNOTATIONS_LABEL = "Annotations";
     public static final String FUNCTION_NAME_DOC = "Name of the function";
+    public static final String ANNOTATION_DOC = "Annotations of the function";
 
     public static final String PARAMETERS_LABEL = "Parameters";
     public static final String PARAMETERS_DOC = "Function parameters";
@@ -156,6 +158,15 @@ public class FunctionDefinitionBuilder extends NodeBuilder {
             if (!returnDescription.isEmpty()) {
                 sourceBuilder.token().returnDoc(returnDescription);
             }
+        }
+
+        Optional<Property> annotationsProperty = sourceBuilder.getProperty(Property.ANNOTATIONS_KEY);
+        if (annotationsProperty.isPresent()) {
+            sourceBuilder.token().name(annotationsProperty.get().toSourceCode());
+        }
+        Optional<Property> isolatedProperty = sourceBuilder.getProperty(Property.IS_ISOLATED_KEY);
+        if (isolatedProperty.isPresent()) {
+            sourceBuilder.token().keyword(SyntaxKind.ISOLATED_KEYWORD);
         }
 
         sourceBuilder.token().keyword(SyntaxKind.FUNCTION_KEYWORD);
