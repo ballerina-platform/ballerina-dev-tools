@@ -770,8 +770,7 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
         return this;
     }
 
-    public FormBuilder<T> annotations(String anontations) {
-
+    public FormBuilder<T> annotations(String annotations) {
         propertyBuilder
                 .metadata()
                 .label(FunctionDefinitionBuilder.ANNOTATIONS_LABEL)
