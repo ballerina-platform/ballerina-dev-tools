@@ -694,9 +694,12 @@ public class CommonUtils {
         if (!orgName.isEmpty()) {
             importStatement.append(orgName).append("/");
         }
-        importStatement.append(packageName);
-        if (moduleName != null && !packageName.equals(moduleName)) {
-            importStatement.append(".").append(moduleName);
+        if (moduleName != null && moduleName.startsWith(packageName + ".")) {
+            importStatement.append(moduleName);
+        } else if (moduleName != null && !packageName.equals(moduleName)) {
+            importStatement.append(packageName).append(".").append(moduleName);
+        } else {
+            importStatement.append(packageName);
         }
         return importStatement.toString();
     }
