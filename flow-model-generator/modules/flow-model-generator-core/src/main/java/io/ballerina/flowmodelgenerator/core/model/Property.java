@@ -208,6 +208,7 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
     public static final String PARAMETER_DOC = "Function parameter";
 
     public static final String FUNCTION_NAME_KEY = "functionName";
+    public static final String ANNOTATIONS_KEY = "annotations";
     public static final String PARAMETERS_KEY = "parameters";
 
     public static final Set<String> RESERVED_PROPERTY_KEYS = Set.of(VARIABLE_KEY, NAME_KEY, TYPE_KEY,

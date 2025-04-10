@@ -770,6 +770,20 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
         return this;
     }
 
+    public FormBuilder<T> annotations(String annotations) {
+        propertyBuilder
+                .metadata()
+                .label(FunctionDefinitionBuilder.ANNOTATIONS_LABEL)
+                .description(FunctionDefinitionBuilder.ANNOTATION_DOC)
+                .stepOut()
+                .type(Property.ValueType.IDENTIFIER)
+                .hidden()
+                .value(annotations);
+
+        addProperty(Property.ANNOTATIONS_KEY);
+        return this;
+    }
+
     public FormBuilder<T> functionNameTemplate(String templatePrefix, Set<String> visibleSymbols) {
         return functionNameTemplate(templatePrefix, visibleSymbols, FunctionDefinitionBuilder.FUNCTION_NAME_LABEL,
                 FunctionDefinitionBuilder.FUNCTION_NAME_DOC);
