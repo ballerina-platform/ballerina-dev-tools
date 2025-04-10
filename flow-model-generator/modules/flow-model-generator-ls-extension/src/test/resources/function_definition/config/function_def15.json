@@ -272,6 +272,18 @@
         "editable": false,
         "advanced": false,
         "hidden": false
+      },
+      "annotations": {
+        "metadata": {
+          "label": "Annotations",
+          "description": "Annotations of the function"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "\n",
+        "optional": false,
+        "editable": false,
+        "advanced": false,
+        "hidden": true
       }
     },
     "flags": 0

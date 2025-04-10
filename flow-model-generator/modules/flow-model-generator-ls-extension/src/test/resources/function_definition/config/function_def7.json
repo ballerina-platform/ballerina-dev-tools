@@ -147,6 +147,18 @@
         "editable": false,
         "advanced": false,
         "hidden": false
+      },
+      "isIsolated": {
+        "metadata": {
+          "label": "isolated",
+          "description": "Is this isolated"
+        },
+        "valueType": "FLAG",
+        "value": "true",
+        "optional": true,
+        "editable": true,
+        "advanced": false,
+        "hidden": false
       }
     },
     "flags": 0
