@@ -55,8 +55,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Utility class that contains methods to perform package-related operations.
@@ -73,7 +73,7 @@ public class PackageUtil {
     private static final String MODULE_PULLING_SUCCESS_MESSAGE = "Successfully pulled the module: %s";
 
     // Concurrent map to store locks for each project
-    private static final ConcurrentHashMap<UUID, Object> PROJECT_LOCKS = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<Path, ReentrantLock> PROJECT_LOCKS = new ConcurrentHashMap<>();
 
     public static BuildProject getSampleProject() {
         // Obtain the Ballerina distribution path
@@ -301,14 +301,13 @@ public class PackageUtil {
      * @return The compilation of the project
      */
     public static PackageCompilation getCompilation(Package balPackage) {
-        UUID id = balPackage.packageId().id();
-        Object lock = PROJECT_LOCKS.computeIfAbsent(id, k -> new Object());
-        synchronized (lock) {
-            try {
-                return balPackage.getCompilation();
-            } finally {
-                PROJECT_LOCKS.remove(id);
-            }
+        Path id = balPackage.project().sourceRoot();
+        ReentrantLock lock = PROJECT_LOCKS.computeIfAbsent(id, k -> new ReentrantLock());
+        lock.lock();
+        try {
+            return balPackage.getCompilation();
+        } finally {
+            lock.unlock();
         }
     }
 
