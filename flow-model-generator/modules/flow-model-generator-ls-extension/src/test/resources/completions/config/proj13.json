@@ -1,0 +1,122 @@
+{
+  "description": "",
+  "filePath": "source.bal",
+  "context": {
+    "expression": "caller->",
+    "startLine": {
+      "line": 22,
+      "offset": 0
+    },
+    "offset": 7,
+    "codedata": {
+      "node": "VARIABLE"
+    },
+    "property": {
+      "metadata": {
+        "label": "Expression",
+        "description": "Initialize with value"
+      },
+      "valueType": "EXPRESSION",
+      "value": "caller",
+      "optional": true,
+      "editable": true,
+      "advanced": false
+    }
+  },
+  "completionContext": {
+    "triggerKind": "Invoked"
+  },
+  "completions": [
+    {
+      "label": "respond(http:ResponseMessage|http:StatusCodeResponse|error message)",
+      "kind": "Function",
+      "detail": "http:ListenerError?",
+      "documentation": {
+        "right": {
+          "kind": "markdown",
+          "value": "**Package:** _ballerina/http:2.14.0_  \n  \nSends the outbound response to the caller.\n  \n**Params**  \n- `http:ResponseMessage|http:StatusCodeResponse|error` message: The outbound response or status code response or error or any allowed payload(Defaultable)  \n  \n**Return** `http:ListenerError?`   \n- An `http:ListenerError` if failed to respond or else `()`  \n  \n"
+        }
+      },
+      "sortText": "AD",
+      "filterText": "respond",
+      "insertText": "respond(${1})",
+      "insertTextFormat": "Snippet",
+      "command": {
+        "title": "editor.action.triggerParameterHints",
+        "command": "editor.action.triggerParameterHints"
+      }
+    },
+    {
+      "label": "promise(http:PushPromise promise)",
+      "kind": "Function",
+      "detail": "http:ListenerError?",
+      "documentation": {
+        "right": {
+          "kind": "markdown",
+          "value": "**Package:** _ballerina/http:2.14.0_  \n  \nPushes a promise to the caller.\n  \n**Params**  \n- `http:PushPromise` promise: Push promise message  \n  \n**Return** `http:ListenerError?`   \n- An `http:ListenerError` in case of failures  \n  \n"
+        }
+      },
+      "sortText": "AE",
+      "filterText": "promise",
+      "insertText": "promise(${1})",
+      "insertTextFormat": "Snippet",
+      "command": {
+        "title": "editor.action.triggerParameterHints",
+        "command": "editor.action.triggerParameterHints"
+      }
+    },
+    {
+      "label": "pushPromisedResponse(http:PushPromise promise, http:Response response)",
+      "kind": "Function",
+      "detail": "http:ListenerError?",
+      "documentation": {
+        "right": {
+          "kind": "markdown",
+          "value": "**Package:** _ballerina/http:2.14.0_  \n  \nSends a promised push response to the caller.\n  \n**Params**  \n- `http:PushPromise` promise: Push promise message  \n- `http:Response` response: The outbound response  \n  \n**Return** `http:ListenerError?`   \n- An `http:ListenerError` in case of failures while responding with the promised response  \n  \n"
+        }
+      },
+      "sortText": "AF",
+      "filterText": "pushPromisedResponse",
+      "insertText": "pushPromisedResponse(${1})",
+      "insertTextFormat": "Snippet",
+      "command": {
+        "title": "editor.action.triggerParameterHints",
+        "command": "editor.action.triggerParameterHints"
+      }
+    },
+    {
+      "label": "'continue()",
+      "kind": "Function",
+      "detail": "http:ListenerError?",
+      "documentation": {
+        "right": {
+          "kind": "markdown",
+          "value": "**Package:** _ballerina/http:2.14.0_  \n  \nSends a `100-continue` response to the caller.\n  \n  \n  \n**Return** `http:ListenerError?`   \n- An `http:ListenerError` if failed to send the `100-continue` response or else `()`  \n  \n"
+        }
+      },
+      "sortText": "AG",
+      "filterText": "'continue",
+      "insertText": "'continue()",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "redirect(http:Response response, http:RedirectCode code, string[] locations)",
+      "kind": "Function",
+      "detail": "http:ListenerError?",
+      "documentation": {
+        "right": {
+          "kind": "markdown",
+          "value": "**Package:** _ballerina/http:2.14.0_  \n  \nSends a redirect response to the user with the specified redirection status code.\n  \n**Params**  \n- `http:Response` response: Response to be sent to the caller  \n- `http:RedirectCode` code: The redirect status code to be sent  \n- `string[]` locations: An array of URLs to which the caller can redirect to  \n  \n**Return** `http:ListenerError?`   \n- An `http:ListenerError` if failed to send the redirect response or else `()`  \n  \n"
+        }
+      },
+      "sortText": "AH",
+      "filterText": "redirect",
+      "insertText": "redirect(${1})",
+      "insertTextFormat": "Snippet",
+      "command": {
+        "title": "editor.action.triggerParameterHints",
+        "command": "editor.action.triggerParameterHints"
+      }
+    }
+  ]
+}
