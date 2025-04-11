@@ -45,7 +45,7 @@ public class ExpressionDiagnosticsRequest extends DiagnosticsRequest {
 
     @Override
     protected Node getParsedNode(String text) {
-        return NodeParser.parseExpression(text);
+        return NodeParser.parseActionOrExpression(text);
     }
 
     @Override
