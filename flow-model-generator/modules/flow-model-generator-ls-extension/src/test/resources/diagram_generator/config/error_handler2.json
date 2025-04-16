@@ -63,7 +63,7 @@
               "label": "Expression",
               "description": "Initialize with value"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "ACTION_OR_EXPRESSION",
             "value": "",
             "optional": true,
             "editable": true,
@@ -354,7 +354,7 @@
                       "label": "Expression",
                       "description": "Assign value"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "ACTION_OR_EXPRESSION",
                     "value": "res3.toString()",
                     "optional": false,
                     "editable": true,
@@ -426,7 +426,7 @@
                       "label": "Expression",
                       "description": "Assign value"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "ACTION_OR_EXPRESSION",
                     "value": "\"Failed to get the response\"",
                     "optional": false,
                     "editable": true,
@@ -747,7 +747,7 @@
                               "label": "Expression",
                               "description": "Assign value"
                             },
-                            "valueType": "EXPRESSION",
+                            "valueType": "ACTION_OR_EXPRESSION",
                             "value": "msg.toString() + res.toString()",
                             "optional": false,
                             "editable": true,
@@ -819,7 +819,7 @@
                               "label": "Expression",
                               "description": "Assign value"
                             },
-                            "valueType": "EXPRESSION",
+                            "valueType": "ACTION_OR_EXPRESSION",
                             "value": "\"Error occurred while logging the error\"",
                             "optional": false,
                             "editable": true,

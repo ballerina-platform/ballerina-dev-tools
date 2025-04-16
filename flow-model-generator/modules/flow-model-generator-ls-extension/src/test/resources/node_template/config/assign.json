@@ -31,7 +31,7 @@
           "label": "Expression",
           "description": "Assign value"
         },
-        "valueType": "EXPRESSION",
+        "valueType": "ACTION_OR_EXPRESSION",
         "value": "",
         "optional": false,
         "editable": true,

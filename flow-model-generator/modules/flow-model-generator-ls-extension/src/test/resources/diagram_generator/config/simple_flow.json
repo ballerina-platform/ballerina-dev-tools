@@ -295,7 +295,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "ACTION_OR_EXPRESSION",
                     "value": "j",
                     "optional": false,
                     "editable": true,
@@ -526,7 +526,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "ACTION_OR_EXPRESSION",
                     "value": "j",
                     "optional": false,
                     "editable": true,

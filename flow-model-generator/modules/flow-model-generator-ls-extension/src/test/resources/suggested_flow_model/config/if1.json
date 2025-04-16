@@ -74,7 +74,7 @@
               "label": "Expression",
               "description": "Initialize with value"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "ACTION_OR_EXPRESSION",
             "value": "12",
             "optional": true,
             "editable": true,
@@ -210,7 +210,7 @@
                       "label": "Expression",
                       "description": "Assign value"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "ACTION_OR_EXPRESSION",
                     "value": "i + 3",
                     "optional": false,
                     "editable": true,
@@ -267,7 +267,7 @@
               "label": "Expression",
               "description": "Initialize with value"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "ACTION_OR_EXPRESSION",
             "value": "i.toString()",
             "optional": true,
             "editable": true,

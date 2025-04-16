@@ -222,7 +222,7 @@
                               "label": "Expression",
                               "description": "Return value"
                             },
-                            "valueType": "EXPRESSION",
+                            "valueType": "ACTION_OR_EXPRESSION",
                             "value": "\"large summer pack\"",
                             "optional": false,
                             "editable": true,
@@ -309,7 +309,7 @@
                               "label": "Expression",
                               "description": "Return value"
                             },
-                            "valueType": "EXPRESSION",
+                            "valueType": "ACTION_OR_EXPRESSION",
                             "value": "\"large off-season pack\"",
                             "optional": false,
                             "editable": true,
@@ -486,7 +486,7 @@
                               "label": "Expression",
                               "description": "Return value"
                             },
-                            "valueType": "EXPRESSION",
+                            "valueType": "ACTION_OR_EXPRESSION",
                             "value": "\"regular summer pack\"",
                             "optional": false,
                             "editable": true,
@@ -573,7 +573,7 @@
                               "label": "Expression",
                               "description": "Return value"
                             },
-                            "valueType": "EXPRESSION",
+                            "valueType": "ACTION_OR_EXPRESSION",
                             "value": "\"regular off-season pack\"",
                             "optional": false,
                             "editable": true,

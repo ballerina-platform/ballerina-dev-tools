@@ -106,7 +106,7 @@
           "label": "Collection",
           "description": "Collection to iterate"
         },
-        "valueType": "EXPRESSION",
+        "valueType": "ACTION_OR_EXPRESSION",
         "value": "",
         "placeholder": "[]",
         "optional": false,

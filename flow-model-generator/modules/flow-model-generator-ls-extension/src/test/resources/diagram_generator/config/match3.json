@@ -151,7 +151,7 @@
                       "label": "Expression",
                       "description": "Assign value"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "ACTION_OR_EXPRESSION",
                     "value": "\"cheap\"",
                     "optional": false,
                     "editable": true,
@@ -344,7 +344,7 @@
                               "label": "Expression",
                               "description": "Assign value"
                             },
-                            "valueType": "EXPRESSION",
+                            "valueType": "ACTION_OR_EXPRESSION",
                             "value": "\"fresh; moderate\"",
                             "optional": false,
                             "editable": true,
@@ -443,7 +443,7 @@
                               "label": "Expression",
                               "description": "Assign value"
                             },
-                            "valueType": "EXPRESSION",
+                            "valueType": "ACTION_OR_EXPRESSION",
                             "value": "\"expired; moderate\"",
                             "optional": false,
                             "editable": true,
@@ -622,7 +622,7 @@
                       "label": "Expression",
                       "description": "Assign value"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "ACTION_OR_EXPRESSION",
                     "value": "\"expensive\"",
                     "optional": false,
                     "editable": true,
@@ -692,7 +692,7 @@
               "label": "Expression",
               "description": "Return value"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "ACTION_OR_EXPRESSION",
             "value": "fruit",
             "optional": false,
             "editable": true,

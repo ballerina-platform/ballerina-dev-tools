@@ -66,7 +66,7 @@
               "label": "Expression",
               "description": "Call action or expression"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "ACTION_OR_EXPRESSION",
             "value": "fetchExample()",
             "optional": false,
             "editable": true,
@@ -143,7 +143,7 @@
               "label": "Expression",
               "description": "Call action or expression"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "ACTION_OR_EXPRESSION",
             "value": "fetchExample(1)",
             "optional": false,
             "editable": true,
@@ -220,7 +220,7 @@
               "label": "Expression",
               "description": "Call action or expression"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "ACTION_OR_EXPRESSION",
             "value": "mockFetch(\"http://error.com\", 1)",
             "optional": false,
             "editable": true,
@@ -297,7 +297,7 @@
               "label": "Expression",
               "description": "Initialize with value"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "ACTION_OR_EXPRESSION",
             "value": "[futureResult, futureResult1, futureResult2]",
             "optional": true,
             "editable": true,
@@ -714,7 +714,7 @@
               "label": "Expression",
               "description": "Return value"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "ACTION_OR_EXPRESSION",
             "value": "[val1, mapResult]",
             "optional": false,
             "editable": true,

@@ -40,7 +40,7 @@
               "label": "Expression",
               "description": "Initialize with value"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "ACTION_OR_EXPRESSION",
             "value": "{\"name\": \"value\"}",
             "optional": true,
             "editable": true,
@@ -117,7 +117,7 @@
               "label": "Expression",
               "description": "Assign value"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "ACTION_OR_EXPRESSION",
             "value": "{\"name\": \"value1\", \"name2\": \"value2\"}",
             "optional": false,
             "editable": true,

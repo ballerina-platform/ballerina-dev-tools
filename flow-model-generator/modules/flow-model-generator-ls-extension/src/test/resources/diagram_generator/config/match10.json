@@ -152,7 +152,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "ACTION_OR_EXPRESSION",
                     "value": "\"bulk order\"",
                     "optional": false,
                     "editable": true,
@@ -321,7 +321,7 @@
                               "label": "Expression",
                               "description": "Return value"
                             },
-                            "valueType": "EXPRESSION",
+                            "valueType": "ACTION_OR_EXPRESSION",
                             "value": "\"medium unripe pack\"",
                             "optional": false,
                             "editable": true,
@@ -408,7 +408,7 @@
                               "label": "Expression",
                               "description": "Return value"
                             },
-                            "valueType": "EXPRESSION",
+                            "valueType": "ACTION_OR_EXPRESSION",
                             "value": "\"medium ripe pack\"",
                             "optional": false,
                             "editable": true,
@@ -495,7 +495,7 @@
                               "label": "Expression",
                               "description": "Return value"
                             },
-                            "valueType": "EXPRESSION",
+                            "valueType": "ACTION_OR_EXPRESSION",
                             "value": "\"medium mixed pack\"",
                             "optional": false,
                             "editable": true,
@@ -614,7 +614,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "ACTION_OR_EXPRESSION",
                     "value": "\"small pack\"",
                     "optional": false,
                     "editable": true,
@@ -701,7 +701,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "ACTION_OR_EXPRESSION",
                     "value": "\"invalid order\"",
                     "optional": false,
                     "editable": true,

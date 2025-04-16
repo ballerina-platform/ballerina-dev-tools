@@ -253,7 +253,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "ACTION_OR_EXPRESSION",
                     "value": "string `Order for ${quantity} peaches with ripeness ${ripeness}`",
                     "optional": false,
                     "editable": true,
@@ -441,7 +441,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "ACTION_OR_EXPRESSION",
                     "value": "string `Error processing peach order: ${e.message()}`",
                     "optional": false,
                     "editable": true,

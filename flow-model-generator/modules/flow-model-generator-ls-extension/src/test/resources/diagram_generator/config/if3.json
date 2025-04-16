@@ -127,7 +127,7 @@
                       "label": "Expression",
                       "description": "Assign value"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "ACTION_OR_EXPRESSION",
                     "value": "\"cheap\"",
                     "optional": false,
                     "editable": true,
@@ -177,7 +177,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "ACTION_OR_EXPRESSION",
                     "value": "food",
                     "optional": false,
                     "editable": true,
@@ -310,7 +310,7 @@
                               "label": "Expression",
                               "description": "Assign value"
                             },
-                            "valueType": "EXPRESSION",
+                            "valueType": "ACTION_OR_EXPRESSION",
                             "value": "\"fresh; \"",
                             "optional": false,
                             "editable": true,
@@ -382,7 +382,7 @@
                               "label": "Expression",
                               "description": "Assign value"
                             },
-                            "valueType": "EXPRESSION",
+                            "valueType": "ACTION_OR_EXPRESSION",
                             "value": "\"expired; \"",
                             "optional": false,
                             "editable": true,
@@ -475,7 +475,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "ACTION_OR_EXPRESSION",
                     "value": "food",
                     "optional": false,
                     "editable": true,
@@ -535,7 +535,7 @@
                       "label": "Expression",
                       "description": "Assign value"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "ACTION_OR_EXPRESSION",
                     "value": "\"expensive\"",
                     "optional": false,
                     "editable": true,
@@ -585,7 +585,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "ACTION_OR_EXPRESSION",
                     "value": "food",
                     "optional": false,
                     "editable": true,

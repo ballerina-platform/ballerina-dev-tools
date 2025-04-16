@@ -109,7 +109,7 @@
                       "label": "Expression",
                       "description": "Initialize with value"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "ACTION_OR_EXPRESSION",
                     "value": "error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\")",
                     "optional": true,
                     "editable": true,
@@ -287,7 +287,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "ACTION_OR_EXPRESSION",
                     "value": "e",
                     "optional": false,
                     "editable": true,

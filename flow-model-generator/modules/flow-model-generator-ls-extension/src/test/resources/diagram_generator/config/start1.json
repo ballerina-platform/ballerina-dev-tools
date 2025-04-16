@@ -63,7 +63,7 @@
               "label": "Expression",
               "description": "Call action or expression"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "ACTION_OR_EXPRESSION",
             "value": "sum(40, 50)",
             "optional": false,
             "editable": true,

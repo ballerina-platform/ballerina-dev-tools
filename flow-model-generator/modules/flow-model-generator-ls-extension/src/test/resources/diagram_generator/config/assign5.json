@@ -69,7 +69,7 @@
               "label": "Expression",
               "description": "Initialize with value"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "ACTION_OR_EXPRESSION",
             "value": "[check calculate(amount), check calculate(amount + 1)]",
             "optional": true,
             "editable": true,
@@ -146,7 +146,7 @@
               "label": "Expression",
               "description": "Assign value"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "ACTION_OR_EXPRESSION",
             "value": "[check calculate(amount), check calculate(amount + 1)]",
             "optional": false,
             "editable": true,
@@ -196,7 +196,7 @@
               "label": "Expression",
               "description": "Initialize with value"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "ACTION_OR_EXPRESSION",
             "value": "[1, 2]",
             "optional": true,
             "editable": true,
@@ -273,7 +273,7 @@
               "label": "Expression",
               "description": "Assign value"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "ACTION_OR_EXPRESSION",
             "value": "[11, 22]",
             "optional": false,
             "editable": true,

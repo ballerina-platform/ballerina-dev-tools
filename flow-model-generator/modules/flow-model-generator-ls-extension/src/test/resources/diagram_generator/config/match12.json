@@ -151,7 +151,7 @@
                       "label": "Expression",
                       "description": "Initialize with value"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "ACTION_OR_EXPRESSION",
                     "value": "obj.quantity",
                     "optional": true,
                     "editable": true,
@@ -228,7 +228,7 @@
                       "label": "Expression",
                       "description": "Initialize with value"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "ACTION_OR_EXPRESSION",
                     "value": "obj.'type",
                     "optional": true,
                     "editable": true,
@@ -305,7 +305,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "ACTION_OR_EXPRESSION",
                     "value": "string `Order for ${quantity} ${'type} cherries placed`",
                     "optional": false,
                     "editable": true,
@@ -392,7 +392,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "ACTION_OR_EXPRESSION",
                     "value": "error(\"Invalid data format\")",
                     "optional": false,
                     "editable": true,
@@ -550,7 +550,7 @@
                               "label": "Expression",
                               "description": "Return value"
                             },
-                            "valueType": "EXPRESSION",
+                            "valueType": "ACTION_OR_EXPRESSION",
                             "value": "error(\"Data processing failed\", e)",
                             "optional": false,
                             "editable": true,

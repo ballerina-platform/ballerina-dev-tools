@@ -66,7 +66,7 @@
               "label": "Expression",
               "description": "Initialize with value"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "ACTION_OR_EXPRESSION",
             "value": "[1, 2, 3]",
             "optional": true,
             "editable": true,
@@ -186,7 +186,7 @@
                       "label": "Expression",
                       "description": "Assign value"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "ACTION_OR_EXPRESSION",
                     "value": "item",
                     "optional": false,
                     "editable": true,
@@ -256,7 +256,7 @@
               "label": "Collection",
               "description": "Collection to iterate"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "ACTION_OR_EXPRESSION",
             "value": "intArr ",
             "placeholder": "[]",
             "optional": false,

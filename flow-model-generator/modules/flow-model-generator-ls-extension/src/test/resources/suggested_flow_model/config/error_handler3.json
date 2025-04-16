@@ -246,7 +246,7 @@
                       "label": "Expression",
                       "description": "Initialize with value"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "ACTION_OR_EXPRESSION",
                     "value": "12",
                     "optional": true,
                     "editable": true,
@@ -324,7 +324,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "ACTION_OR_EXPRESSION",
                     "value": "\"foo\"",
                     "optional": false,
                     "editable": true,
