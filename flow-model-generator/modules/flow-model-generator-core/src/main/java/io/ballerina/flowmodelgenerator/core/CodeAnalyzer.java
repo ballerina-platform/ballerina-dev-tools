@@ -292,7 +292,7 @@ class CodeAnalyzer extends NodeVisitor {
             ExpressionNode expr = optExpr.get();
             startNode(NodeKind.RETURN, returnStatementNode)
                     .metadata().description(String.format(ReturnBuilder.DESCRIPTION, expr)).stepOut()
-                    .properties().expression(expr, ReturnBuilder.RETURN_EXPRESSION_DOC);
+                    .properties().expressionOrAction(expr, ReturnBuilder.RETURN_EXPRESSION_DOC, false);
         }
         nodeBuilder.returning();
         endNode(returnStatementNode);
@@ -1332,7 +1332,7 @@ class CodeAnalyzer extends NodeVisitor {
                     .metadata()
                     .description(AssignBuilder.DESCRIPTION)
                     .stepOut()
-                    .properties().expression(null, VariableBuilder.EXPRESSION_DOC, true);
+                    .properties().expressionOrAction(null, VariableBuilder.EXPRESSION_DOC, true);
         } else {
             ExpressionNode initializerNode = initializer.get();
             initializerNode.accept(this);
@@ -1344,7 +1344,7 @@ class CodeAnalyzer extends NodeVisitor {
                         .metadata()
                         .description(AssignBuilder.DESCRIPTION)
                         .stepOut()
-                        .properties().expression(initializerNode, VariableBuilder.EXPRESSION_DOC, true);
+                        .properties().expressionOrAction(initializerNode, VariableBuilder.EXPRESSION_DOC, true);
             }
         }
 
@@ -1390,7 +1390,7 @@ class CodeAnalyzer extends NodeVisitor {
                     .description(AssignBuilder.DESCRIPTION)
                     .stepOut()
                     .properties()
-                    .expression(expression, AssignBuilder.EXPRESSION_DOC, false);
+                    .expressionOrAction(expression, AssignBuilder.EXPRESSION_DOC, false);
 
             nodeBuilder.properties().custom()
                     .metadata()
@@ -1738,7 +1738,7 @@ class CodeAnalyzer extends NodeVisitor {
     @Override
     public void visit(StartActionNode startActionNode) {
         startNode(NodeKind.START, startActionNode).properties()
-                .expression(startActionNode.expression(), StartBuilder.START_EXPRESSION_DOC);
+                .expressionOrAction(startActionNode.expression(), StartBuilder.START_EXPRESSION_DOC, false);
     }
 
     @Override

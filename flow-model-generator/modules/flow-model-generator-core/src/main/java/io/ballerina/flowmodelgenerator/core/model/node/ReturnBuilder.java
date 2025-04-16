@@ -60,6 +60,6 @@ public class ReturnBuilder extends NodeBuilder {
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
-        properties().expression("", RETURN_EXPRESSION_DOC);
+        properties().expressionOrAction(null, RETURN_EXPRESSION_DOC, false);
     }
 }

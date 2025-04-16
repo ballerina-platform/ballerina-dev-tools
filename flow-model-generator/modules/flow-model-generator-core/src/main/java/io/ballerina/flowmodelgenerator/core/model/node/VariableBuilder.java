@@ -72,6 +72,6 @@ public class VariableBuilder extends NodeBuilder {
         metadata().description(DESCRIPTION);
         properties()
                 .dataVariable(null, true, context.getAllVisibleSymbolNames())
-                .expression("", EXPRESSION_DOC, true, null);
+                .expressionOrAction(null, EXPRESSION_DOC, true);
     }
 }
