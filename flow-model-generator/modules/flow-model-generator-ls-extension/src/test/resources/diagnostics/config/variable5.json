@@ -16,7 +16,7 @@
         "label": "Expression",
         "description": "Initialize with value"
       },
-      "valueType": "EXPRESSION",
+      "valueType": "ACTION_OR_EXPRESSION",
       "value": "caller",
       "optional": true,
       "editable": true,
@@ -28,18 +28,18 @@
       "range": {
         "start": {
           "line": 0,
-          "character": 0
+          "character": 8
         },
         "end": {
           "line": 0,
-          "character": 6
+          "character": 8
         }
       },
       "severity": "Error",
       "code": {
-        "left": "BCE0601"
+        "left": "BCE0400"
       },
-      "message": "action invocation as an expression not allowed here"
+      "message": "missing identifier"
     }
   ]
 }

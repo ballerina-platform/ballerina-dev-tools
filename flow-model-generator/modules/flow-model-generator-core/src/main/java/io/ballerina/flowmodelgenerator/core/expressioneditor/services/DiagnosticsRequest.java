@@ -52,6 +52,7 @@ public abstract class DiagnosticsRequest extends DebouncedExpressionEditorReques
         return switch (Property.ValueType.valueOf(property.valueType())) {
             case EXPRESSION -> new ExpressionDiagnosticsRequest(context);
             case LV_EXPRESSION -> new LvExpressionDiagnosticRequest(context);
+            case ACTION_OR_EXPRESSION -> new ActionOrExpressionDiagnosticsRequest(context);
             case IDENTIFIER -> new IdentifierDiagnosticsRequest(context);
             case TYPE -> new TypeDiagnosticRequest(context);
             default -> throw new IllegalArgumentException("Unsupported property type: " + property.valueType());
