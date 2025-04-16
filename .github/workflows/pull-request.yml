@@ -1,14 +1,14 @@
 name: PR build
 
-on: [push, pull_request]
+on: [pull_request]
 
 jobs:
   ubuntu-build:
-
     runs-on: ubuntu-latest
-
+    timeout-minutes: 60
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Use Node.js
         uses: actions/setup-node@v1
@@ -21,10 +21,22 @@ jobs:
           distribution: 'temurin'
           java-version: 21.0.3
 
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
       - name: Set Up Ballerina
         uses: ballerina-platform/setup-ballerina@v1.1.1
         with:
           version: 2201.12.2
+
+      - name: Cache Ballerina dependencies
+        uses: actions/cache@v4
+        id: cache-ballerina
+        with:
+          path: /home/runner/.ballerina/repositories/
+          key: ${{ runner.os }}-ballerina-${{ hashFiles('**/gradle.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-ballerina-
 
       - name: Build with Gradle
         env:
@@ -32,64 +44,43 @@ jobs:
           packagePAT: ${{ secrets.GITHUB_TOKEN }}
         run: ./gradlew build -x :createArtifactZip
 
-      - name: Generate Codecov Report
-        if: github.event_name == 'pull_request'
-        uses: codecov/codecov-action@v1
-
   windows-build:
-
     runs-on: windows-latest
-
+    timeout-minutes: 60
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Use Node.js
         uses: actions/setup-node@v1
         with:
           node-version: '10.22.1'
+
       - name: Set up JDK 21
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
           java-version: 21.0.3
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
       - name: Set Up Ballerina
         uses: ballerina-platform/setup-ballerina@v1.1.1
         with:
           version: 2201.12.2
+
+      - name: Cache Ballerina dependencies
+        uses: actions/cache@v4
+        id: cache-ballerina
+        with:
+          path: C:\Users\runneradmin\.ballerina\repositories\
+          key: ${{ runner.os }}-ballerina-${{ hashFiles('**/gradle.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-ballerina-
+
       - name: Build with Gradle
         env:
           packageUser: ${{ github.actor }}
           packagePAT: ${{ secrets.GITHUB_TOKEN }}
         run: ./gradlew.bat build -x :createArtifactZip
-
-  windows-build-2:
-
-    runs-on: windows-latest
-
-    steps:
-      - name: Initialize
-        run: |
-          git config --system core.longpaths true
-      - uses: actions/checkout@v4
-        with:
-          path: 'test folder'
-      - name: Use Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: '10.22.1'
-      - name: Set up JDK 21
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'temurin'
-          java-version: 21.0.3
-      - name: Set Up Ballerina
-        uses: ballerina-platform/setup-ballerina@v1.1.1
-        with:
-          version: 2201.12.2
-      - name: Build with Gradle
-        env:
-          packageUser: ${{ github.actor }}
-          packagePAT: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          ./gradlew.bat build -x :createArtifactZip -x test
-          ./gradlew.bat :flow-model-generator:flow-model-generator-ls-extension:test
-        working-directory: ${{ github.workspace }}/test folder
