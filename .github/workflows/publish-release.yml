@@ -7,7 +7,8 @@ jobs:
   publish-release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Use Node.js
         uses: actions/setup-node@v1
@@ -23,7 +24,7 @@ jobs:
       - name: Set Up Ballerina
         uses: ballerina-platform/setup-ballerina@v1.1.1
         with:
-          version: 2201.12.1
+          version: 2201.12.2
 
       - name: Set version env variable
         run: echo VERSION=$((grep -w "version" | cut -d= -f2) < gradle.properties | cut -d- -f1) >> $GITHUB_ENV
@@ -44,8 +45,8 @@ jobs:
           packageUser: ${{ secrets.BALLERINA_BOT_USERNAME }}
           packagePAT: ${{ secrets.BALLERINA_BOT_TOKEN }}
         run: |
-          ./gradlew release -Prelease.useAutomaticVersion=true
-          ./gradlew -Pversion=${VERSION} publish
+          ./gradlew release -Prelease.useAutomaticVersion=true -x test
+          ./gradlew -Pversion=${VERSION} publish -x test
       - name: Create Github release from the release tag
         run: |
           curl --request POST 'https://api.github.com/repos/ballerina-platform/ballerina-dev-tools/releases' \

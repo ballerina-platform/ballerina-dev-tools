@@ -17,11 +17,10 @@
     "properties": {
       "variable": {
         "metadata": {
-          "label": "Name",
-          "description": "Name of the variable"
+          "label": "Variable",
+          "description": "Name of the variable/field"
         },
-        "valueType": "IDENTIFIER",
-        "value": "var1",
+        "valueType": "LV_EXPRESSION",
         "optional": false,
         "editable": true,
         "advanced": false,
@@ -32,7 +31,7 @@
           "label": "Expression",
           "description": "Assign value"
         },
-        "valueType": "EXPRESSION",
+        "valueType": "ACTION_OR_EXPRESSION",
         "value": "",
         "optional": false,
         "editable": true,

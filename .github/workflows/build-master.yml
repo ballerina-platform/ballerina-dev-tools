@@ -6,10 +6,12 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  ubuntu-build:
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Use Node.js
         uses: actions/setup-node@v1
@@ -22,40 +24,66 @@ jobs:
           distribution: 'temurin'
           java-version: 21.0.3
 
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
       - name: Set Up Ballerina
         uses: ballerina-platform/setup-ballerina@v1.1.1
         with:
-          version: 2201.12.1
+          version: 2201.12.2
 
-      - name: Change to Timestamped Version
-        run: |
-          startTime=$(TZ="Asia/Kolkata" date +'%Y%m%d-%H%M00')
-          latestCommit=$(git log -n 1 --pretty=format:"%h")
-          VERSION=$((grep -w 'version' | cut -d= -f2) < gradle.properties | rev | cut --complement -d- -f1 | rev)
-          updatedVersion=$VERSION-$startTime-$latestCommit
-          echo $updatedVersion
-          echo TIMESTAMPED_VERSION=$updatedVersion >> $GITHUB_ENV
-          sed -i "s/version=\(.*\)/version=$updatedVersion/g" gradle.properties
+      - name: Cache Ballerina dependencies
+        uses: actions/cache@v4
+        id: cache-ballerina
+        with:
+          path: /home/runner/.ballerina/repositories/
+          key: ${{ runner.os }}-ballerina-${{ hashFiles('**/gradle.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-ballerina-
 
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-
-      - name: Build and Publish with timestamped version
+      - name: Build with Gradle
         env:
-          packageUser: ${{ secrets.BALLERINA_BOT_USERNAME }}
-          packagePAT: ${{ secrets.BALLERINA_BOT_TOKEN }}
-        if: github.event_name == 'workflow_dispatch'
-        run: |
-          ./gradlew -Pversion=${TIMESTAMPED_VERSION} clean publish --scan
+          packageUser: ${{ github.actor }}
+          packagePAT: ${{ secrets.GITHUB_TOKEN }}
+        run: ./gradlew build -x :createArtifactZip
 
-      - name: Build and Publish
+  windows-build:
+    runs-on: windows-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '10.22.1'
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: 21.0.3
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Set Up Ballerina
+        uses: ballerina-platform/setup-ballerina@v1.1.1
+        with:
+          version: 2201.12.2
+
+      - name: Cache Ballerina dependencies
+        uses: actions/cache@v4
+        id: cache-ballerina
+        with:
+          path: C:\Users\runneradmin\.ballerina\repositories\
+          key: ${{ runner.os }}-ballerina-${{ hashFiles('**/gradle.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-ballerina-
+
+      - name: Build with Gradle
         env:
-          packageUser: ${{ secrets.BALLERINA_BOT_USERNAME }}
-          packagePAT: ${{ secrets.BALLERINA_BOT_TOKEN }}
-        if: github.event_name == 'push'
-        run: |
-          ./gradlew clean publish --scan
-
-      - name: Generate Codecov Report
-        uses: codecov/codecov-action@v1
-
+          packageUser: ${{ github.actor }}
+          packagePAT: ${{ secrets.GITHUB_TOKEN }}
+        run: ./gradlew.bat build -x :createArtifactZip

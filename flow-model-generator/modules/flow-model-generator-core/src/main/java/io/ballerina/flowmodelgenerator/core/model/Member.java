@@ -19,6 +19,7 @@
 package io.ballerina.flowmodelgenerator.core.model;
 
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -32,6 +33,7 @@ import java.util.List;
  * @param optional      Whether the member is optional.
  * @param docs          Documentation of the member
  * @param annotations   Annotations of the member.
+ * @param imports       Imports of the member.
  * @since 2.0.0
  */
 public record Member(
@@ -42,7 +44,8 @@ public record Member(
         String defaultValue,
         boolean optional,
         String docs,
-        List<TypeData.Annotation> annotations
+        List<TypeData.Annotation> annotations,
+        Map<String, String> imports
 ) {
     public static class MemberBuilder {
         private Member.MemberKind kind;
@@ -53,6 +56,7 @@ public record Member(
         private boolean optional = false;
         private String docs;
         private List<TypeData.Annotation> annotations;
+        private Map<String, String> imports;
 
         public MemberBuilder() {
         }
@@ -97,9 +101,15 @@ public record Member(
             return this;
         }
 
+        public MemberBuilder imports(Map<String, String> imports) {
+            this.imports = imports;
+            return this;
+        }
+
         public Member build() {
-            Member member = new Member(kind, List.copyOf(refs), type, name, defaultValue, optional,
-                    docs, annotations != null ? List.copyOf(annotations) : null);
+            Member member = new Member(kind, List.copyOf(refs), type, name, defaultValue, optional, docs,
+                    annotations != null ? List.copyOf(annotations) : null,
+                    imports != null ? Map.copyOf(imports) : null);
             this.kind = null;
             this.refs = null;
             this.type = null;
@@ -108,6 +118,7 @@ public record Member(
             this.optional = false;
             this.docs = null;
             this.annotations = null;
+            this.imports = null;
             return member;
         }
     }

@@ -148,7 +148,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "ACTION_OR_EXPRESSION",
                     "value": "\"A\"",
                     "optional": false,
                     "editable": true,
@@ -247,7 +247,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "ACTION_OR_EXPRESSION",
                     "value": "\"B\"",
                     "optional": false,
                     "editable": true,
@@ -346,7 +346,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "ACTION_OR_EXPRESSION",
                     "value": "\"C\"",
                     "optional": false,
                     "editable": true,
@@ -599,7 +599,7 @@
               "label": "Expression",
               "description": "Return value"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "ACTION_OR_EXPRESSION",
             "value": "result",
             "optional": false,
             "editable": true,

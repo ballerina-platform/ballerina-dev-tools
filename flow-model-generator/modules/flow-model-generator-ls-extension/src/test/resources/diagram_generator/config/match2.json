@@ -139,7 +139,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "ACTION_OR_EXPRESSION",
                     "value": "\"unripe\"",
                     "optional": false,
                     "editable": true,
@@ -226,7 +226,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "ACTION_OR_EXPRESSION",
                     "value": "\"ripe\"",
                     "optional": false,
                     "editable": true,
@@ -313,7 +313,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "ACTION_OR_EXPRESSION",
                     "value": "\"overripe\"",
                     "optional": false,
                     "editable": true,
@@ -412,7 +412,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "ACTION_OR_EXPRESSION",
                     "value": "\"spoiled\"",
                     "optional": false,
                     "editable": true,
@@ -499,7 +499,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "ACTION_OR_EXPRESSION",
                     "value": "\"invalid ripeness level\"",
                     "optional": false,
                     "editable": true,

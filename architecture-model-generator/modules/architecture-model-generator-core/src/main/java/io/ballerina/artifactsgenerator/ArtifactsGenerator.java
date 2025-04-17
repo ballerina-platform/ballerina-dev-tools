@@ -21,6 +21,7 @@ package io.ballerina.artifactsgenerator;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
+import io.ballerina.modelgenerator.commons.PackageUtil;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.Package;
@@ -101,7 +102,8 @@ public class ArtifactsGenerator {
     public static Map<String, Map<String, Artifact>> artifacts(Project project) {
         Package currentPackage = project.currentPackage();
         Module defaultModule = currentPackage.getDefaultModule();
-        SemanticModel semanticModel = currentPackage.getCompilation().getSemanticModel(defaultModule.moduleId());
+        SemanticModel semanticModel =
+                PackageUtil.getCompilation(currentPackage).getSemanticModel(defaultModule.moduleId());
 
         Map<String, Map<String, Artifact>> artifactMap = new ConcurrentHashMap<>();
         ConcurrentMap<String, Map<String, List<String>>> documentMap = new ConcurrentHashMap<>();

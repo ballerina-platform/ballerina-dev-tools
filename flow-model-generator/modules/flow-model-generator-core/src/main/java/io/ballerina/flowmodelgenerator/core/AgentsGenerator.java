@@ -54,6 +54,7 @@ import io.ballerina.flowmodelgenerator.core.utils.ParamUtils;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.FunctionData;
 import io.ballerina.modelgenerator.commons.FunctionDataBuilder;
+import io.ballerina.modelgenerator.commons.PackageUtil;
 import io.ballerina.modelgenerator.commons.ParameterData;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Project;
@@ -625,7 +626,7 @@ public class AgentsGenerator {
                         .document(document.documentId()).modify().withContent(String.join(System.lineSeparator(),
                                 modifiedTextDoc.textLines())).apply();
 
-        SemanticModel newSemanticModel = modifiedDoc.module().packageInstance().getCompilation()
+        SemanticModel newSemanticModel = PackageUtil.getCompilation(modifiedDoc.module().packageInstance())
                 .getSemanticModel(modifiedDoc.module().moduleId());
         Optional<Property> property = flowNode.getProperty(Property.VARIABLE_KEY);
         if (property.isEmpty()) {

@@ -3,6 +3,66 @@
   "source": "data_mapper",
   "visibleTypes": [
     {
+      "name": "Module Variables",
+      "types": [
+        {
+          "name": "moduleInput",
+          "type": {
+            "fields": [
+              {
+                "name": "name",
+                "typeName": "string",
+                "optional": false,
+                "defaultable": false,
+                "documentation": "",
+                "isRestType": false,
+                "selected": false
+              },
+              {
+                "name": "age",
+                "typeName": "int",
+                "optional": false,
+                "defaultable": false,
+                "documentation": "",
+                "isRestType": false,
+                "selected": false
+              }
+            ],
+            "hasRestType": true,
+            "restType": {
+              "typeName": "anydata",
+              "optional": false,
+              "defaultable": false,
+              "isRestType": false,
+              "selected": false
+            },
+            "name": "Input",
+            "typeName": "record",
+            "optional": false,
+            "typeInfo": {
+              "name": "Input",
+              "orgName": "nipunaf",
+              "moduleName": "new_connection1",
+              "version": "0.1.0"
+            },
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          }
+        },
+        {
+          "name": "w",
+          "type": {
+            "typeName": "boolean",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false,
+            "selected": false
+          }
+        }
+      ]
+    },
+    {
       "name": "Configurable Variables",
       "types": [
         {

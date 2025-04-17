@@ -232,19 +232,17 @@ public abstract class CallBuilder extends NodeBuilder {
     }
 
     protected static boolean isLocalFunction(WorkspaceManager workspaceManager, Path filePath, Codedata codedata) {
-        if (codedata.org() == null || codedata.module() == null || codedata.version() == null) {
-            return true;
+        if (codedata.org() == null || codedata.module() == null) {
+            return false;
         }
         try {
             Project project = workspaceManager.loadProject(filePath);
             PackageDescriptor descriptor = project.currentPackage().descriptor();
             String packageOrg = descriptor.org().value();
             String packageName = descriptor.name().value();
-            String packageVersion = descriptor.version().value().toString();
 
             return packageOrg.equals(codedata.org())
-                    && packageName.equals(codedata.module())
-                    && packageVersion.equals(codedata.version());
+                    && packageName.equals(codedata.module());
         } catch (WorkspaceDocumentException | EventSyncException e) {
             return false;
         }

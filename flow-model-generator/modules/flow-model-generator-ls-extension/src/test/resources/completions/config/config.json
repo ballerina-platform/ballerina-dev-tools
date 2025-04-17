@@ -3,16 +3,11 @@
   "filePath": "source.bal",
   "context": {
     "expression": "self.classVar > local +  21",
-    "property": {
-      "metadata": {
-        "label": "Condition",
-        "description": "Boolean Condition"
-      },
-      "valueType": "EXPRESSION",
-      "value": "(moduleVar > 11) ",
-      "optional": false,
-      "editable": true
+    "startLine": {
+      "line": 13,
+      "offset": 8
     },
+    "offset": 22,
     "codedata": {
       "node": "IF",
       "lineRange": {
@@ -28,11 +23,16 @@
       },
       "sourceCode": "if (moduleVar > 11) {\n            int i = 32;\n        } else if self.classVar > l {\n\n        }"
     },
-    "startLine": {
-      "line": 13,
-      "offset": 8
-    },
-    "offset": 22
+    "property": {
+      "metadata": {
+        "label": "Condition",
+        "description": "Boolean Condition"
+      },
+      "valueType": "EXPRESSION",
+      "value": "(moduleVar > 11) ",
+      "optional": false,
+      "editable": true
+    }
   },
   "completionContext": {
     "triggerKind": "Invoked"
@@ -452,6 +452,25 @@
       "sortText": "F",
       "insertText": "self",
       "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "testCaller(http:Caller caller)",
+      "kind": "Function",
+      "detail": "()",
+      "documentation": {
+        "right": {
+          "kind": "markdown",
+          "value": "**Package:** _._  \n  \n  \n**Params**  \n- `http:Caller` caller"
+        }
+      },
+      "sortText": "G",
+      "filterText": "testCaller",
+      "insertText": "testCaller(${1})",
+      "insertTextFormat": "Snippet",
+      "command": {
+        "title": "editor.action.triggerParameterHints",
+        "command": "editor.action.triggerParameterHints"
+      }
     },
     {
       "label": "readonly",

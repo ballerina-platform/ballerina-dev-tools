@@ -1,0 +1,23 @@
+{
+  "start": {
+    "line": 6,
+    "offset": 0
+  },
+  "end": {
+    "line": 15,
+    "offset": 1
+  },
+  "source": "if.bal",
+  "text": "   x += y",
+  "position": {
+    "line": 9,
+    "offset": 0
+  },
+  "description": "",
+  "forceAssign": false,
+  "diagram": {
+    "fileName": "if.bal",
+    "nodes": [],
+    "connections": []
+  }
+}

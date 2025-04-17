@@ -89,26 +89,31 @@ public class SourceBuilder {
         this.textEditsMap = new HashMap<>();
         this.flowNode = flowNode;
         this.workspaceManager = workspaceManager;
-        this.filePath = resolvePath(flowNode, filePath);
         this.imports = new HashSet<>();
         this.lsClientLogger = lsClientLogger;
+
+        Codedata codedata = flowNode.codedata();
+        if (codedata == null) {
+            this.filePath = filePath;
+        } else {
+            NodeKind nodeKind = codedata.node();
+            if (filePath.endsWith(AGENTS_BAL) && (nodeKind == NodeKind.FUNCTION_DEFINITION
+                    || nodeKind == NodeKind.CLASS_INIT
+                    || nodeKind == NodeKind.RESOURCE_ACTION_CALL
+                    || nodeKind == NodeKind.REMOTE_ACTION_CALL)) {
+                nodeKind = NodeKind.AGENT;
+            }
+            this.filePath = resolvePath(filePath, nodeKind, codedata.lineRange(), codedata.isNew());
+        }
     }
 
     public SourceBuilder(FlowNode flowNode, WorkspaceManager workspaceManager, Path filePath) {
         this(flowNode, workspaceManager, filePath, null);
     }
 
-    private Path resolvePath(FlowNode flowNode, Path inputPath) {
-        // Each node should have a codedata
-        if (flowNode.codedata() == null) {
-            return inputPath;
-        }
-        Codedata codedata = flowNode.codedata();
-
-        // If the node is a new node, we need to resolve the path to the default file
-        LineRange lineRange = codedata.lineRange();
-        if (Boolean.TRUE.equals(codedata.isNew()) || lineRange == null) {
-            String defaultFile = switch (codedata.node()) {
+    private Path resolvePath(Path inputPath, NodeKind node, LineRange lineRange, Boolean isNew) {
+        if (Boolean.TRUE.equals(isNew) || lineRange == null) {
+            String defaultFile = switch (node) {
                 case NEW_CONNECTION -> CONNECTIONS_BAL;
                 case DATA_MAPPER_DEFINITION -> DATA_MAPPINGS_BAL;
                 case FUNCTION_DEFINITION, NP_FUNCTION -> FUNCTIONS_BAL;
@@ -276,7 +281,7 @@ public class SourceBuilder {
                 ModuleInfo moduleInfo = ModuleInfo.from(moduleId);
                 PackageUtil.pullModuleAndNotify(lsClientLogger, moduleInfo).ifPresent(pkg ->
                         packageMap.put(CommonUtils.getDefaultModulePrefix(pkg.packageName().value()),
-                                pkg.getCompilation().defaultModuleBLangPackage())
+                                PackageUtil.getCompilation(pkg).defaultModuleBLangPackage())
                 );
             });
         }
@@ -752,7 +757,7 @@ public class SourceBuilder {
         }
 
         public TokenBuilder parameterDoc(String paramName, String description) {
-            if (!description.isEmpty()) {
+            if (description != null && !description.isEmpty()) {
                 sb.append(SyntaxKind.HASH_TOKEN.stringValue())
                         .append(WHITE_SPACE)
                         .append(SyntaxKind.PLUS_TOKEN.stringValue())
@@ -768,7 +773,7 @@ public class SourceBuilder {
         }
 
         public TokenBuilder returnDoc(String returnDescription) {
-            if (!returnDescription.isEmpty()) {
+            if (returnDescription != null && !returnDescription.isEmpty()) {
                 sb.append(SyntaxKind.HASH_TOKEN.stringValue())
                         .append(WHITE_SPACE)
                         .append(SyntaxKind.PLUS_TOKEN.stringValue())

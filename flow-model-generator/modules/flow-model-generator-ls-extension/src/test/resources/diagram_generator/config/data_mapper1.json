@@ -101,7 +101,7 @@
               "label": "Expression",
               "description": "Initialize with value"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "ACTION_OR_EXPRESSION",
             "value": "\"John Doe\"",
             "optional": true,
             "editable": true,
@@ -178,7 +178,7 @@
               "label": "Expression",
               "description": "Initialize with value"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "ACTION_OR_EXPRESSION",
             "value": "\"john.doe@example.com\"",
             "optional": true,
             "editable": true,
@@ -255,7 +255,7 @@
               "label": "Expression",
               "description": "Initialize with value"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "ACTION_OR_EXPRESSION",
             "value": "{\n        houseNo: \"123\",\n        line1: \"Main Street\",\n        line2: \"Apartment 4B\",\n        city: \"New York\",\n        country: \"USA\"\n    }",
             "optional": true,
             "editable": true,
@@ -536,7 +536,7 @@
               "label": "Expression",
               "description": "Initialize with value"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "ACTION_OR_EXPRESSION",
             "value": "{\n        empId: \"EMP001\",\n        admissionDate: \"2024-08-15\"\n    }",
             "optional": true,
             "editable": true,

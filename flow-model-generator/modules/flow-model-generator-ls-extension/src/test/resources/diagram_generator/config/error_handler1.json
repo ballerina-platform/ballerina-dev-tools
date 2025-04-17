@@ -63,7 +63,7 @@
               "label": "Expression",
               "description": "Initialize with value"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "ACTION_OR_EXPRESSION",
             "value": "",
             "optional": true,
             "editable": true,
@@ -354,7 +354,7 @@
                       "label": "Expression",
                       "description": "Assign value"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "ACTION_OR_EXPRESSION",
                     "value": "res2.toString()",
                     "optional": false,
                     "editable": true,
@@ -363,10 +363,10 @@
                   },
                   "variable": {
                     "metadata": {
-                      "label": "Name",
-                      "description": "Name of the variable"
+                      "label": "Variable",
+                      "description": "Name of the variable/field"
                     },
-                    "valueType": "IDENTIFIER",
+                    "valueType": "LV_EXPRESSION",
                     "value": "msg",
                     "optional": false,
                     "editable": true,
@@ -426,7 +426,7 @@
                       "label": "Expression",
                       "description": "Assign value"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "ACTION_OR_EXPRESSION",
                     "value": "\"Failed to get the response\"",
                     "optional": false,
                     "editable": true,
@@ -435,10 +435,10 @@
                   },
                   "variable": {
                     "metadata": {
-                      "label": "Name",
-                      "description": "Name of the variable"
+                      "label": "Variable",
+                      "description": "Name of the variable/field"
                     },
-                    "valueType": "IDENTIFIER",
+                    "valueType": "LV_EXPRESSION",
                     "value": "msg",
                     "optional": false,
                     "editable": true,

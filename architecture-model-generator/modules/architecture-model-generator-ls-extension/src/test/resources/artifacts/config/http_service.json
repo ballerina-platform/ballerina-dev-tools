@@ -81,7 +81,7 @@
           }
         },
         "type": "SERVICE",
-        "name": "/api/v1",
+        "name": "HTTP Service - /api/v1",
         "scope": "Global",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
         "module": "http",
@@ -121,7 +121,7 @@
           }
         },
         "type": "SERVICE",
-        "name": "/root/path-id",
+        "name": "HTTP Service - /root/path-id",
         "scope": "Global",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
         "module": "http",
@@ -237,7 +237,7 @@
           }
         },
         "type": "SERVICE",
-        "name": "/",
+        "name": "HTTP Service - /",
         "scope": "Global",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
         "module": "http",

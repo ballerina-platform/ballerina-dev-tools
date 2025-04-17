@@ -35,6 +35,7 @@ import io.ballerina.flowmodelgenerator.core.model.Metadata;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.node.AutomationBuilder;
 import io.ballerina.modelgenerator.commons.CommonUtils;
+import io.ballerina.modelgenerator.commons.PackageUtil;
 import io.ballerina.modelgenerator.commons.SearchResult;
 import io.ballerina.projects.Package;
 import io.ballerina.projects.Project;
@@ -85,7 +86,7 @@ class FunctionSearchCommand extends SearchCommand {
 
         // Obtain the imported module names
         Package currentPackage = project.currentPackage();
-        currentPackage.getCompilation();
+        PackageUtil.getCompilation(currentPackage);
         moduleNames = currentPackage.getDefaultModule().moduleDependencies().stream()
                 .map(moduleDependency -> moduleDependency.descriptor().name().packageName().value())
                 .toList();
@@ -127,7 +128,7 @@ class FunctionSearchCommand extends SearchCommand {
 
     private void buildProjectNodes() {
         Package currentPackage = project.currentPackage();
-        List<Symbol> functionSymbols = currentPackage.getCompilation()
+        List<Symbol> functionSymbols = PackageUtil.getCompilation(currentPackage)
                 .getSemanticModel(currentPackage.getDefaultModule().moduleId())
                 .moduleSymbols().stream()
                 .filter(symbol -> symbol.kind().equals(SymbolKind.FUNCTION) &&
@@ -154,7 +155,6 @@ class FunctionSearchCommand extends SearchCommand {
                     continue;
                 }
             }
-            symbol.getName();
 
             if (symbol.getName().isEmpty() ||
                     (!query.isEmpty() && !symbol.getName().get().toLowerCase(Locale.ROOT)
@@ -174,20 +174,22 @@ class FunctionSearchCommand extends SearchCommand {
                     .addData("isIsolatedFunction", isIsolatedFunction)
                     .build();
 
-            Codedata.Builder<Object> codedata = new Codedata.Builder<>(null)
+            Codedata.Builder<Object> codedataBuilder = new Codedata.Builder<>(null)
                     .node(NodeKind.FUNCTION_CALL)
                     .symbol(symbol.getName().get());
             Optional<ModuleSymbol> moduleSymbol = functionSymbol.getModule();
             if (moduleSymbol.isPresent()) {
                 ModuleID id = moduleSymbol.get().id();
-                id.packageName();
-                id.moduleName();
+                codedataBuilder
+                        .org(id.orgName())
+                        .module(id.packageName())
+                        .version(id.version());
             }
 
             if (isAgentTool) {
-                availableTools.add(new AvailableNode(metadata, codedata.build(), true));
+                availableTools.add(new AvailableNode(metadata, codedataBuilder.build(), true));
             } else {
-                availableNodes.add(new AvailableNode(metadata, codedata.build(), true));
+                availableNodes.add(new AvailableNode(metadata, codedataBuilder.build(), true));
             }
         }
         projectBuilder.items(availableNodes);

@@ -42,7 +42,6 @@
         "optional": false,
         "advanced": false,
         "items": [
-          "(+) Create and use a kafka listener with default configurations",
           "kafkaListener"
         ],
         "codedata": {
@@ -278,7 +277,7 @@
         },
         "enabled": true,
         "optional": false,
-        "editable": true,
+        "editable": false,
         "canAddParameters": false,
         "codedata": {
           "lineRange": {
@@ -411,7 +410,7 @@
         },
         "enabled": false,
         "optional": false,
-        "editable": true,
+        "editable": false,
         "canAddParameters": false
       }
     ]

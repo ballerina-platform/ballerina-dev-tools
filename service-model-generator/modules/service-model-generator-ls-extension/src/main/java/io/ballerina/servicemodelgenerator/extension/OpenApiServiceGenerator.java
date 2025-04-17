@@ -35,6 +35,7 @@ import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
+import io.ballerina.modelgenerator.commons.PackageUtil;
 import io.ballerina.openapi.core.generators.common.GeneratorUtils;
 import io.ballerina.openapi.core.generators.common.SingleFileGenerator;
 import io.ballerina.openapi.core.generators.common.TypeHandler;
@@ -232,7 +233,7 @@ public class OpenApiServiceGenerator {
                 serviceObjDocId, serviceType.getContent(), serviceType.getFileName());
         module.modify().addDocument(documentConfig).apply();
 
-        SemanticModel semanticModel = project.currentPackage().getCompilation().getSemanticModel(moduleId);
+        SemanticModel semanticModel = PackageUtil.getCompilation(project).getSemanticModel(moduleId);
         TypeDefinitionSymbol symbol = getServiceTypeSymbol(semanticModel.moduleSymbols(), typeName);
         if (symbol == null) {
             throw new BallerinaOpenApiException("Cannot find service type definition");

@@ -29,6 +29,7 @@ import java.util.Map;
  */
 public class ArtifactResponse extends AbstractResponse {
 
+    private String uri;
     private Map<String, Map<String, Artifact>> artifacts;
 
     public Map<String, Map<String, Artifact>> getArtifacts() {
@@ -37,5 +38,13 @@ public class ArtifactResponse extends AbstractResponse {
 
     public void setArtifacts(Map<String, Map<String, Artifact>> artifacts) {
         this.artifacts = artifacts;
+    }
+
+    public String getUri() {
+        return uri;
+    }
+
+    public void setUri(String uri) {
+        this.uri = uri;
     }
 }

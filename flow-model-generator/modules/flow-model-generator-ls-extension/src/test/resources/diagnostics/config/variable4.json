@@ -1,0 +1,45 @@
+{
+  "description": "",
+  "filePath": "source.bal",
+  "context": {
+    "expression": "caller->",
+    "startLine": {
+      "line": 47,
+      "offset": 0
+    },
+    "offset": 7,
+    "codedata": {
+      "node": "VARIABLE"
+    },
+    "property": {
+      "metadata": {
+        "label": "Expression",
+        "description": "Initialize with value"
+      },
+      "valueType": "EXPRESSION",
+      "value": "caller",
+      "optional": true,
+      "editable": true,
+      "advanced": false
+    }
+  },
+  "diagnostics": [
+    {
+      "range": {
+        "start": {
+          "line": 0,
+          "character": 0
+        },
+        "end": {
+          "line": 0,
+          "character": 6
+        }
+      },
+      "severity": "Error",
+      "code": {
+        "left": "BCE0601"
+      },
+      "message": "action invocation as an expression not allowed here"
+    }
+  ]
+}

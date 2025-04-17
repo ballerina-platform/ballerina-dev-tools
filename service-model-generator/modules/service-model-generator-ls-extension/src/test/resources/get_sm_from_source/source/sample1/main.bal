@@ -23,6 +23,9 @@ service /api/test on httpListener {
             // handle error
         }
     }
+
+    private function foo() {
+    }
 }
 
 public type OkResponse record {|

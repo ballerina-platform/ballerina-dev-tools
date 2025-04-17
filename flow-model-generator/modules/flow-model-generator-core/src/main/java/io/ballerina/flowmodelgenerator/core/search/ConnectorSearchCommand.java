@@ -35,6 +35,7 @@ import io.ballerina.flowmodelgenerator.core.model.Metadata;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.node.NewConnectionBuilder;
 import io.ballerina.modelgenerator.commons.CommonUtils;
+import io.ballerina.modelgenerator.commons.PackageUtil;
 import io.ballerina.modelgenerator.commons.SearchResult;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.PackageCompilation;
@@ -70,6 +71,10 @@ public class ConnectorSearchCommand extends SearchCommand {
     private static final Set<String> AGENT_SUPPORT_CONNECTORS = LocalIndexCentral.getInstance()
             .readJsonResource(AGENT_SUPPORT_CONNECTORS_JSON, AGENT_SUPPORT_CONNECTORS_LIST_TYPE);
     public static final String IS_AGENT_SUPPORT = "isAgentSupport";
+    public static final String CALLER = "Caller";
+    public static final String CLIENT = "Client";
+    public static final String GRPC = "grpc";
+    public static final String PERSIST = "persist";
 
     public ConnectorSearchCommand(Project project, LineRange position, Map<String, String> queryMap) {
         super(project, position, queryMap);
@@ -144,7 +149,13 @@ public class ConnectorSearchCommand extends SearchCommand {
         String connectorName = searchResult.name();
         String rawPackageName = packageInfo.name();
         String packageName = CONNECTOR_NAME_MAP.getOrDefault(rawPackageName, getLastPackagePrefix(rawPackageName));
-        return packageName + " " + connectorName;
+        if (connectorName.equals(CLIENT)) {
+            return packageName;
+        }
+
+        // TODO: Remove the replacement once a proper solution comes from the index
+        return packageName + " " + (connectorName.endsWith("Client") ?
+                connectorName.substring(0, connectorName.length() - 6) : connectorName);
     }
 
     private static String getLastPackagePrefix(String rawPackageName) {
@@ -153,8 +164,8 @@ public class ConnectorSearchCommand extends SearchCommand {
         return trimmedPackageName.substring(0, 1).toUpperCase(Locale.ROOT) + trimmedPackageName.substring(1);
     }
 
-    private  List<SearchResult> getLocalConnectors() {
-        PackageCompilation compilation = project.currentPackage().getCompilation();
+    private List<SearchResult> getLocalConnectors() {
+        PackageCompilation compilation = PackageUtil.getCompilation(project);
         Iterable<Module> modules = project.currentPackage().modules();
         List<SearchResult> localConnections = new ArrayList<>();
         for (Module module : modules) {
@@ -182,7 +193,7 @@ public class ConnectorSearchCommand extends SearchCommand {
                 }
                 SearchResult searchResult = SearchResult.from(id.orgName(),
                         id.moduleName().substring(id.packageName().length() + 1), id.version(),
-                        classSymbol.getName().orElse("Client"), doc);
+                        classSymbol.getName().orElse(CLIENT), doc);
                 localConnections.add(searchResult);
             }
         }

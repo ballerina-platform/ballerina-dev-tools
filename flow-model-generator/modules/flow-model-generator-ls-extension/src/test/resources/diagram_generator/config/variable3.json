@@ -63,7 +63,7 @@
               "label": "Expression",
               "description": "Initialize with value"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "ACTION_OR_EXPRESSION",
             "value": "{\"name\": \"John\", \"age\": 34}",
             "optional": true,
             "editable": true,

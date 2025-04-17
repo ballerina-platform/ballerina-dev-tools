@@ -52,7 +52,7 @@ public class TypeDiagnosticRequest extends DiagnosticsRequest {
 
     @Override
     protected Node getParsedNode(String text) {
-        return NodeParser.parseTypeDescriptor(text);
+        return NodeParser.parseTypeDescriptor(getTrimmedOutput(text));
     }
 
     @Override
@@ -64,12 +64,13 @@ public class TypeDiagnosticRequest extends DiagnosticsRequest {
             return Set.of();
         }
         Set<Diagnostic> diagnostics = new HashSet<>();
+        String inputExpression = getTrimmedOutput(context.info().expression());
 
         // Check for undefined types
         Types types = semanticModel.get().types();
-        Optional<TypeSymbol> typeSymbol = types.getType(document.get(), context.info().expression());
+        Optional<TypeSymbol> typeSymbol = types.getType(document.get(), inputExpression);
         if (typeSymbol.isEmpty()) {
-            String message = String.format(UNDEFINED_TYPE, context.info().expression());
+            String message = String.format(UNDEFINED_TYPE, inputExpression);
             diagnostics.add(CommonUtils.createDiagnostic(message, context.getExpressionLineRange(),
                     UNKNOWN_TYPE_ERROR_CODE));
             return diagnostics;
@@ -83,11 +84,23 @@ public class TypeDiagnosticRequest extends DiagnosticsRequest {
         Optional<TypeSymbol> typeConstraintTypeSymbol = types.getType(document.get(), typeConstraint);
         if (typeConstraintTypeSymbol.isPresent()) {
             if (!typeSymbol.get().subtypeOf(typeConstraintTypeSymbol.get())) {
-                String message = String.format(INVALID_SUBTYPE, typeConstraint, context.info().expression());
+                String message = String.format(INVALID_SUBTYPE, typeConstraint, inputExpression);
                 diagnostics.add(CommonUtils.createDiagnostic(message, context.getExpressionLineRange(),
                         "", DiagnosticSeverity.ERROR));
             }
         }
         return diagnostics;
+    }
+
+    private String getTrimmedOutput(String text) {
+        // TODO: The following is a temporary fix for the invalid diagnostic produced for the readonly flag in the
+        //  type descriptor. Ideally, this should be a flag in the type editor (as it is not part of the type
+        //  descriptor). Tracked with: https://github.com/wso2/product-ballerina-integrator/issues/150
+        // If the input starts with "readonly ", then obtain the string after this prefix
+        String trimmedInput = text.trim();
+        if (trimmedInput.startsWith("readonly ")) {
+            return trimmedInput.substring(9);
+        }
+        return text;
     }
 }

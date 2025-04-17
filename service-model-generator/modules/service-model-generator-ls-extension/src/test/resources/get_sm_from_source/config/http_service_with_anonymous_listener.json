@@ -136,7 +136,7 @@
             "label": "Accessor",
             "description": "The accessor of the function"
           },
-          "enabled": true,
+          "enabled": false,
           "editable": true,
           "valueType": "IDENTIFIER",
           "isType": false,
@@ -195,41 +195,6 @@
           "inListenerInit": false,
           "isBasePath": false,
           "inDisplayAnnotation": false
-        },
-        "annotations": {
-          "annotResourceConfig": {
-            "metadata": {
-              "label": "Resource Configuration",
-              "description": "Define advanced configurations like resource level media types, security, etc."
-            },
-            "enabled": true,
-            "editable": true,
-            "valueType": "EXPRESSION",
-            "valueTypeConstraint": "http:HttpResourceConfig",
-            "isType": false,
-            "placeholder": "{}",
-            "optional": true,
-            "advanced": true,
-            "codedata": {
-              "inListenerInit": false,
-              "isBasePath": false,
-              "inDisplayAnnotation": false,
-              "type": "ANNOTATION_ATTACHMENT",
-              "originalName": "ResourceConfig",
-              "orgName": "ballerina",
-              "moduleName": "http"
-            },
-            "addNewButton": false,
-            "typeMembers": [
-              {
-                "type": "HttpResourceConfig",
-                "packageInfo": "ballerina:http:2.14.0",
-                "kind": "RECORD_TYPE",
-                "selected": false
-              }
-            ],
-            "imports": {}
-          }
         }
       },
       {

@@ -57,7 +57,9 @@ public class IdentifierDiagnosticsRequest extends DiagnosticsRequest {
 
     @Override
     protected Set<Diagnostic> getSemanticDiagnostics(ExpressionEditorContext context) {
-        String typeConstraint = context.getProperty().valueTypeConstraint();
+        ExpressionEditorContext.Property property = context.getProperty();
+        String typeConstraint = property.valueTypeConstraint();
+        String value = property.value();
 
         // Skip semantic checks for object scope
         if (Property.OBJECT_SCOPE.equals(typeConstraint)) {
@@ -88,7 +90,8 @@ public class IdentifierDiagnosticsRequest extends DiagnosticsRequest {
         // Check for redeclared symbols
         Set<Diagnostic> diagnostics = new HashSet<>();
         String inputValue = context.info().expression();
-        boolean redeclaredSymbol = symbolStream.anyMatch(symbol -> symbol.nameEquals(inputValue));
+        boolean redeclaredSymbol =
+                symbolStream.anyMatch(symbol -> symbol.nameEquals(inputValue) && !symbol.nameEquals(value));
         if (redeclaredSymbol) {
             String message = String.format(REDECLARED_SYMBOL, inputValue);
             diagnostics.add(CommonUtils.createDiagnostic(message, context.getExpressionLineRange(),

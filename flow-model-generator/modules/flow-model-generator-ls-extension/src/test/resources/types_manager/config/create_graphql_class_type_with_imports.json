@@ -1,0 +1,101 @@
+{
+  "filePath": "test_pack3/graphql_types.bal",
+  "description": "Create a new class type",
+  "type": {
+    "name": "Person",
+    "editable": true,
+    "metadata": {
+      "label": "Person",
+      "description": ""
+    },
+    "codedata": {
+      "node": "CLASS"
+    },
+    "properties": {
+      "qualifiers": {
+        "metadata": {
+          "label": "Type Qualifiers",
+          "description": "Qualifiers of the type"
+        },
+        "valueType": "MULTIPLE_SELECT",
+        "value": [
+          "service"
+        ],
+        "optional": true,
+        "editable": true,
+        "advanced": true
+      },
+      "isArray": {
+        "metadata": {
+          "label": "Is array type",
+          "description": "Is this type an array or list value"
+        },
+        "valueType": "FLAG",
+        "value": "false",
+        "optional": true,
+        "editable": true,
+        "advanced": true
+      },
+      "arraySize": {
+        "metadata": {
+          "label": "Size of the array",
+          "description": "Array dimensions"
+        },
+        "valueType": "STRING",
+        "value": "",
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      }
+    },
+    "members": [],
+    "functions": [
+      {
+        "accessor": "get",
+        "qualifiers": [],
+        "parameters": [],
+        "kind": "RESOURCE",
+        "name": "name",
+        "returnType": "time:Utc",
+        "refs": [
+          "ballerina/time:Utc"
+        ],
+        "imports": {
+          "Utc": "ballerina/time:2.9.0",
+          "xml": "ballerina/xml:2.8.0"
+        }
+      }
+    ],
+    "includes": []
+  },
+  "output": {
+    "test_pack3/graphql_types.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 1,
+            "character": 0
+          },
+          "end": {
+            "line": 1,
+            "character": 0
+          }
+        },
+        "newText": "\nimport ballerina/time;\n\n\nimport ballerina/xml;\n"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 38,
+            "character": 1
+          },
+          "end": {
+            "line": 38,
+            "character": 1
+          }
+        },
+        "newText": "\nservice class Person {\n\tfunction init() {\n\t}\n\tresource function get name() returns time:Utc {\n\t\tdo {\n\t\t\tpanic error(\"Unimplemented function\");\n\t\t} on fail error err {\n\t\t\t//handle error\n\t\t\tpanic error(\"Unhandled error\");\n\t\t}\n\t}\n}"
+      }
+    ]
+  }
+}

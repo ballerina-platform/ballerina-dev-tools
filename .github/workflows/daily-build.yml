@@ -2,15 +2,15 @@ name: Daily build
 
 on:
   schedule:
-    - cron:  '0 */12 * * *'
+    - cron: '0 */12 * * *'
 
 jobs:
   ubuntu-build:
-
     runs-on: ubuntu-latest
-
+    timeout-minutes: 60
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Use Node.js
         uses: actions/setup-node@v1
@@ -23,23 +23,35 @@ jobs:
           distribution: 'temurin'
           java-version: 21.0.3
 
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
       - name: Set Up Ballerina
         uses: ballerina-platform/setup-ballerina@v1.1.1
         with:
-          version: 2201.12.1
+          version: 2201.12.2
+
+      - name: Cache Ballerina dependencies
+        uses: actions/cache@v4
+        id: cache-ballerina
+        with:
+          path: /home/runner/.ballerina/repositories/
+          key: ${{ runner.os }}-ballerina-${{ hashFiles('**/gradle.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-ballerina-
 
       - name: Build with Gradle
         env:
-          packageUser: ${{ secrets.BALLERINA_BOT_USERNAME }}
-          packagePAT: ${{ secrets.BALLERINA_BOT_TOKEN }}
-        run: ./gradlew build
+          packageUser: ${{ github.actor }}
+          packagePAT: ${{ secrets.GITHUB_TOKEN }}
+        run: ./gradlew build -x :createArtifactZip
 
   windows-build:
-
     runs-on: windows-latest
-
+    timeout-minutes: 60
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Use Node.js
         uses: actions/setup-node@v1
@@ -52,13 +64,25 @@ jobs:
           distribution: 'temurin'
           java-version: 21.0.3
 
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
       - name: Set Up Ballerina
         uses: ballerina-platform/setup-ballerina@v1.1.1
         with:
-          version: 2201.12.1
+          version: 2201.12.2
+
+      - name: Cache Ballerina dependencies
+        uses: actions/cache@v4
+        id: cache-ballerina
+        with:
+          path: C:\Users\runneradmin\.ballerina\repositories\
+          key: ${{ runner.os }}-ballerina-${{ hashFiles('**/gradle.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-ballerina-
 
       - name: Build with Gradle
         env:
-          packageUser: ${{ secrets.BALLERINA_BOT_USERNAME }}
-          packagePAT: ${{ secrets.BALLERINA_BOT_TOKEN }}
-        run: ./gradlew.bat build
+          packageUser: ${{ github.actor }}
+          packagePAT: ${{ secrets.GITHUB_TOKEN }}
+        run: ./gradlew.bat build -x :createArtifactZip

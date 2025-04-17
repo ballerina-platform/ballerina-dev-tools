@@ -151,7 +151,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "ACTION_OR_EXPRESSION",
                     "value": "\"bulk order\"",
                     "optional": false,
                     "editable": true,
@@ -332,7 +332,7 @@
                               "label": "Expression",
                               "description": "Return value"
                             },
-                            "valueType": "EXPRESSION",
+                            "valueType": "ACTION_OR_EXPRESSION",
                             "value": "\"large pack\"",
                             "optional": false,
                             "editable": true,
@@ -419,7 +419,7 @@
                               "label": "Expression",
                               "description": "Return value"
                             },
-                            "valueType": "EXPRESSION",
+                            "valueType": "ACTION_OR_EXPRESSION",
                             "value": "\"medium pack\"",
                             "optional": false,
                             "editable": true,
@@ -526,7 +526,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "ACTION_OR_EXPRESSION",
                     "value": "\"small pack\"",
                     "optional": false,
                     "editable": true,

@@ -63,7 +63,7 @@
               "label": "Expression",
               "description": "Call action or expression"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "ACTION_OR_EXPRESSION",
             "value": "multipleWaitWithRecord()",
             "optional": false,
             "editable": true,

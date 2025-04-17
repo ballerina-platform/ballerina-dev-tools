@@ -79,6 +79,7 @@ public class DesignModelGeneratorService implements ExtendedLanguageServerServic
                 Path projectPath = Path.of(request.projectPath());
                 Project project = workspaceManager.loadProject(projectPath);
                 response.setArtifacts(ArtifactsGenerator.artifacts(project));
+                response.setUri(request.projectPath());
             } catch (Throwable e) {
                 response.setError(e);
             }

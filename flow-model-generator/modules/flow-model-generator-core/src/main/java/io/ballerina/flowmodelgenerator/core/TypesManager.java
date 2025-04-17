@@ -67,6 +67,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import static io.ballerina.flowmodelgenerator.core.utils.TypeTransformer.BUILT_IN_ERROR;
@@ -188,14 +189,17 @@ public class TypesManager {
         String codeSnippet = sourceCodeGenerator.generateCodeSnippetForType(typeData);
 
         SyntaxTree syntaxTree = this.typeDocument.syntaxTree();
+        ModulePartNode rootNode = syntaxTree.rootNode();
         LineRange lineRange = typeData.codedata().lineRange();
         if (lineRange == null) {
-            ModulePartNode modulePartNode = syntaxTree.rootNode();
-            textEdits.add(new TextEdit(CommonUtils.toRange(modulePartNode.lineRange().endLine()), codeSnippet));
+            textEdits.add(new TextEdit(CommonUtils.toRange(rootNode.lineRange().endLine()), codeSnippet));
         } else {
             NonTerminalNode node = CommonUtil.findNode(CommonUtils.toRange(lineRange), syntaxTree);
             textEdits.add(new TextEdit(CommonUtils.toRange(node.lineRange()), codeSnippet));
         }
+
+
+        addImportsToTextEdits(sourceCodeGenerator.getImports(), rootNode, textEdits);
 
         return gson.toJsonTree(textEditsMap);
     }
@@ -205,15 +209,18 @@ public class TypesManager {
         List<TextEdit> textEdits = new ArrayList<>();
         textEditsMap.put(filePath, textEdits);
 
+        SyntaxTree syntaxTree = this.typeDocument.syntaxTree();
+        ModulePartNode rootNode = syntaxTree.rootNode();
+
         List<String> codeSnippets = new ArrayList<>();
         for (TypeData typeData : typeDataList) {
             SourceCodeGenerator sourceCodeGenerator = new SourceCodeGenerator();
             String codeSnippet = sourceCodeGenerator.generateCodeSnippetForType(typeData);
             codeSnippets.add(codeSnippet);
+            addImportsToTextEdits(sourceCodeGenerator.getImports(), rootNode, textEdits);
         }
-        SyntaxTree syntaxTree = this.typeDocument.syntaxTree();
-        ModulePartNode modulePartNode = syntaxTree.rootNode();
-        textEdits.add(new TextEdit(CommonUtils.toRange(modulePartNode.lineRange().endLine()),
+
+        textEdits.add(new TextEdit(CommonUtils.toRange(rootNode.lineRange().endLine()),
                 String.join(System.lineSeparator(), codeSnippets)));
 
         return gson.toJsonTree(textEditsMap);
@@ -229,8 +236,11 @@ public class TypesManager {
         String codeSnippet = sourceCodeGenerator.generateGraphqlClassType(typeData);
 
         SyntaxTree syntaxTree = this.typeDocument.syntaxTree();
-        ModulePartNode modulePartNode = syntaxTree.rootNode();
-        textEdits.add(new TextEdit(CommonUtils.toRange(modulePartNode.lineRange().endLine()), codeSnippet));
+        ModulePartNode rootNode = syntaxTree.rootNode();
+        textEdits.add(new TextEdit(CommonUtils.toRange(rootNode.lineRange().endLine()), codeSnippet));
+
+        addImportsToTextEdits(sourceCodeGenerator.getImports(), rootNode, textEdits);
+
         return gson.toJsonTree(textEditsMap);
     }
 
@@ -522,6 +532,29 @@ public class TypesManager {
                 codedata.isGenerated(),
                 codedata.inferredReturnType()
         );
+    }
+
+    private static void addImportsToTextEdits(Map<String, String> imports,
+                                              ModulePartNode rootNode,
+                                              List<TextEdit> textEdits) {
+        TreeSet<String> importStmts = new TreeSet<>();
+        imports.values().forEach(moduleId -> {
+            String[] importParts = moduleId.split("/");
+            String orgName = importParts[0];
+            String moduleName = importParts[1].split(":")[0];
+            if (!CommonUtils.importExists(rootNode, orgName, moduleName)) {
+                importStmts.add(getImportStmt(orgName, moduleName));
+            }
+        });
+
+        if (!importStmts.isEmpty()) {
+            String importsStmts = String.join(System.lineSeparator(), importStmts);
+            textEdits.addFirst(new TextEdit(CommonUtils.toRange(rootNode.lineRange().startLine()), importsStmts));
+        }
+    }
+
+    private static String getImportStmt(String org, String module) {
+        return String.format("%nimport %s/%s;%n", org, module);
     }
 
     public record TypeDataWithRefs(Object type, List<Object> refs) {

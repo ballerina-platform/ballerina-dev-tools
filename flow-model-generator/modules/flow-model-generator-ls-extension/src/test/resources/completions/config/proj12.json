@@ -1,0 +1,83 @@
+{
+  "description": "",
+  "filePath": "assign.bal",
+  "context": {
+    "expression": "structuredArray[",
+    "startLine": {
+      "line": 13,
+      "offset": 0
+    },
+    "offset": 16,
+    "codedata": {
+      "node": "ASSIGN",
+      "lineRange": {
+        "fileName": "new_data.bal",
+        "startLine": {
+          "line": 1,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 1,
+          "offset": 14
+        }
+      },
+      "sourceCode": "i = 12;"
+    },
+    "property": {
+      "metadata": {
+        "label": "Variable",
+        "description": "Name of the variable/field"
+      },
+      "valueType": "LV_EXPRESSION",
+      "value": "12",
+      "optional": true,
+      "editable": true,
+      "advanced": false
+    }
+  },
+  "completionContext": {
+    "triggerKind": "Invoked"
+  },
+  "completions": [
+    {
+      "label": "i",
+      "kind": "Variable",
+      "detail": "int",
+      "sortText": "B",
+      "insertText": "i",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "rec",
+      "kind": "Variable",
+      "detail": "MyRecord",
+      "sortText": "B",
+      "insertText": "rec",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "strucrturedRec",
+      "kind": "Variable",
+      "detail": "MyRecord",
+      "sortText": "B",
+      "insertText": "strucrturedRec",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "structuredArray",
+      "kind": "Variable",
+      "detail": "int[]",
+      "sortText": "B",
+      "insertText": "structuredArray",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "structuredMap",
+      "kind": "Variable",
+      "detail": "map<string>",
+      "sortText": "B",
+      "insertText": "structuredMap",
+      "insertTextFormat": "Snippet"
+    }
+  ]
+}

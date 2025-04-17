@@ -32,7 +32,7 @@ import static io.ballerina.servicemodelgenerator.extension.ServiceModelGenerator
 import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.FIELD_TYPE_METADATA;
 import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.FUNCTION_NAME_METADATA;
 import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.FUNCTION_RETURN_TYPE_METADATA;
-import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.KIND_DEFAULT;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.KIND_OBJECT_METHOD;
 import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.RESOURCE_FUNCTION_RETURN_TYPE_METADATA;
 import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.RESOURCE_NAME_METADATA;
 import static io.ballerina.servicemodelgenerator.extension.util.ServiceClassUtil.ServiceClassContext.GRAPHQL_DIAGRAM;
@@ -83,7 +83,7 @@ public class Function {
                 .metadata("", "")
                 .accessor(functionAccessor())
                 .parameters(new ArrayList<>())
-                .kind(KIND_DEFAULT)
+                .kind(KIND_OBJECT_METHOD)
                 .enabled(true);
         if (context == GRAPHQL_DIAGRAM) {
             functionBuilder

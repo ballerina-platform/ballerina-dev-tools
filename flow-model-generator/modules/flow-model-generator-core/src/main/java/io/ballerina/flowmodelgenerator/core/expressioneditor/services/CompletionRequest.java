@@ -19,8 +19,10 @@
 package io.ballerina.flowmodelgenerator.core.expressioneditor.services;
 
 import io.ballerina.flowmodelgenerator.core.expressioneditor.ExpressionEditorContext;
+import io.ballerina.flowmodelgenerator.core.model.Property;
 import org.eclipse.lsp4j.CompletionContext;
 import org.eclipse.lsp4j.CompletionItem;
+import org.eclipse.lsp4j.CompletionItemKind;
 import org.eclipse.lsp4j.CompletionList;
 import org.eclipse.lsp4j.CompletionParams;
 import org.eclipse.lsp4j.Position;
@@ -28,6 +30,7 @@ import org.eclipse.lsp4j.TextDocumentIdentifier;
 import org.eclipse.lsp4j.jsonrpc.messages.Either;
 import org.eclipse.lsp4j.services.TextDocumentService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -61,6 +64,22 @@ public class CompletionRequest extends DebouncedExpressionEditorRequest<Either<L
         CompletableFuture<Either<List<CompletionItem>, CompletionList>> completableFuture =
                 textDocumentService.completion(params);
         Either<List<CompletionItem>, CompletionList> completions = completableFuture.join();
+
+        // Filter the completions if it is a lvexpr
+        // TODO: Extend the implementation to a different class
+        String valueType = context.getProperty().valueType();
+        if (Property.ValueType.LV_EXPRESSION.name().equals(valueType)) {
+            List<CompletionItem> completionsList;
+            if (completions.getLeft() != null) {
+                completionsList = completions.getLeft();
+            } else if (completions.getRight() != null && completions.getRight().getItems() != null) {
+                completionsList = completions.getRight().getItems();
+            } else {
+                completionsList = new ArrayList<>();
+            }
+            completionsList.removeIf(item -> !item.getKind().equals(CompletionItemKind.Variable) &&
+                    !item.getKind().equals(CompletionItemKind.Field));
+        }
 
         // TODO: Remove this once https://github.com/ballerina-platform/ballerina-lang/issues/43706 is fixed
         if (completions.getLeft() != null) {

@@ -145,7 +145,7 @@ public class NewConnectionBuilder extends CallBuilder {
             for (Module module : project.currentPackage().modules()) {
                 String moduleNamePath = module.moduleName().moduleNamePart();
                 if (moduleNamePath != null && moduleNamePath.equals(codedata.module())) {
-                    semanticModel = project.currentPackage().getCompilation().getSemanticModel(module.moduleId());
+                    semanticModel = PackageUtil.getCompilation(project).getSemanticModel(module.moduleId());
                     break;
                 }
             }

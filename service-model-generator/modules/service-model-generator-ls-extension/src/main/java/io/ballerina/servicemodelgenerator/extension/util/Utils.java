@@ -85,6 +85,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.GET;
+import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.KIND_DEFAULT;
 import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.KIND_DEFAULTABLE;
 import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.KIND_MUTATION;
 import static io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorConstants.KIND_QUERY;
@@ -275,6 +276,10 @@ public final class Utils {
 
         Function functionModel = Function.getNewFunctionModel(context);
         functionModel.setAnnotations(annotations);
+
+        if (isInit) {
+            functionModel.setKind(KIND_DEFAULT);
+        }
 
         Value functionName = functionModel.getName();
         functionName.setValue(functionDefinitionNode.functionName().text().trim());
@@ -824,9 +829,6 @@ public final class Utils {
         builder.append("{").append(NEW_LINE);
         if (hasErrorInReturn) {
             builder.append("\tdo {").append(NEW_LINE);
-            if (addContext.equals(FunctionAddContext.HTTP_SERVICE_ADD)) {
-                builder.append("\t\treturn \"Hello, Greetings!\";").append(NEW_LINE);
-            }
             builder.append("\t} on fail error err {")
                     .append(NEW_LINE)
                     .append("\t\t// handle error")

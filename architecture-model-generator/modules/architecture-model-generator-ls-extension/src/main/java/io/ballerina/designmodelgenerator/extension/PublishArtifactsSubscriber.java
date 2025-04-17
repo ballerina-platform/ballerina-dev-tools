@@ -22,6 +22,7 @@ import io.ballerina.artifactsgenerator.ArtifactGenerationDebouncer;
 import io.ballerina.artifactsgenerator.ArtifactsGenerator;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
+import io.ballerina.designmodelgenerator.extension.response.ArtifactsParams;
 import org.ballerinalang.annotation.JavaSPIService;
 import org.ballerinalang.langserver.commons.DocumentServiceContext;
 import org.ballerinalang.langserver.commons.LanguageServerContext;
@@ -41,6 +42,8 @@ import java.util.Optional;
 public class PublishArtifactsSubscriber implements EventSubscriber {
 
     public static final String NAME = "Publish artifacts subscriber";
+    private static final String EXPR_URI = "expr";
+    private static final String LOAD_PROJECT = "loadProject";
 
     @Override
     public EventKind eventKind() {
@@ -50,6 +53,13 @@ public class PublishArtifactsSubscriber implements EventSubscriber {
     @Override
     public void onEvent(ExtendedLanguageClient client, DocumentServiceContext context,
                         LanguageServerContext serverContext) {
+        // Skip producing events for the following cases
+        // 1. If the event occurred in the cloned project
+        // 2. During the loading of the project
+        if (context.fileUri().startsWith(EXPR_URI) || LOAD_PROJECT.equals(context.operation().getName())) {
+            return;
+        }
+
         Optional<SyntaxTree> syntaxTree = context.currentSyntaxTree();
         Optional<SemanticModel> semanticModel = context.currentSemanticModel();
         if (syntaxTree.isEmpty() || semanticModel.isEmpty()) {
@@ -59,8 +69,11 @@ public class PublishArtifactsSubscriber implements EventSubscriber {
 
         // Use the debouncer to schedule the artifact generation
         ArtifactGenerationDebouncer.getInstance().debounce(context.fileUri(), () -> {
-            client.publishArtifacts(ArtifactsGenerator.artifactChanges(projectPath.toString(),
-                    syntaxTree.get(), semanticModel.get()));
+            ArtifactsParams artifactsParams = new ArtifactsParams();
+            artifactsParams.setUri(projectPath.toUri().toString());
+            artifactsParams.setArtifacts(
+                    ArtifactsGenerator.artifactChanges(projectPath.toString(), syntaxTree.get(), semanticModel.get()));
+            client.publishArtifacts(artifactsParams);
         });
     }
 

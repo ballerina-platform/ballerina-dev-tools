@@ -39,7 +39,7 @@
           }
         },
         "type": "SERVICE",
-        "name": "\"queueName\"",
+        "name": "RabbitMQ Event Handler - \"queueName\"",
         "scope": "Global",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_rabbitmq_3.2.0.png",
         "module": "rabbitmq",

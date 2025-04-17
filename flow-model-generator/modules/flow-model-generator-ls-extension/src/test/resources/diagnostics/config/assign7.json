@@ -1,0 +1,57 @@
+{
+  "description": "",
+  "filePath": "source.bal",
+  "context": {
+    "expression": "rec[\"key\"]",
+    "startLine": {
+      "line": 1,
+      "offset": 0
+    },
+    "offset": 2,
+    "codedata": {
+      "node": "VARIABLE",
+      "lineRange": {
+        "fileName": "new_data.bal",
+        "startLine": {
+          "line": 1,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 1,
+          "offset": 14
+        }
+      },
+      "sourceCode": "int i = 12;"
+    },
+    "property": {
+      "metadata": {
+        "label": "Variable",
+        "description": "Name of the variable/field"
+      },
+      "valueType": "LV_EXPRESSION",
+      "value": "12",
+      "optional": true,
+      "editable": true,
+      "advanced": false
+    }
+  },
+  "diagnostics": [
+    {
+      "range": {
+        "start": {
+          "line": 1,
+          "character": 25
+        },
+        "end": {
+          "line": 1,
+          "character": 35
+        }
+      },
+      "severity": "Error",
+      "code": {
+        "left": "BCE2024"
+      },
+      "message": "undefined field 'key' in 'MyRecord'"
+    }
+  ]
+}

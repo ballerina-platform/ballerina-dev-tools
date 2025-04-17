@@ -151,7 +151,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "ACTION_OR_EXPRESSION",
                     "value": "\"premium\"",
                     "optional": false,
                     "editable": true,
@@ -320,7 +320,7 @@
                               "label": "Expression",
                               "description": "Return value"
                             },
-                            "valueType": "EXPRESSION",
+                            "valueType": "ACTION_OR_EXPRESSION",
                             "value": "\"discounted\"",
                             "optional": false,
                             "editable": true,
@@ -465,7 +465,7 @@
                                       "label": "Expression",
                                       "description": "Return value"
                                     },
-                                    "valueType": "EXPRESSION",
+                                    "valueType": "ACTION_OR_EXPRESSION",
                                     "value": "\"clearance\"",
                                     "optional": false,
                                     "editable": true,
@@ -557,7 +557,7 @@
                               "label": "Expression",
                               "description": "Return value"
                             },
-                            "valueType": "EXPRESSION",
+                            "valueType": "ACTION_OR_EXPRESSION",
                             "value": "\"regular price\"",
                             "optional": false,
                             "editable": true,
@@ -635,7 +635,7 @@
               "label": "Expression",
               "description": "Return value"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "ACTION_OR_EXPRESSION",
             "value": "\"unpriced\"",
             "optional": false,
             "editable": true,
