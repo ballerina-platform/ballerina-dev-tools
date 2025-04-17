@@ -23,6 +23,7 @@ import com.google.gson.JsonArray;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
+import io.ballerina.compiler.api.symbols.ParameterSymbol;
 import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
@@ -240,8 +241,15 @@ public class AvailableNodesGenerator {
 
     private Optional<Category> getConnection(Symbol symbol) {
         try {
-            TypeReferenceTypeSymbol typeDescriptorSymbol =
-                    (TypeReferenceTypeSymbol) ((VariableSymbol) symbol).typeDescriptor();
+            TypeReferenceTypeSymbol typeDescriptorSymbol;
+            if (symbol instanceof VariableSymbol variableSymbol) {
+                typeDescriptorSymbol = (TypeReferenceTypeSymbol) variableSymbol.typeDescriptor();
+            } else if (symbol instanceof ParameterSymbol parameterSymbol) {
+                typeDescriptorSymbol = (TypeReferenceTypeSymbol) parameterSymbol.typeDescriptor();
+            } else {
+                return Optional.empty();
+            }
+
             ClassSymbol classSymbol = (ClassSymbol) typeDescriptorSymbol.typeDescriptor();
             if (!(classSymbol.qualifiers().contains(Qualifier.CLIENT))) {
                 return Optional.empty();
