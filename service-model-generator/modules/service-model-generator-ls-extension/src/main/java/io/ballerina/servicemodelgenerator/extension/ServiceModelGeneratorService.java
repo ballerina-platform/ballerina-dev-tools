@@ -19,6 +19,7 @@
 package io.ballerina.servicemodelgenerator.extension;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import io.ballerina.compiler.api.SemanticModel;
@@ -52,6 +53,7 @@ import io.ballerina.projects.ModuleId;
 import io.ballerina.projects.ModuleName;
 import io.ballerina.projects.Package;
 import io.ballerina.projects.Project;
+import io.ballerina.servicemodelgenerator.extension.diagnostics.DiagnosticsHandler;
 import io.ballerina.servicemodelgenerator.extension.model.Codedata;
 import io.ballerina.servicemodelgenerator.extension.model.Function;
 import io.ballerina.servicemodelgenerator.extension.model.Listener;
@@ -72,6 +74,7 @@ import io.ballerina.servicemodelgenerator.extension.request.ListenerModelRequest
 import io.ballerina.servicemodelgenerator.extension.request.ListenerModifierRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ListenerSourceRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ServiceClassSourceRequest;
+import io.ballerina.servicemodelgenerator.extension.request.ServiceDesignerDiagnosticRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ServiceModelRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ServiceModifierRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ServiceSourceRequest;
@@ -84,6 +87,7 @@ import io.ballerina.servicemodelgenerator.extension.response.ListenerDiscoveryRe
 import io.ballerina.servicemodelgenerator.extension.response.ListenerFromSourceResponse;
 import io.ballerina.servicemodelgenerator.extension.response.ListenerModelResponse;
 import io.ballerina.servicemodelgenerator.extension.response.ServiceClassModelResponse;
+import io.ballerina.servicemodelgenerator.extension.response.ServiceDesignerDiagnosticResponse;
 import io.ballerina.servicemodelgenerator.extension.response.ServiceFromSourceResponse;
 import io.ballerina.servicemodelgenerator.extension.response.ServiceModelResponse;
 import io.ballerina.servicemodelgenerator.extension.response.TriggerListResponse;
@@ -1111,6 +1115,24 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
         });
     }
 
+    /**
+     * Get the diagnostics for a given api request.
+     *
+     * @param request Service designer diagnostic request
+     * @return {@link ServiceDesignerDiagnosticResponse} of the service designer diagnostic response
+     */
+    @JsonRequest
+    public CompletableFuture<ServiceDesignerDiagnosticResponse> diagnostics(ServiceDesignerDiagnosticRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                DiagnosticsHandler diagnosticsHandler = new DiagnosticsHandler(workspaceManager);
+                JsonElement diagnostics = diagnosticsHandler.getDiagnostics(request);
+                return new ServiceDesignerDiagnosticResponse(diagnostics);
+            } catch (Throwable e) {
+                return new ServiceDesignerDiagnosticResponse(e);
+            }
+        });
+    }
 
     public static ModuleAndServiceType deriveServiceType(ServiceDeclarationNode serviceNode,
                                                          SemanticModel semanticModel) {
