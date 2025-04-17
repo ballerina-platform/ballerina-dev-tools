@@ -50,8 +50,8 @@ import java.util.Optional;
 public class TypesGenerator {
 
     private final Map<String, TypeSymbol> typeSymbolMap;
-    private final Map<TypeSymbol, CompletionItem> completionItemMap;
-    private final Map<TypeSymbol, List<CompletionItem>> subtypeItemsMap;
+    private final Map<String, CompletionItem> completionItemMap;
+    private final Map<String, List<CompletionItem>> subtypeItemsMap;
     private volatile boolean initialized = false;
     private static final String LANG_ANNOTATIONS_MODULE = "lang.annotations";
 
@@ -179,7 +179,7 @@ public class TypesGenerator {
             completionItems.addAll(completionItemMap.values());
         } else {
             // Add the subtype builtin types
-            List<CompletionItem> subtypeItems = subtypeItemsMap.get(typeConstraintSymbol);
+            List<CompletionItem> subtypeItems = subtypeItemsMap.get(typeConstraintSymbol.signature());
             if (subtypeItems != null) {
                 completionItems.addAll(subtypeItems);
             }
@@ -202,7 +202,8 @@ public class TypesGenerator {
             return true;
         }
         try {
-            return !childTypeSymbol.subtypeOf(typeConstraintSymbol) || completionItemMap.containsKey(childTypeSymbol);
+            return !childTypeSymbol.subtypeOf(typeConstraintSymbol) ||
+                    completionItemMap.containsKey(childTypeSymbol.signature());
         } catch (Throwable ignored) {
             return true;
         }
@@ -241,7 +242,8 @@ public class TypesGenerator {
             typeSymbolMap.put(TYPE_FUTURE, types.FUTURE);
             typeSymbolMap.put(TYPE_TYPEDESC, types.TYPEDESC);
             typeSymbolMap.put(TYPE_HANDLE, types.HANDLE);
-            typeSymbolMap.put(TYPE_STREAM, types.STREAM);
+            typeSymbolMap.put(TYPE_STREAM,
+                    types.builder().STREAM_TYPE.withValueType(types.ANYDATA).withCompletionType(types.ERROR).build());
             typeSymbolMap.put(TYPE_READONLY, types.READONLY);
             typeSymbolMap.put(TYPE_RECORD, types.builder().RECORD_TYPE.withRestField(types.ANYDATA).build());
             typeSymbolMap.put(TYPE_MAP_JSON, types.builder().MAP_TYPE.withTypeParam(types.JSON).build());
@@ -254,7 +256,8 @@ public class TypesGenerator {
             categoryMap.forEach((category, typeNames) -> {
                 typeNames.forEach(typeName -> {
                     TypeSymbol symbol = typeSymbolMap.get(typeName);
-                    completionItemMap.put(symbol, TypeCompletionItemBuilder.build(symbol, typeName, category));
+                    completionItemMap.put(symbol.signature(),
+                            TypeCompletionItemBuilder.build(symbol, typeName, category));
                 });
             });
 
@@ -262,9 +265,9 @@ public class TypesGenerator {
             typeSymbolMap.forEach((name, symbol) -> {
                 List<CompletionItem> completionsList = typeSymbolMap.values().stream()
                         .filter(typeSymbol -> typeSymbol.subtypeOf(symbol))
-                        .map(completionItemMap::get)
+                        .map(typeSymbol -> completionItemMap.get(typeSymbol.signature()))
                         .toList();
-                subtypeItemsMap.put(symbol, completionsList);
+                subtypeItemsMap.put(symbol.signature(), completionsList);
             });
 
             initialized = true;
