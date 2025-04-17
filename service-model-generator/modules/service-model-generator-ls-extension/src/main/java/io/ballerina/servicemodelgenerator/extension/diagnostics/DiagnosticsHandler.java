@@ -29,8 +29,6 @@ import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.Node;
-import io.ballerina.compiler.syntax.tree.NodeList;
-import io.ballerina.compiler.syntax.tree.NodeParser;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.ServiceDeclarationNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
@@ -44,7 +42,6 @@ import io.ballerina.servicemodelgenerator.extension.model.Parameter;
 import io.ballerina.servicemodelgenerator.extension.model.Value;
 import io.ballerina.servicemodelgenerator.extension.request.FunctionSourceRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ServiceDesignerDiagnosticRequest;
-import io.ballerina.servicemodelgenerator.extension.response.CommonSourceResponse;
 import io.ballerina.servicemodelgenerator.extension.util.Utils;
 import io.ballerina.tools.diagnostics.DiagnosticSeverity;
 import io.ballerina.tools.text.LineRange;
@@ -59,11 +56,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Diagnostics handler for the service model generator.

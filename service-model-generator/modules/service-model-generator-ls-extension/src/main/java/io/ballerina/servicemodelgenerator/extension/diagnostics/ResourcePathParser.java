@@ -108,7 +108,8 @@ public class ResourcePathParser {
         String content = segment.value().substring(1, segment.value().length() - 1);
 
         if (isConstantLiteral(content)) {
-            result.addSegment(new ParamSegment(Segment.Type.CONST_PARAM, Collections.emptyList(), content, content, segment.start(), segment.end()));
+            result.addSegment(new ParamSegment(Segment.Type.CONST_PARAM, Collections.emptyList(),
+                    content, content, segment.start(), segment.end()));
             return;
         }
 
@@ -143,7 +144,8 @@ public class ResourcePathParser {
                 .map(Token::value)
                 .collect(Collectors.toList());
 
-        result.addSegment(new ParamSegment(Segment.Type.PARAM, annots, typeDescriptor, paramName, segment.start(), segment.end()));
+        result.addSegment(new ParamSegment(Segment.Type.PARAM, annots, typeDescriptor, paramName,
+                segment.start(), segment.end()));
     }
 
     private static void handleRestParam(List<Token> tokens, SegmentPart segment, ParseResult result) {
@@ -154,7 +156,9 @@ public class ResourcePathParser {
                 break;
             }
         }
-        if (dotIndex == -1) return;
+        if (dotIndex == -1) {
+            return;
+        }
 
         List<Token> beforeDot = tokens.subList(0, dotIndex);
         List<Token> afterDot = tokens.subList(dotIndex + 1, tokens.size());
@@ -174,7 +178,8 @@ public class ResourcePathParser {
 
         String paramName = afterDot.isEmpty() ? null : validateParamName(afterDot.get(0), result);
 
-        result.addSegment(new ParamSegment(Segment.Type.REST_PARAM, annots, typeDescriptor, paramName, segment.start(), segment.end()));
+        result.addSegment(new ParamSegment(Segment.Type.REST_PARAM, annots, typeDescriptor,
+                paramName, segment.start(), segment.end()));
     }
 
     private static String validateParamName(Token token, ParseResult result) {
@@ -355,7 +360,7 @@ public class ResourcePathParser {
         }
     }
 
-    public static abstract class Segment {
+    public abstract static class Segment {
         public enum Type {
             DOT, SEGMENT, PARAM, REST_PARAM, CONST_PARAM
         }
@@ -407,7 +412,8 @@ public class ResourcePathParser {
         private final String typeDescriptor;
         private final String paramName;
 
-        public ParamSegment(Type type, List<String> annots, String typeDescriptor, String paramName, int start, int end) {
+        public ParamSegment(Type type, List<String> annots, String typeDescriptor,
+                            String paramName, int start, int end) {
             super(type, start, end);
             this.annots = annots;
             this.typeDescriptor = typeDescriptor;
