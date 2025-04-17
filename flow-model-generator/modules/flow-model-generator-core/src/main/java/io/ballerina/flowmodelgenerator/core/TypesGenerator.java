@@ -158,11 +158,13 @@ public class TypesGenerator {
                 if (isInvalidTypeSymbol(symbol, typeConstraintSymbol)) {
                     continue;
                 }
+
                 // Skip the internal type definitions
                 if (symbol.getModule().map(moduleSymbol -> moduleSymbol.nameEquals(LANG_ANNOTATIONS_MODULE))
                         .orElse(false)) {
                     continue;
                 }
+
                 completionItems.add(TypeCompletionItemBuilder.build(
                         symbol,
                         symbol.getName().orElse(""),
@@ -185,7 +187,7 @@ public class TypesGenerator {
         return Either.forLeft(completionItems);
     }
 
-    private static boolean isInvalidTypeSymbol(Symbol symbol, TypeSymbol typeConstraintSymbol) {
+    private boolean isInvalidTypeSymbol(Symbol symbol, TypeSymbol typeConstraintSymbol) {
         if (typeConstraintSymbol == null) {
             return false;
         }
@@ -200,7 +202,7 @@ public class TypesGenerator {
             return true;
         }
         try {
-            return !childTypeSymbol.subtypeOf(typeConstraintSymbol);
+            return !childTypeSymbol.subtypeOf(typeConstraintSymbol) || completionItemMap.containsKey(childTypeSymbol);
         } catch (Throwable ignored) {
             return true;
         }
