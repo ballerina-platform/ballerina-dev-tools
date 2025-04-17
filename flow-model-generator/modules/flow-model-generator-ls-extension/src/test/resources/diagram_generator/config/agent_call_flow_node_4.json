@@ -1,23 +1,23 @@
 {
   "start": {
-    "line": 85,
+    "line": 84,
     "offset": 38
   },
   "end": {
-    "line": 88,
+    "line": 87,
     "offset": 1
   },
-  "source": "agent_5/agents.bal",
+  "source": "agent_4/agents.bal",
   "description": "Tests a simple diagram flow",
   "diagram": {
     "fileName": "agents.bal",
     "nodes": [
       {
-        "id": "117248",
+        "id": "116256",
         "metadata": {
           "label": "run",
           "description": "Executes the agent for a given user query.\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai_1.0.0.png",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai_1.0.1.png",
           "data": {
             "tools": [
               {
@@ -40,8 +40,9 @@
               "instructions": "\"Help the students with their questions.\"",
               "role": "\"Math tutor\""
             },
-            "memoryManager": {
-              "name": "def"
+            "memory": {
+              "type": "ai:MessageWindowChatMemory",
+              "size": "20"
             },
             "model": {
               "name": "myModel",
@@ -56,15 +57,15 @@
           "module": "ai",
           "object": "Agent",
           "symbol": "run",
-          "version": "1.0.0",
+          "version": "1.0.1",
           "lineRange": {
             "fileName": "agents.bal",
             "startLine": {
-              "line": 86,
+              "line": 85,
               "offset": 4
             },
             "endLine": {
-              "line": 86,
+              "line": 85,
               "offset": 68
             }
           },
@@ -162,11 +163,11 @@
               "lineRange": {
                 "fileName": "agents.bal",
                 "startLine": {
-                  "line": 86,
+                  "line": 85,
                   "offset": 11
                 },
                 "endLine": {
-                  "line": 86,
+                  "line": 85,
                   "offset": 17
                 }
               }
@@ -192,11 +193,11 @@
     ],
     "connections": [
       {
-        "id": "111199",
+        "id": "111272",
         "metadata": {
           "label": "Agent",
           "description": "Represents an agent.",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai_1.0.0.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai_1.0.1.png"
         },
         "codedata": {
           "node": "AGENT",
@@ -211,11 +212,11 @@
               "offset": 0
             },
             "endLine": {
-              "line": 83,
-              "offset": 2
+              "line": 82,
+              "offset": 106
             }
           },
-          "sourceCode": "// final MockLlm model = new;\nfinal ai:Agent agent = check new (model = myModel,\n    systemPrompt = {role: \"Math tutor\", instructions: \"Help the students with their questions.\"},\n    tools = [set, sum, mutiply], agentType = ai:REACT_AGENT, memoryManager = def\n);"
+          "sourceCode": "// final MockLlm model = new;\nfinal ai:Agent agent = check new (model = myModel,\n    systemPrompt = {role: \"Math tutor\", instructions: \"Help the students with their questions.\"},\n    tools = [set, sum, mutiply], agentType = ai:REACT_AGENT, memory = new ai:MessageWindowChatMemory(20));"
         },
         "returning": false,
         "properties": {
@@ -239,7 +240,7 @@
             "typeMembers": [
               {
                 "type": "ModelProvider",
-                "packageInfo": "ballerinax:ai:1.0.0",
+                "packageInfo": "ballerinax:ai:1.0.1",
                 "kind": "OBJECT_TYPE",
                 "selected": false
               }
@@ -265,7 +266,7 @@
             "typeMembers": [
               {
                 "type": "SystemPrompt",
-                "packageInfo": "ballerinax:ai:1.0.0",
+                "packageInfo": "ballerinax:ai:1.0.1",
                 "kind": "RECORD_TYPE",
                 "selected": true
               }
@@ -291,7 +292,39 @@
             "typeMembers": [
               {
                 "type": "AgentType",
-                "packageInfo": "ballerinax:ai:1.0.0",
+                "packageInfo": "ballerinax:ai:1.0.1",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
+          },
+          "memory": {
+            "metadata": {
+              "label": "Memory",
+              "description": "The memory used by the agent to store and manage conversation history"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "ai:Memory|()",
+            "value": "new ai:MessageWindowChatMemory(20)",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "hidden": false,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "memory"
+            },
+            "typeMembers": [
+              {
+                "type": "Memory",
+                "packageInfo": "ballerinax:ai:1.0.1",
+                "kind": "OBJECT_TYPE",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "",
                 "kind": "BASIC_TYPE",
                 "selected": false
               }
@@ -319,38 +352,6 @@
                 "type": "BaseToolKit|ai",
                 "packageInfo": "",
                 "kind": "ARRAY_TYPE",
-                "selected": false
-              }
-            ]
-          },
-          "memoryManager": {
-            "metadata": {
-              "label": "Memory Manager",
-              "description": "The memory manager used by the agent to store and manage conversation history"
-            },
-            "valueType": "EXPRESSION",
-            "valueTypeConstraint": "ai:MemoryManager|()",
-            "value": "def\n",
-            "placeholder": "()",
-            "optional": true,
-            "editable": true,
-            "advanced": true,
-            "hidden": false,
-            "codedata": {
-              "kind": "INCLUDED_FIELD",
-              "originalName": "memoryManager"
-            },
-            "typeMembers": [
-              {
-                "type": "MemoryManager",
-                "packageInfo": "ballerinax:ai:1.0.0",
-                "kind": "OBJECT_TYPE",
-                "selected": false
-              },
-              {
-                "type": "()",
-                "packageInfo": "",
-                "kind": "BASIC_TYPE",
                 "selected": false
               }
             ]
@@ -1830,11 +1831,11 @@
         "flags": 1
       },
       {
-        "id": "104250",
+        "id": "104260",
         "metadata": {
           "label": "Class",
           "description": "AzureOpenAiProvider is a client class that provides an interface for interacting with Azure-hosted OpenAI language models.",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai_1.0.0.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai_1.0.1.png"
         },
         "codedata": {
           "node": "CLASS_INIT",
@@ -1850,10 +1851,10 @@
             },
             "endLine": {
               "line": 73,
-              "offset": 90
+              "offset": 100
             }
           },
-          "sourceCode": "ai:AzureOpenAiProvider myModel = check new (serviceUrl, apiKey, deploymentId, apiVersion);"
+          "sourceCode": "ai:AzureOpenAiProvider myModel = check new ({auth: {apiKey}}, serviceUrl, deploymentId, apiVersion);"
         },
         "returning": false,
         "properties": {
@@ -1864,12 +1865,21 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "string",
-            "value": "serviceUrl",
+            "value": "{auth: {apiKey}}",
             "placeholder": "\"\"",
             "optional": false,
             "editable": true,
             "advanced": false,
             "hidden": false,
+            "diagnostics": {
+              "hasDiagnostics": true,
+              "diagnostics": [
+                {
+                  "severity": "ERROR",
+                  "message": "a type compatible with mapping constructor expressions not found in type 'string'"
+                }
+              ]
+            },
             "codedata": {
               "kind": "REQUIRED",
               "originalName": "serviceUrl"
@@ -1879,7 +1889,7 @@
                 "type": "string",
                 "packageInfo": "",
                 "kind": "BASIC_TYPE",
-                "selected": true
+                "selected": false
               }
             ]
           },
@@ -1890,7 +1900,7 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "string",
-            "value": "apiKey",
+            "value": "serviceUrl",
             "placeholder": "\"\"",
             "optional": false,
             "editable": true,
@@ -2025,8 +2035,7 @@
             "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
-              "originalName": "httpVersion",
-              "importStatements": "ballerina/http"
+              "originalName": "httpVersion"
             },
             "typeMembers": [
               {
@@ -2035,7 +2044,10 @@
                 "kind": "BASIC_TYPE",
                 "selected": false
               }
-            ]
+            ],
+            "imports": {
+              "http": "ballerina/http"
+            }
           },
           "http1Settings": {
             "metadata": {
@@ -2051,8 +2063,7 @@
             "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
-              "originalName": "http1Settings",
-              "importStatements": "ballerina/http"
+              "originalName": "http1Settings"
             },
             "typeMembers": [
               {
@@ -2061,7 +2072,10 @@
                 "kind": "RECORD_TYPE",
                 "selected": false
               }
-            ]
+            ],
+            "imports": {
+              "http": "ballerina/http"
+            }
           },
           "http2Settings": {
             "metadata": {
@@ -2077,8 +2091,7 @@
             "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
-              "originalName": "http2Settings",
-              "importStatements": "ballerina/http"
+              "originalName": "http2Settings"
             },
             "typeMembers": [
               {
@@ -2087,7 +2100,10 @@
                 "kind": "RECORD_TYPE",
                 "selected": false
               }
-            ]
+            ],
+            "imports": {
+              "http": "ballerina/http"
+            }
           },
           "timeout": {
             "metadata": {
@@ -2112,7 +2128,10 @@
                 "kind": "BASIC_TYPE",
                 "selected": false
               }
-            ]
+            ],
+            "imports": {
+              "http": "ballerina/http"
+            }
           },
           "forwarded": {
             "metadata": {
@@ -2137,7 +2156,10 @@
                 "kind": "BASIC_TYPE",
                 "selected": false
               }
-            ]
+            ],
+            "imports": {
+              "http": "ballerina/http"
+            }
           },
           "poolConfig": {
             "metadata": {
@@ -2153,8 +2175,7 @@
             "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
-              "originalName": "poolConfig",
-              "importStatements": "ballerina/http"
+              "originalName": "poolConfig"
             },
             "typeMembers": [
               {
@@ -2163,7 +2184,10 @@
                 "kind": "RECORD_TYPE",
                 "selected": false
               }
-            ]
+            ],
+            "imports": {
+              "http": "ballerina/http"
+            }
           },
           "cache": {
             "metadata": {
@@ -2179,8 +2203,7 @@
             "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
-              "originalName": "cache",
-              "importStatements": "ballerina/http"
+              "originalName": "cache"
             },
             "typeMembers": [
               {
@@ -2189,7 +2212,10 @@
                 "kind": "RECORD_TYPE",
                 "selected": false
               }
-            ]
+            ],
+            "imports": {
+              "http": "ballerina/http"
+            }
           },
           "compression": {
             "metadata": {
@@ -2205,8 +2231,7 @@
             "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
-              "originalName": "compression",
-              "importStatements": "ballerina/http"
+              "originalName": "compression"
             },
             "typeMembers": [
               {
@@ -2215,7 +2240,10 @@
                 "kind": "BASIC_TYPE",
                 "selected": false
               }
-            ]
+            ],
+            "imports": {
+              "http": "ballerina/http"
+            }
           },
           "circuitBreaker": {
             "metadata": {
@@ -2231,8 +2259,7 @@
             "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
-              "originalName": "circuitBreaker",
-              "importStatements": "ballerina/http"
+              "originalName": "circuitBreaker"
             },
             "typeMembers": [
               {
@@ -2241,7 +2268,10 @@
                 "kind": "RECORD_TYPE",
                 "selected": false
               }
-            ]
+            ],
+            "imports": {
+              "http": "ballerina/http"
+            }
           },
           "retryConfig": {
             "metadata": {
@@ -2257,8 +2287,7 @@
             "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
-              "originalName": "retryConfig",
-              "importStatements": "ballerina/http"
+              "originalName": "retryConfig"
             },
             "typeMembers": [
               {
@@ -2267,7 +2296,10 @@
                 "kind": "RECORD_TYPE",
                 "selected": false
               }
-            ]
+            ],
+            "imports": {
+              "http": "ballerina/http"
+            }
           },
           "responseLimits": {
             "metadata": {
@@ -2283,8 +2315,7 @@
             "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
-              "originalName": "responseLimits",
-              "importStatements": "ballerina/http"
+              "originalName": "responseLimits"
             },
             "typeMembers": [
               {
@@ -2293,7 +2324,10 @@
                 "kind": "RECORD_TYPE",
                 "selected": false
               }
-            ]
+            ],
+            "imports": {
+              "http": "ballerina/http"
+            }
           },
           "secureSocket": {
             "metadata": {
@@ -2309,8 +2343,7 @@
             "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
-              "originalName": "secureSocket",
-              "importStatements": "ballerina/http"
+              "originalName": "secureSocket"
             },
             "typeMembers": [
               {
@@ -2319,7 +2352,10 @@
                 "kind": "RECORD_TYPE",
                 "selected": false
               }
-            ]
+            ],
+            "imports": {
+              "http": "ballerina/http"
+            }
           },
           "proxy": {
             "metadata": {
@@ -2335,8 +2371,7 @@
             "hidden": false,
             "codedata": {
               "kind": "INCLUDED_FIELD",
-              "originalName": "proxy",
-              "importStatements": "ballerina/http"
+              "originalName": "proxy"
             },
             "typeMembers": [
               {
@@ -2345,7 +2380,10 @@
                 "kind": "RECORD_TYPE",
                 "selected": false
               }
-            ]
+            ],
+            "imports": {
+              "http": "ballerina/http"
+            }
           },
           "validation": {
             "metadata": {
@@ -2370,7 +2408,10 @@
                 "kind": "BASIC_TYPE",
                 "selected": false
               }
-            ]
+            ],
+            "imports": {
+              "http": "ballerina/http"
+            }
           },
           "checkError": {
             "metadata": {
@@ -2382,7 +2423,10 @@
             "optional": false,
             "editable": false,
             "advanced": true,
-            "hidden": false
+            "hidden": false,
+            "imports": {
+              "http": "ballerina/http"
+            }
           },
           "scope": {
             "metadata": {
@@ -2394,7 +2438,10 @@
             "optional": false,
             "editable": true,
             "advanced": true,
-            "hidden": false
+            "hidden": false,
+            "imports": {
+              "http": "ballerina/http"
+            }
           },
           "variable": {
             "metadata": {
@@ -2419,6 +2466,9 @@
                   "offset": 30
                 }
               }
+            },
+            "imports": {
+              "http": "ballerina/http"
             }
           },
           "type": {
@@ -2433,8 +2483,14 @@
             "editable": true,
             "advanced": false,
             "hidden": false,
-            "codedata": {}
+            "codedata": {},
+            "imports": {
+              "http": "ballerina/http"
+            }
           }
+        },
+        "diagnostics": {
+          "hasDiagnostics": true
         },
         "flags": 1
       }
