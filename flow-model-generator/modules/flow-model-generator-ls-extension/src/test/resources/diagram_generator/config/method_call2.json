@@ -63,7 +63,7 @@
               "label": "Expression",
               "description": "Initialize with value"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "ACTION_OR_EXPRESSION",
             "value": "[1, 2, 3, 4, 5]",
             "optional": true,
             "editable": true,
@@ -140,7 +140,7 @@
               "label": "Expression",
               "description": "Initialize with value"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "ACTION_OR_EXPRESSION",
             "value": "numbers.reduce(function(int total, int n) returns int {\n        return total + n;\n    }, 0)",
             "optional": true,
             "editable": true,
@@ -217,7 +217,7 @@
               "label": "Expression",
               "description": "Initialize with value"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "ACTION_OR_EXPRESSION",
             "value": "\"Hello Ballerina\"",
             "optional": true,
             "editable": true,
@@ -294,7 +294,7 @@
               "label": "Expression",
               "description": "Initialize with value"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "ACTION_OR_EXPRESSION",
             "value": "text.toUpperAscii()",
             "optional": true,
             "editable": true,
@@ -371,7 +371,7 @@
               "label": "Expression",
               "description": "Initialize with value"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "ACTION_OR_EXPRESSION",
             "value": "text.includes(\"Ball\")",
             "optional": true,
             "editable": true,
@@ -448,7 +448,7 @@
               "label": "Expression",
               "description": "Initialize with value"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "ACTION_OR_EXPRESSION",
             "value": "{\n        \"a\": \"apple\",\n        \"b\": \"banana\"\n    }",
             "optional": true,
             "editable": true,
@@ -525,7 +525,7 @@
               "label": "Expression",
               "description": "Initialize with value"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "ACTION_OR_EXPRESSION",
             "value": "fruits.keys()",
             "optional": true,
             "editable": true,

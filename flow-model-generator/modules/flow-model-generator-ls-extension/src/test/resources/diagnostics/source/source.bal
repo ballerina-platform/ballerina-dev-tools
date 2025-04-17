@@ -43,3 +43,7 @@ enum MyEnum {
 
 MyRecord rec = { id: 1 };
 map<string> mapVar = { "key": "value" };
+
+function testCaller(http:Caller caller) {
+
+}

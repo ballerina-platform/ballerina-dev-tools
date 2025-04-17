@@ -185,7 +185,7 @@
                               "label": "Expression",
                               "description": "Initialize with value"
                             },
-                            "valueType": "EXPRESSION",
+                            "valueType": "ACTION_OR_EXPRESSION",
                             "value": "12",
                             "optional": true,
                             "editable": true,
@@ -262,7 +262,7 @@
                               "label": "Expression",
                               "description": "Return value"
                             },
-                            "valueType": "EXPRESSION",
+                            "valueType": "ACTION_OR_EXPRESSION",
                             "value": "\"expensive\"",
                             "optional": false,
                             "editable": true,
@@ -322,7 +322,7 @@
                               "label": "Expression",
                               "description": "Initialize with value"
                             },
-                            "valueType": "EXPRESSION",
+                            "valueType": "ACTION_OR_EXPRESSION",
                             "value": "2",
                             "optional": true,
                             "editable": true,
@@ -399,7 +399,7 @@
                               "label": "Expression",
                               "description": "Return value"
                             },
-                            "valueType": "EXPRESSION",
+                            "valueType": "ACTION_OR_EXPRESSION",
                             "value": "\"moderate\"",
                             "optional": false,
                             "editable": true,
@@ -447,7 +447,7 @@
               "label": "Expression",
               "description": "Return value"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "ACTION_OR_EXPRESSION",
             "value": "\"cheap\"",
             "optional": false,
             "editable": true,

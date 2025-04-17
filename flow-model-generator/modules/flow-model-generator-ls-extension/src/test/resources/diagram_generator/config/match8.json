@@ -127,7 +127,7 @@
                       "label": "Expression",
                       "description": "Initialize with value"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "ACTION_OR_EXPRESSION",
                     "value": "<int>quantity",
                     "optional": true,
                     "editable": true,
@@ -286,7 +286,7 @@
                               "label": "Expression",
                               "description": "Return value"
                             },
-                            "valueType": "EXPRESSION",
+                            "valueType": "ACTION_OR_EXPRESSION",
                             "value": "\"bulk\"",
                             "optional": false,
                             "editable": true,
@@ -467,7 +467,7 @@
                                       "label": "Expression",
                                       "description": "Return value"
                                     },
-                                    "valueType": "EXPRESSION",
+                                    "valueType": "ACTION_OR_EXPRESSION",
                                     "value": "\"large pack\"",
                                     "optional": false,
                                     "editable": true,
@@ -566,7 +566,7 @@
                                       "label": "Expression",
                                       "description": "Return value"
                                     },
-                                    "valueType": "EXPRESSION",
+                                    "valueType": "ACTION_OR_EXPRESSION",
                                     "value": "\"medium pack\"",
                                     "optional": false,
                                     "editable": true,
@@ -653,7 +653,7 @@
                                       "label": "Expression",
                                       "description": "Return value"
                                     },
-                                    "valueType": "EXPRESSION",
+                                    "valueType": "ACTION_OR_EXPRESSION",
                                     "value": "\"small pack\"",
                                     "optional": false,
                                     "editable": true,
@@ -760,7 +760,7 @@
                               "label": "Expression",
                               "description": "Return value"
                             },
-                            "valueType": "EXPRESSION",
+                            "valueType": "ACTION_OR_EXPRESSION",
                             "value": "\"individual\"",
                             "optional": false,
                             "editable": true,
@@ -823,7 +823,7 @@
               "label": "Expression",
               "description": "Return value"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "ACTION_OR_EXPRESSION",
             "value": "\"invalid quantity\"",
             "optional": false,
             "editable": true,

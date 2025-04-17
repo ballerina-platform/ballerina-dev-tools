@@ -51,7 +51,7 @@
           "label": "Expression",
           "description": "Initialize with value"
         },
-        "valueType": "EXPRESSION",
+        "valueType": "ACTION_OR_EXPRESSION",
         "value": "",
         "optional": true,
         "editable": true,

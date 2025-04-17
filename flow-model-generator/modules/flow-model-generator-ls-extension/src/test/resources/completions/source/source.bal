@@ -18,3 +18,7 @@ service / on new http:Listener(8080) {
         }
     }
 }
+
+function testCaller(http:Caller caller) {
+    
+}

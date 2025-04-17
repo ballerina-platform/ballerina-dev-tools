@@ -182,7 +182,7 @@
               "label": "Expression",
               "description": "Call action or expression"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "ACTION_OR_EXPRESSION",
             "value": "f1->getName()",
             "optional": false,
             "editable": true,

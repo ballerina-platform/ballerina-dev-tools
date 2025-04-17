@@ -72,6 +72,6 @@ public class StartBuilder extends NodeBuilder {
     public void setConcreteTemplateData(TemplateContext context) {
         properties()
                 .dataVariable(null, true, context.getAllVisibleSymbolNames())
-                .expression("", START_EXPRESSION_DOC);
+                .expressionOrAction(null, START_EXPRESSION_DOC, false);
     }
 }

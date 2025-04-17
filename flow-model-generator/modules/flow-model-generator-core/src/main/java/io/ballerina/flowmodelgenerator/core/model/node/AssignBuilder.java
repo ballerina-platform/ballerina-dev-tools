@@ -82,6 +82,6 @@ public class AssignBuilder extends NodeBuilder {
                 .editable()
                 .stepOut()
                 .addProperty(Property.VARIABLE_KEY);
-        properties().expression("", EXPRESSION_DOC);
+        properties().expressionOrAction(null, EXPRESSION_DOC, false);
     }
 }

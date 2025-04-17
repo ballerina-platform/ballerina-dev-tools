@@ -190,7 +190,7 @@
                       "label": "Expression",
                       "description": "Initialize with value"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "ACTION_OR_EXPRESSION",
                     "value": "'from + \"-\" + to",
                     "optional": true,
                     "editable": true,
@@ -560,7 +560,7 @@
                               "label": "Expression",
                               "description": "Initialize with value"
                             },
-                            "valueType": "EXPRESSION",
+                            "valueType": "ACTION_OR_EXPRESSION",
                             "value": "{\n                    value: check calculate(amount, cacheValue)\n                }",
                             "optional": true,
                             "editable": true,
@@ -675,7 +675,7 @@
                               "label": "Expression",
                               "description": "Return value"
                             },
-                            "valueType": "EXPRESSION",
+                            "valueType": "ACTION_OR_EXPRESSION",
                             "value": "newData",
                             "optional": false,
                             "editable": true,
@@ -982,7 +982,7 @@
                               "label": "Expression",
                               "description": "Initialize with value"
                             },
-                            "valueType": "EXPRESSION",
+                            "valueType": "ACTION_OR_EXPRESSION",
                             "value": "check response.value",
                             "optional": true,
                             "editable": true,
@@ -1434,7 +1434,7 @@
                               "label": "Expression",
                               "description": "Initialize with value"
                             },
-                            "valueType": "EXPRESSION",
+                            "valueType": "ACTION_OR_EXPRESSION",
                             "value": "{\n                    value\n                }",
                             "optional": true,
                             "editable": true,
@@ -1549,7 +1549,7 @@
                               "label": "Expression",
                               "description": "Return value"
                             },
-                            "valueType": "EXPRESSION",
+                            "valueType": "ACTION_OR_EXPRESSION",
                             "value": "newData",
                             "optional": false,
                             "editable": true,
@@ -1875,7 +1875,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "ACTION_OR_EXPRESSION",
                     "value": "http:INTERNAL_SERVER_ERROR",
                     "optional": false,
                     "editable": true,

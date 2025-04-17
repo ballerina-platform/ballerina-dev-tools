@@ -147,7 +147,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "ACTION_OR_EXPRESSION",
                     "value": "mockFetch(\"http://a.com\", 2)",
                     "optional": false,
                     "editable": true,
@@ -246,7 +246,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "ACTION_OR_EXPRESSION",
                     "value": "mockFetch(\"http://b.com\", 1)",
                     "optional": false,
                     "editable": true,
@@ -459,7 +459,7 @@
               "label": "Expression",
               "description": "Return value"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "ACTION_OR_EXPRESSION",
             "value": "result",
             "optional": false,
             "editable": true,

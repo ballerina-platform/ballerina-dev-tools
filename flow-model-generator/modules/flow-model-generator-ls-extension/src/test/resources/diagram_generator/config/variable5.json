@@ -69,7 +69,7 @@
               "label": "Expression",
               "description": "Initialize with value"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "ACTION_OR_EXPRESSION",
             "value": "{value: check calculate(amount)}",
             "optional": true,
             "editable": true,

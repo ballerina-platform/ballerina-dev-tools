@@ -630,14 +630,14 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
         return this;
     }
 
-    public FormBuilder<T> expression(ExpressionNode expressionNode, String expressionDoc, boolean optional) {
+    public FormBuilder<T> expressionOrAction(ExpressionNode expressionNode, String expressionDoc, boolean optional) {
         propertyBuilder
                 .metadata()
                     .label(Property.EXPRESSION_DOC)
                     .description(expressionDoc)
                     .stepOut()
                 .value(expressionNode == null ? "" : expressionNode.toSourceCode())
-                .type(Property.ValueType.EXPRESSION)
+                .type(Property.ValueType.ACTION_OR_EXPRESSION)
                 .optional(optional)
                 .editable();
         addProperty(Property.EXPRESSION_KEY, expressionNode);
@@ -841,7 +841,7 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
                 .placeholder("[]")
                 .value(expressionNode == null ? "" : expressionNode.kind() == SyntaxKind.CHECK_EXPRESSION ?
                         ((CheckExpressionNode) expressionNode).expression().toString() : expressionNode.toString())
-                .type(Property.ValueType.EXPRESSION);
+                .type(Property.ValueType.ACTION_OR_EXPRESSION);
         addProperty(Property.COLLECTION_KEY, expressionNode);
         return this;
     }

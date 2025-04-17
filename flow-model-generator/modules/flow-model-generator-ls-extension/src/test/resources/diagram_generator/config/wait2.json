@@ -66,7 +66,7 @@
               "label": "Expression",
               "description": "Call action or expression"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "ACTION_OR_EXPRESSION",
             "value": "io:readln(\"Enter a value: \")",
             "optional": false,
             "editable": true,

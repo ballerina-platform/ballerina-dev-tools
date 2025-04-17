@@ -483,7 +483,7 @@
               "label": "Expression",
               "description": "Return value"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "ACTION_OR_EXPRESSION",
             "value": "foodClient->post(\"/bananas\", \"banana\")",
             "optional": false,
             "editable": true,

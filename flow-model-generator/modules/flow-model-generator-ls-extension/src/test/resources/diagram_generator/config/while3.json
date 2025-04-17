@@ -68,7 +68,7 @@
               "label": "Expression",
               "description": "Initialize with value"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "ACTION_OR_EXPRESSION",
             "value": "",
             "optional": true,
             "editable": true,
@@ -145,7 +145,7 @@
               "label": "Expression",
               "description": "Initialize with value"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "ACTION_OR_EXPRESSION",
             "value": "0",
             "optional": true,
             "editable": true,
@@ -436,7 +436,7 @@
                       "label": "Expression",
                       "description": "Assign value"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "ACTION_OR_EXPRESSION",
                     "value": "\"Response received from food service: \" + response.toString()",
                     "optional": false,
                     "editable": true,
@@ -546,7 +546,7 @@
                       "label": "Expression",
                       "description": "Assign value"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "ACTION_OR_EXPRESSION",
                     "value": "\"Error occurred while invoking food service\"",
                     "optional": false,
                     "editable": true,

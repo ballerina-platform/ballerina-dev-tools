@@ -502,7 +502,7 @@
               "label": "Expression",
               "description": "Return value"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "ACTION_OR_EXPRESSION",
             "value": "foodClient->get(\"/bananas\")",
             "optional": false,
             "editable": true,
