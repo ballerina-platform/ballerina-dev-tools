@@ -213,7 +213,7 @@ public class TypesGenerator {
         return Optional.ofNullable(typeSymbolMap.get(typeName));
     }
 
-    private void initializeBuiltinTypes(SemanticModel semanticModel) {
+    private synchronized void initializeBuiltinTypes(SemanticModel semanticModel) {
         if (initialized) {
             return;
         }
