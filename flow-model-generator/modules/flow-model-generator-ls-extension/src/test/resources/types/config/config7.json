@@ -79,33 +79,6 @@
       "insertText": "http:Client"
     },
     {
-      "label": "boolean",
-      "labelDetails": {
-        "detail": "Used Variable Types",
-        "description": "Boolean"
-      },
-      "kind": "TypeParameter",
-      "insertText": "boolean"
-    },
-    {
-      "label": "string",
-      "labelDetails": {
-        "detail": "Used Variable Types",
-        "description": "String"
-      },
-      "kind": "TypeParameter",
-      "insertText": "string"
-    },
-    {
-      "label": "int",
-      "labelDetails": {
-        "detail": "Used Variable Types",
-        "description": "Int"
-      },
-      "kind": "TypeParameter",
-      "insertText": "int"
-    },
-    {
       "label": "Input & readonly",
       "labelDetails": {
         "detail": "Used Variable Types",
