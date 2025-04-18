@@ -63,7 +63,7 @@ public class ExpressionEditorContext {
     public ExpressionEditorContext(WorkspaceManagerProxy workspaceManagerProxy, String fileUri, Info info,
                                    Path filePath) {
         this.info = info;
-        this.numberOfLines = info.expression().split(System.lineSeparator()).length;
+        this.numberOfLines = info.expression().split(System.lineSeparator()).length - 1;
         this.documentContext = new DocumentContext(workspaceManagerProxy, fileUri, filePath);
         this.property = new Property(info.property(), info.codedata());
     }
@@ -231,9 +231,9 @@ public class ExpressionEditorContext {
 
         int lineOffset = info.lineOffset();
         // Add the offset of the type binding pattern if this is the first line
-        int offsetChange = lineOffset > 0 ? 0 : expressionOffset;
+        int offsetChange = lineOffset > 0 ? 0 : expressionOffset + statementLineRange.startLine().offset();
         return new Position(statementLineRange.startLine().line() + lineOffset,
-                statementLineRange.startLine().offset() + info.offset() + offsetChange);
+                  info.offset() + offsetChange);
     }
 
     /**
