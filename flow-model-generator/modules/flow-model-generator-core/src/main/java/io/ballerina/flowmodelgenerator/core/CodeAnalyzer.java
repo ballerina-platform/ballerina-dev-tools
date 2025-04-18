@@ -251,11 +251,14 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(ObjectFieldNode objectFieldNode) {
-        objectFieldNode.expression().ifPresent(expressionNode -> expressionNode.accept(this));
-        nodeBuilder.properties()
-                .type(objectFieldNode.typeName(), true)
-                .data(objectFieldNode.fieldName(), false, new HashSet<>());
-        endNode(objectFieldNode);
+        Optional<ExpressionNode> optExpr = objectFieldNode.expression();
+        if (optExpr.isPresent()) {
+            optExpr.get().accept(this);
+            nodeBuilder.properties()
+                    .type(objectFieldNode.typeName(), true)
+                    .data(objectFieldNode.fieldName(), false, new HashSet<>());
+            endNode(objectFieldNode);
+        }
     }
 
     @Override
