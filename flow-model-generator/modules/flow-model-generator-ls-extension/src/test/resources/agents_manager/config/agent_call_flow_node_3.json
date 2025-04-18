@@ -7,7 +7,7 @@
     "line": 87,
     "offset": 1
   },
-  "source": "agent_1/agents.bal",
+  "source": "agent_6/agents.bal",
   "description": "Tests a simple diagram flow",
   "diagram": {
     "fileName": "agents.bal",
@@ -193,7 +193,7 @@
     ],
     "connections": [
       {
-        "id": "110207",
+        "id": "111227",
         "metadata": {
           "label": "Agent",
           "description": "Represents an agent.",
@@ -208,15 +208,15 @@
           "lineRange": {
             "fileName": "agents.bal",
             "startLine": {
-              "line": 79,
+              "line": 80,
               "offset": 0
             },
             "endLine": {
               "line": 82,
-              "offset": 2
+              "offset": 61
             }
           },
-          "sourceCode": "// final MockLlm model = new;\nfinal ai:Agent agent = check new (model = myModel,\n    systemPrompt = {role: \"Math tutor\", instructions: \"Help the students with their questions.\"},\n    tools = [set, sum, mutiply], agentType = ai:REACT_AGENT\n);"
+          "sourceCode": "// final MockLlm model = new;\nfinal ai:Agent agent = check new (model = myModel,\n    systemPrompt = {role: \"Math tutor\", instructions: \"Help the students with their questions.\"},\n    tools = [set, sum, mutiply], agentType = ai:REACT_AGENT);"
         },
         "returning": false,
         "properties": {
@@ -279,7 +279,7 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "ai:AgentType",
-            "value": "ai:REACT_AGENT\n",
+            "value": "ai:REACT_AGENT",
             "placeholder": "\"FUNCTION_CALL_AGENT\"",
             "optional": true,
             "editable": true,
@@ -444,11 +444,11 @@
               "lineRange": {
                 "fileName": "agents.bal",
                 "startLine": {
-                  "line": 79,
+                  "line": 80,
                   "offset": 15
                 },
                 "endLine": {
-                  "line": 79,
+                  "line": 80,
                   "offset": 20
                 }
               }
@@ -1830,7 +1830,7 @@
         "flags": 1
       },
       {
-        "id": "103258",
+        "id": "104260",
         "metadata": {
           "label": "Class",
           "description": "AzureOpenAiProvider is a client class that provides an interface for interacting with Azure-hosted OpenAI language models.",
@@ -1845,15 +1845,15 @@
           "lineRange": {
             "fileName": "agents.bal",
             "startLine": {
-              "line": 72,
+              "line": 73,
               "offset": 0
             },
             "endLine": {
-              "line": 72,
-              "offset": 90
+              "line": 73,
+              "offset": 100
             }
           },
-          "sourceCode": "ai:AzureOpenAiProvider myModel = check new (serviceUrl, apiKey, deploymentId, apiVersion);"
+          "sourceCode": "ai:AzureOpenAiProvider myModel = check new ({auth: {apiKey}}, serviceUrl, deploymentId, apiVersion);"
         },
         "returning": false,
         "properties": {
@@ -1864,12 +1864,21 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "string",
-            "value": "serviceUrl",
+            "value": "{auth: {apiKey}}",
             "placeholder": "\"\"",
             "optional": false,
             "editable": true,
             "advanced": false,
             "hidden": false,
+            "diagnostics": {
+              "hasDiagnostics": true,
+              "diagnostics": [
+                {
+                  "severity": "ERROR",
+                  "message": "a type compatible with mapping constructor expressions not found in type 'string'"
+                }
+              ]
+            },
             "codedata": {
               "kind": "REQUIRED",
               "originalName": "serviceUrl"
@@ -1879,7 +1888,7 @@
                 "type": "string",
                 "packageInfo": "",
                 "kind": "BASIC_TYPE",
-                "selected": true
+                "selected": false
               }
             ]
           },
@@ -1890,7 +1899,7 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "string",
-            "value": "apiKey",
+            "value": "serviceUrl",
             "placeholder": "\"\"",
             "optional": false,
             "editable": true,
@@ -2448,11 +2457,11 @@
               "lineRange": {
                 "fileName": "agents.bal",
                 "startLine": {
-                  "line": 72,
+                  "line": 73,
                   "offset": 23
                 },
                 "endLine": {
-                  "line": 72,
+                  "line": 73,
                   "offset": 30
                 }
               }
@@ -2478,6 +2487,9 @@
               "http": "ballerina/http"
             }
           }
+        },
+        "diagnostics": {
+          "hasDiagnostics": true
         },
         "flags": 1
       }

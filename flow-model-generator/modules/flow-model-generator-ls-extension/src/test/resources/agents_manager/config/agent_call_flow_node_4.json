@@ -7,7 +7,7 @@
     "line": 87,
     "offset": 1
   },
-  "source": "agent_3/agents.bal",
+  "source": "agent_7/agents.bal",
   "description": "Tests a simple diagram flow",
   "diagram": {
     "fileName": "agents.bal",
@@ -42,7 +42,7 @@
             },
             "memory": {
               "type": "ai:MessageWindowChatMemory",
-              "size": "10"
+              "size": "20"
             },
             "model": {
               "name": "myModel",
@@ -193,7 +193,7 @@
     ],
     "connections": [
       {
-        "id": "111227",
+        "id": "111272",
         "metadata": {
           "label": "Agent",
           "description": "Represents an agent.",
@@ -213,10 +213,10 @@
             },
             "endLine": {
               "line": 82,
-              "offset": 61
+              "offset": 106
             }
           },
-          "sourceCode": "// final MockLlm model = new;\nfinal ai:Agent agent = check new (model = myModel,\n    systemPrompt = {role: \"Math tutor\", instructions: \"Help the students with their questions.\"},\n    tools = [set, sum, mutiply], agentType = ai:REACT_AGENT);"
+          "sourceCode": "// final MockLlm model = new;\nfinal ai:Agent agent = check new (model = myModel,\n    systemPrompt = {role: \"Math tutor\", instructions: \"Help the students with their questions.\"},\n    tools = [set, sum, mutiply], agentType = ai:REACT_AGENT, memory = new ai:MessageWindowChatMemory(20));"
         },
         "returning": false,
         "properties": {
@@ -298,6 +298,38 @@
               }
             ]
           },
+          "memory": {
+            "metadata": {
+              "label": "Memory",
+              "description": "The memory used by the agent to store and manage conversation history"
+            },
+            "valueType": "EXPRESSION",
+            "valueTypeConstraint": "ai:Memory|()",
+            "value": "new ai:MessageWindowChatMemory(20)",
+            "placeholder": "()",
+            "optional": true,
+            "editable": true,
+            "advanced": true,
+            "hidden": false,
+            "codedata": {
+              "kind": "INCLUDED_FIELD",
+              "originalName": "memory"
+            },
+            "typeMembers": [
+              {
+                "type": "Memory",
+                "packageInfo": "ballerinax:ai:1.0.1",
+                "kind": "OBJECT_TYPE",
+                "selected": false
+              },
+              {
+                "type": "()",
+                "packageInfo": "",
+                "kind": "BASIC_TYPE",
+                "selected": false
+              }
+            ]
+          },
           "tools": {
             "metadata": {
               "label": "Tools",
@@ -368,37 +400,6 @@
             "typeMembers": [
               {
                 "type": "boolean",
-                "packageInfo": "",
-                "kind": "BASIC_TYPE",
-                "selected": false
-              }
-            ]
-          },
-          "memory": {
-            "metadata": {
-              "label": "Memory",
-              "description": "The memory used by the agent to store and manage conversation history"
-            },
-            "valueType": "EXPRESSION",
-            "valueTypeConstraint": "ai:Memory|()",
-            "placeholder": "()",
-            "optional": true,
-            "editable": true,
-            "advanced": true,
-            "hidden": false,
-            "codedata": {
-              "kind": "INCLUDED_FIELD",
-              "originalName": "memory"
-            },
-            "typeMembers": [
-              {
-                "type": "Memory",
-                "packageInfo": "ballerinax:ai:1.0.1",
-                "kind": "OBJECT_TYPE",
-                "selected": false
-              },
-              {
-                "type": "()",
                 "packageInfo": "",
                 "kind": "BASIC_TYPE",
                 "selected": false
