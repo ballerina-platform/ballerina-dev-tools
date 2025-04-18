@@ -58,10 +58,12 @@ public class ExpressionEditorContext {
     private int expressionOffset;
     private LineRange statementLineRange;
     private LinePosition startLine;
+    private int numberOfLines;
 
     public ExpressionEditorContext(WorkspaceManagerProxy workspaceManagerProxy, String fileUri, Info info,
                                    Path filePath) {
         this.info = info;
+        this.numberOfLines = info.expression().split(System.lineSeparator()).length;
         this.documentContext = new DocumentContext(workspaceManagerProxy, fileUri, filePath);
         this.property = new Property(info.property(), info.codedata());
     }
@@ -199,14 +201,16 @@ public class ExpressionEditorContext {
 
         // Return the line range of the generated statement
         LinePosition startLine = LinePosition.from(cursorStartLine.line() + lineOffset, cursorStartLine.offset());
-        LinePosition endLineRange = LinePosition.from(startLine.line(), startLine.offset() + statement.length());
+        LinePosition endLineRange =
+                LinePosition.from(startLine.line() + numberOfLines, startLine.offset() + statement.length());
         this.statementLineRange = LineRange.from(getFileName(documentContext.filePath()), startLine, endLineRange);
         return statementLineRange;
     }
 
     public LineRange getExpressionLineRange() {
         LinePosition startLine = info().startLine();
-        LinePosition endLine = LinePosition.from(startLine.line(), startLine.offset() + info().expression().length());
+        LinePosition endLine =
+                LinePosition.from(startLine.line() + numberOfLines, startLine.offset() + info().expression().length());
         return LineRange.from(getFileName(documentContext.filePath()), startLine, endLine);
     }
 
