@@ -1,0 +1,59 @@
+{
+  "description": "",
+  "filePath": "source.bal",
+  "context": {
+    "expression": "{\n    token: 12 \n}",
+    "startLine": {
+      "line": 49,
+      "offset": 0
+    },
+    "offset": 12,
+    "lineOffset": 1,
+    "codedata": {
+      "node": "NEW_CONNECTION",
+      "org": "ballerinax",
+      "module": "docusign.dsadmin",
+      "object": "Client",
+      "symbol": "init",
+      "id": 1569
+    },
+    "property": {
+      "metadata": {
+        "label": "auth",
+        "description": "Configurations related to client authentication"
+      },
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "http:BearerTokenConfig|dsadmin:OAuth2RefreshTokenGrantConfig",
+      "placeholder": "{token: \"\"}",
+      "optional": false,
+      "editable": true,
+      "advanced": false,
+      "imports": {
+        "http": "ballerina/http:2.14.0"
+      },
+      "codedata": {
+        "kind": "INCLUDED_FIELD",
+        "originalName": "auth"
+      }
+    }
+  },
+  "diagnostics": [
+    {
+      "range": {
+        "start": {
+          "line": 50,
+          "character": 76
+        },
+        "end": {
+          "line": 52,
+          "character": 1
+        }
+      },
+      "severity": "Error",
+      "code": {
+        "left": "BCE2507"
+      },
+      "message": "incompatible mapping constructor expression for type '(ballerina/http:2.14.0:BearerTokenConfig|ballerinax/docusign.dsadmin:2.0.0:OAuth2RefreshTokenGrantConfig)'"
+    }
+  ]
+}

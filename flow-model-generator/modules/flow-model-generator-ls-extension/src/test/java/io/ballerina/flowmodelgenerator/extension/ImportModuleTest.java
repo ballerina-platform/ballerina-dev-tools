@@ -75,7 +75,7 @@ public class ImportModuleTest extends AbstractLSTest {
         // Send diagnostics request
         ExpressionEditorContext.Info info =
                 new ExpressionEditorContext.Info(testConfig.expression(), LinePosition.from(1, 0),
-                        0, variableNode.get("codedata").getAsJsonObject(),
+                        0, 0, variableNode.get("codedata").getAsJsonObject(),
                         variableNode.getAsJsonObject("properties").getAsJsonObject("expression"));
         ExpressionEditorDiagnosticsRequest diagnosticsRequest =
                 new ExpressionEditorDiagnosticsRequest(sourcePath, info);

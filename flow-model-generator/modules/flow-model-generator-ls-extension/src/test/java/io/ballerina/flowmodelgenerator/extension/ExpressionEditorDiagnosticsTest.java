@@ -68,7 +68,7 @@ public class ExpressionEditorDiagnosticsTest extends AbstractLSTest {
     @Override
     protected String[] skipList() {
         // TODO: Provide diagnostics when assigning a value to type
-        return new String[] {
+        return new String[]{
                 "assign2.json"
         };
     }
@@ -94,8 +94,8 @@ public class ExpressionEditorDiagnosticsTest extends AbstractLSTest {
         };
         for (int i = 0; i < expressionSteps.length - 1; i++) {
             ExpressionEditorContext.Info context = new ExpressionEditorContext.Info(expressionSteps[i],
-                    templateContext.startLine(), templateContext.offset(), templateContext.codedata(),
-                    templateContext.property());
+                    templateContext.startLine(), templateContext.offset(), templateContext.lineOffset(),
+                    templateContext.codedata(), templateContext.property());
             ExpressionEditorDiagnosticsRequest req = new ExpressionEditorDiagnosticsRequest(sourcePath, context);
             serviceEndpoint.request(method, req);
             Thread.sleep(400);
@@ -104,7 +104,7 @@ public class ExpressionEditorDiagnosticsTest extends AbstractLSTest {
         // In the final complete expression, assert that no diagnostics are returned
         ExpressionEditorContext.Info context =
                 new ExpressionEditorContext.Info("fn({id: 0})", templateContext.startLine(), templateContext.offset(),
-                        templateContext.codedata(), templateContext.property());
+                        templateContext.lineOffset(), templateContext.codedata(), templateContext.property());
         ExpressionEditorDiagnosticsRequest req = new ExpressionEditorDiagnosticsRequest(sourcePath, context);
         JsonObject resp = getResponse(req);
         List<Diagnostic> diagnostics = gson.fromJson(resp.get("diagnostics").getAsJsonArray(), diagnosticsType);

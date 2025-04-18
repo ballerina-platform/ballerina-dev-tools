@@ -20,3 +20,10 @@ public function main() {
     info("John");
     
 }
+
+# Generates a token based on the provided ID and timestamp.
+# 
+# + id - The ID to be used in the token generation.
+# + timestamp - The timestamp to be used in the token generation.
+# + return - The generated token
+function getToken(string id, string timestamp) returns string => string `${id}-$timestamp`;
