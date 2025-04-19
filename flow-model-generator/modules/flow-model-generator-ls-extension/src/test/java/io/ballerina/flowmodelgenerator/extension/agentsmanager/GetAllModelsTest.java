@@ -58,7 +58,7 @@ public class GetAllModelsTest extends AbstractLSTest {
         if (!models.equals(testConfig.models())) {
             TestConfig updatedConfig = new TestConfig(testConfig.source(), testConfig.description(),
                     testConfig.agent(), models);
-            updateConfig(configJsonPath, updatedConfig);
+//            updateConfig(configJsonPath, updatedConfig);
             Assert.fail("Test failed. Updated the expected output in " + configJsonPath);
         }
     }
