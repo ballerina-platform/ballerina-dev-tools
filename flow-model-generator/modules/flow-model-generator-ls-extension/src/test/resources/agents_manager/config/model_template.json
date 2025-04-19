@@ -9,7 +9,7 @@
     "node": "CLASS_INIT",
     "org": "ballerinax",
     "module": "ai",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "object": "OpenAiProvider",
     "symbol": "init"
   },
@@ -18,7 +18,7 @@
     "metadata": {
       "label": "Class",
       "description": "Initializes the OpenAI model with the given connection configuration and model configuration.\n",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai_1.0.0.png"
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai_1.0.1.png"
     },
     "codedata": {
       "node": "CLASS_INIT",
@@ -26,7 +26,7 @@
       "module": "ai",
       "object": "OpenAiProvider",
       "symbol": "init",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "isNew": true
     },
     "returning": false,
@@ -105,7 +105,7 @@
         "typeMembers": [
           {
             "type": "ai:OPEN_AI_MODEL_NAMES",
-            "packageInfo": "ballerinax:ai:1.0.0",
+            "packageInfo": "ballerinax:ai:1.0.1",
             "kind": "BASIC_TYPE",
             "selected": false
           }
