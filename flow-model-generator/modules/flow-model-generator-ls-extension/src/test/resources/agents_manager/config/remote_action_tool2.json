@@ -8,7 +8,7 @@
     "id": "31",
     "metadata": {
       "label": "bitOpAnd",
-      "description": "Perform bitwise AND between strings.\n",
+      "description": "Perform bitwise AND between strings.",
       "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
     },
     "codedata": {

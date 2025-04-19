@@ -8,7 +8,7 @@
     "id": "31",
     "metadata": {
       "label": "post",
-      "description": "Sends the specified, existing draft to the recipients in the `To`, `Cc`, and `Bcc` headers.\n",
+      "description": "Sends the specified, existing draft to the recipients in the `To`, `Cc`, and `Bcc` headers.",
       "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.gmail_4.0.1.png"
     },
     "codedata": {
