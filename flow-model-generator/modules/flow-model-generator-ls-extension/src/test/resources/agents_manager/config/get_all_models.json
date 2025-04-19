@@ -9,7 +9,7 @@
       "module": "ai",
       "object": "OpenAiProvider",
       "symbol": "init",
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     {
       "node": "CLASS_INIT",
@@ -17,7 +17,7 @@
       "module": "ai",
       "object": "AzureOpenAiProvider",
       "symbol": "init",
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     {
       "node": "CLASS_INIT",
@@ -25,7 +25,7 @@
       "module": "ai",
       "object": "AnthropicProvider",
       "symbol": "init",
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     {
       "node": "CLASS_INIT",
@@ -33,7 +33,7 @@
       "module": "ai",
       "object": "MistralAiProvider",
       "symbol": "init",
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     {
       "node": "CLASS_INIT",
@@ -41,7 +41,7 @@
       "module": "ai",
       "object": "OllamaProvider",
       "symbol": "init",
-      "version": "1.0.0"
+      "version": "1.0.1"
     }
   ]
 }

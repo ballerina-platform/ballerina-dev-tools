@@ -14,7 +14,7 @@
       "module": "ai",
       "object": "DefaultMessageWindowChatMemoryManager",
       "symbol": "init",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "isNew": true
     },
     "returning": false,

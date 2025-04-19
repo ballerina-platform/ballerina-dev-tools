@@ -299,7 +299,7 @@ task test {
     dependsOn(":graphql-model-generator:graphql-model-generator-ls-extension:test")
 }
 
-test.dependsOn rootProject.pullBallerinaModule('ai.agent', ballerinaxAiAgent)
+test.dependsOn rootProject.pullBallerinaModule('ai', ballerinaxAiAgent)
 test.dependsOn rootProject.pullBallerinaModule('np', ballerinaxNp)
 test.dependsOn rootProject.pullBallerinaModule('kafka', ballerinaxKafkaVersion)
 test.dependsOn rootProject.pullBallerinaModule('rabbitmq', ballerinaxRabbitmqVersion)

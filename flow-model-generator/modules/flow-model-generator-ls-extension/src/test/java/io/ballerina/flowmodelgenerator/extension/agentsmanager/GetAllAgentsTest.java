@@ -57,7 +57,7 @@ public class GetAllAgentsTest extends AbstractLSTest {
 
         if (!agents.equals(testConfig.agents())) {
             TestConfig updatedConfig = new TestConfig(testConfig.source(), testConfig.description(), agents);
-            updateConfig(configJsonPath, updatedConfig);
+//            updateConfig(configJsonPath, updatedConfig);
             Assert.fail("Test failed. Updated the expected output in " + configJsonPath);
         }
     }
