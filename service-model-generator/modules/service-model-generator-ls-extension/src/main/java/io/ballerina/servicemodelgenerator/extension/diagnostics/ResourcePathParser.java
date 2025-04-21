@@ -21,7 +21,6 @@ package io.ballerina.servicemodelgenerator.extension.diagnostics;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Parser for resource paths in Ballerina.
@@ -30,6 +29,12 @@ import java.util.stream.Collectors;
  */
 public class ResourcePathParser {
 
+    /**
+     * Splits the input string into segments based on the '/' character.
+     *
+     * @param input
+     * @return
+     */
     public static ParseResult parseResourcePath(String input) {
         ParseResult result = new ParseResult();
 
@@ -68,16 +73,19 @@ public class ResourcePathParser {
         int start = 0;
         int current = 0;
 
+        boolean escaped = false;
         while (current < input.length()) {
             if (input.charAt(current) == '/') {
                 if (start != current) {
-                    String value = input.substring(start, current);
+                    String value = !escaped ? input.substring(start, current) : input.substring(start, current - 1);
                     segments.add(new SegmentPart(value, start, current - 1));
                 } else {
                     segments.add(new SegmentPart("", start, current));
                 }
                 start = current + 1;
             }
+
+            escaped = input.charAt(current) == '\\';
             current++;
         }
 
@@ -90,256 +98,287 @@ public class ResourcePathParser {
     }
 
     private static void processSegment(SegmentPart segment, ParseResult result) {
-        TokenizeResult tokenResult = tokenize(segment.value(), segment.start());
-        result.addErrors(tokenResult.errors());
-
-        if (tokenResult.tokens().isEmpty() && segment.value().isEmpty())  {
+        if (segment.value().isEmpty())  {
             result.addSegment(new ValueSegment("", segment.start(), segment.end()));
-            return;
-        } else if (tokenResult.errors().isEmpty() && tokenResult.tokens().size() != 1) {
-            result.addError(new ParseError(segment.start(), "Invalid segment: " + segment.value()));
-            return;
+        } else {
+            result.addSegment(new ValueSegment(segment.value(), segment.start(), segment.end()));
         }
-
-        result.addSegment(new ValueSegment(segment.value(), segment.start(), segment.end()));
     }
 
     private static void processParam(SegmentPart segment, ParseResult result) {
         String content = segment.value().substring(1, segment.value().length() - 1);
-
-        if (isConstantLiteral(content)) {
-            result.addSegment(new ParamSegment(Segment.Type.CONST_PARAM, Collections.emptyList(),
-                    content, content, segment.start(), segment.end()));
+        List<String> segments = splitSegmentParamNameParts(content.trim());
+        if (segments.isEmpty()) {
+            result.addError(new ParseError(segment.start(), "Empty parameter"));
             return;
         }
 
-        TokenizeResult tokenResult = tokenize(content, segment.start() + 1);
-        result.addErrors(tokenResult.errors());
+        int count = segments.size();
 
-        boolean hasRest = tokenResult.tokens().stream().anyMatch(t -> t.value().equals("..."));
-        if (hasRest) {
-            handleRestParam(tokenResult.tokens(), segment, result);
-        } else {
-            handleRegularParam(tokenResult.tokens(), segment, result);
-        }
-    }
-
-    private static void handleRegularParam(List<Token> tokens, SegmentPart segment, ParseResult result) {
-        if (tokens.isEmpty()) {
-            result.addError(new ParseError(segment.start() + 2, "Empty parameter"));
+        if (count == 1) { //  validate for const, param name or type descriptor
+            result.addSegment(new ParamSegment(Segment.Type.PARAM, Collections.emptyList(),
+                    segments.get(0), null, segment.start(), segment.end()));
             return;
         }
 
-        Token lastToken = tokens.get(tokens.size() - 1);
-        String paramName = validateParamName(lastToken, result);
-        List<Token> remaining = tokens.subList(0, tokens.size() - 1);
-
-        if (remaining.isEmpty()) {
-            result.addError(new ParseError(segment.start() + 2, "Missing type descriptor"));
+        if (count == 2) { // validate for rest param or regular param
+            result.addSegment(new ParamSegment(Segment.Type.PARAM, Collections.emptyList(),
+                    segments.get(0), segments.get(1), segment.start(), segment.end()));
             return;
         }
 
-        String typeDescriptor = remaining.get(remaining.size() - 1).value();
-        List<String> annots = remaining.subList(0, remaining.size() - 1).stream()
-                .map(Token::value)
-                .collect(Collectors.toList());
-
-        result.addSegment(new ParamSegment(Segment.Type.PARAM, annots, typeDescriptor, paramName,
-                segment.start(), segment.end()));
-    }
-
-    private static void handleRestParam(List<Token> tokens, SegmentPart segment, ParseResult result) {
-        int dotIndex = -1;
-        for (int i = 0; i < tokens.size(); i++) {
-            if (tokens.get(i).value().equals("...")) {
-                dotIndex = i;
-                break;
-            }
-        }
-        if (dotIndex == -1) {
+        if (count == 3) { // validate for rest param or regular param
+            result.addSegment(new RestParamSegment(Collections.emptyList(),
+                    segments.get(0), segments.get(2), segment.start(), segment.end()));
             return;
         }
 
-        List<Token> beforeDot = tokens.subList(0, dotIndex);
-        List<Token> afterDot = tokens.subList(dotIndex + 1, tokens.size());
-
-        if (beforeDot.isEmpty()) {
-            result.addError(new ParseError(segment.start() + 2, "Missing type descriptor in rest parameter"));
-        }
-
-        if (afterDot.size() > 1) {
-            result.addError(new ParseError(afterDot.get(1).start(), "Extra tokens after rest parameter"));
-        }
-
-        String typeDescriptor = beforeDot.isEmpty() ? "" : beforeDot.get(beforeDot.size() - 1).value();
-        List<String> annots = beforeDot.subList(0, beforeDot.size() - 1).stream()
-                .map(Token::value)
-                .collect(Collectors.toList());
-
-        String paramName = afterDot.isEmpty() ? null : validateParamName(afterDot.get(0), result);
-
-        result.addSegment(new ParamSegment(Segment.Type.REST_PARAM, annots, typeDescriptor,
-                paramName, segment.start(), segment.end()));
+        result.addError(new ParseError(segment.start(), "Invalid parameter: " + segment.value()));
     }
 
-    private static String validateParamName(Token token, ParseResult result) {
-        if (token == null) {
-            return null;
-        }
-        String value = token.value();
-        if (!isValidIdentifier(value)) {
-            result.addError(new ParseError(token.start(), "Invalid parameter name: " + value));
-            return null;
-        }
-        return value;
-    }
 
-    private static boolean isConstantLiteral(String value) {
-        return value.startsWith("\"") && value.endsWith("\"");
-    }
+    private static List<String> splitSegmentParamNameParts(String input) {
+        List<String> segments = new ArrayList<>();
+        int start = 0;
+        int current = 0;
 
-    private static TokenizeResult tokenize(String content, int offset) {
-        List<Token> tokens = new ArrayList<>();
-        List<ParseError> errors = new ArrayList<>();
-        int pos = 0;
-
-        while (pos < content.length()) {
-            char c = content.charAt(pos);
-            int start = pos + offset;
-
-            if (Character.isWhitespace(c)) {
-                pos++;
-                continue;
-            }
-
-            if (c == '\'' || c == '"') {
-                QuotedReadResult quotedResult = readQuoted(content, pos, offset);
-                pos = quotedResult.newPos();
-                errors.addAll(quotedResult.errors());
-                if (quotedResult.value() != null) {
-                    tokens.add(new Token(quotedResult.value(), start, pos + offset - 1));
+        boolean escaped = false;
+        while (current < input.length()) {
+            if (!escaped && input.charAt(current) == ' ') {
+                if (start != current) {
+                    String value = input.substring(start, current);
+                    segments.add(value);
+                } else {
+                    segments.add("");
                 }
-            } else if (c == '.' && pos + 2 < content.length() && content.substring(pos, pos + 3).equals("...")) {
-                tokens.add(new Token("...", start, start + 2));
-                pos += 3;
-            } else {
-                UnquotedReadResult unquotedResult = readUnquoted(content, pos, offset);
-                pos = unquotedResult.newPos();
-                errors.addAll(unquotedResult.errors());
-                if (unquotedResult.value() != null) {
-                    tokens.add(new Token(unquotedResult.value(), start, pos + offset - 1));
-                }
+                start = current + 1;
             }
+
+            escaped = input.charAt(current) == '\\';
+            current++;
         }
 
-        return new TokenizeResult(tokens, errors);
-    }
-
-    private static QuotedReadResult readQuoted(String content, int pos, int offset) {
-        StringBuilder value = new StringBuilder();
-        boolean escape = false;
-        char quoteChar = content.charAt(pos);
-        value.append(quoteChar);
-        pos++;
-
-        List<ParseError> errors = new ArrayList<>();
-
-        while (pos < content.length()) {
-            char c = content.charAt(pos);
-            if (escape) {
-                value.append(c);
-                escape = false;
-                pos++;
-            } else if (c == '\\') {
-                escape = true;
-                pos++;
-            } else if (c == quoteChar) {
-                value.append(c);
-                pos++;
-                return new QuotedReadResult(value.toString(), pos, errors);
-            } else {
-                value.append(c);
-                pos++;
-            }
+        if (start < current) {
+            String value = input.substring(start, current);
+            segments.add(value);
         }
 
-        errors.add(new ParseError(pos + offset, "Unterminated quoted identifier"));
-        return new QuotedReadResult(null, pos, errors);
+        return segments;
     }
 
-    private static UnquotedReadResult readUnquoted(String content, int pos, int offset) {
-        StringBuilder value = new StringBuilder();
-        char initialChar = content.charAt(pos);
-        List<ParseError> errors = new ArrayList<>();
 
-        if (!isValidInitial(initialChar)) {
-            errors.add(new ParseError(pos + offset, "Invalid initial character: " + initialChar));
-            return new UnquotedReadResult(null, pos + 1, errors);
-        }
+//    private static void handleRegularParam(List<Token> tokens, SegmentPart segment, ParseResult result) {
+//        if (tokens.isEmpty()) {
+//            result.addError(new ParseError(segment.start() + 2, "Empty parameter"));
+//            return;
+//        }
+//
+//        Token lastToken = tokens.get(tokens.size() - 1);
+//        String paramName = validateParamName(lastToken, result);
+//        List<Token> remaining = tokens.subList(0, tokens.size() - 1);
+//
+//        if (remaining.isEmpty()) {
+//            result.addError(new ParseError(segment.start() + 2, "Missing type descriptor"));
+//            return;
+//        }
+//
+//        String typeDescriptor = remaining.get(remaining.size() - 1).value();
+//        List<String> annots = remaining.subList(0, remaining.size() - 1).stream()
+//                .map(Token::value)
+//                .collect(Collectors.toList());
+//
+//        result.addSegment(new ParamSegment(Segment.Type.PARAM, annots, typeDescriptor, paramName,
+//                segment.start(), segment.end()));
+//    }
+//
+//    private static void handleRestParam(List<Token> tokens, SegmentPart segment, ParseResult result) {
+//        int dotIndex = -1;
+//        for (int i = 0; i < tokens.size(); i++) {
+//            if (tokens.get(i).value().equals("...")) {
+//                dotIndex = i;
+//                break;
+//            }
+//        }
+//        if (dotIndex == -1) {
+//            return;
+//        }
+//
+//        List<Token> beforeDot = tokens.subList(0, dotIndex);
+//        List<Token> afterDot = tokens.subList(dotIndex + 1, tokens.size());
+//
+//        if (beforeDot.isEmpty()) {
+//            result.addError(new ParseError(segment.start() + 2, "Missing type descriptor in rest parameter"));
+//        }
+//
+//        if (afterDot.size() > 1) {
+//            result.addError(new ParseError(afterDot.get(1).start(), "Extra tokens after rest parameter"));
+//        }
+//
+//        String typeDescriptor = beforeDot.isEmpty() ? "" : beforeDot.get(beforeDot.size() - 1).value();
+//        List<String> annots = beforeDot.subList(0, beforeDot.size() - 1).stream()
+//                .map(Token::value)
+//                .collect(Collectors.toList());
+//
+//        String paramName = afterDot.isEmpty() ? null : validateParamName(afterDot.get(0), result);
+//
+//        result.addSegment(new ParamSegment(Segment.Type.REST_PARAM, annots, typeDescriptor,
+//                paramName, segment.start(), segment.end()));
+//    }
 
-        value.append(initialChar);
-        pos++;
+//    private static String validateParamName(Token token, ParseResult result) {
+//        if (token == null) {
+//            return null;
+//        }
+//        String value = token.value();
+//        if (!isValidIdentifier(value)) {
+//            result.addError(new ParseError(token.start(), "Invalid parameter name: " + value));
+//            return null;
+//        }
+//        return value;
+//    }
 
-        while (pos < content.length()) {
-            char c = content.charAt(pos);
-            if (Character.isWhitespace(c) || c == ']' || c == '[') {
-                break;
-            }
-            if (isValidFollowing(c)) {
-                value.append(c);
-                pos++;
-                continue;
-            }
-            if (c == '\\') {
-                if (pos + 1 < content.length()) {
-                    char next = content.charAt(pos + 1);
-                    if (next == '-' || next == '\\' || next == '.') {
-                        value.append(c).append(next);
-                        pos += 2;
-                        continue;
-                    }
-                }
-                errors.add(new ParseError(pos + offset, "Backslash is not allowed"));
-                return new UnquotedReadResult(null, pos + 1, errors);
-            } else if (c == '.') {
-                if (pos + 2 < content.length() && content.substring(pos, pos + 3).equals("...")) {
-                    value.append("...");
-                    pos += 3;
-                }
-            } else {
-                errors.add(new ParseError(pos + offset, "Invalid character: " + c));
-                return new UnquotedReadResult(null, pos + 1, errors);
-            }
-        }
-
-        return new UnquotedReadResult(value.toString(), pos, errors);
-    }
-
-    private static boolean isValidInitial(char c) {
-        return Character.isLetter(c) || c == '_' || isUnicodeIdentifierChar(c);
-    }
-
-    private static boolean isValidFollowing(char c) {
-        return Character.isLetterOrDigit(c) || c == '_' || isUnicodeIdentifierChar(c);
-    }
-
-    private static boolean isUnicodeIdentifierChar(char c) {
-        // Implement actual Unicode check if needed
-        return false;
-    }
-
-    private static boolean isValidIdentifier(String value) {
-        if (value.matches("^[a-zA-Z_][a-zA-Z0-9_]*$")) {
-            return true;
-        }
-        if (value.matches("^'[^']*'$")) {
-            return true;
-        }
-        if (value.contains("-") && !value.contains("\\-")) {
-            return false;
-        }
-        return false;
-    }
+//    private static TokenizeResult tokenize(String content, int offset) {
+//        List<Token> tokens = new ArrayList<>();
+//        List<ParseError> errors = new ArrayList<>();
+//        int pos = 0;
+//
+//        while (pos < content.length()) {
+//            char c = content.charAt(pos);
+//            int start = pos + offset;
+//
+//            if (Character.isWhitespace(c)) {
+//                pos++;
+//                continue;
+//            }
+//
+//            if (c == '\'' || c == '"') {
+//                QuotedReadResult quotedResult = readQuoted(content, pos, offset);
+//                pos = quotedResult.newPos();
+//                errors.addAll(quotedResult.errors());
+//                if (quotedResult.value() != null) {
+//                    tokens.add(new Token(quotedResult.value(), start, pos + offset - 1));
+//                }
+//            } else if (c == '.' && pos + 2 < content.length() && content.substring(pos, pos + 3).equals("...")) {
+//                tokens.add(new Token("...", start, start + 2));
+//                pos += 3;
+//            } else {
+//                UnquotedReadResult unquotedResult = readUnquoted(content, pos, offset);
+//                pos = unquotedResult.newPos();
+//                errors.addAll(unquotedResult.errors());
+//                if (unquotedResult.value() != null) {
+//                    tokens.add(new Token(unquotedResult.value(), start, pos + offset - 1));
+//                }
+//            }
+//        }
+//
+//        return new TokenizeResult(tokens, errors);
+//    }
+//
+//    private static QuotedReadResult readQuoted(String content, int pos, int offset) {
+//        StringBuilder value = new StringBuilder();
+//        boolean escape = false;
+//        char quoteChar = content.charAt(pos);
+//        value.append(quoteChar);
+//        pos++;
+//
+//        List<ParseError> errors = new ArrayList<>();
+//
+//        while (pos < content.length()) {
+//            char c = content.charAt(pos);
+//            if (escape) {
+//                value.append(c);
+//                escape = false;
+//                pos++;
+//            } else if (c == '\\') {
+//                escape = true;
+//                pos++;
+//            } else if (c == quoteChar) {
+//                value.append(c);
+//                pos++;
+//                return new QuotedReadResult(value.toString(), pos, errors);
+//            } else {
+//                value.append(c);
+//                pos++;
+//            }
+//        }
+//
+//        errors.add(new ParseError(pos + offset, "Unterminated quoted identifier"));
+//        return new QuotedReadResult(null, pos, errors);
+//    }
+//
+//    private static UnquotedReadResult readUnquoted(String content, int pos, int offset) {
+//        StringBuilder value = new StringBuilder();
+//        char initialChar = content.charAt(pos);
+//        List<ParseError> errors = new ArrayList<>();
+//
+//        if (!isValidInitial(initialChar)) {
+//            errors.add(new ParseError(pos + offset, "Invalid initial character: " + initialChar));
+//            return new UnquotedReadResult(null, pos + 1, errors);
+//        }
+//
+//        value.append(initialChar);
+//        pos++;
+//
+//        while (pos < content.length()) {
+//            char c = content.charAt(pos);
+//            if (Character.isWhitespace(c) || c == ']' || c == '[') {
+//                break;
+//            }
+//            if (isValidFollowing(c)) {
+//                value.append(c);
+//                pos++;
+//                continue;
+//            }
+//            if (c == '\\') {
+//                if (pos + 1 < content.length()) {
+//                    char next = content.charAt(pos + 1);
+//                    if (next == '-' || next == '\\' || next == '.') {
+//                        value.append(c).append(next);
+//                        pos += 2;
+//                        continue;
+//                    }
+//                }
+//                errors.add(new ParseError(pos + offset, "Backslash is not allowed"));
+//                return new UnquotedReadResult(null, pos + 1, errors);
+//            } else if (c == '.') {
+//                if (pos + 2 < content.length() && content.substring(pos, pos + 3).equals("...")) {
+//                    value.append("...");
+//                    pos += 3;
+//                }
+//            } else {
+//                errors.add(new ParseError(pos + offset, "Invalid character: " + c));
+//                return new UnquotedReadResult(null, pos + 1, errors);
+//            }
+//        }
+//
+//        return new UnquotedReadResult(value.toString(), pos, errors);
+//    }
+//
+//    private static boolean isValidInitial(char c) {
+//        return Character.isLetter(c) || c == '_' || isUnicodeIdentifierChar(c);
+//    }
+//
+//    private static boolean isValidFollowing(char c) {
+//        return Character.isLetterOrDigit(c) || c == '_' || isUnicodeIdentifierChar(c);
+//    }
+//
+//    private static boolean isUnicodeIdentifierChar(char c) {
+//        // Implement actual Unicode check if needed
+//        return false;
+//    }
+//
+//    private static boolean isValidIdentifier(String value) {
+//        if (value.matches("^[a-zA-Z_][a-zA-Z0-9_]*$")) {
+//            return true;
+//        }
+//        if (value.matches("^'[^']*'$")) {
+//            return true;
+//        }
+//        if (value.contains("-") && !value.contains("\\-")) {
+//            return false;
+//        }
+//        return false;
+//    }
 
     // Helper Classes
     public static class ParseError {
@@ -430,6 +469,14 @@ public class ResourcePathParser {
 
         public String getParamName() {
             return paramName;
+        }
+    }
+
+    public static class RestParamSegment extends ParamSegment {
+
+        public RestParamSegment(List<String> annots, String typeDescriptor,
+                                String paramName, int start, int end) {
+            super(Type.REST_PARAM, annots, typeDescriptor, paramName, start, end);
         }
     }
 

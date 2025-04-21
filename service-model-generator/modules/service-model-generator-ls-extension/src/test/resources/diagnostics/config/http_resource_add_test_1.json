@@ -56,7 +56,7 @@
       },
       "enabled": true,
       "editable": false,
-      "value": "medicalcenter/[string name]/[int name]",
+      "value": "medicalcenter\/ss/[int]/[int.. i]/[int ... k]/[string name]/[int name]",
       "valueType": "IDENTIFIER",
       "valueTypeConstraint": "string",
       "isType": false,
