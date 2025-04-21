@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 60
     concurrency:
-      group: ${{ github.head_ref }}-ubuntu
+      group: ${{ github.ref_name }}-ubuntu
       cancel-in-progress: true
     steps:
       - name: Checkout repository
@@ -54,7 +54,7 @@ jobs:
     runs-on: windows-latest
     timeout-minutes: 60
     concurrency:
-      group: ${{ github.head_ref }}-windows
+      group: ${{ github.ref_name }}-windows
       cancel-in-progress: true
     steps:
       - name: Checkout repository
