@@ -21,7 +21,7 @@
               "metadata": {
                 "label": "run",
                 "description": "Executes the agent for a given user query.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai_1.0.0.png"
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai_1.0.1.png"
               },
               "codedata": {
                 "node": "REMOTE_ACTION_CALL",
@@ -29,7 +29,7 @@
                 "module": "ai",
                 "object": "Agent",
                 "symbol": "run",
-                "version": "1.0.0",
+                "version": "1.0.1",
                 "parentSymbol": "agent",
                 "resourcePath": ""
               },
@@ -744,7 +744,7 @@
               "metadata": {
                 "label": "chat",
                 "description": "Sends a chat request to the OpenAI model with the given messages and tools.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai_1.0.0.png"
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai_1.0.1.png"
               },
               "codedata": {
                 "node": "REMOTE_ACTION_CALL",
@@ -752,7 +752,7 @@
                 "module": "ai",
                 "object": "AzureOpenAiProvider",
                 "symbol": "chat",
-                "version": "1.0.0",
+                "version": "1.0.1",
                 "parentSymbol": "model",
                 "resourcePath": ""
               },
@@ -827,8 +827,7 @@
             "org": "ballerinax",
             "module": "ai",
             "object": "Agent",
-            "symbol": "run",
-            "version": "1.0.0"
+            "symbol": "run"
           },
           "enabled": true
         }

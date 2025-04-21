@@ -8,7 +8,7 @@
     "id": "31",
     "metadata": {
       "label": "get",
-      "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n",
+      "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.",
       "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
     },
     "codedata": {
