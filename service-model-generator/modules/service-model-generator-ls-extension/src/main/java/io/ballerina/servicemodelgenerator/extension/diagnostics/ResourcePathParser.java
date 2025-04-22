@@ -125,17 +125,22 @@ public class ResourcePathParser {
                         segment.start(), segment.end()));
                 return;
             }
-            result.addSegment(new ParamSegment(Segment.Type.PARAM, Collections.emptyList(),
+            result.addSegment(new RestParamSegment(Collections.emptyList(),
                     firstSegment, null, segment.start(), segment.end()));
             return;
         }
 
         if (count == 2) {
             String secondSegment = segments.get(1);
-            if (isRest || secondSegment.startsWith("...") && !secondSegment.equals("...")) { // [T... t] or [T ...t]
+            if (isRest) {
                 result.addSegment(new RestParamSegment(Collections.emptyList(),
                         firstSegment.substring(0, firstSegment.length() - 3), segments.get(1),
                         segment.start(), segment.end()));
+                return;
+            }
+            if (!secondSegment.equals("...") && secondSegment.startsWith("...")) { // [T ...t]
+                result.addSegment(new RestParamSegment(Collections.emptyList(),
+                        firstSegment, secondSegment.substring(3), segment.start(), segment.end()));
                 return;
             }
             result.addSegment(new ParamSegment(Segment.Type.PARAM, Collections.emptyList(),

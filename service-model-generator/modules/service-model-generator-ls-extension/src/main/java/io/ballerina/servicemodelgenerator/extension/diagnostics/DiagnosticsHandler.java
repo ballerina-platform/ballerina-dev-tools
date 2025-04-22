@@ -119,6 +119,18 @@ public class DiagnosticsHandler {
 
     private void handleAddResource(FunctionSourceRequest funcRequest) throws WorkspaceDocumentException,
             EventSyncException {
+        Path filePath = Path.of(funcRequest.filePath());
+        workspaceManager.loadProject(filePath);
+        Optional<Document> doc = workspaceManager.document(filePath);
+        Optional<SemanticModel> optionalSemanticModel = workspaceManager.semanticModel(filePath);
+        if (doc.isEmpty() || optionalSemanticModel.isEmpty()) {
+            return;
+        }
+
+        document = doc.get();
+        semanticModel = optionalSemanticModel.get();
+        initBasicTypes();
+
         // Validations required
         Function function = funcRequest.function();
 
@@ -132,24 +144,11 @@ public class DiagnosticsHandler {
             return;
         }
 
-        Path filePath = Path.of(funcRequest.filePath());
-        workspaceManager.loadProject(filePath);
-        Optional<Document> doc = workspaceManager.document(filePath);
-        Optional<SemanticModel> optionalSemanticModel = workspaceManager.semanticModel(filePath);
-        if (doc.isEmpty() || optionalSemanticModel.isEmpty()) {
-            return;
-        }
-
-        document = doc.get();
-        semanticModel = optionalSemanticModel.get();
-
         // validate the uniqueness of the resource path
         NonTerminalNode node = findNonTerminalNode(funcRequest.codedata(), document);
         if (node.kind() != SyntaxKind.SERVICE_DECLARATION) {
             return;
         }
-
-        initBasicTypes();
 
         ServiceDeclarationNode serviceDeclarationNode = (ServiceDeclarationNode) node;
         for (Node member: serviceDeclarationNode.members()) {
@@ -282,13 +281,13 @@ public class DiagnosticsHandler {
             return false;
         }
 
-        if (validIdentifier(identifierValidator, paramName, diagnostics)) {
+        if (!validIdentifier(identifierValidator, paramName, diagnostics)) {
             return false;
         }
 
         if (!paramNames.add(paramName)) {
             diagnostics.add(new Diagnostics.Info(DiagnosticSeverity.ERROR,
-                    "Duplicate parameter name: " + paramName));
+                    "duplicate parameter name: '" + paramName + "'"));
             return false;
         }
         return true;
@@ -351,7 +350,7 @@ public class DiagnosticsHandler {
         }
         if (KEYWORD_LIST.contains(identifier)) {
             diagnostics.add(new Diagnostics.Info(DiagnosticSeverity.ERROR,
-                    "usage of reserved keyword: " + validator));
+                    "usage of reserved keyword: '" + identifier + "'"));
             return false;
         }
         return true;
