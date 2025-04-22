@@ -44,6 +44,7 @@ import io.ballerina.servicemodelgenerator.extension.model.Codedata;
 import io.ballerina.servicemodelgenerator.extension.model.Diagnostics;
 import io.ballerina.servicemodelgenerator.extension.model.Function;
 import io.ballerina.servicemodelgenerator.extension.model.FunctionReturnType;
+import io.ballerina.servicemodelgenerator.extension.model.HttpResponse;
 import io.ballerina.servicemodelgenerator.extension.model.Parameter;
 import io.ballerina.servicemodelgenerator.extension.model.Value;
 import io.ballerina.servicemodelgenerator.extension.request.FunctionSourceRequest;
@@ -62,6 +63,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -77,7 +79,7 @@ public class DiagnosticsHandler {
 
     final Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 
-    private WorkspaceManager workspaceManager;
+    private final WorkspaceManager workspaceManager;
     private SemanticModel semanticModel;
     private Document document;
     private TypeSymbol basicType;
@@ -85,6 +87,7 @@ public class DiagnosticsHandler {
     private TypeSymbol headerBasicType;
     private List<ConstantSymbol> constantSymbols;
     private List<EnumSymbol> enumSymbols;
+    private TypeSymbol errorOrNilType;
     private boolean isConstAndEnumsLoaded = false;
     private final IdentifierValidator identifierValidator = new IdentifierValidator();
 
@@ -105,6 +108,8 @@ public class DiagnosticsHandler {
         this.headerBasicType = types.builder().UNION_TYPE.withMemberTypes(types.NIL, basicType,
                 types.builder().ARRAY_TYPE.withType(basicType).build(),
                 types.builder().RECORD_TYPE.withRestField(basicType).build()).build();
+
+        this.errorOrNilType = types.builder().UNION_TYPE.withMemberTypes(types.NIL, types.ERROR).build();
     }
 
     public JsonElement getDiagnostics(ServiceDesignerDiagnosticRequest request) throws WorkspaceDocumentException,
@@ -219,7 +224,62 @@ public class DiagnosticsHandler {
         }
 
         FunctionReturnType returnType = function.getReturnType();
+        if (Objects.nonNull(returnType)) {
+            List<HttpResponse> httpResponses = returnType.getResponses();
+            if (Objects.isNull(httpResponses)) {
+                return;
+            }
+            for (HttpResponse httpResponse: httpResponses) {
+                httpResponse.setDiagnostics(null);
+                if (!httpResponse.isEnabled()) {
+                    continue;
+                }
+                if (!validHttpResponse(httpResponse, hasHttpCaller)) {
+                    return;
+                }
+            }
+        }
         // need to validate
+    }
+
+    private boolean validHttpResponse(HttpResponse response, boolean hasHttpCaller) {
+        Value name = response.getName();
+        if (Objects.nonNull(name) && name.isEnabledWithValue()) {
+            if (hasHttpCaller) {
+                response.setDiagnostics(new Diagnostics(true, List.of(
+                        new Diagnostics.Info(DiagnosticSeverity.ERROR,
+                                "cannot have http:Caller param and return status code"))));
+                return false;
+            }
+        }
+        if (response.getType().isEnabledWithValue()) {
+            Optional<TypeSymbol> type = semanticModel.types().getType(document, response.getType().getValue());
+            if (hasHttpCaller && type.isPresent() && !type.get().subtypeOf(errorOrNilType)) {
+                response.getType().setDiagnostics(new Diagnostics(true, List.of(
+                        new Diagnostics.Info(DiagnosticSeverity.ERROR,
+                                "cannot have http:Caller param and return type"))));
+                return false;
+            }
+        }
+        if (Objects.nonNull(response.getBody()) && response.getBody().isEnabledWithValue()) {
+            Optional<TypeSymbol> type = semanticModel.types().getType(document, response.getBody().getValue());
+            if (hasHttpCaller && type.isPresent() && !type.get().subtypeOf(errorOrNilType)) {
+                response.getBody().setDiagnostics(new Diagnostics(true, List.of(
+                        new Diagnostics.Info(DiagnosticSeverity.ERROR,
+                                "cannot have http:Caller param and return body type"))));
+                return false;
+            }
+        }
+        Value statusCode = response.getStatusCode();
+        if (Objects.nonNull(statusCode) && statusCode.isEnabledWithValue()) {
+            if (hasHttpCaller) {
+                response.setDiagnostics(new Diagnostics(true, List.of(
+                        new Diagnostics.Info(DiagnosticSeverity.ERROR,
+                                "cannot have http:Caller param and return status code"))));
+                return false;
+            }
+        }
+        return true;
     }
 
     public boolean validateResourcePath(String path, List<Diagnostics.Info> diagnostics,

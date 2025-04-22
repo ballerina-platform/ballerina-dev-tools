@@ -33,6 +33,7 @@ public class HttpResponse {
     private boolean editable = false;
     private boolean advanced = false;
     private boolean isHttpResponseType = false;
+    private Diagnostics diagnostics;
 
     public HttpResponse() {
     }
@@ -147,5 +148,13 @@ public class HttpResponse {
 
     public void setHttpResponseType(boolean httpResponseType) {
         isHttpResponseType = httpResponseType;
+    }
+
+    public Diagnostics getDiagnostics() {
+        return diagnostics;
+    }
+
+    public void setDiagnostics(Diagnostics diagnostics) {
+        this.diagnostics = diagnostics;
     }
 }
