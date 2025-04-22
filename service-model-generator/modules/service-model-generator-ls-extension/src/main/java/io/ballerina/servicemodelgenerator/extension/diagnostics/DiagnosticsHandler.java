@@ -230,7 +230,7 @@ public class DiagnosticsHandler {
                 return;
             }
             for (HttpResponse httpResponse: httpResponses) {
-                httpResponse.setDiagnostics(null);
+                httpResponse.clearDiagnostics();
                 if (!httpResponse.isEnabled()) {
                     continue;
                 }
@@ -239,7 +239,6 @@ public class DiagnosticsHandler {
                 }
             }
         }
-        // need to validate
     }
 
     private boolean validHttpResponse(HttpResponse response, boolean hasHttpCaller) {
