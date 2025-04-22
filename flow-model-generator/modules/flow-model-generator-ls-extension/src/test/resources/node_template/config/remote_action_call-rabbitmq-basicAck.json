@@ -1,0 +1,89 @@
+{
+  "source": "data_mapper/main.bal",
+  "position": {
+    "line": 14,
+    "offset": 0
+  },
+  "description": "Sample diagram node",
+  "codedata": {
+    "node": "REMOTE_ACTION_CALL",
+    "org": "ballerinax",
+    "module": "rabbitmq",
+    "object": "Caller",
+    "symbol": "basicAck",
+    "version": "3.2.0",
+    "parentSymbol": "caller",
+    "resourcePath": ""
+  },
+  "output": {
+    "id": "31",
+    "metadata": {
+      "label": "basicAck",
+      "description": "Acknowledges one or several received messages.\n```ballerina\ncheck caller->basicAck(true);\n```\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_rabbitmq_3.2.0.png"
+    },
+    "codedata": {
+      "node": "REMOTE_ACTION_CALL",
+      "org": "ballerinax",
+      "module": "rabbitmq",
+      "object": "Caller",
+      "symbol": "basicAck",
+      "version": "3.2.0",
+      "isNew": true
+    },
+    "returning": false,
+    "properties": {
+      "connection": {
+        "metadata": {
+          "label": "Connection",
+          "description": "Connection to use"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "rabbitmq:Caller",
+        "value": "caller",
+        "optional": false,
+        "editable": false,
+        "advanced": false,
+        "hidden": false
+      },
+      "multiple": {
+        "metadata": {
+          "label": "multiple",
+          "description": "Set to `true` to acknowledge all messages up to and including the called on message and\n`false` to acknowledge just the called on message"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "boolean",
+        "placeholder": "false",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "hidden": false,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "multiple"
+        },
+        "typeMembers": [
+          {
+            "type": "boolean",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ]
+      },
+      "checkError": {
+        "metadata": {
+          "label": "Check Error",
+          "description": "Trigger error flow"
+        },
+        "valueType": "FLAG",
+        "value": true,
+        "optional": false,
+        "editable": true,
+        "advanced": true,
+        "hidden": false
+      }
+    },
+    "flags": 0
+  }
+}
