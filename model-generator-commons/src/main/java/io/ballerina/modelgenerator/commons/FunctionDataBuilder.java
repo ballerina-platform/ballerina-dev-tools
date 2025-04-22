@@ -125,6 +125,8 @@ public class FunctionDataBuilder {
     private static final String MODULE_PULLING_FAILED_MESSAGE = "Failed to pull the module: %s";
     private static final String MODULE_PULLING_SUCCESS_MESSAGE = "Successfully pulled the module: %s";
 
+    private static final String CLIENT_SYMBOL = "Client";
+
     public FunctionDataBuilder semanticModel(SemanticModel semanticModel) {
         this.semanticModel = semanticModel;
         this.errorTypeSymbol = semanticModel.types().ERROR;
@@ -556,6 +558,13 @@ public class FunctionDataBuilder {
 
     private Optional<FunctionData> getFunctionFromIndex() {
         DatabaseManager dbManager = DatabaseManager.getInstance();
+
+        // Skipping the index since we currently only index connectors with the name "Client".
+        // TODO: This should be removed after the package index is revamped.
+        if (parentSymbolType != null && !parentSymbolType.isEmpty() && !CLIENT_SYMBOL.equals(parentSymbolType)) {
+            return Optional.empty();
+        }
+
         Optional<FunctionData> optFunctionResult =
                 dbManager.getFunction(moduleInfo.org(), moduleInfo.packageName(), getFunctionName(),
                         functionKind, resourcePath);
@@ -735,7 +744,7 @@ public class FunctionDataBuilder {
             }
             parameters.putAll(getIncludedRecordParams((RecordTypeSymbol) CommonUtils.getRawType(includedType), insert,
                     documentationMap, union));
-            });
+        });
         for (Map.Entry<String, RecordFieldSymbol> entry : recordTypeSymbol.fieldDescriptors().entrySet()) {
             RecordFieldSymbol recordFieldSymbol = entry.getValue();
             TypeSymbol typeSymbol = recordFieldSymbol.typeDescriptor();
