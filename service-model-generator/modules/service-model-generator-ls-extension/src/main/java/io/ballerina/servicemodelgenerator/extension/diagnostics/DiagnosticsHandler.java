@@ -38,6 +38,7 @@ import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.ServiceDeclarationNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
+import io.ballerina.compiler.syntax.tree.Token;
 import io.ballerina.projects.Document;
 import io.ballerina.servicemodelgenerator.extension.model.Codedata;
 import io.ballerina.servicemodelgenerator.extension.model.Diagnostics;
@@ -85,6 +86,7 @@ public class DiagnosticsHandler {
     private List<ConstantSymbol> constantSymbols;
     private List<EnumSymbol> enumSymbols;
     private boolean isConstAndEnumsLoaded = false;
+    private final IdentifierValidator identifierValidator = new IdentifierValidator();
 
     public DiagnosticsHandler(WorkspaceManager workspaceManager) {
         this.workspaceManager = workspaceManager;
@@ -155,7 +157,8 @@ public class DiagnosticsHandler {
             if (!(member instanceof FunctionDefinitionNode functionDefinitionNode)) {
                 continue;
             }
-            if (functionDefinitionNode.qualifierList().stream().toList().contains(Qualifier.RESOURCE)) {
+            if (functionDefinitionNode.qualifierList().stream().map(Token::text).toList().contains(
+                    Qualifier.RESOURCE.getValue())) {
                 continue;
             }
             // check if another function exist with the same accessor and function name
@@ -163,8 +166,7 @@ public class DiagnosticsHandler {
                     functionDefinitionNode.functionName().text().trim().equals(accessor))) {
                 continue;
             }
-            diagnostics.add(new Diagnostics.Info(DiagnosticSeverity.ERROR,
-                    "Resource with the same name already exists"));
+            diagnostics.add(new Diagnostics.Info(DiagnosticSeverity.ERROR, "resource path is already defined"));
             return;
         }
 
@@ -182,36 +184,34 @@ public class DiagnosticsHandler {
                     hasHttpCaller = true;
                 }
 
+                if (!validIdentifier(identifierValidator, paramName.getValue().trim(), diagnostics)) {
+                    return;
+                }
+
                 if (!paramNames.add(paramName.getValue())) {
                     paramName.setDiagnostics(new Diagnostics(true, List.of(
-                            new Diagnostics.Info(DiagnosticSeverity.ERROR, "Duplicate parameter name: "
-                                    + paramName.getValue())
+                            new Diagnostics.Info(DiagnosticSeverity.ERROR, "duplicate parameter name: '" +
+                                    paramName.getValue() + "'")
                     )));
                     return;
                 }
 
                 String httpParamType = param.getHttpParamType();
                 if ("Query".equals(httpParamType)) {
-                    semanticModel.types().getType(document, paramType.getValue()).ifPresent(typeSymbol -> {
-                        if (!typeSymbol.subtypeOf(queryTypeConstrain)) {
-                            // TODO: validate the enums
-                            paramType.setDiagnostics(new Diagnostics(true, List.of(
-                                    new Diagnostics.Info(DiagnosticSeverity.ERROR,
-                                            "Invalid type for query parameter: " + paramType.getValue())
-                            )));
-                        }
-                    });
+                    if (!validQueryOrHeaderType(paramType.getValue().trim(), queryTypeConstrain)) {
+                        paramType.setDiagnostics(new Diagnostics(true, List.of(
+                                new Diagnostics.Info(DiagnosticSeverity.ERROR, "invalid query param type")
+                        )));
+                        return;
+                    }
                     return;
                 } else if ("Header".equals(httpParamType)) {
-                    semanticModel.types().getType(document, paramType.getValue()).ifPresent(typeSymbol -> {
-                        if (!typeSymbol.subtypeOf(headerBasicType)) {
-                            paramType.setDiagnostics(new Diagnostics(true, List.of(
-                                    new Diagnostics.Info(DiagnosticSeverity.ERROR,
-                                            "Invalid type for query parameter: " + paramType.getValue())
-                            )));
-                        }
-                    });
-                    return;
+                    if (!validQueryOrHeaderType(paramType.getValue().trim(), headerBasicType)) {
+                        paramType.setDiagnostics(new Diagnostics(true, List.of(
+                                new Diagnostics.Info(DiagnosticSeverity.ERROR, "invalid header param type")
+                        )));
+                        return;
+                    }
                 }
                 paramType.setDiagnostics(null);
                 paramName.setDiagnostics(null);
@@ -231,8 +231,6 @@ public class DiagnosticsHandler {
             }
             return false;
         }
-
-        IdentifierValidator identifierValidator = new IdentifierValidator();
 
         boolean foundRestParam = false;
         for (ResourcePathParser.Segment segment: parseResult.getSegments()) {
@@ -319,6 +317,31 @@ public class DiagnosticsHandler {
                                 diagnostics.add(errorMsg);
                                 return false;
                             }
+                        }
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    private boolean validQueryOrHeaderType(String type, TypeSymbol typeConstrain) {
+        if (!type.contains(":")) { // type is not coming from a different module
+            Optional<TypeSymbol> paramTypeSymbol = semanticModel.types().getType(document, type);
+            if (paramTypeSymbol.isPresent()) {
+                return paramTypeSymbol.get().subtypeOf(typeConstrain);
+            } else {
+                Node node = NodeParser.parseModuleMemberDeclaration("const CONST = " + type + ";");
+                if (node instanceof ConstantDeclarationNode constNode && !constNode.initializer().isMissing()) {
+                    Node initializer = constNode.initializer();
+                    boolean isBasicLiteral = initializer instanceof BasicLiteralNode;
+                    if (!isBasicLiteral) { // can be a const or enum
+                        loadConstAndEnums();
+                        boolean isConstReference = constantSymbols.stream().anyMatch(symbol -> symbol.nameEquals(type));
+                        if (!isConstReference) {
+                            return enumSymbols.stream().anyMatch(
+                                    enumSymbol -> enumSymbol.nameEquals(type) || enumSymbol.members()
+                                            .stream().anyMatch(member -> member.nameEquals(type)));
                         }
                     }
                 }
