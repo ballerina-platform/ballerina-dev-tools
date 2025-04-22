@@ -1,8 +1,19 @@
 package io.ballerina.servicemodelgenerator.extension.diagnostics;
 
-public class IdentifierParser {
+/**
+ * Parser for identifiers in Ballerina.
+ *
+ */
+public class IdentifierValidator {
 
-    public static boolean isValidIdentifier(String input) {
+    private String errorMessage;
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public boolean isValidIdentifier(String input) {
+        errorMessage = null;
         if (input == null || input.isEmpty()) {
             return false;
         }
@@ -14,7 +25,7 @@ public class IdentifierParser {
         }
     }
 
-    private static boolean parseQuotedIdentifier(String input) {
+    private boolean parseQuotedIdentifier(String input) {
         if (input.length() < 2 || input.charAt(input.length() - 1) != '\'') {
             return false;
         }
@@ -41,7 +52,7 @@ public class IdentifierParser {
         return hasContent && index == length;
     }
 
-    private static boolean parseUnquotedIdentifier(String input) {
+    private boolean parseUnquotedIdentifier(String input) {
         int index = 0;
         int length = input.length();
 
@@ -49,10 +60,16 @@ public class IdentifierParser {
         char firstChar = input.charAt(index);
         if (firstChar == '\\') {
             int escapeLength = parseEscapeSequence(input, index, length);
-            if (escapeLength == -1) return false;
+            if (escapeLength == -1) {
+                errorMessage = "invalid escape sequence";
+                return false;
+            }
             index += escapeLength;
         } else {
-            if (!isValidInitialChar(firstChar)) return false;
+            if (!isValidInitialChar(firstChar)) {
+                errorMessage = "invalid character: '" + firstChar + "'";
+                return false;
+            }
             index++;
         }
 
@@ -62,10 +79,16 @@ public class IdentifierParser {
 
             if (c == '\\') {
                 int escapeLength = parseEscapeSequence(input, index, length);
-                if (escapeLength == -1) return false;
+                if (escapeLength == -1) {
+                    errorMessage = "invalid escape sequence";
+                    return false;
+                }
                 index += escapeLength;
             } else {
-                if (!isValidFollowingChar(c)) return false;
+                if (!isValidFollowingChar(c)) {
+                    errorMessage = "invalid character: '" + c + "'";
+                    return false;
+                }
                 index++;
             }
         }

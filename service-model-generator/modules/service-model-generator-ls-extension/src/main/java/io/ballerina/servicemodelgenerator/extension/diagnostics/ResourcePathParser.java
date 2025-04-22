@@ -46,11 +46,13 @@ public class ResourcePathParser {
 
         if (input.equals(".")) {
             result.addSegment(new DotSegment(0, 0));
-            boolean valid = result.getErrors().isEmpty();
-            result.setValid(valid);
-            if (!valid) {
-                result.addError(new ParseError(0, "cannot have characters after dot (.)"));
-            }
+            result.setValid(true);
+            return result;
+        }
+
+        if (input.startsWith("/") || input.startsWith("\\/")) {
+            result.addError(new ParseError(0, "path cannot start with slash"));
+            result.setValid(false);
             return result;
         }
 
@@ -114,26 +116,44 @@ public class ResourcePathParser {
         }
 
         int count = segments.size();
-
-        if (count == 1) { //  validate for const, param name or type descriptor
+        String firstSegment = segments.getFirst();
+        boolean isRest = firstSegment.endsWith("...");
+        if (count == 1) {
+            if (isRest) { // [T...]
+                result.addSegment(new RestParamSegment(Collections.emptyList(),
+                        firstSegment.substring(0, firstSegment.length() - 3), null,
+                        segment.start(), segment.end()));
+                return;
+            }
             result.addSegment(new ParamSegment(Segment.Type.PARAM, Collections.emptyList(),
-                    segments.get(0), null, segment.start(), segment.end()));
+                    firstSegment, null, segment.start(), segment.end()));
             return;
         }
 
-        if (count == 2) { // validate for rest param or regular param
+        if (count == 2) {
+            String secondSegment = segments.get(1);
+            if (isRest || secondSegment.startsWith("...") && !secondSegment.equals("...")) { // [T... t] or [T ...t]
+                result.addSegment(new RestParamSegment(Collections.emptyList(),
+                        firstSegment.substring(0, firstSegment.length() - 3), segments.get(1),
+                        segment.start(), segment.end()));
+                return;
+            }
             result.addSegment(new ParamSegment(Segment.Type.PARAM, Collections.emptyList(),
-                    segments.get(0), segments.get(1), segment.start(), segment.end()));
+                    firstSegment, segments.get(1), segment.start(), segment.end()));
             return;
         }
 
-        if (count == 3) { // validate for rest param or regular param
-            result.addSegment(new RestParamSegment(Collections.emptyList(),
-                    segments.get(0), segments.get(2), segment.start(), segment.end()));
+        if (count == 3) {
+            String secondSegment = segments.get(1);
+            if (secondSegment.equals("...")) { // [T ... t]
+                result.addSegment(new RestParamSegment(Collections.emptyList(),
+                        segments.get(0), segments.get(2), segment.start(), segment.end()));
+                return;
+            }
             return;
         }
 
-        result.addError(new ParseError(segment.start(), "Invalid parameter: " + segment.value()));
+        result.addError(new ParseError(segment.start(), "invalid path parameter: " + segment.value()));
     }
 
 

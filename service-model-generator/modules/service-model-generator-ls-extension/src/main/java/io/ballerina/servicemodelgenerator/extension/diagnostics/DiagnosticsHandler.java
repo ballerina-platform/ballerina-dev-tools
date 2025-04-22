@@ -31,7 +31,6 @@ import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.BasicLiteralNode;
 import io.ballerina.compiler.syntax.tree.ConstantDeclarationNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
-import io.ballerina.compiler.syntax.tree.ModuleMemberDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeParser;
@@ -62,6 +61,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
@@ -79,9 +79,30 @@ public class DiagnosticsHandler {
     private WorkspaceManager workspaceManager;
     private SemanticModel semanticModel;
     private Document document;
+    private TypeSymbol basicType;
+    private TypeSymbol queryTypeConstrain;
+    private TypeSymbol headerBasicType;
+    private List<ConstantSymbol> constantSymbols;
+    private List<EnumSymbol> enumSymbols;
+    private boolean isConstAndEnumsLoaded = false;
 
     public DiagnosticsHandler(WorkspaceManager workspaceManager) {
         this.workspaceManager = workspaceManager;
+    }
+
+    private void initBasicTypes() {
+        Types types = semanticModel.types();
+        this.basicType =  types.builder().UNION_TYPE.withMemberTypes(types.BOOLEAN, types.INT,
+                types.FLOAT, types.DECIMAL, types.STRING).build();
+
+        TypeSymbol queryBasicType = types.builder().UNION_TYPE.withMemberTypes(basicType,
+                types.builder().MAP_TYPE.withTypeParam(types.ANYDATA).build()).build();
+        this.queryTypeConstrain = types.builder().UNION_TYPE.withMemberTypes(types.NIL, queryBasicType,
+                types.builder().ARRAY_TYPE.withType(queryBasicType).build()).build();
+
+        this.headerBasicType = types.builder().UNION_TYPE.withMemberTypes(types.NIL, basicType,
+                types.builder().ARRAY_TYPE.withType(basicType).build(),
+                types.builder().RECORD_TYPE.withRestField(basicType).build()).build();
     }
 
     public JsonElement getDiagnostics(ServiceDesignerDiagnosticRequest request) throws WorkspaceDocumentException,
@@ -127,6 +148,9 @@ public class DiagnosticsHandler {
         if (node.kind() != SyntaxKind.SERVICE_DECLARATION) {
             return;
         }
+
+        initBasicTypes();
+
         ServiceDeclarationNode serviceDeclarationNode = (ServiceDeclarationNode) node;
         for (Node member: serviceDeclarationNode.members()) {
             if (!(member instanceof FunctionDefinitionNode functionDefinitionNode)) {
@@ -147,20 +171,6 @@ public class DiagnosticsHandler {
 
         // load the document and see
         function.getName().setDiagnostics(null);
-
-        Types types = semanticModel.types();
-        TypeSymbol basicType =  types.builder().UNION_TYPE.withMemberTypes(types.BOOLEAN, types.INT,
-                types.FLOAT, types.DECIMAL, types.STRING).build();
-
-        TypeSymbol queryBasicType = types.builder().UNION_TYPE.withMemberTypes(basicType,
-                types.builder().MAP_TYPE.withTypeParam(types.ANYDATA).build()).build();
-        TypeSymbol queryTypeConstrain = types.builder().UNION_TYPE.withMemberTypes(types.NIL, queryBasicType,
-                types.builder().ARRAY_TYPE.withType(queryBasicType).build()).build();
-
-        TypeSymbol headerBasicType = types.builder().UNION_TYPE.withMemberTypes(types.NIL, basicType,
-                types.builder().ARRAY_TYPE.withType(basicType).build(),
-                types.builder().RECORD_TYPE.withRestField(basicType).build()).build();
-
 
         List<Parameter> parameters = function.getParameters();
         boolean hasHttpCaller = false;
@@ -183,7 +193,7 @@ public class DiagnosticsHandler {
 
                 String httpParamType = param.getHttpParamType();
                 if ("Query".equals(httpParamType)) {
-                    types.getType(document, paramType.getValue()).ifPresent(typeSymbol -> {
+                    semanticModel.types().getType(document, paramType.getValue()).ifPresent(typeSymbol -> {
                         if (!typeSymbol.subtypeOf(queryTypeConstrain)) {
                             // TODO: validate the enums
                             paramType.setDiagnostics(new Diagnostics(true, List.of(
@@ -194,7 +204,7 @@ public class DiagnosticsHandler {
                     });
                     return;
                 } else if ("Header".equals(httpParamType)) {
-                    types.getType(document, paramType.getValue()).ifPresent(typeSymbol -> {
+                    semanticModel.types().getType(document, paramType.getValue()).ifPresent(typeSymbol -> {
                         if (!typeSymbol.subtypeOf(headerBasicType)) {
                             paramType.setDiagnostics(new Diagnostics(true, List.of(
                                     new Diagnostics.Info(DiagnosticSeverity.ERROR,
@@ -213,7 +223,7 @@ public class DiagnosticsHandler {
         // need to validate
     }
 
-    private boolean validateResourcePath(String path, List<Diagnostics.Info> diagnostics,
+    public boolean validateResourcePath(String path, List<Diagnostics.Info> diagnostics,
                                          Set<String> paramNames) {
         ResourcePathParser.ParseResult parseResult = ResourcePathParser.parseResourcePath(path);
         if (!parseResult.isValid()) {
@@ -223,101 +233,127 @@ public class DiagnosticsHandler {
             return false;
         }
 
+        IdentifierValidator identifierValidator = new IdentifierValidator();
+
+        boolean foundRestParam = false;
         for (ResourcePathParser.Segment segment: parseResult.getSegments()) {
+            if (foundRestParam) {
+                diagnostics.add(new Diagnostics.Info(DiagnosticSeverity.ERROR,
+                        "cannot have path segments after rest parameter"));
+                return false;
+            }
             if (segment instanceof ResourcePathParser.RestParamSegment paramSegment) {
-                // todo: need to do the same validation as the param segment but we shouldn't allow segments
-                //  after rest params
-            } else if (segment instanceof ResourcePathParser.ParamSegment paramSegment) {
-                String paramName = paramSegment.getParamName();
-                String type = paramSegment.getTypeDescriptor();
-                if (!type.contains(":")) { // type is not coming from a different module
-                    if (!IdentifierParser.isValidIdentifier(type)) {
-                        diagnostics.add(new Diagnostics.Info(DiagnosticSeverity.ERROR,
-                                "Resource path contains invalid characters"));
+                foundRestParam = true;
+                if (Objects.nonNull(paramSegment.getParamName())) {
+                    if (!validPathParam(diagnostics, paramNames, paramSegment, identifierValidator)) {
                         return false;
                     }
-                    Optional<TypeSymbol> typeSymbol = semanticModel.types().getType(document, type);
-                    if (typeSymbol.isPresent()) {
-                        TypeSymbol paramType = typeSymbol.get();
-                        Types types = semanticModel.types();
-                        TypeSymbol basicType = types.builder().UNION_TYPE.withMemberTypes(types.BOOLEAN, types.INT,
-                                types.FLOAT, types.DECIMAL, types.STRING).build();
-                        if (!paramType.subtypeOf(basicType)) {
-                            diagnostics.add(new Diagnostics.Info(DiagnosticSeverity.ERROR,
-                                    "Invalid type for parameter: " + paramName));
-                            return false;
-                        }
-                    } else {
-                        ModuleMemberDeclarationNode node = NodeParser.
-                                parseModuleMemberDeclaration("const CONST = " + type + ";");
-                        if (node instanceof ConstantDeclarationNode constNode
-                                && !constNode.initializer().isMissing()) {
-                            Node initializer = constNode.initializer();
-                            boolean isBasicLiteral = initializer instanceof BasicLiteralNode;
-                            if (!isBasicLiteral) {
-                                List<ConstantSymbol> constantSymbols = semanticModel.moduleSymbols().stream()
-                                        .filter(symbol -> symbol instanceof ConstantSymbol)
-                                        .map(symbol -> ((ConstantSymbol) symbol))
-                                        .toList();
-                                List<EnumSymbol> enumSymbols = semanticModel.moduleSymbols().stream()
-                                        .filter(symbol -> symbol instanceof EnumSymbol)
-                                        .map(symbol -> ((EnumSymbol) symbol))
-                                        .toList();
-                                String t = type;
-                                boolean isConstantReference = constantSymbols.stream()
-                                        .anyMatch(symbol -> symbol.nameEquals(t));
-                                if (!isConstantReference) {
-                                    boolean isEnumReference = enumSymbols.stream()
-                                            .anyMatch(enumSymbol -> enumSymbol.nameEquals(t) || enumSymbol.members()
-                                                    .stream().anyMatch(member -> member.nameEquals(t)));
-                                    if (!isEnumReference) {
-                                        diagnostics.add(new Diagnostics.Info(DiagnosticSeverity.ERROR,
-                                                "Invalid type for parameter: " + paramName));
-                                        return false;
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    continue;
                 }
-
-                if (!IdentifierParser.isValidIdentifier(paramName)) {
-                    diagnostics.add(new Diagnostics.Info(DiagnosticSeverity.ERROR,
-                            "Resource path contains invalid characters"));
+                String type = paramSegment.getTypeDescriptor();
+                if (!validPathParamType(diagnostics, type, null)) {
                     return false;
                 }
-
-                if (KEYWORD_LIST.contains(paramName)) {
-                    diagnostics.add(new Diagnostics.Info(DiagnosticSeverity.ERROR,
-                            "Keyword is used in the resource path"));
-                    return false;
-                }
-
-                if (!paramNames.add(paramName)) {
-                    diagnostics.add(new Diagnostics.Info(DiagnosticSeverity.ERROR,
-                            "Duplicate parameter name: " + paramName));
+            } else if (segment instanceof ResourcePathParser.ParamSegment paramSegment) {
+                if (!validPathParam(diagnostics, paramNames, paramSegment, identifierValidator)) {
                     return false;
                 }
             } else if (segment instanceof ResourcePathParser.ValueSegment valueSegment) {
                 String value = valueSegment.getValue();
                 if (value.isEmpty()) {
                     diagnostics.add(new Diagnostics.Info(DiagnosticSeverity.ERROR,
-                            "Resource path contains invalid characters"));
+                            "empty resource path segment"));
                     return false;
                 }
-                if (!IdentifierParser.isValidIdentifier(value)) {
-                    diagnostics.add(new Diagnostics.Info(DiagnosticSeverity.ERROR,
-                            "Resource path contains invalid characters"));
-                    return false;
-                }
-                if (KEYWORD_LIST.contains(value)) {
-                    diagnostics.add(new Diagnostics.Info(DiagnosticSeverity.ERROR,
-                            "Keyword is used in the resource path"));
+                if (!validIdentifier(identifierValidator, value, diagnostics)) {
                     return false;
                 }
             }
         }
+        return true;
+    }
 
+    private boolean validPathParam(List<Diagnostics.Info> diagnostics, Set<String> paramNames,
+                                   ResourcePathParser.ParamSegment paramSegment,
+                                   IdentifierValidator identifierValidator) {
+        String paramName = paramSegment.getParamName();
+        String type = paramSegment.getTypeDescriptor();
+        if (!validPathParamType(diagnostics, type, paramName)){
+            return false;
+        }
+
+        if (validIdentifier(identifierValidator, paramName, diagnostics)) {
+            return false;
+        }
+
+        if (!paramNames.add(paramName)) {
+            diagnostics.add(new Diagnostics.Info(DiagnosticSeverity.ERROR,
+                    "Duplicate parameter name: " + paramName));
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validPathParamType(List<Diagnostics.Info> diagnostics, String type, String paramName) {
+        if (!type.contains(":")) { // type is not coming from a different module
+            Optional<TypeSymbol> paramTypeSymbol = semanticModel.types().getType(document, type);
+            Diagnostics.Info errorMsg = new Diagnostics.Info(DiagnosticSeverity.ERROR,
+                    paramName == null ? "invalid rest param type" : "invalid type for parameter: " + paramName);
+            if (paramTypeSymbol.isPresent()) {
+                if (!paramTypeSymbol.get().subtypeOf(basicType)) {
+                    diagnostics.add(errorMsg);
+                    return false;
+                }
+            } else {
+                Node node = NodeParser.parseModuleMemberDeclaration("const CONST = " + type + ";");
+                if (node instanceof ConstantDeclarationNode constNode && !constNode.initializer().isMissing()) {
+                    Node initializer = constNode.initializer();
+                    boolean isBasicLiteral = initializer instanceof BasicLiteralNode;
+                    if (!isBasicLiteral) { // can be a const or enum
+                        loadConstAndEnums();
+                        boolean isConstReference = constantSymbols.stream().anyMatch(symbol -> symbol.nameEquals(type));
+                        if (!isConstReference) {
+                            boolean isEnumReference = enumSymbols.stream().anyMatch(
+                                    enumSymbol -> enumSymbol.nameEquals(type) || enumSymbol.members()
+                                            .stream().anyMatch(member -> member.nameEquals(type)));
+                            if (!isEnumReference) {
+                                diagnostics.add(errorMsg);
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    private void loadConstAndEnums() {
+        if (isConstAndEnumsLoaded) {
+            return;
+        }
+        constantSymbols = semanticModel.moduleSymbols().stream()
+                .filter(symbol -> symbol instanceof ConstantSymbol)
+                .map(symbol -> ((ConstantSymbol) symbol))
+                .toList();
+        enumSymbols = semanticModel.moduleSymbols().stream()
+                .filter(symbol -> symbol instanceof EnumSymbol)
+                .map(symbol -> ((EnumSymbol) symbol))
+                .toList();
+        isConstAndEnumsLoaded = true;
+    }
+
+    private boolean validIdentifier(IdentifierValidator validator, String identifier,
+                                    List<Diagnostics.Info> diagnostics) {
+        if (!validator.isValidIdentifier(identifier)) {
+            diagnostics.add(new Diagnostics.Info(DiagnosticSeverity.ERROR, validator.getErrorMessage()));
+            return false;
+        }
+        if (KEYWORD_LIST.contains(identifier)) {
+            diagnostics.add(new Diagnostics.Info(DiagnosticSeverity.ERROR,
+                    "usage of reserved keyword: " + validator));
+            return false;
+        }
         return true;
     }
 

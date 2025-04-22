@@ -18,14 +18,27 @@
 
 package io.ballerina.servicemodelgenerator.extension;
 
+import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.projects.Document;
 import io.ballerina.servicemodelgenerator.extension.diagnostics.DiagnosticsHandler;
 import io.ballerina.servicemodelgenerator.extension.model.Diagnostics;
+import org.ballerinalang.langserver.BallerinaLanguageServer;
+import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
+import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
+import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
+import org.ballerinalang.langserver.util.TestUtil;
+import org.eclipse.lsp4j.jsonrpc.Endpoint;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import java.lang.reflect.Field;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -35,125 +48,181 @@ import java.util.Set;
  */
 public class DiagnosticsHandlerTests {
 
-//    @Test
-//    public void testEmptyResourcePaths() {
-//        String resourcePath = "";
-//        List<Diagnostics.Info> diagnostics = new ArrayList<>();
-//        Set<String> paramNames = new HashSet<>();
-//
-//        boolean result = DiagnosticsHandler.validateResourcePath(resourcePath, diagnostics, paramNames);
-//        Assert.assertFalse(result);
-//        Assert.assertEquals(diagnostics.size(), 1);
-//        Assert.assertEquals(diagnostics.getFirst().message(), "path cannot be empty");
-//    }
-//
-//    @Test
-//    public void testResourcePathsWithTwoSlashes() {
-//        String resourcePath = "foo//bar";
-//        List<Diagnostics.Info> diagnostics = new ArrayList<>();
-//        Set<String> paramNames = new HashSet<>();
-//
-//        boolean result = DiagnosticsHandler.validateResourcePath(resourcePath, diagnostics, paramNames);
-//        Assert.assertFalse(result);
-//        Assert.assertEquals(diagnostics.size(), 1);
-//        Assert.assertEquals(diagnostics.getFirst().message(), "Resource path contains invalid characters");
-//    }
-//
-//    @Test
-//    public void testResourcePathsWithInvalidCharacters() {
-//        String resourcePath = "path/to/resource@";
-//        List<Diagnostics.Info> diagnostics = new ArrayList<>();
-//        Set<String> paramNames = new HashSet<>();
-//
-//        boolean result = DiagnosticsHandler.validateResourcePath(resourcePath, diagnostics, paramNames);
-//        Assert.assertFalse(result);
-//        Assert.assertEquals(diagnostics.size(), 1);
-//        Assert.assertEquals(diagnostics.getFirst().message(), "Invalid character: @");
-//    }
-//
-//    @Test
-//    public void testResourcePathsWithHyphen() {
-//        String resourcePath = "user-name";
-//        List<Diagnostics.Info> diagnostics = new ArrayList<>();
-//        Set<String> paramNames = new HashSet<>();
-//
-//        boolean result = DiagnosticsHandler.validateResourcePath(resourcePath, diagnostics, paramNames);
-//        Assert.assertFalse(result);
-//        Assert.assertEquals(diagnostics.size(), 1);
-//        Assert.assertEquals(diagnostics.getFirst().message(), "Invalid character: -");
-//    }
-//
-//    @Test
-//    public void testResourcePathsWithSpaces() {
-//        String resourcePath = "user name";
-//        List<Diagnostics.Info> diagnostics = new ArrayList<>();
-//        Set<String> paramNames = new HashSet<>();
-//
-//        boolean result = DiagnosticsHandler.validateResourcePath(resourcePath, diagnostics, paramNames);
-//        Assert.assertFalse(result);
-//        Assert.assertEquals(diagnostics.size(), 1);
-//        Assert.assertEquals(diagnostics.getFirst().message(), "Invalid segment: user name");
-//    }
-//
-//    @Test
-//    public void testResourcePathsStartWithSlash() {
-//        String resourcePath = "/user";
-//        List<Diagnostics.Info> diagnostics = new ArrayList<>();
-//        Set<String> paramNames = new HashSet<>();
-//
-//        boolean result = DiagnosticsHandler.validateResourcePath(resourcePath, diagnostics, paramNames);
-//        Assert.assertFalse(result);
-//        Assert.assertEquals(diagnostics.size(), 1);
-//        Assert.assertEquals(diagnostics.getFirst().message(), "Resource path contains invalid characters");
-//    }
-//
-//    @Test
-//    public void testResourcePathsWithValidPath() {
-//        List<Diagnostics.Info> diagnostics = new ArrayList<>();
-//        Set<String> paramNames = new HashSet<>();
-//
-//        boolean result = DiagnosticsHandler.validateResourcePath("user/path", diagnostics, paramNames);
-//        Assert.assertTrue(result);
-//        Assert.assertEquals(diagnostics.size(), 0);
-//
-//        paramNames = new HashSet<>();
-//        result = DiagnosticsHandler.validateResourcePath("[string name]", diagnostics, paramNames);
-//        Assert.assertTrue(result);
-//        Assert.assertEquals(diagnostics.size(), 0);
-//
-//        paramNames = new HashSet<>();
-//        result = DiagnosticsHandler.validateResourcePath("[string|int id]", diagnostics, paramNames);
-//        Assert.assertTrue(result);
-//        Assert.assertEquals(diagnostics.size(), 0);
-//
-//        paramNames = new HashSet<>();
-//        result = DiagnosticsHandler.validateResourcePath("[string... name]", diagnostics, paramNames);
-//        Assert.assertTrue(result);
-//        Assert.assertEquals(diagnostics.size(), 0);
-//
-//        paramNames = new HashSet<>();
-//        result = DiagnosticsHandler.validateResourcePath("[string...]", diagnostics, paramNames);
-//        Assert.assertTrue(result);
-//        Assert.assertEquals(diagnostics.size(), 0);
-//
-//        paramNames = new HashSet<>();
-//        result = DiagnosticsHandler.validateResourcePath("[123]", diagnostics, paramNames);
-//        Assert.assertTrue(result);
-//        Assert.assertEquals(diagnostics.size(), 0);
-//
-//        paramNames = new HashSet<>();
-//        result = DiagnosticsHandler.validateResourcePath("[12.12]", diagnostics, paramNames);
-//        Assert.assertTrue(result);
-//        Assert.assertEquals(diagnostics.size(), 0);
-//
-//        paramNames = new HashSet<>();
-//        result = DiagnosticsHandler.validateResourcePath("[true]", diagnostics, paramNames);
-//        Assert.assertTrue(result);
-//        Assert.assertEquals(diagnostics.size(), 0);
-//
-//        paramNames = new HashSet<>();
-//        result = DiagnosticsHandler.validateResourcePath("[\"true\"]", diagnostics, paramNames);
-//        Assert.assertTrue(result);
-//        Assert.assertEquals(diagnostics.size(), 0);
-//    }
+    private DiagnosticsHandler diagnosticsHandler;
+
+    @BeforeClass
+    public final void init() throws Exception {
+        Path sourceDir = Paths.get("src/test/resources").resolve("diagnostics")
+                .resolve("source").toAbsolutePath();
+        WorkspaceManager workspaceManager = new BallerinaLanguageServer().getWorkspaceManager();
+        Path projectPath = sourceDir.resolve("sample1");
+        workspaceManager.loadProject(projectPath);
+        this.diagnosticsHandler = new DiagnosticsHandler(workspaceManager);
+        Optional<SemanticModel> semanticModel = workspaceManager.semanticModel(projectPath);
+
+        Path mainBal = projectPath.resolve("main.bal");
+        Optional<Document> document = workspaceManager.document(mainBal);
+        if (semanticModel.isEmpty() || document.isEmpty()) {
+            throw new Exception("Unable to get the semantic model or document");
+        }
+        Field semanticModelField = DiagnosticsHandler.class.getDeclaredField("semanticModel");
+        semanticModelField.setAccessible(true);
+        semanticModelField.set(diagnosticsHandler, semanticModel.get());
+
+        Field documentField = DiagnosticsHandler.class.getDeclaredField("document");
+        documentField.setAccessible(true);
+        documentField.set(diagnosticsHandler, document.get());
+    }
+
+    @Test
+    public void testEmptyResourcePaths() {
+        String resourcePath = "";
+        List<Diagnostics.Info> diagnostics = new ArrayList<>();
+        Set<String> paramNames = new HashSet<>();
+        boolean result = diagnosticsHandler.validateResourcePath(resourcePath, diagnostics, paramNames);
+        Assert.assertFalse(result);
+        Assert.assertEquals(diagnostics.size(), 1);
+        Assert.assertEquals(diagnostics.getFirst().message(), "path cannot be empty");
+    }
+
+    @Test
+    public void testEmptyResourcePathSegments() {
+        String resourcePath = "foo\\//bar";
+        List<Diagnostics.Info> diagnostics = new ArrayList<>();
+        Set<String> paramNames = new HashSet<>();
+        boolean result = diagnosticsHandler.validateResourcePath(resourcePath, diagnostics, paramNames);
+        Assert.assertFalse(result);
+        Assert.assertEquals(diagnostics.size(), 1);
+        Assert.assertEquals(diagnostics.getFirst().message(), "empty resource path segment");
+    }
+
+    @Test
+    public void testDotResourcePaths() {
+        String resourcePath = "..";
+        List<Diagnostics.Info> diagnostics = new ArrayList<>();
+        Set<String> paramNames = new HashSet<>();
+        boolean result = diagnosticsHandler.validateResourcePath(resourcePath, diagnostics, paramNames);
+        Assert.assertFalse(result);
+        Assert.assertEquals(diagnostics.size(), 1);
+        Assert.assertEquals(diagnostics.getFirst().message(), "invalid character: '.'");
+    }
+
+    @Test
+    public void testResourcePathsWithTwoSlashes() {
+        String resourcePath = "foo//bar";
+        List<Diagnostics.Info> diagnostics = new ArrayList<>();
+        Set<String> paramNames = new HashSet<>();
+
+        boolean result = diagnosticsHandler.validateResourcePath(resourcePath, diagnostics, paramNames);
+        Assert.assertFalse(result);
+        Assert.assertEquals(diagnostics.size(), 1);
+        Assert.assertEquals(diagnostics.getFirst().message(), "empty resource path segment");
+    }
+
+    @Test
+    public void testResourcePathsWithInvalidCharacters() {
+        String resourcePath = "path/to/resource@";
+        List<Diagnostics.Info> diagnostics = new ArrayList<>();
+        Set<String> paramNames = new HashSet<>();
+
+        boolean result = diagnosticsHandler.validateResourcePath(resourcePath, diagnostics, paramNames);
+        Assert.assertFalse(result);
+        Assert.assertEquals(diagnostics.size(), 1);
+        Assert.assertEquals(diagnostics.getFirst().message(), "invalid character: '@'");
+    }
+
+    @Test
+    public void testResourcePathsWithHyphen() {
+        String resourcePath = "user-name";
+        List<Diagnostics.Info> diagnostics = new ArrayList<>();
+        Set<String> paramNames = new HashSet<>();
+
+        boolean result = diagnosticsHandler.validateResourcePath(resourcePath, diagnostics, paramNames);
+        Assert.assertFalse(result);
+        Assert.assertEquals(diagnostics.size(), 1);
+        Assert.assertEquals(diagnostics.getFirst().message(), "invalid character: '-'");
+    }
+
+    @Test
+    public void testResourcePathsWithSpaces() {
+        String resourcePath = "user name";
+        List<Diagnostics.Info> diagnostics = new ArrayList<>();
+        Set<String> paramNames = new HashSet<>();
+
+        boolean result = diagnosticsHandler.validateResourcePath(resourcePath, diagnostics, paramNames);
+        Assert.assertFalse(result);
+        Assert.assertEquals(diagnostics.size(), 1);
+        Assert.assertEquals(diagnostics.getFirst().message(), "invalid character: ' '");
+    }
+
+    @Test
+    public void testResourcePathsStartWithSlash() {
+        String resourcePath = "/user";
+        List<Diagnostics.Info> diagnostics = new ArrayList<>();
+        Set<String> paramNames = new HashSet<>();
+
+        boolean result = diagnosticsHandler.validateResourcePath(resourcePath, diagnostics, paramNames);
+        Assert.assertFalse(result);
+        Assert.assertEquals(diagnostics.size(), 1);
+        Assert.assertEquals(diagnostics.getFirst().message(), "path cannot start with slash");
+
+        resourcePath = "\\/user";
+        diagnostics = new ArrayList<>();
+        paramNames = new HashSet<>();
+
+        result = diagnosticsHandler.validateResourcePath(resourcePath, diagnostics, paramNames);
+        Assert.assertFalse(result);
+        Assert.assertEquals(diagnostics.size(), 1);
+        Assert.assertEquals(diagnostics.getFirst().message(), "path cannot start with slash");
+    }
+
+    @Test
+    public void testResourcePathsWithValidPath() {
+        List<Diagnostics.Info> diagnostics = new ArrayList<>();
+        Set<String> paramNames = new HashSet<>();
+
+        boolean result = diagnosticsHandler.validateResourcePath("user/path", diagnostics, paramNames);
+        Assert.assertTrue(result);
+        Assert.assertEquals(diagnostics.size(), 0);
+
+        paramNames = new HashSet<>();
+        result = diagnosticsHandler.validateResourcePath("[string name]", diagnostics, paramNames);
+        Assert.assertTrue(result);
+        Assert.assertEquals(diagnostics.size(), 0);
+
+        paramNames = new HashSet<>();
+        result = diagnosticsHandler.validateResourcePath("[string|int id]", diagnostics, paramNames);
+        Assert.assertTrue(result);
+        Assert.assertEquals(diagnostics.size(), 0);
+
+        paramNames = new HashSet<>();
+        result = diagnosticsHandler.validateResourcePath("[string... name]", diagnostics, paramNames);
+        Assert.assertTrue(result);
+        Assert.assertEquals(diagnostics.size(), 0);
+
+        paramNames = new HashSet<>();
+        result = diagnosticsHandler.validateResourcePath("[string...]", diagnostics, paramNames);
+        Assert.assertTrue(result);
+        Assert.assertEquals(diagnostics.size(), 0);
+
+        paramNames = new HashSet<>();
+        result = diagnosticsHandler.validateResourcePath("[123]", diagnostics, paramNames);
+        Assert.assertTrue(result);
+        Assert.assertEquals(diagnostics.size(), 0);
+
+        paramNames = new HashSet<>();
+        result = diagnosticsHandler.validateResourcePath("[12.12]", diagnostics, paramNames);
+        Assert.assertTrue(result);
+        Assert.assertEquals(diagnostics.size(), 0);
+
+        paramNames = new HashSet<>();
+        result = diagnosticsHandler.validateResourcePath("[true]", diagnostics, paramNames);
+        Assert.assertTrue(result);
+        Assert.assertEquals(diagnostics.size(), 0);
+
+        paramNames = new HashSet<>();
+        result = diagnosticsHandler.validateResourcePath("[\"true\"]", diagnostics, paramNames);
+        Assert.assertTrue(result);
+        Assert.assertEquals(diagnostics.size(), 0);
+    }
 }
