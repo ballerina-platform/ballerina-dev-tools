@@ -58,10 +58,12 @@ public class ExpressionEditorContext {
     private int expressionOffset;
     private LineRange statementLineRange;
     private LinePosition startLine;
+    private int numberOfLines;
 
     public ExpressionEditorContext(WorkspaceManagerProxy workspaceManagerProxy, String fileUri, Info info,
                                    Path filePath) {
         this.info = info;
+        this.numberOfLines = info.expression().split(System.lineSeparator()).length - 1;
         this.documentContext = new DocumentContext(workspaceManagerProxy, fileUri, filePath);
         this.property = new Property(info.property(), info.codedata());
     }
@@ -199,15 +201,16 @@ public class ExpressionEditorContext {
 
         // Return the line range of the generated statement
         LinePosition startLine = LinePosition.from(cursorStartLine.line() + lineOffset, cursorStartLine.offset());
-        LinePosition endLineRange = LinePosition.from(startLine.line(),
-                startLine.offset() + statement.length());
+        LinePosition endLineRange =
+                LinePosition.from(startLine.line() + numberOfLines, startLine.offset() + statement.length());
         this.statementLineRange = LineRange.from(getFileName(documentContext.filePath()), startLine, endLineRange);
         return statementLineRange;
     }
 
     public LineRange getExpressionLineRange() {
         LinePosition startLine = info().startLine();
-        LinePosition endLine = LinePosition.from(startLine.line(), startLine.offset() + info().expression().length());
+        LinePosition endLine =
+                LinePosition.from(startLine.line() + numberOfLines, startLine.offset() + info().expression().length());
         return LineRange.from(getFileName(documentContext.filePath()), startLine, endLine);
     }
 
@@ -225,8 +228,12 @@ public class ExpressionEditorContext {
         if (statementLineRange == null || info == null) {
             throw new IllegalStateException("Statement line range not initialized. Call generateStatement() first.");
         }
-        return new Position(statementLineRange.startLine().line(),
-                statementLineRange.startLine().offset() + info.offset() + expressionOffset);
+
+        int lineOffset = info.lineOffset();
+        // Add the offset of the type binding pattern if this is the first line
+        int offsetChange = lineOffset > 0 ? 0 : expressionOffset + statementLineRange.startLine().offset();
+        return new Position(statementLineRange.startLine().line() + lineOffset,
+                  info.offset() + offsetChange);
     }
 
     /**
@@ -404,10 +411,11 @@ public class ExpressionEditorContext {
      * @param expression The modified expression
      * @param startLine  The start line of the node
      * @param offset     The offset of cursor compared to the start of the expression
+     * @param lineOffset The line offset of the cursor compared to the start of the expression
      * @param codedata   The codedata of the expression
      * @param property   The property of the expression
      */
-    public record Info(String expression, LinePosition startLine, int offset, JsonObject codedata,
+    public record Info(String expression, LinePosition startLine, int offset, int lineOffset, JsonObject codedata,
                        JsonObject property) {
     }
 }

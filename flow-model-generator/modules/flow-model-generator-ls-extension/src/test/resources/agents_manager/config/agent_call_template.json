@@ -12,14 +12,14 @@
     "object": "Agent",
     "symbol": "run",
     "parentSymbol": "agentRun",
-    "version": "1.0.0"
+    "version": "1.0.1"
   },
   "output": {
     "id": "31",
     "metadata": {
       "label": "run",
       "description": "Executes the agent for a given user query.\n",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai_1.0.0.png"
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai_1.0.1.png"
     },
     "codedata": {
       "node": "AGENT_CALL",
@@ -27,7 +27,7 @@
       "module": "ai",
       "object": "Agent",
       "symbol": "run",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "isNew": true
     },
     "returning": false,
