@@ -152,7 +152,7 @@ public class DiagnosticsHandlerTests {
     }
 
     @Test
-    public void testResourcePathsWithValidPath() throws Exception {
+    public void testValidResourcePaths() throws Exception {
         String resourcePath = "user/path";
         List<Diagnostics.Info> diagnostics = new ArrayList<>();
         Set<String> paramNames = new HashSet<>();
@@ -186,12 +186,10 @@ public class DiagnosticsHandlerTests {
         Assert.assertTrue(result);
         Assert.assertEquals(diagnostics.size(), 0);
 
-
-        // TODO: fix this
-//        paramNames = new HashSet<>();
-//        result = (boolean) validateResourcePath.invoke(validator, "[string ...]", diagnostics, paramNames);
-//        Assert.assertTrue(result);
-//        Assert.assertEquals(diagnostics.size(), 0);
+        paramNames = new HashSet<>();
+        result = (boolean) validateResourcePath.invoke(validator, "[string ...]", diagnostics, paramNames);
+        Assert.assertTrue(result);
+        Assert.assertEquals(diagnostics.size(), 0);
 
         paramNames = new HashSet<>();
         result = (boolean) validateResourcePath.invoke(validator, "[string...]", diagnostics, paramNames);
@@ -275,7 +273,6 @@ public class DiagnosticsHandlerTests {
         Assert.assertEquals(diagnostics.size(), 1);
         Assert.assertEquals(diagnostics.getFirst().message(), "duplicate parameter name: 'name'");
     }
-
 
     @Test
     public void testResourcePathsWithInvalidCharacters() throws Exception {

@@ -138,7 +138,12 @@ public class ResourcePathParser {
                         segment.start(), segment.end()));
                 return;
             }
-            if (!secondSegment.equals("...") && secondSegment.startsWith("...")) { // [T ...t]
+            if (secondSegment.equals("...")) { // [T ...]
+                result.addSegment(new RestParamSegment(Collections.emptyList(),
+                        firstSegment, null, segment.start(), segment.end()));
+                return;
+            }
+            if (secondSegment.startsWith("...")) { // [T ...t]
                 result.addSegment(new RestParamSegment(Collections.emptyList(),
                         firstSegment, secondSegment.substring(3), segment.start(), segment.end()));
                 return;
