@@ -21,6 +21,7 @@ package io.ballerina.flowmodelgenerator.core;
 import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.AnnotationAttachmentSymbol;
+import io.ballerina.compiler.api.symbols.ClassFieldSymbol;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
 import io.ballerina.compiler.api.symbols.Documentation;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
@@ -59,6 +60,7 @@ import io.ballerina.compiler.syntax.tree.ExplicitNewExpressionNode;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.ExpressionStatementNode;
 import io.ballerina.compiler.syntax.tree.FailStatementNode;
+import io.ballerina.compiler.syntax.tree.FieldAccessExpressionNode;
 import io.ballerina.compiler.syntax.tree.ForEachStatementNode;
 import io.ballerina.compiler.syntax.tree.ForkStatementNode;
 import io.ballerina.compiler.syntax.tree.FunctionArgumentNode;
@@ -101,6 +103,7 @@ import io.ballerina.compiler.syntax.tree.ReturnStatementNode;
 import io.ballerina.compiler.syntax.tree.ReturnTypeDescriptorNode;
 import io.ballerina.compiler.syntax.tree.RollbackStatementNode;
 import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
+import io.ballerina.compiler.syntax.tree.ServiceDeclarationNode;
 import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.SpecificFieldNode;
 import io.ballerina.compiler.syntax.tree.StartActionNode;
@@ -319,10 +322,177 @@ class CodeAnalyzer extends NodeVisitor {
         MethodSymbol functionSymbol = (MethodSymbol) symbol.get();
         if (isAgentCall(classSymbol.get())) {
             startNode(NodeKind.AGENT_CALL, expressionNode.parent());
+            setFunctionProperties(functionName, expressionNode, remoteMethodCallActionNode, functionSymbol,
+                    classSymbol.get().getName().orElseThrow());
+
+            if (isClassField(expressionNode)) {
+                ServiceDeclarationNode serviceDeclaration = getParentServiceDeclaration(remoteMethodCallActionNode);
+                for (Node member : serviceDeclaration.members()) {
+                    if (member.kind() != SyntaxKind.OBJECT_METHOD_DEFINITION) {
+                        continue;
+                    }
+                    FunctionDefinitionNode funcDef = (FunctionDefinitionNode) member;
+                    if (funcDef.functionName().text().equals("init")) {
+                        for (StatementNode statement : ((FunctionBodyBlockNode) funcDef.functionBody()).statements()) {
+                            if (statement.kind() != SyntaxKind.ASSIGNMENT_STATEMENT) {
+                                continue;
+                            }
+                            AssignmentStatementNode assignmentStmtNode = (AssignmentStatementNode) statement;
+                            if (!assignmentStmtNode.varRef().toSourceCode().trim()
+                                    .equals(expressionNode.toSourceCode())) {
+                                continue;
+                            }
+                            ImplicitNewExpressionNode newExpressionNode = getNewExpr(assignmentStmtNode.expression());
+                            genAgentData(newExpressionNode, classSymbol.get());
+                        }
+                    }
+                }
+            } else {
+                for (Symbol moduleSymbol : semanticModel.moduleSymbols()) {
+                    if (moduleSymbol.kind() != SymbolKind.VARIABLE) {
+                        continue;
+                    }
+                    VariableSymbol variableSymbol = (VariableSymbol) moduleSymbol;
+                    if (!variableSymbol.getName().orElseThrow().equals(expressionNode.toSourceCode())) {
+                        continue;
+                    }
+                    Optional<Location> optLocation = variableSymbol.getLocation();
+                    if (optLocation.isEmpty()) {
+                        throw new IllegalStateException("Location not found for the variable symbol: " + variableSymbol);
+                    }
+                    NonTerminalNode parent = CommonUtil.findNode(variableSymbol, CommonUtils.getDocument(project,
+                            optLocation.get()).syntaxTree()).get().parent().parent();
+                    if (parent.kind() != SyntaxKind.MODULE_VAR_DECL) {
+                        throw new IllegalStateException("Parent is not a module variable declaration: " + parent);
+                    }
+                    ModuleVariableDeclarationNode moduleVariableDeclarationNode = (ModuleVariableDeclarationNode) parent;
+                    Optional<ExpressionNode> optInitializer = moduleVariableDeclarationNode.initializer();
+                    if (optInitializer.isEmpty()) {
+                        throw new IllegalStateException("Initializer not found for the module variable declaration: " +
+                                moduleVariableDeclarationNode);
+                    }
+                    ImplicitNewExpressionNode newExpressionNode = getNewExpr(optInitializer.get());
+                    genAgentData(newExpressionNode, classSymbol.get());
+                    break;
+                }
+            }
         } else {
             startNode(NodeKind.REMOTE_ACTION_CALL, expressionNode.parent());
+            setFunctionProperties(functionName, expressionNode, remoteMethodCallActionNode, functionSymbol,
+                    classSymbol.get().getName().orElseThrow());
+        }
+    }
+
+    private void genAgentData(ImplicitNewExpressionNode newExpressionNode, ClassSymbol classSymbol) {
+        Optional<ParenthesizedArgList> argList = newExpressionNode.parenthesizedArgList();
+        if (argList.isEmpty()) {
+            throw new IllegalStateException("ParenthesizedArgList not found for the new expression: " +
+                    newExpressionNode);
+        }
+        ExpressionNode toolsArg = null;
+        ExpressionNode modelArg = null;
+        ExpressionNode systemPromptArg = null;
+        ExpressionNode memory = null;
+        for (FunctionArgumentNode arg : argList.get().arguments()) {
+            if (arg.kind() == SyntaxKind.NAMED_ARG) {
+                NamedArgumentNode namedArgumentNode = (NamedArgumentNode) arg;
+                if (namedArgumentNode.argumentName().name().text().equals("tools")) {
+                    toolsArg = namedArgumentNode.expression();
+                } else if (namedArgumentNode.argumentName().name().text().equals("model")) {
+                    modelArg = namedArgumentNode.expression();
+                } else if (namedArgumentNode.argumentName().name().text().equals("systemPrompt")) {
+                    systemPromptArg = namedArgumentNode.expression();
+                } else if (namedArgumentNode.argumentName().name().text().equals("memory")) {
+                    memory = namedArgumentNode.expression();
+                }
+            }
+        }
+        if (toolsArg == null) {
+            throw new IllegalStateException("Tools argument not found for the new expression: " +
+                    newExpressionNode);
+        }
+        if (modelArg == null) {
+            throw new IllegalStateException("Model argument not found for the new expression: " +
+                    newExpressionNode);
+        }
+        if (systemPromptArg == null) {
+            throw new IllegalStateException("SystemPrompt argument not found for the new expression: " +
+                    newExpressionNode);
         }
 
+        if (toolsArg.kind() == SyntaxKind.LIST_CONSTRUCTOR) {
+            List<ToolData> toolsData = new ArrayList<>();
+            ListConstructorExpressionNode listCtrExprNode = (ListConstructorExpressionNode) toolsArg;
+            for (Node node : listCtrExprNode.expressions()) {
+                if (node.kind() != SyntaxKind.SIMPLE_NAME_REFERENCE) {
+                    continue;
+                }
+                SimpleNameReferenceNode simpleNameReferenceNode = (SimpleNameReferenceNode) node;
+                String toolName = simpleNameReferenceNode.name().text();
+                toolsData.add(new ToolData(toolName, getIcon(toolName), getToolDescription(toolName)));
+            }
+            nodeBuilder.metadata().addData("tools", toolsData);
+        }
+
+        if (systemPromptArg.kind() == SyntaxKind.MAPPING_CONSTRUCTOR) {
+            MappingConstructorExpressionNode mappingCtrExprNode =
+                    (MappingConstructorExpressionNode) systemPromptArg;
+            SeparatedNodeList<MappingFieldNode> fields = mappingCtrExprNode.fields();
+            Map<String, String> agentData = new HashMap<>();
+            for (MappingFieldNode field : fields) {
+                SyntaxKind kind = field.kind();
+                if (kind != SyntaxKind.SPECIFIC_FIELD) {
+                    continue;
+                }
+                SpecificFieldNode specificFieldNode = (SpecificFieldNode) field;
+                agentData.put(specificFieldNode.fieldName().toString().trim(),
+                        specificFieldNode.valueExpr().orElseThrow().toSourceCode());
+            }
+            nodeBuilder.metadata().addData("agent", agentData);
+        }
+
+        if (memory == null) {
+            String defaultMemoryManagerName = getDefaultMemoryManagerName(classSymbol);
+            nodeBuilder.metadata().addData("memory",
+                    new MemoryManagerData(defaultMemoryManagerName, "10"));
+        } else if (memory.kind() == SyntaxKind.EXPLICIT_NEW_EXPRESSION) {
+            ExplicitNewExpressionNode newExpr = (ExplicitNewExpressionNode) memory;
+            SeparatedNodeList<FunctionArgumentNode> arguments = newExpr.parenthesizedArgList().arguments();
+            String size = "";
+            if (arguments.size() == 1) {
+                size = arguments.get(0).toSourceCode();
+            }
+            nodeBuilder.metadata().addData("memory",
+                    new MemoryManagerData(newExpr.typeDescriptor().toSourceCode(), size));
+        }
+
+        ModelData modelUrl = getModelIconUrl(modelArg);
+        if (modelUrl != null) {
+            nodeBuilder.metadata().addData("model", modelUrl);
+        }
+    }
+
+    private boolean isClassField(ExpressionNode expr) {
+        if (expr.kind() == SyntaxKind.FIELD_ACCESS) {
+            return ((FieldAccessExpressionNode) expr).expression().toSourceCode().trim().equals("self");
+        }
+        return false;
+    }
+
+    private ServiceDeclarationNode getParentServiceDeclaration(NonTerminalNode node) {
+        NonTerminalNode currentNode = node;
+        while (currentNode != null && currentNode.kind() != SyntaxKind.SERVICE_DECLARATION) {
+            currentNode = currentNode.parent();
+        }
+        if (currentNode == null) {
+            throw new IllegalStateException("Service declaration not found");
+        }
+        return (ServiceDeclarationNode) currentNode;
+    }
+
+    private void setFunctionProperties(String functionName, ExpressionNode expressionNode,
+                                       RemoteMethodCallActionNode remoteMethodCallActionNode,
+                                       MethodSymbol functionSymbol, String objName) {
         FunctionDataBuilder functionDataBuilder = new FunctionDataBuilder()
                 .name(functionName)
                 .functionSymbol(functionSymbol)
@@ -333,134 +503,17 @@ class CodeAnalyzer extends NodeVisitor {
         nodeBuilder
                 .symbolInfo(functionSymbol)
                 .metadata()
-                    .label(functionName)
-                    .description(functionData.description())
-                    .stepOut()
+                .label(functionName)
+                .description(functionData.description())
+                .stepOut()
                 .codedata()
-                    .nodeInfo(remoteMethodCallActionNode)
-                    .object(classSymbol.get().getName().orElse(""))
-                    .symbol(functionName)
-                    .stepOut()
+                .nodeInfo(remoteMethodCallActionNode)
+                .object(objName)
+                .symbol(functionName)
+                .stepOut()
                 .properties().callConnection(expressionNode, Property.CONNECTION_KEY);
         processFunctionSymbol(remoteMethodCallActionNode, remoteMethodCallActionNode.arguments(), functionSymbol,
                 functionData);
-
-        String expr = expressionNode.toSourceCode();
-        if (isAgentCall(classSymbol.get())) {
-            // TODO: Refactor this logic
-            for (Symbol moduleSymbol : semanticModel.moduleSymbols()) {
-                if (moduleSymbol.kind() != SymbolKind.VARIABLE) {
-                    continue;
-                }
-                VariableSymbol variableSymbol = (VariableSymbol) moduleSymbol;
-                if (!variableSymbol.getName().orElseThrow().equals(expr)) {
-                    continue;
-                }
-                Optional<Location> optLocation = variableSymbol.getLocation();
-                if (optLocation.isEmpty()) {
-                    throw new IllegalStateException("Location not found for the variable symbol: " + variableSymbol);
-                }
-                NonTerminalNode parent = CommonUtil.findNode(variableSymbol, CommonUtils.getDocument(project,
-                        optLocation.get()).syntaxTree()).get().parent().parent();
-                if (parent.kind() != SyntaxKind.MODULE_VAR_DECL) {
-                    throw new IllegalStateException("Parent is not a module variable declaration: " + parent);
-                }
-                ModuleVariableDeclarationNode moduleVariableDeclarationNode = (ModuleVariableDeclarationNode) parent;
-                Optional<ExpressionNode> optInitializer = moduleVariableDeclarationNode.initializer();
-                if (optInitializer.isEmpty()) {
-                    throw new IllegalStateException("Initializer not found for the module variable declaration: " +
-                            moduleVariableDeclarationNode);
-                }
-                ImplicitNewExpressionNode newExpressionNode = getNewExpr(optInitializer.get());
-                Optional<ParenthesizedArgList> argList = newExpressionNode.parenthesizedArgList();
-                if (argList.isEmpty()) {
-                    throw new IllegalStateException("ParenthesizedArgList not found for the new expression: " +
-                            newExpressionNode);
-                }
-                ExpressionNode toolsArg = null;
-                ExpressionNode modelArg = null;
-                ExpressionNode systemPromptArg = null;
-                ExpressionNode memory = null;
-                for (FunctionArgumentNode arg : argList.get().arguments()) {
-                    if (arg.kind() == SyntaxKind.NAMED_ARG) {
-                        NamedArgumentNode namedArgumentNode = (NamedArgumentNode) arg;
-                        if (namedArgumentNode.argumentName().name().text().equals("tools")) {
-                            toolsArg = namedArgumentNode.expression();
-                        } else if (namedArgumentNode.argumentName().name().text().equals("model")) {
-                            modelArg = namedArgumentNode.expression();
-                        } else if (namedArgumentNode.argumentName().name().text().equals("systemPrompt")) {
-                            systemPromptArg = namedArgumentNode.expression();
-                        } else if (namedArgumentNode.argumentName().name().text().equals("memory")) {
-                            memory = namedArgumentNode.expression();
-                        }
-                    }
-                }
-                if (toolsArg == null) {
-                    throw new IllegalStateException("Tools argument not found for the new expression: " +
-                            newExpressionNode);
-                }
-                if (modelArg == null) {
-                    throw new IllegalStateException("Model argument not found for the new expression: " +
-                            newExpressionNode);
-                }
-                if (systemPromptArg == null) {
-                    throw new IllegalStateException("SystemPrompt argument not found for the new expression: " +
-                            newExpressionNode);
-                }
-
-                if (toolsArg.kind() == SyntaxKind.LIST_CONSTRUCTOR) {
-                    List<ToolData> toolsData = new ArrayList<>();
-                    ListConstructorExpressionNode listCtrExprNode = (ListConstructorExpressionNode) toolsArg;
-                    for (Node node : listCtrExprNode.expressions()) {
-                        if (node.kind() != SyntaxKind.SIMPLE_NAME_REFERENCE) {
-                            continue;
-                        }
-                        SimpleNameReferenceNode simpleNameReferenceNode = (SimpleNameReferenceNode) node;
-                        String toolName = simpleNameReferenceNode.name().text();
-                        toolsData.add(new ToolData(toolName, getIcon(toolName), getToolDescription(toolName)));
-                    }
-                    nodeBuilder.metadata().addData("tools", toolsData);
-                }
-
-                if (systemPromptArg.kind() == SyntaxKind.MAPPING_CONSTRUCTOR) {
-                    MappingConstructorExpressionNode mappingCtrExprNode =
-                            (MappingConstructorExpressionNode) systemPromptArg;
-                    SeparatedNodeList<MappingFieldNode> fields = mappingCtrExprNode.fields();
-                    Map<String, String> agentData = new HashMap<>();
-                    for (MappingFieldNode field : fields) {
-                        SyntaxKind kind = field.kind();
-                        if (kind != SyntaxKind.SPECIFIC_FIELD) {
-                            continue;
-                        }
-                        SpecificFieldNode specificFieldNode = (SpecificFieldNode) field;
-                        agentData.put(specificFieldNode.fieldName().toString().trim(),
-                                specificFieldNode.valueExpr().orElseThrow().toSourceCode());
-                    }
-                    nodeBuilder.metadata().addData("agent", agentData);
-                }
-
-                if (memory == null) {
-                    String defaultMemoryManagerName = getDefaultMemoryManagerName(classSymbol.get());
-                    nodeBuilder.metadata().addData("memory",
-                            new MemoryManagerData(defaultMemoryManagerName, "10"));
-                } else if (memory.kind() == SyntaxKind.EXPLICIT_NEW_EXPRESSION) {
-                    ExplicitNewExpressionNode newExpr = (ExplicitNewExpressionNode) memory;
-                    SeparatedNodeList<FunctionArgumentNode> arguments = newExpr.parenthesizedArgList().arguments();
-                    String size = "";
-                    if (arguments.size() == 1) {
-                        size = arguments.get(0).toSourceCode();
-                    }
-                    nodeBuilder.metadata().addData("memory",
-                            new MemoryManagerData(newExpr.typeDescriptor().toSourceCode(), size));
-                }
-
-                ModelData modelUrl = getModelIconUrl(modelArg);
-                if (modelUrl != null) {
-                    nodeBuilder.metadata().addData("model", modelUrl);
-                }
-                break;
-            }
-        }
     }
 
     private String getDefaultMemoryManagerName(ClassSymbol classSymbol) {
@@ -1668,25 +1721,33 @@ class CodeAnalyzer extends NodeVisitor {
     }
 
     private ModelData getModelIconUrl(ExpressionNode expressionNode) {
-        if (expressionNode.kind() != SyntaxKind.SIMPLE_NAME_REFERENCE) {
-            return null;
+        if (expressionNode.kind() == SyntaxKind.SIMPLE_NAME_REFERENCE) {
+            Optional<Symbol> optSymbol = semanticModel.symbol(expressionNode);
+            if (optSymbol.isEmpty()) {
+                return null;
+            }
+            Symbol symbol = optSymbol.get();
+            Optional<String> symbolName;
+            if (symbol.kind() == SymbolKind.VARIABLE) {
+                symbolName = ((VariableSymbol) symbol).typeDescriptor().getName();
+            } else if (symbol.kind() == SymbolKind.CLASS_FIELD) {
+                symbolName = ((ClassFieldSymbol) symbol).typeDescriptor().getName();
+            } else {
+                return null;
+            }
+
+            Optional<ModuleSymbol> optModule = symbol.getModule();
+            if (optModule.isEmpty()) {
+                return null;
+            }
+            ModuleID id = optModule.get().id();
+            return new ModelData(optSymbol.get().getName().orElseThrow(),
+                    CommonUtils.generateIcon(id.moduleName(), id.packageName(), id.version()), symbolName.orElse(""));
+        } else if (expressionNode.kind() == SyntaxKind.FIELD_ACCESS) {
+            FieldAccessExpressionNode fieldAccessExpressionNode = (FieldAccessExpressionNode) expressionNode;
+            return getModelIconUrl(fieldAccessExpressionNode.fieldName());
         }
-        Optional<Symbol> optSymbol = semanticModel.symbol(expressionNode);
-        if (optSymbol.isEmpty()) {
-            return null;
-        }
-        Symbol symbol = optSymbol.get();
-        if (symbol.kind() != SymbolKind.VARIABLE) {
-            return null;
-        }
-        Optional<ModuleSymbol> optModule = optSymbol.get().getModule();
-        if (optModule.isEmpty()) {
-            return null;
-        }
-        ModuleID id = optModule.get().id();
-        return new ModelData(optSymbol.get().getName().orElseThrow(),
-                CommonUtils.generateIcon(id.moduleName(), id.packageName(), id.version()),
-                ((VariableSymbol) symbol).typeDescriptor().getName().orElse(""));
+        return null;
     }
 
     private static String getIdentifierName(NameReferenceNode nameReferenceNode) {
