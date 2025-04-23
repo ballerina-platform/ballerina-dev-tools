@@ -358,14 +358,16 @@ class CodeAnalyzer extends NodeVisitor {
                     }
                     Optional<Location> optLocation = variableSymbol.getLocation();
                     if (optLocation.isEmpty()) {
-                        throw new IllegalStateException("Location not found for the variable symbol: " + variableSymbol);
+                        throw new IllegalStateException("Location not found for the variable symbol: " +
+                                variableSymbol);
                     }
                     NonTerminalNode parent = CommonUtil.findNode(variableSymbol, CommonUtils.getDocument(project,
                             optLocation.get()).syntaxTree()).get().parent().parent();
                     if (parent.kind() != SyntaxKind.MODULE_VAR_DECL) {
                         throw new IllegalStateException("Parent is not a module variable declaration: " + parent);
                     }
-                    ModuleVariableDeclarationNode moduleVariableDeclarationNode = (ModuleVariableDeclarationNode) parent;
+                    ModuleVariableDeclarationNode moduleVariableDeclarationNode =
+                            (ModuleVariableDeclarationNode) parent;
                     Optional<ExpressionNode> optInitializer = moduleVariableDeclarationNode.initializer();
                     if (optInitializer.isEmpty()) {
                         throw new IllegalStateException("Initializer not found for the module variable declaration: " +
