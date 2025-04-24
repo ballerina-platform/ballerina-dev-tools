@@ -59,7 +59,7 @@ public class ServiceFieldNodesTest extends AbstractLSTest {
         if (!fileNameEquality || !flowEquality) {
             TestConfig updateConfig = new TestConfig(testConfig.source(), testConfig.linePosition(),
                     testConfig.description(), modifiedDiagram);
-            updateConfig(configJsonPath, updateConfig);
+//            updateConfig(configJsonPath, updateConfig);
             compareJsonElements(response, testConfig.flowModel());
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
