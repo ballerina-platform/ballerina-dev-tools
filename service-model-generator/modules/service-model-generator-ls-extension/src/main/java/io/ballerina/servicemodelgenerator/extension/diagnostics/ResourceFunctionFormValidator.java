@@ -397,7 +397,7 @@ public class ResourceFunctionFormValidator {
         return true;
     }
 
-    private boolean validIdentifier(IdentifierValidator validator, String identifier,
+    public static boolean validIdentifier(IdentifierValidator validator, String identifier,
                                     List<Diagnostics.Info> diagnostics) {
         if (!validator.isValidIdentifier(identifier)) {
             diagnostics.add(new Diagnostics.Info(DiagnosticSeverity.ERROR, validator.getErrorMessage()));

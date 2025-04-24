@@ -19,8 +19,13 @@
 package io.ballerina.servicemodelgenerator.extension;
 
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.modelgenerator.commons.PackageUtil;
 import io.ballerina.projects.Document;
-import io.ballerina.servicemodelgenerator.extension.diagnostics.DiagnosticsHandler;
+import io.ballerina.projects.Module;
+import io.ballerina.projects.ModuleId;
+import io.ballerina.projects.ModuleName;
+import io.ballerina.projects.Package;
+import io.ballerina.projects.Project;
 import io.ballerina.servicemodelgenerator.extension.diagnostics.ResourceFunctionFormValidator;
 import io.ballerina.servicemodelgenerator.extension.model.Diagnostics;
 import org.ballerinalang.langserver.BallerinaLanguageServer;
@@ -30,8 +35,6 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -44,11 +47,11 @@ import java.util.Set;
 import static io.ballerina.servicemodelgenerator.extension.diagnostics.ResourceFunctionFormValidator.Context.ADD_RESOURCE;
 
 /**
- * Test class to validate util methods in the DiagnosticsHandler.
+ * Test class use to test the functionality of the resource path validation.
  *
  * @since 2.3.0
  */
-public class DiagnosticsHandlerTests {
+public class ResourcePathDiagnosticsTests {
 
     private ResourceFunctionFormValidator validator;
     private Method validateResourcePath;
@@ -59,15 +62,19 @@ public class DiagnosticsHandlerTests {
                 .resolve("source").toAbsolutePath();
         WorkspaceManager workspaceManager = new BallerinaLanguageServer().getWorkspaceManager();
         Path projectPath = sourceDir.resolve("sample1");
-        workspaceManager.loadProject(projectPath);
-        Optional<SemanticModel> semanticModel = workspaceManager.semanticModel(projectPath);
+        Project project = workspaceManager.loadProject(projectPath);
+
+        Package currentPackage = project.currentPackage();
+        Module module = currentPackage.module(ModuleName.from(currentPackage.packageName()));
+        ModuleId moduleId = module.moduleId();
+        SemanticModel semanticModel = PackageUtil.getCompilation(currentPackage).getSemanticModel(moduleId);
 
         Path mainBal = projectPath.resolve("main.bal");
         Optional<Document> document = workspaceManager.document(mainBal);
-        if (semanticModel.isEmpty() || document.isEmpty()) {
+        if (document.isEmpty()) {
             throw new Exception("Unable to get the semantic model or document");
         }
-        this.validator = new ResourceFunctionFormValidator(ADD_RESOURCE, semanticModel.get(), document.get());
+        this.validator = new ResourceFunctionFormValidator(ADD_RESOURCE, semanticModel, document.get());
 
         this.validateResourcePath = ResourceFunctionFormValidator.class.getDeclaredMethod("validateResourcePath",
                 String.class, List.class, Set.class);

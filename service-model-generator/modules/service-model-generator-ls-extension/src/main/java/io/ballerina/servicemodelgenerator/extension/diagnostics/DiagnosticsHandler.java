@@ -37,9 +37,12 @@ import io.ballerina.projects.Package;
 import io.ballerina.projects.Project;
 import io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorService;
 import io.ballerina.servicemodelgenerator.extension.model.Codedata;
+import io.ballerina.servicemodelgenerator.extension.model.Service;
+import io.ballerina.servicemodelgenerator.extension.model.Value;
 import io.ballerina.servicemodelgenerator.extension.request.FunctionModifierRequest;
 import io.ballerina.servicemodelgenerator.extension.request.FunctionSourceRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ServiceDesignerDiagnosticRequest;
+import io.ballerina.servicemodelgenerator.extension.request.ServiceSourceRequest;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextRange;
@@ -48,6 +51,7 @@ import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 
 import java.nio.file.Path;
+import java.util.Objects;
 import java.util.Optional;
 
 import static io.ballerina.servicemodelgenerator.extension.diagnostics.ResourceFunctionFormValidator.Context.ADD_RESOURCE;
@@ -71,7 +75,14 @@ public class DiagnosticsHandler {
     public JsonElement getDiagnostics(ServiceDesignerDiagnosticRequest request) throws WorkspaceDocumentException,
             EventSyncException {
         switch (request.operation()) {
-            // TODO: implement addService and updateService
+            case "addService" -> {
+                ServiceSourceRequest serviceRequest = gson.fromJson(request.request(), ServiceSourceRequest.class);
+                Service service = serviceRequest.service();
+                if ("http".equals(service.getType()) && Objects.nonNull(service.getOpenAPISpec())) {
+                    Value basePath = service.getBasePath();
+                    Value stringLiteral = service.getStringLiteralProperty();
+                }
+            }
             case "addResource" -> {
                 FunctionSourceRequest function = gson.fromJson(request.request(), FunctionSourceRequest.class);
                 Path filePath = Path.of(function.filePath());

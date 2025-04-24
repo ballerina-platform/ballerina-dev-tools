@@ -26,7 +26,7 @@ public class IdentifierValidator {
     }
 
     private boolean parseQuotedIdentifier(String input) {
-        if (input.length() < 2 || input.charAt(input.length() - 1) != '\'') {
+        if (input.length() < 2 || input.charAt(input.length() - 1) == '\'') {
             return false;
         }
 

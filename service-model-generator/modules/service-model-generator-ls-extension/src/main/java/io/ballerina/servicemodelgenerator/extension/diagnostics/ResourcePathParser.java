@@ -70,7 +70,7 @@ public class ResourcePathParser {
         return result;
     }
 
-    private static List<SegmentPart> splitSegments(String input) {
+    public static List<SegmentPart> splitSegments(String input) {
         List<SegmentPart> segments = new ArrayList<>();
         int start = 0;
         int current = 0;
@@ -330,7 +330,7 @@ public class ResourcePathParser {
         }
     }
 
-    private record SegmentPart(String value, int start, int end) {
+    public record SegmentPart(String value, int start, int end) {
     }
 
     private record Token(String value, int start, int end) {
