@@ -26,6 +26,7 @@ import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.model.types.TypeKind;
 import org.eclipse.lsp4j.TextEdit;
@@ -54,7 +55,7 @@ public class AutomationBuilder extends FunctionDefinitionBuilder {
     public static final String RETURN_ERROR_LABEL = "Return Error";
     public static final String RETURN_ERROR_DOC = "Indicate if the automation should exit with error";
 
-    private static final String AUTOMATIONS_BAL = "automation.bal";
+    private static final String BALLERINA_LOG_MODULE = "log";
     private static final String DEFAULT_BODY =
             "do {\n} on fail error e {\n  log:printError(\"Error occurred\", 'error=e);\n   return e;\n}";
     private static final List<String> TYPE_CONSTRAINT = List.of(
@@ -161,11 +162,11 @@ public class AutomationBuilder extends FunctionDefinitionBuilder {
             sourceBuilder.token().openBrace();
             if (hasReturnError) {
                 sourceBuilder.token().name(DEFAULT_BODY);
+                sourceBuilder.acceptImport(CommonUtils.BALLERINA_ORG_NAME, BALLERINA_LOG_MODULE);
             }
             sourceBuilder.token().closeBrace()
                     .stepOut()
                     .textEdit(SourceBuilder.SourceKind.DECLARATION);
-            sourceBuilder.acceptImport("ballerina", "log");
         } else {
             sourceBuilder
                     .token().skipFormatting().stepOut()
