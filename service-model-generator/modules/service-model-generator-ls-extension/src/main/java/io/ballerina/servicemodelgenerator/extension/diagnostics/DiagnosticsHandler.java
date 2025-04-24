@@ -22,11 +22,22 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
+import io.ballerina.compiler.syntax.tree.ServiceDeclarationNode;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
+import io.ballerina.modelgenerator.commons.PackageUtil;
 import io.ballerina.projects.Document;
+import io.ballerina.projects.Module;
+import io.ballerina.projects.ModuleId;
+import io.ballerina.projects.ModuleName;
+import io.ballerina.projects.Package;
+import io.ballerina.projects.Project;
+import io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorService;
 import io.ballerina.servicemodelgenerator.extension.model.Codedata;
+import io.ballerina.servicemodelgenerator.extension.request.FunctionModifierRequest;
 import io.ballerina.servicemodelgenerator.extension.request.FunctionSourceRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ServiceDesignerDiagnosticRequest;
 import io.ballerina.tools.text.LineRange;
@@ -35,6 +46,9 @@ import io.ballerina.tools.text.TextRange;
 import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
+
+import java.nio.file.Path;
+import java.util.Optional;
 
 import static io.ballerina.servicemodelgenerator.extension.diagnostics.ResourceFunctionFormValidator.Context.ADD_RESOURCE;
 import static io.ballerina.servicemodelgenerator.extension.diagnostics.ResourceFunctionFormValidator.Context.UPDATE_RESOURCE;
@@ -57,14 +71,59 @@ public class DiagnosticsHandler {
     public JsonElement getDiagnostics(ServiceDesignerDiagnosticRequest request) throws WorkspaceDocumentException,
             EventSyncException {
         switch (request.operation()) {
+            // TODO: implement addService and updateService
             case "addResource" -> {
                 FunctionSourceRequest function = gson.fromJson(request.request(), FunctionSourceRequest.class);
-                new ResourceFunctionFormValidator(workspaceManager, ADD_RESOURCE).validate(function);
+                Path filePath = Path.of(function.filePath());
+                Project project = this.workspaceManager.loadProject(filePath);
+                Optional<Document> document = this.workspaceManager.document(filePath);
+                if (document.isEmpty()) {
+                    return request.request();
+                }
+
+                Package currentPackage = project.currentPackage();
+                Module module = currentPackage.module(ModuleName.from(currentPackage.packageName()));
+                ModuleId moduleId = module.moduleId();
+                SemanticModel semanticModel = PackageUtil.getCompilation(currentPackage).getSemanticModel(moduleId);
+
+                new ResourceFunctionFormValidator(ADD_RESOURCE, semanticModel, document.get()).validate(
+                        function.function(), function.codedata());
                 return gson.toJsonTree(function);
             }
             case "updateFunction" -> {
-                FunctionSourceRequest function = gson.fromJson(request.request(), FunctionSourceRequest.class);
-                new ResourceFunctionFormValidator(workspaceManager, UPDATE_RESOURCE).validate(function);
+                FunctionModifierRequest function = gson.fromJson(request.request(), FunctionModifierRequest.class);
+                Path filePath = Path.of(function.filePath());
+                Project project = this.workspaceManager.loadProject(filePath);
+                Optional<Document> document = this.workspaceManager.document(filePath);
+                if (document.isEmpty()) {
+                    return request.request();
+                }
+                NonTerminalNode node = findNonTerminalNode(function.function().getCodedata(), document.get());
+                if (!(node instanceof FunctionDefinitionNode functionDefinitionNode)) {
+                    return request.request();
+                }
+
+                Package currentPackage = project.currentPackage();
+                Module module = currentPackage.module(ModuleName.from(currentPackage.packageName()));
+                ModuleId moduleId = module.moduleId();
+                SemanticModel semanticModel = PackageUtil.getCompilation(currentPackage).getSemanticModel(moduleId);
+
+                while (!(node instanceof ServiceDeclarationNode serviceDeclarationNode)) {
+                    if (node == null) {
+                        return request.request();
+                    }
+                    node = node.parent();
+                }
+
+                ServiceModelGeneratorService.ModuleAndServiceType moduleAndServiceType = ServiceModelGeneratorService.
+                        deriveServiceType(serviceDeclarationNode, semanticModel);
+
+                if ("http".equals(moduleAndServiceType.moduleName())
+                        && "Service".equals(moduleAndServiceType.serviceType())) {
+                    new ResourceFunctionFormValidator(UPDATE_RESOURCE, semanticModel, document.get()).validate(
+                            function.function(), function.function().getCodedata()
+                    );
+                }
                 return gson.toJsonTree(function);
             }
         }

@@ -34,20 +34,16 @@ import io.ballerina.compiler.syntax.tree.ServiceDeclarationNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.Token;
 import io.ballerina.projects.Document;
+import io.ballerina.servicemodelgenerator.extension.model.Codedata;
 import io.ballerina.servicemodelgenerator.extension.model.Diagnostics;
 import io.ballerina.servicemodelgenerator.extension.model.Function;
 import io.ballerina.servicemodelgenerator.extension.model.FunctionReturnType;
 import io.ballerina.servicemodelgenerator.extension.model.HttpResponse;
 import io.ballerina.servicemodelgenerator.extension.model.Parameter;
 import io.ballerina.servicemodelgenerator.extension.model.Value;
-import io.ballerina.servicemodelgenerator.extension.request.FunctionSourceRequest;
 import io.ballerina.servicemodelgenerator.extension.util.Utils;
 import io.ballerina.tools.diagnostics.DiagnosticSeverity;
-import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
-import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
-import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -61,10 +57,9 @@ import static io.ballerina.servicemodelgenerator.extension.diagnostics.ReservedK
 
 public class ResourceFunctionFormValidator {
 
-    private final WorkspaceManager workspaceManager;
     private final Context ctx;
-    private SemanticModel semanticModel;
-    private Document document;
+    private final SemanticModel semanticModel;
+    private final Document document;
     private TypeSymbol basicType;
     private TypeSymbol queryTypeConstrain;
     private TypeSymbol headerBasicType;
@@ -74,9 +69,11 @@ public class ResourceFunctionFormValidator {
     private boolean isConstAndEnumsLoaded = false;
     private final IdentifierValidator identifierValidator = new IdentifierValidator();
 
-    public ResourceFunctionFormValidator(WorkspaceManager workspaceManager, Context ctx) {
-        this.workspaceManager = workspaceManager;
+    public ResourceFunctionFormValidator(Context ctx, SemanticModel semanticModel, Document document) {
         this.ctx = ctx;
+        this.semanticModel = semanticModel;
+        this.document = document;
+        initBasicTypes();
     }
 
     public enum Context {
@@ -116,23 +113,7 @@ public class ResourceFunctionFormValidator {
         isConstAndEnumsLoaded = true;
     }
 
-    public void validate(FunctionSourceRequest funcRequest) throws WorkspaceDocumentException,
-            EventSyncException {
-        Path filePath = Path.of(funcRequest.filePath());
-        workspaceManager.loadProject(filePath);
-        Optional<Document> doc = workspaceManager.document(filePath);
-        Optional<SemanticModel> optionalSemanticModel = workspaceManager.semanticModel(filePath);
-        if (doc.isEmpty() || optionalSemanticModel.isEmpty()) {
-            return;
-        }
-
-        document = doc.get();
-        semanticModel = optionalSemanticModel.get();
-        initBasicTypes();
-
-        // Validations required
-        Function function = funcRequest.function();
-
+    public void validate(Function function, Codedata codedata) {
         String accessor = function.getAccessor().getValue().toLowerCase(Locale.ROOT);
 
         String resourceName = function.getName().getValue();
@@ -144,7 +125,7 @@ public class ResourceFunctionFormValidator {
         }
 
         // validate the uniqueness of the resource path
-        NonTerminalNode node = findNonTerminalNode(funcRequest.codedata(), document);
+        NonTerminalNode node = findNonTerminalNode(codedata, document);
         if (node.kind() != SyntaxKind.SERVICE_DECLARATION) {
             return;
         }

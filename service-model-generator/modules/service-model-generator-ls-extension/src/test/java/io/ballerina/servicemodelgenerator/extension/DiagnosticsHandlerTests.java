@@ -60,7 +60,6 @@ public class DiagnosticsHandlerTests {
         WorkspaceManager workspaceManager = new BallerinaLanguageServer().getWorkspaceManager();
         Path projectPath = sourceDir.resolve("sample1");
         workspaceManager.loadProject(projectPath);
-        this.validator = new ResourceFunctionFormValidator(workspaceManager, ADD_RESOURCE);
         Optional<SemanticModel> semanticModel = workspaceManager.semanticModel(projectPath);
 
         Path mainBal = projectPath.resolve("main.bal");
@@ -68,17 +67,7 @@ public class DiagnosticsHandlerTests {
         if (semanticModel.isEmpty() || document.isEmpty()) {
             throw new Exception("Unable to get the semantic model or document");
         }
-        Field semanticModelField = ResourceFunctionFormValidator.class.getDeclaredField("semanticModel");
-        semanticModelField.setAccessible(true);
-        semanticModelField.set(validator, semanticModel.get());
-
-        Field documentField = ResourceFunctionFormValidator.class.getDeclaredField("document");
-        documentField.setAccessible(true);
-        documentField.set(validator, document.get());
-
-        Method initBasicTypes = ResourceFunctionFormValidator.class.getDeclaredMethod("initBasicTypes");
-        initBasicTypes.setAccessible(true);
-        initBasicTypes.invoke(validator);
+        this.validator = new ResourceFunctionFormValidator(ADD_RESOURCE, semanticModel.get(), document.get());
 
         this.validateResourcePath = ResourceFunctionFormValidator.class.getDeclaredMethod("validateResourcePath",
                 String.class, List.class, Set.class);

@@ -84,14 +84,25 @@ public class ServiceDesignerDiagnosticsTest extends AbstractLSTest {
 
     private JsonElement composeRequest(TestConfig config) {
         switch (config.operation()) {
-            case "updateFunction", "addFunction", "addResource" -> {
+            case "addFunction", "addResource" -> {
                 return composeFunctionSourceRequest(config);
+            }
+            case "updateFunction" -> {
+                return composeFunctionModifierRequest(config);
             }
             default -> {
                 return new JsonObject();
             }
 
         }
+    }
+
+    private JsonElement composeFunctionModifierRequest(TestConfig testConfig) {
+        JsonObject jsonMap = new JsonObject();
+        Path filePath = sourceDir.resolve(testConfig.filePath());
+        jsonMap.addProperty("filePath", filePath.toAbsolutePath().toString());
+        jsonMap.add("function", testConfig.requestModel());
+        return jsonMap;
     }
 
     private JsonElement composeFunctionSourceRequest(TestConfig config) {
