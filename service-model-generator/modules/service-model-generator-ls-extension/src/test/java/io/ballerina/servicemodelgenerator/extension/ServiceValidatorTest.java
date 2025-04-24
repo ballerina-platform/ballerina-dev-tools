@@ -19,6 +19,7 @@
 package io.ballerina.servicemodelgenerator.extension;
 
 import io.ballerina.servicemodelgenerator.extension.diagnostics.ServiceValidator;
+import io.ballerina.servicemodelgenerator.extension.model.Diagnostics;
 import io.ballerina.servicemodelgenerator.extension.model.Value;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -56,5 +57,89 @@ public class ServiceValidatorTest {
         value = new Value.ValueBuilder().value(path).build();
         isValid = ServiceValidator.validHttpBasePath(value, "http");
         Assert.assertTrue(isValid);
+
+        path = "\"\"";
+        value = new Value.ValueBuilder().value(path).build();
+        isValid = ServiceValidator.validHttpBasePath(value, "http");
+        Assert.assertTrue(isValid);
+    }
+
+    @Test
+    public void testUsageOfReservedKeyword() {
+        String path = "/from";
+        Value value = new Value.ValueBuilder().value(path).build();
+        boolean isValid = ServiceValidator.validHttpBasePath(value, "http");
+        Assert.assertFalse(isValid);
+        Diagnostics diagnostics = value.getDiagnostics();
+        Assert.assertEquals(diagnostics.diagnostics().size(), 1);
+        Assert.assertEquals(diagnostics.diagnostics().getFirst().message(), "usage of reserved keyword: 'from'");
+    }
+
+    @Test
+    public void testEmptyBasePath() {
+        String path = "";
+        Value value = new Value.ValueBuilder().value(path).build();
+        boolean isValid = ServiceValidator.validHttpBasePath(value, "http");
+        Assert.assertFalse(isValid);
+        Diagnostics diagnostics = value.getDiagnostics();
+        Assert.assertEquals(diagnostics.diagnostics().size(), 1);
+        Assert.assertEquals(diagnostics.diagnostics().getFirst().message(), "base path cannot be empty");
+    }
+
+    @Test
+    public void testBasePathStartWithoutSlash() {
+        String path = "foo";
+        Value value = new Value.ValueBuilder().value(path).build();
+        boolean isValid = ServiceValidator.validHttpBasePath(value, "http");
+        Assert.assertFalse(isValid);
+        Diagnostics diagnostics = value.getDiagnostics();
+        Assert.assertEquals(diagnostics.diagnostics().size(), 1);
+        Assert.assertEquals(diagnostics.diagnostics().getFirst().message(), "base path should start with '/'");
+    }
+
+    @Test
+    public void testInvalidStringLiteral() {
+        String path = "\"";
+        Value value = new Value.ValueBuilder().value(path).build();
+        boolean isValid = ServiceValidator.validHttpBasePath(value, "http");
+        Assert.assertFalse(isValid);
+        Diagnostics diagnostics = value.getDiagnostics();
+        Assert.assertEquals(diagnostics.diagnostics().size(), 1);
+        Assert.assertEquals(diagnostics.diagnostics().getFirst().message(), "base path should end with '\"'");
+
+        path = "\"hello";
+        value = new Value.ValueBuilder().value(path).build();
+        isValid = ServiceValidator.validHttpBasePath(value, "http");
+        Assert.assertFalse(isValid);
+        diagnostics = value.getDiagnostics();
+        Assert.assertEquals(diagnostics.diagnostics().size(), 1);
+        Assert.assertEquals(diagnostics.diagnostics().getFirst().message(), "base path should end with '\"'");
+
+        path = "\"he\"llo\"";
+        value = new Value.ValueBuilder().value(path).build();
+        isValid = ServiceValidator.validHttpBasePath(value, "http");
+        Assert.assertFalse(isValid);
+        diagnostics = value.getDiagnostics();
+        Assert.assertEquals(diagnostics.diagnostics().size(), 1);
+        Assert.assertEquals(diagnostics.diagnostics().getFirst().message(),
+                "base path should not contain unescaped double quotes");
+
+        path = "\"he\\ llo\"";
+        value = new Value.ValueBuilder().value(path).build();
+        isValid = ServiceValidator.validHttpBasePath(value, "http");
+        Assert.assertFalse(isValid);
+        diagnostics = value.getDiagnostics();
+        Assert.assertEquals(diagnostics.diagnostics().size(), 1);
+        Assert.assertEquals(diagnostics.diagnostics().getFirst().message(),
+                "double quote should be followed by an escape character");
+
+        path = "\"he\\\"";
+        value = new Value.ValueBuilder().value(path).build();
+        isValid = ServiceValidator.validHttpBasePath(value, "http");
+        Assert.assertFalse(isValid);
+        diagnostics = value.getDiagnostics();
+        Assert.assertEquals(diagnostics.diagnostics().size(), 1);
+        Assert.assertEquals(diagnostics.diagnostics().getFirst().message(),
+                "double quote should be followed by an escape character");
     }
 }

@@ -34,6 +34,10 @@ import java.util.List;
 public class ServiceValidator {
 
     public static boolean validHttpBasePath(@NonNull Value basePath, String type) {
+        if (type.equals("http") || type.equals("graphql")) {
+            return true;
+        }
+
         String basePathValue = basePath.getValue();
         List<Diagnostics.Info> diagnostics = new ArrayList<>();
 
@@ -44,7 +48,7 @@ public class ServiceValidator {
         }
 
         if (basePathValue.startsWith("\"")) {
-            if (!basePathValue.endsWith("\"")) {
+            if (!basePathValue.endsWith("\"") || basePathValue.length() == 1) {
                 diagnostics.add(new Diagnostics.Info(DiagnosticSeverity.ERROR, "base path should end with '\"'"));
                 basePath.setDiagnostics(new Diagnostics(true, diagnostics));
                 return false;
@@ -54,7 +58,7 @@ public class ServiceValidator {
             for (int i = 0; i < content.length(); i++) {
                 char c = content.charAt(i);
                 if (c == '\\') {
-                    // get the next char if exist and report is its not a double quote
+                    // get the next char if exist and report is it's not a double quote
                     if (i + 1 < content.length()) {
                         char nextChar = content.charAt(i + 1);
                         if (nextChar != '\"') {

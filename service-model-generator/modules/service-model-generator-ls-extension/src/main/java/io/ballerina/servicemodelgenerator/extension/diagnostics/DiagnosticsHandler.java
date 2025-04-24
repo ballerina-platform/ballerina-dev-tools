@@ -80,8 +80,15 @@ public class DiagnosticsHandler {
                 Service service = serviceRequest.service();
                 if ("http".equals(service.getType()) && Objects.nonNull(service.getOpenAPISpec())) {
                     Value basePath = service.getBasePath();
+                    if (Objects.nonNull(basePath) && basePath.isEnabledWithValue()) {
+                        ServiceValidator.validHttpBasePath(basePath, service.getType());
+                    }
                     Value stringLiteral = service.getStringLiteralProperty();
+                    if (Objects.nonNull(stringLiteral) && stringLiteral.isEnabledWithValue()) {
+                        ServiceValidator.validHttpBasePath(stringLiteral, service.getType());
+                    }
                 }
+                return gson.toJsonTree(serviceRequest);
             }
             case "addResource" -> {
                 FunctionSourceRequest function = gson.fromJson(request.request(), FunctionSourceRequest.class);
