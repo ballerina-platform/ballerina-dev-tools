@@ -47,12 +47,19 @@ public class Constants {
         public static final String CONTEXT_LABEL = "Context";
         public static final String CONTEXT_DESCRIPTION = "Context for the function";
 
+        public static final String MODEL_PROVIDER = "model";
+        public static final String MODEL_PROVIDER_TYPE_NAME = "ModelProvider";
+        public static final String MODULE_PREFIXED_MODEL_PROVIDER_TYPE = "np:ModelProvider";
+        public static final String MODEL_PROVIDER_LABEL = "Model";
+        public static final String MODEL_PROVIDER_DESCRIPTION = "Model for the function";
+
         public static final String ENABLE_MODEL_CONTEXT = "enableModelContext";
-        public static final String ENABLE_MODEL_CONTEXT_LABEL = "Enable Model Context";
+        public static final String ENABLE_MODEL_CONTEXT_LABEL = "Enable model configuration";
         public static final String ENABLE_MODEL_CONTEXT_DESCRIPTION =
                 "Allow specifying Large Language Model (LLM) choice";
 
         public static final String BALLERINAX_ORG = "ballerinax";
+        public static final String BALLERINA_ORG = "ballerina";
         public static final String NP_PACKAGE = "np";
         public static final String NP_PACKAGE_WITH_ORG = BALLERINAX_ORG + "/" + NP_PACKAGE;
 
