@@ -18,13 +18,8 @@
 
 package io.ballerina.artifactsgenerator;
 
-import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.api.symbols.AnnotationAttachmentSymbol;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
-import io.ballerina.compiler.api.symbols.ExternalFunctionSymbol;
-import io.ballerina.compiler.api.symbols.FunctionSymbol;
-import io.ballerina.compiler.api.symbols.ModuleSymbol;
 import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
@@ -50,7 +45,6 @@ import io.ballerina.compiler.syntax.tree.TypeDefinitionNode;
 import io.ballerina.compiler.syntax.tree.TypeDescriptorNode;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
