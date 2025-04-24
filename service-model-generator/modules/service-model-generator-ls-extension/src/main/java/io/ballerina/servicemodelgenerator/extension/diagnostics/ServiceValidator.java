@@ -19,12 +19,14 @@
 package io.ballerina.servicemodelgenerator.extension.diagnostics;
 
 import io.ballerina.servicemodelgenerator.extension.model.Diagnostics;
+import io.ballerina.servicemodelgenerator.extension.model.Service;
 import io.ballerina.servicemodelgenerator.extension.model.Value;
 import io.ballerina.tools.diagnostics.DiagnosticSeverity;
 import org.eclipse.lsp4j.jsonrpc.validation.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Validate the service adding and updating.
@@ -32,6 +34,19 @@ import java.util.List;
  * @since 2.5.0
  */
 public class ServiceValidator {
+
+    protected static void validateBasePath(Service service) {
+        if ("http".equals(service.getType()) && Objects.nonNull(service.getOpenAPISpec())) {
+            Value basePath = service.getBasePath();
+            if (Objects.nonNull(basePath) && basePath.isEnabledWithValue()) {
+                ServiceValidator.validHttpBasePath(basePath, service.getType());
+            }
+            Value stringLiteral = service.getStringLiteralProperty();
+            if (Objects.nonNull(stringLiteral) && stringLiteral.isEnabledWithValue()) {
+                ServiceValidator.validHttpBasePath(stringLiteral, service.getType());
+            }
+        }
+    }
 
     public static boolean validHttpBasePath(@NonNull Value basePath, String type) {
         if (type.equals("http") || type.equals("graphql")) {

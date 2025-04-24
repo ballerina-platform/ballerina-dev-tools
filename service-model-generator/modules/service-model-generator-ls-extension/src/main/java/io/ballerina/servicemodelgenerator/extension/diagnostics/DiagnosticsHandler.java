@@ -42,6 +42,7 @@ import io.ballerina.servicemodelgenerator.extension.model.Value;
 import io.ballerina.servicemodelgenerator.extension.request.FunctionModifierRequest;
 import io.ballerina.servicemodelgenerator.extension.request.FunctionSourceRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ServiceDesignerDiagnosticRequest;
+import io.ballerina.servicemodelgenerator.extension.request.ServiceModifierRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ServiceSourceRequest;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
@@ -56,6 +57,7 @@ import java.util.Optional;
 
 import static io.ballerina.servicemodelgenerator.extension.diagnostics.ResourceFunctionFormValidator.Context.ADD_RESOURCE;
 import static io.ballerina.servicemodelgenerator.extension.diagnostics.ResourceFunctionFormValidator.Context.UPDATE_RESOURCE;
+import static io.ballerina.servicemodelgenerator.extension.diagnostics.ServiceValidator.validateBasePath;
 
 /**
  * Diagnostics handler for the service model generator.
@@ -77,17 +79,12 @@ public class DiagnosticsHandler {
         switch (request.operation()) {
             case "addService" -> {
                 ServiceSourceRequest serviceRequest = gson.fromJson(request.request(), ServiceSourceRequest.class);
-                Service service = serviceRequest.service();
-                if ("http".equals(service.getType()) && Objects.nonNull(service.getOpenAPISpec())) {
-                    Value basePath = service.getBasePath();
-                    if (Objects.nonNull(basePath) && basePath.isEnabledWithValue()) {
-                        ServiceValidator.validHttpBasePath(basePath, service.getType());
-                    }
-                    Value stringLiteral = service.getStringLiteralProperty();
-                    if (Objects.nonNull(stringLiteral) && stringLiteral.isEnabledWithValue()) {
-                        ServiceValidator.validHttpBasePath(stringLiteral, service.getType());
-                    }
-                }
+                validateBasePath(serviceRequest.service());
+                return gson.toJsonTree(serviceRequest);
+            }
+            case "updateService" -> {
+                ServiceModifierRequest serviceRequest = gson.fromJson(request.request(), ServiceModifierRequest.class);
+                validateBasePath(serviceRequest.service());
                 return gson.toJsonTree(serviceRequest);
             }
             case "addResource" -> {
