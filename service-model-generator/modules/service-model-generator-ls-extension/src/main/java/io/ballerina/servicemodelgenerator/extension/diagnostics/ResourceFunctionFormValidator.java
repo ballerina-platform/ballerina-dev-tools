@@ -113,7 +113,12 @@ public class ResourceFunctionFormValidator {
         isConstAndEnumsLoaded = true;
     }
 
-    public void validate(Function function, Codedata codedata) {
+    public void validate(Function function, ServiceDeclarationNode serviceDeclarationNode) {
+        validate(function, serviceDeclarationNode, null, null);
+    }
+
+    public void validate(Function function, ServiceDeclarationNode serviceDeclarationNode,
+                         FunctionDefinitionNode functionDefinitionNode, Codedata codedata) {
         String accessor = function.getAccessor().getValue().toLowerCase(Locale.ROOT);
 
         String resourceName = function.getName().getValue();
@@ -124,13 +129,8 @@ public class ResourceFunctionFormValidator {
             return;
         }
 
-        // validate the uniqueness of the resource path
-        NonTerminalNode node = findNonTerminalNode(codedata, document);
-        if (node.kind() != SyntaxKind.SERVICE_DECLARATION) {
-            return;
-        }
-
-        if (!uniqueResourcePath((ServiceDeclarationNode) node, resourceName, accessor, diagnostics)) {
+        if (!uniqueResourcePath(serviceDeclarationNode, resourceName, accessor, diagnostics, functionDefinitionNode,
+                codedata)) {
             return;
         }
 
@@ -200,10 +200,9 @@ public class ResourceFunctionFormValidator {
     }
 
     private boolean uniqueResourcePath(ServiceDeclarationNode node, String resourceName, String accessor,
-                              List<Diagnostics.Info> diagnostics) {
-        if (!ctx.equals(Context.ADD_RESOURCE)) {
-            return true;
-        }
+                                       List<Diagnostics.Info> diagnostics, FunctionDefinitionNode updatingFunc,
+                                       Codedata codedata) {
+        boolean isUpdateFunction = ctx == Context.UPDATE_RESOURCE;
 
         for (Node member: node.members()) {
             if (!(member instanceof FunctionDefinitionNode functionDefinitionNode)) {
@@ -213,6 +212,12 @@ public class ResourceFunctionFormValidator {
                     Qualifier.RESOURCE.getValue())) {
                 continue;
             }
+
+            if (isUpdateFunction && updatingFunc.lineRange().startLine().line() ==
+                    codedata.getLineRange().startLine().line()) {
+                continue;
+            }
+
             // check if another function exist with the same accessor and function name
             if (!(Utils.getPath(functionDefinitionNode.relativeResourcePath()).equals(resourceName) &&
                     functionDefinitionNode.functionName().text().trim().equals(accessor))) {

@@ -86,8 +86,13 @@ public class DiagnosticsHandler {
                 ModuleId moduleId = module.moduleId();
                 SemanticModel semanticModel = PackageUtil.getCompilation(currentPackage).getSemanticModel(moduleId);
 
+                NonTerminalNode node = findNonTerminalNode(function.codedata(), document.get());
+                if (!(node instanceof ServiceDeclarationNode serviceDeclarationNode)) {
+                    return request.request();
+                }
+
                 new ResourceFunctionFormValidator(ADD_RESOURCE, semanticModel, document.get()).validate(
-                        function.function(), function.codedata());
+                        function.function(), serviceDeclarationNode);
                 return gson.toJsonTree(function);
             }
             case "updateFunction" -> {
@@ -121,7 +126,8 @@ public class DiagnosticsHandler {
                 if ("http".equals(moduleAndServiceType.moduleName())
                         && "Service".equals(moduleAndServiceType.serviceType())) {
                     new ResourceFunctionFormValidator(UPDATE_RESOURCE, semanticModel, document.get()).validate(
-                            function.function(), function.function().getCodedata()
+                            function.function(), serviceDeclarationNode,
+                            functionDefinitionNode, function.function().getCodedata()
                     );
                 }
                 return gson.toJsonTree(function);
