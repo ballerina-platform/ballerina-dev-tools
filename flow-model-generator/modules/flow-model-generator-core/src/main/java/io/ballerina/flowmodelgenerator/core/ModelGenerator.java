@@ -96,7 +96,8 @@ public class ModelGenerator {
      *
      * @return JSON representation of the flow model
      */
-    public JsonElement getFlowModel(Document document, LineRange lineRange, Document dataMappingDoc) {
+    public JsonElement getFlowModel(Document document, LineRange lineRange, Document dataMappingDoc,
+                                    Document functionsDoc) {
         // Obtain the code block representing the canvas
         SyntaxTree syntaxTree = document.syntaxTree();
         ModulePartNode modulePartNode = syntaxTree.rootNode();
@@ -129,9 +130,22 @@ public class ModelGenerator {
             }
         }
 
+        // Obtain the natural function names
+        Map<String, LineRange> naturalFunctions = new HashMap<>();
+        if (functionsDoc != null) {
+            ModulePartNode functionsModulePartNode = functionsDoc.syntaxTree().rootNode();
+            for (ModuleMemberDeclarationNode member: functionsModulePartNode.members()) {
+                if (member.kind() == SyntaxKind.FUNCTION_DEFINITION
+                        && CommonUtils.isNaturalExpressionBodiedFunction((FunctionDefinitionNode) member)) {
+                    FunctionDefinitionNode functionDef = (FunctionDefinitionNode) member;
+                    naturalFunctions.put(functionDef.functionName().text(), functionDef.lineRange());
+                }
+            }
+        }
+
         // Analyze the code block to find the flow nodes
         CodeAnalyzer codeAnalyzer = new CodeAnalyzer(project, semanticModel, Property.LOCAL_SCOPE, dataMappings,
-                textDocument, ModuleInfo.from(document.module().descriptor()), true);
+                naturalFunctions, textDocument, ModuleInfo.from(document.module().descriptor()), true);
         canvasNode.accept(codeAnalyzer);
 
         // Generate the flow model
@@ -262,7 +276,7 @@ public class ModelGenerator {
         if (statementNode == null) {
             return Optional.empty();
         }
-        CodeAnalyzer codeAnalyzer = new CodeAnalyzer(project, semanticModel, scope, Map.of(),
+        CodeAnalyzer codeAnalyzer = new CodeAnalyzer(project, semanticModel, scope, Map.of(), Map.of(),
                 document.textDocument(), ModuleInfo.from(document.module().descriptor()), false);
         statementNode.accept(codeAnalyzer);
         List<FlowNode> connections = codeAnalyzer.getFlowNodes();

@@ -43,6 +43,9 @@ import io.ballerina.compiler.syntax.tree.BindingPatternNode;
 import io.ballerina.compiler.syntax.tree.BuiltinSimpleNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.ChildNodeList;
 import io.ballerina.compiler.syntax.tree.DoStatementNode;
+import io.ballerina.compiler.syntax.tree.ExpressionFunctionBodyNode;
+import io.ballerina.compiler.syntax.tree.FunctionBodyNode;
+import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.IdentifierToken;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.Node;
@@ -802,29 +805,22 @@ public class CommonUtils {
         return moduleId.orgName().equals(CommonUtils.BALLERINAX_ORG_NAME) && moduleId.packageName().equals("np");
     }
 
-    /**
-     * Check whether the particular function symbol is a NP function.
-     *
-     * @param functionSymbol Function symbol to evalute
-     * @return true if the function is a NP function, false otherwise
-     */
-    public static boolean isNpFunction(FunctionSymbol functionSymbol) {
-        if (CommonUtils.isNpModule(functionSymbol) && functionSymbol.getName().isPresent() &&
-                functionSymbol.getName().get().equals(CALL_LLM)) {
-            // `np:callLlm` function
-            return true;
-        }
-
-        if (!functionSymbol.external()) {
+    public static boolean isNaturalExpressionBodiedFunction(SyntaxTree syntaxTree, FunctionSymbol functionSymbol) {
+        if (functionSymbol.getLocation().isEmpty()) {
             return false;
         }
+        NonTerminalNode node = getNode(syntaxTree, functionSymbol.getLocation().get().textRange());
+        if (node.kind() != SyntaxKind.FUNCTION_DEFINITION) {
+            return false;
+        }
+        FunctionDefinitionNode functionDefNode = (FunctionDefinitionNode) node;
+        return isNaturalExpressionBodiedFunction(functionDefNode);
+    }
 
-        List<AnnotationAttachmentSymbol> annotAttachments =
-                ((ExternalFunctionSymbol) functionSymbol).annotAttachmentsOnExternal();
-        return annotAttachments.stream()
-                .anyMatch(annot ->
-                        isNpModule(annot.typeDescriptor()) &&
-                                annot.typeDescriptor().nameEquals(NATURAL_FUNCTION));
+    public static boolean isNaturalExpressionBodiedFunction(FunctionDefinitionNode functionDefNode) {
+        FunctionBodyNode functionBody = functionDefNode.functionBody();
+        return functionBody.kind() == SyntaxKind.EXPRESSION_FUNCTION_BODY
+                && ((ExpressionFunctionBodyNode) functionBody).expression().kind() == SyntaxKind.NATURAL_EXPRESSION;
     }
 
     public static String getClassType(String packageName, String clientName) {
