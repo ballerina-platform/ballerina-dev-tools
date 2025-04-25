@@ -1,6 +1,6 @@
 {
-  "source": "np.bal",
   "description": "",
+  "source": "np.bal",
   "output": {
     "Natural Functions": {
       "suggestMovieName2": {
@@ -13,7 +13,7 @@
           },
           "endLine": {
             "line": 35,
-            "offset": 55
+            "offset": 2
           }
         },
         "type": "NP_FUNCTION",
@@ -31,7 +31,7 @@
           },
           "endLine": {
             "line": 24,
-            "offset": 55
+            "offset": 2
           }
         },
         "type": "NP_FUNCTION",
@@ -39,8 +39,8 @@
         "scope": "Global",
         "children": {}
       },
-      "rateMovie": {
-        "id": "rateMovie",
+      "getMovieRating": {
+        "id": "getMovieRating",
         "location": {
           "fileName": "np.bal",
           "startLine": {
@@ -49,11 +49,11 @@
           },
           "endLine": {
             "line": 46,
-            "offset": 52
+            "offset": 2
           }
         },
         "type": "NP_FUNCTION",
-        "name": "rateMovie",
+        "name": "getMovieRating",
         "scope": "Global",
         "children": {}
       },
@@ -67,7 +67,7 @@
           },
           "endLine": {
             "line": 12,
-            "offset": 55
+            "offset": 2
           }
         },
         "type": "NP_FUNCTION",
