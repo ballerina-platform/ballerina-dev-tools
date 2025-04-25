@@ -45,7 +45,7 @@ public class TypeSymbolAnalyzerFromTypeModel {
     public static Type analyze(Symbol typeSymbol, String expr, SemanticModel semanticModel) {
         // Rest of your existing type processing logic
         ExpressionNode expressionNode = NodeParser.parseExpression(expr);
-        Type type = Type.fromSemanticSymbol(typeSymbol);
+        Type type = Type.fromSemanticSymbol(typeSymbol, semanticModel);
 
         if (expressionNode instanceof MappingConstructorExpressionNode mapping) {
             if (type instanceof RecordType recordType) {
