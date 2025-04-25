@@ -20,7 +20,7 @@
           "label": "Statement",
           "description": "Ballerina statement"
         },
-        "valueType": "EXPRESSION",
+        "valueType": "STRING",
         "value": "",
         "optional": false,
         "editable": true,

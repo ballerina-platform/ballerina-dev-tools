@@ -437,7 +437,7 @@
                       "label": "Statement",
                       "description": "Ballerina statement"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "STRING",
                     "value": "food.comment += \"moderate\";",
                     "optional": false,
                     "editable": true,
