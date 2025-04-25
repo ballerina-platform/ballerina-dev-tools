@@ -134,7 +134,6 @@ import io.ballerina.flowmodelgenerator.core.model.node.FunctionDefinitionBuilder
 import io.ballerina.flowmodelgenerator.core.model.node.IfBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.JsonPayloadBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.MethodCall;
-import io.ballerina.flowmodelgenerator.core.model.node.NPFunctionCall;
 import io.ballerina.flowmodelgenerator.core.model.node.NewConnectionBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.PanicBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.RemoteActionCallBuilder;

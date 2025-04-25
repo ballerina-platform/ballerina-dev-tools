@@ -20,9 +20,7 @@ package io.ballerina.modelgenerator.commons;
 
 import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.api.symbols.AnnotationAttachmentSymbol;
 import io.ballerina.compiler.api.symbols.ArrayTypeSymbol;
-import io.ballerina.compiler.api.symbols.ExternalFunctionSymbol;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.FutureTypeSymbol;
 import io.ballerina.compiler.api.symbols.IntersectionTypeSymbol;
@@ -77,7 +75,6 @@ import java.net.URI;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -795,14 +792,14 @@ public class CommonUtils {
         return moduleId.orgName().equals(CommonUtils.BALLERINA_ORG_NAME) && moduleId.packageName().equals("http");
     }
 
-    public static boolean isNpModule(Symbol symbol) {
+    public static boolean isBallerinaNpModule(Symbol symbol) {
         Optional<ModuleSymbol> module = symbol.getModule();
         if (module.isEmpty()) {
             return false;
         }
 
         ModuleID moduleId = module.get().id();
-        return moduleId.orgName().equals(CommonUtils.BALLERINAX_ORG_NAME) && moduleId.packageName().equals("np");
+        return moduleId.orgName().equals(CommonUtils.BALLERINA_ORG_NAME) && moduleId.packageName().equals("np");
     }
 
     public static boolean isNaturalExpressionBodiedFunction(SyntaxTree syntaxTree, FunctionSymbol functionSymbol) {

@@ -165,7 +165,6 @@ public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
         if (isModelConfigEnabled) {
             sourceBuilder.token().name(NaturalFunctions.MODULE_PREFIXED_MODEL_PROVIDER_TYPE +
                     " " + NaturalFunctions.MODEL_PROVIDER);
-            sourceBuilder.token().keyword(SyntaxKind.COMMA_TOKEN);
         }
 
         // Write the function parameters
@@ -184,7 +183,12 @@ public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
                 String paramName = paramProperties.get(Property.VARIABLE_KEY).value().toString();
                 paramList.add(paramType + " " + paramName);
             }
-            sourceBuilder.token().name(String.join(", ", paramList));
+            if (!paramList.isEmpty()) {
+                if (isModelConfigEnabled) {
+                    sourceBuilder.token().keyword(SyntaxKind.COMMA_TOKEN);
+                }
+                sourceBuilder.token().name(String.join(", ", paramList));
+            }
         }
 
         sourceBuilder.token().keyword(SyntaxKind.CLOSE_PAREN_TOKEN);
