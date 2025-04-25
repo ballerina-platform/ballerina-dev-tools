@@ -126,120 +126,6 @@
       "items": [
         {
           "metadata": {
-            "label": "http",
-            "description": "",
-            "keywords": []
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "authenticateResource",
-                "description": "Uses for declarative auth design, where the authentication/authorization decision is taken\nby reading the auth annotations provided in service/resource and the `Authorization` header of request.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "http",
-                "symbol": "authenticateResource",
-                "version": "2.14.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "createHttpCachingClient",
-                "description": "Creates an HTTP client capable of caching HTTP responses.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "http",
-                "symbol": "createHttpCachingClient",
-                "version": "2.14.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "parseHeader",
-                "description": "Parses the header value which contains multiple values or parameters.\n```ballerina\n http:HeaderValue[] values = check http:parseHeader(\"text/plain;level=1;q=0.6, application/xml;level=2\");\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "http",
-                "symbol": "parseHeader",
-                "version": "2.14.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "getHeaderMap",
-                "description": "Converts the headers represented as a map of `anydata` to a map of `string` or `string` array. The `value:toString`\nmethod will be used to convert the values to `string`. Additionally if the header name is specified by the\n`http:Header` annotation, then it will be used as the header name.\n```ballerina\ntype Headers record {\n  @http:Header {name: \"X-API-VERSION\"}\n  string apiVersion;\n  int id;\n};\nHeaders headers = {apiVersion: \"v1\", id: 1};\nmap<string|string[]> headersMap = http:getHeaderMap(headers); // { \"X-API-VERSION\": \"v1\", \"id\": \"1\" }\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "http",
-                "symbol": "getHeaderMap",
-                "version": "2.14.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "getQueryMap",
-                "description": "If the query name is specified by the `http:Query` annotation, then this function will return the queries map\nwith the specified query name. Otherwise, it will return the map as it is.\n```ballerina\ntype Queries record {\n  @http:Query {name: \"filter_ids\"}\n  string[] ids;\n};\nQueries queries = {ids: [\"1\", \"2\"]};\nmap<anydata> queriesMap = http:getQueryMap(queries); // { \"filter_ids\": [\"1\", \"2\"] }\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "http",
-                "symbol": "getQueryMap",
-                "version": "2.14.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "getDefaultListener",
-                "description": "Returns the default HTTP listener. If the default listener is not already created, a new\nlistener will be created with the port and configuration. An error will be returned if\nthe listener creation fails.\n\nThe default listener configuration can be changed in the `Config.toml` file. Example:\n```toml\n[ballerina.http]\ndefaultListenerPort = 8080\n[ballerina.http.defaultListenerConfig]\nhttpVersion = \"1.1\"\n[ballerina.http.defaultListenerConfig.secureSocket.key]\npath = \"resources/certs/key.pem\"\npassword = \"password\"\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "http",
-                "symbol": "getDefaultListener",
-                "version": "2.14.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "createHttpSecureClient",
-                "description": "Creates an HTTP client capable of securing HTTP requests with authentication.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "http",
-                "symbol": "createHttpSecureClient",
-                "version": "2.14.0"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
             "label": "ai",
             "description": "",
             "keywords": []
@@ -347,6 +233,120 @@
                 "module": "ai",
                 "symbol": "getToolConfigs",
                 "version": "1.0.1"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "http",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "authenticateResource",
+                "description": "Uses for declarative auth design, where the authentication/authorization decision is taken\nby reading the auth annotations provided in service/resource and the `Authorization` header of request.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.1.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "http",
+                "symbol": "authenticateResource",
+                "version": "2.14.1"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "createHttpCachingClient",
+                "description": "Creates an HTTP client capable of caching HTTP responses.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.1.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "http",
+                "symbol": "createHttpCachingClient",
+                "version": "2.14.1"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "parseHeader",
+                "description": "Parses the header value which contains multiple values or parameters.\n```ballerina\n http:HeaderValue[] values = check http:parseHeader(\"text/plain;level=1;q=0.6, application/xml;level=2\");\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.1.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "http",
+                "symbol": "parseHeader",
+                "version": "2.14.1"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getHeaderMap",
+                "description": "Converts the headers represented as a map of `anydata` to a map of `string` or `string` array. The `value:toString`\nmethod will be used to convert the values to `string`. Additionally if the header name is specified by the\n`http:Header` annotation, then it will be used as the header name.\n```ballerina\ntype Headers record {\n  @http:Header {name: \"X-API-VERSION\"}\n  string apiVersion;\n  int id;\n};\nHeaders headers = {apiVersion: \"v1\", id: 1};\nmap<string|string[]> headersMap = http:getHeaderMap(headers); // { \"X-API-VERSION\": \"v1\", \"id\": \"1\" }\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.1.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "http",
+                "symbol": "getHeaderMap",
+                "version": "2.14.1"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getQueryMap",
+                "description": "If the query name is specified by the `http:Query` annotation, then this function will return the queries map\nwith the specified query name. Otherwise, it will return the map as it is.\n```ballerina\ntype Queries record {\n  @http:Query {name: \"filter_ids\"}\n  string[] ids;\n};\nQueries queries = {ids: [\"1\", \"2\"]};\nmap<anydata> queriesMap = http:getQueryMap(queries); // { \"filter_ids\": [\"1\", \"2\"] }\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.1.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "http",
+                "symbol": "getQueryMap",
+                "version": "2.14.1"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getDefaultListener",
+                "description": "Returns the default HTTP listener. If the default listener is not already created, a new\nlistener will be created with the port and configuration. An error will be returned if\nthe listener creation fails.\n\nThe default listener configuration can be changed in the `Config.toml` file. Example:\n```toml\n[ballerina.http]\ndefaultListenerPort = 8080\n[ballerina.http.defaultListenerConfig]\nhttpVersion = \"1.1\"\n[ballerina.http.defaultListenerConfig.secureSocket.key]\npath = \"resources/certs/key.pem\"\npassword = \"password\"\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.1.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "http",
+                "symbol": "getDefaultListener",
+                "version": "2.14.1"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "createHttpSecureClient",
+                "description": "Creates an HTTP client capable of securing HTTP requests with authentication.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.1.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "http",
+                "symbol": "createHttpSecureClient",
+                "version": "2.14.1"
               },
               "enabled": true
             }

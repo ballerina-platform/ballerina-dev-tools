@@ -19,9 +19,9 @@
       "items": [
         {
           "metadata": {
-            "label": "FTP",
-            "description": "Represents an FTP client that intracts with an FTP server",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_ftp_2.13.1.png",
+            "label": "GraphQL",
+            "description": "The Ballerina GraphQL client that can be used to communicate with GraphQL APIs.",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.16.1.png",
             "data": {
               "isAgentSupport": false
             }
@@ -29,30 +29,10 @@
           "codedata": {
             "node": "NEW_CONNECTION",
             "org": "ballerina",
-            "module": "ftp",
+            "module": "graphql",
             "object": "Client",
             "symbol": "init",
-            "version": "2.13.1",
-            "isGenerated": false
-          },
-          "enabled": true
-        },
-        {
-          "metadata": {
-            "label": "UDP",
-            "description": "Initializes the UDP connectionless client based on the provided configurations.",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_udp_1.13.0.png",
-            "data": {
-              "isAgentSupport": false
-            }
-          },
-          "codedata": {
-            "node": "NEW_CONNECTION",
-            "org": "ballerina",
-            "module": "udp",
-            "object": "Client",
-            "symbol": "init",
-            "version": "1.13.0",
+            "version": "1.16.1",
             "isGenerated": false
           },
           "enabled": true
@@ -99,9 +79,9 @@
         },
         {
           "metadata": {
-            "label": "GraphQL",
-            "description": "The Ballerina GraphQL client that can be used to communicate with GraphQL APIs.",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.16.1.png",
+            "label": "UDP",
+            "description": "Initializes the UDP connectionless client based on the provided configurations.",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_udp_1.13.0.png",
             "data": {
               "isAgentSupport": false
             }
@@ -109,10 +89,10 @@
           "codedata": {
             "node": "NEW_CONNECTION",
             "org": "ballerina",
-            "module": "graphql",
+            "module": "udp",
             "object": "Client",
             "symbol": "init",
-            "version": "1.16.1",
+            "version": "1.13.0",
             "isGenerated": false
           },
           "enabled": true
@@ -133,6 +113,26 @@
             "object": "Client",
             "symbol": "init",
             "version": "2.14.1",
+            "isGenerated": false
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "FTP",
+            "description": "Represents an FTP client that intracts with an FTP server",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_ftp_2.13.1.png",
+            "data": {
+              "isAgentSupport": false
+            }
+          },
+          "codedata": {
+            "node": "NEW_CONNECTION",
+            "org": "ballerina",
+            "module": "ftp",
+            "object": "Client",
+            "symbol": "init",
+            "version": "2.13.1",
             "isGenerated": false
           },
           "enabled": true
@@ -157,26 +157,6 @@
             "node": "NEW_CONNECTION",
             "org": "ballerinax",
             "module": "mysql",
-            "object": "Client",
-            "symbol": "init",
-            "version": "1.15.0",
-            "isGenerated": false
-          },
-          "enabled": true
-        },
-        {
-          "metadata": {
-            "label": "MS SQL",
-            "description": "Represents an MSSQL database client.",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mssql_1.15.0.png",
-            "data": {
-              "isAgentSupport": false
-            }
-          },
-          "codedata": {
-            "node": "NEW_CONNECTION",
-            "org": "ballerinax",
-            "module": "mssql",
             "object": "Client",
             "symbol": "init",
             "version": "1.15.0",
@@ -217,6 +197,26 @@
             "node": "NEW_CONNECTION",
             "org": "ballerinax",
             "module": "postgresql",
+            "object": "Client",
+            "symbol": "init",
+            "version": "1.15.0",
+            "isGenerated": false
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "MS SQL",
+            "description": "Represents an MSSQL database client.",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mssql_1.15.0.png",
+            "data": {
+              "isAgentSupport": false
+            }
+          },
+          "codedata": {
+            "node": "NEW_CONNECTION",
+            "org": "ballerinax",
+            "module": "mssql",
             "object": "Client",
             "symbol": "init",
             "version": "1.15.0",
@@ -320,26 +320,6 @@
       "items": [
         {
           "metadata": {
-            "label": "Gcalendar",
-            "description": "Manipulates events and other calendar data.",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.gcalendar_4.0.1.png",
-            "data": {
-              "isAgentSupport": false
-            }
-          },
-          "codedata": {
-            "node": "NEW_CONNECTION",
-            "org": "ballerinax",
-            "module": "googleapis.gcalendar",
-            "object": "Client",
-            "symbol": "init",
-            "version": "4.0.1",
-            "isGenerated": false
-          },
-          "enabled": true
-        },
-        {
-          "metadata": {
             "label": "SQS",
             "description": "Ballerina Amazon SQS connector provides the capability to access Amazon SQS API.\nThis connector lets you to perform operations related to manage queues, send and receive messages. \n",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_aws.sqs_3.1.0.png",
@@ -380,6 +360,26 @@
         },
         {
           "metadata": {
+            "label": "S3",
+            "description": "Ballerina Amazon S3 connector provides the capability to access AWS S3 API.\nThis connector lets you to get authorized access to AWS S3 buckets and objects.\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_aws.s3_3.5.0.png",
+            "data": {
+              "isAgentSupport": false
+            }
+          },
+          "codedata": {
+            "node": "NEW_CONNECTION",
+            "org": "ballerinax",
+            "module": "aws.s3",
+            "object": "Client",
+            "symbol": "init",
+            "version": "3.5.0",
+            "isGenerated": false
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
             "label": "Gmail",
             "description": "The Gmail API lets you view and manage Gmail mailbox data like threads, messages, and labels.",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.gmail_4.1.0.png",
@@ -400,9 +400,9 @@
         },
         {
           "metadata": {
-            "label": "S3",
-            "description": "Ballerina Amazon S3 connector provides the capability to access AWS S3 API.\nThis connector lets you to get authorized access to AWS S3 buckets and objects.\n",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_aws.s3_3.5.0.png",
+            "label": "Gcalendar",
+            "description": "Manipulates events and other calendar data.",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.gcalendar_4.0.1.png",
             "data": {
               "isAgentSupport": false
             }
@@ -410,10 +410,10 @@
           "codedata": {
             "node": "NEW_CONNECTION",
             "org": "ballerinax",
-            "module": "aws.s3",
+            "module": "googleapis.gcalendar",
             "object": "Client",
             "symbol": "init",
-            "version": "3.5.0",
+            "version": "4.0.1",
             "isGenerated": false
           },
           "enabled": true

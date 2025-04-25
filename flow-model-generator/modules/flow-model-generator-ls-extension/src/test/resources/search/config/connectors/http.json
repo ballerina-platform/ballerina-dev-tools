@@ -268,40 +268,20 @@
     },
     {
       "metadata": {
-        "label": "Customer",
-        "description": "This is a generated connector for [Commercetools API v1](https://docs.commercetools.com/api/) OpenAPI specification. \nThe commercetools Platform HTTP API(Customer) offers an interface for programmatic access to retrieve certain information on customer related operations.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_commercetools.customer_1.4.1.png",
+        "label": "Websubhub Hub",
+        "description": "HTTP Based client for WebSub content publishing to subscribers",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websubhub_1.15.0.png",
         "data": {
           "isAgentSupport": false
         }
       },
       "codedata": {
         "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "commercetools.customer",
-        "object": "Client",
+        "org": "ballerina",
+        "module": "websubhub",
+        "object": "HubClient",
         "symbol": "init",
-        "version": "1.4.1",
-        "isGenerated": false
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "Cartsordershoppinglists",
-        "description": "This is a generated connector for [Commercetools API v1](https://docs.commercetools.com/api/) OpenAPI specification. \nThe commercetools Platform HTTP API offers an interface for programmatic access to operations related to carts, orders and shopping lists.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_commercetools.cartsordershoppinglists_1.4.1.png",
-        "data": {
-          "isAgentSupport": false
-        }
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "commercetools.cartsordershoppinglists",
-        "object": "Client",
-        "symbol": "init",
-        "version": "1.4.1",
+        "version": "1.15.0",
         "isGenerated": false
       },
       "enabled": true
@@ -328,20 +308,40 @@
     },
     {
       "metadata": {
-        "label": "Websubhub Hub",
-        "description": "HTTP Based client for WebSub content publishing to subscribers",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websubhub_1.15.0.png",
+        "label": "Cartsordershoppinglists",
+        "description": "This is a generated connector for [Commercetools API v1](https://docs.commercetools.com/api/) OpenAPI specification. \nThe commercetools Platform HTTP API offers an interface for programmatic access to operations related to carts, orders and shopping lists.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_commercetools.cartsordershoppinglists_1.4.1.png",
         "data": {
           "isAgentSupport": false
         }
       },
       "codedata": {
         "node": "NEW_CONNECTION",
-        "org": "ballerina",
-        "module": "websubhub",
-        "object": "HubClient",
+        "org": "ballerinax",
+        "module": "commercetools.cartsordershoppinglists",
+        "object": "Client",
         "symbol": "init",
-        "version": "1.15.0",
+        "version": "1.4.1",
+        "isGenerated": false
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "Customer",
+        "description": "This is a generated connector for [Commercetools API v1](https://docs.commercetools.com/api/) OpenAPI specification. \nThe commercetools Platform HTTP API(Customer) offers an interface for programmatic access to retrieve certain information on customer related operations.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_commercetools.customer_1.4.1.png",
+        "data": {
+          "isAgentSupport": false
+        }
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "commercetools.customer",
+        "object": "Client",
+        "symbol": "init",
+        "version": "1.4.1",
         "isGenerated": false
       },
       "enabled": true
@@ -388,9 +388,9 @@
     },
     {
       "metadata": {
-        "label": "Bisstats",
-        "description": "This is a generated connector for [BIS SDMX RESTful API v1](https://stats.bis.org/api-doc/v1/) OpenAPI specification.\nThe BIS SDMX RESTful API is a subset of the official SDMX RESTful API v1.4.0, released in June 2019.\nThis service offers programmatic access to the BIS statistical data and metadata published on the [BIS statistics pages](https://www.bis.org/statistics/index.htm) released to the public.\nFor additional information about the SDMX RESTful API, check the [official sdmx-rest specification](https://github.com/sdmx-twg/sdmx-rest/tree/master/v2_1/ws/rest/docs) or the [dedicated Wiki](https://github.com/sdmx-twg/sdmx-rest/wiki), including [**useful tips for consumers**](https://github.com/sdmx-twg/sdmx-rest/wiki/Tips-for-consumers).",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_bisstats_1.5.1.png",
+        "label": "Auditlog",
+        "description": "This is a generated connector for [Commercetools API v1](https://docs.commercetools.com/api/) OpenAPI specification. \nThe commercetools Platform HTTP API(Audit Log) offers an interface for programmatic access to tracks creations, deletions, and updates of platform resources.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_commercetools.auditlog_1.4.1.png",
         "data": {
           "isAgentSupport": false
         }
@@ -398,10 +398,10 @@
       "codedata": {
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
-        "module": "bisstats",
+        "module": "commercetools.auditlog",
         "object": "Client",
         "symbol": "init",
-        "version": "1.5.1",
+        "version": "1.4.1",
         "isGenerated": false
       },
       "enabled": true

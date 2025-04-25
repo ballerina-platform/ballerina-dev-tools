@@ -20,6 +20,60 @@
       "items": [
         {
           "metadata": {
+            "label": "np",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "Prompt",
+                "description": "Raw template type for prompts.",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_np_0.3.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerina",
+                "module": "np",
+                "symbol": "Prompt",
+                "version": "0.3.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "Context",
+                "description": "Context for Large Language Model (LLM) usage.",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_np_0.3.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerina",
+                "module": "np",
+                "symbol": "Context",
+                "version": "0.3.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "ModelProvider",
+                "description": "Abstraction for a Large Language Model (LLM), with chat/completion functionality.",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_np_0.3.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerina",
+                "module": "np",
+                "symbol": "ModelProvider",
+                "version": "0.3.0"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
             "label": "data.jsondata",
             "description": "",
             "keywords": []
@@ -97,225 +151,6 @@
                 "module": "data.jsondata",
                 "symbol": "JsonPathRawTemplate",
                 "version": "1.1.0"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
-            "label": "time",
-            "description": "",
-            "keywords": []
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "Error",
-                "description": "The generic module level error.",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.7.0.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerina",
-                "module": "time",
-                "symbol": "Error",
-                "version": "2.7.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "FormatError",
-                "description": "The error to be returned when arguments are invalid.",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.7.0.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerina",
-                "module": "time",
-                "symbol": "FormatError",
-                "version": "2.7.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "Seconds",
-                "description": "Holds the seconds as a decimal value.  ",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.7.0.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerina",
-                "module": "time",
-                "symbol": "Seconds",
-                "version": "2.7.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "Utc",
-                "description": "Point on UTC time-scale.\nThis is represented by a tuple of length 2.\nThe tuple is an ordered type and so the values can be\ncompared using the Ballerina <, <=, >, >= operators.\nThe first member of the tuple is int representing an integral number of\nseconds from the epoch.\nEpoch is the traditional UNIX epoch of `1970-01-01T00:00:00Z`.\nThe second member of the tuple is a decimal giving the fraction of\na second.\nFor times before the epoch, n is negative and f is\nnon-negative. In other words, the UTC time represented\nis on or after the second specified by n.\nLeap seconds are handled as follows. The first member\nof the tuple ignores leap seconds: it assumes that every day\nhas 86400 seconds. The second member of the tuple is >= 0.\nand is < 1 except during positive leaps seconds in which it\nis >= 1 and < 2. So given a tuple [n,f] after the epoch,\nn / 86400 gives the day number, and (n % 86400) + f gives the\ntime in seconds since midnight UTC (for which the limit is\n86401 on day with a positive leap second).",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.7.0.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerina",
-                "module": "time",
-                "symbol": "Utc",
-                "version": "2.7.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "DayOfWeek",
-                "description": "The day of week according to the US convention.",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.7.0.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerina",
-                "module": "time",
-                "symbol": "DayOfWeek",
-                "version": "2.7.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "Date",
-                "description": "Date in proleptic Gregorian calendar.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.7.0.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerina",
-                "module": "time",
-                "symbol": "Date",
-                "version": "2.7.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "ZoneOffset",
-                "description": "This is closed so it is a subtype of Delta\nFields can negative\nif any of the three fields are > 0, then all must be >= 0\nif any of the three fields are < 0, then all must be <= 0\nSemantic is that durations should be left out",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.7.0.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerina",
-                "module": "time",
-                "symbol": "ZoneOffset",
-                "version": "2.7.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "TimeOfDay",
-                "description": "Time within a day\nNot always duration from midnight.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.7.0.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerina",
-                "module": "time",
-                "symbol": "TimeOfDay",
-                "version": "2.7.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "ZERO_OR_ONE",
-                "description": "Represents the type that can be either zero or one.",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.7.0.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerina",
-                "module": "time",
-                "symbol": "ZERO_OR_ONE",
-                "version": "2.7.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "Civil",
-                "description": "Time within some region relative to a\ntime scale stipulated by civilian authorities.",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.7.0.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerina",
-                "module": "time",
-                "symbol": "Civil",
-                "version": "2.7.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "UtcZoneHandling",
-                "description": "Defualt zone value represation in different formats.",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.7.0.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerina",
-                "module": "time",
-                "symbol": "UtcZoneHandling",
-                "version": "2.7.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "HeaderZoneHandling",
-                "description": "Indicate how to handle both `zoneOffset` and `timeAbbrev`.",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.7.0.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerina",
-                "module": "time",
-                "symbol": "HeaderZoneHandling",
-                "version": "2.7.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "Zone",
-                "description": "Abstract object representation to handle time zones.  ",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.7.0.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerina",
-                "module": "time",
-                "symbol": "Zone",
-                "version": "2.7.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "TimeZone",
-                "description": "Localized time zone implementation to handle time zones.  ",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.7.0.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerina",
-                "module": "time",
-                "symbol": "TimeZone",
-                "version": "2.7.0"
               },
               "enabled": true
             }
@@ -790,6 +625,180 @@
                 "module": "io",
                 "symbol": "ReadableDataChannel",
                 "version": "1.8.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "StringReader",
+                "description": "Represents a reader which will wrap string content as a channel.",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.8.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerina",
+                "module": "io",
+                "symbol": "StringReader",
+                "version": "1.8.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "CsvIterator",
+                "description": "The iterator for the stream returned in `readFileCsvAsStream` function.",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.8.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerina",
+                "module": "io",
+                "symbol": "CsvIterator",
+                "version": "1.8.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "WritableDataChannel",
+                "description": "Represents a WritableDataChannel for writing data.",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.8.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerina",
+                "module": "io",
+                "symbol": "WritableDataChannel",
+                "version": "1.8.0"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "time",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "Error",
+                "description": "The generic module level error.",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.7.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerina",
+                "module": "time",
+                "symbol": "Error",
+                "version": "2.7.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "FormatError",
+                "description": "The error to be returned when arguments are invalid.",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.7.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerina",
+                "module": "time",
+                "symbol": "FormatError",
+                "version": "2.7.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "Seconds",
+                "description": "Holds the seconds as a decimal value.  ",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.7.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerina",
+                "module": "time",
+                "symbol": "Seconds",
+                "version": "2.7.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "Utc",
+                "description": "Point on UTC time-scale.\nThis is represented by a tuple of length 2.\nThe tuple is an ordered type and so the values can be\ncompared using the Ballerina <, <=, >, >= operators.\nThe first member of the tuple is int representing an integral number of\nseconds from the epoch.\nEpoch is the traditional UNIX epoch of `1970-01-01T00:00:00Z`.\nThe second member of the tuple is a decimal giving the fraction of\na second.\nFor times before the epoch, n is negative and f is\nnon-negative. In other words, the UTC time represented\nis on or after the second specified by n.\nLeap seconds are handled as follows. The first member\nof the tuple ignores leap seconds: it assumes that every day\nhas 86400 seconds. The second member of the tuple is >= 0.\nand is < 1 except during positive leaps seconds in which it\nis >= 1 and < 2. So given a tuple [n,f] after the epoch,\nn / 86400 gives the day number, and (n % 86400) + f gives the\ntime in seconds since midnight UTC (for which the limit is\n86401 on day with a positive leap second).",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.7.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerina",
+                "module": "time",
+                "symbol": "Utc",
+                "version": "2.7.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "DayOfWeek",
+                "description": "The day of week according to the US convention.",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.7.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerina",
+                "module": "time",
+                "symbol": "DayOfWeek",
+                "version": "2.7.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "Date",
+                "description": "Date in proleptic Gregorian calendar.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.7.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerina",
+                "module": "time",
+                "symbol": "Date",
+                "version": "2.7.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "ZoneOffset",
+                "description": "This is closed so it is a subtype of Delta\nFields can negative\nif any of the three fields are > 0, then all must be >= 0\nif any of the three fields are < 0, then all must be <= 0\nSemantic is that durations should be left out",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.7.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerina",
+                "module": "time",
+                "symbol": "ZoneOffset",
+                "version": "2.7.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "TimeOfDay",
+                "description": "Time within a day\nNot always duration from midnight.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.7.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerina",
+                "module": "time",
+                "symbol": "TimeOfDay",
+                "version": "2.7.0"
               },
               "enabled": true
             }

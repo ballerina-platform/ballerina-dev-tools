@@ -17,32 +17,7 @@
           "Library"
         ]
       },
-      "items": [
-        {
-          "metadata": {
-            "label": "http",
-            "description": "",
-            "keywords": []
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "CookieConfig",
-                "description": "Client configuration for cookies.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.1.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerina",
-                "module": "http",
-                "symbol": "CookieConfig",
-                "version": "2.14.1"
-              },
-              "enabled": true
-            }
-          ]
-        }
-      ]
+      "items": []
     },
     {
       "metadata": {
@@ -240,30 +215,6 @@
         },
         {
           "metadata": {
-            "label": "soap",
-            "description": "",
-            "keywords": []
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "ClientConfig",
-                "description": "SOAP client configurations.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_soap_2.3.0.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerina",
-                "module": "soap",
-                "symbol": "ClientConfig",
-                "version": "2.3.0"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
             "label": "peoplehr",
             "description": "",
             "keywords": []
@@ -288,62 +239,23 @@
         },
         {
           "metadata": {
-            "label": "ftp",
+            "label": "soap",
             "description": "",
             "keywords": []
           },
           "items": [
             {
               "metadata": {
-                "label": "ClientConfiguration",
-                "description": "Configuration for FTP client.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_ftp_2.13.1.png"
+                "label": "ClientConfig",
+                "description": "SOAP client configurations.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_soap_2.3.0.png"
               },
               "codedata": {
                 "node": "TYPEDESC",
                 "org": "ballerina",
-                "module": "ftp",
-                "symbol": "ClientConfiguration",
-                "version": "2.13.1"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
-            "label": "graphql",
-            "description": "",
-            "keywords": []
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "Graphiql",
-                "description": "Represent GraphiQL client configurations\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.16.1.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerina",
-                "module": "graphql",
-                "symbol": "Graphiql",
-                "version": "1.16.1"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "CookieConfig",
-                "description": "Client configuration for cookies.",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.16.1.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerina",
-                "module": "graphql",
-                "symbol": "CookieConfig",
-                "version": "1.16.1"
+                "module": "soap",
+                "symbol": "ClientConfig",
+                "version": "2.3.0"
               },
               "enabled": true
             }
@@ -416,30 +328,6 @@
                 "module": "googleapis.people",
                 "symbol": "ConnectionConfig",
                 "version": "2.4.0"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
-            "label": "azure.ad",
-            "description": "",
-            "keywords": []
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "ConnectionConfig",
-                "description": "Client configuration details.",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure.ad_2.5.0.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerinax",
-                "module": "azure.ad",
-                "symbol": "ConnectionConfig",
-                "version": "2.5.0"
               },
               "enabled": true
             }
@@ -536,6 +424,117 @@
                 "module": "googleapis.calendar",
                 "symbol": "ConnectionConfig",
                 "version": "3.2.1"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "googleapis.drive",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "ConnectionConfig",
+                "description": "Client configuration details.",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.drive_3.3.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "googleapis.drive",
+                "symbol": "ConnectionConfig",
+                "version": "3.3.0"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "azure.ad",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "ConnectionConfig",
+                "description": "Client configuration details.",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure.ad_2.5.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "azure.ad",
+                "symbol": "ConnectionConfig",
+                "version": "2.5.0"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "graphql",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "Graphiql",
+                "description": "Represent GraphiQL client configurations\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.16.1.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerina",
+                "module": "graphql",
+                "symbol": "Graphiql",
+                "version": "1.16.1"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "CookieConfig",
+                "description": "Client configuration for cookies.",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.16.1.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerina",
+                "module": "graphql",
+                "symbol": "CookieConfig",
+                "version": "1.16.1"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "ftp",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "ClientConfiguration",
+                "description": "Configuration for FTP client.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_ftp_2.13.1.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerina",
+                "module": "ftp",
+                "symbol": "ClientConfiguration",
+                "version": "2.13.1"
               },
               "enabled": true
             }
