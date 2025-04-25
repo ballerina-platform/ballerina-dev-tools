@@ -68,26 +68,6 @@
     },
     {
       "metadata": {
-        "label": "PostgreSQL",
-        "description": "Represents a PostgreSQL database client.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_postgresql_1.15.0.png",
-        "data": {
-          "isAgentSupport": false
-        }
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "postgresql",
-        "object": "Client",
-        "symbol": "init",
-        "version": "1.15.0",
-        "isGenerated": false
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
         "label": "MS SQL",
         "description": "Represents an MSSQL database client.",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mssql_1.15.0.png",
@@ -99,6 +79,26 @@
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
         "module": "mssql",
+        "object": "Client",
+        "symbol": "init",
+        "version": "1.15.0",
+        "isGenerated": false
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "PostgreSQL",
+        "description": "Represents a PostgreSQL database client.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_postgresql_1.15.0.png",
+        "data": {
+          "isAgentSupport": false
+        }
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "postgresql",
         "object": "Client",
         "symbol": "init",
         "version": "1.15.0",
@@ -348,9 +348,9 @@
     },
     {
       "metadata": {
-        "label": "Cloud Datastore",
-        "description": "This is a generated connector for [Google Cloud Datastore REST API v1](https://cloud.google.com/datastore/docs/reference/data/rest) OpenAPI specification.\nThe Google Cloud Datastore API provides the capability to access the schemaless NoSQL database to provide fully managed, robust, scalable storage for your application.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.clouddatastore_1.5.1.png",
+        "label": "Connect",
+        "description": "The [Ballerina](https://ballerina.io/) connector for [CData Connect](https://cloud.cdata.com/docs/JDBC.html) \nallows you to programmatically access all of the CData Connect applications, databases, APIs, and services\nacross an organization via the Java Database Connectivity (JDBC) API using [Ballerina](https://ballerina.io/). \nFor detailed information on working with each data source, see [Data Sources](https://cloud.cdata.com/docs/Data-Sources.html).\nCData Connect supports a wide range of standard DDL commands, SQL commands, and SQL functions to query data sources. \nFor reference information on all the CData Connect SQL commands (i.e., DDL, DML, and query syntax), \nsee the [SQL Reference](https://cloud.cdata.com/docs/SQL-Reference.html).",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_cdata.connect_1.2.0.png",
         "data": {
           "isAgentSupport": false
         }
@@ -358,10 +358,10 @@
       "codedata": {
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
-        "module": "googleapis.clouddatastore",
+        "module": "cdata.connect",
         "object": "Client",
         "symbol": "init",
-        "version": "1.5.1",
+        "version": "1.2.0",
         "isGenerated": false
       },
       "enabled": true
@@ -388,9 +388,9 @@
     },
     {
       "metadata": {
-        "label": "Connect",
-        "description": "The [Ballerina](https://ballerina.io/) connector for [CData Connect](https://cloud.cdata.com/docs/JDBC.html) \nallows you to programmatically access all of the CData Connect applications, databases, APIs, and services\nacross an organization via the Java Database Connectivity (JDBC) API using [Ballerina](https://ballerina.io/). \nFor detailed information on working with each data source, see [Data Sources](https://cloud.cdata.com/docs/Data-Sources.html).\nCData Connect supports a wide range of standard DDL commands, SQL commands, and SQL functions to query data sources. \nFor reference information on all the CData Connect SQL commands (i.e., DDL, DML, and query syntax), \nsee the [SQL Reference](https://cloud.cdata.com/docs/SQL-Reference.html).",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_cdata.connect_1.2.0.png",
+        "label": "Cloud Datastore",
+        "description": "This is a generated connector for [Google Cloud Datastore REST API v1](https://cloud.google.com/datastore/docs/reference/data/rest) OpenAPI specification.\nThe Google Cloud Datastore API provides the capability to access the schemaless NoSQL database to provide fully managed, robust, scalable storage for your application.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.clouddatastore_1.5.1.png",
         "data": {
           "isAgentSupport": false
         }
@@ -398,10 +398,10 @@
       "codedata": {
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
-        "module": "cdata.connect",
+        "module": "googleapis.clouddatastore",
         "object": "Client",
         "symbol": "init",
-        "version": "1.2.0",
+        "version": "1.5.1",
         "isGenerated": false
       },
       "enabled": true

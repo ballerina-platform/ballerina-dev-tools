@@ -96,30 +96,6 @@
         },
         {
           "metadata": {
-            "label": "worldtimeapi",
-            "description": "",
-            "keywords": []
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "DateTimeJsonResponse",
-                "description": "",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_worldtimeapi_1.5.1.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerinax",
-                "module": "worldtimeapi",
-                "symbol": "DateTimeJsonResponse",
-                "version": "1.5.1"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
             "label": "gotowebinar",
             "description": "",
             "keywords": []
@@ -168,6 +144,30 @@
         },
         {
           "metadata": {
+            "label": "worldtimeapi",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "DateTimeJsonResponse",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_worldtimeapi_1.5.1.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "worldtimeapi",
+                "symbol": "DateTimeJsonResponse",
+                "version": "1.5.1"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
             "label": "adp.paystatements",
             "description": "",
             "keywords": []
@@ -185,6 +185,54 @@
                 "module": "adp.paystatements",
                 "symbol": "DateType",
                 "version": "1.5.1"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "amadeus.flightofferssearch",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "DateTimeRange",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_amadeus.flightofferssearch_1.3.1.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "amadeus.flightofferssearch",
+                "symbol": "DateTimeRange",
+                "version": "1.3.1"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "jira.servicemanagement",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "DateDTO",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_jira.servicemanagement_1.3.1.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "jira.servicemanagement",
+                "symbol": "DateDTO",
+                "version": "1.3.1"
               },
               "enabled": true
             }
@@ -261,93 +309,6 @@
         },
         {
           "metadata": {
-            "label": "amadeus.flightofferssearch",
-            "description": "",
-            "keywords": []
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "DateTimeRange",
-                "description": "",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_amadeus.flightofferssearch_1.3.1.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerinax",
-                "module": "amadeus.flightofferssearch",
-                "symbol": "DateTimeRange",
-                "version": "1.3.1"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
-            "label": "jira.servicemanagement",
-            "description": "",
-            "keywords": []
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "DateDTO",
-                "description": "",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_jira.servicemanagement_1.3.1.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerinax",
-                "module": "jira.servicemanagement",
-                "symbol": "DateDTO",
-                "version": "1.3.1"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
-            "label": "health.fhir.r4",
-            "description": "",
-            "keywords": []
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "DateExtension",
-                "description": "",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.fhir.r4_6.0.0.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerinax",
-                "module": "health.fhir.r4",
-                "symbol": "DateExtension",
-                "version": "6.0.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "DateTimeExtension",
-                "description": "",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.fhir.r4_6.0.0.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerinax",
-                "module": "health.fhir.r4",
-                "symbol": "DateTimeExtension",
-                "version": "6.0.0"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
             "label": "health.fhir.r5",
             "description": "",
             "keywords": []
@@ -379,6 +340,21 @@
                 "org": "ballerinax",
                 "module": "health.fhir.r5",
                 "symbol": "DateTimeExtension",
+                "version": "0.9.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "DateSearchParameter",
+                "description": "Date type search parameter information.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.fhir.r5_0.9.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "health.fhir.r5",
+                "symbol": "DateSearchParameter",
                 "version": "0.9.0"
               },
               "enabled": true
@@ -428,6 +404,45 @@
                 "module": "hubspot.crm.associations",
                 "symbol": "DateTime",
                 "version": "1.0.0"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "health.fhir.r4",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "DateExtension",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.fhir.r4_6.0.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "health.fhir.r4",
+                "symbol": "DateExtension",
+                "version": "6.0.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "DateTimeExtension",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.fhir.r4_6.0.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "health.fhir.r4",
+                "symbol": "DateTimeExtension",
+                "version": "6.0.0"
               },
               "enabled": true
             }
@@ -561,45 +576,6 @@
         },
         {
           "metadata": {
-            "label": "constraint",
-            "description": "",
-            "keywords": []
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "DateOption",
-                "description": "Represents the date option to be validated.",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_constraint_1.7.0.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerina",
-                "module": "constraint",
-                "symbol": "DateOption",
-                "version": "1.7.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "DateConstraints",
-                "description": "Represents the constraints associated with `Date` type.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_constraint_1.7.0.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerina",
-                "module": "constraint",
-                "symbol": "DateConstraints",
-                "version": "1.7.0"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
             "label": "sql",
             "description": "",
             "keywords": []
@@ -639,23 +615,38 @@
         },
         {
           "metadata": {
-            "label": "postgresql",
+            "label": "constraint",
             "description": "",
             "keywords": []
           },
           "items": [
             {
               "metadata": {
-                "label": "DateRange",
-                "description": "Represents the `Date Range` datatype in PostgreSQL.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_postgresql_1.15.0.png"
+                "label": "DateOption",
+                "description": "Represents the date option to be validated.",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_constraint_1.7.0.png"
               },
               "codedata": {
                 "node": "TYPEDESC",
-                "org": "ballerinax",
-                "module": "postgresql",
-                "symbol": "DateRange",
-                "version": "1.15.0"
+                "org": "ballerina",
+                "module": "constraint",
+                "symbol": "DateOption",
+                "version": "1.7.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "DateConstraints",
+                "description": "Represents the constraints associated with `Date` type.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_constraint_1.7.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerina",
+                "module": "constraint",
+                "symbol": "DateConstraints",
+                "version": "1.7.0"
               },
               "enabled": true
             }

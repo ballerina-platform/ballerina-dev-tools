@@ -10,7 +10,7 @@
       "metadata": {
         "label": "HTTP",
         "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.1.png",
         "data": {
           "isAgentSupport": false
         }
@@ -21,7 +21,7 @@
         "module": "http",
         "object": "Client",
         "symbol": "init",
-        "version": "2.14.0",
+        "version": "2.14.1",
         "isGenerated": false
       },
       "enabled": true
@@ -188,26 +188,6 @@
     },
     {
       "metadata": {
-        "label": "Asana",
-        "description": "This is the interface for interacting with the [Asana Platform](https://developers.asana.com). Our API reference is generated from our [OpenAPI spec] (https://raw.githubusercontent.com/Asana/openapi/master/defs/asana_oas.yaml).",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_asana_2.0.0.png",
-        "data": {
-          "isAgentSupport": true
-        }
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "asana",
-        "object": "Client",
-        "symbol": "init",
-        "version": "2.0.0",
-        "isGenerated": false
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
         "label": "Elmah",
         "description": "This is a generated connector for [Elmah.io REST API v3](https://elmah.io) OpenAPI Specification.\nThe public REST API for elmah.io. All of the integrations communicates with elmah.io through this API.\nFor additional help getting started with the API, visit the following help articles:\n<ul><li>[Using the REST API](https://docs.elmah.io/using-the-rest-api/)</li><li>[Where is my API key?](https://docs.elmah.io/where-is-my-api-key/)</li><li>[Where is my log ID?](https://docs.elmah.io/where-is-my-log-id/)</li><li>[How to configure API key permissions](https://docs.elmah.io/how-to-configure-api-key-permissions/)</li></ul>",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_elmah_1.5.1.png",
@@ -222,6 +202,26 @@
         "object": "Client",
         "symbol": "init",
         "version": "1.5.1",
+        "isGenerated": false
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "Asana",
+        "description": "This is the interface for interacting with the [Asana Platform](https://developers.asana.com). Our API reference is generated from our [OpenAPI spec] (https://raw.githubusercontent.com/Asana/openapi/master/defs/asana_oas.yaml).",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_asana_2.0.0.png",
+        "data": {
+          "isAgentSupport": true
+        }
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "asana",
+        "object": "Client",
+        "symbol": "init",
+        "version": "2.0.0",
         "isGenerated": false
       },
       "enabled": true
@@ -268,46 +268,6 @@
     },
     {
       "metadata": {
-        "label": "Websubhub Hub",
-        "description": "HTTP Based client for WebSub content publishing to subscribers",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websubhub_1.15.0.png",
-        "data": {
-          "isAgentSupport": false
-        }
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerina",
-        "module": "websubhub",
-        "object": "HubClient",
-        "symbol": "init",
-        "version": "1.15.0",
-        "isGenerated": false
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "Websub Subscription",
-        "description": "The HTTP based client for WebSub subscription and unsubscription.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websub_2.14.0.png",
-        "data": {
-          "isAgentSupport": false
-        }
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerina",
-        "module": "websub",
-        "object": "SubscriptionClient",
-        "symbol": "init",
-        "version": "2.14.0",
-        "isGenerated": false
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
         "label": "Customer",
         "description": "This is a generated connector for [Commercetools API v1](https://docs.commercetools.com/api/) OpenAPI specification. \nThe commercetools Platform HTTP API(Customer) offers an interface for programmatic access to retrieve certain information on customer related operations.",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_commercetools.customer_1.4.1.png",
@@ -342,6 +302,46 @@
         "object": "Client",
         "symbol": "init",
         "version": "1.4.1",
+        "isGenerated": false
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "Websub Subscription",
+        "description": "The HTTP based client for WebSub subscription and unsubscription.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websub_2.14.0.png",
+        "data": {
+          "isAgentSupport": false
+        }
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerina",
+        "module": "websub",
+        "object": "SubscriptionClient",
+        "symbol": "init",
+        "version": "2.14.0",
+        "isGenerated": false
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "Websubhub Hub",
+        "description": "HTTP Based client for WebSub content publishing to subscribers",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websubhub_1.15.0.png",
+        "data": {
+          "isAgentSupport": false
+        }
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerina",
+        "module": "websubhub",
+        "object": "HubClient",
+        "symbol": "init",
+        "version": "1.15.0",
         "isGenerated": false
       },
       "enabled": true
@@ -388,9 +388,9 @@
     },
     {
       "metadata": {
-        "label": "Auditlog",
-        "description": "This is a generated connector for [Commercetools API v1](https://docs.commercetools.com/api/) OpenAPI specification. \nThe commercetools Platform HTTP API(Audit Log) offers an interface for programmatic access to tracks creations, deletions, and updates of platform resources.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_commercetools.auditlog_1.4.1.png",
+        "label": "Bisstats",
+        "description": "This is a generated connector for [BIS SDMX RESTful API v1](https://stats.bis.org/api-doc/v1/) OpenAPI specification.\nThe BIS SDMX RESTful API is a subset of the official SDMX RESTful API v1.4.0, released in June 2019.\nThis service offers programmatic access to the BIS statistical data and metadata published on the [BIS statistics pages](https://www.bis.org/statistics/index.htm) released to the public.\nFor additional information about the SDMX RESTful API, check the [official sdmx-rest specification](https://github.com/sdmx-twg/sdmx-rest/tree/master/v2_1/ws/rest/docs) or the [dedicated Wiki](https://github.com/sdmx-twg/sdmx-rest/wiki), including [**useful tips for consumers**](https://github.com/sdmx-twg/sdmx-rest/wiki/Tips-for-consumers).",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_bisstats_1.5.1.png",
         "data": {
           "isAgentSupport": false
         }
@@ -398,10 +398,10 @@
       "codedata": {
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
-        "module": "commercetools.auditlog",
+        "module": "bisstats",
         "object": "Client",
         "symbol": "init",
-        "version": "1.4.1",
+        "version": "1.5.1",
         "isGenerated": false
       },
       "enabled": true
