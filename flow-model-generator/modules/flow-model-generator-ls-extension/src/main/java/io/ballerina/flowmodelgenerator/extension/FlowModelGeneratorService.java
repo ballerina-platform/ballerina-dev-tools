@@ -131,15 +131,8 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
                 }
                 // TODO: Check how we can delegate this to the model generator
                 Path projectPath = this.workspaceManager.projectRoot(filePath);
-                Optional<Document> dataMappingsDoc;
-                Optional<Document> functionsDoc;
-                try {
-                    dataMappingsDoc = this.workspaceManager.document(projectPath.resolve("data_mappings.bal"));
-                    functionsDoc = this.workspaceManager.document(projectPath.resolve("functions.bal"));
-                } catch (Throwable e) {
-                    dataMappingsDoc = Optional.empty();
-                    functionsDoc = Optional.empty();
-                }
+                Optional<Document> dataMappingsDoc = getDocumentFromFile(projectPath, "data_mappings.bal");
+                Optional<Document> functionsDoc = getDocumentFromFile(projectPath, "functions.bal");
 
                 // Generate the flow design model
                 ModelGenerator modelGenerator = new ModelGenerator(project, semanticModel.get(), filePath);
@@ -172,15 +165,8 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
                 }
                 // TODO: Check how we can delegate this to the model generator
                 Path projectPath = this.workspaceManager.projectRoot(filePath);
-                Optional<Document> dataMappingsDoc;
-                Optional<Document> functionsDoc;
-                try {
-                    dataMappingsDoc = this.workspaceManager.document(projectPath.resolve("data_mappings.bal"));
-                    functionsDoc = this.workspaceManager.document(projectPath.resolve("functions.bal"));
-                } catch (Throwable e) {
-                    dataMappingsDoc = Optional.empty();
-                    functionsDoc = Optional.empty();
-                }
+                Optional<Document> dataMappingsDoc = getDocumentFromFile(projectPath, "data_mappings.bal");
+                Optional<Document> functionsDoc = getDocumentFromFile(projectPath, "functions.bal");
 
                 // Generate the flow design model
                 ModelGenerator modelGenerator = new ModelGenerator(project, semanticModel.get(), filePath);
@@ -554,12 +540,7 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
                 }
 
                 Path projectPath = this.workspaceManager.projectRoot(filePath);
-                Optional<Document> functionsDoc;
-                try {
-                    functionsDoc = this.workspaceManager.document(projectPath.resolve("functions.bal"));
-                } catch (Throwable e) {
-                    functionsDoc = Optional.empty();
-                }
+                Optional<Document> functionsDoc = getDocumentFromFile(projectPath, "functions.bal");
 
                 SearchCommand command = SearchCommand.from(searchKind, project, position, request.queryMap(),
                         functionsDoc.orElse(null));
@@ -581,5 +562,13 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
         }
         Path relativePath = projectPath.relativize(filePath);
         return relativePath.toString();
+    }
+
+    private Optional<Document> getDocumentFromFile(Path projectPath, String fileName) {
+        try {
+            return this.workspaceManager.document(projectPath.resolve(fileName));
+        } catch (Throwable e) {
+            return Optional.empty();
+        }
     }
 }
