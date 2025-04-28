@@ -47,6 +47,8 @@ public class LvExpressionDiagnosticRequest extends DiagnosticsRequest {
 
     private static final String INVALID_LHS = "Invalid expression for a variable reference '%s'";
     private static final DiagnosticErrorCode INVALID_EXPRESSION_CODE = DiagnosticErrorCode.INVALID_EXPR_STATEMENT;
+    private static final DiagnosticErrorCode UNDERSCORE_NOT_ALLOWED_CODE =
+            DiagnosticErrorCode.UNDERSCORE_NOT_ALLOWED_AS_IDENTIFIER;
 
     public LvExpressionDiagnosticRequest(ExpressionEditorContext context) {
         super(context);
@@ -105,7 +107,8 @@ public class LvExpressionDiagnosticRequest extends DiagnosticsRequest {
         Optional<SemanticModel> semanticModel =
                 context.workspaceManager().semanticModel(context.filePath());
         return semanticModel.map(model -> model.diagnostics(lineRange).stream()
-                .filter(diagnostic -> diagnostic.diagnosticInfo().severity() == DiagnosticSeverity.ERROR)
+                .filter(diagnostic -> diagnostic.diagnosticInfo().severity() == DiagnosticSeverity.ERROR
+                        && !UNDERSCORE_NOT_ALLOWED_CODE.diagnosticId().equals(diagnostic.diagnosticInfo().code()))
                 .map(CommonUtils::transformBallerinaDiagnostic)
                 .collect(Collectors.toSet())).orElseGet(Set::of);
     }
