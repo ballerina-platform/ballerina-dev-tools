@@ -145,7 +145,7 @@
               "label": "Statement",
               "description": "Ballerina statement"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "STRING",
             "value": "do {\n        // Increment `x`\n        x = x + 1;\n\n        // Precess `x`\n    }",
             "optional": false,
             "editable": true,

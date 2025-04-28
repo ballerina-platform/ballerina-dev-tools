@@ -683,7 +683,7 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
                     .description(ExpressionBuilder.STATEMENT_DOC)
                     .stepOut()
                 .value(node == null ? "" : node.toSourceCode().strip())
-                .type(Property.ValueType.EXPRESSION)
+                .type(Property.ValueType.STRING)
                 .editable();
         addProperty(ExpressionBuilder.STATEMENT_KEY, node);
         return this;
