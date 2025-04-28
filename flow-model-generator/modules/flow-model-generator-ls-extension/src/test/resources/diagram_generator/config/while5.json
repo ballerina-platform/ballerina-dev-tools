@@ -438,7 +438,7 @@
                       "label": "Statement",
                       "description": "Ballerina statement"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "STRING",
                     "value": "finalMsg += response.toString();",
                     "optional": false,
                     "editable": true,
@@ -476,7 +476,7 @@
                       "label": "Statement",
                       "description": "Ballerina statement"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "STRING",
                     "value": "i += 1;",
                     "optional": false,
                     "editable": true,
