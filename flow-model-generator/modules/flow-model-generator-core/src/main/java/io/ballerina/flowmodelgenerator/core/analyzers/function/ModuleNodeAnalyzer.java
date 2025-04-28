@@ -114,10 +114,14 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
 
         // Set the line range of the function definition node
         LineRange functionLineRange = functionDefinitionNode.lineRange();
-        nodeBuilder.codedata().lineRange(LineRange.from(
-                functionLineRange.fileName(),
-                functionLineRange.startLine(),
-                functionDefinitionNode.functionBody().lineRange().startLine()));
+        if (isNpFunction) {
+            nodeBuilder.codedata().lineRange(functionLineRange);
+        } else {
+            nodeBuilder.codedata().lineRange(LineRange.from(
+                    functionLineRange.fileName(),
+                    functionLineRange.startLine(),
+                    functionDefinitionNode.functionBody().lineRange().startLine()));
+        }
 
         // Set the function name, return type and nested properties
         String returnType = functionDefinitionNode.functionSignature().returnTypeDesc()
