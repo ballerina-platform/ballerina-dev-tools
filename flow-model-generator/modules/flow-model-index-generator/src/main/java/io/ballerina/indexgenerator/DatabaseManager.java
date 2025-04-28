@@ -103,7 +103,7 @@ class DatabaseManager {
     }
 
     public static int insertFunctionParameter(int functionId, String paramName, String paramDescription,
-                                              String paramType, String defaultValue,
+                                              Object paramType, String defaultValue,
                                               IndexGenerator.FunctionParameterKind parameterKind,
                                               int optional, String importStatements) {
 

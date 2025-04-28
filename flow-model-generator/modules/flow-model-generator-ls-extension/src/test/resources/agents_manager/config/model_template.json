@@ -59,39 +59,39 @@
       "modelType": {
         "metadata": {
           "label": "Model Type",
-          "description": "The OpenAI model name as constant from OPEN_AI_MODEL_NAMES enum"
+          "description": "The OpenAI model name"
         },
         "valueType": "SINGLE_SELECT",
         "valueTypeConstraint": [
-          "ai:O3_MINI",
-          "ai:O3_MINI_2025_01_31",
-          "ai:O1",
-          "ai:O1_2024_12_17",
-          "ai:GPT_4O",
-          "ai:GPT_4O_2024_11_20",
-          "ai:GPT_4O_2024_08_06",
-          "ai:GPT_4O_2024_05_13",
-          "ai:GPT_4O_MINI",
-          "ai:GPT_4O_MINI_2024_07_18",
-          "ai:GPT_4_TURBO",
-          "ai:GPT_4_TURBO_2024_04_09",
-          "ai:GPT_4_0125_PREVIEW",
-          "ai:GPT_4_TURBO_PREVIEW",
-          "ai:GPT_4_1106_PREVIEW",
-          "ai:GPT_4_VISION_PREVIEW",
-          "ai:GPT_4",
-          "ai:GPT_4_0314",
-          "ai:GPT_4_0613",
-          "ai:GPT_4_32K",
-          "ai:GPT_4_32K_0314",
-          "ai:GPT_4_32K_0613",
-          "ai:GPT_3_5_TURBO",
-          "ai:GPT_3_5_TURBO_16K",
-          "ai:GPT_3_5_TURBO_0301",
-          "ai:GPT_3_5_TURBO_0613",
-          "ai:GPT_3_5_TURBO_1106",
-          "ai:GPT_3_5_TURBO_0125",
-          "ai:GPT_3_5_TURBO_16K_0613"
+          "\"gpt-3.5-turbo-16k-0613\"",
+          "\"gpt-3.5-turbo-0125\"",
+          "\"gpt-3.5-turbo-1106\"",
+          "\"gpt-3.5-turbo-0613\"",
+          "\"gpt-3.5-turbo-0301\"",
+          "\"gpt-3.5-turbo-16k\"",
+          "\"gpt-3.5-turbo\"",
+          "\"gpt-4-32k-0613\"",
+          "\"gpt-4-32k-0314\"",
+          "\"gpt-4-32k\"",
+          "\"gpt-4-0613\"",
+          "\"gpt-4-0314\"",
+          "\"gpt-4\"",
+          "\"gpt-4-vision-preview\"",
+          "\"gpt-4-1106-preview\"",
+          "\"gpt-4-turbo-preview\"",
+          "\"gpt-4-0125-preview\"",
+          "\"gpt-4-turbo-2024-04-09\"",
+          "\"gpt-4-turbo\"",
+          "\"gpt-4o-mini-2024-07-18\"",
+          "\"gpt-4o-mini\"",
+          "\"gpt-4o-2024-05-13\"",
+          "\"gpt-4o-2024-08-06\"",
+          "\"gpt-4o-2024-11-20\"",
+          "\"gpt-4o\"",
+          "\"o1-2024-12-17\"",
+          "\"o1\"",
+          "\"o3-mini-2025-01-31\"",
+          "\"o3-mini\""
         ],
         "placeholder": "\"gpt-3.5-turbo-16k-0613\"",
         "optional": false,
@@ -104,15 +104,12 @@
         },
         "typeMembers": [
           {
-            "type": "ai:OPEN_AI_MODEL_NAMES",
+            "type": "OPEN_AI_MODEL_NAMES",
             "packageInfo": "ballerinax:ai:1.0.1",
             "kind": "BASIC_TYPE",
             "selected": false
           }
-        ],
-        "imports": {
-          "http": "ballerina/http"
-        }
+        ]
       },
       "serviceUrl": {
         "metadata": {
