@@ -40,9 +40,9 @@
       "items": [
         {
           "metadata": {
-            "label": "HTTP",
-            "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
+            "label": "GraphQL",
+            "description": "The Ballerina GraphQL client that can be used to communicate with GraphQL APIs.",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.16.1.png",
             "data": {
               "isAgentSupport": false
             }
@@ -50,10 +50,10 @@
           "codedata": {
             "node": "NEW_CONNECTION",
             "org": "ballerina",
-            "module": "http",
+            "module": "graphql",
             "object": "Client",
             "symbol": "init",
-            "version": "2.14.0",
+            "version": "1.16.1",
             "isGenerated": false
           },
           "enabled": true
@@ -74,26 +74,6 @@
             "object": "Client",
             "symbol": "init",
             "version": "2.14.0",
-            "isGenerated": false
-          },
-          "enabled": true
-        },
-        {
-          "metadata": {
-            "label": "GraphQL",
-            "description": "The Ballerina GraphQL client that can be used to communicate with GraphQL APIs.",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.16.1.png",
-            "data": {
-              "isAgentSupport": false
-            }
-          },
-          "codedata": {
-            "node": "NEW_CONNECTION",
-            "org": "ballerina",
-            "module": "graphql",
-            "object": "Client",
-            "symbol": "init",
-            "version": "1.16.1",
             "isGenerated": false
           },
           "enabled": true
@@ -140,9 +120,29 @@
         },
         {
           "metadata": {
+            "label": "HTTP",
+            "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.1.png",
+            "data": {
+              "isAgentSupport": false
+            }
+          },
+          "codedata": {
+            "node": "NEW_CONNECTION",
+            "org": "ballerina",
+            "module": "http",
+            "object": "Client",
+            "symbol": "init",
+            "version": "2.14.1",
+            "isGenerated": false
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
             "label": "FTP",
             "description": "Represents an FTP client that intracts with an FTP server",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_ftp_2.13.0.png",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_ftp_2.13.1.png",
             "data": {
               "isAgentSupport": false
             }
@@ -153,7 +153,7 @@
             "module": "ftp",
             "object": "Client",
             "symbol": "init",
-            "version": "2.13.0",
+            "version": "2.13.1",
             "isGenerated": false
           },
           "enabled": true
@@ -341,6 +341,46 @@
       "items": [
         {
           "metadata": {
+            "label": "SQS",
+            "description": "Ballerina Amazon SQS connector provides the capability to access Amazon SQS API.\nThis connector lets you to perform operations related to manage queues, send and receive messages. \n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_aws.sqs_3.1.0.png",
+            "data": {
+              "isAgentSupport": false
+            }
+          },
+          "codedata": {
+            "node": "NEW_CONNECTION",
+            "org": "ballerinax",
+            "module": "aws.sqs",
+            "object": "Client",
+            "symbol": "init",
+            "version": "3.1.0",
+            "isGenerated": false
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "DynamoDB",
+            "description": "The Ballerina AWS DynamoDB connector provides the capability to access AWS Simple Email Service related operations.\nThis connector lets you to to send email messages to your customers.\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_aws.dynamodb_2.3.0.png",
+            "data": {
+              "isAgentSupport": false
+            }
+          },
+          "codedata": {
+            "node": "NEW_CONNECTION",
+            "org": "ballerinax",
+            "module": "aws.dynamodb",
+            "object": "Client",
+            "symbol": "init",
+            "version": "2.3.0",
+            "isGenerated": false
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
             "label": "S3",
             "description": "Ballerina Amazon S3 connector provides the capability to access AWS S3 API.\nThis connector lets you to get authorized access to AWS S3 buckets and objects.\n",
             "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_aws.s3_3.5.0.png",
@@ -375,46 +415,6 @@
             "object": "Client",
             "symbol": "init",
             "version": "4.1.0",
-            "isGenerated": false
-          },
-          "enabled": true
-        },
-        {
-          "metadata": {
-            "label": "DynamoDB",
-            "description": "The Ballerina AWS DynamoDB connector provides the capability to access AWS Simple Email Service related operations.\nThis connector lets you to to send email messages to your customers.\n",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_aws.dynamodb_2.3.0.png",
-            "data": {
-              "isAgentSupport": false
-            }
-          },
-          "codedata": {
-            "node": "NEW_CONNECTION",
-            "org": "ballerinax",
-            "module": "aws.dynamodb",
-            "object": "Client",
-            "symbol": "init",
-            "version": "2.3.0",
-            "isGenerated": false
-          },
-          "enabled": true
-        },
-        {
-          "metadata": {
-            "label": "SQS",
-            "description": "Ballerina Amazon SQS connector provides the capability to access Amazon SQS API.\nThis connector lets you to perform operations related to manage queues, send and receive messages. \n",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_aws.sqs_3.1.0.png",
-            "data": {
-              "isAgentSupport": false
-            }
-          },
-          "codedata": {
-            "node": "NEW_CONNECTION",
-            "org": "ballerinax",
-            "module": "aws.sqs",
-            "object": "Client",
-            "symbol": "init",
-            "version": "3.1.0",
             "isGenerated": false
           },
           "enabled": true

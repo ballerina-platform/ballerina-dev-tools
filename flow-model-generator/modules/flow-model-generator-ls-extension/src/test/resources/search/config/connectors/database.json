@@ -168,26 +168,6 @@
     },
     {
       "metadata": {
-        "label": "Vector",
-        "description": "This is a generated connector for the `Vector Operations` under [Pinecone Vector Database API](https://docs.pinecone.io/reference) OpenAPI specification. Pinecone is a fully managed vector database which supports building developer-friendly, easily scalable, and high-performance vector search applications without infrastructure hassles.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_pinecone.vector_1.0.2.png",
-        "data": {
-          "isAgentSupport": false
-        }
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "pinecone.vector",
-        "object": "Client",
-        "symbol": "init",
-        "version": "1.0.2",
-        "isGenerated": false
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
         "label": "Index",
         "description": "This is a generated connector for the `Index Operations` under [Pinecone Vector Database API](https://docs.pinecone.io/reference) OpenAPI specification. Pinecone is a fully managed vector database which supports building developer-friendly, easily scalable, and high-performance vector search applications without infrastructure hassles.",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_pinecone.index_1.0.2.png",
@@ -199,6 +179,26 @@
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
         "module": "pinecone.index",
+        "object": "Client",
+        "symbol": "init",
+        "version": "1.0.2",
+        "isGenerated": false
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "Vector",
+        "description": "This is a generated connector for the `Vector Operations` under [Pinecone Vector Database API](https://docs.pinecone.io/reference) OpenAPI specification. Pinecone is a fully managed vector database which supports building developer-friendly, easily scalable, and high-performance vector search applications without infrastructure hassles.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_pinecone.vector_1.0.2.png",
+        "data": {
+          "isAgentSupport": false
+        }
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "pinecone.vector",
         "object": "Client",
         "symbol": "init",
         "version": "1.0.2",
