@@ -279,21 +279,21 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
                     .type(Property.ValueType.EXPRESSION)
                     .stepOut()
                     .addProperty(Constants.NaturalFunctions.MODEL_PROVIDER);
-
-            // set the `enableModelContext` property
-            nodeBuilder.properties().custom()
-                    .metadata()
-                        .label(Constants.NaturalFunctions.ENABLE_MODEL_CONTEXT_LABEL)
-                        .description(Constants.NaturalFunctions.ENABLE_MODEL_CONTEXT_DESCRIPTION)
-                        .stepOut()
-                    .editable()
-                    .value(isModelParamEnabled)
-                    .optional(true)
-                    .advanced(true)
-                    .type(Property.ValueType.FLAG)
-                    .stepOut()
-                    .addProperty(Constants.NaturalFunctions.ENABLE_MODEL_CONTEXT);
         }
+
+        // set the `enableModelContext` property
+        nodeBuilder.properties().custom()
+                .metadata()
+                .label(Constants.NaturalFunctions.ENABLE_MODEL_CONTEXT_LABEL)
+                .description(Constants.NaturalFunctions.ENABLE_MODEL_CONTEXT_DESCRIPTION)
+                .stepOut()
+                .editable()
+                .value(isModelParamEnabled)
+                .optional(true)
+                .advanced(true)
+                .type(Property.ValueType.FLAG)
+                .stepOut()
+                .addProperty(Constants.NaturalFunctions.ENABLE_MODEL_CONTEXT);
     }
 
     private static String getNodeValue(Node node) {

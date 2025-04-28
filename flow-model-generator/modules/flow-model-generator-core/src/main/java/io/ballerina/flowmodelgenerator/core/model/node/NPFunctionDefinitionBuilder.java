@@ -223,15 +223,16 @@ public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
 
         sourceBuilder.token().skipFormatting();
 
+        if (isModelConfigEnabled) {
+            // Import the package if the model provider is enabled
+            sourceBuilder.acceptImport();
+        }
+
         // Generate text edits based on the line range. If a line range exists, update the signature of the existing
         // function. Otherwise, create a new function definition in "functions.bal".
         LineRange lineRange = flowNode.codedata().lineRange();
         if (lineRange == null) {
             sourceBuilder.textEdit(SourceBuilder.SourceKind.DECLARATION);
-            if (isModelConfigEnabled) {
-                // Import the package if the model provider is enabled
-                sourceBuilder.acceptImport();
-            }
         } else {
             sourceBuilder.textEdit();
         }
