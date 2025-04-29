@@ -7,18 +7,23 @@
   "description": "Sample diagram node for natural function call",
   "codedata": {
     "node": "NP_FUNCTION_CALL",
-    "symbol": "suggestMovieName"
+    "org": "testOrg",
+    "module": "np_functions",
+    "symbol": "suggestMovieName",
+    "version": "0.1.0"
   },
   "output": {
     "id": "31",
     "metadata": {
       "label": "suggestMovieName",
-      "description": "",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/null_null_null.png"
+      "description": ""
     },
     "codedata": {
       "node": "NP_FUNCTION_CALL",
+      "org": "testOrg",
+      "module": "np_functions",
       "symbol": "suggestMovieName",
+      "version": "0.1.0",
       "id": 0,
       "isNew": true
     },

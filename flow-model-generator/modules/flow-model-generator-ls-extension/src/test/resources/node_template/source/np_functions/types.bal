@@ -29,4 +29,9 @@ type Admission record {
     string admissionDate;
 };
 
+type Summary record {
+    string title;
+    string summary;
+};
+
 type Persons Person[];

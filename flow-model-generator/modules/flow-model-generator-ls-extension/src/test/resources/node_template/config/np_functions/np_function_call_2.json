@@ -7,18 +7,23 @@
   "description": "Sample diagram node for natural function call",
   "codedata": {
     "node": "NP_FUNCTION_CALL",
-    "symbol": "rateMovie"
+    "symbol": "rateMovie",
+    "org": "testOrg",
+    "module": "np_functions",
+    "version": "0.1.0"
   },
   "output": {
     "id": "31",
     "metadata": {
       "label": "rateMovie",
-      "description": "",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/null_null_null.png"
+      "description": ""
     },
     "codedata": {
       "node": "NP_FUNCTION_CALL",
+      "org": "testOrg",
+      "module": "np_functions",
       "symbol": "rateMovie",
+      "version": "0.1.0",
       "id": 0,
       "isNew": true
     },
@@ -38,23 +43,6 @@
         "codedata": {
           "kind": "REQUIRED",
           "originalName": "movieName"
-        }
-      },
-      "context": {
-        "metadata": {
-          "label": "context"
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "np:Context",
-        "placeholder": "{}",
-        "optional": false,
-        "editable": true,
-        "advanced": false,
-        "hidden": false,
-        "codedata": {
-          "kind": "REQUIRED",
-          "originalName": "context",
-          "importStatements": "ballerinax/np"
         }
       },
       "type": {

@@ -4,24 +4,24 @@
   "functionName": "suggestMovieName",
   "description": "",
   "output": {
-    "id": "34062",
+    "id": "31963",
     "metadata": {
       "label": "Natural Function",
       "description": "Define a natural function"
     },
     "codedata": {
       "node": "NP_FUNCTION_DEFINITION",
-      "org": "ballerinax",
+      "org": "ballerina",
       "module": "np",
       "lineRange": {
         "fileName": "functions.bal",
         "startLine": {
-          "line": 2,
+          "line": 0,
           "offset": 0
         },
         "endLine": {
-          "line": 12,
-          "offset": 24
+          "line": 7,
+          "offset": 2
         }
       }
     },
@@ -33,6 +33,7 @@
           "description": "Name of the function"
         },
         "valueType": "IDENTIFIER",
+        "valueTypeConstraint": "Global",
         "value": "suggestMovieName",
         "optional": false,
         "editable": false,
@@ -42,11 +43,11 @@
           "lineRange": {
             "fileName": "functions.bal",
             "startLine": {
-              "line": 2,
+              "line": 0,
               "offset": 9
             },
             "endLine": {
-              "line": 2,
+              "line": 0,
               "offset": 25
             }
           }
@@ -100,6 +101,18 @@
               "editable": true,
               "advanced": false,
               "hidden": false
+            },
+            "parameterDescription": {
+              "metadata": {
+                "label": "Description",
+                "description": "Description of the parameter"
+              },
+              "valueType": "STRING",
+              "value": "",
+              "optional": true,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
             }
           },
           "optional": false,
@@ -142,15 +155,27 @@
                   "lineRange": {
                     "fileName": "functions.bal",
                     "startLine": {
-                      "line": 2,
+                      "line": 0,
                       "offset": 33
                     },
                     "endLine": {
-                      "line": 2,
+                      "line": 0,
                       "offset": 38
                     }
                   }
                 }
+              },
+              "parameterDescription": {
+                "metadata": {
+                  "label": "Description",
+                  "description": "Description of the parameter"
+                },
+                "valueType": "STRING",
+                "value": "",
+                "optional": true,
+                "editable": true,
+                "advanced": false,
+                "hidden": false
               }
             },
             "optional": false,
@@ -192,15 +217,27 @@
                   "lineRange": {
                     "fileName": "functions.bal",
                     "startLine": {
-                      "line": 2,
+                      "line": 0,
                       "offset": 44
                     },
                     "endLine": {
-                      "line": 2,
+                      "line": 0,
                       "offset": 45
                     }
                   }
                 }
+              },
+              "parameterDescription": {
+                "metadata": {
+                  "label": "Description",
+                  "description": "Description of the parameter"
+                },
+                "valueType": "STRING",
+                "value": "",
+                "optional": true,
+                "editable": true,
+                "advanced": false,
+                "hidden": false
               }
             },
             "optional": false,
@@ -220,20 +257,30 @@
           "description": "Prompt for the function"
         },
         "valueType": "RAW_TEMPLATE",
-        "valueTypeConstraint": "np:Prompt",
-        "value": "`\n    **Assumption**\n    Think yourself as a movie expert\n\n    **What to do**\n    Suggest a movie name matching to the genre given:\n    ${genre}\n\n    **Output**\n    string - The suggested movie name\n`",
+        "value": "    **Assumption**\n    Think yourself as a movie expert\n\n    **What to do**\n    Suggest a movie name matching to the genre given:\n    ${genre}\n",
         "optional": false,
         "editable": true,
         "advanced": false,
         "hidden": true,
         "codedata": {
-          "kind": "REQUIRED"
+          "kind": "REQUIRED",
+          "lineRange": {
+            "fileName": "functions.bal",
+            "startLine": {
+              "line": 1,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 7,
+              "offset": 0
+            }
+          }
         }
       },
       "enableModelContext": {
         "metadata": {
-          "label": "Enable Model Context",
-          "description": "Enable model context for the function"
+          "label": "Enable model configuration",
+          "description": "Allow specifying Large Language Model (LLM) choice"
         },
         "valueType": "FLAG",
         "value": false,
