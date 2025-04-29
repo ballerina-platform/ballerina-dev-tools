@@ -152,7 +152,6 @@ import io.ballerina.modelgenerator.commons.FunctionData;
 import io.ballerina.modelgenerator.commons.FunctionDataBuilder;
 import io.ballerina.modelgenerator.commons.ModuleInfo;
 import io.ballerina.modelgenerator.commons.ParameterData;
-import io.ballerina.modelgenerator.commons.ParameterMemberTypeData;
 import io.ballerina.projects.Project;
 import io.ballerina.tools.diagnostics.Location;
 import io.ballerina.tools.text.LinePosition;
@@ -173,17 +172,6 @@ import java.util.Queue;
 import java.util.Stack;
 import java.util.stream.Collectors;
 
-import static io.ballerina.flowmodelgenerator.core.model.node.ClassInitBuilder.ANTHROPIC_MODEL;
-import static io.ballerina.flowmodelgenerator.core.model.node.ClassInitBuilder.ANTHROPIC_MODEL_DESC;
-import static io.ballerina.flowmodelgenerator.core.model.node.ClassInitBuilder.ANTHROPIC_MODEL_TYPES;
-import static io.ballerina.flowmodelgenerator.core.model.node.ClassInitBuilder.MISTRAL_AI_MODEL;
-import static io.ballerina.flowmodelgenerator.core.model.node.ClassInitBuilder.MISTRAL_AI_MODEL_DESC;
-import static io.ballerina.flowmodelgenerator.core.model.node.ClassInitBuilder.MISTRAL_AI_MODEL_TYPES;
-import static io.ballerina.flowmodelgenerator.core.model.node.ClassInitBuilder.MODEL_TYPE;
-import static io.ballerina.flowmodelgenerator.core.model.node.ClassInitBuilder.OPEN_AI_MODEL;
-import static io.ballerina.flowmodelgenerator.core.model.node.ClassInitBuilder.OPEN_AI_MODEL_DESC;
-import static io.ballerina.flowmodelgenerator.core.model.node.ClassInitBuilder.OPEN_AI_MODEL_TYPES;
-import static io.ballerina.flowmodelgenerator.core.model.node.ClassInitBuilder.REQUIRED;
 
 /**
  * Analyzes the source code and generates the flow model.
@@ -754,7 +742,11 @@ class CodeAnalyzer extends NodeVisitor {
                     }
                     customPropBuilder.type(Property.ValueType.EXPRESSION_SET);
                 } else {
-                    customPropBuilder.type(Property.ValueType.EXPRESSION);
+                    if (paramResult.type() instanceof List<?>) {
+                        customPropBuilder.type(Property.ValueType.SINGLE_SELECT);
+                    } else {
+                        customPropBuilder.type(Property.ValueType.EXPRESSION);
+                    }
                 }
                 customPropBuilder
                         .stepOut()
@@ -809,7 +801,7 @@ class CodeAnalyzer extends NodeVisitor {
                                 .label(label == null || label.isEmpty() ? unescapedParamName : label)
                                 .description(paramResult.description())
                                 .stepOut()
-                            .type(getPropertyTypeFromParam(parameterSymbol, paramResult.kind()))
+                            .type(getPropertyTypeFromParam(parameterSymbol, paramResult))
                             .typeConstraint(paramResult.type())
                             .typeMembers(paramResult.typeMembers(), selectedType)
                             .imports(paramResult.importStatements())
@@ -839,7 +831,7 @@ class CodeAnalyzer extends NodeVisitor {
                             .label(unescapedParamName)
                             .description(restParamResult.description())
                             .stepOut()
-                        .type(getPropertyTypeFromParam(restParamSymbol, restParamResult.kind()))
+                        .type(getPropertyTypeFromParam(restParamSymbol, restParamResult))
                         .typeConstraint(restParamResult.type())
                         .typeMembers(restParamResult.typeMembers())
                         .imports(restParamResult.importStatements())
@@ -908,7 +900,7 @@ class CodeAnalyzer extends NodeVisitor {
                                         .label(label == null || label.isEmpty() ? unescapedParamName : label)
                                         .description(paramResult.description())
                                         .stepOut()
-                                    .type(getPropertyTypeFromParam(parameterSymbol, paramResult.kind()))
+                                    .type(getPropertyTypeFromParam(parameterSymbol, paramResult))
                                     .typeConstraint(paramResult.type())
                                     .typeMembers(paramResult.typeMembers(), selectedType)
                                     .imports(paramResult.importStatements())
@@ -955,7 +947,7 @@ class CodeAnalyzer extends NodeVisitor {
                                             .label(label == null || label.isEmpty() ? unescapedParamName : label)
                                             .description(paramResult.description())
                                             .stepOut()
-                                        .type(getPropertyTypeFromParam(parameterSymbol, paramResult.kind()))
+                                        .type(getPropertyTypeFromParam(parameterSymbol, paramResult))
                                         .typeConstraint(paramResult.type())
                                         .typeMembers(paramResult.typeMembers(), selectedType)
                                         .imports(paramResult.importStatements())
@@ -997,7 +989,7 @@ class CodeAnalyzer extends NodeVisitor {
                                         .label(label == null || label.isEmpty() ? unescapedParamName : label)
                                         .description(paramResult.description())
                                         .stepOut()
-                                    .type(getPropertyTypeFromParam(parameterSymbol, paramResult.kind()))
+                                    .type(getPropertyTypeFromParam(parameterSymbol, paramResult))
                                     .typeConstraint(paramResult.type())
                                     .typeMembers(paramResult.typeMembers(), selectedType)
                                     .imports(paramResult.importStatements())
@@ -1044,7 +1036,7 @@ class CodeAnalyzer extends NodeVisitor {
                             .label(label == null || label.isEmpty() ? unescapedParamName : label)
                             .description(paramResult.description())
                             .stepOut()
-                        .type(getPropertyTypeFromParam(parameterSymbol, paramResult.kind()))
+                        .type(getPropertyTypeFromParam(parameterSymbol, paramResult))
                         .typeConstraint(paramResult.type())
                         .typeMembers(paramResult.typeMembers(), selectedType)
                         .imports(paramResult.importStatements())
@@ -1093,7 +1085,7 @@ class CodeAnalyzer extends NodeVisitor {
                         .label(label == null || label.isEmpty() ? unescapedParamName : label)
                         .description(paramResult.description())
                         .stepOut()
-                        .type(getPropertyTypeFromParam(null, paramResult.kind()))
+                        .type(getPropertyTypeFromParam(null, paramResult))
                         .typeConstraint(paramResult.type())
                         .typeMembers(paramResult.typeMembers(), selectedType)
                         .imports(paramResult.importStatements())
@@ -1119,7 +1111,7 @@ class CodeAnalyzer extends NodeVisitor {
                             .label(unescapedParamName)
                             .description(includedRecordRest.description())
                             .stepOut()
-                        .type(getPropertyTypeFromParam(null, includedRecordRest.kind()))
+                        .type(getPropertyTypeFromParam(null, includedRecordRest))
                         .typeConstraint(includedRecordRest.type())
                         .typeMembers(includedRecordRest.typeMembers())
                         .imports(includedRecordRest.importStatements())
@@ -1153,15 +1145,20 @@ class CodeAnalyzer extends NodeVisitor {
         }
     }
 
-    private Property.ValueType getPropertyTypeFromParam(ParameterSymbol paramSymbol, ParameterData.Kind kind) {
+    private Property.ValueType getPropertyTypeFromParam(ParameterSymbol paramSymbol, ParameterData paramData) {
+        ParameterData.Kind kind = paramData.kind();
         if (kind == ParameterData.Kind.REST_PARAMETER) {
             return Property.ValueType.EXPRESSION_SET;
         } else if (kind == ParameterData.Kind.INCLUDED_RECORD_REST) {
             return Property.ValueType.MAPPING_EXPRESSION_SET;
         } else if (paramSymbol != null && isSubTypeOfRawTemplate(paramSymbol.typeDescriptor())) {
             return Property.ValueType.RAW_TEMPLATE;
+        } else {
+            if (paramData.type() instanceof List<?>) {
+                return Property.ValueType.SINGLE_SELECT;
+            }
+            return Property.ValueType.EXPRESSION;
         }
-        return Property.ValueType.EXPRESSION;
     }
 
     @Override
@@ -1269,44 +1266,6 @@ class CodeAnalyzer extends NodeVisitor {
                 .properties()
                 .scope(connectionScope)
                 .checkError(true, NewConnectionBuilder.CHECK_ERROR_DOC, false);
-
-        if (!org.equals(BALLERINAX) || !packageName.equals(AI_AGENT)) {
-            return;
-        }
-        switch (name) {
-            case OPEN_AI_MODEL -> setAIModelType(OPEN_AI_MODEL_TYPES, OPEN_AI_MODEL_DESC, "ai:OPEN_AI_MODEL_NAMES",
-                    "\"gpt-3.5-turbo-16k-0613\"");
-            case ANTHROPIC_MODEL ->
-                    setAIModelType(ANTHROPIC_MODEL_TYPES, ANTHROPIC_MODEL_DESC, "ai:ANTHROPIC_MODEL_NAMES",
-                            "\"claude-3-haiku-20240307\"");
-            case MISTRAL_AI_MODEL ->
-                    setAIModelType(MISTRAL_AI_MODEL_TYPES, MISTRAL_AI_MODEL_DESC, "ai:MISTRAL_AI_MODEL_NAMES",
-                            "\"mistral-large-latest\"");
-            default -> {
-                return;
-            }
-        }
-    }
-
-    private void setAIModelType(List<String> modelType, String description, String kind, String defaultValue) {
-        nodeBuilder.properties()
-                .custom()
-                .metadata()
-                .label("Model Type")
-                .description(description)
-                .stepOut()
-                .type(Property.ValueType.SINGLE_SELECT)
-                .typeConstraint(modelType)
-                .placeholder(defaultValue)
-                .editable()
-                .codedata()
-                .kind(REQUIRED)
-                .originalName(MODEL_TYPE)
-                .stepOut()
-                .typeMembers(List.of(new ParameterMemberTypeData(kind, "BASIC_TYPE",
-                        moduleInfo.org() + ":" + moduleInfo.moduleName() + ":" + moduleInfo.version())))
-                .stepOut()
-                .addProperty(MODEL_TYPE);
     }
 
     private Optional<ClassSymbol> getClassSymbol(ExpressionNode newExpressionNode) {

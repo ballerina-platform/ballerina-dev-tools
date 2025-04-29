@@ -597,7 +597,7 @@ public class FunctionDataBuilder {
         String paramName = paramSymbol.getName().orElse("");
         String paramDescription = documentationMap.get(paramName);
         ParameterData.Kind parameterKind = ParameterData.Kind.fromKind(paramSymbol.paramKind());
-        String paramType;
+        Object paramType;
         boolean optional = true;
         String defaultValue;
         TypeSymbol typeSymbol = paramSymbol.typeDescriptor();
@@ -626,7 +626,21 @@ public class FunctionDataBuilder {
             parameters.putAll(includedParameters);
             defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(typeSymbol);
         } else if (parameterKind == ParameterData.Kind.REQUIRED) {
-            paramType = getTypeSignature(typeSymbol);
+            if (isAgentModelType(paramName)) {
+                List<String> memberTypes = new ArrayList<>();
+                TypeSymbol rawParamType = CommonUtils.getRawType(typeSymbol);
+                if (rawParamType.typeKind() == TypeDescKind.UNION) {
+                    UnionTypeSymbol unionTypeSymbol = (UnionTypeSymbol) rawParamType;
+                    for (TypeSymbol memType : unionTypeSymbol.userSpecifiedMemberTypes()) {
+                        memberTypes.add(memType.signature());
+                    }
+                    paramType = memberTypes;
+                } else {
+                    paramType = getTypeSignature(typeSymbol);
+                }
+            } else {
+                paramType = getTypeSignature(typeSymbol);
+            }
             defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(typeSymbol);
             optional = false;
         } else {
@@ -999,6 +1013,12 @@ public class FunctionDataBuilder {
             return label.toString();
         }
         return "";
+    }
+
+    private boolean isAgentModelType(String paramName) {
+        return moduleInfo.org().equals("ballerinax") && moduleInfo.moduleName().equals("ai")
+                && (functionKind == FunctionData.Kind.CLASS_INIT || functionKind == FunctionData.Kind.CONNECTOR)
+                && paramName.equals("modelType"); // TODO: Check Param Name
     }
 
     private record ParamForTypeInfer(String paramName, String defaultValue, String type) {
