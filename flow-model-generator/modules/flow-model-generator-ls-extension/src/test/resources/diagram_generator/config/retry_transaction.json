@@ -383,7 +383,7 @@
                       "label": "Statement",
                       "description": "Ballerina statement"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "STRING",
                     "value": "check err;",
                     "optional": false,
                     "editable": true,
@@ -633,7 +633,7 @@
                       "label": "Statement",
                       "description": "Ballerina statement"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "STRING",
                     "value": "check err;",
                     "optional": false,
                     "editable": true,
@@ -921,7 +921,7 @@
                       "label": "Statement",
                       "description": "Ballerina statement"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "STRING",
                     "value": "check err;",
                     "optional": false,
                     "editable": true,
@@ -1209,7 +1209,7 @@
                       "label": "Statement",
                       "description": "Ballerina statement"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "STRING",
                     "value": "check err;",
                     "optional": false,
                     "editable": true,

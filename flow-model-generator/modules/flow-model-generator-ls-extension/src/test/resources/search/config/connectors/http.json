@@ -10,7 +10,7 @@
       "metadata": {
         "label": "HTTP",
         "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.1.png",
         "data": {
           "isAgentSupport": false
         }
@@ -21,7 +21,7 @@
         "module": "http",
         "object": "Client",
         "symbol": "init",
-        "version": "2.14.0",
+        "version": "2.14.1",
         "isGenerated": false
       },
       "enabled": true
@@ -188,26 +188,6 @@
     },
     {
       "metadata": {
-        "label": "Asana",
-        "description": "This is the interface for interacting with the [Asana Platform](https://developers.asana.com). Our API reference is generated from our [OpenAPI spec] (https://raw.githubusercontent.com/Asana/openapi/master/defs/asana_oas.yaml).",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_asana_2.0.0.png",
-        "data": {
-          "isAgentSupport": true
-        }
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "asana",
-        "object": "Client",
-        "symbol": "init",
-        "version": "2.0.0",
-        "isGenerated": false
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
         "label": "Elmah",
         "description": "This is a generated connector for [Elmah.io REST API v3](https://elmah.io) OpenAPI Specification.\nThe public REST API for elmah.io. All of the integrations communicates with elmah.io through this API.\nFor additional help getting started with the API, visit the following help articles:\n<ul><li>[Using the REST API](https://docs.elmah.io/using-the-rest-api/)</li><li>[Where is my API key?](https://docs.elmah.io/where-is-my-api-key/)</li><li>[Where is my log ID?](https://docs.elmah.io/where-is-my-log-id/)</li><li>[How to configure API key permissions](https://docs.elmah.io/how-to-configure-api-key-permissions/)</li></ul>",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_elmah_1.5.1.png",
@@ -222,6 +202,26 @@
         "object": "Client",
         "symbol": "init",
         "version": "1.5.1",
+        "isGenerated": false
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "Asana",
+        "description": "This is the interface for interacting with the [Asana Platform](https://developers.asana.com). Our API reference is generated from our [OpenAPI spec] (https://raw.githubusercontent.com/Asana/openapi/master/defs/asana_oas.yaml).",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_asana_2.0.0.png",
+        "data": {
+          "isAgentSupport": true
+        }
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "asana",
+        "object": "Client",
+        "symbol": "init",
+        "version": "2.0.0",
         "isGenerated": false
       },
       "enabled": true
@@ -308,26 +308,6 @@
     },
     {
       "metadata": {
-        "label": "Customer",
-        "description": "This is a generated connector for [Commercetools API v1](https://docs.commercetools.com/api/) OpenAPI specification. \nThe commercetools Platform HTTP API(Customer) offers an interface for programmatic access to retrieve certain information on customer related operations.",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_commercetools.customer_1.4.1.png",
-        "data": {
-          "isAgentSupport": false
-        }
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "commercetools.customer",
-        "object": "Client",
-        "symbol": "init",
-        "version": "1.4.1",
-        "isGenerated": false
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
         "label": "Cartsordershoppinglists",
         "description": "This is a generated connector for [Commercetools API v1](https://docs.commercetools.com/api/) OpenAPI specification. \nThe commercetools Platform HTTP API offers an interface for programmatic access to operations related to carts, orders and shopping lists.",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_commercetools.cartsordershoppinglists_1.4.1.png",
@@ -339,6 +319,26 @@
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
         "module": "commercetools.cartsordershoppinglists",
+        "object": "Client",
+        "symbol": "init",
+        "version": "1.4.1",
+        "isGenerated": false
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "Customer",
+        "description": "This is a generated connector for [Commercetools API v1](https://docs.commercetools.com/api/) OpenAPI specification. \nThe commercetools Platform HTTP API(Customer) offers an interface for programmatic access to retrieve certain information on customer related operations.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_commercetools.customer_1.4.1.png",
+        "data": {
+          "isAgentSupport": false
+        }
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "commercetools.customer",
         "object": "Client",
         "symbol": "init",
         "version": "1.4.1",

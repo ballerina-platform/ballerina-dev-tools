@@ -282,7 +282,7 @@
                       "label": "Statement",
                       "description": "Ballerina statement"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "STRING",
                     "value": "results.push(\"WA\");",
                     "optional": false,
                     "editable": true,
@@ -438,7 +438,7 @@
                       "label": "Statement",
                       "description": "Ballerina statement"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "STRING",
                     "value": "results.push(\"WB\");",
                     "optional": false,
                     "editable": true,

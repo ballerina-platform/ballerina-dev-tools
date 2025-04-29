@@ -45,7 +45,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.logging.Logger;
 
 /**
@@ -74,17 +77,29 @@ public class SearchIndexGenerator {
                     typeToken);
             int totalPackages = packagesMap.values().stream().mapToInt(List::size).sum();
             SearchIndexLogger logger = new SearchIndexLogger(totalPackages);
-            try (ForkJoinPool forkJoinPool = new ForkJoinPool(4)) {
-                forkJoinPool.submit(() -> packagesMap.forEach((key, value) -> value.stream().forEach(
-                        packageMetadataInfo -> {
-                            try {
-                                resolvePackage(buildProject, key, packageMetadataInfo, logger);
-                            } catch (Throwable e) {
-                                logger.error("Error processing package: " + packageMetadataInfo.name() + " " +
-                                        e.getMessage());
-                            }
-                        }))).join();
-            }
+            packagesMap.forEach((key, packages) ->
+                    packages.parallelStream().forEach(packageMetadataInfo -> {
+                        try {
+                            // Create separate thread with timeout for each package
+                            CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
+                                try {
+                                    resolvePackage(buildProject, key, packageMetadataInfo, logger);
+                                } catch (Throwable e) {
+                                    logger.error("Error processing package: " + packageMetadataInfo.name() + " " +
+                                            e.getMessage());
+                                }
+                            });
+
+                            // Apply 5-minute timeout
+                            future.get(3, TimeUnit.MINUTES);
+                        } catch (InterruptedException | ExecutionException e) {
+                            logger.error(
+                                    "Error processing package: " + packageMetadataInfo.name() + " " + e.getMessage());
+                        } catch (TimeoutException e) {
+                            logger.error("Processing timeout for package: " + packageMetadataInfo.name());
+                        }
+                    })
+            );
         } catch (IOException e) {
             LOGGER.severe("Error reading packages JSON file: " + e.getMessage());
         }
@@ -105,7 +120,7 @@ public class SearchIndexGenerator {
 
     private static void resolvePackage(BuildProject buildProject, String org,
                                        SearchListGenerator.PackageMetadataInfo packageMetadataInfo,
-                                       SearchIndexLogger logger) {
+                                       SearchIndexLogger logger) throws Exception {
         Package resolvedPackage;
         try {
             resolvedPackage = Objects.requireNonNull(PackageUtil.getModulePackage(buildProject, org,
@@ -116,24 +131,16 @@ public class SearchIndexGenerator {
         }
         PackageDescriptor descriptor = resolvedPackage.descriptor();
 
-        logger.log("Processing package: " + descriptor.name().value());
         int packageId = SearchDatabaseManager.insertPackage(descriptor.org().value(), descriptor.name().value(),
                 descriptor.version().value().toString(), packageMetadataInfo.pullCount(),
                 resolvedPackage.manifest().keywords());
 
         if (packageId == -1) {
-            logger.error("Error inserting package to database: " + descriptor.name().value());
-            return;
+            throw new Exception("Error inserting package to database: " + descriptor.name().value());
         }
 
-        SemanticModel semanticModel;
-        try {
-            semanticModel = PackageUtil.getCompilation(resolvedPackage)
-                    .getSemanticModel(resolvedPackage.getDefaultModule().moduleId());
-        } catch (Exception e) {
-            logger.error("Error reading semantic model: " + e.getMessage());
-            return;
-        }
+        SemanticModel semanticModel = PackageUtil.getCompilation(resolvedPackage)
+                .getSemanticModel(resolvedPackage.getDefaultModule().moduleId());
 
         for (Symbol symbol : semanticModel.moduleSymbols()) {
             switch (symbol.kind()) {
