@@ -216,8 +216,8 @@ public class ModelGenerator {
                         continue;
                     }
                     CodeAnalyzer codeAnalyzer = new CodeAnalyzer(project, semanticModel, Property.SERVICE_SCOPE,
-                            Map.of(), document.textDocument(), ModuleInfo.from(document.module().descriptor()),
-                            false);
+                            Map.of(), Map.of(), document.textDocument(),
+                            ModuleInfo.from(document.module().descriptor()), false);
                     statement.accept(codeAnalyzer);
                     List<FlowNode> nodes = codeAnalyzer.getFlowNodes();
                     connections.add(nodes.stream().findFirst().orElseThrow());
