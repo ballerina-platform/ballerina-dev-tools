@@ -1,34 +1,20 @@
 import ballerina/http;
+import ballerinax/ai;
 
-http:Client httpClient = check new ("http://localhost:9090");
+service /p1 on new http:Listener(9091) {
+    final ai:OpenAiProvider _AgentServiceModel;
+    final ai:Agent _AgentServiceAgent;
 
-public function main() {
-    int x = 32;
-    while x < 50 {
-        if (x % 2 == 0) {
-            int y = 12;
-        } else {
-            string z = "hello";
-            do {
-                if z.length() == x {
-                    Address address = {houseNo: "10", line1: "foo", line2: "bar", city: "Colombo", country: "Sri Lanka"};
+    function init() returns error? {
+        self._AgentServiceModel = check new ("", ai:GPT_3_5_TURBO_0613);
+        self._AgentServiceAgent = check new (systemPrompt = {role: "", instructions: string ``},
+            model = self._AgentServiceModel,
+            tools = []
+        );
+    }
 
-                } else {
-                    fail error("error");
-                }
-            } on fail {
-                break;
-            }
-        }
-        x += 2;
+    resource function post chat(@http:Payload ai:ChatReqMessage request) returns ai:ChatRespMessage|error {
+        string stringResult = check self._AgentServiceAgent->run(request.message, request.sessionId);
+        return {message: stringResult};
     }
 }
-
-function fn(int x) returns int {
-    return x + 1;
-}
-
-http:Client httpClientResult = check new ("http://localhost:9091");
-
-final Address[] addresses = [];
-final Address var1 = {country: "", city: "", houseNo: "", line2: "", line1: ""};
