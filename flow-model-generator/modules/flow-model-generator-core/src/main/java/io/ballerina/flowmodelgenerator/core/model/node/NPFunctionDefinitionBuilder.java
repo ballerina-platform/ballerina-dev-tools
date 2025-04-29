@@ -73,7 +73,7 @@ public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
         metadata().label(LABEL).description(DESCRIPTION);
         codedata()
                 .node(NodeKind.NP_FUNCTION_DEFINITION)
-                .org(NaturalFunctions.BALLERINAX_ORG)
+                .org(NaturalFunctions.BALLERINA_ORG)
                 .module(NaturalFunctions.NP_PACKAGE);
     }
 
@@ -84,7 +84,7 @@ public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
         FunctionDataBuilder functionDataBuilder = new FunctionDataBuilder()
                 .parentSymbolType(codedata.object())
                 .name(CALL_LLM_FUNCTION)
-                .moduleInfo(new ModuleInfo(BALLERINAX_ORG, NP_PACKAGE, NP_PACKAGE, null))
+                .moduleInfo(new ModuleInfo(NaturalFunctions.BALLERINA_ORG, NP_PACKAGE, NP_PACKAGE, null))
                 .lsClientLogger(context.lsClientLogger())
                 .functionResultKind(FunctionData.Kind.FUNCTION)
                 .userModuleInfo(moduleInfo);
@@ -107,7 +107,7 @@ public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
                         .kind(REQUIRED.name())
                         .stepOut()
                     .placeholder("")
-                    .value("``")
+                    .value("")
                     .typeConstraint(NaturalFunctions.MODULE_PREFIXED_PROMPT_TYPE)
                     .editable()
                     .hidden()
@@ -156,14 +156,15 @@ public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
                 .name(property.get().value().toString())
                 .keyword(SyntaxKind.OPEN_PAREN_TOKEN);
 
-        // Write the context parameter
-        Optional<Property> isModelContextEnabled =
+        // Write the model parameter
+        Optional<Property> isModelContextEnabledProperty =
                 sourceBuilder.getProperty(NaturalFunctions.ENABLE_MODEL_CONTEXT);
+        boolean isModelConfigEnabled = isModelContextEnabledProperty.isPresent() &&
+                (boolean) isModelContextEnabledProperty.get().value();
 
-        if (isModelContextEnabled.isPresent() && (boolean) isModelContextEnabled.get().value()) {
-            sourceBuilder.token().name(NaturalFunctions.MODULE_PREFIXED_CONTEXT_TYPE +
-                    " " + NaturalFunctions.CONTEXT);
-            sourceBuilder.token().keyword(SyntaxKind.COMMA_TOKEN);
+        if (isModelConfigEnabled) {
+            sourceBuilder.token().name(NaturalFunctions.MODULE_PREFIXED_MODEL_PROVIDER_TYPE +
+                    " " + NaturalFunctions.MODEL_PROVIDER);
         }
 
         // Write the function parameters
@@ -182,17 +183,13 @@ public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
                 String paramName = paramProperties.get(Property.VARIABLE_KEY).value().toString();
                 paramList.add(paramType + " " + paramName);
             }
-            sourceBuilder.token().name(String.join(", ", paramList));
             if (!paramList.isEmpty()) {
-                sourceBuilder.token().keyword(SyntaxKind.COMMA_TOKEN);
+                if (isModelConfigEnabled) {
+                    sourceBuilder.token().keyword(SyntaxKind.COMMA_TOKEN);
+                }
+                sourceBuilder.token().name(String.join(", ", paramList));
             }
         }
-
-        // Write prompt parameter
-        Optional<Property> promptProperty = sourceBuilder.getProperty(NaturalFunctions.PROMPT);
-        String defaultValue = promptProperty.map(value -> " = " + value.value().toString()).orElse("");
-        sourceBuilder.token().name(NaturalFunctions.MODULE_PREFIXED_PROMPT_TYPE + " "
-                + NaturalFunctions.PROMPT + defaultValue);
 
         sourceBuilder.token().keyword(SyntaxKind.CLOSE_PAREN_TOKEN);
 
@@ -212,23 +209,32 @@ public class NPFunctionDefinitionBuilder extends FunctionDefinitionBuilder {
             sourceBuilder.token().keyword(SyntaxKind.RETURNS_KEYWORD).name("error?");
         }
 
+        // Write the natural function expression body
+        Optional<Property> promptProperty = sourceBuilder.getProperty(NaturalFunctions.PROMPT);
+        String promptValue = promptProperty.map(value -> value.value().toString()).orElse("");
+        String naturalExprTemplate = "natural %s{%n" +
+                "%s" +
+                "%n}";
+        String naturalExpr = naturalExprTemplate.formatted(isModelConfigEnabled ? "(model) " : "", promptValue);
+        sourceBuilder.token()
+                .rightDoubleArrowToken()
+                .name(naturalExpr)
+                .semicolon();
+
+        sourceBuilder.token().skipFormatting();
+
+        if (isModelConfigEnabled) {
+            // Import the package if the model provider is enabled
+            sourceBuilder.acceptImport();
+        }
+
         // Generate text edits based on the line range. If a line range exists, update the signature of the existing
         // function. Otherwise, create a new function definition in "functions.bal".
         LineRange lineRange = flowNode.codedata().lineRange();
         if (lineRange == null) {
-            sourceBuilder
-                    .token()
-                        .equal()
-                        .name(NP_NATURAL_FUNCTION_BODY)
-                        .semicolon()
-                        .skipFormatting()
-                        .stepOut()
-                    .textEdit(SourceBuilder.SourceKind.DECLARATION)
-                    .acceptImport();
+            sourceBuilder.textEdit(SourceBuilder.SourceKind.DECLARATION);
         } else {
-            sourceBuilder
-                    .token().skipFormatting().stepOut()
-                    .textEdit();
+            sourceBuilder.textEdit();
         }
         return sourceBuilder.build();
     }

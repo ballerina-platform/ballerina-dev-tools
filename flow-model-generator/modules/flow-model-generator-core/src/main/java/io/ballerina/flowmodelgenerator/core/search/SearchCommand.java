@@ -24,6 +24,7 @@ import io.ballerina.flowmodelgenerator.core.model.Category;
 import io.ballerina.flowmodelgenerator.core.model.Item;
 import io.ballerina.modelgenerator.commons.SearchDatabaseManager;
 import io.ballerina.modelgenerator.commons.SearchResult;
+import io.ballerina.projects.Document;
 import io.ballerina.projects.Project;
 import io.ballerina.tools.text.LineRange;
 
@@ -57,11 +58,12 @@ public abstract class SearchCommand {
     private static final int DEFAULT_LIMIT = 20;
     private static final int DEFAULT_OFFSET = 0;
 
-    public static SearchCommand from(Kind kind, Project module, LineRange position, Map<String, String> queryMap) {
+    public static SearchCommand from(Kind kind, Project module, LineRange position, Map<String, String> queryMap,
+                                     Document functionsDoc) {
         return switch (kind) {
-            case FUNCTION -> new FunctionSearchCommand(module, position, queryMap);
+            case FUNCTION -> new FunctionSearchCommand(module, position, queryMap, functionsDoc);
             case CONNECTOR -> new ConnectorSearchCommand(module, position, queryMap);
-            case NP_FUNCTION -> new NPFunctionSearchCommand(module, position, queryMap);
+            case NP_FUNCTION -> new NPFunctionSearchCommand(module, position, queryMap, functionsDoc);
             case TYPE -> new TypeSearchCommand(module, position, queryMap);
         };
     }

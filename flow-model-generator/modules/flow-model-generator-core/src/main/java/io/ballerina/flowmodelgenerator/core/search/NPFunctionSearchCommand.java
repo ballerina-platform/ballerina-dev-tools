@@ -34,6 +34,7 @@ import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.PackageUtil;
 import io.ballerina.modelgenerator.commons.SearchResult;
+import io.ballerina.projects.Document;
 import io.ballerina.projects.Package;
 import io.ballerina.projects.Project;
 import io.ballerina.tools.text.LineRange;
@@ -52,8 +53,12 @@ import java.util.Optional;
  */
 class NPFunctionSearchCommand extends SearchCommand {
 
-    public NPFunctionSearchCommand(Project project, LineRange position, Map<String, String> queryMap) {
+    private final Document functionsDoc;
+
+    public NPFunctionSearchCommand(Project project, LineRange position, Map<String, String> queryMap,
+                                   Document functionsDoc) {
         super(project, position, queryMap);
+        this.functionsDoc = functionsDoc;
     }
 
     @Override
@@ -84,7 +89,8 @@ class NPFunctionSearchCommand extends SearchCommand {
         List<Item> availableNodes = new ArrayList<>();
         for (Symbol symbol : functionSymbols) {
             FunctionSymbol functionSymbol = (FunctionSymbol) symbol;
-            if (!CommonUtils.isNpFunction(functionSymbol)) {
+            if (functionsDoc == null ||
+                    !CommonUtils.isNaturalExpressionBodiedFunction(functionsDoc.syntaxTree(), functionSymbol)) {
                 continue;
             }
 
@@ -102,19 +108,20 @@ class NPFunctionSearchCommand extends SearchCommand {
                             .orElse(null))
                     .build();
 
-            Codedata codedata = new Codedata.Builder<>(null)
+            Codedata.Builder<Object> codedataBuilder = new Codedata.Builder<>(null)
                     .node(NodeKind.NP_FUNCTION_CALL)
-                    .symbol(symbol.getName().get())
-                    .build();
+                    .symbol(symbol.getName().get());
 
             Optional<ModuleSymbol> moduleSymbol = functionSymbol.getModule();
             if (moduleSymbol.isPresent()) {
                 ModuleID id = moduleSymbol.get().id();
-                id.packageName();
-                id.moduleName();
+                codedataBuilder
+                        .org(id.orgName())
+                        .module(id.packageName())
+                        .version(id.version());
             }
 
-            availableNodes.add(new AvailableNode(metadata, codedata, true));
+            availableNodes.add(new AvailableNode(metadata, codedataBuilder.build(), true));
         }
         projectBuilder.items(availableNodes);
     }

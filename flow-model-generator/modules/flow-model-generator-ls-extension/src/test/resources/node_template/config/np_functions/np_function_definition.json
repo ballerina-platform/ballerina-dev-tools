@@ -11,7 +11,7 @@
     },
     "codedata": {
       "node": "NP_FUNCTION_DEFINITION",
-      "org": "ballerinax",
+      "org": "ballerina",
       "module": "np",
       "isNew": true
     },
@@ -110,7 +110,7 @@
         },
         "valueType": "RAW_TEMPLATE",
         "valueTypeConstraint": "np:Prompt",
-        "value": "``",
+        "value": "",
         "placeholder": "",
         "optional": false,
         "editable": true,
@@ -122,7 +122,7 @@
       },
       "enableModelContext": {
         "metadata": {
-          "label": "Enable Model Context",
+          "label": "Enable model configuration",
           "description": "Allow specifying Large Language Model (LLM) choice"
         },
         "valueType": "FLAG",

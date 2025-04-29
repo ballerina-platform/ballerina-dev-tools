@@ -21,14 +21,12 @@ package io.ballerina.flowmodelgenerator.core.analyzers.function;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.api.symbols.ExternalFunctionSymbol;
-import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.ParameterSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
-import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.AnnotationNode;
 import io.ballerina.compiler.syntax.tree.DefaultableParameterNode;
+import io.ballerina.compiler.syntax.tree.ExpressionFunctionBodyNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.MarkdownDocumentationLineNode;
 import io.ballerina.compiler.syntax.tree.MarkdownDocumentationNode;
@@ -36,6 +34,7 @@ import io.ballerina.compiler.syntax.tree.MarkdownParameterDocumentationLineNode;
 import io.ballerina.compiler.syntax.tree.MetadataNode;
 import io.ballerina.compiler.syntax.tree.ModuleMemberDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
+import io.ballerina.compiler.syntax.tree.NaturalExpressionNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeList;
 import io.ballerina.compiler.syntax.tree.NodeVisitor;
@@ -97,14 +96,14 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(FunctionDefinitionNode functionDefinitionNode) {
-        boolean isNpFunction = isNpFunction(functionDefinitionNode);
+        boolean isNpFunction = CommonUtils.isNaturalExpressionBodiedFunction(functionDefinitionNode);
         NodeKind nodeKind;
-        if (functionDefinitionNode.functionBody().kind() == SyntaxKind.EXPRESSION_FUNCTION_BODY) {
+        if (isNpFunction) {
+            nodeKind = NodeKind.NP_FUNCTION_DEFINITION;
+        } else if (functionDefinitionNode.functionBody().kind() == SyntaxKind.EXPRESSION_FUNCTION_BODY) {
             nodeKind = NodeKind.DATA_MAPPER_DEFINITION;
         } else if (functionDefinitionNode.functionName().text().equals(AutomationBuilder.MAIN_FUNCTION_NAME)) {
             nodeKind = NodeKind.AUTOMATION;
-        } else if (isNpFunction) {
-            nodeKind = NodeKind.NP_FUNCTION_DEFINITION;
         } else {
             nodeKind = NodeKind.FUNCTION_DEFINITION;
         }
@@ -115,10 +114,14 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
 
         // Set the line range of the function definition node
         LineRange functionLineRange = functionDefinitionNode.lineRange();
-        nodeBuilder.codedata().lineRange(LineRange.from(
-                functionLineRange.fileName(),
-                functionLineRange.startLine(),
-                functionDefinitionNode.functionBody().lineRange().startLine()));
+        if (isNpFunction) {
+            nodeBuilder.codedata().lineRange(functionLineRange);
+        } else {
+            nodeBuilder.codedata().lineRange(LineRange.from(
+                    functionLineRange.fileName(),
+                    functionLineRange.startLine(),
+                    functionDefinitionNode.functionBody().lineRange().startLine()));
+        }
 
         // Set the function name, return type and nested properties
         String returnType = functionDefinitionNode.functionSignature().returnTypeDesc()
@@ -137,11 +140,7 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
                     documentation == null ? "" : documentation.returnDescription());
         }
 
-        boolean isContextParamAvailable = false;
-        String npPromptDefaultValue = null;
-
-        // TODO: Check how we can do this in a cleaner way
-        LineRange promptLineRange = null;
+        boolean isModelParamAvailable = false;
 
         // Set the function parameters
         for (ParameterNode parameter : functionDefinitionNode.functionSignature().parameters()) {
@@ -167,14 +166,8 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
                     continue;
                 }
             }
-            if (isNpFunctionProperty(parameter)) {
-                if (Constants.NaturalFunctions.CONTEXT.equals(paramName.get().text())) {
-                    isContextParamAvailable = true;
-                } else if (Constants.NaturalFunctions.PROMPT.equals(paramName.get().text())) {
-                    npPromptDefaultValue = ((DefaultableParameterNode) parameter).expression().toSourceCode();
-                    promptLineRange = parameter.lineRange();
-                }
-
+            if (isNaturalFunctionModelProviderProperty(parameter)) {
+                isModelParamAvailable = true;
                 continue;
             }
 
@@ -204,8 +197,10 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
             case AUTOMATION -> AutomationBuilder.setOptionalProperties(nodeBuilder, !returnType.isEmpty());
             case NP_FUNCTION_DEFINITION -> {
                 NPFunctionDefinitionBuilder.endOptionalProperties(nodeBuilder);
-                processNpFunctionDefinitionProperties(nodeBuilder, npPromptDefaultValue, promptLineRange,
-                        isContextParamAvailable);
+                ExpressionFunctionBodyNode expressionFunctionBodyNode =
+                        (ExpressionFunctionBodyNode) functionDefinitionNode.functionBody();
+                processNaturalFunctionDefProperties(nodeBuilder,
+                        ((NaturalExpressionNode) expressionFunctionBodyNode.expression()), isModelParamAvailable);
             }
             default -> FunctionDefinitionBuilder.setOptionalProperties(nodeBuilder);
         }
@@ -231,9 +226,25 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
         this.node = gson.toJsonTree(nodeBuilder.build());
     }
 
-    private void processNpFunctionDefinitionProperties(NodeBuilder nodeBuilder, String promptDefaultValue,
-                                                       LineRange promptLineRange, boolean isContextAvailable) {
-        // Set the 'prompt' property
+    private void processNaturalFunctionDefProperties(NodeBuilder nodeBuilder, NaturalExpressionNode naturalExpression,
+                                                     boolean isModelParamEnabled) {
+        NodeList<Node> prompt = naturalExpression.prompt();
+
+        String promptContent;
+        LineRange startingNodeLineRange;
+        LineRange endingNodeLineRange;
+        if (prompt.isEmpty()) {
+            startingNodeLineRange = naturalExpression.openBraceToken().lineRange();
+            endingNodeLineRange = naturalExpression.closeBraceToken().lineRange();
+            promptContent = System.lineSeparator() + System.lineSeparator();    // "/n/n"
+        } else {
+            startingNodeLineRange = prompt.get(0).lineRange();
+            endingNodeLineRange = prompt.get(prompt.size() - 1).lineRange();
+            promptContent = String.join("", prompt.stream().map(Node::toSourceCode).toList());
+        }
+        LineRange promptLineRange = LineRange.from(startingNodeLineRange.fileName(), startingNodeLineRange.startLine(),
+                endingNodeLineRange.endLine());
+
         nodeBuilder.properties().custom()
                 .metadata()
                     .label(Constants.NaturalFunctions.PROMPT_LABEL)
@@ -243,42 +254,41 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
                     .kind(ParameterData.Kind.REQUIRED.name())
                     .lineRange(promptLineRange)
                     .stepOut()
-                .typeConstraint(Constants.NaturalFunctions.MODULE_PREFIXED_PROMPT_TYPE)
-                .value(promptDefaultValue)
+                .value(promptContent)
                 .editable()
                 .hidden()
                 .type(Property.ValueType.RAW_TEMPLATE)
                 .stepOut()
                 .addProperty(Constants.NaturalFunctions.PROMPT);
 
-        // Set the `context` property if enabled
-        if (isContextAvailable) {
+        // Set the `model` property if enabled
+        if (isModelParamEnabled) {
             nodeBuilder.properties().custom()
                     .metadata()
-                        .label(Constants.NaturalFunctions.CONTEXT_LABEL)
-                        .description(Constants.NaturalFunctions.CONTEXT_DESCRIPTION)
+                        .label(Constants.NaturalFunctions.MODEL_PROVIDER_LABEL)
+                        .description(Constants.NaturalFunctions.MODEL_PROVIDER_DESCRIPTION)
                         .stepOut()
                     .codedata()
                         .kind(ParameterData.Kind.REQUIRED.name())
-                    .stepOut()
-                    .typeConstraint(Constants.NaturalFunctions.MODULE_PREFIXED_CONTEXT_TYPE)
+                        .stepOut()
+                    .typeConstraint(Constants.NaturalFunctions.MODULE_PREFIXED_MODEL_PROVIDER_TYPE)
                     .editable()
                     .optional(true)
                     .advanced(true)
                     .hidden()
                     .type(Property.ValueType.EXPRESSION)
                     .stepOut()
-                    .addProperty(Constants.NaturalFunctions.CONTEXT);
+                    .addProperty(Constants.NaturalFunctions.MODEL_PROVIDER);
         }
 
         // set the `enableModelContext` property
         nodeBuilder.properties().custom()
                 .metadata()
-                    .label(Constants.NaturalFunctions.ENABLE_MODEL_CONTEXT_LABEL)
-                    .description(Constants.NaturalFunctions.ENABLE_MODEL_CONTEXT_DESCRIPTION)
-                    .stepOut()
+                .label(Constants.NaturalFunctions.ENABLE_MODEL_CONTEXT_LABEL)
+                .description(Constants.NaturalFunctions.ENABLE_MODEL_CONTEXT_DESCRIPTION)
+                .stepOut()
                 .editable()
-                .value(isContextAvailable)
+                .value(isModelParamEnabled)
                 .optional(true)
                 .advanced(true)
                 .type(Property.ValueType.FLAG)
@@ -296,56 +306,14 @@ public class ModuleNodeAnalyzer extends NodeVisitor {
 
     // Utils
 
-    /**
-     * Check whether the given function is a prompt as code function.
-     *
-     * @param functionDefinitionNode Function definition node
-     * @return true if the function is a prompt as code function else false
-     */
-    private boolean isNpFunction(FunctionDefinitionNode functionDefinitionNode) {
-        Optional<Symbol> funcSymbol = this.semanticModel.symbol(functionDefinitionNode);
-
-        if (funcSymbol.isEmpty() || funcSymbol.get().kind() != SymbolKind.FUNCTION
-                || !((FunctionSymbol) funcSymbol.get()).external()) {
-            return false;
-        }
-
-        return CommonUtils.isNpFunction(((ExternalFunctionSymbol) funcSymbol.get()));
-    }
-
-    /**
-     * Check whether a particular function parameter is a NP function property. e.g. np:Prompt and np:Model are NP
-     * function properties.
-     *
-     * @return true if the function parameter is a NP function property else false
-     */
-    private boolean isNpFunctionProperty(ParameterNode parameterNode) {
-        Optional<Token> paramName;
-        if (parameterNode.kind() == SyntaxKind.REQUIRED_PARAM) {
-            RequiredParameterNode reqParam = (RequiredParameterNode) parameterNode;
-            paramName = reqParam.paramName();
-        } else if (parameterNode.kind() == SyntaxKind.DEFAULTABLE_PARAM) {
-            DefaultableParameterNode defParam = (DefaultableParameterNode) parameterNode;
-            paramName = defParam.paramName();
-        } else {
-            return false;
-        }
-
-        if (paramName.isEmpty() ||
-                (!Constants.NaturalFunctions.PROMPT.equals(paramName.get().text())
-                        && !Constants.NaturalFunctions.CONTEXT.equals(paramName.get().text()))) {
-            return false;
-        }
-
+    private boolean isNaturalFunctionModelProviderProperty(ParameterNode parameterNode) {
         Optional<Symbol> paramSymbol = this.semanticModel.symbol(parameterNode);
         if (paramSymbol.isEmpty()) {
             return false;
         }
-
         TypeSymbol typeDesc = ((ParameterSymbol) paramSymbol.get()).typeDescriptor();
-        return CommonUtils.isNpModule(typeDesc) && typeDesc.getName().isPresent()
-                && (Constants.NaturalFunctions.PROMPT_TYPE_NAME.equals(typeDesc.getName().get())
-                    || Constants.NaturalFunctions.CONTEXT_TYPE_NAME.equals(typeDesc.getName().get()));
+        return CommonUtils.isBallerinaNpModule(typeDesc) && typeDesc.getName().isPresent()
+                && Constants.NaturalFunctions.MODEL_PROVIDER_TYPE_NAME.equals(typeDesc.getName().get());
     }
 
     private FunctionDocumentation getFunctionDocumentation(FunctionDefinitionNode funcDefNode) {
