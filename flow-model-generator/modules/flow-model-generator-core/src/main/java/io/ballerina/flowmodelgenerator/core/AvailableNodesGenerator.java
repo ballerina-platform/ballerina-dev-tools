@@ -106,14 +106,22 @@ public class AvailableNodesGenerator {
         int txtPos = this.document.textDocument().textPositionFrom(cursorPosition);
         TextRange range = TextRange.from(txtPos, 0);
         NonTerminalNode nonTerminalNode = ((ModulePartNode) document.syntaxTree().rootNode()).findNode(range);
+        NonTerminalNode iterationNode = nonTerminalNode;
 
-        while (nonTerminalNode != null) {
-            SyntaxKind kind = nonTerminalNode.kind();
+        while (iterationNode != null) {
+            SyntaxKind kind = iterationNode.kind();
             switch (kind) {
                 case WHILE_STATEMENT, FOREACH_STATEMENT -> {
                     setAvailableNodesForIteratingBlock(nonTerminalNode, this.semanticModel);
                     return this.rootBuilder.build().items();
                 }
+                default -> iterationNode = iterationNode.parent();
+            }
+        }
+
+        while (nonTerminalNode != null) {
+            SyntaxKind kind = nonTerminalNode.kind();
+            switch (kind) {
                 case IF_ELSE_STATEMENT, LOCK_STATEMENT, TRANSACTION_STATEMENT, MATCH_STATEMENT, DO_STATEMENT,
                      ON_FAIL_CLAUSE -> {
                     setAvailableDefaultNodes(nonTerminalNode, semanticModel);
