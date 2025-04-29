@@ -1,53 +1,66 @@
 {
   "start": {
-    "line": 84,
-    "offset": 38
+    "line": 15,
+    "offset": 4
   },
   "end": {
-    "line": 87,
-    "offset": 1
+    "line": 18,
+    "offset": 5
   },
-  "source": "agent_7/agents.bal",
+  "source": "agent_7/main.bal",
   "description": "Tests a simple diagram flow",
   "diagram": {
-    "fileName": "agents.bal",
+    "fileName": "main.bal",
     "nodes": [
       {
-        "id": "116256",
+        "id": "50008",
+        "metadata": {
+          "label": "Start",
+          "data": {
+            "parameters": [
+              "@http:Payload ai:ChatReqMessage request"
+            ],
+            "return": "ai:ChatRespMessage|error"
+          }
+        },
+        "codedata": {
+          "node": "EVENT_START",
+          "lineRange": {
+            "fileName": "main.bal",
+            "startLine": {
+              "line": 15,
+              "offset": 106
+            },
+            "endLine": {
+              "line": 18,
+              "offset": 5
+            }
+          },
+          "sourceCode": "resource function post chat(@http:Payload ai:ChatReqMessage request) returns ai:ChatRespMessage|error {\n        string stringResult = check self._AgentServiceAgent->run(request.message, request.sessionId);\n        return {message: stringResult};\n    }"
+        },
+        "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "47965",
         "metadata": {
           "label": "run",
           "description": "Executes the agent for a given user query.\n",
           "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai_1.0.1.png",
           "data": {
-            "tools": [
-              {
-                "name": "set",
-                "path": "/path/icon.png",
-                "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints."
-              },
-              {
-                "name": "sum",
-                "path": "",
-                "description": ""
-              },
-              {
-                "name": "mutiply",
-                "path": "",
-                "description": ""
-              }
-            ],
+            "tools": [],
             "agent": {
-              "instructions": "\"Help the students with their questions.\"",
-              "role": "\"Math tutor\""
+              "instructions": "string ``",
+              "role": "\"\""
             },
             "memory": {
               "type": "ai:MessageWindowChatMemory",
-              "size": "20"
+              "size": "10"
             },
             "model": {
-              "name": "myModel",
+              "name": "_AgentServiceModel",
               "path": "https://bcentral-packageicons.azureedge.net/images/agent_agent_0.1.0.png",
-              "type": "AzureOpenAiProvider"
+              "type": "OpenAiProvider"
             }
           }
         },
@@ -59,17 +72,17 @@
           "symbol": "run",
           "version": "1.0.1",
           "lineRange": {
-            "fileName": "agents.bal",
+            "fileName": "main.bal",
             "startLine": {
-              "line": 85,
-              "offset": 4
+              "line": 16,
+              "offset": 8
             },
             "endLine": {
-              "line": 85,
-              "offset": 68
+              "line": 16,
+              "offset": 101
             }
           },
-          "sourceCode": "string result = check agent->run(\"What is the sum of 1 and 2?\");"
+          "sourceCode": "string stringResult = check self._AgentServiceAgent->run(request.message, request.sessionId);"
         },
         "returning": false,
         "properties": {
@@ -79,7 +92,7 @@
               "description": "Connection to use"
             },
             "valueType": "EXPRESSION",
-            "value": "agent",
+            "value": "self._AgentServiceAgent",
             "optional": false,
             "editable": false,
             "advanced": false,
@@ -92,7 +105,7 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "string",
-            "value": "\"What is the sum of 1 and 2?\"",
+            "value": "request.message",
             "placeholder": "\"\"",
             "optional": false,
             "editable": true,
@@ -118,6 +131,7 @@
             },
             "valueType": "EXPRESSION",
             "valueTypeConstraint": "string",
+            "value": "request.sessionId",
             "placeholder": "\"\"",
             "optional": true,
             "editable": true,
@@ -132,7 +146,7 @@
                 "type": "string",
                 "packageInfo": "",
                 "kind": "BASIC_TYPE",
-                "selected": false
+                "selected": true
               }
             ]
           },
@@ -154,21 +168,21 @@
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
-            "value": "result",
+            "value": "stringResult",
             "optional": false,
             "editable": false,
             "advanced": false,
             "hidden": false,
             "codedata": {
               "lineRange": {
-                "fileName": "agents.bal",
+                "fileName": "main.bal",
                 "startLine": {
-                  "line": 85,
-                  "offset": 11
+                  "line": 16,
+                  "offset": 15
                 },
                 "endLine": {
-                  "line": 85,
-                  "offset": 17
+                  "line": 16,
+                  "offset": 27
                 }
               }
             }
@@ -189,6 +203,44 @@
           }
         },
         "flags": 1
+      },
+      {
+        "id": "48895",
+        "metadata": {
+          "label": "Return",
+          "description": "Value of '{message: stringResult}'"
+        },
+        "codedata": {
+          "node": "RETURN",
+          "lineRange": {
+            "fileName": "main.bal",
+            "startLine": {
+              "line": 17,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 17,
+              "offset": 39
+            }
+          },
+          "sourceCode": "return {message: stringResult};"
+        },
+        "returning": true,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Return value"
+            },
+            "valueType": "ACTION_OR_EXPRESSION",
+            "value": "{message: stringResult}",
+            "optional": false,
+            "editable": true,
+            "advanced": false,
+            "hidden": false
+          }
+        },
+        "flags": 0
       }
     ],
     "connections": [

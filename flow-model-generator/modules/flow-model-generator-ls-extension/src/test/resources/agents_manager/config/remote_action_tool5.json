@@ -7,18 +7,28 @@
   "diagram": {
     "id": "31",
     "metadata": {
-      "label": "post",
-      "description": "Sends the specified, existing draft to the recipients in the `To`, `Cc`, and `Bcc` headers.",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.gmail_4.0.1.png"
+      "label": "get",
+      "description": "Lists all labels in the user's mailbox.",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.gmail_4.1.0.png"
     },
     "codedata": {
       "node": "RESOURCE_ACTION_CALL",
       "org": "ballerinax",
       "module": "googleapis.gmail",
       "object": "Client",
-      "symbol": "post",
-      "id": 1065,
-      "isNew": true
+      "symbol": "get",
+      "isNew": true,
+      "lineRange": {
+        "fileName": "agents.bal",
+        "startLine": {
+          "line": 11,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 11,
+          "offset": 0
+        }
+      }
     },
     "returning": false,
     "properties": {
@@ -27,12 +37,13 @@
           "label": "Connection",
           "description": "Connection to use"
         },
-        "valueType": "IDENTIFIER",
+        "valueType": "EXPRESSION",
         "valueTypeConstraint": "gmail:Client",
-        "value": "gmailClient",
-        "optional": true,
+        "value": "connection",
+        "optional": false,
         "editable": false,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       },
       "resourcePath": {
         "metadata": {
@@ -40,12 +51,13 @@
           "description": "Resource Path"
         },
         "valueType": "EXPRESSION",
-        "value": "/users/[userId]/drafts/send",
+        "value": "resourcePath",
         "optional": false,
         "editable": false,
         "advanced": false,
+        "hidden": false,
         "codedata": {
-          "originalName": "/users/[userId]/drafts/send"
+          "originalName": "/users/[userId]/labels"
         }
       },
       "userId": {
@@ -59,35 +71,13 @@
         "optional": false,
         "editable": true,
         "advanced": false,
+        "hidden": false,
         "codedata": {
           "kind": "PATH_PARAM",
           "originalName": "userId"
         },
-        "typeMembers": []
-      },
-      "payload": {
-        "metadata": {
-          "label": "payload",
-          "description": "The ID of the existing draft to send. (Optional) Updated draft if necessary."
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "gmail:DraftRequest",
-        "placeholder": "{}",
-        "optional": false,
-        "editable": true,
-        "advanced": false,
-        "codedata": {
-          "kind": "REQUIRED",
-          "originalName": "payload"
-        },
-        "typeMembers": [
-          {
-            "type": "gmail:DraftRequest",
-            "packageInfo": "ballerinax:googleapis.gmail:4.0.1",
-            "kind": "RECORD_TYPE",
-            "selected": false
-          }
-        ]
+        "typeMembers": [],
+        "value": "userId"
       },
       "xgafv": {
         "metadata": {
@@ -100,24 +90,26 @@
         "optional": true,
         "editable": true,
         "advanced": true,
+        "hidden": false,
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "xgafv"
         },
         "typeMembers": [
           {
-            "type": "()",
-            "packageInfo": "",
+            "type": "Xgafv",
+            "packageInfo": "ballerinax:googleapis.gmail:4.1.0",
             "kind": "BASIC_TYPE",
             "selected": false
           },
           {
-            "type": "gmail:Xgafv",
-            "packageInfo": "ballerinax:googleapis.gmail:4.0.1",
+            "type": "()",
+            "packageInfo": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }
-        ]
+        ],
+        "value": "xgafv"
       },
       "access_token": {
         "metadata": {
@@ -130,24 +122,26 @@
         "optional": true,
         "editable": true,
         "advanced": true,
+        "hidden": false,
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "access_token"
         },
         "typeMembers": [
           {
-            "type": "()",
+            "type": "string",
             "packageInfo": "",
             "kind": "BASIC_TYPE",
             "selected": false
           },
           {
-            "type": "string",
+            "type": "()",
             "packageInfo": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }
-        ]
+        ],
+        "value": "access_token"
       },
       "alt": {
         "metadata": {
@@ -160,24 +154,26 @@
         "optional": true,
         "editable": true,
         "advanced": true,
+        "hidden": false,
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "alt"
         },
         "typeMembers": [
           {
-            "type": "()",
-            "packageInfo": "",
+            "type": "Alt",
+            "packageInfo": "ballerinax:googleapis.gmail:4.1.0",
             "kind": "BASIC_TYPE",
             "selected": false
           },
           {
-            "type": "gmail:Alt",
-            "packageInfo": "ballerinax:googleapis.gmail:4.0.1",
+            "type": "()",
+            "packageInfo": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }
-        ]
+        ],
+        "value": "alt"
       },
       "callback": {
         "metadata": {
@@ -190,24 +186,26 @@
         "optional": true,
         "editable": true,
         "advanced": true,
+        "hidden": false,
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "callback"
         },
         "typeMembers": [
           {
-            "type": "()",
+            "type": "string",
             "packageInfo": "",
             "kind": "BASIC_TYPE",
             "selected": false
           },
           {
-            "type": "string",
+            "type": "()",
             "packageInfo": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }
-        ]
+        ],
+        "value": "callback"
       },
       "fields": {
         "metadata": {
@@ -220,24 +218,26 @@
         "optional": true,
         "editable": true,
         "advanced": true,
+        "hidden": false,
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "fields"
         },
         "typeMembers": [
           {
-            "type": "()",
+            "type": "string",
             "packageInfo": "",
             "kind": "BASIC_TYPE",
             "selected": false
           },
           {
-            "type": "string",
+            "type": "()",
             "packageInfo": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }
-        ]
+        ],
+        "value": "fields"
       },
       "key": {
         "metadata": {
@@ -250,24 +250,26 @@
         "optional": true,
         "editable": true,
         "advanced": true,
+        "hidden": false,
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "'key"
         },
         "typeMembers": [
           {
-            "type": "()",
+            "type": "string",
             "packageInfo": "",
             "kind": "BASIC_TYPE",
             "selected": false
           },
           {
-            "type": "string",
+            "type": "()",
             "packageInfo": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }
-        ]
+        ],
+        "value": "key"
       },
       "oauth_token": {
         "metadata": {
@@ -280,24 +282,26 @@
         "optional": true,
         "editable": true,
         "advanced": true,
+        "hidden": false,
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "oauth_token"
         },
         "typeMembers": [
           {
-            "type": "()",
+            "type": "string",
             "packageInfo": "",
             "kind": "BASIC_TYPE",
             "selected": false
           },
           {
-            "type": "string",
+            "type": "()",
             "packageInfo": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }
-        ]
+        ],
+        "value": "oauth_token"
       },
       "prettyPrint": {
         "metadata": {
@@ -310,24 +314,26 @@
         "optional": true,
         "editable": true,
         "advanced": true,
+        "hidden": false,
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "prettyPrint"
         },
         "typeMembers": [
           {
-            "type": "()",
+            "type": "boolean",
             "packageInfo": "",
             "kind": "BASIC_TYPE",
             "selected": false
           },
           {
-            "type": "boolean",
+            "type": "()",
             "packageInfo": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }
-        ]
+        ],
+        "value": "prettyPrint"
       },
       "quotaUser": {
         "metadata": {
@@ -340,24 +346,26 @@
         "optional": true,
         "editable": true,
         "advanced": true,
+        "hidden": false,
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "quotaUser"
         },
         "typeMembers": [
           {
-            "type": "()",
+            "type": "string",
             "packageInfo": "",
             "kind": "BASIC_TYPE",
             "selected": false
           },
           {
-            "type": "string",
+            "type": "()",
             "packageInfo": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }
-        ]
+        ],
+        "value": "quotaUser"
       },
       "upload_protocol": {
         "metadata": {
@@ -370,24 +378,26 @@
         "optional": true,
         "editable": true,
         "advanced": true,
+        "hidden": false,
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "upload_protocol"
         },
         "typeMembers": [
           {
-            "type": "()",
+            "type": "string",
             "packageInfo": "",
             "kind": "BASIC_TYPE",
             "selected": false
           },
           {
-            "type": "string",
+            "type": "()",
             "packageInfo": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }
-        ]
+        ],
+        "value": "upload_protocol"
       },
       "uploadType": {
         "metadata": {
@@ -400,24 +410,26 @@
         "optional": true,
         "editable": true,
         "advanced": true,
+        "hidden": false,
         "codedata": {
           "kind": "DEFAULTABLE",
           "originalName": "uploadType"
         },
         "typeMembers": [
           {
-            "type": "()",
+            "type": "string",
             "packageInfo": "",
             "kind": "BASIC_TYPE",
             "selected": false
           },
           {
-            "type": "string",
+            "type": "()",
             "packageInfo": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }
-        ]
+        ],
+        "value": "uploadType"
       },
       "type": {
         "metadata": {
@@ -425,11 +437,13 @@
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "gmail:Message",
+        "value": "gmail:ListLabelsResponse",
         "placeholder": "var",
         "optional": false,
         "editable": false,
-        "advanced": false
+        "advanced": false,
+        "hidden": false,
+        "codedata": {}
       },
       "variable": {
         "metadata": {
@@ -437,10 +451,11 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "gmailMessage",
+        "value": "gmailListlabelsresponse",
         "optional": false,
         "editable": true,
-        "advanced": false
+        "advanced": false,
+        "hidden": false
       },
       "checkError": {
         "metadata": {
@@ -451,7 +466,8 @@
         "value": true,
         "optional": false,
         "editable": true,
-        "advanced": true
+        "advanced": true,
+        "hidden": false
       }
     },
     "flags": 0
@@ -482,7 +498,7 @@
             "character": 0
           }
         },
-        "newText": "# Sends the specified, existing draft to the recipients in the `To`, `Cc`, and `Bcc` headers.\n# + userId - The user's email address. The special value `me` can be used to indicate the authenticated user.\n@ai:AgentTool\n@display {label: \"\",iconPath: \"https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.gmail_4.0.1.png\"}\nisolated function toolFunc( string userId) returns gmail:Message| error { gmail:Message gmailMessage = check gmailClient-> /users/[userId]/drafts/send. post( ) ;\nreturn gmailMessage;\n}"
+        "newText": "# Lists all labels in the user's mailbox.\n# + userId - The user's email address. The special value `me` can be used to indicate the authenticated user.\n@ai:AgentTool\n@display {label: \"\",iconPath: \"https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.gmail_4.1.0.png\"}\nisolated function toolFunc( string userId) returns gmail:ListLabelsResponse| error { gmail:ListLabelsResponse gmailListlabelsresponse = check gmailClient-> /users/[userId]/labels. get( ) ;\nreturn gmailListlabelsresponse;\n}"
       }
     ]
   }

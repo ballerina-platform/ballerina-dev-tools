@@ -16,15 +16,14 @@
  *  under the License.
  */
 
-package io.ballerina.flowmodelgenerator.extension.agentsmanager;
+package io.ballerina.flowmodelgenerator.extension;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import io.ballerina.flowmodelgenerator.extension.request.FlowModelNodeTemplateRequest;
+import com.google.gson.JsonPrimitive;
+import io.ballerina.flowmodelgenerator.extension.request.ServiceFieldNodesRequest;
 import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import io.ballerina.tools.text.LinePosition;
 import org.testng.Assert;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -32,22 +31,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 /**
- * Tests for get template of agent.
+ * Test cases for the service field flow node retrieving.
  *
  * @since 2.0.0
  */
-public class NodeTemplateTest extends AbstractLSTest {
-
-    @DataProvider(name = "data-provider")
-    @Override
-    protected Object[] getConfigsList() {
-        return new Object[][]{
-//                {Path.of("agent_template.json")},
-//                {Path.of("agent_call_template.json")},
-                {Path.of("model_template.json")},
-//                {Path.of("memory_manager_template.json")}
-        };
-    }
+public class ServiceFieldNodesTest extends AbstractLSTest {
 
     @Override
     @Test(dataProvider = "data-provider")
@@ -57,46 +45,50 @@ public class NodeTemplateTest extends AbstractLSTest {
 
         String filePath =
                 testConfig.source() == null ? "" : sourceDir.resolve(testConfig.source()).toAbsolutePath().toString();
-        FlowModelNodeTemplateRequest request =
-                new FlowModelNodeTemplateRequest(filePath, testConfig.position(), testConfig.codedata());
-        JsonElement nodeTemplate = getResponse(request).get("flowNode");
+        ServiceFieldNodesRequest request = new ServiceFieldNodesRequest(testConfig.linePosition(), filePath);
+        JsonObject response = getResponse(request).get("flowModel").getAsJsonObject();
 
-        if (!nodeTemplate.equals(testConfig.output())) {
-            TestConfig updateConfig =
-                    new TestConfig(testConfig.source(), testConfig.position(), testConfig.description(),
-                            testConfig.codedata(), nodeTemplate);
+        JsonObject jsonModel = getResponse(request).getAsJsonObject("flowModel");
+        String balFileName = Path.of(jsonModel.getAsJsonPrimitive("fileName").getAsString()).getFileName().toString();
+        JsonPrimitive testFileName = testConfig.flowModel().getAsJsonPrimitive("fileName");
+        boolean fileNameEquality = testFileName != null && balFileName.equals(testFileName.getAsString());
+        JsonObject modifiedDiagram = jsonModel.deepCopy();
+        modifiedDiagram.addProperty("fileName", balFileName);
+        boolean flowEquality = modifiedDiagram.equals(testConfig.flowModel());
+
+        if (!fileNameEquality || !flowEquality) {
+            TestConfig updateConfig = new TestConfig(testConfig.source(), testConfig.linePosition(),
+                    testConfig.description(), modifiedDiagram);
 //            updateConfig(configJsonPath, updateConfig);
-            compareJsonElements(nodeTemplate, testConfig.output());
+            compareJsonElements(response, testConfig.flowModel());
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
     }
 
     @Override
     protected String getResourceDir() {
-        return "agents_manager";
+        return "service_field_nodes";
     }
 
     @Override
     protected Class<? extends AbstractLSTest> clazz() {
-        return NodeTemplateTest.class;
+        return ServiceFieldNodesTest.class;
     }
 
     @Override
     protected String getApiName() {
-        return "getNodeTemplate";
+        return "getServiceNodes";
     }
 
     /**
-     * Represents the test configuration for the flow model getNodeTemplate API.
+     * Represents the test configuration for the flow model getFlowDesignModel API.
      *
-     * @param source      The source file path
-     * @param position    The position of the node to be added
-     * @param description The description of the test
-     * @param codedata    The codedata of the node
-     * @param output      The expected output
+     * @param source       The source file path
+     * @param description  The description of the test
+     * @param linePosition Current position
+     * @param flowModel    The expected output
      */
-    private record TestConfig(String source, LinePosition position, String description, JsonObject codedata,
-                              JsonElement output) {
+    private record TestConfig(String source, LinePosition linePosition, String description, JsonObject flowModel) {
 
         public String description() {
             return description == null ? "" : description;
