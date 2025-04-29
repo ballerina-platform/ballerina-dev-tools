@@ -50,6 +50,7 @@ import io.ballerina.flowmodelgenerator.extension.request.FlowNodeDeleteRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FunctionDefinitionRequest;
 import io.ballerina.flowmodelgenerator.extension.request.OpenAPIServiceGenerationRequest;
 import io.ballerina.flowmodelgenerator.extension.request.SearchRequest;
+import io.ballerina.flowmodelgenerator.extension.request.ServiceFieldNodesRequest;
 import io.ballerina.flowmodelgenerator.extension.request.SuggestedComponentRequest;
 import io.ballerina.flowmodelgenerator.extension.response.ComponentDeleteResponse;
 import io.ballerina.flowmodelgenerator.extension.response.CopilotContextResponse;
@@ -330,6 +331,28 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
                 // Generate the flow design model
                 ModelGenerator modelGenerator = new ModelGenerator(project, semanticModel, filePath);
                 response.setFlowDesignModel(modelGenerator.getModuleNodes());
+            } catch (Throwable e) {
+                response.setError(e);
+            }
+            return response;
+        });
+    }
+
+    @JsonRequest
+    public CompletableFuture<FlowModelGeneratorResponse> getServiceNodes(ServiceFieldNodesRequest request) {
+
+        return CompletableFuture.supplyAsync(() -> {
+            FlowModelGeneratorResponse response = new FlowModelGeneratorResponse();
+            try {
+                Path filePath = Path.of(request.filePath());
+
+                // Obtain the semantic model and the document
+                Project project = this.workspaceManager.loadProject(filePath);
+                SemanticModel semanticModel = FileSystemUtils.getSemanticModel(workspaceManager, filePath);
+
+                // Generate the flow design model
+                ModelGenerator modelGenerator = new ModelGenerator(project, semanticModel, filePath);
+                response.setFlowDesignModel(modelGenerator.getServiceFieldNodes(request.linePosition()));
             } catch (Throwable e) {
                 response.setError(e);
             }

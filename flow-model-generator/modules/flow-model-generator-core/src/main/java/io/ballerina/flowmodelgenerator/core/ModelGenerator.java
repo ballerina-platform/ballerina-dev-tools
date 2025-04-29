@@ -26,16 +26,22 @@ import io.ballerina.compiler.api.symbols.ClassFieldSymbol;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
 import io.ballerina.compiler.api.symbols.ObjectTypeSymbol;
 import io.ballerina.compiler.api.symbols.Qualifier;
+import io.ballerina.compiler.api.symbols.ServiceDeclarationSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
+import io.ballerina.compiler.syntax.tree.AssignmentStatementNode;
+import io.ballerina.compiler.syntax.tree.FunctionBodyBlockNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.ModuleMemberDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
+import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
+import io.ballerina.compiler.syntax.tree.ServiceDeclarationNode;
+import io.ballerina.compiler.syntax.tree.StatementNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.flowmodelgenerator.core.model.Diagram;
@@ -48,16 +54,22 @@ import io.ballerina.projects.DocumentId;
 import io.ballerina.projects.Project;
 import io.ballerina.projects.ProjectKind;
 import io.ballerina.tools.diagnostics.Location;
+import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextRange;
+import org.ballerinalang.langserver.common.utils.PositionUtil;
+import org.eclipse.lsp4j.Position;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Function;
 
 /**
@@ -137,6 +149,70 @@ public class ModelGenerator {
                 .toList();
         Diagram diagram = new Diagram(filePath.toString(), List.of(), connectionsList);
         return gson.toJsonTree(diagram);
+    }
+
+    public JsonElement getServiceFieldNodes(LinePosition pos) {
+        for (Symbol symbol : semanticModel.moduleSymbols()) {
+            if (symbol.kind() != SymbolKind.SERVICE_DECLARATION) {
+                continue;
+            }
+            ServiceDeclarationSymbol serviceDeclarationSymbol = (ServiceDeclarationSymbol) symbol;
+            if (!PositionUtil.isWithinLineRange(new Position(pos.line(), pos.offset()),
+                    serviceDeclarationSymbol.getLocation().orElseThrow().lineRange())) {
+                continue;
+            }
+            Map<String, ClassFieldSymbol> fieldsMap = serviceDeclarationSymbol.fieldDescriptors();
+            Set<String> classFieldRefs = new HashSet<>();
+            for (Map.Entry<String, ClassFieldSymbol> field : fieldsMap.entrySet()) {
+                if (isClassOrObject(CommonUtils.getRawType(field.getValue().typeDescriptor()))) {
+                    classFieldRefs.add("self." + field.getKey());
+                }
+            }
+            Optional<Location> optLocation = serviceDeclarationSymbol.getLocation();
+            if (optLocation.isEmpty()) {
+                continue;
+            }
+            Location location = optLocation.get();
+            DocumentId documentId = project.documentId(
+                    project.kind() == ProjectKind.SINGLE_FILE_PROJECT ? project.sourceRoot() :
+                            project.sourceRoot().resolve(location.lineRange().fileName()));
+            Document document = project.currentPackage().getDefaultModule().document(documentId);
+            NonTerminalNode node = CommonUtils.getNode(document.syntaxTree(), location.textRange());
+            if (node.kind() != SyntaxKind.SERVICE_DECLARATION) {
+                continue;
+            }
+
+            List<FlowNode> connections = new ArrayList<>();
+            ServiceDeclarationNode serviceDeclarationNode = (ServiceDeclarationNode) node;
+            for (Node member : serviceDeclarationNode.members()) {
+                if (member.kind() != SyntaxKind.OBJECT_METHOD_DEFINITION) {
+                    continue;
+                }
+                FunctionDefinitionNode functionDefinitionNode = (FunctionDefinitionNode) member;
+                if (!functionDefinitionNode.functionName().text().equals("init")) {
+                    continue;
+                }
+                for (StatementNode statement :
+                        ((FunctionBodyBlockNode) functionDefinitionNode.functionBody()).statements()) {
+                    if (statement.kind() != SyntaxKind.ASSIGNMENT_STATEMENT) {
+                        continue;
+                    }
+                    if (!classFieldRefs
+                            .contains(((AssignmentStatementNode) statement).varRef().toSourceCode().trim())) {
+                        continue;
+                    }
+                    CodeAnalyzer codeAnalyzer = new CodeAnalyzer(project, semanticModel, Property.SERVICE_SCOPE,
+                            Map.of(), document.textDocument(), ModuleInfo.from(document.module().descriptor()),
+                            false);
+                    statement.accept(codeAnalyzer);
+                    List<FlowNode> nodes = codeAnalyzer.getFlowNodes();
+                    connections.add(nodes.stream().findFirst().orElseThrow());
+                }
+            }
+            Diagram diagram = new Diagram(filePath.toString(), List.of(), connections);
+            return gson.toJsonTree(diagram);
+        }
+        return null;
     }
 
     /**
