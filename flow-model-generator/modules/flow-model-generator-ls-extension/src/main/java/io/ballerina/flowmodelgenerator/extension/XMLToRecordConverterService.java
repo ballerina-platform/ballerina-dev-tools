@@ -20,10 +20,10 @@ package io.ballerina.flowmodelgenerator.extension;
 
 import io.ballerina.flowmodelgenerator.core.TypesManager;
 import io.ballerina.flowmodelgenerator.core.converters.XMLToRecordConverter;
+import io.ballerina.flowmodelgenerator.core.utils.FileSystemUtils;
 import io.ballerina.flowmodelgenerator.extension.request.XMLToRecordRequest;
 import io.ballerina.flowmodelgenerator.extension.response.XMLToRecordResponse;
 import io.ballerina.projects.Document;
-import io.ballerina.projects.Project;
 import org.ballerinalang.annotation.JavaSPIService;
 import org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
@@ -32,7 +32,6 @@ import org.eclipse.lsp4j.jsonrpc.services.JsonSegment;
 import org.eclipse.lsp4j.services.LanguageServer;
 
 import java.nio.file.Path;
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -73,14 +72,11 @@ public class XMLToRecordConverterService implements ExtendedLanguageServerServic
 
             try {
                 Path filePath = Path.of(request.getFilePath());
-                Project project = this.workspaceManager.loadProject(filePath);
-                Optional<Document> document = this.workspaceManager.document(filePath);
-                if (document.isEmpty()) {
-                    return response;
-                }
-                TypesManager typesManager = new TypesManager(document.get());
-
-                XMLToRecordConverter converter = new XMLToRecordConverter(project, document.get(), typesManager);
+                FileSystemUtils.createFileIfNotExists(workspaceManager, filePath);
+                Document document = FileSystemUtils.getDocument(workspaceManager, filePath);
+                TypesManager typesManager = new TypesManager(document);
+                XMLToRecordConverter converter = new XMLToRecordConverter(document.module().project(), document,
+                        typesManager);
                 response.setTypes(converter.convert(xmlValue, isRecordTypeDesc, isClosed, forceFormatRecordFields,
                         textFieldName, withNameSpace, withoutAttributes, withoutAttributeAnnot, prefix));
             } catch (Throwable e) {

@@ -20,10 +20,10 @@ package io.ballerina.flowmodelgenerator.extension;
 
 import io.ballerina.flowmodelgenerator.core.TypesManager;
 import io.ballerina.flowmodelgenerator.core.converters.JsonToRecordMapper;
+import io.ballerina.flowmodelgenerator.core.utils.FileSystemUtils;
 import io.ballerina.flowmodelgenerator.extension.request.JsonToRecordRequest;
 import io.ballerina.flowmodelgenerator.extension.response.JsonToRecordResponse;
 import io.ballerina.projects.Document;
-import io.ballerina.projects.Project;
 import org.ballerinalang.annotation.JavaSPIService;
 import org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
@@ -32,7 +32,6 @@ import org.eclipse.lsp4j.jsonrpc.services.JsonSegment;
 import org.eclipse.lsp4j.services.LanguageServer;
 
 import java.nio.file.Path;
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -71,14 +70,11 @@ public class JsonToRecordConverterService implements ExtendedLanguageServerServi
 
             try {
                 Path filePath = Path.of(request.getFilePathUri());
-                Project project = this.workspaceManager.loadProject(filePath);
-                Optional<Document> document = this.workspaceManager.document(filePath);
-                if (document.isEmpty()) {
-                    return response;
-                }
-                TypesManager typesManager = new TypesManager(document.get());
-                JsonToRecordMapper jsonToRecordMapper = new JsonToRecordMapper(recordName, prefix, project,
-                        document.get(), filePath, typesManager);
+                FileSystemUtils.createFileIfNotExists(workspaceManager, filePath);
+                Document document = FileSystemUtils.getDocument(workspaceManager, filePath);
+                TypesManager typesManager = new TypesManager(document);
+                JsonToRecordMapper jsonToRecordMapper = new JsonToRecordMapper(recordName, prefix,
+                        document.module().project(), document, filePath, typesManager);
                 response.setTypes(jsonToRecordMapper.convert(jsonString, isRecordTypeDesc, isClosed,
                         forceFormatRecordFields, workspaceManager, isNullAsOptional));
             } catch (Throwable e) {
