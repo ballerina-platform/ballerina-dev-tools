@@ -1,6 +1,4 @@
-import ballerinax/np;
-
-function suggestMovieName(string genre, int n, np:Prompt prompt = `
+function suggestMovieName(string genre, int n) returns string|error => natural {
     **Assumption**
     Think yourself as a movie expert
 
@@ -10,9 +8,9 @@ function suggestMovieName(string genre, int n, np:Prompt prompt = `
 
     **Output**
     string - The suggested movie name
-`) returns string|error = @np:NaturalFunction external;
+};
 
-function rateMovie(string movieName, np:Context context, np:Prompt prompt = `
+function rateMovie(string movieName) returns int|error => natural {
     **Assumption**
     Think yourself as a movie expert
 
@@ -21,9 +19,9 @@ function rateMovie(string movieName, np:Context context, np:Prompt prompt = `
 
     **Output**
     int - number between 1 and 10 as the rating
-`) returns int|error = @np:NaturalFunction external;
+};
 
-function summarizeBlog(Blog blog, np:Prompt prompt = `
+function summarizeBlog(Blog blog) returns Summary|error => natural {
     Think yourself as a blog reviewer and summerize the following blog
 
     **title**
@@ -31,6 +29,4 @@ function summarizeBlog(Blog blog, np:Prompt prompt = `
 
     **content**
     ${blog.content}
-
-    Output must be in {title: string, summary: string} type
-`) returns Summary|error = @np:NaturalFunction external;
+);

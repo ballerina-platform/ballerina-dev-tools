@@ -134,7 +134,6 @@ import io.ballerina.flowmodelgenerator.core.model.node.FunctionDefinitionBuilder
 import io.ballerina.flowmodelgenerator.core.model.node.IfBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.JsonPayloadBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.MethodCall;
-import io.ballerina.flowmodelgenerator.core.model.node.NPFunctionCall;
 import io.ballerina.flowmodelgenerator.core.model.node.NewConnectionBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.PanicBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.RemoteActionCallBuilder;
@@ -184,6 +183,7 @@ class CodeAnalyzer extends NodeVisitor {
     private final Project project;
     private final SemanticModel semanticModel;
     private final Map<String, LineRange> dataMappings;
+    private final Map<String, LineRange> naturalFunctions;
     private final TextDocument textDocument;
     private final ModuleInfo moduleInfo;
     private final DiagnosticHandler diagnosticHandler;
@@ -199,11 +199,12 @@ class CodeAnalyzer extends NodeVisitor {
     private static final String AI_AGENT = "ai";
 
     public CodeAnalyzer(Project project, SemanticModel semanticModel, String connectionScope,
-                        Map<String, LineRange> dataMappings, TextDocument textDocument, ModuleInfo moduleInfo,
-                        boolean forceAssign) {
+                        Map<String, LineRange> dataMappings, Map<String, LineRange> naturalFunctions,
+                        TextDocument textDocument, ModuleInfo moduleInfo, boolean forceAssign) {
         this.project = project;
         this.semanticModel = semanticModel;
         this.dataMappings = dataMappings;
+        this.naturalFunctions = naturalFunctions;
         this.connectionScope = connectionScope;
         this.textDocument = textDocument;
         this.moduleInfo = moduleInfo;
@@ -1541,7 +1542,7 @@ class CodeAnalyzer extends NodeVisitor {
             startNode(NodeKind.DATA_MAPPER_CALL, functionCallExpressionNode.parent());
         } else if (isAgentCall(symbol.get())) {
             startNode(NodeKind.AGENT_CALL, functionCallExpressionNode.parent());
-        } else if (CommonUtils.isNpFunction(functionSymbol)) {
+        } else if (naturalFunctions.containsKey(functionName)) {
             startNode(NodeKind.NP_FUNCTION_CALL, functionCallExpressionNode.parent());
         } else {
             startNode(NodeKind.FUNCTION_CALL, functionCallExpressionNode.parent());
@@ -1583,10 +1584,6 @@ class CodeAnalyzer extends NodeVisitor {
         Map<String, ParameterData> funcParamMap = new LinkedHashMap<>();
         FunctionTypeSymbol functionTypeSymbol = functionSymbol.typeDescriptor();
         functionData.parameters().forEach((key, paramResult) -> {
-            if (NPFunctionCall.isPromptParam(paramResult) && CommonUtils.isNpFunction(functionSymbol)) {
-                // Skip if `prompt` param of a np function
-                return;
-            }
             if (paramResult.kind() == ParameterData.Kind.PATH_PARAM) {
                 // Skip if `path` param
                 return;

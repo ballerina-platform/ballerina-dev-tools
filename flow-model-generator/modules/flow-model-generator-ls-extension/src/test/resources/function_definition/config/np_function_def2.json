@@ -4,24 +4,24 @@
   "functionName": "rateMovie",
   "description": "",
   "output": {
-    "id": "45901",
+    "id": "40860",
     "metadata": {
       "label": "Natural Function",
       "description": "Define a natural function"
     },
     "codedata": {
       "node": "NP_FUNCTION_DEFINITION",
-      "org": "ballerinax",
+      "org": "ballerina",
       "module": "np",
       "lineRange": {
         "fileName": "functions.bal",
         "startLine": {
-          "line": 14,
+          "line": 9,
           "offset": 0
         },
         "endLine": {
-          "line": 22,
-          "offset": 21
+          "line": 15,
+          "offset": 2
         }
       }
     },
@@ -33,6 +33,7 @@
           "description": "Name of the function"
         },
         "valueType": "IDENTIFIER",
+        "valueTypeConstraint": "Global",
         "value": "rateMovie",
         "optional": false,
         "editable": false,
@@ -42,11 +43,11 @@
           "lineRange": {
             "fileName": "functions.bal",
             "startLine": {
-              "line": 14,
+              "line": 9,
               "offset": 9
             },
             "endLine": {
-              "line": 14,
+              "line": 9,
               "offset": 18
             }
           }
@@ -100,6 +101,18 @@
               "editable": true,
               "advanced": false,
               "hidden": false
+            },
+            "parameterDescription": {
+              "metadata": {
+                "label": "Description",
+                "description": "Description of the parameter"
+              },
+              "valueType": "STRING",
+              "value": "",
+              "optional": true,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
             }
           },
           "optional": false,
@@ -142,15 +155,27 @@
                   "lineRange": {
                     "fileName": "functions.bal",
                     "startLine": {
-                      "line": 14,
+                      "line": 9,
                       "offset": 26
                     },
                     "endLine": {
-                      "line": 14,
+                      "line": 9,
                       "offset": 35
                     }
                   }
                 }
+              },
+              "parameterDescription": {
+                "metadata": {
+                  "label": "Description",
+                  "description": "Description of the parameter"
+                },
+                "valueType": "STRING",
+                "value": "",
+                "optional": true,
+                "editable": true,
+                "advanced": false,
+                "hidden": false
               }
             },
             "optional": false,
@@ -170,38 +195,33 @@
           "description": "Prompt for the function"
         },
         "valueType": "RAW_TEMPLATE",
-        "valueTypeConstraint": "np:Prompt",
-        "value": "`**Assumption**\nThink yourself as a movie expert\n\n**What to do**\nGive rating for the movie ${movieName} out of 10 based on your opinion\n\n**Output**\nint - number between 1 and 10 as the rating\n`",
+        "value": "    **Assumption**\n    Think yourself as a movie expert\n\n    **What to do**\n    Give rating for the movie ${movieName} out of 10 based on your opinion\n",
         "optional": false,
         "editable": true,
         "advanced": false,
         "hidden": true,
         "codedata": {
-          "kind": "REQUIRED"
-        }
-      },
-      "context": {
-        "metadata": {
-          "label": "Context",
-          "description": "Context for the function"
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "np:Context",
-        "optional": true,
-        "editable": true,
-        "advanced": true,
-        "hidden": true,
-        "codedata": {
-          "kind": "REQUIRED"
+          "kind": "REQUIRED",
+          "lineRange": {
+            "fileName": "functions.bal",
+            "startLine": {
+              "line": 10,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 15,
+              "offset": 0
+            }
+          }
         }
       },
       "enableModelContext": {
         "metadata": {
-          "label": "Enable Model Context",
-          "description": "Enable model context for the function"
+          "label": "Enable model configuration",
+          "description": "Allow specifying Large Language Model (LLM) choice"
         },
         "valueType": "FLAG",
-        "value": true,
+        "value": false,
         "optional": true,
         "editable": true,
         "advanced": true,

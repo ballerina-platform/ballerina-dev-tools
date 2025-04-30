@@ -109,8 +109,6 @@ public class NPFunctionCall extends FunctionCall {
 
         metadata()
                 .label(functionData.name())
-                .icon(CommonUtils.generateIcon(functionData.org(), functionData.packageName(),
-                        functionData.version()))
                 .description(functionData.description());
         codedata()
                 .id(functionData.functionId())
