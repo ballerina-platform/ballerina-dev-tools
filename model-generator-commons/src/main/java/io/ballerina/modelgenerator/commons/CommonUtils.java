@@ -20,9 +20,7 @@ package io.ballerina.modelgenerator.commons;
 
 import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.api.symbols.AnnotationAttachmentSymbol;
 import io.ballerina.compiler.api.symbols.ArrayTypeSymbol;
-import io.ballerina.compiler.api.symbols.ExternalFunctionSymbol;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.FutureTypeSymbol;
 import io.ballerina.compiler.api.symbols.IntersectionTypeSymbol;
@@ -43,6 +41,9 @@ import io.ballerina.compiler.syntax.tree.BindingPatternNode;
 import io.ballerina.compiler.syntax.tree.BuiltinSimpleNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.ChildNodeList;
 import io.ballerina.compiler.syntax.tree.DoStatementNode;
+import io.ballerina.compiler.syntax.tree.ExpressionFunctionBodyNode;
+import io.ballerina.compiler.syntax.tree.FunctionBodyNode;
+import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.IdentifierToken;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.Node;
@@ -74,7 +75,6 @@ import java.net.URI;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -792,39 +792,32 @@ public class CommonUtils {
         return moduleId.orgName().equals(CommonUtils.BALLERINA_ORG_NAME) && moduleId.packageName().equals("http");
     }
 
-    public static boolean isNpModule(Symbol symbol) {
+    public static boolean isBallerinaNpModule(Symbol symbol) {
         Optional<ModuleSymbol> module = symbol.getModule();
         if (module.isEmpty()) {
             return false;
         }
 
         ModuleID moduleId = module.get().id();
-        return moduleId.orgName().equals(CommonUtils.BALLERINAX_ORG_NAME) && moduleId.packageName().equals("np");
+        return moduleId.orgName().equals(CommonUtils.BALLERINA_ORG_NAME) && moduleId.packageName().equals("np");
     }
 
-    /**
-     * Check whether the particular function symbol is a NP function.
-     *
-     * @param functionSymbol Function symbol to evalute
-     * @return true if the function is a NP function, false otherwise
-     */
-    public static boolean isNpFunction(FunctionSymbol functionSymbol) {
-        if (CommonUtils.isNpModule(functionSymbol) && functionSymbol.getName().isPresent() &&
-                functionSymbol.getName().get().equals(CALL_LLM)) {
-            // `np:callLlm` function
-            return true;
-        }
-
-        if (!functionSymbol.external()) {
+    public static boolean isNaturalExpressionBodiedFunction(SyntaxTree syntaxTree, FunctionSymbol functionSymbol) {
+        if (functionSymbol.getLocation().isEmpty()) {
             return false;
         }
+        NonTerminalNode node = getNode(syntaxTree, functionSymbol.getLocation().get().textRange());
+        if (node.kind() != SyntaxKind.FUNCTION_DEFINITION) {
+            return false;
+        }
+        FunctionDefinitionNode functionDefNode = (FunctionDefinitionNode) node;
+        return isNaturalExpressionBodiedFunction(functionDefNode);
+    }
 
-        List<AnnotationAttachmentSymbol> annotAttachments =
-                ((ExternalFunctionSymbol) functionSymbol).annotAttachmentsOnExternal();
-        return annotAttachments.stream()
-                .anyMatch(annot ->
-                        isNpModule(annot.typeDescriptor()) &&
-                                annot.typeDescriptor().nameEquals(NATURAL_FUNCTION));
+    public static boolean isNaturalExpressionBodiedFunction(FunctionDefinitionNode functionDefNode) {
+        FunctionBodyNode functionBody = functionDefNode.functionBody();
+        return functionBody.kind() == SyntaxKind.EXPRESSION_FUNCTION_BODY
+                && ((ExpressionFunctionBodyNode) functionBody).expression().kind() == SyntaxKind.NATURAL_EXPRESSION;
     }
 
     public static String getClassType(String packageName, String clientName) {
