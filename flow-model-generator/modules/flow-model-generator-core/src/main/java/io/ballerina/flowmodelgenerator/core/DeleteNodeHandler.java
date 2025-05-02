@@ -21,14 +21,7 @@ package io.ballerina.flowmodelgenerator.core;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import io.ballerina.compiler.syntax.tree.BlockStatementNode;
-import io.ballerina.compiler.syntax.tree.ElseBlockNode;
-import io.ballerina.compiler.syntax.tree.IfElseStatementNode;
-import io.ballerina.compiler.syntax.tree.ImportDeclarationNode;
-import io.ballerina.compiler.syntax.tree.ModulePartNode;
-import io.ballerina.compiler.syntax.tree.NodeList;
-import io.ballerina.compiler.syntax.tree.NonTerminalNode;
-import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.compiler.syntax.tree.*;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.projects.DiagnosticResult;
@@ -47,10 +40,8 @@ import org.ballerinalang.util.diagnostic.DiagnosticErrorCode;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Generates text edits for the nodes that are requested to delete.
@@ -105,6 +96,25 @@ public class DeleteNodeHandler {
                 ImportDeclarationNode importNode = getUnusedImport(diagnostic.location().lineRange(), imports);
                 TextEdit deleteImportTextEdit = new TextEdit(CommonUtils.toRange(importNode.lineRange()), "");
                 textEdits.add(deleteImportTextEdit);
+            }
+
+            Set<String> dbDrivers = Set.of("mysql", "postgresql", "oracledb", "mssql");
+            String diagnosticProperty = ((String) diagnostic.properties().getFirst().value());
+            if (dbDrivers.contains(diagnosticProperty)) {
+                for (ImportDeclarationNode driverImportNode : imports) {
+                    if (driverImportNode.orgName().isPresent() &&
+                            driverImportNode.orgName().get().toString().equals("ballerinax/") &&
+                            driverImportNode.moduleName().stream()
+                                    .map(Token::text)
+                                    .collect(Collectors.joining("."))
+                                    .equals(diagnosticProperty + ".driver") &&
+                            driverImportNode.prefix().isPresent() &&
+                            driverImportNode.prefix().get().toString().trim().replaceAll("\\s+", " ").equals("as _")) {
+                        TextEdit deleteDriverImportTextEdit = new TextEdit(CommonUtils.toRange(driverImportNode.lineRange()), "");
+                        textEdits.add(deleteDriverImportTextEdit);
+                        break;
+                    }
+                }
             }
         }
 
