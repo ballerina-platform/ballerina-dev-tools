@@ -146,7 +146,7 @@
             "character": 0
           }
         },
-        "newText": "# The Client connection for redis\n# + return - Type of the variable\n@ai:AgentTool\n@display {label: \"\",iconPath: \"https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png\"}\nisolated function toolFunc( ) returns int| error { int intResult = check redisClientx-> bitOpAnd( ) ;\nreturn intResult;\n}"
+        "newText": "# The Client connection for redis\n# + destination - Result key of the operation\n# + keys - Input keys to perform AND between\n# + return - Type of the variable\n@ai:AgentTool\n@display {label: \"\",iconPath: \"https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png\"}\nisolated function toolFunc( string destination, string[] keys) returns int| error { int intResult = check redisClientx-> bitOpAnd( destination, keys) ;\nreturn intResult;\n}"
       }
     ]
   }

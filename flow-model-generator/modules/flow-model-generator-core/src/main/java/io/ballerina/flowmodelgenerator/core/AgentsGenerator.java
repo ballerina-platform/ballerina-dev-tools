@@ -378,10 +378,13 @@ public class AgentsGenerator {
                 if (property == null) {
                     continue;
                 }
-                String placeholder = property.placeholder();
-                if (placeholder != null) {
-                    ignoredKeys.add(key);
-                    continue;
+                PropertyCodedata codedata = property.codedata();
+                if (codedata != null) {
+                    String kind = codedata.kind();
+                    if (kind != null && kind.equals(ParameterData.Kind.DEFAULTABLE.name())) {
+                        ignoredKeys.add(key);
+                        continue;
+                    }
                 }
                 if (hasDescription) {
                     sourceBuilder.token().parameterDoc(key, property.metadata().description());
@@ -469,19 +472,15 @@ public class AgentsGenerator {
                     continue;
                 }
                 PropertyCodedata codedata = property.codedata();
-                boolean isPathParam = false;
                 if (codedata != null) {
                     String kind = codedata.kind();
                     if (kind.equals(ParameterData.Kind.PATH_PARAM.name()) ||
                             kind.equals(ParameterData.Kind.PATH_REST_PARAM.name())) {
                         pathParams.add(key);
-                        isPathParam = true;
+                    } else if (kind.equals(ParameterData.Kind.DEFAULTABLE.name())) {
+                        ignoredKeys.add(key);
+                        continue;
                     }
-                }
-                String placeholder = property.placeholder();
-                if (!isPathParam && placeholder != null) {
-                    ignoredKeys.add(key);
-                    continue;
                 }
                 if (hasDescription) {
                     sourceBuilder.token().parameterDoc(key, property.metadata().description());

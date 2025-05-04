@@ -482,7 +482,7 @@
             "character": 0
           }
         },
-        "newText": "# Sends the specified, existing draft to the recipients in the `To`, `Cc`, and `Bcc` headers.\n# + userId - The user's email address. The special value `me` can be used to indicate the authenticated user.\n@ai:AgentTool\n@display {label: \"\",iconPath: \"https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.gmail_4.0.1.png\"}\nisolated function toolFunc( string userId) returns gmail:Message| error { gmail:Message gmailMessage = check gmailClient-> /users/[userId]/drafts/send. post( ) ;\nreturn gmailMessage;\n}"
+        "newText": "# Sends the specified, existing draft to the recipients in the `To`, `Cc`, and `Bcc` headers.\n# + userId - The user's email address. The special value `me` can be used to indicate the authenticated user.\n# + payload - The ID of the existing draft to send. (Optional) Updated draft if necessary.\n@ai:AgentTool\n@display {label: \"\",iconPath: \"https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.gmail_4.0.1.png\"}\nisolated function toolFunc( string userId, gmail:DraftRequest payload) returns gmail:Message| error { gmail:Message gmailMessage = check gmailClient-> /users/[userId]/drafts/send. post( {}) ;\nreturn gmailMessage;\n}"
       }
     ]
   }
