@@ -372,8 +372,8 @@ public class AgentsGenerator {
                     Property.CONNECTION_KEY, Property.CHECK_ERROR_KEY));
             keys.removeAll(ignoredKeys);
             List<String> paramList = new ArrayList<>();
-            for (String key : keys) {
-                Property property = properties.get(key);
+            for (String k : keys) {
+                Property property = properties.get(k);
                 if (property == null) {
                     continue;
                 }
@@ -384,6 +384,10 @@ public class AgentsGenerator {
                         ignoredKeys.add(key);
                         continue;
                     }
+                }
+                String key = k;
+                if (k.startsWith("$")) {
+                    key = "'" + k.substring(1);
                 }
                 if (hasDescription) {
                     sourceBuilder.token().parameterDoc(key, property.metadata().description());
@@ -465,8 +469,8 @@ public class AgentsGenerator {
             keys.removeAll(ignoredKeys);
             List<String> paramList = new ArrayList<>();
             Set<String> pathParams = new HashSet<>();
-            for (String key : keys) {
-                Property property = properties.get(key);
+            for (String k : keys) {
+                Property property = properties.get(k);
                 if (property == null) {
                     continue;
                 }
@@ -480,6 +484,10 @@ public class AgentsGenerator {
                         ignoredKeys.add(key);
                         continue;
                     }
+                }
+                String key = k;
+                if (k.startsWith("$")) {
+                    key = "'" + k.substring(1);
                 }
                 if (hasDescription) {
                     sourceBuilder.token().parameterDoc(key, property.metadata().description());
