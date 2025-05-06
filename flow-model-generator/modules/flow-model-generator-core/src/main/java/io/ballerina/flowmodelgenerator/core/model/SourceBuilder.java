@@ -446,7 +446,7 @@ public class SourceBuilder {
                 if (firstParamAdded) {
                     tokenBuilder.keyword(SyntaxKind.COMMA_TOKEN);
                 }
-                tokenBuilder.expression(prop);
+                tokenBuilder.param(prop);
             } else if (kind.equals(ParameterData.Kind.INCLUDED_RECORD.name())) {
                 if (isPropValueEmpty(prop)) {
                     continue;
@@ -454,7 +454,7 @@ public class SourceBuilder {
                 if (firstParamAdded) {
                     tokenBuilder.keyword(SyntaxKind.COMMA_TOKEN);
                 }
-                tokenBuilder.expression(prop);
+                tokenBuilder.param(prop);
             } else if (kind.equals(ParameterData.Kind.DEFAULTABLE.name())) {
                 if (isPropValueEmpty(prop)) {
                     missedDefaultValue = true;
@@ -470,7 +470,7 @@ public class SourceBuilder {
                     tokenBuilder.name(prop.codedata().originalName()).whiteSpace()
                             .keyword(SyntaxKind.EQUAL_TOKEN).expression(prop);
                 } else {
-                    tokenBuilder.expression(prop);
+                    tokenBuilder.param(prop);
                 }
             } else if (kind.equals(ParameterData.Kind.INCLUDED_FIELD.name())) {
                 if (isPropValueEmpty(prop)) {
@@ -676,6 +676,15 @@ public class SourceBuilder {
 
         public TokenBuilder expression(Property property) {
             sb.append(property.toSourceCode());
+            return this;
+        }
+
+        public TokenBuilder param(Property property) {
+            String source = property.toSourceCode();
+            if (source.startsWith("$")) {
+                source = "'" + source.substring(1);
+            }
+            sb.append(source);
             return this;
         }
 
