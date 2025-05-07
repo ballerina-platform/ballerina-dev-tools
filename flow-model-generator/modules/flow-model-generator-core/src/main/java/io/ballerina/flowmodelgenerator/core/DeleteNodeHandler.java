@@ -31,6 +31,7 @@ import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.Token;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.flowmodelgenerator.core.model.node.NewConnectionBuilder;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.projects.DiagnosticResult;
 import io.ballerina.projects.Document;
@@ -98,6 +99,9 @@ public class DeleteNodeHandler {
                                 apply.textLines())).apply();
         ModulePartNode modulePartNode = modifiedDoc.syntaxTree().rootNode();
         NodeList<ImportDeclarationNode> imports = modulePartNode.imports();
+        Set<String> dbDrivers = NewConnectionBuilder.CONNECTION_DRIVERS.stream()
+                .map(driver -> driver.substring(driver.lastIndexOf('/') + 1))
+                .collect(Collectors.toSet());
 
         List<TextEdit> textEdits = new ArrayList<>();
         DiagnosticResult diagnostics = modifiedDoc.module().getCompilation().diagnostics();
@@ -110,23 +114,24 @@ public class DeleteNodeHandler {
                 textEdits.add(deleteImportTextEdit);
             }
 
-            Set<String> dbDrivers = Set.of("mysql", "postgresql", "oracledb", "mssql");
-            String diagnosticProperty = ((String) diagnostic.properties().getFirst().value());
-            if (dbDrivers.contains(diagnosticProperty)) {
-                for (ImportDeclarationNode driverImportNode : imports) {
-                    if (driverImportNode.orgName().isPresent() &&
-                            driverImportNode.orgName().get().toString().equals("ballerinax/") &&
-                            driverImportNode.moduleName().stream()
-                                    .map(Token::text)
-                                    .collect(Collectors.joining("."))
-                                    .equals(diagnosticProperty + ".driver") &&
-                            driverImportNode.prefix().isPresent() &&
-                            driverImportNode.prefix().get().toString().trim()
-                                    .replaceAll("\\s+", " ").equals("as _")) {
-                        TextEdit deleteDriverImportTextEdit =
-                                new TextEdit(CommonUtils.toRange(driverImportNode.lineRange()), "");
-                        textEdits.add(deleteDriverImportTextEdit);
-                        break;
+            if (diagnostic.properties() != null && !diagnostic.properties().isEmpty()) {
+                String diagnosticProperty = diagnostic.properties().getFirst().value().toString();
+                if (dbDrivers.contains(diagnosticProperty)) {
+                    for (ImportDeclarationNode driverImportNode : imports) {
+                        if (driverImportNode.orgName().isPresent() &&
+                                driverImportNode.orgName().get().toString().equals("ballerinax/") &&
+                                driverImportNode.moduleName().stream()
+                                        .map(Token::text)
+                                        .collect(Collectors.joining("."))
+                                        .equals(diagnosticProperty + ".driver") &&
+                                driverImportNode.prefix().isPresent() &&
+                                driverImportNode.prefix().get().toString().trim()
+                                        .replaceAll("\\s+", " ").equals("as _")) {
+                            TextEdit deleteDriverImportTextEdit =
+                                    new TextEdit(CommonUtils.toRange(driverImportNode.lineRange()), "");
+                            textEdits.add(deleteDriverImportTextEdit);
+                            break;
+                        }
                     }
                 }
             }

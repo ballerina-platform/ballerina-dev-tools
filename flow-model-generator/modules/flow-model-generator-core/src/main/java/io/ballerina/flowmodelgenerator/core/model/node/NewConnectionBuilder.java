@@ -56,7 +56,7 @@ public class NewConnectionBuilder extends CallBuilder {
 
     private static final String CONNECTIONS_BAL = "connections.bal";
     private static final String DRIVER_SUB_PACKAGE = ".driver";
-    private static final List<String> CONNECTION_DRIVERS = List.of(
+    public static final List<String> CONNECTION_DRIVERS = List.of(
             "ballerinax/mysql",
             "ballerinax/postgresql",
             "ballerinax/oracledb",
