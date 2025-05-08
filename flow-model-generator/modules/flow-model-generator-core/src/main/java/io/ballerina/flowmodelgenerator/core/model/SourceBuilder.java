@@ -762,8 +762,9 @@ public class SourceBuilder {
 
         public TokenBuilder descriptionDoc(String description) {
             sb.append(SyntaxKind.HASH_TOKEN.stringValue())
-                    .append(WHITE_SPACE)
-                    .append(description);
+                    .append(WHITE_SPACE);
+
+            appendDescription(description.split(System.lineSeparator()));
             if (!description.endsWith(System.lineSeparator())) {
                 sb.append(System.lineSeparator());
             }
@@ -779,9 +780,12 @@ public class SourceBuilder {
                         .append(paramName)
                         .append(WHITE_SPACE)
                         .append("-")
-                        .append(WHITE_SPACE)
-                        .append(description)
-                        .append(System.lineSeparator());
+                        .append(WHITE_SPACE);
+
+                appendDescription(description.split(System.lineSeparator()));
+                if (!description.endsWith(System.lineSeparator())) {
+                    sb.append(System.lineSeparator());
+                }
             }
             return this;
         }
@@ -795,11 +799,24 @@ public class SourceBuilder {
                         .append(SyntaxKind.RETURN_KEYWORD.stringValue())
                         .append(WHITE_SPACE)
                         .append("-")
-                        .append(WHITE_SPACE)
-                        .append(returnDescription)
-                        .append(System.lineSeparator());
+                        .append(WHITE_SPACE);
+
+                appendDescription(returnDescription.split(System.lineSeparator()));
+                if (!returnDescription.endsWith(System.lineSeparator())) {
+                    sb.append(System.lineSeparator());
+                }
             }
             return this;
+        }
+
+        private void appendDescription(String[] descLines) {
+            sb.append(descLines[0]);
+            for (int i = 1; i < descLines.length; i++) {
+                sb.append(System.lineSeparator());
+                sb.append(SyntaxKind.HASH_TOKEN.stringValue())
+                        .append(WHITE_SPACE)
+                        .append(descLines[i]);
+            }
         }
 
         public String build(SourceKind kind) {
