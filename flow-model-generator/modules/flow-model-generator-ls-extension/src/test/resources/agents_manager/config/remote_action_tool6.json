@@ -1,0 +1,325 @@
+{
+  "source": "agent_1/agents.bal",
+  "name": "toolFunc",
+  "connection": "gmailClient",
+  "description": "Sample diagram node",
+  "toolDescription": "",
+  "diagram": {
+    "id": "31",
+    "metadata": {
+      "label": "get",
+      "description": "List repositories for a user",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_github_5.1.0.png"
+    },
+    "codedata": {
+      "node": "RESOURCE_ACTION_CALL",
+      "org": "ballerinax",
+      "module": "github",
+      "object": "Client",
+      "symbol": "get",
+      "isNew": true,
+      "lineRange": {
+        "fileName": "agents.bal",
+        "startLine": {
+          "line": 13,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 13,
+          "offset": 0
+        }
+      }
+    },
+    "returning": false,
+    "properties": {
+      "connection": {
+        "metadata": {
+          "label": "Connection",
+          "description": "Connection to use"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "github:Client",
+        "value": "connection",
+        "optional": false,
+        "editable": false,
+        "advanced": false,
+        "hidden": false
+      },
+      "resourcePath": {
+        "metadata": {
+          "label": "Resource Path",
+          "description": "Resource Path"
+        },
+        "valueType": "EXPRESSION",
+        "value": "resourcePath",
+        "optional": false,
+        "editable": false,
+        "advanced": false,
+        "hidden": false,
+        "codedata": {
+          "originalName": "/users/[username]/repos"
+        }
+      },
+      "username": {
+        "metadata": {
+          "label": "username",
+          "description": "The handle for the GitHub user account."
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "placeholder": "\"\"",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "hidden": false,
+        "codedata": {
+          "kind": "PATH_PARAM",
+          "originalName": "username"
+        },
+        "typeMembers": [],
+        "value": "username"
+      },
+      "$type": {
+        "metadata": {
+          "label": "type",
+          "description": "Limit results to repositories of the specified type."
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "\"all\"|\"owner\"|\"member\"",
+        "placeholder": "\"owner\"",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "hidden": false,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "'type"
+        },
+        "typeMembers": [
+          {
+            "type": "\"all\"",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "\"member\"",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "\"owner\"",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ],
+        "value": "$type"
+      },
+      "sort": {
+        "metadata": {
+          "label": "sort",
+          "description": "The property to sort the results by."
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "\"created\"|\"updated\"|\"pushed\"|\"full_name\"",
+        "placeholder": "\"full_name\"",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "hidden": false,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "sort"
+        },
+        "typeMembers": [
+          {
+            "type": "\"created\"",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "\"full_name\"",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "\"pushed\"",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "\"updated\"",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ],
+        "value": "sort"
+      },
+      "direction": {
+        "metadata": {
+          "label": "direction",
+          "description": "The order to sort by. Default: `asc` when using `full_name`, otherwise `desc`."
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "\"desc\"|()|\"asc\"",
+        "placeholder": "()",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "hidden": false,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "direction"
+        },
+        "typeMembers": [
+          {
+            "type": "\"asc\"",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "\"desc\"",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          },
+          {
+            "type": "()",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ],
+        "value": "direction"
+      },
+      "per_page": {
+        "metadata": {
+          "label": "per_page",
+          "description": "The number of results per page (max 100)."
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "int",
+        "placeholder": "30",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "hidden": false,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "per_page"
+        },
+        "typeMembers": [
+          {
+            "type": "int",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ],
+        "value": "per_page"
+      },
+      "page": {
+        "metadata": {
+          "label": "page",
+          "description": "Page number of the results to fetch."
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "int",
+        "placeholder": "1",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "hidden": false,
+        "codedata": {
+          "kind": "DEFAULTABLE",
+          "originalName": "page"
+        },
+        "typeMembers": [
+          {
+            "type": "int",
+            "packageInfo": "",
+            "kind": "BASIC_TYPE",
+            "selected": false
+          }
+        ],
+        "value": "page"
+      },
+      "type": {
+        "metadata": {
+          "label": "Variable Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "github:MinimalRepository[]",
+        "placeholder": "var",
+        "optional": false,
+        "editable": false,
+        "advanced": false,
+        "hidden": false,
+        "codedata": {}
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "githubMinimalrepository",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "hidden": false
+      },
+      "checkError": {
+        "metadata": {
+          "label": "Check Error",
+          "description": "Trigger error flow"
+        },
+        "valueType": "FLAG",
+        "value": true,
+        "optional": false,
+        "editable": true,
+        "advanced": true,
+        "hidden": false
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "agent_1/agents.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import ballerinax/github;"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "# List repositories for a user\n# + username - The handle for the GitHub user account.\n@ai:AgentTool\n@display {label: \"\",iconPath: \"https://bcentral-packageicons.azureedge.net/images/ballerinax_github_5.1.0.png\"}\nisolated function toolFunc( string username) returns github:MinimalRepository[]| error { github:MinimalRepository[] githubMinimalrepository = check gmailClient-> /users/[username]/repos. get( 'type) ;\nreturn githubMinimalrepository;\n}"
+      }
+    ]
+  }
+}
