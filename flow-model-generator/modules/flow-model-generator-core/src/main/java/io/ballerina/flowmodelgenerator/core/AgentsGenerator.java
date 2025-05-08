@@ -368,8 +368,10 @@ public class AgentsGenerator {
             boolean hasDescription = genDescription(description, flowNode, sourceBuilder);
             Map<String, Property> properties = flowNode.properties();
             Set<String> keys = new LinkedHashSet<>(properties != null ? properties.keySet() : Set.of());
-            keys.removeAll(Set.of(Property.VARIABLE_KEY, Property.TYPE_KEY, TARGET_TYPE, Property.CONNECTION_KEY,
-                    Property.CHECK_ERROR_KEY));
+            Set<String> ignoredKeys = new HashSet<>(List.of(Property.VARIABLE_KEY, Property.TYPE_KEY, TARGET_TYPE,
+                    Property.CONNECTION_KEY, Property.CHECK_ERROR_KEY));
+            keys.removeAll(ignoredKeys);
+
             List<String> paramList = new ArrayList<>();
             for (String k : keys) {
                 Property property = properties.get(k);
@@ -379,6 +381,14 @@ public class AgentsGenerator {
                 String key = k;
                 if (k.startsWith("$")) {
                     key = "'" + k.substring(1);
+                }
+                PropertyCodedata codedata = property.codedata();
+                if (codedata != null) {
+                    String kind = codedata.kind();
+                    if (kind != null && kind.equals(ParameterData.Kind.DEFAULTABLE.name())) {
+                        ignoredKeys.add(key);
+                        continue;
+                    }
                 }
                 if (hasDescription) {
                     sourceBuilder.token().parameterDoc(key, property.metadata().description());
@@ -439,8 +449,7 @@ public class AgentsGenerator {
                     .keyword(SyntaxKind.RIGHT_ARROW_TOKEN)
                     .name(flowNode.metadata().label())
                     .stepOut()
-                    .functionParameters(flowNode, Set.of(Property.VARIABLE_KEY, Property.TYPE_KEY,
-                            Property.CONNECTION_KEY, Property.CHECK_ERROR_KEY));
+                    .functionParameters(flowNode, ignoredKeys);
 
             if (!returnType.isEmpty()) {
                 sourceBuilder.token()
@@ -460,6 +469,7 @@ public class AgentsGenerator {
                     Property.TYPE_KEY, TARGET_TYPE, Property.RESOURCE_PATH_KEY, Property.CHECK_ERROR_KEY));
             keys.removeAll(ignoredKeys);
             List<String> paramList = new ArrayList<>();
+            Set<String> pathParams = new HashSet<>();
             for (String k : keys) {
                 Property property = properties.get(k);
                 if (property == null) {
@@ -468,6 +478,17 @@ public class AgentsGenerator {
                 String key = k;
                 if (k.startsWith("$")) {
                     key = "'" + k.substring(1);
+                }
+                PropertyCodedata codedata = property.codedata();
+                if (codedata != null) {
+                    String kind = codedata.kind();
+                    if (kind.equals(ParameterData.Kind.PATH_PARAM.name()) ||
+                            kind.equals(ParameterData.Kind.PATH_REST_PARAM.name())) {
+                        pathParams.add(key);
+                    } else if (kind.equals(ParameterData.Kind.DEFAULTABLE.name())) {
+                        ignoredKeys.add(key);
+                        continue;
+                    }
                 }
                 if (hasDescription) {
                     sourceBuilder.token().parameterDoc(key, property.metadata().description());
@@ -528,24 +549,21 @@ public class AgentsGenerator {
                 resourcePath = flowNode.properties().get(Property.RESOURCE_PATH_KEY).value().toString();
             }
 
-            for (String key : keys) {
+            for (String key : pathParams) {
                 Optional<Property> property = flowNode.getProperty(key);
                 if (property.isEmpty()) {
                     continue;
                 }
-                PropertyCodedata propCodedata = property.get()
-                        .codedata();
+                PropertyCodedata propCodedata = property.get().codedata();
                 if (propCodedata == null) {
                     continue;
                 }
-                if (propCodedata.kind().equals(ParameterData.Kind.PATH_PARAM.name())) {
-                    ignoredKeys.add(key);
-                } else if (propCodedata.kind().equals(ParameterData.Kind.PATH_REST_PARAM.name())) {
+                if (propCodedata.kind().equals(ParameterData.Kind.PATH_REST_PARAM.name())) {
                     String replacement = property.get().value().toString();
                     resourcePath = resourcePath.replace(ParamUtils.REST_PARAM_PATH, replacement);
-                    ignoredKeys.add(key);
                 }
             }
+            ignoredKeys.addAll(pathParams);
 
             sourceBuilder.token()
                     .name(connectionName)
