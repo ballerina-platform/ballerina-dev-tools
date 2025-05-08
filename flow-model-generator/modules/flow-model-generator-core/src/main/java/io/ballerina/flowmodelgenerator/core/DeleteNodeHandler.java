@@ -38,6 +38,7 @@ import io.ballerina.projects.Document;
 import io.ballerina.projects.Project;
 import io.ballerina.tools.diagnostics.Diagnostic;
 import io.ballerina.tools.diagnostics.DiagnosticInfo;
+import io.ballerina.tools.diagnostics.DiagnosticProperty;
 import io.ballerina.tools.diagnostics.DiagnosticSeverity;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
@@ -112,25 +113,29 @@ public class DeleteNodeHandler {
                 ImportDeclarationNode importNode = getUnusedImport(diagnostic.location().lineRange(), imports);
                 TextEdit deleteImportTextEdit = new TextEdit(CommonUtils.toRange(importNode.lineRange()), "");
                 textEdits.add(deleteImportTextEdit);
-            }
 
-            if (diagnostic.properties() != null && !diagnostic.properties().isEmpty()) {
-                String diagnosticProperty = diagnostic.properties().getFirst().value().toString();
-                if (dbDrivers.contains(diagnosticProperty)) {
-                    for (ImportDeclarationNode driverImportNode : imports) {
-                        if (driverImportNode.orgName().isPresent() &&
-                                driverImportNode.orgName().get().toString().equals("ballerinax/") &&
-                                driverImportNode.moduleName().stream()
-                                        .map(Token::text)
-                                        .collect(Collectors.joining("."))
-                                        .equals(diagnosticProperty + ".driver") &&
-                                driverImportNode.prefix().isPresent() &&
-                                driverImportNode.prefix().get().toString().trim()
-                                        .replaceAll("\\s+", " ").equals("as _")) {
-                            TextEdit deleteDriverImportTextEdit =
-                                    new TextEdit(CommonUtils.toRange(driverImportNode.lineRange()), "");
-                            textEdits.add(deleteDriverImportTextEdit);
-                            break;
+                List<DiagnosticProperty<?>> diagnosticProperties = diagnostic.properties();
+                if (diagnosticProperties != null && !diagnosticProperties.isEmpty()) {
+                    String diagnosticProperty = diagnosticProperties.getFirst().value().toString();
+                    if (dbDrivers.contains(diagnosticProperty)) {
+                        String expectedModuleName = diagnosticProperty + ".driver";
+                        String expectedPrefix = "as _";
+                        for (ImportDeclarationNode importDeclarationNode : imports) {
+                            var orgName = importDeclarationNode.orgName();
+                            var prefix = importDeclarationNode.prefix();
+                            if (orgName.isPresent() &&
+                                    orgName.get().toString().equals("ballerinax/") &&
+                                    importDeclarationNode.moduleName().stream()
+                                            .map(Token::text)
+                                            .collect(Collectors.joining("."))
+                                            .equals(expectedModuleName) &&
+                                    prefix.isPresent() &&
+                                    prefix.get().toString().trim().replaceAll("\\s+", " ").equals(expectedPrefix)) {
+                                TextEdit deleteDriverImportTextEdit =
+                                        new TextEdit(CommonUtils.toRange(importDeclarationNode.lineRange()), "");
+                                textEdits.add(deleteDriverImportTextEdit);
+                                break;
+                            }
                         }
                     }
                 }
