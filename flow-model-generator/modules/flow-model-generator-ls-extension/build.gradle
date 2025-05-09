@@ -103,6 +103,7 @@ task copyStdlibs() {
 }
 
 test.dependsOn rootProject.pullBallerinaModule('redis', ballerinaxRedisVersion)
+test.dependsOn rootProject.pullBallerinaModule('postgresql', ballerinaxPostgresqlVersion)
 test.dependsOn rootProject.pullBallerinaModule('trigger.salesforce', ballerinaxTriggerSalesforceVersion)
 test.dependsOn rootProject.pullBallerinaModule('github', ballerinaxGithubVersion)
 test.dependsOn rootProject.pullBallerinaModule('snowflake', ballerinaxSnowflakeVersion)
