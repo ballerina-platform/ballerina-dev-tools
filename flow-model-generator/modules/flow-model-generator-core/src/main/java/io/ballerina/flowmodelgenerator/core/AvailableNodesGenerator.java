@@ -23,6 +23,7 @@ import com.google.gson.JsonArray;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
+import io.ballerina.compiler.api.symbols.ParameterSymbol;
 import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
@@ -105,14 +106,22 @@ public class AvailableNodesGenerator {
         int txtPos = this.document.textDocument().textPositionFrom(cursorPosition);
         TextRange range = TextRange.from(txtPos, 0);
         NonTerminalNode nonTerminalNode = ((ModulePartNode) document.syntaxTree().rootNode()).findNode(range);
+        NonTerminalNode iterationNode = nonTerminalNode;
 
-        while (nonTerminalNode != null) {
-            SyntaxKind kind = nonTerminalNode.kind();
+        while (iterationNode != null) {
+            SyntaxKind kind = iterationNode.kind();
             switch (kind) {
                 case WHILE_STATEMENT, FOREACH_STATEMENT -> {
                     setAvailableNodesForIteratingBlock(nonTerminalNode, this.semanticModel);
                     return this.rootBuilder.build().items();
                 }
+                default -> iterationNode = iterationNode.parent();
+            }
+        }
+
+        while (nonTerminalNode != null) {
+            SyntaxKind kind = nonTerminalNode.kind();
+            switch (kind) {
                 case IF_ELSE_STATEMENT, LOCK_STATEMENT, TRANSACTION_STATEMENT, MATCH_STATEMENT, DO_STATEMENT,
                      ON_FAIL_CLAUSE -> {
                     setAvailableDefaultNodes(nonTerminalNode, semanticModel);
@@ -240,8 +249,15 @@ public class AvailableNodesGenerator {
 
     private Optional<Category> getConnection(Symbol symbol) {
         try {
-            TypeReferenceTypeSymbol typeDescriptorSymbol =
-                    (TypeReferenceTypeSymbol) ((VariableSymbol) symbol).typeDescriptor();
+            TypeReferenceTypeSymbol typeDescriptorSymbol;
+            if (symbol instanceof VariableSymbol variableSymbol) {
+                typeDescriptorSymbol = (TypeReferenceTypeSymbol) variableSymbol.typeDescriptor();
+            } else if (symbol instanceof ParameterSymbol parameterSymbol) {
+                typeDescriptorSymbol = (TypeReferenceTypeSymbol) parameterSymbol.typeDescriptor();
+            } else {
+                return Optional.empty();
+            }
+
             ClassSymbol classSymbol = (ClassSymbol) typeDescriptorSymbol.typeDescriptor();
             if (!(classSymbol.qualifiers().contains(Qualifier.CLIENT))) {
                 return Optional.empty();

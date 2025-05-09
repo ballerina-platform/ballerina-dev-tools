@@ -11,14 +11,14 @@
     "module": "ai",
     "object": "Agent",
     "symbol": "init",
-    "version": "1.0.0"
+    "version": "1.0.1"
   },
   "output": {
     "id": "31",
     "metadata": {
       "label": "Agent",
       "description": "Represents an agent.",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai_1.0.0.png",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai_1.0.1.png",
       "data": {
         "paramsToHide": [
           "model",
@@ -33,7 +33,7 @@
       "module": "ai",
       "object": "Agent",
       "symbol": "init",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "isNew": true
     },
     "returning": false,
@@ -57,7 +57,7 @@
         "typeMembers": [
           {
             "type": "SystemPrompt",
-            "packageInfo": "ballerinax:ai:1.0.0",
+            "packageInfo": "ballerinax:ai:1.0.1",
             "kind": "RECORD_TYPE",
             "selected": false
           }
@@ -82,7 +82,7 @@
         "typeMembers": [
           {
             "type": "ModelProvider",
-            "packageInfo": "ballerinax:ai:1.0.0",
+            "packageInfo": "ballerinax:ai:1.0.1",
             "kind": "OBJECT_TYPE",
             "selected": false
           }
@@ -132,7 +132,7 @@
         "typeMembers": [
           {
             "type": "AgentType",
-            "packageInfo": "ballerinax:ai:1.0.0",
+            "packageInfo": "ballerinax:ai:1.0.1",
             "kind": "BASIC_TYPE",
             "selected": false
           }
@@ -188,13 +188,13 @@
           }
         ]
       },
-      "memoryManager": {
+      "memory": {
         "metadata": {
-          "label": "Memory Manager",
-          "description": "The memory manager used by the agent to store and manage conversation history"
+          "label": "Memory",
+          "description": "The memory used by the agent to store and manage conversation history"
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "ai:MemoryManager|()",
+        "valueTypeConstraint": "ai:Memory|()",
         "placeholder": "()",
         "optional": true,
         "editable": true,
@@ -202,12 +202,12 @@
         "hidden": false,
         "codedata": {
           "kind": "INCLUDED_FIELD",
-          "originalName": "memoryManager"
+          "originalName": "memory"
         },
         "typeMembers": [
           {
-            "type": "MemoryManager",
-            "packageInfo": "ballerinax:ai:1.0.0",
+            "type": "Memory",
+            "packageInfo": "ballerinax:ai:1.0.1",
             "kind": "OBJECT_TYPE",
             "selected": false
           },

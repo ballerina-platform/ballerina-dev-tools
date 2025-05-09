@@ -37,6 +37,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.AutomationBuilder;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.PackageUtil;
 import io.ballerina.modelgenerator.commons.SearchResult;
+import io.ballerina.projects.Document;
 import io.ballerina.projects.Package;
 import io.ballerina.projects.Project;
 import io.ballerina.tools.diagnostics.Location;
@@ -80,8 +81,10 @@ class FunctionSearchCommand extends SearchCommand {
     );
     private static final String FETCH_KEY = "functions";
     private final List<String> moduleNames;
+    private final Document functionsDoc;
 
-    public FunctionSearchCommand(Project project, LineRange position, Map<String, String> queryMap) {
+    public FunctionSearchCommand(Project project, LineRange position, Map<String, String> queryMap,
+                                 Document functionsDoc) {
         super(project, position, queryMap);
 
         // Obtain the imported module names
@@ -90,6 +93,7 @@ class FunctionSearchCommand extends SearchCommand {
         moduleNames = currentPackage.getDefaultModule().moduleDependencies().stream()
                 .map(moduleDependency -> moduleDependency.descriptor().name().packageName().value())
                 .toList();
+        this.functionsDoc = functionsDoc;
         // TODO: Use this method when https://github.com/ballerina-platform/ballerina-lang/issues/43695 is fixed
         // List<String> moduleNames = semanticModel.moduleSymbols().stream()
         // .filter(symbol -> symbol.kind().equals(SymbolKind.MODULE))
@@ -141,10 +145,12 @@ class FunctionSearchCommand extends SearchCommand {
         List<Item> availableTools = new ArrayList<>();
         for (Symbol symbol : functionSymbols) {
             FunctionSymbol functionSymbol = (FunctionSymbol) symbol;
-            if (CommonUtils.isNpFunction(functionSymbol)) {
+            if (functionsDoc != null
+                    && CommonUtils.isNaturalExpressionBodiedFunction(functionsDoc.syntaxTree(), functionSymbol)) {
                 // Skip NP functions
                 continue;
             }
+
             boolean isDataMappedFunction = false;
             Optional<Location> location = symbol.getLocation();
             if (location.isPresent()) {

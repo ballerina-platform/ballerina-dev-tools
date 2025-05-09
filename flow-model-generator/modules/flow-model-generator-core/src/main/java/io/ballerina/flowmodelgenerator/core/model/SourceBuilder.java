@@ -116,7 +116,7 @@ public class SourceBuilder {
             String defaultFile = switch (node) {
                 case NEW_CONNECTION -> CONNECTIONS_BAL;
                 case DATA_MAPPER_DEFINITION -> DATA_MAPPINGS_BAL;
-                case FUNCTION_DEFINITION, NP_FUNCTION -> FUNCTIONS_BAL;
+                case FUNCTION_DEFINITION, NP_FUNCTION, NP_FUNCTION_DEFINITION -> FUNCTIONS_BAL;
                 case AUTOMATION -> AUTOMATION_BAL;
                 case AGENT -> AGENTS_BAL;
                 default -> null;
@@ -706,6 +706,11 @@ public class SourceBuilder {
 
         public TokenBuilder openBrace() {
             sb.append(SyntaxKind.OPEN_BRACE_TOKEN.stringValue()).append(System.lineSeparator());
+            return this;
+        }
+
+        public TokenBuilder rightDoubleArrowToken() {
+            sb.append(WHITE_SPACE).append(SyntaxKind.RIGHT_DOUBLE_ARROW_TOKEN.stringValue()).append(WHITE_SPACE);
             return this;
         }
 

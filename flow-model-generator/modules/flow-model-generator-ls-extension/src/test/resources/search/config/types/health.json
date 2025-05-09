@@ -331,38 +331,38 @@
         },
         {
           "metadata": {
-            "label": "health.hl7v2",
+            "label": "health.hl7v251",
             "description": "",
             "keywords": []
           },
           "items": [
             {
               "metadata": {
-                "label": "Type",
+                "label": "GenericMessage",
                 "description": "",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.hl7v2_2.4.2.png"
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.hl7v251_4.0.0.png"
               },
               "codedata": {
                 "node": "TYPEDESC",
                 "org": "ballerinax",
-                "module": "health.hl7v2",
-                "symbol": "Type",
-                "version": "2.4.2"
+                "module": "health.hl7v251",
+                "symbol": "GenericMessage",
+                "version": "4.0.0"
               },
               "enabled": true
             },
             {
               "metadata": {
-                "label": "ParserUtils",
+                "label": "Type",
                 "description": "",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.hl7v2_2.4.2.png"
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.hl7v251_4.0.0.png"
               },
               "codedata": {
                 "node": "TYPEDESC",
                 "org": "ballerinax",
-                "module": "health.hl7v2",
-                "symbol": "ParserUtils",
-                "version": "2.4.2"
+                "module": "health.hl7v251",
+                "symbol": "Type",
+                "version": "4.0.0"
               },
               "enabled": true
             }
@@ -379,14 +379,14 @@
               "metadata": {
                 "label": "ST",
                 "description": "",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.hl7v23_3.2.1.png"
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.hl7v23_4.0.0.png"
               },
               "codedata": {
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "health.hl7v23",
                 "symbol": "ST",
-                "version": "3.2.1"
+                "version": "4.0.0"
               },
               "enabled": true
             }

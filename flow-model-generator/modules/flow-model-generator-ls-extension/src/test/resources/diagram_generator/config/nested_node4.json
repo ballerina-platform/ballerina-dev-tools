@@ -66,7 +66,7 @@
               "label": "Statement",
               "description": "Ballerina statement"
             },
-            "valueType": "EXPRESSION",
+            "valueType": "STRING",
             "value": "do {\n            do {\n                transaction {\n                    json j = check asiri->post(path = \"/doctors/kandy\", message = \"text\");\n                    check commit;\n                }\n                json k = check asiri->get(path = \"/doctors/kandy\");\n            }\n            json l = check asiri->get(path = \"/doctors/kandy\");\n        }",
             "optional": false,
             "editable": true,

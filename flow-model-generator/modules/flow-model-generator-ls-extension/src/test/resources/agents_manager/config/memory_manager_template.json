@@ -9,24 +9,24 @@
     "node": "CLASS_INIT",
     "org": "ballerinax",
     "module": "ai",
-    "object": "DefaultMessageWindowChatMemoryManager",
+    "object": "MessageWindowChatMemory",
     "symbol": "init",
-    "version": "1.0.0"
+    "version": "1.0.1"
   },
   "output": {
     "id": "31",
     "metadata": {
       "label": "Class",
-      "description": "Initializes a new `ai:DefaultMessageWindowChatMemoryManager`.\n",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai_1.0.0.png"
+      "description": "Initializes a new memory window with a default or given size.",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai_1.0.1.png"
     },
     "codedata": {
       "node": "CLASS_INIT",
       "org": "ballerinax",
       "module": "ai",
-      "object": "DefaultMessageWindowChatMemoryManager",
+      "object": "MessageWindowChatMemory",
       "symbol": "init",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "isNew": true
     },
     "returning": false,
@@ -34,7 +34,7 @@
       "size": {
         "metadata": {
           "label": "size",
-          "description": "The maximum number of messages that can be stored in `ai:MessageWindowChatMemory`"
+          "description": "The maximum capacity for stored messages"
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "int",
@@ -62,7 +62,7 @@
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "ai:DefaultMessageWindowChatMemoryManager",
+        "value": "ai:MessageWindowChatMemory",
         "placeholder": "var",
         "optional": false,
         "editable": false,
@@ -76,7 +76,7 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "aiDefaultmessagewindowchatmemorymanager",
+        "value": "aiMessagewindowchatmemory",
         "optional": false,
         "editable": true,
         "advanced": false,

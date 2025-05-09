@@ -112,7 +112,7 @@ public class FunctionCallTemplateTest extends AbstractLSTest {
 
         String propertyType = testConfig.searchKind() != null && testConfig.searchKind().equals("TYPE") ?
                 "type" : "expression";
-        ExpressionEditorContext.Info info = new ExpressionEditorContext.Info(template, startPosition, offset,
+        ExpressionEditorContext.Info info = new ExpressionEditorContext.Info(template, startPosition, offset, 0,
                 variableNode.get("codedata").getAsJsonObject(),
                 variableNode.getAsJsonObject("properties").getAsJsonObject(propertyType));
         ExpressionEditorDiagnosticsRequest diagnosticsRequest =

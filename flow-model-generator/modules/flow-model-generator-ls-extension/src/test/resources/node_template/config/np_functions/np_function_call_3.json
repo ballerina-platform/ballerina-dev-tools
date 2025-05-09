@@ -7,18 +7,23 @@
   "description": "Sample diagram node for natural function call",
   "codedata": {
     "node": "NP_FUNCTION_CALL",
-    "symbol": "summarizeBlog"
+    "symbol": "summarizeBlog",
+    "org": "testOrg",
+    "module": "np_functions",
+    "version": "0.1.0"
   },
   "output": {
     "id": "31",
     "metadata": {
       "label": "summarizeBlog",
-      "description": "",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/null_null_null.png"
+      "description": ""
     },
     "codedata": {
       "node": "NP_FUNCTION_CALL",
+      "org": "testOrg",
+      "module": "np_functions",
       "symbol": "summarizeBlog",
+      "version": "0.1.0",
       "id": 0,
       "isNew": true
     },
@@ -29,7 +34,7 @@
           "label": "blog"
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "$CompilationError$",
+        "valueTypeConstraint": "other",
         "placeholder": "",
         "optional": false,
         "editable": true,
@@ -46,7 +51,7 @@
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "$CompilationError$|error",
+        "value": "Summary",
         "placeholder": "var",
         "optional": false,
         "editable": false,
@@ -60,7 +65,7 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "compilationerrorError",
+        "value": "summary",
         "optional": false,
         "editable": true,
         "advanced": false,

@@ -17,13 +17,13 @@
       "insertText": "Person[]"
     },
     {
-      "label": "string[]",
+      "label": "Person",
       "labelDetails": {
-        "detail": "Used Variable Types",
-        "description": "Array"
+        "detail": "User-Defined",
+        "description": "Record"
       },
-      "kind": "TypeParameter",
-      "insertText": "string[]"
+      "kind": "Struct",
+      "insertText": "Person"
     },
     {
       "label": "string|int",
@@ -42,15 +42,6 @@
       },
       "kind": "TypeParameter",
       "insertText": "map<Person>"
-    },
-    {
-      "label": "Person",
-      "labelDetails": {
-        "detail": "User-Defined",
-        "description": "Record"
-      },
-      "kind": "Struct",
-      "insertText": "Person"
     },
     {
       "label": "string",

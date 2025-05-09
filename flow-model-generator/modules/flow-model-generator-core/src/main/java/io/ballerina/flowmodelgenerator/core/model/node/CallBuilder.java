@@ -40,6 +40,7 @@ import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 
 import java.nio.file.Path;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -203,7 +204,13 @@ public abstract class CallBuilder extends NodeBuilder {
                     }
                     customPropBuilder.type(Property.ValueType.EXPRESSION_SET);
                 }
-                default -> customPropBuilder.type(Property.ValueType.EXPRESSION);
+                default -> {
+                    if (paramResult.type() instanceof List<?>) {
+                        customPropBuilder.type(Property.ValueType.SINGLE_SELECT);
+                    } else {
+                        customPropBuilder.type(Property.ValueType.EXPRESSION);
+                    }
+                }
             }
 
             customPropBuilder

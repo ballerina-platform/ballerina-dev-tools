@@ -1,0 +1,85 @@
+{
+  "description": "",
+  "filePath": "source.bal",
+  "context": {
+    "expression": "{\n    token: getToken( \n}",
+    "startLine": {
+      "line": 6,
+      "offset": 0
+    },
+    "offset": 20,
+    "lineOffset": 1,
+    "codedata": {
+      "node": "NEW_CONNECTION",
+      "org": "ballerinax",
+      "module": "docusign.dsadmin",
+      "object": "Client",
+      "symbol": "init",
+      "id": 1569
+    },
+    "property": {
+      "metadata": {
+        "label": "auth",
+        "description": "Configurations related to client authentication"
+      },
+      "valueType": "EXPRESSION",
+      "valueTypeConstraint": "http:BearerTokenConfig|dsadmin:OAuth2RefreshTokenGrantConfig",
+      "placeholder": "{token: \"\"}",
+      "optional": false,
+      "editable": true,
+      "advanced": false,
+      "imports": {
+        "http": "ballerina/http:2.14.0"
+      },
+      "codedata": {
+        "kind": "INCLUDED_FIELD",
+        "originalName": "auth"
+      }
+    }
+  },
+  "signatureHelpContext": {
+    "triggerKind": "Invoked",
+    "isRetrigger": false
+  },
+  "signatureHelp": [
+    {
+      "label": "getToken(string id, string timestamp)",
+      "documentation": {
+        "right": {
+          "kind": "markdown",
+          "value": "**Description**  \nGenerates a token based on the provided ID and timestamp."
+        }
+      },
+      "parameters": [
+        {
+          "label": {
+            "right": {
+              "first": 16,
+              "second": 18
+            }
+          },
+          "documentation": {
+            "right": {
+              "kind": "markdown",
+              "value": "**Parameter**  \n**`string`id**: The ID to be used in the token generation."
+            }
+          }
+        },
+        {
+          "label": {
+            "right": {
+              "first": 27,
+              "second": 36
+            }
+          },
+          "documentation": {
+            "right": {
+              "kind": "markdown",
+              "value": "**Parameter**  \n**`string`timestamp**: The timestamp to be used in the token generation."
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

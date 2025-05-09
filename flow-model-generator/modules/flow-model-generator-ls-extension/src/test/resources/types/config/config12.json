@@ -10,15 +10,6 @@
     {
       "label": "string[]",
       "labelDetails": {
-        "detail": "Used Variable Types",
-        "description": "Array"
-      },
-      "kind": "TypeParameter",
-      "insertText": "string[]"
-    },
-    {
-      "label": "string[]",
-      "labelDetails": {
         "detail": "Structural Types",
         "description": "Array"
       },

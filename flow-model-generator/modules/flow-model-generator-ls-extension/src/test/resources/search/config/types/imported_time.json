@@ -57,6 +57,78 @@
       "items": [
         {
           "metadata": {
+            "label": "optitune",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "DateParameter",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_optitune_1.5.1.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "optitune",
+                "symbol": "DateParameter",
+                "version": "1.5.1"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "gotowebinar",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "DateTimeRangeArr",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_gotowebinar_1.5.1.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "gotowebinar",
+                "symbol": "DateTimeRangeArr",
+                "version": "1.5.1"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "worldtimeapi",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "DateTimeJsonResponse",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_worldtimeapi_1.5.1.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "worldtimeapi",
+                "symbol": "DateTimeJsonResponse",
+                "version": "1.5.1"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
             "label": "asana",
             "description": "",
             "keywords": []
@@ -96,78 +168,6 @@
         },
         {
           "metadata": {
-            "label": "worldtimeapi",
-            "description": "",
-            "keywords": []
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "DateTimeJsonResponse",
-                "description": "",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_worldtimeapi_1.5.1.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerinax",
-                "module": "worldtimeapi",
-                "symbol": "DateTimeJsonResponse",
-                "version": "1.5.1"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
-            "label": "gotowebinar",
-            "description": "",
-            "keywords": []
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "DateTimeRangeArr",
-                "description": "",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_gotowebinar_1.5.1.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerinax",
-                "module": "gotowebinar",
-                "symbol": "DateTimeRangeArr",
-                "version": "1.5.1"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
-            "label": "optitune",
-            "description": "",
-            "keywords": []
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "DateParameter",
-                "description": "",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_optitune_1.5.1.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerinax",
-                "module": "optitune",
-                "symbol": "DateParameter",
-                "version": "1.5.1"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
             "label": "adp.paystatements",
             "description": "",
             "keywords": []
@@ -185,6 +185,30 @@
                 "module": "adp.paystatements",
                 "symbol": "DateType",
                 "version": "1.5.1"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "jira.servicemanagement",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "DateDTO",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_jira.servicemanagement_1.3.1.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "jira.servicemanagement",
+                "symbol": "DateDTO",
+                "version": "1.3.1"
               },
               "enabled": true
             }
@@ -285,23 +309,23 @@
         },
         {
           "metadata": {
-            "label": "jira.servicemanagement",
+            "label": "microsoft.outlook.calendar",
             "description": "",
             "keywords": []
           },
           "items": [
             {
               "metadata": {
-                "label": "DateDTO",
+                "label": "DateTimeTimeZone",
                 "description": "",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_jira.servicemanagement_1.3.1.png"
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_microsoft.outlook.calendar_2.4.0.png"
               },
               "codedata": {
                 "node": "TYPEDESC",
                 "org": "ballerinax",
-                "module": "jira.servicemanagement",
-                "symbol": "DateDTO",
-                "version": "1.3.1"
+                "module": "microsoft.outlook.calendar",
+                "symbol": "DateTimeTimeZone",
+                "version": "2.4.0"
               },
               "enabled": true
             }
@@ -340,6 +364,21 @@
                 "org": "ballerinax",
                 "module": "health.fhir.r4",
                 "symbol": "DateTimeExtension",
+                "version": "6.0.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "DateSearchParameter",
+                "description": "Date type search parameter information.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.fhir.r4_6.0.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "health.fhir.r4",
+                "symbol": "DateSearchParameter",
                 "version": "6.0.0"
               },
               "enabled": true
@@ -382,28 +421,19 @@
                 "version": "0.9.0"
               },
               "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
-            "label": "microsoft.outlook.calendar",
-            "description": "",
-            "keywords": []
-          },
-          "items": [
+            },
             {
               "metadata": {
-                "label": "DateTimeTimeZone",
-                "description": "",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_microsoft.outlook.calendar_2.4.0.png"
+                "label": "DateSearchParameter",
+                "description": "Date type search parameter information.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.fhir.r5_0.9.0.png"
               },
               "codedata": {
                 "node": "TYPEDESC",
                 "org": "ballerinax",
-                "module": "microsoft.outlook.calendar",
-                "symbol": "DateTimeTimeZone",
-                "version": "2.4.0"
+                "module": "health.fhir.r5",
+                "symbol": "DateSearchParameter",
+                "version": "0.9.0"
               },
               "enabled": true
             }
@@ -561,6 +591,30 @@
         },
         {
           "metadata": {
+            "label": "postgresql",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "DateRange",
+                "description": "Represents the `Date Range` datatype in PostgreSQL.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_postgresql_1.15.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "postgresql",
+                "symbol": "DateRange",
+                "version": "1.15.0"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
             "label": "constraint",
             "description": "",
             "keywords": []
@@ -593,69 +647,6 @@
                 "module": "constraint",
                 "symbol": "DateConstraints",
                 "version": "1.7.0"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
-            "label": "sql",
-            "description": "",
-            "keywords": []
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "DateOutParameter",
-                "description": "Represents Date Out Parameter in `sql:ParameterizedCallQuery`.",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_sql_1.16.0.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerina",
-                "module": "sql",
-                "symbol": "DateOutParameter",
-                "version": "1.16.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "DateTimeOutParameter",
-                "description": "Represents DateTime Out Parameter in `sql:ParameterizedCallQuery`.",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_sql_1.16.0.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerina",
-                "module": "sql",
-                "symbol": "DateTimeOutParameter",
-                "version": "1.16.0"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
-            "label": "postgresql",
-            "description": "",
-            "keywords": []
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "DateRange",
-                "description": "Represents the `Date Range` datatype in PostgreSQL.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_postgresql_1.15.0.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerinax",
-                "module": "postgresql",
-                "symbol": "DateRange",
-                "version": "1.15.0"
               },
               "enabled": true
             }

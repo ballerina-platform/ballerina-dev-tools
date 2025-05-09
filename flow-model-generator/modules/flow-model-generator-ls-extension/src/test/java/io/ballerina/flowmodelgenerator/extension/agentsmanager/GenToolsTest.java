@@ -56,6 +56,7 @@ public class GenToolsTest extends AbstractLSTest {
                 {Path.of("remote_action_tool2.json")},
                 {Path.of("remote_action_tool3.json")},
                 {Path.of("remote_action_tool4.json")},
+                {Path.of("remote_action_tool5.json")},
         };
     }
 

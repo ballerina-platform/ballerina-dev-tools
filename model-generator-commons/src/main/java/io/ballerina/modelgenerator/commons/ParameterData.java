@@ -41,7 +41,7 @@ import java.util.List;
 public record ParameterData(
         int parameterId,
         String name,
-        String type,
+        Object type,
         Kind kind,
         String defaultValue,
         String description,
@@ -56,13 +56,13 @@ public record ParameterData(
                 null, new ArrayList<>());
     }
 
-    public static ParameterData from(String name, String description, String type, String defaultValue, Kind kind,
+    public static ParameterData from(String name, String description, Object type, String defaultValue, Kind kind,
                                      boolean optional, String importStatements) {
         return new ParameterData(0, name, type, kind, defaultValue, description, null, optional,
                 importStatements, new ArrayList<>());
     }
 
-    public static ParameterData from(String name, String description, String label, String type, String defaultValue,
+    public static ParameterData from(String name, String description, String label, Object type, String defaultValue,
                                      Kind kind, boolean optional, String importStatements) {
         return new ParameterData(0, name, type, kind, defaultValue, description, label, optional,
                 importStatements, new ArrayList<>());

@@ -282,7 +282,7 @@
                       "label": "Statement",
                       "description": "Ballerina statement"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "STRING",
                     "value": "results.push(\"First done\");",
                     "optional": false,
                     "editable": true,
@@ -472,7 +472,7 @@
                       "label": "Statement",
                       "description": "Ballerina statement"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "STRING",
                     "value": "results.push(\"Second after First\");",
                     "optional": false,
                     "editable": true,
@@ -662,7 +662,7 @@
                       "label": "Statement",
                       "description": "Ballerina statement"
                     },
-                    "valueType": "EXPRESSION",
+                    "valueType": "STRING",
                     "value": "results.push(\"Third after Second\");",
                     "optional": false,
                     "editable": true,

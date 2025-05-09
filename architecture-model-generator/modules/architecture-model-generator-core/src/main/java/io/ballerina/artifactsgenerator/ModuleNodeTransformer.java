@@ -18,13 +18,8 @@
 
 package io.ballerina.artifactsgenerator;
 
-import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.api.symbols.AnnotationAttachmentSymbol;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
-import io.ballerina.compiler.api.symbols.ExternalFunctionSymbol;
-import io.ballerina.compiler.api.symbols.FunctionSymbol;
-import io.ballerina.compiler.api.symbols.ModuleSymbol;
 import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
@@ -34,6 +29,7 @@ import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.compiler.syntax.tree.ClassDefinitionNode;
 import io.ballerina.compiler.syntax.tree.EnumDeclarationNode;
+import io.ballerina.compiler.syntax.tree.ExpressionFunctionBodyNode;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.ListenerDeclarationNode;
@@ -49,7 +45,6 @@ import io.ballerina.compiler.syntax.tree.TypeDefinitionNode;
 import io.ballerina.compiler.syntax.tree.TypeDescriptorNode;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -69,9 +64,6 @@ public class ModuleNodeTransformer extends NodeTransformer<Optional<Artifact>> {
 
     private static final String AUTOMATION_FUNCTION_NAME = "automation";
     private static final String MAIN_FUNCTION_NAME = "main";
-    private static final String BALLERINAX_ORG_NAME = "ballerinax";
-    private static final String NP_MODULE_NAME = "np";
-    private static final String NP_FUNCTION_ANNOTATION = "NaturalFunction";
 
     public ModuleNodeTransformer(SemanticModel semanticModel) {
         this.semanticModel = semanticModel;
@@ -87,9 +79,15 @@ public class ModuleNodeTransformer extends NodeTransformer<Optional<Artifact>> {
                     .name(AUTOMATION_FUNCTION_NAME)
                     .type(Artifact.Type.AUTOMATION);
         } else if (functionDefinitionNode.functionBody().kind() == SyntaxKind.EXPRESSION_FUNCTION_BODY) {
-            functionBuilder
-                    .name(functionName)
-                    .type(Artifact.Type.DATA_MAPPER);
+            if (isNaturalExpressionBody((ExpressionFunctionBodyNode) functionDefinitionNode.functionBody())) {
+                functionBuilder
+                        .name(functionName)
+                        .type(Artifact.Type.NP_FUNCTION);
+            } else {
+                functionBuilder
+                        .name(functionName)
+                        .type(Artifact.Type.DATA_MAPPER);
+            }
         } else if (functionDefinitionNode.kind() == SyntaxKind.RESOURCE_ACCESSOR_DEFINITION) {
             functionBuilder
                     .accessor(functionName)
@@ -99,10 +97,6 @@ public class ModuleNodeTransformer extends NodeTransformer<Optional<Artifact>> {
             functionBuilder
                     .name(functionName)
                     .type(Artifact.Type.REMOTE);
-        } else if (isPromptAsCodeFunction(functionDefinitionNode)) {
-            functionBuilder
-                    .name(functionName)
-                    .type(Artifact.Type.NP_FUNCTION);
         } else {
             functionBuilder
                     .name(functionName)
@@ -254,26 +248,7 @@ public class ModuleNodeTransformer extends NodeTransformer<Optional<Artifact>> {
         return qualifierList.stream().anyMatch(qualifier -> qualifier.kind() == kind);
     }
 
-    private boolean isPromptAsCodeFunction(FunctionDefinitionNode functionDefinitionNode) {
-        Optional<Symbol> funcSymbol = this.semanticModel.symbol(functionDefinitionNode);
-        if (funcSymbol.isEmpty() || !((FunctionSymbol) funcSymbol.get()).external()) {
-            return false;
-        }
-
-        List<AnnotationAttachmentSymbol> annotAttachments = ((ExternalFunctionSymbol) funcSymbol.get())
-                .annotAttachmentsOnExternal();
-        return annotAttachments.stream()
-                .map(AnnotationAttachmentSymbol::typeDescriptor)
-                .anyMatch(annot -> isNpModule(annot) && annot.nameEquals(NP_FUNCTION_ANNOTATION));
-    }
-
-    private boolean isNpModule(Symbol symbol) {
-        Optional<ModuleSymbol> module = symbol.getModule();
-        if (module.isEmpty()) {
-            return false;
-        }
-
-        ModuleID moduleId = module.get().id();
-        return moduleId.orgName().equals(BALLERINAX_ORG_NAME) && moduleId.packageName().equals(NP_MODULE_NAME);
+    private boolean isNaturalExpressionBody(ExpressionFunctionBodyNode expressionFunctionBodyNode) {
+        return expressionFunctionBodyNode.expression().kind() == SyntaxKind.NATURAL_EXPRESSION;
     }
 }

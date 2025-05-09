@@ -50,6 +50,7 @@ import io.ballerina.flowmodelgenerator.extension.request.FlowNodeDeleteRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FunctionDefinitionRequest;
 import io.ballerina.flowmodelgenerator.extension.request.OpenAPIServiceGenerationRequest;
 import io.ballerina.flowmodelgenerator.extension.request.SearchRequest;
+import io.ballerina.flowmodelgenerator.extension.request.ServiceFieldNodesRequest;
 import io.ballerina.flowmodelgenerator.extension.request.SuggestedComponentRequest;
 import io.ballerina.flowmodelgenerator.extension.response.ComponentDeleteResponse;
 import io.ballerina.flowmodelgenerator.extension.response.CopilotContextResponse;
@@ -130,17 +131,15 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
                 }
                 // TODO: Check how we can delegate this to the model generator
                 Path projectPath = this.workspaceManager.projectRoot(filePath);
-                Optional<Document> dataMappingsDoc;
-                try {
-                    dataMappingsDoc = this.workspaceManager.document(projectPath.resolve("data_mappings.bal"));
-                } catch (Throwable e) {
-                    dataMappingsDoc = Optional.empty();
-                }
+                Optional<Document> dataMappingsDoc = getDocumentFromFile(projectPath, "data_mappings.bal");
+                Optional<Document> functionsDoc = getDocumentFromFile(projectPath, "functions.bal");
 
                 // Generate the flow design model
                 ModelGenerator modelGenerator = new ModelGenerator(project, semanticModel.get(), filePath);
                 response.setFlowDesignModel(
-                        modelGenerator.getFlowModel(document.get(), request.lineRange(), dataMappingsDoc.orElse(null)));
+                        modelGenerator.getFlowModel(document.get(), request.lineRange(),
+                                dataMappingsDoc.orElse(null),
+                                functionsDoc.orElse(null)));
             } catch (Throwable e) {
                 response.setError(e);
             }
@@ -166,17 +165,15 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
                 }
                 // TODO: Check how we can delegate this to the model generator
                 Path projectPath = this.workspaceManager.projectRoot(filePath);
-                Optional<Document> dataMappingsDoc;
-                try {
-                    dataMappingsDoc = this.workspaceManager.document(projectPath.resolve("data_mappings.bal"));
-                } catch (Throwable e) {
-                    dataMappingsDoc = Optional.empty();
-                }
+                Optional<Document> dataMappingsDoc = getDocumentFromFile(projectPath, "data_mappings.bal");
+                Optional<Document> functionsDoc = getDocumentFromFile(projectPath, "functions.bal");
 
                 // Generate the flow design model
                 ModelGenerator modelGenerator = new ModelGenerator(project, semanticModel.get(), filePath);
                 JsonElement oldFlowModel =
-                        modelGenerator.getFlowModel(document.get(), request.lineRange(), dataMappingsDoc.orElse(null));
+                        modelGenerator.getFlowModel(document.get(), request.lineRange(),
+                                dataMappingsDoc.orElse(null),
+                                functionsDoc.orElse(null));
 
                 // Create a temporary directory for the in-memory cache
                 Project newProject = project.duplicate();
@@ -189,12 +186,18 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
                     return response;
                 }
                 Optional<Document> newDataMappingsDoc;
+                Optional<Document> newFunctionsDoc;
                 try {
                     DocumentId dataMappingDocId = newProject.documentId(projectPath.resolve("data_mappings.bal"));
                     Module dataMappingModule = newProject.currentPackage().module(dataMappingDocId.moduleId());
                     newDataMappingsDoc = Optional.of(dataMappingModule.document(dataMappingDocId));
+
+                    DocumentId functionsDocId = newProject.documentId(projectPath.resolve("functions.bal"));
+                    Module functionsModule = newProject.currentPackage().module(functionsDocId.moduleId());
+                    newFunctionsDoc = Optional.of(functionsModule.document(functionsDocId));
                 } catch (Throwable e) {
                     newDataMappingsDoc = Optional.empty();
+                    newFunctionsDoc = Optional.empty();
                 }
 
                 TextDocument textDocument = newDocument.textDocument();
@@ -215,7 +218,7 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
                         new ModelGenerator(newProject, PackageUtil.getCompilation(newProject)
                                 .getSemanticModel(newDoc.module().moduleId()), filePath);
                 JsonElement newFlowModel = suggestedModelGenerator.getFlowModel(newDoc,
-                        endLineRange, newDataMappingsDoc.orElse(null));
+                        endLineRange, newDataMappingsDoc.orElse(null), newFunctionsDoc.orElse(null));
 
                 LinePosition endPosition = newTextDocument.linePositionFrom(textPosition + request.text().length());
                 LineRange newLineRange =
@@ -330,6 +333,28 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
                 // Generate the flow design model
                 ModelGenerator modelGenerator = new ModelGenerator(project, semanticModel, filePath);
                 response.setFlowDesignModel(modelGenerator.getModuleNodes());
+            } catch (Throwable e) {
+                response.setError(e);
+            }
+            return response;
+        });
+    }
+
+    @JsonRequest
+    public CompletableFuture<FlowModelGeneratorResponse> getServiceNodes(ServiceFieldNodesRequest request) {
+
+        return CompletableFuture.supplyAsync(() -> {
+            FlowModelGeneratorResponse response = new FlowModelGeneratorResponse();
+            try {
+                Path filePath = Path.of(request.filePath());
+
+                // Obtain the semantic model and the document
+                Project project = this.workspaceManager.loadProject(filePath);
+                SemanticModel semanticModel = FileSystemUtils.getSemanticModel(workspaceManager, filePath);
+
+                // Generate the flow design model
+                ModelGenerator modelGenerator = new ModelGenerator(project, semanticModel, filePath);
+                response.setFlowDesignModel(modelGenerator.getServiceFieldNodes(request.linePosition()));
             } catch (Throwable e) {
                 response.setError(e);
             }
@@ -513,7 +538,12 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
                             request.position().startLine(),
                             request.position().endLine());
                 }
-                SearchCommand command = SearchCommand.from(searchKind, project, position, request.queryMap());
+
+                Path projectPath = this.workspaceManager.projectRoot(filePath);
+                Optional<Document> functionsDoc = getDocumentFromFile(projectPath, "functions.bal");
+
+                SearchCommand command = SearchCommand.from(searchKind, project, position, request.queryMap(),
+                        functionsDoc.orElse(null));
                 response.setCategories(command.execute());
             } catch (Throwable e) {
                 response.setError(e);
@@ -532,5 +562,13 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
         }
         Path relativePath = projectPath.relativize(filePath);
         return relativePath.toString();
+    }
+
+    private Optional<Document> getDocumentFromFile(Path projectPath, String fileName) {
+        try {
+            return this.workspaceManager.document(projectPath.resolve(fileName));
+        } catch (Throwable e) {
+            return Optional.empty();
+        }
     }
 }
