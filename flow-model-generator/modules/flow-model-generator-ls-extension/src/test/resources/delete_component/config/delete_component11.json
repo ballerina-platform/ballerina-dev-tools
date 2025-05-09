@@ -1,0 +1,64 @@
+{
+  "description": "Delete Component",
+  "filePath": "delete_component4.bal",
+  "startLine": 10,
+  "startColumn": 0,
+  "endLine": 10,
+  "endColumn": 56,
+  "output": {
+    "delete_component4.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 21
+          }
+        },
+        "newText": ""
+      },
+      {
+        "range": {
+          "start": {
+            "line": 7,
+            "character": 0
+          },
+          "end": {
+            "line": 7,
+            "character": 29
+          }
+        },
+        "newText": ""
+      },
+      {
+        "range": {
+          "start": {
+            "line": 8,
+            "character": 0
+          },
+          "end": {
+            "line": 8,
+            "character": 41
+          }
+        },
+        "newText": ""
+      },
+      {
+        "range": {
+          "start": {
+            "line": 10,
+            "character": 0
+          },
+          "end": {
+            "line": 10,
+            "character": 56
+          }
+        },
+        "newText": ""
+      }
+    ]
+  }
+}

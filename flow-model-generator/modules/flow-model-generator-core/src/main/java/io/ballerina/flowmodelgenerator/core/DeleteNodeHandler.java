@@ -29,13 +29,16 @@ import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.NodeList;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.compiler.syntax.tree.Token;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.flowmodelgenerator.core.model.node.NewConnectionBuilder;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.projects.DiagnosticResult;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Project;
 import io.ballerina.tools.diagnostics.Diagnostic;
 import io.ballerina.tools.diagnostics.DiagnosticInfo;
+import io.ballerina.tools.diagnostics.DiagnosticProperty;
 import io.ballerina.tools.diagnostics.DiagnosticSeverity;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
@@ -51,6 +54,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Generates text edits for the nodes that are requested to delete.
@@ -95,6 +100,9 @@ public class DeleteNodeHandler {
                                 apply.textLines())).apply();
         ModulePartNode modulePartNode = modifiedDoc.syntaxTree().rootNode();
         NodeList<ImportDeclarationNode> imports = modulePartNode.imports();
+        Set<String> dbDrivers = NewConnectionBuilder.CONNECTION_DRIVERS.stream()
+                .map(driver -> driver.substring(driver.lastIndexOf('/') + 1))
+                .collect(Collectors.toSet());
 
         List<TextEdit> textEdits = new ArrayList<>();
         DiagnosticResult diagnostics = modifiedDoc.module().getCompilation().diagnostics();
@@ -105,6 +113,32 @@ public class DeleteNodeHandler {
                 ImportDeclarationNode importNode = getUnusedImport(diagnostic.location().lineRange(), imports);
                 TextEdit deleteImportTextEdit = new TextEdit(CommonUtils.toRange(importNode.lineRange()), "");
                 textEdits.add(deleteImportTextEdit);
+
+                List<DiagnosticProperty<?>> diagnosticProperties = diagnostic.properties();
+                if (diagnosticProperties != null && !diagnosticProperties.isEmpty()) {
+                    String diagnosticProperty = diagnosticProperties.getFirst().value().toString();
+                    if (dbDrivers.contains(diagnosticProperty)) {
+                        String expectedModuleName = diagnosticProperty + ".driver";
+                        String expectedPrefix = "as _";
+                        for (ImportDeclarationNode importDeclarationNode : imports) {
+                            var orgName = importDeclarationNode.orgName();
+                            var prefix = importDeclarationNode.prefix();
+                            if (orgName.isPresent() &&
+                                    orgName.get().toString().equals("ballerinax/") &&
+                                    importDeclarationNode.moduleName().stream()
+                                            .map(Token::text)
+                                            .collect(Collectors.joining("."))
+                                            .equals(expectedModuleName) &&
+                                    prefix.isPresent() &&
+                                    prefix.get().toString().trim().replaceAll("\\s+", " ").equals(expectedPrefix)) {
+                                TextEdit deleteDriverImportTextEdit =
+                                        new TextEdit(CommonUtils.toRange(importDeclarationNode.lineRange()), "");
+                                textEdits.add(deleteDriverImportTextEdit);
+                                break;
+                            }
+                        }
+                    }
+                }
             }
         }
 
