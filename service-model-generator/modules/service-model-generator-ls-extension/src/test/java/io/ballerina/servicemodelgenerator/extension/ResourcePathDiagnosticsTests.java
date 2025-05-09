@@ -26,7 +26,7 @@ import io.ballerina.projects.ModuleId;
 import io.ballerina.projects.ModuleName;
 import io.ballerina.projects.Package;
 import io.ballerina.projects.Project;
-import io.ballerina.servicemodelgenerator.extension.diagnostics.ResourceFunctionFormValidator;
+import io.ballerina.servicemodelgenerator.extension.diagnostics.HttpResourceFormValidator;
 import io.ballerina.servicemodelgenerator.extension.model.Diagnostics;
 import org.ballerinalang.langserver.BallerinaLanguageServer;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
@@ -44,7 +44,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import static io.ballerina.servicemodelgenerator.extension.diagnostics.ResourceFunctionFormValidator.Context.ADD_RESOURCE;
+import static io.ballerina.servicemodelgenerator.extension.diagnostics.HttpResourceFormValidator.Context.ADD;
 
 /**
  * Test class use to test the functionality of the resource path validation.
@@ -53,7 +53,7 @@ import static io.ballerina.servicemodelgenerator.extension.diagnostics.ResourceF
  */
 public class ResourcePathDiagnosticsTests {
 
-    private ResourceFunctionFormValidator validator;
+    private HttpResourceFormValidator validator;
     private Method validateResourcePath;
 
     @BeforeClass
@@ -74,9 +74,9 @@ public class ResourcePathDiagnosticsTests {
         if (document.isEmpty()) {
             throw new Exception("Unable to get the semantic model or document");
         }
-        this.validator = new ResourceFunctionFormValidator(ADD_RESOURCE, semanticModel, document.get());
+        this.validator = new HttpResourceFormValidator(ADD, semanticModel, document.get());
 
-        this.validateResourcePath = ResourceFunctionFormValidator.class.getDeclaredMethod("validateResourcePath",
+        this.validateResourcePath = HttpResourceFormValidator.class.getDeclaredMethod("validateResourcePath",
                 String.class, List.class, Set.class);
         validateResourcePath.setAccessible(true);
     }

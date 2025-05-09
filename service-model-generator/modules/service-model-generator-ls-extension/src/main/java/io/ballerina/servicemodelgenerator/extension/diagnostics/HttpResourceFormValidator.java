@@ -29,9 +29,7 @@ import io.ballerina.compiler.syntax.tree.ConstantDeclarationNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeParser;
-import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.ServiceDeclarationNode;
-import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.Token;
 import io.ballerina.projects.Document;
 import io.ballerina.servicemodelgenerator.extension.model.Codedata;
@@ -52,10 +50,9 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
-import static io.ballerina.servicemodelgenerator.extension.diagnostics.DiagnosticsHandler.findNonTerminalNode;
 import static io.ballerina.servicemodelgenerator.extension.diagnostics.ReservedKeywords.KEYWORD_LIST;
 
-public class ResourceFunctionFormValidator {
+public class HttpResourceFormValidator {
 
     private final Context ctx;
     private final SemanticModel semanticModel;
@@ -69,7 +66,7 @@ public class ResourceFunctionFormValidator {
     private boolean isConstAndEnumsLoaded = false;
     private final IdentifierValidator identifierValidator = new IdentifierValidator();
 
-    public ResourceFunctionFormValidator(Context ctx, SemanticModel semanticModel, Document document) {
+    public HttpResourceFormValidator(Context ctx, SemanticModel semanticModel, Document document) {
         this.ctx = ctx;
         this.semanticModel = semanticModel;
         this.document = document;
@@ -77,8 +74,8 @@ public class ResourceFunctionFormValidator {
     }
 
     public enum Context {
-        ADD_RESOURCE,
-        UPDATE_RESOURCE
+        ADD,
+        UPDATE
     }
 
     private void initBasicTypes() {
@@ -131,6 +128,7 @@ public class ResourceFunctionFormValidator {
 
         if (!uniqueResourcePath(serviceDeclarationNode, resourceName, accessor, diagnostics, functionDefinitionNode,
                 codedata)) {
+            function.getName().setDiagnostics(new Diagnostics(true, diagnostics));
             return;
         }
 
@@ -202,13 +200,13 @@ public class ResourceFunctionFormValidator {
     private boolean uniqueResourcePath(ServiceDeclarationNode node, String resourceName, String accessor,
                                        List<Diagnostics.Info> diagnostics, FunctionDefinitionNode updatingFunc,
                                        Codedata codedata) {
-        boolean isUpdateFunction = ctx == Context.UPDATE_RESOURCE;
+        boolean isUpdateFunction = ctx == Context.UPDATE;
 
         for (Node member: node.members()) {
             if (!(member instanceof FunctionDefinitionNode functionDefinitionNode)) {
                 continue;
             }
-            if (functionDefinitionNode.qualifierList().stream().map(Token::text).toList().contains(
+            if (!functionDefinitionNode.qualifierList().stream().map(Token::text).toList().contains(
                     Qualifier.RESOURCE.getValue())) {
                 continue;
             }
@@ -224,9 +222,9 @@ public class ResourceFunctionFormValidator {
                 continue;
             }
             diagnostics.add(new Diagnostics.Info(DiagnosticSeverity.ERROR, "resource path is already defined"));
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 
     private boolean validHttpResponse(HttpResponse response, boolean hasHttpCaller) {

@@ -37,8 +37,6 @@ import io.ballerina.projects.Package;
 import io.ballerina.projects.Project;
 import io.ballerina.servicemodelgenerator.extension.ServiceModelGeneratorService;
 import io.ballerina.servicemodelgenerator.extension.model.Codedata;
-import io.ballerina.servicemodelgenerator.extension.model.Service;
-import io.ballerina.servicemodelgenerator.extension.model.Value;
 import io.ballerina.servicemodelgenerator.extension.request.FunctionModifierRequest;
 import io.ballerina.servicemodelgenerator.extension.request.FunctionSourceRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ServiceDesignerDiagnosticRequest;
@@ -52,11 +50,10 @@ import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 
 import java.nio.file.Path;
-import java.util.Objects;
 import java.util.Optional;
 
-import static io.ballerina.servicemodelgenerator.extension.diagnostics.ResourceFunctionFormValidator.Context.ADD_RESOURCE;
-import static io.ballerina.servicemodelgenerator.extension.diagnostics.ResourceFunctionFormValidator.Context.UPDATE_RESOURCE;
+import static io.ballerina.servicemodelgenerator.extension.diagnostics.HttpResourceFormValidator.Context.ADD;
+import static io.ballerina.servicemodelgenerator.extension.diagnostics.HttpResourceFormValidator.Context.UPDATE;
 import static io.ballerina.servicemodelgenerator.extension.diagnostics.ServiceValidator.validateBasePath;
 
 /**
@@ -80,12 +77,12 @@ public class DiagnosticsHandler {
             case "addService" -> {
                 ServiceSourceRequest serviceRequest = gson.fromJson(request.request(), ServiceSourceRequest.class);
                 validateBasePath(serviceRequest.service());
-                return gson.toJsonTree(serviceRequest);
+                return gson.toJsonTree(serviceRequest.service());
             }
             case "updateService" -> {
                 ServiceModifierRequest serviceRequest = gson.fromJson(request.request(), ServiceModifierRequest.class);
                 validateBasePath(serviceRequest.service());
-                return gson.toJsonTree(serviceRequest);
+                return gson.toJsonTree(serviceRequest.service());
             }
             case "addResource" -> {
                 FunctionSourceRequest function = gson.fromJson(request.request(), FunctionSourceRequest.class);
@@ -93,7 +90,7 @@ public class DiagnosticsHandler {
                 Project project = this.workspaceManager.loadProject(filePath);
                 Optional<Document> document = this.workspaceManager.document(filePath);
                 if (document.isEmpty()) {
-                    return request.request();
+                    return gson.toJsonTree(function.function());
                 }
 
                 Package currentPackage = project.currentPackage();
@@ -103,12 +100,12 @@ public class DiagnosticsHandler {
 
                 NonTerminalNode node = findNonTerminalNode(function.codedata(), document.get());
                 if (!(node instanceof ServiceDeclarationNode serviceDeclarationNode)) {
-                    return request.request();
+                    return gson.toJsonTree(function.function());
                 }
 
-                new ResourceFunctionFormValidator(ADD_RESOURCE, semanticModel, document.get()).validate(
+                new HttpResourceFormValidator(ADD, semanticModel, document.get()).validate(
                         function.function(), serviceDeclarationNode);
-                return gson.toJsonTree(function);
+                return gson.toJsonTree(function.function());
             }
             case "updateFunction" -> {
                 FunctionModifierRequest function = gson.fromJson(request.request(), FunctionModifierRequest.class);
@@ -116,11 +113,11 @@ public class DiagnosticsHandler {
                 Project project = this.workspaceManager.loadProject(filePath);
                 Optional<Document> document = this.workspaceManager.document(filePath);
                 if (document.isEmpty()) {
-                    return request.request();
+                    return gson.toJsonTree(function.function());
                 }
                 NonTerminalNode node = findNonTerminalNode(function.function().getCodedata(), document.get());
                 if (!(node instanceof FunctionDefinitionNode functionDefinitionNode)) {
-                    return request.request();
+                    return gson.toJsonTree(function.function());
                 }
 
                 Package currentPackage = project.currentPackage();
@@ -130,7 +127,7 @@ public class DiagnosticsHandler {
 
                 while (!(node instanceof ServiceDeclarationNode serviceDeclarationNode)) {
                     if (node == null) {
-                        return request.request();
+                        return gson.toJsonTree(function.function());
                     }
                     node = node.parent();
                 }
@@ -140,12 +137,12 @@ public class DiagnosticsHandler {
 
                 if ("http".equals(moduleAndServiceType.moduleName())
                         && "Service".equals(moduleAndServiceType.serviceType())) {
-                    new ResourceFunctionFormValidator(UPDATE_RESOURCE, semanticModel, document.get()).validate(
+                    new HttpResourceFormValidator(UPDATE, semanticModel, document.get()).validate(
                             function.function(), serviceDeclarationNode,
                             functionDefinitionNode, function.function().getCodedata()
                     );
                 }
-                return gson.toJsonTree(function);
+                return gson.toJsonTree(function.function());
             }
         }
         return new JsonObject();

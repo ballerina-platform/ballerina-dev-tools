@@ -1,6 +1,6 @@
 {
-  "filePath": "sample1/main.bal",
-  "description": "Test adding resource with invalid resource path",
+  "filePath": "sample3/main.bal",
+  "description": "http:Caller with a return type",
   "operation": "addResource",
   "requestModel": {
     "metadata": {
@@ -40,7 +40,7 @@
       },
       "enabled": true,
       "editable": false,
-      "value": "abc def",
+      "value": "foo",
       "valueType": "IDENTIFIER",
       "valueTypeConstraint": "string",
       "isType": false,
@@ -57,10 +57,6 @@
         },
         "kind": "REQUIRED",
         "type": {
-          "metadata": {
-            "label": "",
-            "description": ""
-          },
           "enabled": true,
           "editable": false,
           "value": "http:Request",
@@ -69,26 +65,20 @@
           "isType": true,
           "placeholder": "string",
           "optional": false,
-          "advanced": false,
-          "addNewButton": false
+          "advanced": false
         },
         "name": {
-          "metadata": {
-            "label": "",
-            "description": ""
-          },
           "enabled": true,
           "editable": true,
-          "value": "request",
+          "value": "",
           "valueType": "IDENTIFIER",
           "valueTypeConstraint": "string",
           "isType": false,
           "placeholder": "request",
           "optional": false,
-          "advanced": false,
-          "addNewButton": false
+          "advanced": false
         },
-        "enabled": true,
+        "enabled": false,
         "editable": true,
         "optional": true,
         "advanced": true
@@ -100,10 +90,6 @@
         },
         "kind": "REQUIRED",
         "type": {
-          "metadata": {
-            "label": "",
-            "description": ""
-          },
           "enabled": true,
           "editable": false,
           "value": "http:Caller",
@@ -112,24 +98,18 @@
           "isType": true,
           "placeholder": "string",
           "optional": false,
-          "advanced": false,
-          "addNewButton": false
+          "advanced": false
         },
         "name": {
-          "metadata": {
-            "label": "",
-            "description": ""
-          },
           "enabled": true,
           "editable": true,
           "value": "caller",
           "valueType": "IDENTIFIER",
           "valueTypeConstraint": "string",
           "isType": false,
-          "placeholder": "request",
+          "placeholder": "caller",
           "optional": false,
-          "advanced": false,
-          "addNewButton": false
+          "advanced": false
         },
         "enabled": true,
         "editable": true,
@@ -143,10 +123,6 @@
         },
         "kind": "REQUIRED",
         "type": {
-          "metadata": {
-            "label": "",
-            "description": ""
-          },
           "enabled": true,
           "editable": false,
           "value": "http:Headers",
@@ -155,142 +131,23 @@
           "isType": true,
           "placeholder": "string",
           "optional": false,
-          "advanced": false,
-          "addNewButton": false
+          "advanced": false
         },
         "name": {
-          "metadata": {
-            "label": "",
-            "description": ""
-          },
           "enabled": true,
           "editable": true,
-          "value": "headers",
+          "value": "",
           "valueType": "IDENTIFIER",
           "valueTypeConstraint": "string",
           "isType": false,
-          "placeholder": "request",
+          "placeholder": "headers",
           "optional": false,
-          "advanced": false,
-          "addNewButton": false
+          "advanced": false
         },
-        "enabled": true,
+        "enabled": false,
         "editable": true,
         "optional": true,
         "advanced": true
-      },
-      {
-        "metadata": {
-          "label": "header",
-          "description": "header"
-        },
-        "kind": "REQUIRED",
-        "type": {
-          "metadata": {
-            "label": "Parameter Type",
-            "description": "The type of the parameter"
-          },
-          "enabled": true,
-          "editable": true,
-          "value": "string",
-          "valueType": "TYPE",
-          "isType": true,
-          "optional": false,
-          "advanced": false,
-          "addNewButton": false,
-          "imports": {}
-        },
-        "name": {
-          "metadata": {
-            "label": "Parameter Name",
-            "description": "The name of the parameter"
-          },
-          "enabled": true,
-          "editable": true,
-          "value": "header",
-          "valueType": "IDENTIFIER",
-          "isType": false,
-          "optional": false,
-          "advanced": false,
-          "addNewButton": false,
-          "imports": {}
-        },
-        "defaultValue": {
-          "metadata": {
-            "label": "Default Value",
-            "description": "The default value of the parameter"
-          },
-          "enabled": true,
-          "editable": true,
-          "valueType": "EXPRESSION",
-          "isType": false,
-          "optional": true,
-          "advanced": false,
-          "addNewButton": false,
-          "imports": {}
-        },
-        "enabled": true,
-        "editable": true,
-        "optional": false,
-        "advanced": false,
-        "httpParamType": "HEADER"
-      },
-      {
-        "metadata": {
-          "label": "id",
-          "description": "id"
-        },
-        "kind": "DEFAULTABLE",
-        "type": {
-          "metadata": {
-            "label": "Parameter Type",
-            "description": "The type of the parameter"
-          },
-          "enabled": true,
-          "editable": true,
-          "value": "int",
-          "valueType": "TYPE",
-          "isType": true,
-          "optional": false,
-          "advanced": false,
-          "addNewButton": false,
-          "imports": {}
-        },
-        "name": {
-          "metadata": {
-            "label": "Parameter Name",
-            "description": "The name of the parameter"
-          },
-          "enabled": true,
-          "editable": true,
-          "value": "id",
-          "valueType": "IDENTIFIER",
-          "isType": false,
-          "optional": false,
-          "advanced": false,
-          "addNewButton": false,
-          "imports": {}
-        },
-        "defaultValue": {
-          "metadata": {
-            "label": "Default Value",
-            "description": "The default value of the parameter"
-          },
-          "enabled": true,
-          "editable": true,
-          "value": "45",
-          "valueType": "EXPRESSION",
-          "isType": false,
-          "optional": true,
-          "advanced": false,
-          "addNewButton": false,
-          "imports": {}
-        },
-        "enabled": true,
-        "editable": true,
-        "optional": false,
-        "advanced": false,
-        "httpParamType": "QUERY"
       }
     ],
     "returnType": {
@@ -451,7 +308,7 @@
         "offset": 0
       },
       "endLine": {
-        "line": 6,
+        "line": 9,
         "offset": 0
       }
     },
@@ -498,7 +355,7 @@
       },
       "enabled": true,
       "editable": false,
-      "value": "abc def",
+      "value": "foo",
       "valueType": "IDENTIFIER",
       "valueTypeConstraint": "string",
       "isType": false,
@@ -512,7 +369,7 @@
         "diagnostics": [
           {
             "severity": "ERROR",
-            "message": "invalid character: ' '"
+            "message": "resource path is already defined"
           }
         ]
       }
@@ -548,7 +405,7 @@
           },
           "enabled": true,
           "editable": true,
-          "value": "request",
+          "value": "",
           "valueType": "IDENTIFIER",
           "valueTypeConstraint": "string",
           "isType": false,
@@ -558,7 +415,7 @@
           "addNewButton": false,
           "imports": {}
         },
-        "enabled": true,
+        "enabled": false,
         "editable": true,
         "optional": true,
         "advanced": true
@@ -597,7 +454,7 @@
           "valueType": "IDENTIFIER",
           "valueTypeConstraint": "string",
           "isType": false,
-          "placeholder": "request",
+          "placeholder": "caller",
           "optional": false,
           "advanced": false,
           "addNewButton": false,
@@ -638,133 +495,20 @@
           },
           "enabled": true,
           "editable": true,
-          "value": "headers",
+          "value": "",
           "valueType": "IDENTIFIER",
           "valueTypeConstraint": "string",
           "isType": false,
-          "placeholder": "request",
+          "placeholder": "headers",
           "optional": false,
           "advanced": false,
           "addNewButton": false,
           "imports": {}
         },
-        "enabled": true,
+        "enabled": false,
         "editable": true,
         "optional": true,
         "advanced": true
-      },
-      {
-        "metadata": {
-          "label": "header",
-          "description": "header"
-        },
-        "kind": "REQUIRED",
-        "type": {
-          "metadata": {
-            "label": "Parameter Type",
-            "description": "The type of the parameter"
-          },
-          "enabled": true,
-          "editable": true,
-          "value": "string",
-          "valueType": "TYPE",
-          "isType": true,
-          "optional": false,
-          "advanced": false,
-          "addNewButton": false,
-          "imports": {}
-        },
-        "name": {
-          "metadata": {
-            "label": "Parameter Name",
-            "description": "The name of the parameter"
-          },
-          "enabled": true,
-          "editable": true,
-          "value": "header",
-          "valueType": "IDENTIFIER",
-          "isType": false,
-          "optional": false,
-          "advanced": false,
-          "addNewButton": false,
-          "imports": {}
-        },
-        "defaultValue": {
-          "metadata": {
-            "label": "Default Value",
-            "description": "The default value of the parameter"
-          },
-          "enabled": true,
-          "editable": true,
-          "valueType": "EXPRESSION",
-          "isType": false,
-          "optional": true,
-          "advanced": false,
-          "addNewButton": false,
-          "imports": {}
-        },
-        "enabled": true,
-        "editable": true,
-        "optional": false,
-        "advanced": false,
-        "httpParamType": "HEADER"
-      },
-      {
-        "metadata": {
-          "label": "id",
-          "description": "id"
-        },
-        "kind": "DEFAULTABLE",
-        "type": {
-          "metadata": {
-            "label": "Parameter Type",
-            "description": "The type of the parameter"
-          },
-          "enabled": true,
-          "editable": true,
-          "value": "int",
-          "valueType": "TYPE",
-          "isType": true,
-          "optional": false,
-          "advanced": false,
-          "addNewButton": false,
-          "imports": {}
-        },
-        "name": {
-          "metadata": {
-            "label": "Parameter Name",
-            "description": "The name of the parameter"
-          },
-          "enabled": true,
-          "editable": true,
-          "value": "id",
-          "valueType": "IDENTIFIER",
-          "isType": false,
-          "optional": false,
-          "advanced": false,
-          "addNewButton": false,
-          "imports": {}
-        },
-        "defaultValue": {
-          "metadata": {
-            "label": "Default Value",
-            "description": "The default value of the parameter"
-          },
-          "enabled": true,
-          "editable": true,
-          "value": "45",
-          "valueType": "EXPRESSION",
-          "isType": false,
-          "optional": true,
-          "advanced": false,
-          "addNewButton": false,
-          "imports": {}
-        },
-        "enabled": true,
-        "editable": true,
-        "optional": false,
-        "advanced": false,
-        "httpParamType": "QUERY"
       }
     ],
     "returnType": {

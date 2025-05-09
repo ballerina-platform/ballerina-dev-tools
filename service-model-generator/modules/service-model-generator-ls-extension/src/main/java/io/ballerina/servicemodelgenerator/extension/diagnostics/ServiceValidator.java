@@ -112,7 +112,7 @@ public class ServiceValidator {
                 basePathValue.substring(1));
         for (ResourcePathParser.SegmentPart segment : segments) {
             String value = segment.value();
-            if (!ResourceFunctionFormValidator.validIdentifier(validator, value, diagnostics)) {
+            if (!HttpResourceFormValidator.validIdentifier(validator, value, diagnostics)) {
                 basePath.setDiagnostics(new Diagnostics(true, diagnostics));
                 return false;
             }
