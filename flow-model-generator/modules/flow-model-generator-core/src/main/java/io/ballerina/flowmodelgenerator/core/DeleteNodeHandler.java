@@ -130,7 +130,7 @@ public class DeleteNodeHandler {
                             if (prefix.isPresent() &&
                                     prefix.get().prefix().text().equals(EXPECTED_PREFIX) &&
                                     orgName.isPresent() &&
-                                    orgName.get().toString().equals("ballerinax/") &&
+                                    orgName.get().orgName().text().equals("ballerinax") &&
                                     importDeclarationNode.moduleName().stream()
                                             .map(Token::text)
                                             .collect(Collectors.joining("."))
