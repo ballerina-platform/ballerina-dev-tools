@@ -25,17 +25,22 @@ import io.ballerina.compiler.syntax.tree.BlockStatementNode;
 import io.ballerina.compiler.syntax.tree.ElseBlockNode;
 import io.ballerina.compiler.syntax.tree.IfElseStatementNode;
 import io.ballerina.compiler.syntax.tree.ImportDeclarationNode;
+import io.ballerina.compiler.syntax.tree.ImportOrgNameNode;
+import io.ballerina.compiler.syntax.tree.ImportPrefixNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.NodeList;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.compiler.syntax.tree.Token;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.flowmodelgenerator.core.model.node.NewConnectionBuilder;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.projects.DiagnosticResult;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Project;
 import io.ballerina.tools.diagnostics.Diagnostic;
 import io.ballerina.tools.diagnostics.DiagnosticInfo;
+import io.ballerina.tools.diagnostics.DiagnosticProperty;
 import io.ballerina.tools.diagnostics.DiagnosticSeverity;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
@@ -51,6 +56,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Generates text edits for the nodes that are requested to delete.
@@ -62,6 +70,11 @@ public class DeleteNodeHandler {
     private static final Gson gson = new Gson();
     private final FlowNode nodeToDelete;
     private final Path filePath;
+    private static final String EXPECTED_PREFIX = "_";
+    private static final String DRIVER_SUFFIX = ".driver";
+    private static final Set<String> DB_DRIVERS = NewConnectionBuilder.CONNECTION_DRIVERS.stream()
+            .map(driver -> driver.substring(driver.lastIndexOf('/') + 1))
+            .collect(Collectors.toSet());
 
     public DeleteNodeHandler(JsonElement nodeToDelete, Path filePath) {
         this.nodeToDelete = new Gson().fromJson(nodeToDelete, FlowNode.class);
@@ -105,6 +118,32 @@ public class DeleteNodeHandler {
                 ImportDeclarationNode importNode = getUnusedImport(diagnostic.location().lineRange(), imports);
                 TextEdit deleteImportTextEdit = new TextEdit(CommonUtils.toRange(importNode.lineRange()), "");
                 textEdits.add(deleteImportTextEdit);
+
+                List<DiagnosticProperty<?>> diagnosticProperties = diagnostic.properties();
+                if (diagnosticProperties != null && !diagnosticProperties.isEmpty()) {
+                    String diagnosticProperty = diagnosticProperties.getFirst().value().toString();
+                    if (DB_DRIVERS.contains(diagnosticProperty)) {
+                        String expectedModuleName = diagnosticProperty + DRIVER_SUFFIX;
+                        for (ImportDeclarationNode importDeclarationNode : imports) {
+                            Optional<ImportOrgNameNode> orgName = importDeclarationNode.orgName();
+                            Optional<ImportPrefixNode> prefix = importDeclarationNode.prefix();
+                            if (prefix.isPresent() &&
+                                    prefix.get().prefix().text().equals(EXPECTED_PREFIX) &&
+                                    orgName.isPresent() &&
+                                    orgName.get().toString().equals("ballerinax/") &&
+                                    importDeclarationNode.moduleName().stream()
+                                            .map(Token::text)
+                                            .collect(Collectors.joining("."))
+                                            .equals(expectedModuleName)
+                                    ) {
+                                TextEdit deleteDriverImportTextEdit =
+                                        new TextEdit(CommonUtils.toRange(importDeclarationNode.lineRange()), "");
+                                textEdits.add(deleteDriverImportTextEdit);
+                                break;
+                            }
+                        }
+                    }
+                }
             }
         }
 
