@@ -70,7 +70,7 @@ public class DeleteNodeHandler {
     private static final Gson gson = new Gson();
     private final FlowNode nodeToDelete;
     private final Path filePath;
-    private static final String EXPECTED_PREFIX = "as _";
+    private static final String EXPECTED_PREFIX = "_";
     private static final String DRIVER_SUFFIX = ".driver";
     private static final Set<String> DB_DRIVERS = NewConnectionBuilder.CONNECTION_DRIVERS.stream()
             .map(driver -> driver.substring(driver.lastIndexOf('/') + 1))
@@ -128,8 +128,7 @@ public class DeleteNodeHandler {
                             Optional<ImportOrgNameNode> orgName = importDeclarationNode.orgName();
                             Optional<ImportPrefixNode> prefix = importDeclarationNode.prefix();
                             if (prefix.isPresent() &&
-                                    prefix.get().toString().strip().
-                                            replaceAll("\\s+", " ").equals(EXPECTED_PREFIX) &&
+                                    prefix.get().prefix().text().equals(EXPECTED_PREFIX) &&
                                     orgName.isPresent() &&
                                     orgName.get().toString().equals("ballerinax/") &&
                                     importDeclarationNode.moduleName().stream()
