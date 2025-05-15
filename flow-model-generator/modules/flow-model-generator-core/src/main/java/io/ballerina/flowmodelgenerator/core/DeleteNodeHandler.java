@@ -25,6 +25,8 @@ import io.ballerina.compiler.syntax.tree.BlockStatementNode;
 import io.ballerina.compiler.syntax.tree.ElseBlockNode;
 import io.ballerina.compiler.syntax.tree.IfElseStatementNode;
 import io.ballerina.compiler.syntax.tree.ImportDeclarationNode;
+import io.ballerina.compiler.syntax.tree.ImportOrgNameNode;
+import io.ballerina.compiler.syntax.tree.ImportPrefixNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.NodeList;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
@@ -54,6 +56,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -67,6 +70,11 @@ public class DeleteNodeHandler {
     private static final Gson gson = new Gson();
     private final FlowNode nodeToDelete;
     private final Path filePath;
+    private static final String EXPECTED_PREFIX = "as _";
+    private static final String DRIVER_SUFFIX = ".driver";
+    private static final Set<String> DB_DRIVERS = NewConnectionBuilder.CONNECTION_DRIVERS.stream()
+            .map(driver -> driver.substring(driver.lastIndexOf('/') + 1))
+            .collect(Collectors.toSet());
 
     public DeleteNodeHandler(JsonElement nodeToDelete, Path filePath) {
         this.nodeToDelete = new Gson().fromJson(nodeToDelete, FlowNode.class);
@@ -100,9 +108,6 @@ public class DeleteNodeHandler {
                                 apply.textLines())).apply();
         ModulePartNode modulePartNode = modifiedDoc.syntaxTree().rootNode();
         NodeList<ImportDeclarationNode> imports = modulePartNode.imports();
-        Set<String> dbDrivers = NewConnectionBuilder.CONNECTION_DRIVERS.stream()
-                .map(driver -> driver.substring(driver.lastIndexOf('/') + 1))
-                .collect(Collectors.toSet());
 
         List<TextEdit> textEdits = new ArrayList<>();
         DiagnosticResult diagnostics = modifiedDoc.module().getCompilation().diagnostics();
@@ -117,20 +122,21 @@ public class DeleteNodeHandler {
                 List<DiagnosticProperty<?>> diagnosticProperties = diagnostic.properties();
                 if (diagnosticProperties != null && !diagnosticProperties.isEmpty()) {
                     String diagnosticProperty = diagnosticProperties.getFirst().value().toString();
-                    if (dbDrivers.contains(diagnosticProperty)) {
-                        String expectedModuleName = diagnosticProperty + ".driver";
-                        String expectedPrefix = "as _";
+                    if (DB_DRIVERS.contains(diagnosticProperty)) {
+                        String expectedModuleName = diagnosticProperty + DRIVER_SUFFIX;
                         for (ImportDeclarationNode importDeclarationNode : imports) {
-                            var orgName = importDeclarationNode.orgName();
-                            var prefix = importDeclarationNode.prefix();
-                            if (orgName.isPresent() &&
+                            Optional<ImportOrgNameNode> orgName = importDeclarationNode.orgName();
+                            Optional<ImportPrefixNode> prefix = importDeclarationNode.prefix();
+                            if (prefix.isPresent() &&
+                                    prefix.get().toString().strip().
+                                            replaceAll("\\s+", " ").equals(EXPECTED_PREFIX) &&
+                                    orgName.isPresent() &&
                                     orgName.get().toString().equals("ballerinax/") &&
                                     importDeclarationNode.moduleName().stream()
                                             .map(Token::text)
                                             .collect(Collectors.joining("."))
-                                            .equals(expectedModuleName) &&
-                                    prefix.isPresent() &&
-                                    prefix.get().toString().trim().replaceAll("\\s+", " ").equals(expectedPrefix)) {
+                                            .equals(expectedModuleName)
+                                    ) {
                                 TextEdit deleteDriverImportTextEdit =
                                         new TextEdit(CommonUtils.toRange(importDeclarationNode.lineRange()), "");
                                 textEdits.add(deleteDriverImportTextEdit);
