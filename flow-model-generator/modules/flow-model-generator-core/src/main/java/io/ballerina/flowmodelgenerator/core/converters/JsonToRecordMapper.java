@@ -100,14 +100,13 @@ public final class JsonToRecordMapper {
     private final Path filePath;
     private final TypesManager typesManager;
 
-    public JsonToRecordMapper(String recordName, String prefix, Project project, Document document, Path filePath,
-                              TypesManager typesManager) {
+    public JsonToRecordMapper(String recordName, String prefix, Document document, Path filePath) {
         this.recordName = recordName;
         this.prefix = prefix;
-        this.project = project;
         this.document = document;
         this.filePath = filePath;
-        this.typesManager = typesManager;
+        this.project = document.module().project();
+        this.typesManager = new TypesManager(document);
     }
 
     private static final String NEW_RECORD_NAME = "NewRecord";
@@ -125,10 +124,9 @@ public final class JsonToRecordMapper {
      *                                fields
      * @return Record types
      */
-    public JsonElement convert(String jsonString, boolean isRecordTypeDesc, boolean isClosed,
-                               boolean forceFormatRecordFields, WorkspaceManager workspaceManager,
-                               boolean isNullAsOptional)
-            throws JsonToRecordConverterException, FormatterException {
+    public JsonElement convert(String jsonString, WorkspaceManager workspaceManager,
+                               boolean isRecordTypeDesc, boolean isClosed, boolean forceFormatRecordFields,
+                               boolean isNullAsOptional) throws JsonToRecordConverterException, FormatterException {
         List<String> existingFieldNames = getExistingTypeNames(workspaceManager, this.filePath);
         Map<String, String> updatedFieldNames = new HashMap<>();
         Map<String, NonTerminalNode> recordToTypeDescNodes = new LinkedHashMap<>();
@@ -224,6 +222,38 @@ public final class JsonToRecordMapper {
                                  List<String> existingFieldNames,
                                  Map<String, String> updatedFieldNames,
                                  boolean isNullAsOptional) throws JsonToRecordConverterException {
+        RecordTypeDescriptorNode recordTypeDescriptorNode = createRecordTypeDescNode(
+                jsonObject, recordName, isClosed, recordToTypeDescNodes, jsonNodes,
+                existingFieldNames, updatedFieldNames, isNullAsOptional
+        );
+
+        insertRecordIntoTypeDescNodes(recordName, recordToTypeDescNodes, moveBefore, recordTypeDescriptorNode);
+    }
+
+    private static void insertRecordIntoTypeDescNodes(String recordName,
+                                                      Map<String, NonTerminalNode> recordToTypeDescNodes,
+                                                      String moveBefore,
+                                                      RecordTypeDescriptorNode recordTypeDescriptorNode) {
+        if (moveBefore == null || moveBefore.equals(recordName)) {
+            recordToTypeDescNodes.put(recordName, recordTypeDescriptorNode);
+        } else {
+            List<Map.Entry<String, NonTerminalNode>> typeDescNodes = new ArrayList<>(recordToTypeDescNodes.entrySet());
+            List<String> recordNames = typeDescNodes.stream().map(Map.Entry::getKey).toList();
+            typeDescNodes.add(recordNames.indexOf(moveBefore), Map.entry(recordName, recordTypeDescriptorNode));
+            recordToTypeDescNodes.clear();
+            typeDescNodes.forEach(node -> recordToTypeDescNodes.put(node.getKey(), node.getValue()));
+        }
+    }
+
+    private RecordTypeDescriptorNode createRecordTypeDescNode(JsonObject jsonObject,
+                                                              String recordName,
+                                                              boolean isClosed,
+                                                              Map<String, NonTerminalNode> recordToTypeDescNodes,
+                                                              Map<String, JsonElement> jsonNodes,
+                                                              List<String> existingFieldNames,
+                                                              Map<String, String> updatedFieldNames,
+                                                              boolean isNullAsOptional
+    ) throws JsonToRecordConverterException {
         Token recordKeyWord = AbstractNodeFactory.createToken(SyntaxKind.RECORD_KEYWORD);
         Token bodyStartDelimiter = AbstractNodeFactory.createToken(SyntaxKind.OPEN_BRACE_PIPE_TOKEN);
 
@@ -232,7 +262,7 @@ public final class JsonToRecordMapper {
             for (Map.Entry<String, JsonElement> entry : jsonObject.entrySet()) {
                 if (entry.getValue().isJsonObject() || entry.getValue().isJsonArray()) {
                     String name = getRecordName(prefix, entry.getKey());
-                    generateRecordForObjAndArray(entry.getValue(), name, isClosed, recordToTypeDescNodes,
+                    generateNestedTypeStructures(entry.getValue(), name, isClosed, recordToTypeDescNodes,
                             recordName, jsonNodes, existingFieldNames, updatedFieldNames, false,
                             isNullAsOptional);
                 }
@@ -244,7 +274,7 @@ public final class JsonToRecordMapper {
             for (Map.Entry<String, JsonElement> entry : jsonObject.entrySet()) {
                 if (entry.getValue().isJsonObject() || entry.getValue().isJsonArray()) {
                     String name = getRecordName(prefix, entry.getKey());
-                    generateRecordForObjAndArray(entry.getValue(), name, isClosed, recordToTypeDescNodes,
+                    generateNestedTypeStructures(entry.getValue(), name, isClosed, recordToTypeDescNodes,
                             null, jsonNodes, existingFieldNames, updatedFieldNames, false,
                             isNullAsOptional);
                 }
@@ -262,28 +292,24 @@ public final class JsonToRecordMapper {
 
         NodeList<Node> fieldNodes = AbstractNodeFactory.createNodeList(recordFields);
         Token bodyEndDelimiter = AbstractNodeFactory.createToken(SyntaxKind.CLOSE_BRACE_PIPE_TOKEN);
-        RecordRestDescriptorNode restDescriptorNode = isClosed ? null :
+
+        RecordRestDescriptorNode restDescriptorNode = createRestDescriptorNode(isClosed);
+
+        return NodeFactory.createRecordTypeDescriptorNode(recordKeyWord, bodyStartDelimiter,
+                fieldNodes, restDescriptorNode, bodyEndDelimiter);
+    }
+
+    private static RecordRestDescriptorNode createRestDescriptorNode(boolean isClosed) {
+        return isClosed ? null :
                 NodeFactory.createRecordRestDescriptorNode(
-                        NodeFactory.createBuiltinSimpleNameReferenceNode(SyntaxKind.JSON_KEYWORD,
+                        NodeFactory.createBuiltinSimpleNameReferenceNode(
+                                SyntaxKind.JSON_KEYWORD,
                                 AbstractNodeFactory.createToken(SyntaxKind.JSON_KEYWORD)),
                         AbstractNodeFactory.createToken(SyntaxKind.ELLIPSIS_TOKEN),
                         AbstractNodeFactory.createToken(SyntaxKind.SEMICOLON_TOKEN));
-        RecordTypeDescriptorNode recordTypeDescriptorNode =
-                NodeFactory.createRecordTypeDescriptorNode(recordKeyWord, bodyStartDelimiter,
-                        fieldNodes, restDescriptorNode, bodyEndDelimiter);
-
-        if (moveBefore == null || moveBefore.equals(recordName)) {
-            recordToTypeDescNodes.put(recordName, recordTypeDescriptorNode);
-        } else {
-            List<Map.Entry<String, NonTerminalNode>> typeDescNodes = new ArrayList<>(recordToTypeDescNodes.entrySet());
-            List<String> recordNames = typeDescNodes.stream().map(Map.Entry::getKey).toList();
-            typeDescNodes.add(recordNames.indexOf(moveBefore), Map.entry(recordName, recordTypeDescriptorNode));
-            recordToTypeDescNodes.clear();
-            typeDescNodes.forEach(node -> recordToTypeDescNodes.put(node.getKey(), node.getValue()));
-        }
     }
 
-    private void generateRecordForObjAndArray(JsonElement jsonElement, String elementKey, boolean isClosed,
+    private void generateNestedTypeStructures(JsonElement jsonElement, String elementKey, boolean isClosed,
                                               Map<String, NonTerminalNode> recordToTypeDescNodes,
                                               String moveBefore, Map<String, JsonElement> jsonNodes,
                                               List<String> existingFieldNames,
@@ -298,7 +324,7 @@ public final class JsonToRecordMapper {
         } else if (jsonElement.isJsonArray()) {
             for (JsonElement element : jsonElement.getAsJsonArray()) {
                 String arrayElementKey = elementKey + (arraySuffixAdded ? "" : ARRAY_RECORD_SUFFIX);
-                generateRecordForObjAndArray(element, arrayElementKey, isClosed, recordToTypeDescNodes, moveBefore,
+                generateNestedTypeStructures(element, arrayElementKey, isClosed, recordToTypeDescNodes, moveBefore,
                         jsonNodes, existingFieldNames, updatedFieldNames, true, isNullAsOptional);
             }
         }

@@ -72,11 +72,10 @@ public class JsonToRecordConverterService implements ExtendedLanguageServerServi
                 Path filePath = Path.of(request.getFilePathUri());
                 FileSystemUtils.createFileIfNotExists(workspaceManager, filePath);
                 Document document = FileSystemUtils.getDocument(workspaceManager, filePath);
-                TypesManager typesManager = new TypesManager(document);
-                JsonToRecordMapper jsonToRecordMapper = new JsonToRecordMapper(recordName, prefix,
-                        document.module().project(), document, filePath, typesManager);
-                response.setTypes(jsonToRecordMapper.convert(jsonString, isRecordTypeDesc, isClosed,
-                        forceFormatRecordFields, workspaceManager, isNullAsOptional));
+
+                JsonToRecordMapper jsonToRecordMapper = new JsonToRecordMapper(recordName, prefix, document, filePath);
+                response.setTypes(jsonToRecordMapper.convert(jsonString, workspaceManager,
+                        isRecordTypeDesc, isClosed, forceFormatRecordFields, isNullAsOptional));
             } catch (Throwable e) {
                 response.setError(e);
             }
