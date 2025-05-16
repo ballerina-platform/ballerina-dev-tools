@@ -1,0 +1,10 @@
+{
+  "filePath": "proj/main.bal",
+  "testFilePath": "test1.bal",
+  "jsonString": "[\n        {\n            \"name\": \"John Doe\",\n            \"age\": 30,\n            \"city\": \"New York\"\n        },\n        {\n            \"name\": \"Jane Smith\",\n            \"age\": 25,\n            \"city\": \"Los Angeles\"\n        }\n    ]",
+  "recordName": "Rec",
+  "prefix": "new",
+  "isClosed": false,
+  "isRecordTypeDesc": true,
+  "records": "\ntype Rec record {|\n\trecord {|\n\tstring name;\n\tint age;\n\tstring city;\n|}[] rec;\n|};\n"
+}

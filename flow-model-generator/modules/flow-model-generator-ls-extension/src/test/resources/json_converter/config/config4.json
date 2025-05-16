@@ -1,0 +1,10 @@
+{
+  "filePath": "proj/main.bal",
+  "testFilePath": "test1.bal",
+  "jsonString": "{\n        \"title\": \"UK Office\",\n        \"people\": [\n            {\n                \"firstName\": \"Joe\",\n                \"lastName\": \"Jackson\",\n                \"gender\": \"male\",\n                \"age\": 28,\n                \"number\": \"7349282382\"\n            },\n            {\n                \"firstName\": \"James\",\n                \"lastName\": \"Smith\",\n                \"age\": 32,\n                \"number\": \"5678568567\"\n            },\n            {\n                \"firstName\": \"Emily\",\n                \"lastName\": \"Jones\",\n                \"gender\": \"female\",\n                \"age\": \"24\",\n                \"number\": \"456754675\"\n            },\n            {\n                \"firstName\": \"Blake\",\n                \"lastName\": \"Smith\",\n                \"gender\": \"female\",\n                \"age\": \"24\",\n                \"number\": {\n                    \"home\": \"1234567890\",\n                    \"work\": \"0987654321\"\n                }\n            },\n            \"John Doe\"\n        ]\n    }",
+  "recordName": "Rec",
+  "prefix": "new",
+  "isClosed": false,
+  "isRecordTypeDesc": false,
+  "records": "\ntype NewNumber record {|\n\tstring home;\n\tstring work;\n|};\n\ntype NewPeopleItem record {|\n\tstring firstName;\n\tstring lastName;\n\tint|string age;\n\tNewNumber|string number;\n\tstring gender?;\n|};\n\ntype Rec record {|\n\tstring title;\n\t(NewPeopleItem|string)[] people;\n|};\n"
+}
