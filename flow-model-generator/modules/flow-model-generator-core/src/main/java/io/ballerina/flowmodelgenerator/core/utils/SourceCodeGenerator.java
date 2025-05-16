@@ -110,7 +110,10 @@ public class SourceCodeGenerator {
     }
 
     private String generateTypeDefCodeSnippet(TypeData typeData) {
-        String docs = generateDocs(typeData.metadata().description(), "");
+        String docs = "";
+        if (typeData.metadata() != null && typeData.metadata().description() != null) {
+            docs = generateDocs(typeData.metadata().description(), "");
+        }
         String typeDescriptor = generateTypeDescriptor(typeData);
 
         String template = "%stype %s %s;";
@@ -158,11 +161,14 @@ public class SourceCodeGenerator {
     private String generateRecordTypeDescriptor(TypeData typeData) {
         // Build the inclusions.
         StringBuilder inclusionsBuilder = new StringBuilder();
-        typeData.includes().forEach(include -> inclusionsBuilder
-                .append(LS)
-                .append("\t*")
-                .append(include)
-                .append(";"));
+
+        if (typeData.includes() != null && !typeData.includes().isEmpty()) {
+            typeData.includes().forEach(include -> inclusionsBuilder
+                    .append(LS)
+                    .append("\t*")
+                    .append(include)
+                    .append(";"));
+        }
 
         // Build the fields.
         StringBuilder fieldsBuilder = new StringBuilder();
