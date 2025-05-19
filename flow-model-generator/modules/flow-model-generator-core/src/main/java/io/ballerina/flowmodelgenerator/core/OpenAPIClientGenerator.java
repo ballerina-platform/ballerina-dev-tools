@@ -209,7 +209,7 @@ public class OpenAPIClientGenerator {
 
     private void genClientSource(String module, Map<Path, List<TextEdit>> textEditsMap) throws IOException,
             BallerinaOpenApiException, ClientException, FormatterException {
-        OpenAPI openAPI = GeneratorUtils.normalizeOpenAPI(oAContractPath, false, false);
+        OpenAPI openAPI = GeneratorUtils.normalizeOpenAPI(oAContractPath, false, true, true);
         if (openAPI.getInfo() == null) {
             throw new BallerinaOpenApiException("Info section of the definition file cannot be empty/null: " +
                     openAPI);
