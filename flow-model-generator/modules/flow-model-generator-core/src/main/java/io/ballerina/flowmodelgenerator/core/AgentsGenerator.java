@@ -373,10 +373,14 @@ public class AgentsGenerator {
             keys.removeAll(ignoredKeys);
 
             List<String> paramList = new ArrayList<>();
-            for (String key : keys) {
-                Property property = properties.get(key);
+            for (String k : keys) {
+                Property property = properties.get(k);
                 if (property == null) {
                     continue;
+                }
+                String key = k;
+                if (k.startsWith("$")) {
+                    key = "'" + k.substring(1);
                 }
                 PropertyCodedata codedata = property.codedata();
                 if (codedata != null) {
@@ -466,10 +470,14 @@ public class AgentsGenerator {
             keys.removeAll(ignoredKeys);
             List<String> paramList = new ArrayList<>();
             Set<String> pathParams = new HashSet<>();
-            for (String key : keys) {
-                Property property = properties.get(key);
+            for (String k : keys) {
+                Property property = properties.get(k);
                 if (property == null) {
                     continue;
+                }
+                String key = k;
+                if (k.startsWith("$")) {
+                    key = "'" + k.substring(1);
                 }
                 PropertyCodedata codedata = property.codedata();
                 if (codedata != null) {

@@ -446,7 +446,7 @@ public class SourceBuilder {
                 if (firstParamAdded) {
                     tokenBuilder.keyword(SyntaxKind.COMMA_TOKEN);
                 }
-                tokenBuilder.expression(prop);
+                tokenBuilder.param(prop);
             } else if (kind.equals(ParameterData.Kind.INCLUDED_RECORD.name())) {
                 if (isPropValueEmpty(prop)) {
                     continue;
@@ -454,7 +454,7 @@ public class SourceBuilder {
                 if (firstParamAdded) {
                     tokenBuilder.keyword(SyntaxKind.COMMA_TOKEN);
                 }
-                tokenBuilder.expression(prop);
+                tokenBuilder.param(prop);
             } else if (kind.equals(ParameterData.Kind.DEFAULTABLE.name())) {
                 if (isPropValueEmpty(prop)) {
                     missedDefaultValue = true;
@@ -470,7 +470,7 @@ public class SourceBuilder {
                     tokenBuilder.name(prop.codedata().originalName()).whiteSpace()
                             .keyword(SyntaxKind.EQUAL_TOKEN).expression(prop);
                 } else {
-                    tokenBuilder.expression(prop);
+                    tokenBuilder.param(prop);
                 }
             } else if (kind.equals(ParameterData.Kind.INCLUDED_FIELD.name())) {
                 if (isPropValueEmpty(prop)) {
@@ -679,6 +679,15 @@ public class SourceBuilder {
             return this;
         }
 
+        public TokenBuilder param(Property property) {
+            String source = property.toSourceCode();
+            if (source.startsWith("$")) {
+                source = "'" + source.substring(1);
+            }
+            sb.append(source);
+            return this;
+        }
+
         public TokenBuilder expression(String exprAsStr) {
             sb.append(exprAsStr);
             return this;
@@ -753,8 +762,9 @@ public class SourceBuilder {
 
         public TokenBuilder descriptionDoc(String description) {
             sb.append(SyntaxKind.HASH_TOKEN.stringValue())
-                    .append(WHITE_SPACE)
-                    .append(description);
+                    .append(WHITE_SPACE);
+
+            appendDescription(description.split(System.lineSeparator()));
             if (!description.endsWith(System.lineSeparator())) {
                 sb.append(System.lineSeparator());
             }
@@ -770,9 +780,12 @@ public class SourceBuilder {
                         .append(paramName)
                         .append(WHITE_SPACE)
                         .append("-")
-                        .append(WHITE_SPACE)
-                        .append(description)
-                        .append(System.lineSeparator());
+                        .append(WHITE_SPACE);
+
+                appendDescription(description.split(System.lineSeparator()));
+                if (!description.endsWith(System.lineSeparator())) {
+                    sb.append(System.lineSeparator());
+                }
             }
             return this;
         }
@@ -786,11 +799,24 @@ public class SourceBuilder {
                         .append(SyntaxKind.RETURN_KEYWORD.stringValue())
                         .append(WHITE_SPACE)
                         .append("-")
-                        .append(WHITE_SPACE)
-                        .append(returnDescription)
-                        .append(System.lineSeparator());
+                        .append(WHITE_SPACE);
+
+                appendDescription(returnDescription.split(System.lineSeparator()));
+                if (!returnDescription.endsWith(System.lineSeparator())) {
+                    sb.append(System.lineSeparator());
+                }
             }
             return this;
+        }
+
+        private void appendDescription(String[] descLines) {
+            sb.append(descLines[0]);
+            for (int i = 1; i < descLines.length; i++) {
+                sb.append(System.lineSeparator());
+                sb.append(SyntaxKind.HASH_TOKEN.stringValue())
+                        .append(WHITE_SPACE)
+                        .append(descLines[i]);
+            }
         }
 
         public String build(SourceKind kind) {
