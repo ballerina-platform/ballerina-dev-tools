@@ -682,7 +682,7 @@
             "typeMembers": [
               {
                 "type": "HttpVersion",
-                "packageInfo": "ballerina:http:2.14.0",
+                "packageInfo": "ballerina:http:2.14.1",
                 "kind": "BASIC_TYPE",
                 "selected": false
               }
@@ -710,7 +710,7 @@
             "typeMembers": [
               {
                 "type": "ClientHttp1Settings",
-                "packageInfo": "ballerina:http:2.14.0",
+                "packageInfo": "ballerina:http:2.14.1",
                 "kind": "RECORD_TYPE",
                 "selected": false
               }
@@ -738,7 +738,7 @@
             "typeMembers": [
               {
                 "type": "ClientHttp2Settings",
-                "packageInfo": "ballerina:http:2.14.0",
+                "packageInfo": "ballerina:http:2.14.1",
                 "kind": "RECORD_TYPE",
                 "selected": false
               }
@@ -822,7 +822,7 @@
             "typeMembers": [
               {
                 "type": "PoolConfiguration",
-                "packageInfo": "ballerina:http:2.14.0",
+                "packageInfo": "ballerina:http:2.14.1",
                 "kind": "RECORD_TYPE",
                 "selected": false
               }
@@ -850,7 +850,7 @@
             "typeMembers": [
               {
                 "type": "CacheConfig",
-                "packageInfo": "ballerina:http:2.14.0",
+                "packageInfo": "ballerina:http:2.14.1",
                 "kind": "RECORD_TYPE",
                 "selected": false
               }
@@ -878,7 +878,7 @@
             "typeMembers": [
               {
                 "type": "Compression",
-                "packageInfo": "ballerina:http:2.14.0",
+                "packageInfo": "ballerina:http:2.14.1",
                 "kind": "BASIC_TYPE",
                 "selected": false
               }
@@ -906,7 +906,7 @@
             "typeMembers": [
               {
                 "type": "CircuitBreakerConfig",
-                "packageInfo": "ballerina:http:2.14.0",
+                "packageInfo": "ballerina:http:2.14.1",
                 "kind": "RECORD_TYPE",
                 "selected": false
               }
@@ -934,7 +934,7 @@
             "typeMembers": [
               {
                 "type": "RetryConfig",
-                "packageInfo": "ballerina:http:2.14.0",
+                "packageInfo": "ballerina:http:2.14.1",
                 "kind": "RECORD_TYPE",
                 "selected": false
               }
@@ -962,7 +962,7 @@
             "typeMembers": [
               {
                 "type": "ResponseLimitConfigs",
-                "packageInfo": "ballerina:http:2.14.0",
+                "packageInfo": "ballerina:http:2.14.1",
                 "kind": "RECORD_TYPE",
                 "selected": false
               }
@@ -990,7 +990,7 @@
             "typeMembers": [
               {
                 "type": "ClientSecureSocket",
-                "packageInfo": "ballerina:http:2.14.0",
+                "packageInfo": "ballerina:http:2.14.1",
                 "kind": "RECORD_TYPE",
                 "selected": false
               }
@@ -1018,7 +1018,7 @@
             "typeMembers": [
               {
                 "type": "ProxyConfig",
-                "packageInfo": "ballerina:http:2.14.0",
+                "packageInfo": "ballerina:http:2.14.1",
                 "kind": "RECORD_TYPE",
                 "selected": false
               }
