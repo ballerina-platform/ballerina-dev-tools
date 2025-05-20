@@ -1,8 +1,8 @@
 {
-  "source": "np.bal",
   "description": "",
+  "source": "np.bal",
   "output": {
-    "Natural Functions": {
+    "Functions": {
       "suggestMovieName2": {
         "id": "suggestMovieName2",
         "location": {
@@ -16,7 +16,7 @@
             "offset": 55
           }
         },
-        "type": "NP_FUNCTION",
+        "type": "FUNCTION",
         "name": "suggestMovieName2",
         "scope": "Global",
         "children": {}
@@ -34,7 +34,7 @@
             "offset": 55
           }
         },
-        "type": "NP_FUNCTION",
+        "type": "FUNCTION",
         "name": "suggestMovieName1",
         "scope": "Global",
         "children": {}
@@ -52,7 +52,7 @@
             "offset": 52
           }
         },
-        "type": "NP_FUNCTION",
+        "type": "FUNCTION",
         "name": "rateMovie",
         "scope": "Global",
         "children": {}
@@ -70,7 +70,7 @@
             "offset": 55
           }
         },
-        "type": "NP_FUNCTION",
+        "type": "FUNCTION",
         "name": "suggestMovieGenre",
         "scope": "Global",
         "children": {}

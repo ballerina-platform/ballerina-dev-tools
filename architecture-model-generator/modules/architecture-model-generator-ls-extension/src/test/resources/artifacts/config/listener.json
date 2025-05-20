@@ -57,7 +57,7 @@
         "type": "LISTENER",
         "name": "refListener",
         "scope": "Global",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.1.png",
         "module": "http",
         "children": {}
       },
@@ -77,7 +77,7 @@
         "type": "LISTENER",
         "name": "httpDefaultListener",
         "scope": "Global",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.1.png",
         "module": "http",
         "children": {}
       }
