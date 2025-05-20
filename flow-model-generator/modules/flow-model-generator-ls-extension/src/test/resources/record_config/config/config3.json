@@ -39,7 +39,7 @@
           "name": "HttpVersion",
           "orgName": "ballerina",
           "moduleName": "http",
-          "version": "2.14.0"
+          "version": "2.14.1"
         },
         "defaultable": true,
         "documentation": "The HTTP version understood by the client",
@@ -79,7 +79,7 @@
               "name": "KeepAlive",
               "orgName": "ballerina",
               "moduleName": "http",
-              "version": "2.14.0"
+              "version": "2.14.1"
             },
             "defaultable": true,
             "documentation": "Specifies whether to reuse a connection for multiple requests",
@@ -117,7 +117,7 @@
               "name": "Chunking",
               "orgName": "ballerina",
               "moduleName": "http",
-              "version": "2.14.0"
+              "version": "2.14.1"
             },
             "defaultable": true,
             "documentation": "The chunking behaviour of the request",
@@ -223,7 +223,7 @@
           "name": "ClientHttp2Settings",
           "orgName": "ballerina",
           "moduleName": "http",
-          "version": "2.14.0"
+          "version": "2.14.1"
         },
         "defaultable": false,
         "documentation": "Configurations related to HTTP/2 protocol",
@@ -331,7 +331,7 @@
           "name": "PoolConfiguration",
           "orgName": "ballerina",
           "moduleName": "http",
-          "version": "2.14.0"
+          "version": "2.14.1"
         },
         "defaultable": false,
         "documentation": "Configurations associated with request pooling",
@@ -400,7 +400,7 @@
               "name": "CachingPolicy",
               "orgName": "ballerina",
               "moduleName": "http",
-              "version": "2.14.0"
+              "version": "2.14.1"
             },
             "defaultable": true,
             "documentation": "",
@@ -416,7 +416,7 @@
           "name": "CacheConfig",
           "orgName": "ballerina",
           "moduleName": "http",
-          "version": "2.14.0"
+          "version": "2.14.1"
         },
         "defaultable": false,
         "documentation": "HTTP caching related configurations",
@@ -454,7 +454,7 @@
           "name": "Compression",
           "orgName": "ballerina",
           "moduleName": "http",
-          "version": "2.14.0"
+          "version": "2.14.1"
         },
         "defaultable": true,
         "documentation": "Specifies the way of handling compression (`accept-encoding`) header",
@@ -501,7 +501,7 @@
               "name": "RollingWindow",
               "orgName": "ballerina",
               "moduleName": "http",
-              "version": "2.14.0"
+              "version": "2.14.1"
             },
             "defaultable": true,
             "documentation": "The `http:RollingWindow` options of the `CircuitBreaker`",
@@ -551,7 +551,7 @@
           "name": "CircuitBreakerConfig",
           "orgName": "ballerina",
           "moduleName": "http",
-          "version": "2.14.0"
+          "version": "2.14.1"
         },
         "defaultable": false,
         "documentation": "Configurations associated with the behaviour of the Circuit Breaker",
@@ -621,7 +621,7 @@
           "name": "RetryConfig",
           "orgName": "ballerina",
           "moduleName": "http",
-          "version": "2.14.0"
+          "version": "2.14.1"
         },
         "defaultable": false,
         "documentation": "Configurations associated with retrying",
@@ -666,7 +666,7 @@
           "name": "ResponseLimitConfigs",
           "orgName": "ballerina",
           "moduleName": "http",
-          "version": "2.14.0"
+          "version": "2.14.1"
         },
         "defaultable": false,
         "documentation": "Configurations associated with inbound response size limits",
@@ -812,7 +812,7 @@
                   "name": "CertKey",
                   "orgName": "ballerina",
                   "moduleName": "http",
-                  "version": "2.14.0"
+                  "version": "2.14.1"
                 },
                 "defaultable": false,
                 "isRestType": false,
@@ -860,7 +860,7 @@
                   "name": "Protocol",
                   "orgName": "ballerina",
                   "moduleName": "http",
-                  "version": "2.14.0"
+                  "version": "2.14.1"
                 },
                 "defaultable": false,
                 "documentation": "",
@@ -919,7 +919,7 @@
                   "name": "CertValidationType",
                   "orgName": "ballerina",
                   "moduleName": "http",
-                  "version": "2.14.0"
+                  "version": "2.14.1"
                 },
                 "defaultable": true,
                 "documentation": "",
@@ -1024,7 +1024,7 @@
           "name": "ClientSecureSocket",
           "orgName": "ballerina",
           "moduleName": "http",
-          "version": "2.14.0"
+          "version": "2.14.1"
         },
         "defaultable": false,
         "documentation": "SSL/TLS-related options",
@@ -1078,7 +1078,7 @@
           "name": "ProxyConfig",
           "orgName": "ballerina",
           "moduleName": "http",
-          "version": "2.14.0"
+          "version": "2.14.1"
         },
         "defaultable": false,
         "documentation": "Proxy server related options",
