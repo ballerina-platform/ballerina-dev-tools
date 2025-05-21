@@ -18,9 +18,10 @@
             }
           },
           "scope": "GLOBAL",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.1.png",
           "dependentFunctions": [],
-          "uuid": "fd020ac9-6dd8-4804-fe16-7f15bbd5d3da",
+          "dependentConnection": [],
+          "uuid": "f94fdeac-eeee-0615-16e9-43357fc6dbf0",
           "enableFlowModel": true,
           "sortText": "chatAgent.bal3"
         },
@@ -43,7 +44,8 @@
             "tool2",
             "tool1"
           ],
-          "uuid": "f0b641f2-82a1-94dd-612b-97b7c6066bf9",
+          "dependentConnection": [],
+          "uuid": "06267175-e7dc-a2a6-a8f8-f58f773736e8",
           "enableFlowModel": true,
           "sortText": "chatAgent.bal5"
         },
@@ -63,7 +65,8 @@
           "scope": "GLOBAL",
           "icon": "https://bcentral-packageicons.azureedge.net/images/wso2_imported_listener_0.1.0.png",
           "dependentFunctions": [],
-          "uuid": "18fde8eb-7a0a-fc78-47fb-b949e39bcdb4",
+          "dependentConnection": [],
+          "uuid": "b981fc79-57ef-a4f1-bcc9-956ab22e81d8",
           "enableFlowModel": true,
           "sortText": "chatAgent.bal11"
         },
@@ -81,9 +84,10 @@
             }
           },
           "scope": "GLOBAL",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.1.png",
           "dependentFunctions": [],
-          "uuid": "42334aec-da03-c6fa-fd1a-ede78ebd9e58",
+          "dependentConnection": [],
+          "uuid": "40be904c-7784-426c-1d56-07c4545d01cd",
           "enableFlowModel": true,
           "sortText": "chatAgent.bal2"
         }
@@ -103,7 +107,7 @@
             }
           },
           "attachedServices": [
-            "660d9cfb-2204-2788-259f-e7d7ff3098a7"
+            "60c112ac-7677-d9c5-3ce8-171006cbe20f"
           ],
           "kind": "ANON",
           "type": "http:Listener",
@@ -113,8 +117,8 @@
               "value": "8080"
             }
           ],
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
-          "uuid": "8dd36fd1-7950-1cd0-23c9-8edddfe11280",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.1.png",
+          "uuid": "d0329c06-6207-8508-8947-63a8da763629",
           "enableFlowModel": false,
           "sortText": "chatAgent.bal14"
         },
@@ -132,7 +136,7 @@
             }
           },
           "attachedServices": [
-            "fed44941-df77-b142-8751-0358ec8b9eba"
+            "4b99d491-f0c1-3162-96f1-bc13933da4cb"
           ],
           "kind": "ANON",
           "type": "http:Listener",
@@ -142,8 +146,8 @@
               "value": "9090"
             }
           ],
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
-          "uuid": "994333e1-e394-841c-3b8d-483fb8dd2ca0",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.1.png",
+          "uuid": "16d93690-c598-9112-cbbe-dfb7d1cf7077",
           "enableFlowModel": false,
           "sortText": "chatAgent.bal21"
         }
@@ -162,10 +166,10 @@
             }
           },
           "attachedListeners": [
-            "994333e1-e394-841c-3b8d-483fb8dd2ca0"
+            "16d93690-c598-9112-cbbe-dfb7d1cf7077"
           ],
           "connections": [
-            "18fde8eb-7a0a-fc78-47fb-b949e39bcdb4"
+            "b981fc79-57ef-a4f1-bcc9-956ab22e81d8"
           ],
           "functions": [],
           "remoteFunctions": [],
@@ -185,14 +189,14 @@
                 }
               },
               "connections": [
-                "18fde8eb-7a0a-fc78-47fb-b949e39bcdb4"
+                "b981fc79-57ef-a4f1-bcc9-956ab22e81d8"
               ]
             }
           ],
           "absolutePath": "/tool2Service ",
           "type": "http:Service",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
-          "uuid": "fed44941-df77-b142-8751-0358ec8b9eba",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.1.png",
+          "uuid": "4b99d491-f0c1-3162-96f1-bc13933da4cb",
           "enableFlowModel": true,
           "sortText": "chatAgent.bal21"
         },
@@ -209,12 +213,12 @@
             }
           },
           "attachedListeners": [
-            "8dd36fd1-7950-1cd0-23c9-8edddfe11280"
+            "d0329c06-6207-8508-8947-63a8da763629"
           ],
           "connections": [
-            "f0b641f2-82a1-94dd-612b-97b7c6066bf9",
-            "42334aec-da03-c6fa-fd1a-ede78ebd9e58",
-            "fd020ac9-6dd8-4804-fe16-7f15bbd5d3da"
+            "40be904c-7784-426c-1d56-07c4545d01cd",
+            "f94fdeac-eeee-0615-16e9-43357fc6dbf0",
+            "06267175-e7dc-a2a6-a8f8-f58f773736e8"
           ],
           "functions": [],
           "remoteFunctions": [],
@@ -234,16 +238,16 @@
                 }
               },
               "connections": [
-                "f0b641f2-82a1-94dd-612b-97b7c6066bf9",
-                "42334aec-da03-c6fa-fd1a-ede78ebd9e58",
-                "fd020ac9-6dd8-4804-fe16-7f15bbd5d3da"
+                "40be904c-7784-426c-1d56-07c4545d01cd",
+                "f94fdeac-eeee-0615-16e9-43357fc6dbf0",
+                "06267175-e7dc-a2a6-a8f8-f58f773736e8"
               ]
             }
           ],
           "absolutePath": "/tool1Service ",
           "type": "http:Service",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.0.png",
-          "uuid": "660d9cfb-2204-2788-259f-e7d7ff3098a7",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.1.png",
+          "uuid": "60c112ac-7677-d9c5-3ce8-171006cbe20f",
           "enableFlowModel": true,
           "sortText": "chatAgent.bal14"
         }
