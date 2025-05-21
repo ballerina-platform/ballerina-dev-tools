@@ -101,13 +101,13 @@ public class ConfigEditorServiceV2 implements ExtendedLanguageServerService {
                 Package currentPackage = project.currentPackage();
                 Module defaultModule = currentPackage.getDefaultModule();
 
+                // Add config variables from main project
                 Map<String, List<FlowNode>> moduleConfigVarMap = new HashMap<>();
                 for (Module module : currentPackage.modules()) {
                     moduleConfigVarMap.put(module.moduleName().moduleNamePart(), extractModuleConfigVariables(module));
                 }
                 String orgName = currentPackage.packageOrg().value();
                 String pkgName = currentPackage.packageName().value();
-                // Add config variables from the project
                 configVarMap.put(orgName + "/" + pkgName, moduleConfigVarMap);
 
                 // Add config variables from dependencies
@@ -131,7 +131,6 @@ public class ConfigEditorServiceV2 implements ExtendedLanguageServerService {
     @JsonRequest
     @SuppressWarnings("unused")
     public CompletableFuture<ConfigVariablesUpdateResponse> updateConfigVariables(ConfigVariablesUpdateRequest request) {
-
         return CompletableFuture.supplyAsync(() -> {
             ConfigVariablesUpdateResponse response = new ConfigVariablesUpdateResponse();
             try {
@@ -336,28 +335,28 @@ public class ConfigEditorServiceV2 implements ExtendedLanguageServerService {
         return false;
     }
 
-    private static FlowNode constructConfigVarNode(ModuleVariableDeclarationNode modVarDeclNode,
+    private static FlowNode constructConfigVarNode(ModuleVariableDeclarationNode variableNode,
                                                    SemanticModel semanticModel) {
         DiagnosticHandler diagnosticHandler = new DiagnosticHandler(semanticModel);
         NodeBuilder nodeBuilder = NodeBuilder.getNodeFromKind(NodeKind.CONFIG_VARIABLE)
                 .semanticModel(semanticModel)
                 .diagnosticHandler(diagnosticHandler)
                 .defaultModuleName(null);
-        diagnosticHandler.handle(nodeBuilder, modVarDeclNode.lineRange(), false);
+        diagnosticHandler.handle(nodeBuilder, variableNode.lineRange(), false);
 
-        TypedBindingPatternNode typedBindingPattern = modVarDeclNode.typedBindingPattern();
+        TypedBindingPatternNode typedBindingPattern = variableNode.typedBindingPattern();
         return nodeBuilder
                 .metadata()
                 .label("Config variables")
                 .stepOut()
                 .codedata()
                 .node(NodeKind.CONFIG_VARIABLE)
-                .lineRange(modVarDeclNode.lineRange())
+                .lineRange(variableNode.lineRange())
                 .stepOut()
                 .properties()
                 .type(typedBindingPattern.typeDescriptor(), true)
-                .defaultableName(typedBindingPattern.bindingPattern().toSourceCode().trim())
-                .defaultableVariable(modVarDeclNode.initializer().orElse(null))
+                .variableName(typedBindingPattern.bindingPattern().toSourceCode().trim())
+                .defaultValue(variableNode.initializer().orElse(null))
                 .stepOut()
                 .build();
     }
