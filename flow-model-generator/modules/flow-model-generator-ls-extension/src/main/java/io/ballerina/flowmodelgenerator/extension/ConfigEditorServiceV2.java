@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2024, WSO2 LLC. (http://www.wso2.com)
+ *  Copyright (c) 2025, WSO2 LLC. (http://www.wso2.com)
  *
  *  WSO2 LLC. licenses this file to you under the Apache License,
  *  Version 2.0 (the "License"); you may not use this file except
@@ -47,7 +47,9 @@ import io.ballerina.projects.Project;
 import io.ballerina.projects.ProjectKind;
 import io.ballerina.projects.ResolvedPackageDependency;
 import org.ballerinalang.annotation.JavaSPIService;
+import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
 import org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService;
+import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.jsonrpc.services.JsonRequest;
 import org.eclipse.lsp4j.jsonrpc.services.JsonSegment;
@@ -59,15 +61,12 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 @JavaSPIService("org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService")
 @JsonSegment("configEditorV2")
 public class ConfigEditorServiceV2 implements ExtendedLanguageServerService {
-
-    private static final String BAL_FILE_EXTENSION = ".bal";
 
     private WorkspaceManager workspaceManager;
     private Gson gson;
@@ -96,25 +95,23 @@ public class ConfigEditorServiceV2 implements ExtendedLanguageServerService {
             ConfigVariablesResponse response = new ConfigVariablesResponse();
             Map<String, Map<String, List<FlowNode>>> configVarMap = new HashMap<>();
             try {
-                Path projectPath = Path.of(request.projectPath());
-                Project project = this.workspaceManager.loadProject(projectPath);
+                Project project = workspaceManager.loadProject(Path.of(request.projectPath()));
                 Package currentPackage = project.currentPackage();
-                Module defaultModule = currentPackage.getDefaultModule();
 
                 // Add config variables from main project
                 Map<String, List<FlowNode>> moduleConfigVarMap = new HashMap<>();
                 for (Module module : currentPackage.modules()) {
-                    moduleConfigVarMap.put(module.moduleName().moduleNamePart(), extractModuleConfigVariables(module));
+                    String moduleName = module.moduleName().moduleNamePart() != null ?
+                            module.moduleName().moduleNamePart() : "";
+                    moduleConfigVarMap.put(moduleName, extractModuleConfigVariables(module));
                 }
-                String orgName = currentPackage.packageOrg().value();
-                String pkgName = currentPackage.packageName().value();
-                configVarMap.put(orgName + "/" + pkgName, moduleConfigVarMap);
+                String packageKey = currentPackage.packageOrg().value() + "/" + currentPackage.packageName().value();
+                configVarMap.put(packageKey, moduleConfigVarMap);
 
                 // Add config variables from dependencies
                 configVarMap.putAll(extractConfigsFromDependencies(currentPackage));
 
-                JsonElement jsonTree = new Gson().toJsonTree(configVarMap);
-                response.setConfigVariables(jsonTree);
+                response.setConfigVariables(new Gson().toJsonTree(configVarMap));
             } catch (Throwable e) {
                 response.setError(e);
             }
@@ -136,43 +133,52 @@ public class ConfigEditorServiceV2 implements ExtendedLanguageServerService {
             try {
                 FlowNode configVariable = gson.fromJson(request.configVariable(), FlowNode.class);
                 Path configFilePath = Path.of(request.configFilePath());
-                Path variableFilePath = null;
-                if (isNew(configVariable)) {
-                    variableFilePath = configFilePath;
-                    this.workspaceManager.loadProject(configFilePath);
-                } else {
-                    String variableFileName = configVariable.codedata().lineRange().fileName();
-                    Project project = this.workspaceManager.loadProject(configFilePath);
-                    if (project.kind() == ProjectKind.SINGLE_FILE_PROJECT) {
-                        variableFilePath = project.sourceRoot();
-                    } else {
-                        for (Module module : project.currentPackage().modules()) {
-                            for (DocumentId documentId : module.documentIds()) {
-                                Document document = module.document(documentId);
-                                if (document.name().equals(variableFileName)) {
-                                    variableFilePath = project.sourceRoot().resolve(document.syntaxTree().filePath());
-                                }
-                            }
-                        }
-                    }
-                }
-                if (Objects.isNull(variableFilePath)) {
+                Path variableFilePath = findVariableFilePath(configVariable, configFilePath);
+
+                if (variableFilePath == null) {
                     return response;
                 }
 
-                Optional<Document> document = this.workspaceManager.document(variableFilePath);
+                Optional<Document> document = workspaceManager.document(variableFilePath);
                 if (document.isEmpty()) {
                     return response;
                 }
 
-                ConfigVariablesManager configVariablesManager = new ConfigVariablesManager();
-                JsonElement textEdits = configVariablesManager.update(document.get(), variableFilePath, configVariable);
+                ConfigVariablesManager configManager = new ConfigVariablesManager();
+                JsonElement textEdits = configManager.update(document.get(), variableFilePath, configVariable);
                 response.setTextEdits(textEdits);
             } catch (Throwable e) {
                 response.setError(e);
             }
+
             return response;
         });
+    }
+
+    private Path findVariableFilePath(FlowNode configVariable, Path configFilePath)
+            throws WorkspaceDocumentException, EventSyncException {
+        if (isNew(configVariable)) {
+            workspaceManager.loadProject(configFilePath);
+            return configFilePath;
+        }
+
+        String variableFileName = configVariable.codedata().lineRange().fileName();
+        Project project = workspaceManager.loadProject(configFilePath);
+
+        if (project.kind() == ProjectKind.SINGLE_FILE_PROJECT) {
+            return project.sourceRoot();
+        }
+
+        for (Module module : project.currentPackage().modules()) {
+            for (DocumentId documentId : module.documentIds()) {
+                Document document = module.document(documentId);
+                if (document.name().equals(variableFileName)) {
+                    return project.sourceRoot().resolve(document.syntaxTree().filePath());
+                }
+            }
+        }
+
+        return null;
     }
 
     private boolean isNew(FlowNode configVariable) {
@@ -186,18 +192,16 @@ public class ConfigEditorServiceV2 implements ExtendedLanguageServerService {
      * @return A list of configuration variables
      */
     private static List<FlowNode> extractModuleConfigVariables(Module module) {
-        LinkedList<FlowNode> configVariables = new LinkedList<>();
+        List<FlowNode> configVariables = new LinkedList<>();
         SemanticModel semanticModel = module.getCompilation().getSemanticModel();
         for (DocumentId documentId : module.documentIds()) {
             Document document = module.document(documentId);
-            if (document.name().endsWith(BAL_FILE_EXTENSION)) {
-                ModulePartNode modulePartNode = document.syntaxTree().rootNode();
-                for (Node node : modulePartNode.children()) {
-                    if (node.kind() == SyntaxKind.MODULE_VAR_DECL) {
-                        ModuleVariableDeclarationNode modVarDeclarationNode = (ModuleVariableDeclarationNode) node;
-                        if (hasConfigurableQualifier(modVarDeclarationNode)) {
-                            configVariables.add(constructConfigVarNode(modVarDeclarationNode, semanticModel));
-                        }
+            ModulePartNode modulePartNode = document.syntaxTree().rootNode();
+            for (Node node : modulePartNode.children()) {
+                if (node.kind() == SyntaxKind.MODULE_VAR_DECL) {
+                    ModuleVariableDeclarationNode varDeclarationNode = (ModuleVariableDeclarationNode) node;
+                    if (hasConfigurableQualifier(varDeclarationNode)) {
+                        configVariables.add(constructConfigVarNode(varDeclarationNode, semanticModel));
                     }
                 }
             }
@@ -212,18 +216,18 @@ public class ConfigEditorServiceV2 implements ExtendedLanguageServerService {
     private static Map<String, Map<String, List<FlowNode>>> extractConfigsFromDependencies(Package currentPackage) {
         Map<String, Map<String, List<FlowNode>>> dependencyConfigVarMap = new HashMap<>();
         for (Module module : currentPackage.modules()) {
-            LinkedList<ModuleDependency> validDependencies = new LinkedList<>();
+            List<ModuleDependency> validDependencies = new LinkedList<>();
             populateValidDependencies(currentPackage, module, validDependencies);
-            Map<String, Map<String, List<FlowNode>>> importedConfigVars = getImportedConfigVars(currentPackage, validDependencies);
-            dependencyConfigVarMap.putAll(importedConfigVars);
+            dependencyConfigVarMap.putAll(getImportedConfigVars(currentPackage, validDependencies));
         }
 
         return dependencyConfigVarMap;
     }
 
-    private static boolean hasConfigurableQualifier(ModuleVariableDeclarationNode modVarDeclarationNode) {
-        return modVarDeclarationNode.qualifiers()
-                .stream().anyMatch(q -> q.text().equals(Qualifier.CONFIGURABLE.getValue()));
+    private static boolean hasConfigurableQualifier(ModuleVariableDeclarationNode node) {
+        return node.qualifiers()
+                .stream()
+                .anyMatch(q -> q.text().equals(Qualifier.CONFIGURABLE.getValue()));
     }
 
     /**
@@ -238,11 +242,15 @@ public class ConfigEditorServiceV2 implements ExtendedLanguageServerService {
         Map<String, Map<String, List<FlowNode>>> pkgConfigs = new HashMap<>();
         Collection<ResolvedPackageDependency> dependencies = currentPkg.getResolution().dependencyGraph().getNodes();
         for (ResolvedPackageDependency dependency : dependencies) {
-            if (isDirectDependency(dependency, moduleDependencies)) {
-                Map<String, List<FlowNode>> moduleConfigs = processDependency(dependency);
-                String org = dependency.packageInstance().packageOrg().value();
-                String name = dependency.packageInstance().packageName().value();
-                pkgConfigs.put(org + "/" + name, moduleConfigs);
+            if (!isDirectDependency(dependency, moduleDependencies)) {
+                continue;
+            }
+
+            Map<String, List<FlowNode>> moduleConfigs = processDependency(dependency);
+            if (!moduleConfigs.isEmpty()) {
+                String pkgKey = dependency.packageInstance().packageOrg().value() + "/" +
+                        dependency.packageInstance().packageName().value();
+                pkgConfigs.put(pkgKey, moduleConfigs);
             }
         }
 
@@ -253,8 +261,11 @@ public class ConfigEditorServiceV2 implements ExtendedLanguageServerService {
         Map<String, List<FlowNode>> moduleConfigs = new HashMap<>();
         for (Module module : dependency.packageInstance().modules()) {
             List<FlowNode> variables = extractModuleConfigVariables(module);
-            String modName = module.moduleName().moduleNamePart() != null ? module.moduleName().moduleNamePart() : "";
-            moduleConfigs.put(modName, variables);
+            if (!variables.isEmpty()) {
+                String moduleName = module.moduleName().moduleNamePart() != null ?
+                        module.moduleName().moduleNamePart() : "";
+                moduleConfigs.put(moduleName, variables);
+            }
         }
 
         return moduleConfigs;
@@ -269,20 +280,20 @@ public class ConfigEditorServiceV2 implements ExtendedLanguageServerService {
      */
     private static void populateValidDependencies(Package packageInstance, Module module,
                                                   Collection<ModuleDependency> dependencies) {
-        Collection<ModuleDependency> directDependencies = module.moduleDependencies();
-        for (ModuleDependency moduleDependency : directDependencies) {
+        for (ModuleDependency moduleDependency : module.moduleDependencies()) {
             if (!isDefaultScope(moduleDependency)) {
                 continue;
             }
             dependencies.add(moduleDependency);
 
-            // TODO: Verify logic
-            if (isSamePackage(packageInstance, moduleDependency)) {
-                for (Module mod : packageInstance.modules()) {
-                    String modName = mod.descriptor().name().moduleNamePart();
-                    if (modName != null && modName.equals(moduleDependency.descriptor().name().moduleNamePart())) {
-                        populateValidDependencies(packageInstance, mod, dependencies);
-                    }
+            if (!isSamePackage(packageInstance, moduleDependency)) {
+                continue;
+            }
+
+            for (Module mod : packageInstance.modules()) {
+                String moduleName = mod.descriptor().name().moduleNamePart();
+                if (moduleName != null && moduleName.equals(moduleDependency.descriptor().name().moduleNamePart())) {
+                    populateValidDependencies(packageInstance, mod, dependencies);
                 }
             }
         }
@@ -327,8 +338,8 @@ public class ConfigEditorServiceV2 implements ExtendedLanguageServerService {
         String packageName = descriptor.name().value();
 
         for (ModuleDependency dependency : moduleDependencies) {
-            if (dependency.descriptor().org().value().equals(orgName)
-                    && dependency.descriptor().packageName().value().equals(packageName)) {
+            if (dependency.descriptor().org().value().equals(orgName) &&
+                    dependency.descriptor().packageName().value().equals(packageName)) {
                 return true;
             }
         }

@@ -18,22 +18,17 @@
 
 package io.ballerina.flowmodelgenerator.extension;
 
-import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
-import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.extension.request.ConfigVariablesGetRequest;
 import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * Test class for configurable variables V2 API.
@@ -42,9 +37,6 @@ import java.util.Optional;
  */
 public class ConfigVariablesV2Test extends AbstractLSTest {
 
-    private static final Type flowNodes = new TypeToken<Map<String, List<FlowNode>>>() {
-    }.getType();
-
     @Override
     @Test(dataProvider = "data-provider")
     public void test(Path config) throws IOException {
@@ -52,39 +44,13 @@ public class ConfigVariablesV2Test extends AbstractLSTest {
         ConfigVariablesTestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath),
                 ConfigVariablesTestConfig.class);
 
-        ConfigVariablesGetRequest request =
-                new ConfigVariablesGetRequest(sourceDir.resolve(testConfig.project()).toAbsolutePath().toString());
-        JsonObject configVariables = getResponse(request);
+        String projectPath = sourceDir.resolve(testConfig.project()).toAbsolutePath().toString();
+        ConfigVariablesGetRequest request = new ConfigVariablesGetRequest(projectPath);
+        ConfigVariableResponse actualResponse = gson.fromJson(getResponse(request), ConfigVariableResponse.class);
 
-        Map<String, List<FlowNode>> m = gson.fromJson(configVariables, flowNodes);
-        List<FlowNode> actualFlowNodes = m.get("configVariables");
-        boolean assertFalse = false;
-        for (FlowNode actualFlowNode : actualFlowNodes) {
-            Optional<Property> actualVar = actualFlowNode.getProperty(Property.VARIABLE_KEY);
-            if (actualVar.isEmpty()) {
-                assertFalse = true;
-                break;
-            }
-            String actualVarName = actualVar.get().toSourceCode();
-            for (FlowNode expectedFlowNode : testConfig.configVariables()) {
-                Optional<Property> expectedVar = expectedFlowNode.getProperty(Property.VARIABLE_KEY);
-                if (expectedVar.isEmpty()) {
-                    assertFalse = true;
-                    break;
-                }
-                String expectedVarName = expectedVar.get().toSourceCode();
-                if (expectedVarName.equals(actualVarName)) {
-                    if (!actualFlowNode.equals(expectedFlowNode)) {
-                        assertFalse = true;
-                    }
-                }
-            }
-        }
-
-        if (assertFalse) {
-            ConfigVariablesTestConfig updatedConfig = new ConfigVariablesTestConfig(testConfig.project(),
-                    actualFlowNodes);
-            updateConfig(configJsonPath, updatedConfig);
+        if (!actualResponse.configVariables().equals(testConfig.configVariables())) {
+//            updateConfig(configJsonPath, new ConfigVariablesTestConfig(testConfig.project(),
+//                    actualResponse.configVariables()));
             Assert.fail(String.format("Failed test: '%s'", configJsonPath));
         }
     }
@@ -113,10 +79,20 @@ public class ConfigVariablesV2Test extends AbstractLSTest {
      * Represents the test configuration for the model generator test.
      *
      * @param project         Path to config file
-     * @param configVariables Config variables
-     * @since 1.4.0
+     * @param configVariables The map of config variables
+     * @since 2.7.0
      */
-    private record ConfigVariablesTestConfig(String project, List<FlowNode> configVariables) {
+    private record ConfigVariablesTestConfig(String project, Map<String, Map<String, List<FlowNode>>> configVariables) {
+
+    }
+
+    /**
+     * Represents the response of the `getConfigVariables` API.
+     *
+     * @param configVariables The map of config variables
+     * @since 2.7.0
+     */
+    private record ConfigVariableResponse(Map<String, Map<String, List<FlowNode>>> configVariables) {
 
     }
 }

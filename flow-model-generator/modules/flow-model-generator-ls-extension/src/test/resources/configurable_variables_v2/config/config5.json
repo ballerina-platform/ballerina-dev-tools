@@ -1,297 +1,301 @@
 {
   "project": "config5",
-  "configVariables": [
-    {
-      "id": "33758",
-      "metadata": {
-        "label": "Config",
-        "description": "Create a configurable variable"
-      },
-      "codedata": {
-        "node": "CONFIG_VARIABLE",
-        "lineRange": {
-          "fileName": "main.bal",
-          "startLine": {
-            "line": 2,
-            "offset": 0
-          },
-          "endLine": {
-            "line": 2,
-            "offset": 30
-          }
-        }
-      },
-      "returning": false,
-      "properties": {
-        "type": {
+  "configVariables": {
+    "org/config4": {
+      "": [
+        {
+          "id": "31781",
           "metadata": {
-            "label": "Variable Type",
-            "description": "Type of the variable"
+            "label": "Config",
+            "description": "Create a configurable variable"
           },
-          "valueType": "TYPE",
-          "value": "int",
-          "placeholder": "var",
-          "optional": false,
-          "editable": true,
-          "advanced": false,
-          "hidden": false,
-          "codedata": {}
-        },
-        "variable": {
-          "metadata": {
-            "label": "Variable Name",
-            "description": "Name of the variable"
-          },
-          "valueType": "IDENTIFIER",
-          "valueTypeConstraint": "Global",
-          "value": "config3",
-          "optional": false,
-          "editable": true,
-          "advanced": false,
-          "hidden": false
-        },
-        "defaultable": {
-          "metadata": {
-            "label": "Default value",
-            "description": "Default value for the config, if empty your need to provide a value at runtime"
-          },
-          "valueType": "EXPRESSION",
-          "value": "10",
-          "optional": true,
-          "editable": true,
-          "advanced": false,
-          "hidden": false
-        }
-      },
-      "flags": 0
-    },
-    {
-      "id": "34755",
-      "metadata": {
-        "label": "Config",
-        "description": "Create a configurable variable"
-      },
-      "codedata": {
-        "node": "CONFIG_VARIABLE",
-        "lineRange": {
-          "fileName": "main.bal",
-          "startLine": {
-            "line": 3,
-            "offset": 0
-          },
-          "endLine": {
-            "line": 3,
-            "offset": 35
-          }
-        }
-      },
-      "returning": false,
-      "properties": {
-        "type": {
-          "metadata": {
-            "label": "Variable Type",
-            "description": "Type of the variable"
-          },
-          "valueType": "TYPE",
-          "value": "string",
-          "placeholder": "var",
-          "optional": false,
-          "editable": true,
-          "advanced": false,
-          "hidden": false,
-          "codedata": {}
-        },
-        "variable": {
-          "metadata": {
-            "label": "Variable Name",
-            "description": "Name of the variable"
-          },
-          "valueType": "IDENTIFIER",
-          "valueTypeConstraint": "Global",
-          "value": "config4",
-          "optional": false,
-          "editable": true,
-          "advanced": false,
-          "hidden": false
-        },
-        "defaultable": {
-          "metadata": {
-            "label": "Default value",
-            "description": "Default value for the config, if empty your need to provide a value at runtime"
-          },
-          "valueType": "EXPRESSION",
-          "value": "12.4",
-          "optional": true,
-          "editable": true,
-          "advanced": false,
-          "hidden": false,
-          "diagnostics": {
-            "hasDiagnostics": true,
-            "diagnostics": [
-              {
-                "severity": "ERROR",
-                "message": "incompatible types: expected 'string', found 'float'"
+          "codedata": {
+            "node": "CONFIG_VARIABLE",
+            "lineRange": {
+              "fileName": "config.bal",
+              "startLine": {
+                "line": 0,
+                "offset": 0
+              },
+              "endLine": {
+                "line": 0,
+                "offset": 37
               }
-            ]
-          }
-        }
-      },
-      "diagnostics": {
-        "hasDiagnostics": true
-      },
-      "flags": 0
-    },
-    {
-      "id": "31781",
-      "metadata": {
-        "label": "Config",
-        "description": "Create a configurable variable"
-      },
-      "codedata": {
-        "node": "CONFIG_VARIABLE",
-        "lineRange": {
-          "fileName": "config.bal",
-          "startLine": {
-            "line": 0,
-            "offset": 0
+            }
           },
-          "endLine": {
-            "line": 0,
-            "offset": 37
-          }
-        }
-      },
-      "returning": false,
-      "properties": {
-        "type": {
-          "metadata": {
-            "label": "Variable Type",
-            "description": "Type of the variable"
-          },
-          "valueType": "TYPE",
-          "value": "int",
-          "placeholder": "var",
-          "optional": false,
-          "editable": true,
-          "advanced": false,
-          "hidden": false,
-          "codedata": {}
-        },
-        "variable": {
-          "metadata": {
-            "label": "Variable Name",
-            "description": "Name of the variable"
-          },
-          "valueType": "IDENTIFIER",
-          "valueTypeConstraint": "Global",
-          "value": "config1",
-          "optional": false,
-          "editable": true,
-          "advanced": false,
-          "hidden": false
-        },
-        "defaultable": {
-          "metadata": {
-            "label": "Default value",
-            "description": "Default value for the config, if empty your need to provide a value at runtime"
-          },
-          "valueType": "EXPRESSION",
-          "value": "\"welcome\"",
-          "optional": true,
-          "editable": true,
-          "advanced": false,
-          "hidden": false,
-          "diagnostics": {
-            "hasDiagnostics": true,
-            "diagnostics": [
-              {
-                "severity": "ERROR",
-                "message": "incompatible types: expected 'int', found 'string'"
+          "returning": false,
+          "properties": {
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "TYPE",
+              "value": "int",
+              "placeholder": "var",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false,
+              "codedata": {}
+            },
+            "variable": {
+              "metadata": {
+                "label": "Variable Name",
+                "description": "Name of the variable"
+              },
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "Global",
+              "value": "config1",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "defaultable": {
+              "metadata": {
+                "label": "Default value",
+                "description": "Default value for the config, if empty your need to provide a value at runtime"
+              },
+              "valueType": "EXPRESSION",
+              "value": "\"welcome\"",
+              "optional": true,
+              "editable": true,
+              "advanced": false,
+              "hidden": false,
+              "diagnostics": {
+                "hasDiagnostics": true,
+                "diagnostics": [
+                  {
+                    "severity": "ERROR",
+                    "message": "incompatible types: expected 'int', found 'string'"
+                  }
+                ]
               }
-            ]
-          }
-        }
-      },
-      "diagnostics": {
-        "hasDiagnostics": true
-      },
-      "flags": 0
-    },
-    {
-      "id": "32769",
-      "metadata": {
-        "label": "Config",
-        "description": "Create a configurable variable"
-      },
-      "codedata": {
-        "node": "CONFIG_VARIABLE",
-        "lineRange": {
-          "fileName": "config.bal",
-          "startLine": {
-            "line": 1,
-            "offset": 0
+            }
           },
-          "endLine": {
-            "line": 1,
-            "offset": 33
-          }
-        }
-      },
-      "returning": false,
-      "properties": {
-        "type": {
-          "metadata": {
-            "label": "Variable Type",
-            "description": "Type of the variable"
-          },
-          "valueType": "TYPE",
-          "value": "string",
-          "placeholder": "var",
-          "optional": false,
-          "editable": true,
-          "advanced": false,
-          "hidden": false,
-          "codedata": {}
-        },
-        "variable": {
-          "metadata": {
-            "label": "Variable Name",
-            "description": "Name of the variable"
-          },
-          "valueType": "IDENTIFIER",
-          "valueTypeConstraint": "Global",
-          "value": "config2",
-          "optional": false,
-          "editable": true,
-          "advanced": false,
-          "hidden": false
-        },
-        "defaultable": {
-          "metadata": {
-            "label": "Default value",
-            "description": "Default value for the config, if empty your need to provide a value at runtime"
-          },
-          "valueType": "EXPRESSION",
-          "value": "23",
-          "optional": true,
-          "editable": true,
-          "advanced": false,
-          "hidden": false,
           "diagnostics": {
-            "hasDiagnostics": true,
-            "diagnostics": [
-              {
-                "severity": "ERROR",
-                "message": "incompatible types: expected 'string', found 'int'"
+            "hasDiagnostics": true
+          },
+          "flags": 0
+        },
+        {
+          "id": "32769",
+          "metadata": {
+            "label": "Config",
+            "description": "Create a configurable variable"
+          },
+          "codedata": {
+            "node": "CONFIG_VARIABLE",
+            "lineRange": {
+              "fileName": "config.bal",
+              "startLine": {
+                "line": 1,
+                "offset": 0
+              },
+              "endLine": {
+                "line": 1,
+                "offset": 33
               }
-            ]
-          }
+            }
+          },
+          "returning": false,
+          "properties": {
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "TYPE",
+              "value": "string",
+              "placeholder": "var",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false,
+              "codedata": {}
+            },
+            "variable": {
+              "metadata": {
+                "label": "Variable Name",
+                "description": "Name of the variable"
+              },
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "Global",
+              "value": "config2",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "defaultable": {
+              "metadata": {
+                "label": "Default value",
+                "description": "Default value for the config, if empty your need to provide a value at runtime"
+              },
+              "valueType": "EXPRESSION",
+              "value": "23",
+              "optional": true,
+              "editable": true,
+              "advanced": false,
+              "hidden": false,
+              "diagnostics": {
+                "hasDiagnostics": true,
+                "diagnostics": [
+                  {
+                    "severity": "ERROR",
+                    "message": "incompatible types: expected 'string', found 'int'"
+                  }
+                ]
+              }
+            }
+          },
+          "diagnostics": {
+            "hasDiagnostics": true
+          },
+          "flags": 0
+        },
+        {
+          "id": "33758",
+          "metadata": {
+            "label": "Config",
+            "description": "Create a configurable variable"
+          },
+          "codedata": {
+            "node": "CONFIG_VARIABLE",
+            "lineRange": {
+              "fileName": "main.bal",
+              "startLine": {
+                "line": 2,
+                "offset": 0
+              },
+              "endLine": {
+                "line": 2,
+                "offset": 30
+              }
+            }
+          },
+          "returning": false,
+          "properties": {
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "TYPE",
+              "value": "int",
+              "placeholder": "var",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false,
+              "codedata": {}
+            },
+            "variable": {
+              "metadata": {
+                "label": "Variable Name",
+                "description": "Name of the variable"
+              },
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "Global",
+              "value": "config3",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "defaultable": {
+              "metadata": {
+                "label": "Default value",
+                "description": "Default value for the config, if empty your need to provide a value at runtime"
+              },
+              "valueType": "EXPRESSION",
+              "value": "10",
+              "optional": true,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            }
+          },
+          "flags": 0
+        },
+        {
+          "id": "34755",
+          "metadata": {
+            "label": "Config",
+            "description": "Create a configurable variable"
+          },
+          "codedata": {
+            "node": "CONFIG_VARIABLE",
+            "lineRange": {
+              "fileName": "main.bal",
+              "startLine": {
+                "line": 3,
+                "offset": 0
+              },
+              "endLine": {
+                "line": 3,
+                "offset": 35
+              }
+            }
+          },
+          "returning": false,
+          "properties": {
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "TYPE",
+              "value": "string",
+              "placeholder": "var",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false,
+              "codedata": {}
+            },
+            "variable": {
+              "metadata": {
+                "label": "Variable Name",
+                "description": "Name of the variable"
+              },
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "Global",
+              "value": "config4",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "defaultable": {
+              "metadata": {
+                "label": "Default value",
+                "description": "Default value for the config, if empty your need to provide a value at runtime"
+              },
+              "valueType": "EXPRESSION",
+              "value": "12.4",
+              "optional": true,
+              "editable": true,
+              "advanced": false,
+              "hidden": false,
+              "diagnostics": {
+                "hasDiagnostics": true,
+                "diagnostics": [
+                  {
+                    "severity": "ERROR",
+                    "message": "incompatible types: expected 'string', found 'float'"
+                  }
+                ]
+              }
+            }
+          },
+          "diagnostics": {
+            "hasDiagnostics": true
+          },
+          "flags": 0
         }
-      },
-      "diagnostics": {
-        "hasDiagnostics": true
-      },
-      "flags": 0
+      ]
     }
-  ]
+  }
 }
