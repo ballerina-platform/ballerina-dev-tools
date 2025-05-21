@@ -21,8 +21,17 @@ package io.ballerina.flowmodelgenerator.extension;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.Qualifier;
+import io.ballerina.compiler.syntax.tree.ModulePartNode;
+import io.ballerina.compiler.syntax.tree.ModuleVariableDeclarationNode;
+import io.ballerina.compiler.syntax.tree.Node;
+import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
 import io.ballerina.flowmodelgenerator.core.ConfigVariablesManager;
+import io.ballerina.flowmodelgenerator.core.DiagnosticHandler;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
+import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.extension.request.ConfigVariablesGetRequest;
 import io.ballerina.flowmodelgenerator.extension.request.ConfigVariablesUpdateRequest;
 import io.ballerina.flowmodelgenerator.extension.response.ConfigVariablesResponse;
@@ -30,8 +39,13 @@ import io.ballerina.flowmodelgenerator.extension.response.ConfigVariablesUpdateR
 import io.ballerina.projects.Document;
 import io.ballerina.projects.DocumentId;
 import io.ballerina.projects.Module;
+import io.ballerina.projects.ModuleDependency;
+import io.ballerina.projects.Package;
+import io.ballerina.projects.PackageDescriptor;
+import io.ballerina.projects.PlatformLibraryScope;
 import io.ballerina.projects.Project;
 import io.ballerina.projects.ProjectKind;
+import io.ballerina.projects.ResolvedPackageDependency;
 import org.ballerinalang.annotation.JavaSPIService;
 import org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
@@ -39,13 +53,10 @@ import org.eclipse.lsp4j.jsonrpc.services.JsonRequest;
 import org.eclipse.lsp4j.jsonrpc.services.JsonSegment;
 import org.eclipse.lsp4j.services.LanguageServer;
 
-import java.nio.file.FileVisitResult;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.SimpleFileVisitor;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -83,24 +94,27 @@ public class ConfigEditorServiceV2 implements ExtendedLanguageServerService {
     public CompletableFuture<ConfigVariablesResponse> getConfigVariables(ConfigVariablesGetRequest request) {
         return CompletableFuture.supplyAsync(() -> {
             ConfigVariablesResponse response = new ConfigVariablesResponse();
+            Map<String, Map<String, List<FlowNode>>> configVarMap = new HashMap<>();
             try {
-                Path projectFolder = Path.of(request.projectPath());
-                List<Path> filePaths = new ArrayList<>();
-                Files.walkFileTree(projectFolder, new BallerinaFileVisitor(filePaths));
+                Path projectPath = Path.of(request.projectPath());
+                Project project = this.workspaceManager.loadProject(projectPath);
+                Package currentPackage = project.currentPackage();
+                Module defaultModule = currentPackage.getDefaultModule();
 
-                Map<Document, SemanticModel> documentSemanticModelMap = new LinkedHashMap<>();
-                for (Path filePath : filePaths) {
-                    this.workspaceManager.loadProject(filePath);
-                    Optional<Document> document = this.workspaceManager.document(filePath);
-                    Optional<SemanticModel> semanticModel = this.workspaceManager.semanticModel(filePath);
-                    if (document.isEmpty() || semanticModel.isEmpty()) {
-                        return response;
-                    }
-                    documentSemanticModelMap.put(document.get(), semanticModel.get());
+                Map<String, List<FlowNode>> moduleConfigVarMap = new HashMap<>();
+                for (Module module : currentPackage.modules()) {
+                    moduleConfigVarMap.put(module.moduleName().moduleNamePart(), extractModuleConfigVariables(module));
                 }
+                String orgName = currentPackage.packageOrg().value();
+                String pkgName = currentPackage.packageName().value();
+                // Add config variables from the project
+                configVarMap.put(orgName + "/" + pkgName, moduleConfigVarMap);
 
-                ConfigVariablesManager configVariablesManager = new ConfigVariablesManager();
-                response.setConfigVariables(configVariablesManager.get(documentSemanticModelMap));
+                // Add config variables from dependencies
+                configVarMap.putAll(extractConfigsFromDependencies(currentPackage));
+
+                JsonElement jsonTree = new Gson().toJsonTree(configVarMap);
+                response.setConfigVariables(jsonTree);
             } catch (Throwable e) {
                 response.setError(e);
             }
@@ -116,8 +130,7 @@ public class ConfigEditorServiceV2 implements ExtendedLanguageServerService {
      */
     @JsonRequest
     @SuppressWarnings("unused")
-    public CompletableFuture<ConfigVariablesUpdateResponse> updateConfigVariables(
-            ConfigVariablesUpdateRequest request) {
+    public CompletableFuture<ConfigVariablesUpdateResponse> updateConfigVariables(ConfigVariablesUpdateRequest request) {
 
         return CompletableFuture.supplyAsync(() -> {
             ConfigVariablesUpdateResponse response = new ConfigVariablesUpdateResponse();
@@ -163,27 +176,189 @@ public class ConfigEditorServiceV2 implements ExtendedLanguageServerService {
         });
     }
 
+    private boolean isNew(FlowNode configVariable) {
+        return configVariable.codedata().isNew() != null && configVariable.codedata().isNew();
+    }
+
     /**
-     * File visitor that collects Ballerina file paths.
+     * Extracts configuration variables from the given module.
+     *
+     * @param module The module to extract configuration variables from
+     * @return A list of configuration variables
      */
-    private static class BallerinaFileVisitor extends SimpleFileVisitor<Path> {
-
-        private final List<Path> filePaths;
-
-        public BallerinaFileVisitor(List<Path> filePaths) {
-            this.filePaths = filePaths;
+    private static List<FlowNode> extractModuleConfigVariables(Module module) {
+        LinkedList<FlowNode> configVariables = new LinkedList<>();
+        SemanticModel semanticModel = module.getCompilation().getSemanticModel();
+        for (DocumentId documentId : module.documentIds()) {
+            Document document = module.document(documentId);
+            if (document.name().endsWith(BAL_FILE_EXTENSION)) {
+                ModulePartNode modulePartNode = document.syntaxTree().rootNode();
+                for (Node node : modulePartNode.children()) {
+                    if (node.kind() == SyntaxKind.MODULE_VAR_DECL) {
+                        ModuleVariableDeclarationNode modVarDeclarationNode = (ModuleVariableDeclarationNode) node;
+                        if (hasConfigurableQualifier(modVarDeclarationNode)) {
+                            configVariables.add(constructConfigVarNode(modVarDeclarationNode, semanticModel));
+                        }
+                    }
+                }
+            }
         }
 
-        @Override
-        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
-            if (file.toString().endsWith(BAL_FILE_EXTENSION)) {
-                filePaths.add(file);
+        return configVariables;
+    }
+
+    /**
+     * Extracts configuration variables from the dependencies of the current package.
+     */
+    private static Map<String, Map<String, List<FlowNode>>> extractConfigsFromDependencies(Package currentPackage) {
+        Map<String, Map<String, List<FlowNode>>> dependencyConfigVarMap = new HashMap<>();
+        for (Module module : currentPackage.modules()) {
+            LinkedList<ModuleDependency> validDependencies = new LinkedList<>();
+            populateValidDependencies(currentPackage, module, validDependencies);
+            Map<String, Map<String, List<FlowNode>>> importedConfigVars = getImportedConfigVars(currentPackage, validDependencies);
+            dependencyConfigVarMap.putAll(importedConfigVars);
+        }
+
+        return dependencyConfigVarMap;
+    }
+
+    private static boolean hasConfigurableQualifier(ModuleVariableDeclarationNode modVarDeclarationNode) {
+        return modVarDeclarationNode.qualifiers()
+                .stream().anyMatch(q -> q.text().equals(Qualifier.CONFIGURABLE.getValue()));
+    }
+
+    /**
+     * Retrieve configurable variables for all the direct imports for a package.
+     *
+     * @param currentPkg         Current package instance
+     * @param moduleDependencies Used dependencies of the package
+     * @return Map of configurable variables organized by module details
+     */
+    private static Map<String, Map<String, List<FlowNode>>> getImportedConfigVars(
+            Package currentPkg, Collection<ModuleDependency> moduleDependencies) {
+        Map<String, Map<String, List<FlowNode>>> pkgConfigs = new HashMap<>();
+        Collection<ResolvedPackageDependency> dependencies = currentPkg.getResolution().dependencyGraph().getNodes();
+        for (ResolvedPackageDependency dependency : dependencies) {
+            if (isDirectDependency(dependency, moduleDependencies)) {
+                Map<String, List<FlowNode>> moduleConfigs = processDependency(dependency);
+                String org = dependency.packageInstance().packageOrg().value();
+                String name = dependency.packageInstance().packageName().value();
+                pkgConfigs.put(org + "/" + name, moduleConfigs);
             }
-            return FileVisitResult.CONTINUE;
+        }
+
+        return pkgConfigs;
+    }
+
+    private static Map<String, List<FlowNode>> processDependency(ResolvedPackageDependency dependency) {
+        Map<String, List<FlowNode>> moduleConfigs = new HashMap<>();
+        for (Module module : dependency.packageInstance().modules()) {
+            List<FlowNode> variables = extractModuleConfigVariables(module);
+            String modName = module.moduleName().moduleNamePart() != null ? module.moduleName().moduleNamePart() : "";
+            moduleConfigs.put(modName, variables);
+        }
+
+        return moduleConfigs;
+    }
+
+    /**
+     * Get all the valid dependencies for the package.
+     *
+     * @param packageInstance Package instance
+     * @param module          module instance
+     * @param dependencies    Collection of module dependencies
+     */
+    private static void populateValidDependencies(Package packageInstance, Module module,
+                                                  Collection<ModuleDependency> dependencies) {
+        Collection<ModuleDependency> directDependencies = module.moduleDependencies();
+        for (ModuleDependency moduleDependency : directDependencies) {
+            if (!isDefaultScope(moduleDependency)) {
+                continue;
+            }
+            dependencies.add(moduleDependency);
+
+            // TODO: Verify logic
+            if (isSamePackage(packageInstance, moduleDependency)) {
+                for (Module mod : packageInstance.modules()) {
+                    String modName = mod.descriptor().name().moduleNamePart();
+                    if (modName != null && modName.equals(moduleDependency.descriptor().name().moduleNamePart())) {
+                        populateValidDependencies(packageInstance, mod, dependencies);
+                    }
+                }
+            }
         }
     }
 
-    private boolean isNew(FlowNode configVariable) {
-        return configVariable.codedata().isNew() != null && configVariable.codedata().isNew();
+    /**
+     * Check if the dependency has the default scope.
+     *
+     * @param moduleDependency Module dependency
+     * @return boolean value indicating whether the dependency has default scope or not
+     */
+    private static boolean isDefaultScope(ModuleDependency moduleDependency) {
+        return moduleDependency.packageDependency().scope().getValue().equals(
+                PlatformLibraryScope.DEFAULT.getStringValue());
+    }
+
+    /**
+     * Check if the dependency is From the same package.
+     *
+     * @param packageInstance  package instance
+     * @param moduleDependency Module dependency
+     * @return boolean value indicating whether the dependency is from the same package or not
+     */
+    private static boolean isSamePackage(Package packageInstance, ModuleDependency moduleDependency) {
+        String orgValue = moduleDependency.descriptor().org().value();
+        String packageVal = moduleDependency.descriptor().packageName().value();
+        return orgValue.equals(packageInstance.packageOrg().value()) &&
+                packageVal.equals(packageInstance.packageName().value());
+    }
+
+    /**
+     * Check if a given resolved package dependency is a direct dependency of the package.
+     *
+     * @param dep                Resolved package dependency to check against
+     * @param moduleDependencies Collection of module dependencies
+     * @return boolean value indicating whether the module dependency is a direct dependency or not
+     */
+    private static boolean isDirectDependency(ResolvedPackageDependency dep,
+                                              Collection<ModuleDependency> moduleDependencies) {
+        PackageDescriptor descriptor = dep.packageInstance().descriptor();
+        String orgName = descriptor.org().value();
+        String packageName = descriptor.name().value();
+
+        for (ModuleDependency dependency : moduleDependencies) {
+            if (dependency.descriptor().org().value().equals(orgName)
+                    && dependency.descriptor().packageName().value().equals(packageName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static FlowNode constructConfigVarNode(ModuleVariableDeclarationNode modVarDeclNode,
+                                                   SemanticModel semanticModel) {
+        DiagnosticHandler diagnosticHandler = new DiagnosticHandler(semanticModel);
+        NodeBuilder nodeBuilder = NodeBuilder.getNodeFromKind(NodeKind.CONFIG_VARIABLE)
+                .semanticModel(semanticModel)
+                .diagnosticHandler(diagnosticHandler)
+                .defaultModuleName(null);
+        diagnosticHandler.handle(nodeBuilder, modVarDeclNode.lineRange(), false);
+
+        TypedBindingPatternNode typedBindingPattern = modVarDeclNode.typedBindingPattern();
+        return nodeBuilder
+                .metadata()
+                .label("Config variables")
+                .stepOut()
+                .codedata()
+                .node(NodeKind.CONFIG_VARIABLE)
+                .lineRange(modVarDeclNode.lineRange())
+                .stepOut()
+                .properties()
+                .type(typedBindingPattern.typeDescriptor(), true)
+                .defaultableName(typedBindingPattern.bindingPattern().toSourceCode().trim())
+                .defaultableVariable(modVarDeclNode.initializer().orElse(null))
+                .stepOut()
+                .build();
     }
 }
