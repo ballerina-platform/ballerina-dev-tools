@@ -60,6 +60,16 @@
     ]
   },
   "7": {
+    "name": "trigger.twilio",
+    "orgName": "ballerinax",
+    "packageName": "trigger.twilio",
+    "keywords": [
+      "twilio",
+      "event",
+      "sms"
+    ]
+  },
+  "8": {
     "name": "ftp",
     "orgName": "ballerina",
     "packageName": "ftp",
@@ -71,7 +81,7 @@
       "event"
     ]
   },
-  "8": {
+  "9": {
     "name": "file",
     "orgName": "ballerina",
     "packageName": "file",
