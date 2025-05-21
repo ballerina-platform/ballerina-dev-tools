@@ -85,17 +85,17 @@ public class ConfigEditorServiceV2 implements ExtendedLanguageServerService {
     /**
      * Retrieves configuration variables from the Ballerina project.
      *
-     * @param request The request containing project path
+     * @param req The req containing project path
      * @return A future with configuration variables response
      */
     @JsonRequest
     @SuppressWarnings("unused")
-    public CompletableFuture<ConfigVariablesResponse> getConfigVariables(ConfigVariablesGetRequest request) {
+    public CompletableFuture<ConfigVariablesResponse> getConfigVariables(ConfigVariablesGetRequest req) {
         return CompletableFuture.supplyAsync(() -> {
             ConfigVariablesResponse response = new ConfigVariablesResponse();
             Map<String, Map<String, List<FlowNode>>> configVarMap = new HashMap<>();
             try {
-                Project project = workspaceManager.loadProject(Path.of(request.projectPath()));
+                Project project = workspaceManager.loadProject(Path.of(req.projectPath()));
                 Package currentPackage = project.currentPackage();
 
                 // Add config variables from main project
@@ -109,8 +109,8 @@ public class ConfigEditorServiceV2 implements ExtendedLanguageServerService {
                     }
                 }
                 if (!moduleConfigVarMap.isEmpty()) {
-                    String packageKey = currentPackage.packageOrg().value() + "/" + currentPackage.packageName().value();
-                    configVarMap.put(packageKey, moduleConfigVarMap);
+                    String pkgName = currentPackage.packageOrg().value() + "/" + currentPackage.packageName().value();
+                    configVarMap.put(pkgName, moduleConfigVarMap);
                 }
 
                 // Add config variables from dependencies
@@ -127,17 +127,17 @@ public class ConfigEditorServiceV2 implements ExtendedLanguageServerService {
     /**
      * Update a given config variable with the provided value.
      *
-     * @param request The request containing config variable and file path
+     * @param req The req containing config variable and file path
      * @return A future with update response containing text edits
      */
     @JsonRequest
     @SuppressWarnings("unused")
-    public CompletableFuture<ConfigVariablesUpdateResponse> updateConfigVariables(ConfigVariablesUpdateRequest request) {
+    public CompletableFuture<ConfigVariablesUpdateResponse> updateConfigVariables(ConfigVariablesUpdateRequest req) {
         return CompletableFuture.supplyAsync(() -> {
             ConfigVariablesUpdateResponse response = new ConfigVariablesUpdateResponse();
             try {
-                FlowNode configVariable = gson.fromJson(request.configVariable(), FlowNode.class);
-                Path configFilePath = Path.of(request.configFilePath());
+                FlowNode configVariable = gson.fromJson(req.configVariable(), FlowNode.class);
+                Path configFilePath = Path.of(req.configFilePath());
                 Path variableFilePath = findVariableFilePath(configVariable, configFilePath);
 
                 if (variableFilePath == null) {
