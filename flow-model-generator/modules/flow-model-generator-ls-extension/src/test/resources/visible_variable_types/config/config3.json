@@ -12,7 +12,8 @@
         {
           "name": "cl",
           "type": {
-            "typeName": "$CompilationError$",
+            "name": "Unknown Type",
+            "typeName": "Unknown Type",
             "optional": false,
             "defaultable": false,
             "isRestType": false,
@@ -22,6 +23,7 @@
         {
           "name": "name",
           "type": {
+            "name": "string",
             "typeName": "string",
             "optional": false,
             "defaultable": false,
@@ -37,43 +39,9 @@
         {
           "name": "moduleInput",
           "type": {
-            "fields": [
-              {
-                "name": "name",
-                "typeName": "string",
-                "optional": false,
-                "defaultable": false,
-                "documentation": "",
-                "isRestType": false,
-                "selected": false
-              },
-              {
-                "name": "age",
-                "typeName": "int",
-                "optional": false,
-                "defaultable": false,
-                "documentation": "",
-                "isRestType": false,
-                "selected": false
-              }
-            ],
-            "hasRestType": true,
-            "restType": {
-              "typeName": "anydata",
-              "optional": false,
-              "defaultable": false,
-              "isRestType": false,
-              "selected": false
-            },
             "name": "Input",
-            "typeName": "record",
+            "typeName": "Input",
             "optional": false,
-            "typeInfo": {
-              "name": "Input",
-              "orgName": "nipunaf",
-              "moduleName": "new_connection1",
-              "version": "0.1.0"
-            },
             "defaultable": false,
             "isRestType": false,
             "selected": false
@@ -82,6 +50,7 @@
         {
           "name": "w",
           "type": {
+            "name": "boolean",
             "typeName": "boolean",
             "optional": false,
             "defaultable": false,
@@ -97,58 +66,8 @@
         {
           "name": "configInput",
           "type": {
-            "members": [
-              {
-                "fields": [
-                  {
-                    "name": "name",
-                    "typeName": "string",
-                    "optional": false,
-                    "defaultable": false,
-                    "documentation": "",
-                    "isRestType": false,
-                    "selected": false
-                  },
-                  {
-                    "name": "age",
-                    "typeName": "int",
-                    "optional": false,
-                    "defaultable": false,
-                    "documentation": "",
-                    "isRestType": false,
-                    "selected": false
-                  }
-                ],
-                "hasRestType": true,
-                "restType": {
-                  "typeName": "anydata",
-                  "optional": false,
-                  "defaultable": false,
-                  "isRestType": false,
-                  "selected": false
-                },
-                "name": "Input",
-                "typeName": "record",
-                "optional": false,
-                "typeInfo": {
-                  "name": "Input",
-                  "orgName": "nipunaf",
-                  "moduleName": "new_connection1",
-                  "version": "0.1.0"
-                },
-                "defaultable": false,
-                "isRestType": false,
-                "selected": false
-              },
-              {
-                "typeName": "readonly",
-                "optional": false,
-                "defaultable": false,
-                "isRestType": false,
-                "selected": false
-              }
-            ],
-            "typeName": "intersection",
+            "name": "Input & readonly",
+            "typeName": "Input & readonly",
             "optional": false,
             "defaultable": false,
             "isRestType": false,
@@ -158,68 +77,8 @@
         {
           "name": "configTable",
           "type": {
-            "members": [
-              {
-                "rowType": {
-                  "fields": [
-                    {
-                      "name": "name",
-                      "typeName": "string",
-                      "optional": false,
-                      "defaultable": false,
-                      "documentation": "",
-                      "isRestType": false,
-                      "selected": false
-                    },
-                    {
-                      "name": "age",
-                      "typeName": "int",
-                      "optional": false,
-                      "defaultable": false,
-                      "documentation": "",
-                      "isRestType": false,
-                      "selected": false
-                    }
-                  ],
-                  "hasRestType": true,
-                  "restType": {
-                    "typeName": "anydata",
-                    "optional": false,
-                    "defaultable": false,
-                    "isRestType": false,
-                    "selected": false
-                  },
-                  "name": "Input",
-                  "typeName": "record",
-                  "optional": false,
-                  "typeInfo": {
-                    "name": "Input",
-                    "orgName": "nipunaf",
-                    "moduleName": "new_connection1",
-                    "version": "0.1.0"
-                  },
-                  "defaultable": false,
-                  "isRestType": false,
-                  "selected": false
-                },
-                "keys": [
-                  "name"
-                ],
-                "typeName": "table",
-                "optional": false,
-                "defaultable": false,
-                "isRestType": false,
-                "selected": false
-              },
-              {
-                "typeName": "readonly",
-                "optional": false,
-                "defaultable": false,
-                "isRestType": false,
-                "selected": false
-              }
-            ],
-            "typeName": "intersection",
+            "name": "table<Input> key(name) & readonly",
+            "typeName": "table<Input> key(name) & readonly",
             "optional": false,
             "defaultable": false,
             "isRestType": false,
@@ -229,6 +88,7 @@
         {
           "name": "serviceName",
           "type": {
+            "name": "string",
             "typeName": "string",
             "optional": false,
             "defaultable": false,
@@ -239,6 +99,7 @@
         {
           "name": "servicePort",
           "type": {
+            "name": "int",
             "typeName": "int",
             "optional": false,
             "defaultable": false,
