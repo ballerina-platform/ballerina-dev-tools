@@ -22,6 +22,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ObjectTypeSymbol;
+import io.ballerina.compiler.api.symbols.ParameterSymbol;
 import io.ballerina.compiler.api.symbols.PathParameterSymbol;
 import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.Symbol;
@@ -33,6 +34,8 @@ import io.ballerina.compiler.api.symbols.resourcepath.util.PathSegment;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.modelgenerator.commons.CommonUtils;
+import io.ballerina.modelgenerator.commons.ModuleInfo;
 import io.ballerina.projects.Document;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
@@ -84,7 +87,7 @@ public class VisibleVariableTypesGenerator {
             if (symbol.kind() == SymbolKind.VARIABLE) {
                 VariableSymbol variableSymbol = (VariableSymbol) symbol;
                 String name = variableSymbol.getName().orElse("");
-                Type type = Type.fromSemanticSymbol(variableSymbol);
+                Type type = fromTypeSymbol(variableSymbol.typeDescriptor());
 
                 // Skip the object types
                 TypeSymbol typeSymbol = variableSymbol.typeDescriptor();
@@ -108,12 +111,12 @@ public class VisibleVariableTypesGenerator {
                 }
             } else if (symbol.kind() == SymbolKind.PARAMETER) {
                 String name = symbol.getName().orElse("");
-                Type type = Type.fromSemanticSymbol(symbol);
+                Type type = fromTypeSymbol(((ParameterSymbol) symbol).typeDescriptor());
                 addCategoryValue(Category.PARAMETER_CATEGORY, name, type);
             } else if (symbol.kind() == SymbolKind.PATH_PARAMETER) {
                 String name = symbol.getName().orElse("");
                 PathParameterSymbol pathParameterSymbol = (PathParameterSymbol) symbol;
-                Type type = Type.fromSemanticSymbol(pathParameterSymbol.typeDescriptor());
+                Type type = fromTypeSymbol(pathParameterSymbol.typeDescriptor());
                 type.isRestType = pathParameterSymbol.pathSegmentKind() == PathSegment.Kind.PATH_REST_PARAMETER;
                 addCategoryValue(Category.PATH_PARAMETER_CATEGORY, name, type);
             }
@@ -130,6 +133,15 @@ public class VisibleVariableTypesGenerator {
         }
 
         return gson.toJsonTree(categories).getAsJsonArray();
+    }
+
+    private Type fromTypeSymbol(TypeSymbol typeSymbol) {
+        String typeName = CommonUtils.getTypeSignature(semanticModel, typeSymbol, false,
+                ModuleInfo.from(document.module().descriptor()));
+        Type newType = new Type();
+        newType.typeName = typeName;
+        newType.name = typeName;
+        return newType;
     }
 
     /**
