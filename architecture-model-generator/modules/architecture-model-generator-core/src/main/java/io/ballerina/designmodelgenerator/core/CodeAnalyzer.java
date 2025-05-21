@@ -196,7 +196,8 @@ public class CodeAnalyzer extends NodeVisitor {
             if (symbol.isPresent()) {
                 MethodSymbol methodSymbol = (MethodSymbol) symbol.get();
                 if (functionDefinitionNode.kind() == SyntaxKind.RESOURCE_ACCESSOR_DEFINITION) {
-                    this.currentFunctionModel.path = ((ResourceMethodSymbol) methodSymbol).resourcePath().signature();
+                    this.currentFunctionModel.path = CommonUtils.getResourcePathStr(semanticModel,
+                            (ResourceMethodSymbol) methodSymbol);
                     this.currentServiceModel.resourceFunctions.add(this.currentFunctionModel);
                 } else if (methodSymbol.qualifiers().contains(Qualifier.REMOTE)) {
                     this.currentServiceModel.remoteFunctions.add(this.currentFunctionModel);
