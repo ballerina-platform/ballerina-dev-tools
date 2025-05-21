@@ -1,0 +1,4 @@
+[config_tests.simpleconfigs_imports]
+fixedDiscount = -700
+discountPercentage = 4.5
+testMode = false

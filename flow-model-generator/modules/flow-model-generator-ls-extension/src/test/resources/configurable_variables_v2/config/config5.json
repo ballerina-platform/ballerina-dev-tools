@@ -1,10 +1,10 @@
 {
-  "project": "config5",
+  "project": "default_module_projects/complex_type_configs_3",
   "configVariables": {
-    "org/config4": {
+    "config_tests/complexconfigs3": {
       "": [
         {
-          "id": "31781",
+          "id": "124230",
           "metadata": {
             "label": "Config",
             "description": "Create a configurable variable"
@@ -12,14 +12,14 @@
           "codedata": {
             "node": "CONFIG_VARIABLE",
             "lineRange": {
-              "fileName": "config.bal",
+              "fileName": "sample.bal",
               "startLine": {
-                "line": 0,
+                "line": 93,
                 "offset": 0
               },
               "endLine": {
-                "line": 0,
-                "offset": 37
+                "line": 98,
+                "offset": 75
               }
             }
           },
@@ -31,7 +31,7 @@
                 "description": "Type of the variable"
               },
               "valueType": "TYPE",
-              "value": "int",
+              "value": "OAuth2RefreshTokenGrantConfig & readonly",
               "placeholder": "var",
               "optional": false,
               "editable": true,
@@ -46,7 +46,7 @@
               },
               "valueType": "IDENTIFIER",
               "valueTypeConstraint": "Global",
-              "value": "config1",
+              "value": "sheetOAuthConfig",
               "optional": false,
               "editable": true,
               "advanced": false,
@@ -58,159 +58,7 @@
                 "description": "Default value for the config, if empty your need to provide a value at runtime"
               },
               "valueType": "EXPRESSION",
-              "value": "\"welcome\"",
-              "optional": true,
-              "editable": true,
-              "advanced": false,
-              "hidden": false,
-              "diagnostics": {
-                "hasDiagnostics": true,
-                "diagnostics": [
-                  {
-                    "severity": "ERROR",
-                    "message": "incompatible types: expected 'int', found 'string'"
-                  }
-                ]
-              }
-            }
-          },
-          "diagnostics": {
-            "hasDiagnostics": true
-          },
-          "flags": 0
-        },
-        {
-          "id": "32769",
-          "metadata": {
-            "label": "Config",
-            "description": "Create a configurable variable"
-          },
-          "codedata": {
-            "node": "CONFIG_VARIABLE",
-            "lineRange": {
-              "fileName": "config.bal",
-              "startLine": {
-                "line": 1,
-                "offset": 0
-              },
-              "endLine": {
-                "line": 1,
-                "offset": 33
-              }
-            }
-          },
-          "returning": false,
-          "properties": {
-            "type": {
-              "metadata": {
-                "label": "Variable Type",
-                "description": "Type of the variable"
-              },
-              "valueType": "TYPE",
-              "value": "string",
-              "placeholder": "var",
-              "optional": false,
-              "editable": true,
-              "advanced": false,
-              "hidden": false,
-              "codedata": {}
-            },
-            "variable": {
-              "metadata": {
-                "label": "Variable Name",
-                "description": "Name of the variable"
-              },
-              "valueType": "IDENTIFIER",
-              "valueTypeConstraint": "Global",
-              "value": "config2",
-              "optional": false,
-              "editable": true,
-              "advanced": false,
-              "hidden": false
-            },
-            "defaultable": {
-              "metadata": {
-                "label": "Default value",
-                "description": "Default value for the config, if empty your need to provide a value at runtime"
-              },
-              "valueType": "EXPRESSION",
-              "value": "23",
-              "optional": true,
-              "editable": true,
-              "advanced": false,
-              "hidden": false,
-              "diagnostics": {
-                "hasDiagnostics": true,
-                "diagnostics": [
-                  {
-                    "severity": "ERROR",
-                    "message": "incompatible types: expected 'string', found 'int'"
-                  }
-                ]
-              }
-            }
-          },
-          "diagnostics": {
-            "hasDiagnostics": true
-          },
-          "flags": 0
-        },
-        {
-          "id": "33758",
-          "metadata": {
-            "label": "Config",
-            "description": "Create a configurable variable"
-          },
-          "codedata": {
-            "node": "CONFIG_VARIABLE",
-            "lineRange": {
-              "fileName": "main.bal",
-              "startLine": {
-                "line": 2,
-                "offset": 0
-              },
-              "endLine": {
-                "line": 2,
-                "offset": 30
-              }
-            }
-          },
-          "returning": false,
-          "properties": {
-            "type": {
-              "metadata": {
-                "label": "Variable Type",
-                "description": "Type of the variable"
-              },
-              "valueType": "TYPE",
-              "value": "int",
-              "placeholder": "var",
-              "optional": false,
-              "editable": true,
-              "advanced": false,
-              "hidden": false,
-              "codedata": {}
-            },
-            "variable": {
-              "metadata": {
-                "label": "Variable Name",
-                "description": "Name of the variable"
-              },
-              "valueType": "IDENTIFIER",
-              "valueTypeConstraint": "Global",
-              "value": "config3",
-              "optional": false,
-              "editable": true,
-              "advanced": false,
-              "hidden": false
-            },
-            "defaultable": {
-              "metadata": {
-                "label": "Default value",
-                "description": "Default value for the config, if empty your need to provide a value at runtime"
-              },
-              "valueType": "EXPRESSION",
-              "value": "10",
+              "value": "",
               "optional": true,
               "editable": true,
               "advanced": false,
@@ -220,7 +68,7 @@
           "flags": 0
         },
         {
-          "id": "34755",
+          "id": "131210",
           "metadata": {
             "label": "Config",
             "description": "Create a configurable variable"
@@ -228,14 +76,14 @@
           "codedata": {
             "node": "CONFIG_VARIABLE",
             "lineRange": {
-              "fileName": "main.bal",
+              "fileName": "sample.bal",
               "startLine": {
-                "line": 3,
+                "line": 100,
                 "offset": 0
               },
               "endLine": {
-                "line": 3,
-                "offset": 35
+                "line": 107,
+                "offset": 49
               }
             }
           },
@@ -247,7 +95,7 @@
                 "description": "Type of the variable"
               },
               "valueType": "TYPE",
-              "value": "string",
+              "value": "string & readonly",
               "placeholder": "var",
               "optional": false,
               "editable": true,
@@ -262,7 +110,7 @@
               },
               "valueType": "IDENTIFIER",
               "valueTypeConstraint": "Global",
-              "value": "config4",
+              "value": "spreadsheetId",
               "optional": false,
               "editable": true,
               "advanced": false,
@@ -274,24 +122,268 @@
                 "description": "Default value for the config, if empty your need to provide a value at runtime"
               },
               "valueType": "EXPRESSION",
-              "value": "12.4",
+              "value": "",
               "optional": true,
               "editable": true,
               "advanced": false,
-              "hidden": false,
-              "diagnostics": {
-                "hasDiagnostics": true,
-                "diagnostics": [
-                  {
-                    "severity": "ERROR",
-                    "message": "incompatible types: expected 'string', found 'float'"
-                  }
-                ]
+              "hidden": false
+            }
+          },
+          "flags": 0
+        },
+        {
+          "id": "140169",
+          "metadata": {
+            "label": "Config",
+            "description": "Create a configurable variable"
+          },
+          "codedata": {
+            "node": "CONFIG_VARIABLE",
+            "lineRange": {
+              "fileName": "sample.bal",
+              "startLine": {
+                "line": 109,
+                "offset": 0
+              },
+              "endLine": {
+                "line": 117,
+                "offset": 49
               }
             }
           },
-          "diagnostics": {
-            "hasDiagnostics": true
+          "returning": false,
+          "properties": {
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "TYPE",
+              "value": "string & readonly",
+              "placeholder": "var",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false,
+              "codedata": {}
+            },
+            "variable": {
+              "metadata": {
+                "label": "Variable Name",
+                "description": "Name of the variable"
+              },
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "Global",
+              "value": "worksheetName",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "defaultable": {
+              "metadata": {
+                "label": "Default value",
+                "description": "Default value for the config, if empty your need to provide a value at runtime"
+              },
+              "valueType": "EXPRESSION",
+              "value": "",
+              "optional": true,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            }
+          },
+          "flags": 0
+        },
+        {
+          "id": "151014",
+          "metadata": {
+            "label": "Config",
+            "description": "Create a configurable variable"
+          },
+          "codedata": {
+            "node": "CONFIG_VARIABLE",
+            "lineRange": {
+              "fileName": "sample.bal",
+              "startLine": {
+                "line": 120,
+                "offset": 0
+              },
+              "endLine": {
+                "line": 125,
+                "offset": 75
+              }
+            }
+          },
+          "returning": false,
+          "properties": {
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "TYPE",
+              "value": "OAuth2RefreshTokenGrantConfig & readonly",
+              "placeholder": "var",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false,
+              "codedata": {}
+            },
+            "variable": {
+              "metadata": {
+                "label": "Variable Name",
+                "description": "Name of the variable"
+              },
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "Global",
+              "value": "gmailOauthConfig",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "defaultable": {
+              "metadata": {
+                "label": "Default value",
+                "description": "Default value for the config, if empty your need to provide a value at runtime"
+              },
+              "valueType": "EXPRESSION",
+              "value": "",
+              "optional": true,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            }
+          },
+          "flags": 0
+        },
+        {
+          "id": "157811",
+          "metadata": {
+            "label": "Config",
+            "description": "Create a configurable variable"
+          },
+          "codedata": {
+            "node": "CONFIG_VARIABLE",
+            "lineRange": {
+              "fileName": "sample.bal",
+              "startLine": {
+                "line": 127,
+                "offset": 0
+              },
+              "endLine": {
+                "line": 128,
+                "offset": 52
+              }
+            }
+          },
+          "returning": false,
+          "properties": {
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "TYPE",
+              "value": "string & readonly",
+              "placeholder": "var",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false,
+              "codedata": {}
+            },
+            "variable": {
+              "metadata": {
+                "label": "Variable Name",
+                "description": "Name of the variable"
+              },
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "Global",
+              "value": "recipientAddress",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "defaultable": {
+              "metadata": {
+                "label": "Default value",
+                "description": "Default value for the config, if empty your need to provide a value at runtime"
+              },
+              "valueType": "EXPRESSION",
+              "value": "",
+              "optional": true,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            }
+          },
+          "flags": 0
+        },
+        {
+          "id": "160784",
+          "metadata": {
+            "label": "Config",
+            "description": "Create a configurable variable"
+          },
+          "codedata": {
+            "node": "CONFIG_VARIABLE",
+            "lineRange": {
+              "fileName": "sample.bal",
+              "startLine": {
+                "line": 130,
+                "offset": 0
+              },
+              "endLine": {
+                "line": 131,
+                "offset": 49
+              }
+            }
+          },
+          "returning": false,
+          "properties": {
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "TYPE",
+              "value": "string & readonly",
+              "placeholder": "var",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false,
+              "codedata": {}
+            },
+            "variable": {
+              "metadata": {
+                "label": "Variable Name",
+                "description": "Name of the variable"
+              },
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "Global",
+              "value": "senderAddress",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "defaultable": {
+              "metadata": {
+                "label": "Default value",
+                "description": "Default value for the config, if empty your need to provide a value at runtime"
+              },
+              "valueType": "EXPRESSION",
+              "value": "",
+              "optional": true,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            }
           },
           "flags": 0
         }

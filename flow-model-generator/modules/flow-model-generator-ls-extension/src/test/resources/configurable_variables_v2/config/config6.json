@@ -1,10 +1,10 @@
 {
-  "project": "default_module_projects/complex_type_configs",
+  "project": "multi_module_projects/simple_type_configs",
   "configVariables": {
-    "config_tests/complexconfigs": {
+    "config_tests/simpleconfigs": {
       "": [
         {
-          "id": "38725",
+          "id": "33771",
           "metadata": {
             "label": "Config",
             "description": "Create a configurable variable"
@@ -14,12 +14,12 @@
             "lineRange": {
               "fileName": "main.bal",
               "startLine": {
-                "line": 7,
+                "line": 2,
                 "offset": 0
               },
               "endLine": {
-                "line": 7,
-                "offset": 37
+                "line": 2,
+                "offset": 43
               }
             }
           },
@@ -31,7 +31,7 @@
                 "description": "Type of the variable"
               },
               "valueType": "TYPE",
-              "value": "int[]",
+              "value": "string",
               "placeholder": "var",
               "optional": false,
               "editable": true,
@@ -46,7 +46,7 @@
               },
               "valueType": "IDENTIFIER",
               "valueTypeConstraint": "Global",
-              "value": "prices",
+              "value": "itemCode",
               "optional": false,
               "editable": true,
               "advanced": false,
@@ -58,7 +58,7 @@
                 "description": "Default value for the config, if empty your need to provide a value at runtime"
               },
               "valueType": "EXPRESSION",
-              "value": "[62, 58]",
+              "value": "\"item12393\"",
               "optional": true,
               "editable": true,
               "advanced": false,
@@ -68,7 +68,7 @@
           "flags": 0
         },
         {
-          "id": "39711",
+          "id": "34754",
           "metadata": {
             "label": "Config",
             "description": "Create a configurable variable"
@@ -78,75 +78,11 @@
             "lineRange": {
               "fileName": "main.bal",
               "startLine": {
-                "line": 8,
+                "line": 3,
                 "offset": 0
               },
               "endLine": {
-                "line": 8,
-                "offset": 31
-              }
-            }
-          },
-          "returning": false,
-          "properties": {
-            "type": {
-              "metadata": {
-                "label": "Variable Type",
-                "description": "Type of the variable"
-              },
-              "valueType": "TYPE",
-              "value": "Person",
-              "placeholder": "var",
-              "optional": false,
-              "editable": true,
-              "advanced": false,
-              "hidden": false,
-              "codedata": {}
-            },
-            "variable": {
-              "metadata": {
-                "label": "Variable Name",
-                "description": "Name of the variable"
-              },
-              "valueType": "IDENTIFIER",
-              "valueTypeConstraint": "Global",
-              "value": "person",
-              "optional": false,
-              "editable": true,
-              "advanced": false,
-              "hidden": false
-            },
-            "defaultable": {
-              "metadata": {
-                "label": "Default value",
-                "description": "Default value for the config, if empty your need to provide a value at runtime"
-              },
-              "valueType": "EXPRESSION",
-              "value": "",
-              "optional": true,
-              "editable": true,
-              "advanced": false,
-              "hidden": false
-            }
-          },
-          "flags": 0
-        },
-        {
-          "id": "40706",
-          "metadata": {
-            "label": "Config",
-            "description": "Create a configurable variable"
-          },
-          "codedata": {
-            "node": "CONFIG_VARIABLE",
-            "lineRange": {
-              "fileName": "main.bal",
-              "startLine": {
-                "line": 9,
-                "offset": 0
-              },
-              "endLine": {
-                "line": 9,
+                "line": 3,
                 "offset": 34
               }
             }
@@ -159,7 +95,7 @@
                 "description": "Type of the variable"
               },
               "valueType": "TYPE",
-              "value": "int|string",
+              "value": "float",
               "placeholder": "var",
               "optional": false,
               "editable": true,
@@ -174,7 +110,71 @@
               },
               "valueType": "IDENTIFIER",
               "valueTypeConstraint": "Global",
-              "value": "myVal",
+              "value": "discount",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "defaultable": {
+              "metadata": {
+                "label": "Default value",
+                "description": "Default value for the config, if empty your need to provide a value at runtime"
+              },
+              "valueType": "EXPRESSION",
+              "value": "4.5",
+              "optional": true,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            }
+          },
+          "flags": 0
+        },
+        {
+          "id": "35746",
+          "metadata": {
+            "label": "Config",
+            "description": "Create a configurable variable"
+          },
+          "codedata": {
+            "node": "CONFIG_VARIABLE",
+            "lineRange": {
+              "fileName": "main.bal",
+              "startLine": {
+                "line": 4,
+                "offset": 0
+              },
+              "endLine": {
+                "line": 4,
+                "offset": 34
+              }
+            }
+          },
+          "returning": false,
+          "properties": {
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "TYPE",
+              "value": "boolean",
+              "placeholder": "var",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false,
+              "codedata": {}
+            },
+            "variable": {
+              "metadata": {
+                "label": "Variable Name",
+                "description": "Name of the variable"
+              },
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "Global",
+              "value": "testMode",
               "optional": false,
               "editable": true,
               "advanced": false,
@@ -194,9 +194,11 @@
             }
           },
           "flags": 0
-        },
+        }
+      ],
+      "mod1": [
         {
-          "id": "41738",
+          "id": "31781",
           "metadata": {
             "label": "Config",
             "description": "Create a configurable variable"
@@ -204,14 +206,14 @@
           "codedata": {
             "node": "CONFIG_VARIABLE",
             "lineRange": {
-              "fileName": "main.bal",
+              "fileName": "mod1.bal",
               "startLine": {
-                "line": 10,
+                "line": 0,
                 "offset": 0
               },
               "endLine": {
-                "line": 10,
-                "offset": 74
+                "line": 0,
+                "offset": 37
               }
             }
           },
@@ -223,7 +225,7 @@
                 "description": "Type of the variable"
               },
               "valueType": "TYPE",
-              "value": "map<int>",
+              "value": "string",
               "placeholder": "var",
               "optional": false,
               "editable": true,
@@ -238,7 +240,7 @@
               },
               "valueType": "IDENTIFIER",
               "valueTypeConstraint": "Global",
-              "value": "itemCodes",
+              "value": "nameVal",
               "optional": false,
               "editable": true,
               "advanced": false,
@@ -250,71 +252,7 @@
                 "description": "Default value for the config, if empty your need to provide a value at runtime"
               },
               "valueType": "EXPRESSION",
-              "value": "{\"item1\": 11, \"item2\": 12, \"item3\": 45}",
-              "optional": true,
-              "editable": true,
-              "advanced": false,
-              "hidden": false
-            }
-          },
-          "flags": 0
-        },
-        {
-          "id": "42718",
-          "metadata": {
-            "label": "Config",
-            "description": "Create a configurable variable"
-          },
-          "codedata": {
-            "node": "CONFIG_VARIABLE",
-            "lineRange": {
-              "fileName": "main.bal",
-              "startLine": {
-                "line": 11,
-                "offset": 0
-              },
-              "endLine": {
-                "line": 11,
-                "offset": 62
-              }
-            }
-          },
-          "returning": false,
-          "properties": {
-            "type": {
-              "metadata": {
-                "label": "Variable Type",
-                "description": "Type of the variable"
-              },
-              "valueType": "TYPE",
-              "value": "string[]",
-              "placeholder": "var",
-              "optional": false,
-              "editable": true,
-              "advanced": false,
-              "hidden": false,
-              "codedata": {}
-            },
-            "variable": {
-              "metadata": {
-                "label": "Variable Name",
-                "description": "Name of the variable"
-              },
-              "valueType": "IDENTIFIER",
-              "valueTypeConstraint": "Global",
-              "value": "itemNames",
-              "optional": false,
-              "editable": true,
-              "advanced": false,
-              "hidden": false
-            },
-            "defaultable": {
-              "metadata": {
-                "label": "Default value",
-                "description": "Default value for the config, if empty your need to provide a value at runtime"
-              },
-              "valueType": "EXPRESSION",
-              "value": "[\"item1\", \"item2\", \"item3\"]",
+              "value": "\"User\"",
               "optional": true,
               "editable": true,
               "advanced": false,

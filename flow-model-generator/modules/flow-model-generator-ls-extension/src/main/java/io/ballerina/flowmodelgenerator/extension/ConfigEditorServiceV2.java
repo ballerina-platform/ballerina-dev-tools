@@ -101,12 +101,17 @@ public class ConfigEditorServiceV2 implements ExtendedLanguageServerService {
                 // Add config variables from main project
                 Map<String, List<FlowNode>> moduleConfigVarMap = new HashMap<>();
                 for (Module module : currentPackage.modules()) {
-                    String moduleName = module.moduleName().moduleNamePart() != null ?
-                            module.moduleName().moduleNamePart() : "";
-                    moduleConfigVarMap.put(moduleName, extractModuleConfigVariables(module));
+                    List<FlowNode> variables = extractModuleConfigVariables(module);
+                    if (!variables.isEmpty()) {
+                        String moduleName = module.moduleName().moduleNamePart() != null ?
+                                module.moduleName().moduleNamePart() : "";
+                        moduleConfigVarMap.put(moduleName, variables);
+                    }
                 }
-                String packageKey = currentPackage.packageOrg().value() + "/" + currentPackage.packageName().value();
-                configVarMap.put(packageKey, moduleConfigVarMap);
+                if (!moduleConfigVarMap.isEmpty()) {
+                    String packageKey = currentPackage.packageOrg().value() + "/" + currentPackage.packageName().value();
+                    configVarMap.put(packageKey, moduleConfigVarMap);
+                }
 
                 // Add config variables from dependencies
                 configVarMap.putAll(extractConfigsFromDependencies(currentPackage));
@@ -193,7 +198,8 @@ public class ConfigEditorServiceV2 implements ExtendedLanguageServerService {
      */
     private static List<FlowNode> extractModuleConfigVariables(Module module) {
         List<FlowNode> configVariables = new LinkedList<>();
-        SemanticModel semanticModel = module.getCompilation().getSemanticModel();
+        // Note: Cannot use "module.getCompilation().semanticModel()" as it causes intermittent errors
+        SemanticModel semanticModel = module.packageInstance().getCompilation().getSemanticModel(module.moduleId());
         for (DocumentId documentId : module.documentIds()) {
             Document document = module.document(documentId);
             ModulePartNode modulePartNode = document.syntaxTree().rootNode();
