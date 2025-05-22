@@ -13,6 +13,7 @@ CREATE TABLE Package (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     org TEXT,
     name TEXT NOT NULL,
+    package_name TEXT NOT NULL,
     version TEXT,
     pull_count INTEGER,
     keywords TEXT

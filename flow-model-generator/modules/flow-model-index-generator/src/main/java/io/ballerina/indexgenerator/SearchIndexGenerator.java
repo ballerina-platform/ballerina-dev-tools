@@ -144,8 +144,8 @@ public class SearchIndexGenerator {
 
         String moduleName = module.moduleName().toString();
         int packageId = SearchDatabaseManager.insertPackage(descriptor.org().value(), moduleName,
-                descriptor.version().value().toString(), packageMetadataInfo.pullCount(),
-                resolvedPackage.manifest().keywords());
+                module.packageInstance().packageName().value(), descriptor.version().value().toString(),
+                packageMetadataInfo.pullCount(), resolvedPackage.manifest().keywords());
 
         if (packageId == -1) {
             throw new Exception("Error inserting package to database: " + module);
