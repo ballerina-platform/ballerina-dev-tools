@@ -18,8 +18,10 @@
             }
           },
           "scope": "LOCAL",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.0.png",
-          "uuid": "42fb2036-e0d0-829a-62ec-e424e0564a2d",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.1.png",
+          "dependentFunctions": [],
+          "dependentConnection": [],
+          "uuid": "52098dd8-e53c-3a9b-c7a2-f6cbee070fd3",
           "enableFlowModel": true,
           "sortText": "BITService.bal10"
         }
@@ -39,7 +41,7 @@
             }
           },
           "attachedServices": [
-            "11d08b0b-2dde-46dc-ba7d-64ab60419a13"
+            "9d7deb9b-633a-1087-8a9b-1ee7fd1091ec"
           ],
           "kind": "ANON",
           "type": "http:Listener",
@@ -49,8 +51,8 @@
               "value": "8080"
             }
           ],
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.0.png",
-          "uuid": "2da4046b-83dd-d3d1-03c4-87132759fde2",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.1.png",
+          "uuid": "5d4e7555-da87-4523-317b-8497e9d819f0",
           "enableFlowModel": false,
           "sortText": "BITService.bal2"
         }
@@ -69,10 +71,10 @@
             }
           },
           "attachedListeners": [
-            "2da4046b-83dd-d3d1-03c4-87132759fde2"
+            "5d4e7555-da87-4523-317b-8497e9d819f0"
           ],
           "connections": [
-            "42fb2036-e0d0-829a-62ec-e424e0564a2d"
+            "52098dd8-e53c-3a9b-c7a2-f6cbee070fd3"
           ],
           "functions": [],
           "remoteFunctions": [],
@@ -92,14 +94,14 @@
                 }
               },
               "connections": [
-                "42fb2036-e0d0-829a-62ec-e424e0564a2d"
+                "52098dd8-e53c-3a9b-c7a2-f6cbee070fd3"
               ]
             }
           ],
           "absolutePath": "/api ",
           "type": "http:Service",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.13.0.png",
-          "uuid": "11d08b0b-2dde-46dc-ba7d-64ab60419a13",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.14.1.png",
+          "uuid": "9d7deb9b-633a-1087-8a9b-1ee7fd1091ec",
           "enableFlowModel": true,
           "sortText": "BITService.bal2"
         }
