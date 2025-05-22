@@ -19,6 +19,7 @@
 package io.ballerina.flowmodelgenerator.extension;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.Qualifier;
@@ -58,6 +59,7 @@ import org.eclipse.lsp4j.services.LanguageServer;
 import java.nio.file.Path;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -66,7 +68,7 @@ import java.util.concurrent.CompletableFuture;
 
 @JavaSPIService("org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService")
 @JsonSegment("configEditorV2")
-public class ConfigEditorServiceV2 implements ExtendedLanguageServerService {
+public class ConfigEditorV2Service implements ExtendedLanguageServerService {
 
     private WorkspaceManager workspaceManager;
     private Gson gson;
@@ -74,7 +76,7 @@ public class ConfigEditorServiceV2 implements ExtendedLanguageServerService {
     @Override
     public void init(LanguageServer langServer, WorkspaceManager workspaceManager) {
         this.workspaceManager = workspaceManager;
-        this.gson = new Gson();
+        this.gson = new GsonBuilder().serializeNulls().create();
     }
 
     @Override
@@ -93,7 +95,8 @@ public class ConfigEditorServiceV2 implements ExtendedLanguageServerService {
     public CompletableFuture<ConfigVariablesResponse> getConfigVariables(ConfigVariablesGetRequest req) {
         return CompletableFuture.supplyAsync(() -> {
             ConfigVariablesResponse response = new ConfigVariablesResponse();
-            Map<String, Map<String, List<FlowNode>>> configVarMap = new HashMap<>();
+            // Need to preserve the insertion order (default package first)
+            Map<String, Map<String, List<FlowNode>>> configVarMap = new LinkedHashMap<>();
             try {
                 Project project = workspaceManager.loadProject(Path.of(req.projectPath()));
                 Package currentPackage = project.currentPackage();
@@ -116,7 +119,7 @@ public class ConfigEditorServiceV2 implements ExtendedLanguageServerService {
                 // Add config variables from dependencies
                 configVarMap.putAll(extractConfigsFromDependencies(currentPackage));
 
-                response.setConfigVariables(new Gson().toJsonTree(configVarMap));
+                response.setConfigVariables(gson.toJsonTree(configVarMap));
             } catch (Throwable e) {
                 response.setError(e);
             }
