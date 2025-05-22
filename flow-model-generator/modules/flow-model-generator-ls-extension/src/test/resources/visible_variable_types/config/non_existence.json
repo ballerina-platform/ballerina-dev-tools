@@ -9,7 +9,7 @@
           "name": "moduleInput",
           "type": {
             "name": "Input",
-            "typeName": "Input",
+            "typeName": "record",
             "optional": false,
             "defaultable": false,
             "isRestType": false,
@@ -36,7 +36,7 @@
           "name": "configInput",
           "type": {
             "name": "Input & readonly",
-            "typeName": "Input & readonly",
+            "typeName": "intersection",
             "optional": false,
             "defaultable": false,
             "isRestType": false,
@@ -47,7 +47,7 @@
           "name": "configTable",
           "type": {
             "name": "table<Input> key(name) & readonly",
-            "typeName": "table<Input> key(name) & readonly",
+            "typeName": "intersection",
             "optional": false,
             "defaultable": false,
             "isRestType": false,
