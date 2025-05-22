@@ -87,9 +87,11 @@ class DatabaseManager {
         }
     }
 
-    public static int insertPackage(String org, String name, String version, List<String> keywords) {
-        String sql = "INSERT INTO Package (org, name, version, keywords) VALUES (?, ?, ?, ?)";
-        return insertEntry(sql, new Object[]{org, name, version, keywords == null ? "" : String.join(",", keywords)});
+    public static int insertPackage(String org, String packageName, String moduleName, String version,
+                                    List<String> keywords) {
+        String sql = "INSERT INTO Package (org, package_name, module_name, version, keywords) VALUES (?, ?, ?, ?, ?)";
+        return insertEntry(sql, new Object[]{org, packageName, moduleName, version,
+                keywords == null ? "" : String.join(",", keywords)});
     }
 
     public static int insertFunction(int packageId, String name, String description, String returnType, String kind,
@@ -127,7 +129,7 @@ class DatabaseManager {
         insertEntry(sql, new Object[]{actionId, connectorId});
     }
 
-    public static void updateTypeParameter(String packageName, String oldType, String newType) {
+    public static void updateTypeParameter(String moduleName, String oldType, String newType) {
         String sql1 = "UPDATE Parameter " +
                 "SET type = REPLACE(type, ?, ?) " +
                 "WHERE parameter_id IN (" +
@@ -135,7 +137,7 @@ class DatabaseManager {
                 "    FROM Package p" +
                 "    JOIN Function f ON p.package_id = f.package_id" +
                 "    JOIN Parameter pa ON f.function_id = pa.function_id" +
-                "    WHERE p.name = ?" +
+                "    WHERE p.module_name = ?" +
                 "    AND pa.type LIKE ?" +
                 ")";
 
@@ -143,11 +145,11 @@ class DatabaseManager {
              PreparedStatement stmt = conn.prepareStatement(sql1)) {
             stmt.setString(1, oldType);
             stmt.setString(2, newType);
-            stmt.setString(3, packageName);
+            stmt.setString(3, moduleName);
             stmt.setString(4, "%" + oldType + "%");
 
             int rowsUpdated = stmt.executeUpdate();
-            LOGGER.info(rowsUpdated + " parameter records updated for " + packageName);
+            LOGGER.info(rowsUpdated + " parameter records updated for " + moduleName);
         } catch (SQLException e) {
             LOGGER.severe("Error updating parameter types: " + e.getMessage());
         }
@@ -157,7 +159,7 @@ class DatabaseManager {
                 "WHERE package_id IN (" +
                 "    SELECT package_id" +
                 "    FROM Package" +
-                "    WHERE name = ?" +
+                "    WHERE module_name = ?" +
                 "    AND return_type LIKE ?" +
                 ")";
 
@@ -165,11 +167,11 @@ class DatabaseManager {
              PreparedStatement stmt = conn.prepareStatement(sql2)) {
             stmt.setString(1, oldType);
             stmt.setString(2, newType);
-            stmt.setString(3, packageName);
+            stmt.setString(3, moduleName);
             stmt.setString(4, "%" + oldType + "%");
 
             int rowsUpdated = stmt.executeUpdate();
-            LOGGER.info(rowsUpdated + " return type records updated for " + packageName);
+            LOGGER.info(rowsUpdated + " return type records updated for " + moduleName);
         } catch (SQLException e) {
             LOGGER.severe("Error updating return types: " + e.getMessage());
         }

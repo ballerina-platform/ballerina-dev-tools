@@ -172,7 +172,7 @@ class IndexGenerator {
         String moduleName = descriptor.name().toString();
         LOGGER.info("Processing package: " + moduleName);
         int packageId = DatabaseManager.insertPackage(descriptor.org().value(),
-                moduleName,
+               module.packageInstance().packageName().value(), moduleName,
                 descriptor.version().value().toString(), resolvedPackage.manifest().keywords());
         if (packageId == -1) {
             LOGGER.severe("Error inserting package to database: " + moduleName);

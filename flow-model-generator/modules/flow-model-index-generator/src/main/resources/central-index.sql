@@ -9,7 +9,8 @@ DROP TABLE IF EXISTS ParameterMemberType;
 -- Create Package table
 CREATE TABLE Package (
     package_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
+    package_name TEXT NOT NULL,
+    module_name TEXT NOT NULL,
     org TEXT NOT NULL,
     version TEXT,
     keywords TEXT

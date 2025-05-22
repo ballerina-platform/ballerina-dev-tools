@@ -420,7 +420,7 @@ public class FunctionDataBuilder {
         String returnType = returnTypeSymbol
                 .map(typeSymbol -> {
                     if (functionKind == FunctionData.Kind.CONNECTOR || functionKind == FunctionData.Kind.CLASS_INIT) {
-                        return CommonUtils.getClassType(moduleInfo.packageName(),
+                        return CommonUtils.getClassType(moduleInfo.moduleName(),
                                 parentSymbol.getName().orElse("Client"));
                     }
                     return getTypeSignature(typeSymbol, true);
