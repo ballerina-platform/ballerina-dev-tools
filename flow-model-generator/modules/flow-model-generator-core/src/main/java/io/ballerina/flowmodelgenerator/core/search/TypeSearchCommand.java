@@ -103,7 +103,7 @@ class TypeSearchCommand extends SearchCommand {
             SearchResult.Package packageInfo = searchResult.packageInfo();
 
             // Add the type to the respective category
-            String icon = CommonUtils.generateIcon(packageInfo.org(), packageInfo.name(), packageInfo.version());
+            String icon = CommonUtils.generateIcon(packageInfo.org(), packageInfo.packageName(), packageInfo.version());
             Metadata metadata = new Metadata.Builder<>(null)
                     .label(searchResult.name())
                     .description(searchResult.description())
@@ -112,14 +112,15 @@ class TypeSearchCommand extends SearchCommand {
             Codedata codedata = new Codedata.Builder<>(null)
                     .node(NodeKind.TYPEDESC)
                     .org(packageInfo.org())
-                    .module(packageInfo.name())
+                    .module(packageInfo.moduleName())
+                    .packageName(packageInfo.packageName())
                     .symbol(searchResult.name())
                     .version(packageInfo.version())
                     .build();
             Category.Builder builder =
-                    moduleNames.contains(packageInfo.name()) ? importedTypesBuilder : availableTypesBuilder;
+                    moduleNames.contains(packageInfo.moduleName()) ? importedTypesBuilder : availableTypesBuilder;
             if (builder != null) {
-                builder.stepIn(packageInfo.name(), "", List.of())
+                builder.stepIn(packageInfo.moduleName(), "", List.of())
                         .node(new AvailableNode(metadata, codedata, true));
             }
         }
