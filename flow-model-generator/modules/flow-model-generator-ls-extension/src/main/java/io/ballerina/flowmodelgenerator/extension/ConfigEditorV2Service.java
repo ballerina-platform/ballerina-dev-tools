@@ -23,9 +23,11 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.Qualifier;
+import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.ModuleVariableDeclarationNode;
 import io.ballerina.compiler.syntax.tree.Node;
+import io.ballerina.compiler.syntax.tree.NodeParser;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
 import io.ballerina.flowmodelgenerator.core.ConfigVariablesManager;
@@ -42,27 +44,38 @@ import io.ballerina.projects.DocumentId;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.ModuleDependency;
 import io.ballerina.projects.Package;
-import io.ballerina.projects.PackageDescriptor;
 import io.ballerina.projects.PlatformLibraryScope;
 import io.ballerina.projects.Project;
 import io.ballerina.projects.ProjectKind;
-import io.ballerina.projects.ResolvedPackageDependency;
 import org.ballerinalang.annotation.JavaSPIService;
 import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
 import org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
+import org.ballerinalang.model.elements.PackageID;
 import org.eclipse.lsp4j.jsonrpc.services.JsonRequest;
 import org.eclipse.lsp4j.jsonrpc.services.JsonSegment;
 import org.eclipse.lsp4j.services.LanguageServer;
+import org.wso2.ballerinalang.compiler.PackageCache;
+import org.wso2.ballerinalang.compiler.semantics.model.symbols.BPackageSymbol;
+import org.wso2.ballerinalang.compiler.semantics.model.symbols.BVarSymbol;
+import org.wso2.ballerinalang.compiler.semantics.model.symbols.SymTag;
+import org.wso2.ballerinalang.compiler.semantics.model.symbols.Symbols;
+import org.wso2.ballerinalang.compiler.tree.BLangPackage;
+import org.wso2.ballerinalang.compiler.tree.BLangVariable;
+import org.wso2.ballerinalang.compiler.util.CompilerContext;
+import org.wso2.ballerinalang.compiler.util.Names;
+import org.wso2.ballerinalang.util.Flags;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
@@ -101,7 +114,7 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
                 Project project = workspaceManager.loadProject(Path.of(req.projectPath()));
                 Package currentPackage = project.currentPackage();
 
-                // Add config variables from main project
+                // Extract config variables from the main project
                 Map<String, List<FlowNode>> moduleConfigVarMap = new HashMap<>();
                 for (Module module : currentPackage.modules()) {
                     List<FlowNode> variables = extractModuleConfigVariables(module);
@@ -116,7 +129,7 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
                     configVarMap.put(pkgName, moduleConfigVarMap);
                 }
 
-                // Add config variables from dependencies
+                // Extract config variables from dependencies
                 configVarMap.putAll(extractConfigsFromDependencies(currentPackage));
 
                 response.setConfigVariables(gson.toJsonTree(configVarMap));
@@ -240,47 +253,6 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
     }
 
     /**
-     * Retrieve configurable variables for all the direct imports for a package.
-     *
-     * @param currentPkg         Current package instance
-     * @param moduleDependencies Used dependencies of the package
-     * @return Map of configurable variables organized by module details
-     */
-    private static Map<String, Map<String, List<FlowNode>>> getImportedConfigVars(
-            Package currentPkg, Collection<ModuleDependency> moduleDependencies) {
-        Map<String, Map<String, List<FlowNode>>> pkgConfigs = new HashMap<>();
-        Collection<ResolvedPackageDependency> dependencies = currentPkg.getResolution().dependencyGraph().getNodes();
-        for (ResolvedPackageDependency dependency : dependencies) {
-            if (!isDirectDependency(dependency, moduleDependencies)) {
-                continue;
-            }
-
-            Map<String, List<FlowNode>> moduleConfigs = processDependency(dependency);
-            if (!moduleConfigs.isEmpty()) {
-                String pkgKey = dependency.packageInstance().packageOrg().value() + "/" +
-                        dependency.packageInstance().packageName().value();
-                pkgConfigs.put(pkgKey, moduleConfigs);
-            }
-        }
-
-        return pkgConfigs;
-    }
-
-    private static Map<String, List<FlowNode>> processDependency(ResolvedPackageDependency dependency) {
-        Map<String, List<FlowNode>> moduleConfigs = new HashMap<>();
-        for (Module module : dependency.packageInstance().modules()) {
-            List<FlowNode> variables = extractModuleConfigVariables(module);
-            if (!variables.isEmpty()) {
-                String moduleName = module.moduleName().moduleNamePart() != null ?
-                        module.moduleName().moduleNamePart() : "";
-                moduleConfigs.put(moduleName, variables);
-            }
-        }
-
-        return moduleConfigs;
-    }
-
-    /**
      * Get all the valid dependencies for the package.
      *
      * @param packageInstance Package instance
@@ -290,7 +262,7 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
     private static void populateValidDependencies(Package packageInstance, Module module,
                                                   Collection<ModuleDependency> dependencies) {
         for (ModuleDependency moduleDependency : module.moduleDependencies()) {
-            if (!isDefaultScope(moduleDependency)) {
+            if (!isDefaultScope(moduleDependency) || isWithinSamePackage(moduleDependency, packageInstance)) {
                 continue;
             }
             dependencies.add(moduleDependency);
@@ -334,27 +306,144 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
     }
 
     /**
-     * Check if a given resolved package dependency is a direct dependency of the package.
+     * Retrieve configurable variables for all the direct imports for a package.
      *
-     * @param dep                Resolved package dependency to check against
-     * @param moduleDependencies Collection of module dependencies
-     * @return boolean value indicating whether the module dependency is a direct dependency or not
+     * @param currentPackage    Current package instance
+     * @param validDependencies Used dependencies of the package
+     * @return Map of configurable variables organized by module details
      */
-    private static boolean isDirectDependency(ResolvedPackageDependency dep,
-                                              Collection<ModuleDependency> moduleDependencies) {
-        PackageDescriptor descriptor = dep.packageInstance().descriptor();
-        String orgName = descriptor.org().value();
-        String packageName = descriptor.name().value();
+    private static Map<String, Map<String, List<FlowNode>>> getImportedConfigVars(
+            Package currentPackage, Collection<ModuleDependency> validDependencies) {
 
-        for (ModuleDependency dependency : moduleDependencies) {
-            if (dependency.descriptor().org().value().equals(orgName) &&
-                    dependency.descriptor().packageName().value().equals(packageName)) {
-                return true;
+        Map<String, Map<String, List<FlowNode>>> dependencyConfigMap = new HashMap<>();
+        for (Module module : currentPackage.modules()) {
+            BLangPackage bLangPackage = getBLangPackageForModule(module);
+            if (bLangPackage == null) {
+                continue;
             }
+
+            bLangPackage.symbol.imports.forEach(
+                    importSymbol -> {
+                        if (isDirectDependency(validDependencies, importSymbol)) {
+                            processImportSymbol(module, importSymbol, dependencyConfigMap, validDependencies);
+                        }
+                    }
+            );
         }
-        return false;
+
+        return dependencyConfigMap;
     }
 
+    private static BLangPackage getBLangPackageForModule(Module module) {
+        CompilerContext compilerContext = module.project().projectEnvironmentContext()
+                .getService(CompilerContext.class);
+        PackageCache packageCache = PackageCache.getInstance(compilerContext);
+        PackageID packageID = new PackageID(
+                Names.fromString(module.descriptor().org().value()),
+                Names.fromString(module.descriptor().packageName().value()),
+                Names.fromString(module.descriptor().version().value().toString())
+        );
+        return packageCache.get(packageID);
+    }
+
+    /**
+     * Process an import symbol to extract configuration variables.
+     *
+     * @param module             Current module
+     * @param importSymbol       Import symbol to process
+     * @param configDetails      Map to store the configurable variables against module
+     * @param moduleDependencies Collection of module dependencies
+     */
+    private static void processImportSymbol(Module module, BPackageSymbol importSymbol,
+                                            Map<String, Map<String, List<FlowNode>>> configDetails,
+                                            Collection<ModuleDependency> moduleDependencies) {
+        String orgName = importSymbol.descriptor.org().value();
+        String packageName = importSymbol.descriptor.packageName().value();
+        String moduleNamePart = importSymbol.descriptor.name().moduleNamePart();
+        String moduleName = moduleNamePart == null ? "" : moduleNamePart;
+
+        Optional<ModuleDependency> matchingDependency = Optional.empty();
+        for (ModuleDependency dependency : moduleDependencies) {
+            String dependencyOrgName = dependency.descriptor().org().value();
+            String dependencyPackageName = dependency.descriptor().packageName().value();
+            String dependencyModuleNamePart = dependency.descriptor().name().moduleNamePart();
+
+            if (dependencyOrgName.equals(orgName) && dependencyPackageName.equals(packageName)
+                    && Objects.equals(moduleNamePart, dependencyModuleNamePart)) {
+                matchingDependency = Optional.of(dependency);
+                break;
+            }
+        }
+
+        if (matchingDependency.isEmpty()) {
+            return;
+        }
+
+        CompilerContext compilerContext = module.project().projectEnvironmentContext()
+                .getService(CompilerContext.class);
+        PackageCache packageCache = PackageCache.getInstance(compilerContext);
+        ModuleDependency moduleDependency = matchingDependency.get();
+        PackageID packageID = new PackageID(
+                Names.fromString(moduleDependency.descriptor().org().value()),
+                Names.fromString(moduleDependency.descriptor().packageName().value()),
+                Names.fromString(moduleDependency.descriptor().version().value().toString())
+        );
+        BLangPackage bLangPackage = packageCache.get(packageID);
+        if (bLangPackage == null) {
+            return;
+        }
+
+        List<FlowNode> configVariables = new ArrayList<>();
+        bLangPackage.getGlobalVariables().forEach(globalVar -> {
+            Optional<FlowNode> configVariable = getConfigFromBVar(globalVar);
+            configVariable.ifPresent(configVariables::add);
+        });
+
+        if (!configVariables.isEmpty()) {
+            Map<String, List<FlowNode>> moduleConfigMap = new HashMap<>();
+            moduleConfigMap.put(moduleName, configVariables);
+            configDetails.put(orgName + "/" + packageName, moduleConfigMap);
+        }
+    }
+
+    /**
+     * Check if a given import symbol is a direct dependency of the package.
+     *
+     * @param moduleDependencies Collection of module dependencies
+     * @param importSymbol       Import symbol to check against
+     * @return boolean value indicating whether the module dependency is a direct dependency or not
+     */
+    private static boolean isDirectDependency(Collection<ModuleDependency> moduleDependencies,
+                                              BPackageSymbol importSymbol) {
+        String orgName = importSymbol.descriptor.org().value();
+        String packageName = importSymbol.descriptor.packageName().value();
+        String moduleName = importSymbol.descriptor.name().moduleNamePart();
+
+        return moduleDependencies.stream().anyMatch(dependency ->
+                dependency.descriptor().org().value().equals(orgName) &&
+                        dependency.descriptor().packageName().value().equals(packageName) &&
+                        (moduleName == null
+                                ? dependency.descriptor().name().moduleNamePart() == null
+                                : moduleName.equals(dependency.descriptor().name().moduleNamePart()))
+        );
+    }
+
+    private static Optional<FlowNode> getConfigFromBVar(BLangVariable globalVar) {
+        BVarSymbol symbol = globalVar.symbol;
+        if (symbol == null || symbol.tag != SymTag.VARIABLE || !Symbols.isFlagOn(symbol.flags, Flags.CONFIGURABLE)) {
+            return Optional.empty();
+        }
+
+        return Optional.ofNullable(constructConfigVarNode(globalVar));
+    }
+
+    /**
+     * Construct a configuration variable node from the given variable node.
+     *
+     * @param variableNode  The variable node to construct from
+     * @param semanticModel The semantic model for the module
+     * @return A FlowNode representing the configuration variable
+     */
     private static FlowNode constructConfigVarNode(ModuleVariableDeclarationNode variableNode,
                                                    SemanticModel semanticModel) {
         DiagnosticHandler diagnosticHandler = new DiagnosticHandler(semanticModel);
@@ -379,5 +468,56 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
                 .defaultValue(variableNode.initializer().orElse(null))
                 .stepOut()
                 .build();
+    }
+
+    /**
+     * Construct a configuration variable node from the given BLang variable instance.
+     *
+     * @param variable The variable to construct from
+     * @return A FlowNode representing the configuration variable
+     */
+    private static FlowNode constructConfigVarNode(BLangVariable variable) {
+        // TODO: Can we add diagnostics handler without semantic model?
+        // DiagnosticHandler diagnosticHandler = new DiagnosticHandler(semanticModel);
+        NodeBuilder nodeBuilder = NodeBuilder.getNodeFromKind(NodeKind.CONFIG_VARIABLE)
+                // .semanticModel(semanticModel)
+                // .diagnosticHandler(diagnosticHandler)
+                .defaultModuleName(null);
+
+        BVarSymbol symbol = variable.symbol;
+        // diagnosticHandler.handle(nodeBuilder, symbol.getPosition().lineRange(), false);
+
+        return nodeBuilder
+                .metadata()
+                .label("Config variables")
+                .stepOut()
+                .codedata()
+                .node(NodeKind.CONFIG_VARIABLE)
+                .lineRange(symbol.getPosition().lineRange())
+                .stepOut()
+                .properties()
+                .type(symbol.getType().getQualifiedTypeName(), false, null)
+                .variableName(symbol.getName().getValue())
+                .defaultValue(getDefaultValueExpression(variable))
+                .stepOut()
+                .build();
+    }
+
+    private static ExpressionNode getDefaultValueExpression(BLangVariable variable) {
+        String defaultVal = variable.getInitialExpression() != null ? variable.getInitialExpression().toString() : null;
+        ExpressionNode valueExpression;
+        try {
+            valueExpression = NodeParser.parseExpression(defaultVal);
+        } catch (Exception e) {
+            valueExpression = null;
+        }
+        return valueExpression;
+    }
+
+    private static boolean isWithinSamePackage(ModuleDependency moduleDependency, Package packageInstance) {
+        String orgValue = moduleDependency.descriptor().org().value();
+        String packageVal = moduleDependency.descriptor().packageName().value();
+        return orgValue.equals(packageInstance.packageOrg().value()) &&
+                packageVal.equals(packageInstance.packageName().value());
     }
 }
