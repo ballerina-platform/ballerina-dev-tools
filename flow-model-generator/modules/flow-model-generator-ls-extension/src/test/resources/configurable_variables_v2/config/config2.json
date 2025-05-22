@@ -1,0 +1,1037 @@
+{
+  "project": "default_module_projects/simple_type_configs_imports",
+  "configVariables": {
+    "config_tests/simpleconfigs_imports": {
+      "": [
+        {
+          "id": "31782",
+          "metadata": {
+            "label": "Config",
+            "description": "Create a configurable variable"
+          },
+          "codedata": {
+            "node": "CONFIG_VARIABLE",
+            "lineRange": {
+              "fileName": "config.bal",
+              "startLine": {
+                "line": 0,
+                "offset": 0
+              },
+              "endLine": {
+                "line": 0,
+                "offset": 38
+              }
+            }
+          },
+          "returning": false,
+          "properties": {
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "TYPE",
+              "value": "int",
+              "placeholder": "var",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false,
+              "codedata": {}
+            },
+            "variable": {
+              "metadata": {
+                "label": "Variable Name",
+                "description": "Name of the variable"
+              },
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "Global",
+              "value": "fixedDiscount",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "defaultable": {
+              "metadata": {
+                "label": "Default value",
+                "description": "Default value for the config, if empty your need to provide a value at runtime"
+              },
+              "valueType": "EXPRESSION",
+              "value": "-200",
+              "optional": true,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            }
+          },
+          "flags": 0
+        },
+        {
+          "id": "32780",
+          "metadata": {
+            "label": "Config",
+            "description": "Create a configurable variable"
+          },
+          "codedata": {
+            "node": "CONFIG_VARIABLE",
+            "lineRange": {
+              "fileName": "config.bal",
+              "startLine": {
+                "line": 1,
+                "offset": 0
+              },
+              "endLine": {
+                "line": 1,
+                "offset": 44
+              }
+            }
+          },
+          "returning": false,
+          "properties": {
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "TYPE",
+              "value": "decimal",
+              "placeholder": "var",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false,
+              "codedata": {}
+            },
+            "variable": {
+              "metadata": {
+                "label": "Variable Name",
+                "description": "Name of the variable"
+              },
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "Global",
+              "value": "discountPercentage",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "defaultable": {
+              "metadata": {
+                "label": "Default value",
+                "description": "Default value for the config, if empty your need to provide a value at runtime"
+              },
+              "valueType": "EXPRESSION",
+              "value": "",
+              "optional": true,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            }
+          },
+          "flags": 0
+        },
+        {
+          "id": "33765",
+          "metadata": {
+            "label": "Config",
+            "description": "Create a configurable variable"
+          },
+          "codedata": {
+            "node": "CONFIG_VARIABLE",
+            "lineRange": {
+              "fileName": "config.bal",
+              "startLine": {
+                "line": 2,
+                "offset": 0
+              },
+              "endLine": {
+                "line": 2,
+                "offset": 37
+              }
+            }
+          },
+          "returning": false,
+          "properties": {
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "TYPE",
+              "value": "boolean",
+              "placeholder": "var",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false,
+              "codedata": {}
+            },
+            "variable": {
+              "metadata": {
+                "label": "Variable Name",
+                "description": "Name of the variable"
+              },
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "Global",
+              "value": "testMode",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "defaultable": {
+              "metadata": {
+                "label": "Default value",
+                "description": "Default value for the config, if empty your need to provide a value at runtime"
+              },
+              "valueType": "EXPRESSION",
+              "value": "true",
+              "optional": true,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            }
+          },
+          "flags": 0
+        }
+      ]
+    },
+    "ballerina/http": {
+      "": [
+        {
+          "id": "50164",
+          "metadata": {
+            "label": "Config",
+            "description": "Create a configurable variable"
+          },
+          "codedata": {
+            "node": "CONFIG_VARIABLE",
+            "lineRange": {
+              "fileName": "http_client_connection_pool.bal",
+              "startLine": {
+                "line": 18,
+                "offset": 17
+              },
+              "endLine": {
+                "line": 18,
+                "offset": 37
+              }
+            }
+          },
+          "returning": false,
+          "properties": {
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "TYPE",
+              "value": "ballerina/lang.annotations:0.0.0:int",
+              "placeholder": "var",
+              "optional": false,
+              "editable": false,
+              "advanced": false,
+              "hidden": false,
+              "codedata": {}
+            },
+            "variable": {
+              "metadata": {
+                "label": "Variable Name",
+                "description": "Name of the variable"
+              },
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "Global",
+              "value": "maxActiveConnections",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "defaultable": {
+              "metadata": {
+                "label": "Default value",
+                "description": "Default value for the config, if empty your need to provide a value at runtime"
+              },
+              "valueType": "EXPRESSION",
+              "value": "- 1",
+              "optional": true,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            }
+          },
+          "flags": 0
+        },
+        {
+          "id": "51154",
+          "metadata": {
+            "label": "Config",
+            "description": "Create a configurable variable"
+          },
+          "codedata": {
+            "node": "CONFIG_VARIABLE",
+            "lineRange": {
+              "fileName": "http_client_connection_pool.bal",
+              "startLine": {
+                "line": 19,
+                "offset": 17
+              },
+              "endLine": {
+                "line": 19,
+                "offset": 35
+              }
+            }
+          },
+          "returning": false,
+          "properties": {
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "TYPE",
+              "value": "ballerina/lang.annotations:0.0.0:int",
+              "placeholder": "var",
+              "optional": false,
+              "editable": false,
+              "advanced": false,
+              "hidden": false,
+              "codedata": {}
+            },
+            "variable": {
+              "metadata": {
+                "label": "Variable Name",
+                "description": "Name of the variable"
+              },
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "Global",
+              "value": "maxIdleConnections",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "defaultable": {
+              "metadata": {
+                "label": "Default value",
+                "description": "Default value for the config, if empty your need to provide a value at runtime"
+              },
+              "valueType": "EXPRESSION",
+              "value": "100",
+              "optional": true,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            }
+          },
+          "flags": 0
+        },
+        {
+          "id": "52264",
+          "metadata": {
+            "label": "Config",
+            "description": "Create a configurable variable"
+          },
+          "codedata": {
+            "node": "CONFIG_VARIABLE",
+            "lineRange": {
+              "fileName": "http_client_connection_pool.bal",
+              "startLine": {
+                "line": 20,
+                "offset": 21
+              },
+              "endLine": {
+                "line": 20,
+                "offset": 29
+              }
+            }
+          },
+          "returning": false,
+          "properties": {
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "TYPE",
+              "value": "ballerina/lang.annotations:0.0.0:decimal",
+              "placeholder": "var",
+              "optional": false,
+              "editable": false,
+              "advanced": false,
+              "hidden": false,
+              "codedata": {}
+            },
+            "variable": {
+              "metadata": {
+                "label": "Variable Name",
+                "description": "Name of the variable"
+              },
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "Global",
+              "value": "waitTime",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "defaultable": {
+              "metadata": {
+                "label": "Default value",
+                "description": "Default value for the config, if empty your need to provide a value at runtime"
+              },
+              "valueType": "EXPRESSION",
+              "value": "30",
+              "optional": true,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            }
+          },
+          "flags": 0
+        },
+        {
+          "id": "53149",
+          "metadata": {
+            "label": "Config",
+            "description": "Create a configurable variable"
+          },
+          "codedata": {
+            "node": "CONFIG_VARIABLE",
+            "lineRange": {
+              "fileName": "http_client_connection_pool.bal",
+              "startLine": {
+                "line": 21,
+                "offset": 17
+              },
+              "endLine": {
+                "line": 21,
+                "offset": 46
+              }
+            }
+          },
+          "returning": false,
+          "properties": {
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "TYPE",
+              "value": "ballerina/lang.annotations:0.0.0:int",
+              "placeholder": "var",
+              "optional": false,
+              "editable": false,
+              "advanced": false,
+              "hidden": false,
+              "codedata": {}
+            },
+            "variable": {
+              "metadata": {
+                "label": "Variable Name",
+                "description": "Name of the variable"
+              },
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "Global",
+              "value": "maxActiveStreamsPerConnection",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "defaultable": {
+              "metadata": {
+                "label": "Default value",
+                "description": "Default value for the config, if empty your need to provide a value at runtime"
+              },
+              "valueType": "EXPRESSION",
+              "value": "100",
+              "optional": true,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            }
+          },
+          "flags": 0
+        },
+        {
+          "id": "54260",
+          "metadata": {
+            "label": "Config",
+            "description": "Create a configurable variable"
+          },
+          "codedata": {
+            "node": "CONFIG_VARIABLE",
+            "lineRange": {
+              "fileName": "http_client_connection_pool.bal",
+              "startLine": {
+                "line": 22,
+                "offset": 21
+              },
+              "endLine": {
+                "line": 22,
+                "offset": 41
+              }
+            }
+          },
+          "returning": false,
+          "properties": {
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "TYPE",
+              "value": "ballerina/lang.annotations:0.0.0:decimal",
+              "placeholder": "var",
+              "optional": false,
+              "editable": false,
+              "advanced": false,
+              "hidden": false,
+              "codedata": {}
+            },
+            "variable": {
+              "metadata": {
+                "label": "Variable Name",
+                "description": "Name of the variable"
+              },
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "Global",
+              "value": "minEvictableIdleTime",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "defaultable": {
+              "metadata": {
+                "label": "Default value",
+                "description": "Default value for the config, if empty your need to provide a value at runtime"
+              },
+              "valueType": "EXPRESSION",
+              "value": "300",
+              "optional": true,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            }
+          },
+          "flags": 0
+        },
+        {
+          "id": "55255",
+          "metadata": {
+            "label": "Config",
+            "description": "Create a configurable variable"
+          },
+          "codedata": {
+            "node": "CONFIG_VARIABLE",
+            "lineRange": {
+              "fileName": "http_client_connection_pool.bal",
+              "startLine": {
+                "line": 23,
+                "offset": 21
+              },
+              "endLine": {
+                "line": 23,
+                "offset": 44
+              }
+            }
+          },
+          "returning": false,
+          "properties": {
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "TYPE",
+              "value": "ballerina/lang.annotations:0.0.0:decimal",
+              "placeholder": "var",
+              "optional": false,
+              "editable": false,
+              "advanced": false,
+              "hidden": false,
+              "codedata": {}
+            },
+            "variable": {
+              "metadata": {
+                "label": "Variable Name",
+                "description": "Name of the variable"
+              },
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "Global",
+              "value": "timeBetweenEvictionRuns",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "defaultable": {
+              "metadata": {
+                "label": "Default value",
+                "description": "Default value for the config, if empty your need to provide a value at runtime"
+              },
+              "valueType": "EXPRESSION",
+              "value": "30",
+              "optional": true,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            }
+          },
+          "flags": 0
+        },
+        {
+          "id": "56247",
+          "metadata": {
+            "label": "Config",
+            "description": "Create a configurable variable"
+          },
+          "codedata": {
+            "node": "CONFIG_VARIABLE",
+            "lineRange": {
+              "fileName": "http_client_connection_pool.bal",
+              "startLine": {
+                "line": 24,
+                "offset": 21
+              },
+              "endLine": {
+                "line": 24,
+                "offset": 44
+              }
+            }
+          },
+          "returning": false,
+          "properties": {
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "TYPE",
+              "value": "ballerina/lang.annotations:0.0.0:decimal",
+              "placeholder": "var",
+              "optional": false,
+              "editable": false,
+              "advanced": false,
+              "hidden": false,
+              "codedata": {}
+            },
+            "variable": {
+              "metadata": {
+                "label": "Variable Name",
+                "description": "Name of the variable"
+              },
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "Global",
+              "value": "minIdleTimeInStaleState",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "defaultable": {
+              "metadata": {
+                "label": "Default value",
+                "description": "Default value for the config, if empty your need to provide a value at runtime"
+              },
+              "valueType": "EXPRESSION",
+              "value": "300",
+              "optional": true,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            }
+          },
+          "flags": 0
+        },
+        {
+          "id": "57240",
+          "metadata": {
+            "label": "Config",
+            "description": "Create a configurable variable"
+          },
+          "codedata": {
+            "node": "CONFIG_VARIABLE",
+            "lineRange": {
+              "fileName": "http_client_connection_pool.bal",
+              "startLine": {
+                "line": 25,
+                "offset": 21
+              },
+              "endLine": {
+                "line": 25,
+                "offset": 45
+              }
+            }
+          },
+          "returning": false,
+          "properties": {
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "TYPE",
+              "value": "ballerina/lang.annotations:0.0.0:decimal",
+              "placeholder": "var",
+              "optional": false,
+              "editable": false,
+              "advanced": false,
+              "hidden": false,
+              "codedata": {}
+            },
+            "variable": {
+              "metadata": {
+                "label": "Variable Name",
+                "description": "Name of the variable"
+              },
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "Global",
+              "value": "timeBetweenStaleEviction",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "defaultable": {
+              "metadata": {
+                "label": "Default value",
+                "description": "Default value for the config, if empty your need to provide a value at runtime"
+              },
+              "valueType": "EXPRESSION",
+              "value": "30",
+              "optional": true,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            }
+          },
+          "flags": 0
+        },
+        {
+          "id": "52371",
+          "metadata": {
+            "label": "Config",
+            "description": "Create a configurable variable"
+          },
+          "codedata": {
+            "node": "CONFIG_VARIABLE",
+            "lineRange": {
+              "fileName": "http_default_listener.bal",
+              "startLine": {
+                "line": 20,
+                "offset": 24
+              },
+              "endLine": {
+                "line": 20,
+                "offset": 43
+              }
+            }
+          },
+          "returning": false,
+          "properties": {
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "TYPE",
+              "value": "ballerina/lang.annotations:0.0.0:int",
+              "placeholder": "var",
+              "optional": false,
+              "editable": false,
+              "advanced": false,
+              "hidden": false,
+              "codedata": {}
+            },
+            "variable": {
+              "metadata": {
+                "label": "Variable Name",
+                "description": "Name of the variable"
+              },
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "Global",
+              "value": "defaultListenerPort",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "defaultable": {
+              "metadata": {
+                "label": "Default value",
+                "description": "Default value for the config, if empty your need to provide a value at runtime"
+              },
+              "valueType": "EXPRESSION",
+              "value": "9090",
+              "optional": true,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            }
+          },
+          "flags": 0
+        },
+        {
+          "id": "51279",
+          "metadata": {
+            "label": "Config",
+            "description": "Create a configurable variable"
+          },
+          "codedata": {
+            "node": "CONFIG_VARIABLE",
+            "lineRange": {
+              "fileName": "http_log_manager.bal",
+              "startLine": {
+                "line": 19,
+                "offset": 21
+              },
+              "endLine": {
+                "line": 19,
+                "offset": 36
+              }
+            }
+          },
+          "returning": false,
+          "properties": {
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "TYPE",
+              "value": "ballerina/lang.annotations:0.0.0:boolean",
+              "placeholder": "var",
+              "optional": false,
+              "editable": false,
+              "advanced": false,
+              "hidden": false,
+              "codedata": {}
+            },
+            "variable": {
+              "metadata": {
+                "label": "Variable Name",
+                "description": "Name of the variable"
+              },
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "Global",
+              "value": "traceLogConsole",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "defaultable": {
+              "metadata": {
+                "label": "Default value",
+                "description": "Default value for the config, if empty your need to provide a value at runtime"
+              },
+              "valueType": "EXPRESSION",
+              "value": "false",
+              "optional": true,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            }
+          },
+          "flags": 0
+        },
+        {
+          "id": "79766",
+          "metadata": {
+            "label": "Config",
+            "description": "Create a configurable variable"
+          },
+          "codedata": {
+            "node": "CONFIG_VARIABLE",
+            "lineRange": {
+              "fileName": "http_log_manager.bal",
+              "startLine": {
+                "line": 47,
+                "offset": 43
+              },
+              "endLine": {
+                "line": 47,
+                "offset": 65
+              }
+            }
+          },
+          "returning": false,
+          "properties": {
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "TYPE",
+              "value": "ballerina/http:2.14.1:",
+              "placeholder": "var",
+              "optional": false,
+              "editable": false,
+              "advanced": false,
+              "hidden": false,
+              "codedata": {}
+            },
+            "variable": {
+              "metadata": {
+                "label": "Variable Name",
+                "description": "Name of the variable"
+              },
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "Global",
+              "value": "traceLogAdvancedConfig",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "defaultable": {
+              "metadata": {
+                "label": "Default value",
+                "description": "Default value for the config, if empty your need to provide a value at runtime"
+              },
+              "valueType": "EXPRESSION",
+              "value": " {}",
+              "optional": true,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            }
+          },
+          "flags": 0
+        },
+        {
+          "id": "80527",
+          "metadata": {
+            "label": "Config",
+            "description": "Create a configurable variable"
+          },
+          "codedata": {
+            "node": "CONFIG_VARIABLE",
+            "lineRange": {
+              "fileName": "http_log_manager.bal",
+              "startLine": {
+                "line": 48,
+                "offset": 36
+              },
+              "endLine": {
+                "line": 48,
+                "offset": 51
+              }
+            }
+          },
+          "returning": false,
+          "properties": {
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "TYPE",
+              "value": "ballerina/http:2.14.1:",
+              "placeholder": "var",
+              "optional": false,
+              "editable": false,
+              "advanced": false,
+              "hidden": false,
+              "codedata": {}
+            },
+            "variable": {
+              "metadata": {
+                "label": "Variable Name",
+                "description": "Name of the variable"
+              },
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "Global",
+              "value": "accessLogConfig",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "defaultable": {
+              "metadata": {
+                "label": "Default value",
+                "description": "Default value for the config, if empty your need to provide a value at runtime"
+              },
+              "valueType": "EXPRESSION",
+              "value": " {}",
+              "optional": true,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            }
+          },
+          "flags": 0
+        },
+        {
+          "id": "55925",
+          "metadata": {
+            "label": "Config",
+            "description": "Create a configurable variable"
+          },
+          "codedata": {
+            "node": "CONFIG_VARIABLE",
+            "lineRange": {
+              "fileName": "http_default_listener.bal",
+              "startLine": {
+                "line": 23,
+                "offset": 42
+              },
+              "endLine": {
+                "line": 23,
+                "offset": 63
+              }
+            }
+          },
+          "returning": false,
+          "properties": {
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "TYPE",
+              "value": "ballerina/http:2.14.1:",
+              "placeholder": "var",
+              "optional": false,
+              "editable": false,
+              "advanced": false,
+              "hidden": false,
+              "codedata": {}
+            },
+            "variable": {
+              "metadata": {
+                "label": "Variable Name",
+                "description": "Name of the variable"
+              },
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "Global",
+              "value": "defaultListenerConfig",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "defaultable": {
+              "metadata": {
+                "label": "Default value",
+                "description": "Default value for the config, if empty your need to provide a value at runtime"
+              },
+              "valueType": "EXPRESSION",
+              "value": " {}",
+              "optional": true,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            }
+          },
+          "flags": 0
+        }
+      ]
+    }
+  }
+}

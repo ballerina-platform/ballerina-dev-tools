@@ -1,0 +1,7 @@
+[config_tests.simpleconfigs]
+itemCode = "item12393"
+discount = 4.5
+testMode = false
+
+[config_tests.simpleconfigs.mod1]
+nameVal = "hello new"

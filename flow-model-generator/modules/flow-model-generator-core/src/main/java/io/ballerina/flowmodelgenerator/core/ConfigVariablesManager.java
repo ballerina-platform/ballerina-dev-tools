@@ -100,8 +100,8 @@ public class ConfigVariablesManager {
                 .stepOut()
                 .properties()
                 .type(typedBindingPattern.typeDescriptor(), true)
-                .defaultableName(typedBindingPattern.bindingPattern().toSourceCode().trim())
-                .defaultableVariable(modVarDeclNode.initializer().orElse(null))
+                .variableName(typedBindingPattern.bindingPattern().toSourceCode().trim())
+                .defaultValue(modVarDeclNode.initializer().orElse(null))
                 .stepOut()
                 .build();
     }

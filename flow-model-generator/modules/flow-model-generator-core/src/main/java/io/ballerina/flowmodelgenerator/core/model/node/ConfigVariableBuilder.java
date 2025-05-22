@@ -77,6 +77,6 @@ public class ConfigVariableBuilder extends NodeBuilder {
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
-        properties().defaultableName("").expression("", Property.EXPRESSION_DOC);
+        properties().variableName("").expression("", Property.EXPRESSION_DOC);
     }
 }

@@ -295,13 +295,13 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
         return this;
     }
 
-    public FormBuilder<T> defaultableName(String data) {
+    public FormBuilder<T> variableName(String name) {
         propertyBuilder
                 .metadata()
                     .label(Property.VARIABLE_NAME)
                     .description(Property.VARIABLE_DOC)
                     .stepOut()
-                .value(data)
+                .value(name)
                 .type(Property.ValueType.IDENTIFIER)
                 .typeConstraint(Property.GLOBAL_SCOPE)
                 .editable();
@@ -662,7 +662,7 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
         return this;
     }
 
-    public FormBuilder<T> defaultableVariable(ExpressionNode expr) {
+    public FormBuilder<T> defaultValue(ExpressionNode expr) {
         propertyBuilder
                 .metadata()
                     .label(Property.DEFAULT_VALUE_LABEL)
@@ -1150,7 +1150,7 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
     }
 
     public final void addProperty(String key, Node node) {
-        if (node != null) {
+        if (node != null && diagnosticHandler != null) {
             diagnosticHandler.handle(propertyBuilder, node.lineRange(), true);
         }
         Property property = propertyBuilder.build();
