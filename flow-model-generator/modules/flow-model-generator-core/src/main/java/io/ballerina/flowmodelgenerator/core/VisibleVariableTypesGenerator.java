@@ -21,14 +21,22 @@ package io.ballerina.flowmodelgenerator.core;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.ArrayTypeSymbol;
+import io.ballerina.compiler.api.symbols.ErrorTypeSymbol;
+import io.ballerina.compiler.api.symbols.IntersectionTypeSymbol;
+import io.ballerina.compiler.api.symbols.MapTypeSymbol;
 import io.ballerina.compiler.api.symbols.ObjectTypeSymbol;
 import io.ballerina.compiler.api.symbols.ParameterSymbol;
 import io.ballerina.compiler.api.symbols.PathParameterSymbol;
 import io.ballerina.compiler.api.symbols.Qualifier;
+import io.ballerina.compiler.api.symbols.RecordTypeSymbol;
+import io.ballerina.compiler.api.symbols.StreamTypeSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
+import io.ballerina.compiler.api.symbols.TableTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
+import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.compiler.api.symbols.resourcepath.util.PathSegment;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
@@ -139,9 +147,41 @@ public class VisibleVariableTypesGenerator {
         String typeName = CommonUtils.getTypeSignature(semanticModel, typeSymbol, false,
                 ModuleInfo.from(document.module().descriptor()));
         Type newType = new Type();
-        newType.typeName = typeName;
+        newType.typeName = getTypeName(typeSymbol);
         newType.name = typeName;
         return newType;
+    }
+
+    private String getTypeName(TypeSymbol typeSymbol) {
+        if (typeSymbol instanceof RecordTypeSymbol) {
+            return "record";
+        } else if (typeSymbol instanceof ArrayTypeSymbol) {
+            return "array";
+        } else if (typeSymbol instanceof MapTypeSymbol) {
+            return "map";
+        } else if (typeSymbol instanceof TableTypeSymbol) {
+            return "table";
+        } else if (typeSymbol instanceof UnionTypeSymbol) {
+            return "union";
+        } else if (typeSymbol instanceof ErrorTypeSymbol) {
+            return "error";
+        } else if (typeSymbol instanceof IntersectionTypeSymbol) {
+            return "intersection";
+        } else if (typeSymbol instanceof StreamTypeSymbol) {
+            return "stream";
+        } else if (typeSymbol instanceof ObjectTypeSymbol) {
+            return "object";
+        } else if (typeSymbol instanceof TypeReferenceTypeSymbol typeReferenceTypeSymbol) {
+            if (typeReferenceTypeSymbol.definition().kind().equals(SymbolKind.ENUM)) {
+                return "enum";
+            }
+            return getTypeName(typeReferenceTypeSymbol.typeDescriptor());
+        }
+        String typeName = typeSymbol.signature();
+        if (typeName.startsWith("\"") && typeName.endsWith("\"")) {
+            typeName = typeName.substring(1, typeName.length() - 1);
+        }
+        return typeName;
     }
 
     /**
