@@ -20,6 +20,7 @@ package io.ballerina.indexgenerator;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import io.ballerina.centralconnector.response.PackageResponse;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
 import io.ballerina.compiler.api.symbols.Documentable;
@@ -30,6 +31,8 @@ import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.modelgenerator.commons.PackageUtil;
+import io.ballerina.projects.Module;
+import io.ballerina.projects.ModuleDescriptor;
 import io.ballerina.projects.Package;
 import io.ballerina.projects.PackageDescriptor;
 import io.ballerina.projects.directory.BuildProject;
@@ -129,18 +132,27 @@ public class SearchIndexGenerator {
             logger.error("Error resolving package: " + packageMetadataInfo.name() + " " + e.getMessage());
             return;
         }
-        PackageDescriptor descriptor = resolvedPackage.descriptor();
+        for (Module module: resolvedPackage.modules()) {
+            processModule(packageMetadataInfo, resolvedPackage, module);
+        }
+        logger.completion(packageMetadataInfo.name());
+    }
 
-        int packageId = SearchDatabaseManager.insertPackage(descriptor.org().value(), descriptor.name().value(),
+    private static void processModule(SearchListGenerator.PackageMetadataInfo packageMetadataInfo,
+                                      Package resolvedPackage, Module module) throws Exception {
+        ModuleDescriptor descriptor = module.descriptor();
+
+        String moduleName = module.moduleName().toString();
+        int packageId = SearchDatabaseManager.insertPackage(descriptor.org().value(), moduleName,
                 descriptor.version().value().toString(), packageMetadataInfo.pullCount(),
                 resolvedPackage.manifest().keywords());
 
         if (packageId == -1) {
-            throw new Exception("Error inserting package to database: " + descriptor.name().value());
+            throw new Exception("Error inserting package to database: " + module);
         }
 
         SemanticModel semanticModel = PackageUtil.getCompilation(resolvedPackage)
-                .getSemanticModel(resolvedPackage.getDefaultModule().moduleId());
+                .getSemanticModel(module.moduleId());
 
         for (Symbol symbol : semanticModel.moduleSymbols()) {
             switch (symbol.kind()) {
@@ -187,7 +199,6 @@ public class SearchIndexGenerator {
                 }
             }
         }
-        logger.completion(packageMetadataInfo.name());
     }
 
     private static Optional<Info> getName(Symbol symbol) {
