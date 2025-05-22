@@ -734,6 +734,31 @@
       },
       "serviceTypes": {
       }
+    },
+    {
+      "name": "trigger.twilio",
+      "version": "0.10.0",
+      "serviceTypeSkipList": [],
+      "serviceDeclaration": {
+        "displayName": "Twilio Event Handler",
+        "optionalTypeDescriptor": 0,
+        "typeDescriptorLabel": "Event Channel",
+        "typeDescriptorDescription": "The event channel name",
+        "typeDescriptorDefaultValue": "",
+        "addDefaultTypeDescriptor": 0,
+        "optionalAbsoluteResourcePath": 1,
+        "absoluteResourcePathLabel": "Service Base Path",
+        "absoluteResourcePathDescription": "",
+        "absoluteResourcePathDefaultValue": "",
+        "optionalStringLiteral": 1,
+        "stringLiteralLabel": "Service Base Path",
+        "stringLiteralDescription": "",
+        "stringLiteralDefaultValue": "",
+        "listenerKind": "MULTIPLE_SELECT",
+        "kind": "event"
+      },
+      "serviceTypes": {
+      }
     }
   ]
 }
