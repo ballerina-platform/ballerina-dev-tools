@@ -129,18 +129,6 @@ public class PackageUtil {
         return Optional.empty();
     }
 
-    /**
-     * Retrieves the semantic model for a given package identified by organization, name, and version.
-     *
-     * @param org     The organization name of the package
-     * @param name    The name of the package
-     * @param version The version of the package
-     * @return An Optional containing the semantic model.
-     */
-    public static Optional<SemanticModel> getSemanticModel(String org, String name, String version) {
-        return getModulePackage(getSampleProject(), org, name, version).map(
-                pkg -> getCompilation(pkg).getSemanticModel(pkg.getDefaultModule().moduleId()));
-    }
 
     public static Optional<SemanticModel> getSemanticModel(String org, String name) {
         return getModulePackage(getSampleProject(), org, name).map(

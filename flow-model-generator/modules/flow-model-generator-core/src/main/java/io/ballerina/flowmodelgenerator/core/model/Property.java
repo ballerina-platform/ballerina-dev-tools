@@ -345,13 +345,14 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
 
         public Builder<T> typeMembers(List<ParameterMemberTypeData> memberTypeData) {
             this.typeMembers = memberTypeData.stream().map(memberType -> new PropertyTypeMemberInfo(memberType.type(),
-                    memberType.packageInfo(), memberType.kind(), false)).toList();
+                    memberType.packageInfo(), memberType.packageName(), memberType.kind(), false)).toList();
             return this;
         }
 
         public Builder<T> typeMembers(List<ParameterMemberTypeData> memberTypeData, String selectedType) {
             this.typeMembers = memberTypeData.stream().map(memberType -> new PropertyTypeMemberInfo(memberType.type(),
-                    memberType.packageInfo(), memberType.kind(), memberType.type().equals(selectedType))).toList();
+                    memberType.packageInfo(), memberType.packageName(), memberType.kind(),
+                    memberType.type().equals(selectedType))).toList();
             return this;
         }
 

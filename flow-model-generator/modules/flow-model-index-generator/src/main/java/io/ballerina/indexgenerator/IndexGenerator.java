@@ -531,7 +531,8 @@ class IndexGenerator {
             type = typeParts[1];
         }
 
-        DatabaseManager.insertParameterMemberType(parameterId, type, kind, packageIdentifier);
+        DatabaseManager.insertParameterMemberType(parameterId, type, kind, packageIdentifier,
+                moduleInfo == null ? "" : moduleInfo.packageName());
     }
 
     private static String getDescription(Documentable documentable) {

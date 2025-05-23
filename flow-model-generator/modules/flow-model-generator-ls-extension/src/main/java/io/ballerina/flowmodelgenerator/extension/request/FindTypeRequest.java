@@ -34,18 +34,18 @@ import java.util.List;
  */
 public record FindTypeRequest(String filePath, List<PropertyTypeMemberInfo> typeMembers, String expr) {
 
-    public record TypePackageInfo(String org, String module, String version) {
+    public record TypePackageInfo(String org, String packageName, String moduleName, String version) {
 
-        public static TypePackageInfo from(String packageInfo) {
+        public static TypePackageInfo from(String packageInfo, String packageName) {
             if (packageInfo.isEmpty()) {
-                return new TypePackageInfo(null, null, null);
+                return new TypePackageInfo(null, null, null, null);
             }
             String[] parts = packageInfo.split(":");
-            return new TypePackageInfo(parts[0], parts[1], parts[2]);
+            return new TypePackageInfo(parts[0], packageName, parts[1], parts[2]);
         }
 
         public static TypePackageInfo from(Codedata codedata) {
-            return new TypePackageInfo(codedata.org(), codedata.module(), codedata.version());
+            return new TypePackageInfo(codedata.org(), codedata.packageName(), codedata.module(), codedata.version());
         }
     }
 }

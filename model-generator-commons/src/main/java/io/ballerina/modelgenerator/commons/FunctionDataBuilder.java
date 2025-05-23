@@ -569,8 +569,8 @@ public class FunctionDataBuilder {
         }
 
         Optional<FunctionData> optFunctionResult =
-                dbManager.getFunction(moduleInfo.org(), moduleInfo.packageName(), getFunctionName(),
-                        functionKind, resourcePath);
+                dbManager.getFunction(moduleInfo.org(), moduleInfo.packageName(), moduleInfo.moduleName(),
+                        getFunctionName(), functionKind, resourcePath);
         if (optFunctionResult.isEmpty()) {
             return Optional.empty();
         }
@@ -739,7 +739,8 @@ public class FunctionDataBuilder {
             type = typeParts[1];
         }
 
-        parameterData.typeMembers().add(new ParameterMemberTypeData(type, kind, packageIdentifier));
+        parameterData.typeMembers().add(new ParameterMemberTypeData(type, kind, packageIdentifier,
+                moduleInfo == null ? "" : moduleInfo.packageName()));
     }
 
     private Map<String, ParameterData> getIncludedRecordParams(RecordTypeSymbol recordTypeSymbol,

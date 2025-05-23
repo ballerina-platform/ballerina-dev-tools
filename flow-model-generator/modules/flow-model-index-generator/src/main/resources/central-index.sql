@@ -61,6 +61,7 @@ CREATE TABLE ParameterMemberType (
     type JSON, -- JSON type for parameter type information
     kind TEXT,
     parameter_id INTEGER,
-    package TEXT, -- format of the package is org:name:version
+    package_identifier TEXT, -- format of the package is org:name:version
+    package_name TEXT,
     FOREIGN KEY (parameter_id) REFERENCES Parameter(parameter_id) ON DELETE CASCADE
 );

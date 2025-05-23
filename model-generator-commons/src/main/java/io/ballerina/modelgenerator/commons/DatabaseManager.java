@@ -245,8 +245,8 @@ public class DatabaseManager {
         }
     }
 
-    public Optional<FunctionData> getFunction(String org, String module, String symbol, FunctionData.Kind kind,
-                                              String resourcePath) {
+    public Optional<FunctionData> getFunction(String org, String packageName, String moduleName, String symbol,
+                                              FunctionData.Kind kind, String resourcePath) {
         StringBuilder sql = new StringBuilder("SELECT ");
         sql.append("f.function_id, ");
         sql.append("f.name AS function_name, ");
@@ -257,14 +257,15 @@ public class DatabaseManager {
         sql.append("f.return_error, ");
         sql.append("f.inferred_return_type, ");
         sql.append("f.import_statements, ");
-        sql.append("p.name AS module_name, ");
+        sql.append("p.module_name AS module_name, ");
         sql.append("p.package_name, ");
         sql.append("p.org, ");
         sql.append("p.version ");
         sql.append("FROM Function f ");
         sql.append("JOIN Package p ON f.package_id = p.package_id ");
         sql.append("WHERE p.org = ? ");
-        sql.append("AND p.name = ? ");
+        sql.append("AND p.package_name = ? ");
+        sql.append("AND p.module_name = ? ");
         sql.append("AND f.kind = ? ");
         sql.append("AND f.name = ? ");
         if (resourcePath != null) {
@@ -274,11 +275,12 @@ public class DatabaseManager {
         try (Connection conn = DriverManager.getConnection(dbPath);
              PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
             stmt.setString(1, org);
-            stmt.setString(2, module);
-            stmt.setString(3, kind.name());
-            stmt.setString(4, symbol);
+            stmt.setString(2, packageName);
+            stmt.setString(3, moduleName);
+            stmt.setString(4, kind.name());
+            stmt.setString(5, symbol);
             if (resourcePath != null) {
-                stmt.setString(5, resourcePath);
+                stmt.setString(6, resourcePath);
             }
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -403,7 +405,8 @@ public class DatabaseManager {
                 "p.import_statements, " +
                 "pmt.type AS member_type, " +
                 "pmt.kind AS member_kind, " +
-                "pmt.package AS member_package " +
+                "pmt.package_identifier AS member_package_identifier, " +
+                "pmt.package_name AS member_package_name " +
                 "FROM Parameter p " +
                 "LEFT JOIN ParameterMemberType pmt ON p.parameter_id = pmt.parameter_id " +
                 "WHERE p.function_id = ?;";
@@ -429,7 +432,8 @@ public class DatabaseManager {
                 // Member type data
                 String memberType = rs.getString("member_type");
                 String memberKind = rs.getString("member_kind");
-                String memberPackage = rs.getString("member_package");
+                String memberPackageIdentifier = rs.getString("member_package_identifier");
+                String memberPackageName = rs.getString("member_package_name");
 
                 // Get or create the builder for this parameter
                 ParameterDataBuilder builder = builders.get(paramName);
@@ -449,7 +453,7 @@ public class DatabaseManager {
                 // Add member type if present
                 if (memberType != null) {
                     ParameterMemberTypeData memberData = new ParameterMemberTypeData(
-                            memberType, memberKind, memberPackage);
+                            memberType, memberKind, memberPackageIdentifier, memberPackageName);
                     builder.typeMembers.add(memberData);
                 }
             }
