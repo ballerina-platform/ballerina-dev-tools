@@ -162,8 +162,12 @@ class IndexGenerator {
             LOGGER.severe("Error resolving package: " + packageMetadataInfo.name() + e.getMessage());
             return;
         }
+
+        List<String> exportedModules = resolvedPackage.manifest().exportedModules();
         for (Module module: resolvedPackage.modules()) {
-            processModule(resolvedPackage, module);
+            if (exportedModules.contains(module.descriptor().name().toString())) {
+                processModule(resolvedPackage, module);
+            }
         }
     }
 
