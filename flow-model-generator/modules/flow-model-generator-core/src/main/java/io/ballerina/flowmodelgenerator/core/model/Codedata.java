@@ -26,6 +26,7 @@ import io.ballerina.tools.text.LineRange;
  *
  * @param node               The kind of the component
  * @param org                The organization which the component belongs to
+ * @param packageName        The package name of the component
  * @param module             The module which the component belongs to
  * @param object             The object of the component if it is a method or an action call
  * @param symbol             The symbol of the component
