@@ -312,8 +312,9 @@ public class FunctionDataBuilder {
                     if (initMethod.isEmpty()) {
                         String clientName = getFunctionName();
                         FunctionData functionData = new FunctionData(0, clientName, getDescription(classSymbol),
-                                getTypeSignature(clientName), moduleInfo.packageName(), moduleInfo.org(),
-                                moduleInfo.version(), "", functionKind, false, false, null);
+                                getTypeSignature(clientName), moduleInfo.packageName(), moduleInfo.moduleName(),
+                                moduleInfo.org(), moduleInfo.version(), "", functionKind,
+                                false, false, null);
                         functionData.setParameters(Map.of());
                         return functionData;
                     }
@@ -373,8 +374,9 @@ public class FunctionDataBuilder {
         }
 
         FunctionData functionData = new FunctionData(0, getFunctionName(), description, returnData.returnType(),
-                moduleInfo.packageName(), moduleInfo.org(), moduleInfo.version(), resourcePath, functionKind,
-                returnData.returnError(), paramForTypeInfer != null, returnData.importStatements());
+                moduleInfo.packageName(), moduleInfo.moduleName(), moduleInfo.org(), moduleInfo.version(),
+                resourcePath, functionKind, returnData.returnError(),
+                paramForTypeInfer != null, returnData.importStatements());
 
         Types types = semanticModel.types();
         TypeBuilder builder = semanticModel.types().builder();
@@ -483,7 +485,7 @@ public class FunctionDataBuilder {
     }
 
     private void deriveSemanticModel() {
-        semanticModel(PackageUtil.getSemanticModel(moduleInfo.org(), moduleInfo.packageName(), moduleInfo.version())
+        semanticModel(PackageUtil.getSemanticModel(moduleInfo)
                 .orElseThrow(() -> new IllegalStateException("Semantic model not found")));
     }
 
@@ -544,6 +546,7 @@ public class FunctionDataBuilder {
                     getDescription(methodSymbol),
                     returnData.returnType(),
                     moduleInfo.packageName(),
+                    moduleInfo.moduleName(),
                     moduleInfo.org(),
                     moduleInfo.version(),
                     methodResourcePath,
@@ -580,7 +583,7 @@ public class FunctionDataBuilder {
 
     private List<FunctionData> getMethodsFromIndex() {
         DatabaseManager dbManager = DatabaseManager.getInstance();
-        List<FunctionData> methods = dbManager.getMethods(parentSymbolType, moduleInfo.org(), moduleInfo.packageName());
+        List<FunctionData> methods = dbManager.getMethods(parentSymbolType, moduleInfo.org(), moduleInfo.moduleName());
         if (methods.isEmpty()) {
             return new ArrayList<>();
         }

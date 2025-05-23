@@ -94,7 +94,8 @@ public class DatabaseManager {
                 "f.return_error, " +
                 "f.inferred_return_type, " +
                 "f.import_statements, " +
-                "p.name AS package_name, " +
+                "p.name AS module_name, " +
+                "p.package_name, " +
                 "p.org, " +
                 "p.version " +
                 "FROM Function f " +
@@ -117,6 +118,7 @@ public class DatabaseManager {
                         rs.getString("function_description"),
                         rs.getString("return_type"),
                         rs.getString("package_name"),
+                        rs.getString("module_name"),
                         rs.getString("org"),
                         rs.getString("version"),
                         rs.getString("resource_path"),
@@ -145,7 +147,8 @@ public class DatabaseManager {
                 "f.inferred_return_type, " +
                 "f.import_statements, " +
                 "f.resource_path, " +
-                "p.name AS package_name, " +
+                "p.name AS module_name, " +
+                "p.package_name, " +
                 "p.org, " +
                 "p.version " +
                 "FROM Function f " +
@@ -165,6 +168,7 @@ public class DatabaseManager {
                         rs.getString("function_description"),
                         rs.getString("return_type"),
                         rs.getString("package_name"),
+                        rs.getString("module_name"),
                         rs.getString("org"),
                         rs.getString("version"),
                         rs.getString("resource_path"),
@@ -193,7 +197,8 @@ public class DatabaseManager {
                 "f.return_error, " +
                 "f.inferred_return_type, " +
                 "f.import_statements, " +
-                "p.name AS package_name, " +
+                "p.name AS module_name, " +
+                "p.package_name, " +
                 "p.org, " +
                 "p.version " +
                 "FROM Function f " +
@@ -223,6 +228,7 @@ public class DatabaseManager {
                         rs.getString("function_description"),
                         rs.getString("return_type"),
                         rs.getString("package_name"),
+                        rs.getString("module_name"),
                         rs.getString("org"),
                         rs.getString("version"),
                         rs.getString("resource_path"),
@@ -251,7 +257,8 @@ public class DatabaseManager {
         sql.append("f.return_error, ");
         sql.append("f.inferred_return_type, ");
         sql.append("f.import_statements, ");
-        sql.append("p.name AS package_name, ");
+        sql.append("p.name AS module_name, ");
+        sql.append("p.package_name, ");
         sql.append("p.org, ");
         sql.append("p.version ");
         sql.append("FROM Function f ");
@@ -281,6 +288,7 @@ public class DatabaseManager {
                         rs.getString("function_description"),
                         rs.getString("return_type"),
                         rs.getString("package_name"),
+                        rs.getString("module_name"),
                         rs.getString("org"),
                         rs.getString("version"),
                         rs.getString("resource_path"),
@@ -303,7 +311,8 @@ public class DatabaseManager {
                 "f.name AS function_name, " +
                 "f.description AS function_description, " +
                 "f.return_type, " +
-                "p.name AS package_name, " +
+                "p.name AS module_name, " +
+                "p.package_name, " +
                 "p.org, " +
                 "p.version, " +
                 "f.resource_path, " +
@@ -325,6 +334,7 @@ public class DatabaseManager {
                         rs.getString("function_description"),
                         rs.getString("return_type"),
                         rs.getString("package_name"),
+                        rs.getString("module_name"),
                         rs.getString("org"),
                         rs.getString("version"),
                         rs.getString("resource_path"),
@@ -513,6 +523,7 @@ public class DatabaseManager {
                         rs.getString("description"),
                         rs.getString("return_type"),
                         null, // packageName is not selected in this query
+                        null, // moduleName is not selected in this query
                         null, // org is not selected in this query
                         null, // version is not selected in this query
                         rs.getString("resource_path"),
@@ -529,13 +540,14 @@ public class DatabaseManager {
         }
     }
 
-    public List<FunctionData> getMethods(String connectorName, String org, String packageName) {
+    public List<FunctionData> getMethods(String connectorName, String org, String moduleName) {
         String sql = "SELECT " +
                 "f.function_id, " +
                 "f.name AS function_name, " +
                 "f.description, " +
                 "f.kind, " +
                 "p.version, " +
+                "p.package_name, " +
                 "f.return_type, " +
                 "f.resource_path, " +
                 "f.return_error, " +
@@ -554,7 +566,7 @@ public class DatabaseManager {
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, connectorName);
             stmt.setString(2, org);
-            stmt.setString(3, packageName);
+            stmt.setString(3, moduleName);
             ResultSet rs = stmt.executeQuery();
             List<FunctionData> functionDataList = new ArrayList<>();
             while (rs.next()) {
@@ -563,7 +575,8 @@ public class DatabaseManager {
                         rs.getString("function_name"),
                         rs.getString("description"),
                         rs.getString("return_type"),
-                        packageName,
+                        rs.getString("package_name"),
+                        moduleName,
                         org,
                         rs.getString("version"),
                         rs.getString("resource_path"),
@@ -597,7 +610,8 @@ public class DatabaseManager {
         sql.append("f.return_error, ");
         sql.append("f.inferred_return_type, ");
         sql.append("f.import_statements, ");
-        sql.append("p.name AS package_name, ");
+        sql.append("p.name AS module_name, ");
+        sql.append("p.package_name, ");
         sql.append("p.org, ");
         sql.append("p.version ");
         sql.append("FROM Function f ");
@@ -650,6 +664,7 @@ public class DatabaseManager {
                         rs.getString("function_description"),
                         rs.getString("return_type"),
                         rs.getString("package_name"),
+                        rs.getString("module_name"),
                         rs.getString("org"),
                         rs.getString("version"),
                         rs.getString("resource_path"),

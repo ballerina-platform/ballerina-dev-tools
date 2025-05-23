@@ -79,10 +79,11 @@ public class PackageUtil {
         // Obtain the Ballerina distribution path
         String ballerinaHome = System.getProperty(BALLERINA_HOME_PROPERTY);
         if (ballerinaHome == null || ballerinaHome.isEmpty()) {
-            Path currentPath = getPath(Paths.get(
-                    PackageUtil.class.getProtectionDomain().getCodeSource().getLocation().getPath()));
-            Path distributionPath = getParentPath(getParentPath(getParentPath(currentPath)));
-            System.setProperty(BALLERINA_HOME_PROPERTY, distributionPath.toString());
+//            Path currentPath = getPath(Paths.get(
+//                    PackageUtil.class.getProtectionDomain().getCodeSource().getLocation().getPath()));
+//            Path distributionPath = getParentPath(getParentPath(getParentPath(currentPath)));
+//            System.setProperty(BALLERINA_HOME_PROPERTY, distributionPath.toString());
+            System.setProperty(BALLERINA_HOME_PROPERTY, "/Users/lakshanweerasinghe/.ballerina/ballerina-home/distributions/ballerina-2201.12.4");
         }
 
         try {
@@ -105,6 +106,27 @@ public class PackageUtil {
         } catch (IOException e) {
             throw new RuntimeException("Error occurred while creating the sample project", e);
         }
+    }
+
+    /**
+     * Retrieves the semantic model for a given package identified by organization, name, and version.
+     *
+     * @param moduleInfo The module information
+     * @return An Optional containing the semantic model.
+     */
+    public static Optional<SemanticModel> getSemanticModel(ModuleInfo moduleInfo) {
+        Optional<Package> modulePackage = getModulePackage(getSampleProject(), moduleInfo.org(),
+                moduleInfo.packageName(), moduleInfo.version());
+        if (modulePackage.isEmpty()) {
+            return Optional.empty();
+        }
+        Package pkg = modulePackage.get();
+        for (Module module : pkg.modules()) {
+            if (module.moduleName().toString().equals(moduleInfo.moduleName())) {
+                return Optional.of(getCompilation(pkg).getSemanticModel(module.moduleId()));
+            }
+        }
+        return Optional.empty();
     }
 
     /**

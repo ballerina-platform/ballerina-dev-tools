@@ -110,6 +110,7 @@ public class ServiceDatabaseManager {
                         rs.getString("listener_description"),
                         null,
                         rs.getString("package_name"),
+                        rs.getString("package_name"),
                         rs.getString("org"),
                         rs.getString("version"),
                         null,

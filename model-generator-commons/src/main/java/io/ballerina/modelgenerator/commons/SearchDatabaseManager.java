@@ -164,6 +164,7 @@ public class SearchDatabaseManager {
                     c.name AS connector_name,
                     c.description AS connector_description,
                     c.package_id,
+                    p.name AS module_name,
                     p.package_name,
                     p.org AS package_org,
                     p.version AS package_version,
@@ -188,10 +189,11 @@ public class SearchDatabaseManager {
                 while (rs.next()) {
                     String connectorName = rs.getString("connector_name");
                     String description = rs.getString("connector_description");
+                    String moduleName = rs.getString("module_name");
                     String packageName = rs.getString("package_name");
                     String org = rs.getString("package_org");
                     String version = rs.getString("package_version");
-                    SearchResult result = SearchResult.from(org, packageName, connectorName, version, connectorName,
+                    SearchResult result = SearchResult.from(org, packageName, moduleName, version, connectorName,
                             description);
                     results.add(result);
                 }

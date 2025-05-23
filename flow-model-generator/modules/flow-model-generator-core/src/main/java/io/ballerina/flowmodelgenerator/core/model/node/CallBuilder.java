@@ -65,7 +65,8 @@ public abstract class CallBuilder extends NodeBuilder {
 
         FunctionDataBuilder functionDataBuilder = new FunctionDataBuilder()
                 .name(codedata.symbol())
-                .moduleInfo(new ModuleInfo(codedata.org(), codedata.module(), codedata.module(), codedata.version()))
+                .moduleInfo(new ModuleInfo(codedata.org(), codedata.packageName(), codedata.module(),
+                        codedata.version()))
                 .lsClientLogger(context.lsClientLogger())
                 .functionResultKind(getFunctionResultKind())
                 .userModuleInfo(moduleInfo);
