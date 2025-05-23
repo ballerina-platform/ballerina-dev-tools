@@ -18,6 +18,8 @@
 
 package io.ballerina.servicemodelgenerator.extension.model;
 
+import java.util.Objects;
+
 /**
  * Represents a HTTP response.
  *
@@ -33,6 +35,7 @@ public class HttpResponse {
     private boolean editable = false;
     private boolean advanced = false;
     private boolean isHttpResponseType = false;
+    private Diagnostics diagnostics;
 
     public HttpResponse() {
     }
@@ -147,5 +150,29 @@ public class HttpResponse {
 
     public void setHttpResponseType(boolean httpResponseType) {
         isHttpResponseType = httpResponseType;
+    }
+
+    public Diagnostics getDiagnostics() {
+        return diagnostics;
+    }
+
+    public void setDiagnostics(Diagnostics diagnostics) {
+        this.diagnostics = diagnostics;
+    }
+
+    public void clearDiagnostics() {
+        this.setDiagnostics(null);
+        if (Objects.nonNull(body)) {
+            body.setDiagnostics(null);
+        }
+        if (Objects.nonNull(statusCode)) {
+            statusCode.setDiagnostics(null);
+        }
+        if (Objects.nonNull(name)) {
+            name.setDiagnostics(null);
+        }
+        if (Objects.nonNull(type)) {
+            type.setDiagnostics(null);
+        }
     }
 }

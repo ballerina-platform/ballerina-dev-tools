@@ -19,6 +19,7 @@
 package io.ballerina.servicemodelgenerator.extension;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import io.ballerina.compiler.api.SemanticModel;
@@ -44,7 +45,6 @@ import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.compiler.syntax.tree.TypeDefinitionNode;
 import io.ballerina.compiler.syntax.tree.TypeDescriptorNode;
 import io.ballerina.modelgenerator.commons.CommonUtils;
-import io.ballerina.modelgenerator.commons.PackageUtil;
 import io.ballerina.modelgenerator.commons.ServiceDatabaseManager;
 import io.ballerina.modelgenerator.commons.ServiceDeclaration;
 import io.ballerina.projects.Document;
@@ -53,6 +53,7 @@ import io.ballerina.projects.ModuleId;
 import io.ballerina.projects.ModuleName;
 import io.ballerina.projects.Package;
 import io.ballerina.projects.Project;
+import io.ballerina.servicemodelgenerator.extension.diagnostics.DiagnosticsHandler;
 import io.ballerina.servicemodelgenerator.extension.model.Codedata;
 import io.ballerina.servicemodelgenerator.extension.model.Function;
 import io.ballerina.servicemodelgenerator.extension.model.Listener;
@@ -73,6 +74,7 @@ import io.ballerina.servicemodelgenerator.extension.request.ListenerModelRequest
 import io.ballerina.servicemodelgenerator.extension.request.ListenerModifierRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ListenerSourceRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ServiceClassSourceRequest;
+import io.ballerina.servicemodelgenerator.extension.request.ServiceDesignerDiagnosticRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ServiceModelRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ServiceModifierRequest;
 import io.ballerina.servicemodelgenerator.extension.request.ServiceSourceRequest;
@@ -85,6 +87,7 @@ import io.ballerina.servicemodelgenerator.extension.response.ListenerDiscoveryRe
 import io.ballerina.servicemodelgenerator.extension.response.ListenerFromSourceResponse;
 import io.ballerina.servicemodelgenerator.extension.response.ListenerModelResponse;
 import io.ballerina.servicemodelgenerator.extension.response.ServiceClassModelResponse;
+import io.ballerina.servicemodelgenerator.extension.response.ServiceDesignerDiagnosticResponse;
 import io.ballerina.servicemodelgenerator.extension.response.ServiceFromSourceResponse;
 import io.ballerina.servicemodelgenerator.extension.response.ServiceModelResponse;
 import io.ballerina.servicemodelgenerator.extension.response.TriggerListResponse;
@@ -209,7 +212,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 Package currentPackage = project.currentPackage();
                 Module module = currentPackage.module(ModuleName.from(currentPackage.packageName()));
                 ModuleId moduleId = module.moduleId();
-                SemanticModel semanticModel = PackageUtil.getCompilation(currentPackage).getSemanticModel(moduleId);
+                SemanticModel semanticModel = currentPackage.getCompilation().getSemanticModel(moduleId);
                 Set<String> listeners = ListenerUtil.getCompatibleListeners(request.moduleName(),
                         semanticModel, project);
                 return new ListenerDiscoveryResponse(listeners);
@@ -288,7 +291,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 Package currentPackage = project.currentPackage();
                 Module module = currentPackage.module(ModuleName.from(currentPackage.packageName()));
                 ModuleId moduleId = module.moduleId();
-                SemanticModel semanticModel = PackageUtil.getCompilation(currentPackage).getSemanticModel(moduleId);
+                SemanticModel semanticModel = currentPackage.getCompilation().getSemanticModel(moduleId);
 
                 Optional<String> httpDefaultListenerNameRef = ListenerUtil.getHttpDefaultListenerNameRef(
                         semanticModel, project);
@@ -339,7 +342,6 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 Service serviceModel = service.get();
                 Path filePath = Path.of(request.filePath());
                 Project project = this.workspaceManager.loadProject(filePath);
-
                 Package currentPackage = project.currentPackage();
                 Module module = currentPackage.module(ModuleName.from(currentPackage.packageName()));
                 SemanticModel semanticModel = currentPackage.getCompilation().getSemanticModel(module.moduleId());
@@ -647,7 +649,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 Package currentPackage = project.currentPackage();
                 Module module = currentPackage.module(ModuleName.from(currentPackage.packageName()));
                 ModuleId moduleId = module.moduleId();
-                SemanticModel semanticModel = PackageUtil.getCompilation(currentPackage).getSemanticModel(moduleId);
+                SemanticModel semanticModel = currentPackage.getCompilation().getSemanticModel(moduleId);
                 Optional<Document> document = this.workspaceManager.document(filePath);
                 if (document.isEmpty()) {
                     return new ListenerFromSourceResponse();
@@ -1036,6 +1038,7 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
         });
     }
 
+
     /**
      * Add an attribute to the given class or service.
      *
@@ -1097,10 +1100,8 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 if (document.isEmpty()) {
                     return new CommonSourceResponse();
                 }
-                LineRange lineRange = request.field()
-                        .codedata().getLineRange();
-                NonTerminalNode node = findNonTerminalNode(request.field()
-                        .codedata(), document.get());
+                LineRange lineRange = request.field().codedata().getLineRange();
+                NonTerminalNode node = findNonTerminalNode(request.field().codedata(), document.get());
                 if (!(node instanceof ObjectFieldNode)) {
                     return new CommonSourceResponse();
                 }
@@ -1110,6 +1111,25 @@ public class ServiceModelGeneratorService implements ExtendedLanguageServerServi
                 return new CommonSourceResponse(Map.of(request.filePath(), edits));
             } catch (Throwable e) {
                 return new CommonSourceResponse(e);
+            }
+        });
+    }
+
+    /**
+     * Get the diagnostics for a given api request.
+     *
+     * @param request Service designer diagnostic request
+     * @return {@link ServiceDesignerDiagnosticResponse} of the service designer diagnostic response
+     */
+    @JsonRequest
+    public CompletableFuture<ServiceDesignerDiagnosticResponse> diagnostics(ServiceDesignerDiagnosticRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                DiagnosticsHandler diagnosticsHandler = new DiagnosticsHandler(workspaceManager);
+                JsonElement diagnostics = diagnosticsHandler.getDiagnostics(request);
+                return new ServiceDesignerDiagnosticResponse(diagnostics);
+            } catch (Throwable e) {
+                return new ServiceDesignerDiagnosticResponse(e);
             }
         });
     }
