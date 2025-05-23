@@ -19,10 +19,17 @@
 package io.ballerina.designmodelgenerator.core;
 
 import io.ballerina.compiler.api.ModuleID;
+import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.IntersectionTypeSymbol;
+import io.ballerina.compiler.api.symbols.PathParameterSymbol;
+import io.ballerina.compiler.api.symbols.ResourceMethodSymbol;
+import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
+import io.ballerina.compiler.api.symbols.resourcepath.PathRestParam;
+import io.ballerina.compiler.api.symbols.resourcepath.PathSegmentList;
+import io.ballerina.compiler.api.symbols.resourcepath.ResourcePath;
 
 import java.util.Random;
 import java.util.UUID;
@@ -136,5 +143,74 @@ public class CommonUtils {
             return new ModuleInfo(moduleId.orgName(), moduleId.packageName(), moduleId.moduleName(),
                     moduleId.version());
         }
+    }
+
+    /**
+     * Returns the resource path string for the given resource method symbol.
+     *
+     * @param semanticModel the semantic model
+     * @param resourceMethodSymbol the resource method symbol
+     *
+     * @return the resource path string
+     */
+    public static String getResourcePathStr(SemanticModel semanticModel,
+                                            ResourceMethodSymbol resourceMethodSymbol) {
+
+        io.ballerina.modelgenerator.commons.ModuleInfo moduleInfo;
+        if (resourceMethodSymbol.getName().isPresent()) {
+            moduleInfo = io.ballerina.modelgenerator.commons.ModuleInfo.from(
+                    resourceMethodSymbol.getModule().get().id());
+        } else {
+            moduleInfo = null;
+        }
+
+        StringBuilder pathBuilder = new StringBuilder();
+        ResourcePath resourcePath = resourceMethodSymbol.resourcePath();
+        switch (resourcePath.kind()) {
+            case PATH_SEGMENT_LIST -> {
+                PathSegmentList pathSegmentList = (PathSegmentList) resourcePath;
+                boolean isFirstElement = true;
+                for (Symbol pathSegment : pathSegmentList.list()) {
+                    if (isFirstElement) {
+                        isFirstElement = false;
+                    } else {
+                        pathBuilder.append("/");
+                    }
+                    if (pathSegment instanceof PathParameterSymbol pathParameterSymbol) {
+                        String type = io.ballerina.modelgenerator.commons.CommonUtils.getTypeSignature(semanticModel,
+                                pathParameterSymbol.typeDescriptor(), true, moduleInfo);
+                        pathBuilder.append("[").append(type);
+                        String paramName = pathParameterSymbol.getName().orElse("");
+                        if (!paramName.isEmpty()) {
+                            pathBuilder.append(" ").append(paramName);
+                        }
+                        pathBuilder.append("]");
+                    } else {
+                        pathBuilder.append(pathSegment.getName().orElse(""));
+                    }
+                }
+                ((PathSegmentList) resourcePath).pathRestParameter().ifPresent(pathRestParameter -> {
+                    String type = io.ballerina.modelgenerator.commons.CommonUtils.getTypeSignature(semanticModel,
+                            pathRestParameter.typeDescriptor(), true, moduleInfo);
+                    pathBuilder.append("[").append(type).append("...");
+                    if (!pathRestParameter.isTypeOnlyParam()) {
+                        pathBuilder.append(" ").append(pathRestParameter.getName().orElse(""));
+                    }
+                    pathBuilder.append("]");
+                });
+            }
+            case PATH_REST_PARAM -> {
+                PathParameterSymbol pathRestParameter = ((PathRestParam) resourcePath).parameter();
+                String type = io.ballerina.modelgenerator.commons.CommonUtils.getTypeSignature(semanticModel,
+                        pathRestParameter.typeDescriptor(), true, moduleInfo);
+                pathBuilder.append("[").append(type).append("...");
+                if (!pathRestParameter.isTypeOnlyParam()) {
+                    pathBuilder.append(" ").append(pathRestParameter.getName().orElse(""));
+                }
+                pathBuilder.append("]");
+            }
+            case DOT_RESOURCE_PATH -> pathBuilder.append(".");
+        }
+        return pathBuilder.toString();
     }
 }
