@@ -201,8 +201,7 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
      */
     private static List<FlowNode> extractModuleConfigVariables(Module module) {
         List<FlowNode> configVariables = new LinkedList<>();
-        // Note: Cannot use "module.getCompilation().semanticModel()" as it causes intermittent errors
-        SemanticModel semanticModel = module.packageInstance().getCompilation().getSemanticModel(module.moduleId());
+        Optional<SemanticModel> semanticModel = getSemanticModel(module);
         for (DocumentId documentId : module.documentIds()) {
             Document document = module.document(documentId);
             ModulePartNode modulePartNode = document.syntaxTree().rootNode();
@@ -210,13 +209,23 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
                 if (node.kind() == SyntaxKind.MODULE_VAR_DECL) {
                     ModuleVariableDeclarationNode varDeclarationNode = (ModuleVariableDeclarationNode) node;
                     if (hasConfigurableQualifier(varDeclarationNode)) {
-                        configVariables.add(constructConfigVarNode(varDeclarationNode, semanticModel));
+                        configVariables.add(constructConfigVarNode(varDeclarationNode, semanticModel.orElse(null)));
                     }
                 }
             }
         }
 
         return configVariables;
+    }
+
+    private static Optional<SemanticModel> getSemanticModel(Module module) {
+        try {
+            SemanticModel semanticModel = module.packageInstance().getCompilation().getSemanticModel(module.moduleId());
+            return Optional.ofNullable(semanticModel);
+        } catch (Exception e) {
+            // getSemanticModel() can throw an Error if the module is an imported module without a semantic model.
+            return Optional.empty();
+        }
     }
 
     /**
@@ -357,12 +366,17 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
 
     private static FlowNode constructConfigVarNode(ModuleVariableDeclarationNode variableNode,
                                                    SemanticModel semanticModel) {
-        DiagnosticHandler diagnosticHandler = new DiagnosticHandler(semanticModel);
+
         NodeBuilder nodeBuilder = NodeBuilder.getNodeFromKind(NodeKind.CONFIG_VARIABLE)
                 .semanticModel(semanticModel)
-                .diagnosticHandler(diagnosticHandler)
                 .defaultModuleName(null);
-        diagnosticHandler.handle(nodeBuilder, variableNode.lineRange(), false);
+
+        if (semanticModel != null) {
+            nodeBuilder.semanticModel(semanticModel);
+            DiagnosticHandler diagnosticHandler = new DiagnosticHandler(semanticModel);
+            diagnosticHandler.handle(nodeBuilder, variableNode.lineRange(), false);
+            nodeBuilder.diagnosticHandler(diagnosticHandler);
+        }
 
         TypedBindingPatternNode typedBindingPattern = variableNode.typedBindingPattern();
         return nodeBuilder
