@@ -67,7 +67,6 @@ import io.ballerina.projects.DocumentId;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.ModuleDescriptor;
 import io.ballerina.projects.Package;
-import io.ballerina.projects.PackageDescriptor;
 import io.ballerina.projects.Project;
 import io.ballerina.projects.directory.BuildProject;
 import io.ballerina.tools.diagnostics.Location;
@@ -612,7 +611,8 @@ class IndexGenerator {
 
     public static Document findDocument(Module module, String path) {
         Project project = module.project();
-        Path docPath = module.isDefaultModule() ? project.sourceRoot().resolve(module.descriptor().packageName().value()).resolve(path)
+        Path docPath = module.isDefaultModule() ? project.sourceRoot()
+                .resolve(module.descriptor().packageName().value()).resolve(path)
                 : project.sourceRoot().resolve("modules")
                 .resolve(module.moduleName().moduleNamePart()).resolve(path);
         try {

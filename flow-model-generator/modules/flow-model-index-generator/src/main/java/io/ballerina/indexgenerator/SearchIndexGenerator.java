@@ -20,7 +20,6 @@ package io.ballerina.indexgenerator;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import io.ballerina.centralconnector.response.PackageResponse;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
 import io.ballerina.compiler.api.symbols.Documentable;
@@ -34,7 +33,6 @@ import io.ballerina.modelgenerator.commons.PackageUtil;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.ModuleDescriptor;
 import io.ballerina.projects.Package;
-import io.ballerina.projects.PackageDescriptor;
 import io.ballerina.projects.directory.BuildProject;
 
 import java.io.FileReader;
