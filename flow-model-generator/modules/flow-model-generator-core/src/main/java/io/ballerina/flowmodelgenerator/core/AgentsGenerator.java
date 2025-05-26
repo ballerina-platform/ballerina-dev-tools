@@ -381,7 +381,7 @@ public class AgentsGenerator {
                 if (codedata != null) {
                     String kind = codedata.kind();
                     if (kind != null && kind.equals(ParameterData.Kind.DEFAULTABLE.name())) {
-                        ignoredKeys.add(key);
+                        ignoredKeys.add(k);
                         continue;
                     }
                 }
@@ -479,9 +479,9 @@ public class AgentsGenerator {
                     String kind = codedata.kind();
                     if (kind.equals(ParameterData.Kind.PATH_PARAM.name()) ||
                             kind.equals(ParameterData.Kind.PATH_REST_PARAM.name())) {
-                        pathParams.add(key);
+                        pathParams.add(k);
                     } else if (kind.equals(ParameterData.Kind.DEFAULTABLE.name())) {
-                        ignoredKeys.add(key);
+                        ignoredKeys.add(k);
                         continue;
                     }
                 }
