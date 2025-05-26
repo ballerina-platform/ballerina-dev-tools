@@ -60,6 +60,7 @@ import org.eclipse.lsp4j.services.LanguageServer;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
@@ -232,7 +233,8 @@ public class TypesManagerService implements ExtendedLanguageServerService {
             try {
                 Codedata codedata = request.codedata();
                 String orgName = codedata.org();
-                String packageName = codedata.packageName();
+                String packageName = Objects.isNull(codedata.packageName()) ?
+                        codedata.module() : codedata.packageName();
                 String moduleName = codedata.module();
                 String versionName = codedata.version();
                 Path filePath = Path.of(request.filePath());
