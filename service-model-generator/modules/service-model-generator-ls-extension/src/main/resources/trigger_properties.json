@@ -51,15 +51,6 @@
     ]
   },
   "6": {
-    "name": "trigger.github",
-    "orgName": "ballerinax",
-    "packageName": "trigger.github",
-    "keywords": [
-      "github",
-      "event"
-    ]
-  },
-  "7": {
     "name": "trigger.twilio",
     "orgName": "ballerinax",
     "packageName": "trigger.twilio",
@@ -67,6 +58,15 @@
       "twilio",
       "event",
       "sms"
+    ]
+  },
+  "7": {
+    "name": "trigger.github",
+    "orgName": "ballerinax",
+    "packageName": "trigger.github",
+    "keywords": [
+      "github",
+      "event"
     ]
   },
   "8": {
