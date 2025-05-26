@@ -22,7 +22,7 @@
     "metadata": {
       "label": "New Connection",
       "description": "",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/oas_mod1_null.png"
+      "icon": "https://bcentral-packageicons.azureedge.net/images/oas_null_null.png"
     },
     "codedata": {
       "node": "NEW_CONNECTION",
@@ -55,6 +55,7 @@
           {
             "type": "ConnectionConfig",
             "packageInfo": "oas:client1.mod1:0.1.0",
+            "packageName": "client1",
             "kind": "RECORD_TYPE",
             "selected": false
           }
@@ -81,6 +82,7 @@
           {
             "type": "string",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }

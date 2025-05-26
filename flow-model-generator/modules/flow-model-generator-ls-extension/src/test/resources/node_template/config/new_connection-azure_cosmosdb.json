@@ -9,6 +9,7 @@
     "node": "NEW_CONNECTION",
     "org": "ballerinax",
     "module": "azure_cosmosdb",
+    "packageName": "azure_cosmosdb",
     "object": "DataPlaneClient",
     "symbol": "init",
     "version": "4.2.0"
@@ -24,6 +25,7 @@
       "node": "NEW_CONNECTION",
       "org": "ballerinax",
       "module": "azure_cosmosdb",
+      "packageName": "azure_cosmosdb",
       "object": "DataPlaneClient",
       "symbol": "init",
       "version": "4.2.0",
@@ -50,6 +52,7 @@
           {
             "type": "ConnectionConfig",
             "packageInfo": "ballerinax:azure_cosmosdb:4.2.0",
+            "packageName": "azure_cosmosdb",
             "kind": "RECORD_TYPE",
             "selected": false
           }

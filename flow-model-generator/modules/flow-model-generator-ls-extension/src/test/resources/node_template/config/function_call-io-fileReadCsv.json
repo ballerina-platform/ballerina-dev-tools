@@ -9,6 +9,7 @@
     "node": "FUNCTION_CALL",
     "org": "ballerina",
     "module": "io",
+    "packageName": "io",
     "symbol": "fileReadCsv",
     "version": "1.8.0"
   },
@@ -23,6 +24,7 @@
       "node": "FUNCTION_CALL",
       "org": "ballerina",
       "module": "io",
+      "packageName": "io",
       "symbol": "fileReadCsv",
       "version": "1.8.0",
       "isNew": true,
@@ -67,6 +69,7 @@
           {
             "type": "string",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }
@@ -92,6 +95,7 @@
           {
             "type": "int",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }

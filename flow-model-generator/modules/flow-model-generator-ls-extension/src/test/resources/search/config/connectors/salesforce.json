@@ -8,6 +8,27 @@
   "categories": [
     {
       "metadata": {
+        "label": "Bulk",
+        "description": "Ballerina Salesforce connector provides the capability to access Salesforce Bulk API.\nThis connector lets you to perform bulk data operations for CSV, JSON, and XML data types.\n",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_salesforce_8.2.0.png",
+        "data": {
+          "isAgentSupport": false
+        }
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "salesforce.bulk",
+        "packageName": "salesforce",
+        "object": "Client",
+        "symbol": "init",
+        "version": "8.2.0",
+        "isGenerated": false
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
         "label": "Salesforce",
         "description": "Ballerina Salesforce connector provides the capability to access Salesforce REST API.\nThis connector lets you to perform operations for SObjects, query using SOQL, search using SOSL, and describe SObjects\nand organizational data.",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_salesforce_8.2.0.png",
@@ -19,6 +40,49 @@
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
         "module": "salesforce",
+        "packageName": "salesforce",
+        "object": "Client",
+        "symbol": "init",
+        "version": "8.2.0",
+        "isGenerated": false
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "Soap",
+        "description": "Ballerina Salesforce SOAP connector provides the capability to access Salesforce SOAP API. \nThis connector lets you to perform operations like create, retrieve, update or delete sobjects, such as accounts,\nleads, custom objects, and etc..\n",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_salesforce_8.2.0.png",
+        "data": {
+          "isAgentSupport": false
+        }
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "salesforce.soap",
+        "packageName": "salesforce",
+        "object": "Client",
+        "symbol": "init",
+        "version": "8.2.0",
+        "isGenerated": false
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "Apex",
+        "description": "Ballerina Salesforce Apex Client provides the capability to access Salesforce Apex REST API.\nThis client allows you to perform operations for custom Apex REST endpoints, execute HTTP methods on these endpoints,\nand handle responses appropriately.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_salesforce_8.2.0.png",
+        "data": {
+          "isAgentSupport": false
+        }
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "salesforce.apex",
+        "packageName": "salesforce",
         "object": "Client",
         "symbol": "init",
         "version": "8.2.0",
@@ -39,9 +103,31 @@
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
         "module": "salesforce.pardot",
+        "packageName": "salesforce.pardot",
         "object": "Client",
         "symbol": "init",
         "version": "1.3.1",
+        "isGenerated": false
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "Bulkv2",
+        "description": "Ballerina Salesforce Bulk v2 Client provides the capability to access Salesforce Bulk API v2.\nThis client allows you to perform bulk data operations such as creating, querying, updating, and deleting large volumes of data. \nYou can create and manage bulk jobs, upload data, check job status, and retrieve job results efficiently.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_salesforce_8.2.0.png",
+        "data": {
+          "isAgentSupport": false
+        }
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "salesforce.bulkv2",
+        "packageName": "salesforce",
+        "object": "Client",
+        "symbol": "init",
+        "version": "8.2.0",
         "isGenerated": false
       },
       "enabled": true
@@ -59,6 +145,7 @@
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
         "module": "salesforce.einstein",
+        "packageName": "salesforce.einstein",
         "object": "Client",
         "symbol": "init",
         "version": "1.3.1",

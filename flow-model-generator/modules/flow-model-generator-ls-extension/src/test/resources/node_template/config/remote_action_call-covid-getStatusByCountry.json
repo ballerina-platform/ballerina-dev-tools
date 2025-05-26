@@ -9,6 +9,7 @@
     "node": "REMOTE_ACTION_CALL",
     "org": "ballerinax",
     "module": "covid19",
+    "packageName": "covid19",
     "object": "Client",
     "version": "1.5.1",
     "symbol": "getStatusByCountry",
@@ -25,6 +26,7 @@
       "node": "REMOTE_ACTION_CALL",
       "org": "ballerinax",
       "module": "covid19",
+      "packageName": "covid19",
       "object": "Client",
       "symbol": "getStatusByCountry",
       "version": "1.5.1",
@@ -65,6 +67,7 @@
           {
             "type": "string",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }
@@ -90,12 +93,14 @@
           {
             "type": "()",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           },
           {
             "type": "string",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }
@@ -121,12 +126,14 @@
           {
             "type": "()",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           },
           {
             "type": "string",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }
@@ -139,7 +146,7 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "placeholder": "\"true\"",
+        "placeholder": "\"\"",
         "optional": true,
         "editable": true,
         "advanced": true,
@@ -152,6 +159,7 @@
           {
             "type": "string",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }
@@ -177,12 +185,14 @@
           {
             "type": "()",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           },
           {
             "type": "string",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }

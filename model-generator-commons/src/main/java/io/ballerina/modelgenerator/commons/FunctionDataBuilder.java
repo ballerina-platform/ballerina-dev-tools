@@ -312,8 +312,9 @@ public class FunctionDataBuilder {
                     if (initMethod.isEmpty()) {
                         String clientName = getFunctionName();
                         FunctionData functionData = new FunctionData(0, clientName, getDescription(classSymbol),
-                                getTypeSignature(clientName), moduleInfo.packageName(), moduleInfo.org(),
-                                moduleInfo.version(), "", functionKind, false, false, null);
+                                getTypeSignature(clientName), moduleInfo.packageName(), moduleInfo.moduleName(),
+                                moduleInfo.org(), moduleInfo.version(), "", functionKind,
+                                false, false, null);
                         functionData.setParameters(Map.of());
                         return functionData;
                     }
@@ -373,8 +374,9 @@ public class FunctionDataBuilder {
         }
 
         FunctionData functionData = new FunctionData(0, getFunctionName(), description, returnData.returnType(),
-                moduleInfo.packageName(), moduleInfo.org(), moduleInfo.version(), resourcePath, functionKind,
-                returnData.returnError(), paramForTypeInfer != null, returnData.importStatements());
+                moduleInfo.packageName(), moduleInfo.moduleName(), moduleInfo.org(), moduleInfo.version(),
+                resourcePath, functionKind, returnData.returnError(),
+                paramForTypeInfer != null, returnData.importStatements());
 
         Types types = semanticModel.types();
         TypeBuilder builder = semanticModel.types().builder();
@@ -418,7 +420,7 @@ public class FunctionDataBuilder {
         String returnType = returnTypeSymbol
                 .map(typeSymbol -> {
                     if (functionKind == FunctionData.Kind.CONNECTOR || functionKind == FunctionData.Kind.CLASS_INIT) {
-                        return CommonUtils.getClassType(moduleInfo.packageName(),
+                        return CommonUtils.getClassType(moduleInfo.moduleName(),
                                 parentSymbol.getName().orElse("Client"));
                     }
                     return getTypeSignature(typeSymbol, true);
@@ -483,7 +485,7 @@ public class FunctionDataBuilder {
     }
 
     private void deriveSemanticModel() {
-        semanticModel(PackageUtil.getSemanticModel(moduleInfo.org(), moduleInfo.packageName(), moduleInfo.version())
+        semanticModel(PackageUtil.getSemanticModel(moduleInfo)
                 .orElseThrow(() -> new IllegalStateException("Semantic model not found")));
     }
 
@@ -544,6 +546,7 @@ public class FunctionDataBuilder {
                     getDescription(methodSymbol),
                     returnData.returnType(),
                     moduleInfo.packageName(),
+                    moduleInfo.moduleName(),
                     moduleInfo.org(),
                     moduleInfo.version(),
                     methodResourcePath,
@@ -566,8 +569,8 @@ public class FunctionDataBuilder {
         }
 
         Optional<FunctionData> optFunctionResult =
-                dbManager.getFunction(moduleInfo.org(), moduleInfo.packageName(), getFunctionName(),
-                        functionKind, resourcePath);
+                dbManager.getFunction(moduleInfo.org(), moduleInfo.packageName(), moduleInfo.moduleName(),
+                        getFunctionName(), functionKind, resourcePath);
         if (optFunctionResult.isEmpty()) {
             return Optional.empty();
         }
@@ -580,7 +583,7 @@ public class FunctionDataBuilder {
 
     private List<FunctionData> getMethodsFromIndex() {
         DatabaseManager dbManager = DatabaseManager.getInstance();
-        List<FunctionData> methods = dbManager.getMethods(parentSymbolType, moduleInfo.org(), moduleInfo.packageName());
+        List<FunctionData> methods = dbManager.getMethods(parentSymbolType, moduleInfo.org(), moduleInfo.moduleName());
         if (methods.isEmpty()) {
             return new ArrayList<>();
         }
@@ -736,7 +739,8 @@ public class FunctionDataBuilder {
             type = typeParts[1];
         }
 
-        parameterData.typeMembers().add(new ParameterMemberTypeData(type, kind, packageIdentifier));
+        parameterData.typeMembers().add(new ParameterMemberTypeData(type, kind, packageIdentifier,
+                moduleInfo == null ? "" : moduleInfo.packageName()));
     }
 
     private Map<String, ParameterData> getIncludedRecordParams(RecordTypeSymbol recordTypeSymbol,

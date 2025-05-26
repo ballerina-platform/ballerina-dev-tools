@@ -127,8 +127,8 @@ public class NewConnectionBuilder extends CallBuilder {
         FunctionDataBuilder functionDataBuilder = new FunctionDataBuilder()
                 .parentSymbolType(codedata.object())
                 .name(codedata.symbol())
-                .moduleInfo(
-                        new ModuleInfo(codedata.org(), codedata.module(), codedata.module(), codedata.version()))
+                .moduleInfo(new ModuleInfo(codedata.org(), codedata.packageName(), codedata.module(),
+                        codedata.version()))
                 .lsClientLogger(context.lsClientLogger())
                 .functionResultKind(FunctionData.Kind.CONNECTOR)
                 .userModuleInfo(moduleInfo);
@@ -164,7 +164,8 @@ public class NewConnectionBuilder extends CallBuilder {
         codedata()
                 .node(NodeKind.NEW_CONNECTION)
                 .org(functionData.org())
-                .module(functionData.packageName())
+                .module(functionData.moduleName())
+                .packageName(functionData.packageName())
                 .object(functionData.name())
                 .version(functionData.version())
                 .symbol(INIT_SYMBOL)

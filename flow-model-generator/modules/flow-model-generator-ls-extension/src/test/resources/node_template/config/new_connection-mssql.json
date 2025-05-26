@@ -9,6 +9,7 @@
     "node": "NEW_CONNECTION",
     "org": "ballerinax",
     "module": "mssql",
+    "packageName": "mssql",
     "object": "Client",
     "symbol": "init",
     "version": "1.14.0"
@@ -24,6 +25,7 @@
       "node": "NEW_CONNECTION",
       "org": "ballerinax",
       "module": "mssql",
+      "packageName": "mssql",
       "object": "Client",
       "symbol": "init",
       "version": "1.15.0",
@@ -38,7 +40,7 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "placeholder": "\"localhost\"",
+        "placeholder": "\"\"",
         "optional": true,
         "editable": true,
         "advanced": true,
@@ -51,6 +53,7 @@
           {
             "type": "string",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }
@@ -63,7 +66,7 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string|()",
-        "placeholder": "\"sa\"",
+        "placeholder": "()",
         "optional": true,
         "editable": true,
         "advanced": true,
@@ -76,12 +79,14 @@
           {
             "type": "()",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           },
           {
             "type": "string",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }
@@ -107,12 +112,14 @@
           {
             "type": "()",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           },
           {
             "type": "string",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }
@@ -138,12 +145,14 @@
           {
             "type": "()",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           },
           {
             "type": "string",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }
@@ -156,7 +165,7 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "int",
-        "placeholder": "1433",
+        "placeholder": "0",
         "optional": true,
         "editable": true,
         "advanced": true,
@@ -169,6 +178,7 @@
           {
             "type": "int",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }
@@ -194,6 +204,7 @@
           {
             "type": "string",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }
@@ -219,12 +230,14 @@
           {
             "type": "()",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           },
           {
             "type": "Options",
             "packageInfo": "ballerinax:mssql:1.15.0",
+            "packageName": "mssql",
             "kind": "RECORD_TYPE",
             "selected": false
           }
@@ -250,12 +263,14 @@
           {
             "type": "()",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           },
           {
             "type": "ConnectionPool",
             "packageInfo": "ballerina:sql:1.16.0",
+            "packageName": "sql",
             "kind": "RECORD_TYPE",
             "selected": false
           }

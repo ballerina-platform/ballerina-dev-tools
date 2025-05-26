@@ -9,7 +9,8 @@
     "node": "FUNCTION_CALL",
     "symbol": "customFnWithImportedType",
     "org": "nipunaf",
-    "module": "new_connection1"
+    "module": "new_connection1",
+    "packageName": "new_connection1"
   },
   "output": {
     "id": "31",
@@ -22,6 +23,7 @@
       "node": "FUNCTION_CALL",
       "org": "nipunaf",
       "module": "new_connection1",
+      "packageName": "new_connection1",
       "symbol": "customFnWithImportedType",
       "isNew": true
     },
@@ -46,6 +48,7 @@
           {
             "type": "ClientConfiguration",
             "packageInfo": "ballerina:http:2.14.1",
+            "packageName": "http",
             "kind": "RECORD_TYPE",
             "selected": false
           }
@@ -73,6 +76,7 @@
           {
             "type": "Address",
             "packageInfo": "nipunaf:new_connection1:0.1.0",
+            "packageName": "new_connection1",
             "kind": "RECORD_TYPE",
             "selected": false
           }

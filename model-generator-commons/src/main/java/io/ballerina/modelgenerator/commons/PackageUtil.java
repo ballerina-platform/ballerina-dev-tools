@@ -110,15 +110,24 @@ public class PackageUtil {
     /**
      * Retrieves the semantic model for a given package identified by organization, name, and version.
      *
-     * @param org     The organization name of the package
-     * @param name    The name of the package
-     * @param version The version of the package
+     * @param moduleInfo The module information
      * @return An Optional containing the semantic model.
      */
-    public static Optional<SemanticModel> getSemanticModel(String org, String name, String version) {
-        return getModulePackage(getSampleProject(), org, name, version).map(
-                pkg -> getCompilation(pkg).getSemanticModel(pkg.getDefaultModule().moduleId()));
+    public static Optional<SemanticModel> getSemanticModel(ModuleInfo moduleInfo) {
+        Optional<Package> modulePackage = getModulePackage(getSampleProject(), moduleInfo.org(),
+                moduleInfo.packageName(), moduleInfo.version());
+        if (modulePackage.isEmpty()) {
+            return Optional.empty();
+        }
+        Package pkg = modulePackage.get();
+        for (Module module : pkg.modules()) {
+            if (module.moduleName().toString().equals(moduleInfo.moduleName())) {
+                return Optional.of(getCompilation(pkg).getSemanticModel(module.moduleId()));
+            }
+        }
+        return Optional.empty();
     }
+
 
     public static Optional<SemanticModel> getSemanticModel(String org, String name) {
         return getModulePackage(getSampleProject(), org, name).map(
@@ -241,11 +250,20 @@ public class PackageUtil {
                     descriptor.name().value().equals(packageName) &&
                     descriptor.version().value().toString().equals(version)) {
                 ModuleId moduleId = currentPackage.getDefaultModule().moduleId();
-                if (Objects.nonNull(modulePartName) && !modulePartName.isEmpty()) {
+                if (Objects.nonNull(modulePartName) && !modulePartName.isEmpty()
+                        && !packageName.equals(modulePartName)) {
                     ModuleName subModuleName = ModuleName.from(PackageName.from(packageName), modulePartName);
                     Module module = currentPackage.module(subModuleName);
                     if (module == null) {
-                        return Optional.empty();
+                        for (Module mod : currentPackage.modules()) {
+                            if (mod.moduleName().toString().equals(modulePartName)) {
+                                module = mod;
+                                break;
+                            }
+                        }
+                        if (module == null) {
+                            return Optional.empty();
+                        }
                     }
                     moduleId = module.moduleId();
                 }

@@ -19,6 +19,7 @@
         "node": "NEW_CONNECTION",
         "org": "ballerina",
         "module": "http",
+        "packageName": "http",
         "object": "Client",
         "symbol": "init",
         "version": "2.14.1",
@@ -39,6 +40,7 @@
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
         "module": "extpose",
+        "packageName": "extpose",
         "object": "Client",
         "symbol": "init",
         "version": "1.5.1",
@@ -59,6 +61,7 @@
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
         "module": "discord",
+        "packageName": "discord",
         "object": "Client",
         "symbol": "init",
         "version": "1.0.0",
@@ -79,6 +82,7 @@
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
         "module": "flatapi",
+        "packageName": "flatapi",
         "object": "Client",
         "symbol": "init",
         "version": "1.5.1",
@@ -99,6 +103,7 @@
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
         "module": "sakari",
+        "packageName": "sakari",
         "object": "Client",
         "symbol": "init",
         "version": "1.5.1",
@@ -119,6 +124,7 @@
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
         "module": "ynab",
+        "packageName": "ynab",
         "object": "Client",
         "symbol": "init",
         "version": "1.5.1",
@@ -139,6 +145,7 @@
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
         "module": "dracoon.public",
+        "packageName": "dracoon.public",
         "object": "Client",
         "symbol": "init",
         "version": "1.5.1",
@@ -159,6 +166,7 @@
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
         "module": "sap",
+        "packageName": "sap",
         "object": "Client",
         "symbol": "init",
         "version": "1.2.0",
@@ -179,6 +187,7 @@
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
         "module": "zoom",
+        "packageName": "zoom",
         "object": "Client",
         "symbol": "init",
         "version": "1.7.1",
@@ -199,6 +208,7 @@
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
         "module": "elmah",
+        "packageName": "elmah",
         "object": "Client",
         "symbol": "init",
         "version": "1.5.1",
@@ -219,6 +229,7 @@
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
         "module": "asana",
+        "packageName": "asana",
         "object": "Client",
         "symbol": "init",
         "version": "2.0.0",
@@ -239,6 +250,7 @@
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
         "module": "cdata.connect",
+        "packageName": "cdata.connect",
         "object": "Client",
         "symbol": "init",
         "version": "1.2.0",
@@ -259,29 +271,10 @@
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
         "module": "openweathermap",
+        "packageName": "openweathermap",
         "object": "Client",
         "symbol": "init",
         "version": "1.5.1",
-        "isGenerated": false
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "Websubhub Hub",
-        "description": "HTTP Based client for WebSub content publishing to subscribers",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websubhub_1.15.0.png",
-        "data": {
-          "isAgentSupport": false
-        }
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerina",
-        "module": "websubhub",
-        "object": "HubClient",
-        "symbol": "init",
-        "version": "1.15.0",
         "isGenerated": false
       },
       "enabled": true
@@ -299,9 +292,31 @@
         "node": "NEW_CONNECTION",
         "org": "ballerina",
         "module": "websub",
+        "packageName": "websub",
         "object": "SubscriptionClient",
         "symbol": "init",
         "version": "2.14.0",
+        "isGenerated": false
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "Websubhub Hub",
+        "description": "HTTP Based client for WebSub content publishing to subscribers",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websubhub_1.15.0.png",
+        "data": {
+          "isAgentSupport": false
+        }
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerina",
+        "module": "websubhub",
+        "packageName": "websubhub",
+        "object": "HubClient",
+        "symbol": "init",
+        "version": "1.15.0",
         "isGenerated": false
       },
       "enabled": true
@@ -319,6 +334,7 @@
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
         "module": "commercetools.cartsordershoppinglists",
+        "packageName": "commercetools.cartsordershoppinglists",
         "object": "Client",
         "symbol": "init",
         "version": "1.4.1",
@@ -339,6 +355,7 @@
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
         "module": "commercetools.customer",
+        "packageName": "commercetools.customer",
         "object": "Client",
         "symbol": "init",
         "version": "1.4.1",
@@ -359,6 +376,7 @@
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
         "module": "box",
+        "packageName": "box",
         "object": "Client",
         "symbol": "init",
         "version": "1.5.1",
@@ -379,6 +397,7 @@
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
         "module": "mathtools.numbers",
+        "packageName": "mathtools.numbers",
         "object": "Client",
         "symbol": "init",
         "version": "1.5.1",
@@ -399,6 +418,7 @@
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
         "module": "commercetools.auditlog",
+        "packageName": "commercetools.auditlog",
         "object": "Client",
         "symbol": "init",
         "version": "1.4.1",

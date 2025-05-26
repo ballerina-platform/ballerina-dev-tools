@@ -19,6 +19,7 @@
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
         "module": "health.clients.fhir",
+        "packageName": "health.clients.fhir",
         "object": "FHIRConnector",
         "symbol": "init",
         "version": "2.1.0",

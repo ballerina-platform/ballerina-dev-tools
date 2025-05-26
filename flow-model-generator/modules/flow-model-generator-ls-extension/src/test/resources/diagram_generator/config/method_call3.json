@@ -144,12 +144,14 @@
               {
                 "type": "ConnectionUri",
                 "packageInfo": "ballerinax:redis:3.1.0",
+                "packageName": "redis",
                 "kind": "BASIC_TYPE",
                 "selected": false
               },
               {
                 "type": "ConnectionParams",
                 "packageInfo": "ballerinax:redis:3.1.0",
+                "packageName": "redis",
                 "kind": "RECORD_TYPE",
                 "selected": false
               }
@@ -175,6 +177,7 @@
               {
                 "type": "boolean",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "BASIC_TYPE",
                 "selected": false
               }
@@ -200,6 +203,7 @@
               {
                 "type": "boolean",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "BASIC_TYPE",
                 "selected": false
               }
@@ -225,6 +229,7 @@
               {
                 "type": "SecureSocket",
                 "packageInfo": "ballerinax:redis:3.1.0",
+                "packageName": "redis",
                 "kind": "RECORD_TYPE",
                 "selected": false
               }

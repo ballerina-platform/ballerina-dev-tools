@@ -659,6 +659,7 @@
               {
                 "type": "Printable",
                 "packageInfo": "ballerina:io:1.8.0",
+                "packageName": "io",
                 "kind": "ARRAY_TYPE",
                 "selected": false
               }

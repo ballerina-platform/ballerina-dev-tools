@@ -9,6 +9,7 @@
     "node": "FUNCTION_CALL",
     "org": "ballerina",
     "module": "log",
+    "packageName": "log",
     "symbol": "printInfo",
     "version": "2.12.0"
   },
@@ -23,6 +24,7 @@
       "node": "FUNCTION_CALL",
       "org": "ballerina",
       "module": "log",
+      "packageName": "log",
       "symbol": "printInfo",
       "version": "2.12.0",
       "isNew": true
@@ -49,12 +51,14 @@
           {
             "type": "PrintableRawTemplate",
             "packageInfo": "ballerina:log:2.12.0",
+            "packageName": "log",
             "kind": "OBJECT_TYPE",
             "selected": false
           },
           {
             "type": "string",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }
@@ -80,12 +84,14 @@
           {
             "type": "()",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           },
           {
             "type": "error",
             "packageInfo": "ballerina:lang.annotations:0.0.0",
+            "packageName": "lang.annotations",
             "kind": "ERROR_TYPE",
             "selected": false
           }
@@ -111,12 +117,14 @@
           {
             "type": "()",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           },
           {
             "type": "StackFrame",
             "packageInfo": "ballerina:lang.error:0.0.0",
+            "packageName": "lang.error",
             "kind": "ARRAY_TYPE",
             "selected": false
           }

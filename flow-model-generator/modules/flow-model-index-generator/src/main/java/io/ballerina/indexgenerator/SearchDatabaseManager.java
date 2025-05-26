@@ -93,10 +93,13 @@ class SearchDatabaseManager {
         }
     }
 
-    public static int insertPackage(String org, String name, String version, int pullCount, List<String> keywords) {
-        String sql = "INSERT INTO Package (org, name, version, pull_count, keywords) VALUES (?, ?, ?, ?, ?)";
+    public static int insertPackage(String org, String name, String packageName, String version,
+                                    int pullCount, List<String> keywords) {
+        String sql = "INSERT INTO Package (org, name, package_name, version, pull_count, keywords) " +
+                "VALUES (?, ?, ?, ?, ?, ?)";
         return insertEntry(sql,
-                new Object[]{org, name, version, pullCount, keywords == null ? "" : String.join(",", keywords)});
+                new Object[]{org, name, packageName, version, pullCount, keywords == null ? "" :
+                        String.join(",", keywords)});
     }
 
     public static void insertFunction(String name, String description, int packageId) {

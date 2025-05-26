@@ -118,6 +118,7 @@
               {
                 "type": "ParameterizedQuery",
                 "packageInfo": "ballerina:sql:1.16.0",
+                "packageName": "sql",
                 "kind": "OBJECT_TYPE",
                 "selected": true
               }
@@ -254,6 +255,7 @@
               {
                 "type": "ParameterizedQuery",
                 "packageInfo": "ballerina:sql:1.16.0",
+                "packageName": "sql",
                 "kind": "OBJECT_TYPE",
                 "selected": true
               }
@@ -360,6 +362,7 @@
               {
                 "type": "string",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "BASIC_TYPE",
                 "selected": false
               }
@@ -385,12 +388,14 @@
               {
                 "type": "string",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "BASIC_TYPE",
                 "selected": false
               },
               {
                 "type": "()",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "BASIC_TYPE",
                 "selected": false
               }
@@ -416,12 +421,14 @@
               {
                 "type": "string",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "BASIC_TYPE",
                 "selected": false
               },
               {
                 "type": "()",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "BASIC_TYPE",
                 "selected": false
               }
@@ -447,12 +454,14 @@
               {
                 "type": "string",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "BASIC_TYPE",
                 "selected": false
               },
               {
                 "type": "()",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "BASIC_TYPE",
                 "selected": false
               }
@@ -478,6 +487,7 @@
               {
                 "type": "int",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "BASIC_TYPE",
                 "selected": false
               }
@@ -503,12 +513,14 @@
               {
                 "type": "Options",
                 "packageInfo": "ballerinax:mysql:1.14.0",
+                "packageName": "mysql",
                 "kind": "RECORD_TYPE",
                 "selected": false
               },
               {
                 "type": "()",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "BASIC_TYPE",
                 "selected": false
               }
@@ -534,12 +546,14 @@
               {
                 "type": "ConnectionPool",
                 "packageInfo": "ballerina:sql:1.15.0",
+                "packageName": "sql",
                 "kind": "RECORD_TYPE",
                 "selected": false
               },
               {
                 "type": "()",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "BASIC_TYPE",
                 "selected": false
               }

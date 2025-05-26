@@ -65,8 +65,8 @@ import io.ballerina.modelgenerator.commons.ParameterData;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.DocumentId;
 import io.ballerina.projects.Module;
+import io.ballerina.projects.ModuleDescriptor;
 import io.ballerina.projects.Package;
-import io.ballerina.projects.PackageDescriptor;
 import io.ballerina.projects.Project;
 import io.ballerina.projects.directory.BuildProject;
 import io.ballerina.tools.diagnostics.Location;
@@ -110,7 +110,7 @@ class IndexGenerator {
             Map<String, List<PackageListGenerator.PackageMetadataInfo>> packagesMap = gson.fromJson(reader,
                     typeToken);
             ForkJoinPool forkJoinPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors());
-            forkJoinPool.submit(() -> packagesMap.forEach((key, value) -> value.parallelStream().forEach(
+            forkJoinPool.submit(() -> packagesMap.forEach((key, value) -> value.forEach(
                     packageMetadataInfo -> resolvePackage(buildProject, key, packageMetadataInfo)))).join();
         } catch (IOException e) {
             LOGGER.severe("Error reading packages JSON file: " + e.getMessage());
@@ -161,20 +161,31 @@ class IndexGenerator {
             LOGGER.severe("Error resolving package: " + packageMetadataInfo.name() + e.getMessage());
             return;
         }
-        PackageDescriptor descriptor = resolvedPackage.descriptor();
 
-        LOGGER.info("Processing package: " + descriptor.name().value());
-        int packageId = DatabaseManager.insertPackage(descriptor.org().value(), descriptor.name().value(),
+        List<String> exportedModules = resolvedPackage.manifest().exportedModules();
+        for (Module module: resolvedPackage.modules()) {
+            if (exportedModules.contains(module.descriptor().name().toString())) {
+                processModule(resolvedPackage, module);
+            }
+        }
+    }
+
+    private static void processModule(Package resolvedPackage, Module module) {
+        ModuleDescriptor descriptor = module.descriptor();
+        String moduleName = descriptor.name().toString();
+        LOGGER.info("Processing package: " + moduleName);
+        int packageId = DatabaseManager.insertPackage(descriptor.org().value(),
+               module.packageInstance().packageName().value(), moduleName,
                 descriptor.version().value().toString(), resolvedPackage.manifest().keywords());
         if (packageId == -1) {
-            LOGGER.severe("Error inserting package to database: " + descriptor.name().value());
+            LOGGER.severe("Error inserting package to database: " + moduleName);
             return;
         }
 
         SemanticModel semanticModel;
         try {
             semanticModel = PackageUtil.getCompilation(resolvedPackage)
-                    .getSemanticModel(resolvedPackage.getDefaultModule().moduleId());
+                    .getSemanticModel(module.moduleId());
         } catch (Exception e) {
             LOGGER.severe("Error reading semantic model: " + e.getMessage());
             return;
@@ -190,7 +201,7 @@ class IndexGenerator {
                 }
 
                 processFunctionSymbol(semanticModel, functionSymbol, functionSymbol, packageId, FunctionType.FUNCTION,
-                        descriptor.name().value(), errorTypeSymbol, resolvedPackage);
+                        moduleName, errorTypeSymbol, module);
                 continue;
             }
             if (symbol.kind() == SymbolKind.CLASS) {
@@ -208,7 +219,7 @@ class IndexGenerator {
                 }
                 int connectorId = processFunctionSymbol(semanticModel, initMethodSymbol.get(), classSymbol, packageId,
                         FunctionType.CONNECTOR,
-                        descriptor.name().value(), errorTypeSymbol, resolvedPackage);
+                        moduleName, errorTypeSymbol, module);
                 if (connectorId == -1) {
                     continue;
                 }
@@ -230,7 +241,7 @@ class IndexGenerator {
                         continue;
                     }
                     int functionId = processFunctionSymbol(semanticModel, methodSymbol, methodSymbol, packageId,
-                            functionType, descriptor.name().value(), errorTypeSymbol, resolvedPackage);
+                            functionType, moduleName, errorTypeSymbol, module);
                     if (functionId == -1) {
                         continue;
                     }
@@ -247,7 +258,7 @@ class IndexGenerator {
     private static int processFunctionSymbol(SemanticModel semanticModel, FunctionSymbol functionSymbol,
                                              Documentable documentable, int packageId,
                                              FunctionType functionType, String packageName,
-                                             TypeSymbol errorTypeSymbol, Package resolvedPackage) {
+                                             TypeSymbol errorTypeSymbol, Module module) {
         // Capture the name of the function
         Optional<String> name = functionSymbol.getName();
         if (name.isEmpty()) {
@@ -271,7 +282,7 @@ class IndexGenerator {
                 .orElse("");
 
         // Get import statements for the return type
-        ModuleInfo defaultModuleInfo = ModuleInfo.from(resolvedPackage.getDefaultModule().descriptor());
+        ModuleInfo defaultModuleInfo = ModuleInfo.from(module.descriptor());
         String importStatements = returnTypeSymbol.flatMap(
                 typeSymbol -> CommonUtils.getImportStatements(returnTypeSymbol.get(), defaultModuleInfo)).orElse(null);
 
@@ -323,17 +334,17 @@ class IndexGenerator {
         ParamForTypeInfer finalParamForTypeInfer = paramForTypeInfer;
         functionTypeSymbol.params()
                 .ifPresent(paramList -> paramList.forEach(paramSymbol -> processParameterSymbol(paramSymbol,
-                        documentationMap, functionId, resolvedPackage,
+                        documentationMap, functionId, module,
                         finalParamForTypeInfer, defaultModuleInfo, semanticModel)));
         functionTypeSymbol.restParam()
                 .ifPresent(paramSymbol -> processParameterSymbol(paramSymbol, documentationMap, functionId,
-                        resolvedPackage, null,
+                        module, null,
                         defaultModuleInfo, semanticModel));
         return functionId;
     }
 
     private static void processParameterSymbol(ParameterSymbol paramSymbol, Map<String, String> documentationMap,
-                                               int functionId, Package resolvedPackage,
+                                               int functionId, Module module,
                                                ParamForTypeInfer paramForTypeInfer,
                                                ModuleInfo defaultModuleInfo, SemanticModel semanticModel) {
         String paramName = paramSymbol.getName().orElse("");
@@ -352,7 +363,7 @@ class IndexGenerator {
         } else if (parameterKind == FunctionParameterKind.INCLUDED_RECORD) {
             paramType = CommonUtils.getTypeSignature(semanticModel, typeSymbol, false);
             addIncludedRecordParamsToDb((RecordTypeSymbol) CommonUtils.getRawType(typeSymbol),
-                    functionId, resolvedPackage, defaultModuleInfo, semanticModel, true, new HashMap<>());
+                    functionId, module, defaultModuleInfo, semanticModel, true, new HashMap<>());
             defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(typeSymbol);
         } else if (parameterKind == FunctionParameterKind.REQUIRED) {
             paramType = CommonUtils.getTypeSignature(semanticModel, typeSymbol, false);
@@ -370,11 +381,11 @@ class IndexGenerator {
                 }
             }
             Location symbolLocation = paramSymbol.getLocation().get();
-            Document document = findDocument(resolvedPackage, symbolLocation.lineRange().fileName());
+            Document document = findDocument(module, symbolLocation.lineRange().fileName());
             defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(typeSymbol);
             if (document != null) {
                 defaultValue = getParamDefaultValue(document.syntaxTree().rootNode(),
-                        symbolLocation, resolvedPackage.packageName().value());
+                        symbolLocation, module.descriptor().packageName().value());
             }
             paramType = CommonUtils.getTypeSignature(semanticModel, typeSymbol, false);
         }
@@ -384,11 +395,11 @@ class IndexGenerator {
     }
 
     protected static void addIncludedRecordParamsToDb(RecordTypeSymbol recordTypeSymbol, int functionId,
-                                                      Package resolvedPackage, ModuleInfo defaultModuleInfo,
+                                                      Module module, ModuleInfo defaultModuleInfo,
                                                       SemanticModel semanticModel, boolean insert,
                                                       Map<String, String> documentationMap) {
         recordTypeSymbol.typeInclusions().forEach(includedType -> addIncludedRecordParamsToDb(
-                ((RecordTypeSymbol) CommonUtils.getRawType(includedType)), functionId, resolvedPackage,
+                ((RecordTypeSymbol) CommonUtils.getRawType(includedType)), functionId, module,
                 defaultModuleInfo, semanticModel, false, documentationMap)
         );
         for (Map.Entry<String, RecordFieldSymbol> entry : recordTypeSymbol.fieldDescriptors().entrySet()) {
@@ -411,11 +422,11 @@ class IndexGenerator {
             }
 
             Location symbolLocation = recordFieldSymbol.getLocation().get();
-            Document document = findDocument(resolvedPackage, symbolLocation.lineRange().fileName());
+            Document document = findDocument(module, symbolLocation.lineRange().fileName());
             String defaultValue;
             if (document != null) {
                 defaultValue = getAttributeDefaultValue(document.syntaxTree().rootNode(),
-                        symbolLocation, resolvedPackage.packageName().value());
+                        symbolLocation, module.descriptor().packageName().value());
                 if (defaultValue == null) {
                     defaultValue = DefaultValueGeneratorUtil.getDefaultValueForType(fieldType);
                 }
@@ -519,7 +530,8 @@ class IndexGenerator {
             type = typeParts[1];
         }
 
-        DatabaseManager.insertParameterMemberType(parameterId, type, kind, packageIdentifier);
+        DatabaseManager.insertParameterMemberType(parameterId, type, kind, packageIdentifier,
+                moduleInfo == null ? "" : moduleInfo.packageName());
     }
 
     private static String getDescription(Documentable documentable) {
@@ -597,14 +609,15 @@ class IndexGenerator {
         return null;
     }
 
-    public static Document findDocument(Package pkg, String path) {
-        Project project = pkg.project();
-        Module defaultModule = pkg.getDefaultModule();
-        String module = pkg.packageName().value();
-        Path docPath = project.sourceRoot().resolve("modules").resolve(module).resolve(path);
+    public static Document findDocument(Module module, String path) {
+        Project project = module.project();
+        Path docPath = module.isDefaultModule() ? project.sourceRoot()
+                .resolve(module.descriptor().packageName().value()).resolve(path)
+                : project.sourceRoot().resolve("modules")
+                .resolve(module.moduleName().moduleNamePart()).resolve(path);
         try {
             DocumentId documentId = project.documentId(docPath);
-            return defaultModule.document(documentId);
+            return module.document(documentId);
         } catch (RuntimeException ex) {
             return null;
         }

@@ -110,6 +110,7 @@ public class ServiceDatabaseManager {
                         rs.getString("listener_description"),
                         null,
                         rs.getString("package_name"),
+                        rs.getString("package_name"),
                         rs.getString("org"),
                         rs.getString("version"),
                         null,
@@ -186,7 +187,7 @@ public class ServiceDatabaseManager {
                 // Add member type if present
                 if (memberType != null) {
                     ParameterMemberTypeData memberData = new ParameterMemberTypeData(
-                            memberType, memberKind, memberPackage);
+                            memberType, memberKind, memberPackage, memberPackage);
                     builder.typeMembers.add(memberData);
                 }
             }

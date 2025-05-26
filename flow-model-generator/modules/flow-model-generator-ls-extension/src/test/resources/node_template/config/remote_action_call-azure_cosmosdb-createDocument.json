@@ -5,6 +5,7 @@
     "node": "REMOTE_ACTION_CALL",
     "org": "ballerinax",
     "module": "azure_cosmosdb",
+    "packageName": "azure_cosmosdb",
     "object": "DataPlaneClient",
     "symbol": "createDocument",
     "parentSymbol": "covid19Client",
@@ -21,6 +22,7 @@
       "node": "REMOTE_ACTION_CALL",
       "org": "ballerinax",
       "module": "azure_cosmosdb",
+      "packageName": "azure_cosmosdb",
       "object": "DataPlaneClient",
       "symbol": "createDocument",
       "version": "4.2.0",
@@ -61,6 +63,7 @@
           {
             "type": "string",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }
@@ -86,6 +89,7 @@
           {
             "type": "string",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }
@@ -111,6 +115,7 @@
           {
             "type": "string",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }
@@ -136,6 +141,7 @@
           {
             "type": "map<json>",
             "packageInfo": "",
+            "packageName": "",
             "kind": "MAP_TYPE",
             "selected": false
           }
@@ -161,24 +167,28 @@
           {
             "type": "int",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           },
           {
             "type": "float",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           },
           {
             "type": "decimal",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           },
           {
             "type": "string",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }
@@ -204,12 +214,14 @@
           {
             "type": "RequestOptions",
             "packageInfo": "ballerinax:azure_cosmosdb:4.2.0",
+            "packageName": "azure_cosmosdb",
             "kind": "RECORD_TYPE",
             "selected": false
           },
           {
             "type": "()",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }

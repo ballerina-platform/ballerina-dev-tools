@@ -4,6 +4,7 @@
     {
       "type": "Employee",
       "packageInfo": "org:source:0.3.0",
+      "packageName": "source",
       "kind": "RECORD_TYPE",
       "selected": false
     }

@@ -19,6 +19,7 @@
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
         "module": "siemens.platformcore.identitymanagement",
+        "packageName": "siemens.platformcore.identitymanagement",
         "object": "Client",
         "symbol": "init",
         "version": "1.5.1",

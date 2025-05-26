@@ -141,6 +141,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerinax",
                 "module": "ai",
+                "packageName": "ai",
                 "symbol": "run",
                 "version": "1.0.1"
               },
@@ -156,6 +157,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerinax",
                 "module": "ai",
+                "packageName": "ai",
                 "symbol": "getTools",
                 "version": "1.0.1"
               },
@@ -171,6 +173,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerinax",
                 "module": "ai",
+                "packageName": "ai",
                 "symbol": "updateMemory",
                 "version": "1.0.1"
               },
@@ -186,6 +189,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerinax",
                 "module": "ai",
+                "packageName": "ai",
                 "symbol": "extractToolsFromOpenApiSpecFile",
                 "version": "1.0.1"
               },
@@ -201,6 +205,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerinax",
                 "module": "ai",
+                "packageName": "ai",
                 "symbol": "extractToolsFromOpenApiJsonSpec",
                 "version": "1.0.1"
               },
@@ -216,6 +221,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerinax",
                 "module": "ai",
+                "packageName": "ai",
                 "symbol": "parseOpenApiSpec",
                 "version": "1.0.1"
               },
@@ -231,6 +237,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerinax",
                 "module": "ai",
+                "packageName": "ai",
                 "symbol": "getToolConfigs",
                 "version": "1.0.1"
               },
@@ -255,6 +262,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "http",
+                "packageName": "http",
                 "symbol": "authenticateResource",
                 "version": "2.14.1"
               },
@@ -270,6 +278,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "http",
+                "packageName": "http",
                 "symbol": "createHttpCachingClient",
                 "version": "2.14.1"
               },
@@ -285,6 +294,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "http",
+                "packageName": "http",
                 "symbol": "parseHeader",
                 "version": "2.14.1"
               },
@@ -300,6 +310,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "http",
+                "packageName": "http",
                 "symbol": "getHeaderMap",
                 "version": "2.14.1"
               },
@@ -315,6 +326,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "http",
+                "packageName": "http",
                 "symbol": "getQueryMap",
                 "version": "2.14.1"
               },
@@ -330,6 +342,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "http",
+                "packageName": "http",
                 "symbol": "getDefaultListener",
                 "version": "2.14.1"
               },
@@ -345,6 +358,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "http",
+                "packageName": "http",
                 "symbol": "createHttpSecureClient",
                 "version": "2.14.1"
               },
@@ -382,6 +396,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "io",
+                "packageName": "io",
                 "symbol": "fileReadJson",
                 "version": "1.8.0"
               },
@@ -397,6 +412,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "io",
+                "packageName": "io",
                 "symbol": "fileReadString",
                 "version": "1.8.0"
               },
@@ -412,6 +428,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "io",
+                "packageName": "io",
                 "symbol": "fileWriteJson",
                 "version": "1.8.0"
               },
@@ -427,6 +444,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "io",
+                "packageName": "io",
                 "symbol": "fileWriteString",
                 "version": "1.8.0"
               },
@@ -442,6 +460,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "io",
+                "packageName": "io",
                 "symbol": "print",
                 "version": "1.8.0"
               },
@@ -457,6 +476,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "io",
+                "packageName": "io",
                 "symbol": "println",
                 "version": "1.8.0"
               },
@@ -481,6 +501,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "log",
+                "packageName": "log",
                 "symbol": "printDebug",
                 "version": "2.12.0"
               },
@@ -496,6 +517,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "log",
+                "packageName": "log",
                 "symbol": "printError",
                 "version": "2.12.0"
               },
@@ -511,6 +533,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "log",
+                "packageName": "log",
                 "symbol": "printInfo",
                 "version": "2.12.0"
               },
@@ -526,6 +549,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "log",
+                "packageName": "log",
                 "symbol": "printWarn",
                 "version": "2.12.0"
               },
@@ -550,6 +574,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "time",
+                "packageName": "time",
                 "symbol": "utcFromString",
                 "version": "2.7.0"
               },
@@ -565,6 +590,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "time",
+                "packageName": "time",
                 "symbol": "utcNow",
                 "version": "2.7.0"
               },

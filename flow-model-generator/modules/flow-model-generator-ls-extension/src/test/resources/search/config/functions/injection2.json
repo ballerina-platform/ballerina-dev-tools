@@ -82,6 +82,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "crypto",
+                "packageName": "crypto",
                 "symbol": "hashSha1",
                 "version": "2.9.0"
               },
@@ -97,6 +98,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "crypto",
+                "packageName": "crypto",
                 "symbol": "hmacSha1",
                 "version": "2.9.0"
               },
@@ -121,6 +123,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "lang.function",
+                "packageName": "lang.function",
                 "symbol": "call",
                 "version": "0.0.0"
               },
@@ -145,6 +148,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "lang.string",
+                "packageName": "lang.string",
                 "symbol": "iterator",
                 "version": "0.0.0"
               },

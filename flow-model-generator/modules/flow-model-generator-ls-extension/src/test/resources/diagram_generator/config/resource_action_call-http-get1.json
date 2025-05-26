@@ -127,9 +127,9 @@
               "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
             },
             "valueType": "TYPE",
-            "valueTypeConstraint": "anydata",
+            "valueTypeConstraint": "http:Response|anydata|stream<http:SseEvent, error?>",
             "value": "json",
-            "placeholder": "anydata",
+            "placeholder": "http:Response|anydata|stream<http:SseEvent, error?>",
             "optional": false,
             "editable": true,
             "advanced": false,
@@ -159,12 +159,14 @@
               {
                 "type": "()",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "BASIC_TYPE",
                 "selected": false
               },
               {
                 "type": "map<string|string[]>",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "MAP_TYPE",
                 "selected": false
               }
@@ -307,9 +309,9 @@
               "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
             },
             "valueType": "TYPE",
-            "valueTypeConstraint": "anydata",
+            "valueTypeConstraint": "http:Response|anydata|stream<http:SseEvent, error?>",
             "value": "json",
-            "placeholder": "anydata",
+            "placeholder": "http:Response|anydata|stream<http:SseEvent, error?>",
             "optional": false,
             "editable": true,
             "advanced": false,
@@ -339,12 +341,14 @@
               {
                 "type": "()",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "BASIC_TYPE",
                 "selected": false
               },
               {
                 "type": "map<string|string[]>",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "MAP_TYPE",
                 "selected": false
               }
@@ -494,9 +498,9 @@
               "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
             },
             "valueType": "TYPE",
-            "valueTypeConstraint": "anydata",
+            "valueTypeConstraint": "http:Response|anydata|stream<http:SseEvent, error?>",
             "value": "json",
-            "placeholder": "anydata",
+            "placeholder": "http:Response|anydata|stream<http:SseEvent, error?>",
             "optional": false,
             "editable": true,
             "advanced": false,
@@ -526,12 +530,14 @@
               {
                 "type": "()",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "BASIC_TYPE",
                 "selected": false
               },
               {
                 "type": "map<string|string[]>",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "MAP_TYPE",
                 "selected": false
               }
@@ -674,9 +680,9 @@
               "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
             },
             "valueType": "TYPE",
-            "valueTypeConstraint": "anydata",
+            "valueTypeConstraint": "http:Response|anydata|stream<http:SseEvent, error?>",
             "value": "json",
-            "placeholder": "anydata",
+            "placeholder": "http:Response|anydata|stream<http:SseEvent, error?>",
             "optional": false,
             "editable": true,
             "advanced": false,
@@ -706,12 +712,14 @@
               {
                 "type": "()",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "BASIC_TYPE",
                 "selected": false
               },
               {
                 "type": "map<string|string[]>",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "MAP_TYPE",
                 "selected": false
               }
@@ -858,9 +866,9 @@
               "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
             },
             "valueType": "TYPE",
-            "valueTypeConstraint": "anydata",
+            "valueTypeConstraint": "http:Response|anydata|stream<http:SseEvent, error?>",
             "value": "json",
-            "placeholder": "anydata",
+            "placeholder": "http:Response|anydata|stream<http:SseEvent, error?>",
             "optional": false,
             "editable": true,
             "advanced": false,
@@ -890,12 +898,14 @@
               {
                 "type": "()",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "BASIC_TYPE",
                 "selected": false
               },
               {
                 "type": "map<string|string[]>",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "MAP_TYPE",
                 "selected": false
               }
@@ -1038,9 +1048,9 @@
               "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
             },
             "valueType": "TYPE",
-            "valueTypeConstraint": "anydata",
+            "valueTypeConstraint": "http:Response|anydata|stream<http:SseEvent, error?>",
             "value": "json",
-            "placeholder": "anydata",
+            "placeholder": "http:Response|anydata|stream<http:SseEvent, error?>",
             "optional": false,
             "editable": true,
             "advanced": false,
@@ -1071,12 +1081,14 @@
               {
                 "type": "()",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "BASIC_TYPE",
                 "selected": false
               },
               {
                 "type": "map<string|string[]>",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "MAP_TYPE",
                 "selected": true
               }
@@ -1219,9 +1231,9 @@
               "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
             },
             "valueType": "TYPE",
-            "valueTypeConstraint": "anydata",
+            "valueTypeConstraint": "http:Response|anydata|stream<http:SseEvent, error?>",
             "value": "Food",
-            "placeholder": "anydata",
+            "placeholder": "http:Response|anydata|stream<http:SseEvent, error?>",
             "optional": false,
             "editable": true,
             "advanced": false,
@@ -1251,12 +1263,14 @@
               {
                 "type": "()",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "BASIC_TYPE",
                 "selected": false
               },
               {
                 "type": "map<string|string[]>",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "MAP_TYPE",
                 "selected": false
               }
@@ -1399,9 +1413,9 @@
               "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
             },
             "valueType": "TYPE",
-            "valueTypeConstraint": "anydata",
+            "valueTypeConstraint": "http:Response|anydata|stream<http:SseEvent, error?>",
             "value": "json",
-            "placeholder": "anydata",
+            "placeholder": "http:Response|anydata|stream<http:SseEvent, error?>",
             "optional": false,
             "editable": true,
             "advanced": false,
@@ -1431,12 +1445,14 @@
               {
                 "type": "()",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "BASIC_TYPE",
                 "selected": false
               },
               {
                 "type": "map<string|string[]>",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "MAP_TYPE",
                 "selected": false
               }
@@ -1579,9 +1595,9 @@
               "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
             },
             "valueType": "TYPE",
-            "valueTypeConstraint": "anydata",
+            "valueTypeConstraint": "http:Response|anydata|stream<http:SseEvent, error?>",
             "value": "Food",
-            "placeholder": "anydata",
+            "placeholder": "http:Response|anydata|stream<http:SseEvent, error?>",
             "optional": false,
             "editable": true,
             "advanced": false,
@@ -1611,12 +1627,14 @@
               {
                 "type": "()",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "BASIC_TYPE",
                 "selected": false
               },
               {
                 "type": "map<string|string[]>",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "MAP_TYPE",
                 "selected": false
               }
@@ -1720,6 +1738,7 @@
               {
                 "type": "string",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "BASIC_TYPE",
                 "selected": true
               }
@@ -1745,6 +1764,7 @@
               {
                 "type": "HttpVersion",
                 "packageInfo": "ballerina:http:2.14.1",
+                "packageName": "http",
                 "kind": "BASIC_TYPE",
                 "selected": false
               }
@@ -1770,6 +1790,7 @@
               {
                 "type": "ClientHttp1Settings",
                 "packageInfo": "ballerina:http:2.14.1",
+                "packageName": "http",
                 "kind": "RECORD_TYPE",
                 "selected": false
               }
@@ -1795,6 +1816,7 @@
               {
                 "type": "ClientHttp2Settings",
                 "packageInfo": "ballerina:http:2.14.1",
+                "packageName": "http",
                 "kind": "RECORD_TYPE",
                 "selected": false
               }
@@ -1820,6 +1842,7 @@
               {
                 "type": "decimal",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "BASIC_TYPE",
                 "selected": false
               }
@@ -1845,6 +1868,7 @@
               {
                 "type": "string",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "BASIC_TYPE",
                 "selected": false
               }
@@ -1870,12 +1894,14 @@
               {
                 "type": "FollowRedirects",
                 "packageInfo": "ballerina:http:2.14.1",
+                "packageName": "http",
                 "kind": "RECORD_TYPE",
                 "selected": false
               },
               {
                 "type": "()",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "BASIC_TYPE",
                 "selected": false
               }
@@ -1901,12 +1927,14 @@
               {
                 "type": "PoolConfiguration",
                 "packageInfo": "ballerina:http:2.14.1",
+                "packageName": "http",
                 "kind": "RECORD_TYPE",
                 "selected": false
               },
               {
                 "type": "()",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "BASIC_TYPE",
                 "selected": false
               }
@@ -1932,6 +1960,7 @@
               {
                 "type": "CacheConfig",
                 "packageInfo": "ballerina:http:2.14.1",
+                "packageName": "http",
                 "kind": "RECORD_TYPE",
                 "selected": false
               }
@@ -1957,6 +1986,7 @@
               {
                 "type": "Compression",
                 "packageInfo": "ballerina:http:2.14.1",
+                "packageName": "http",
                 "kind": "BASIC_TYPE",
                 "selected": false
               }
@@ -1982,48 +2012,56 @@
               {
                 "type": "CredentialsConfig",
                 "packageInfo": "ballerina:http:2.14.1",
+                "packageName": "http",
                 "kind": "RECORD_TYPE",
                 "selected": false
               },
               {
                 "type": "BearerTokenConfig",
                 "packageInfo": "ballerina:http:2.14.1",
+                "packageName": "http",
                 "kind": "RECORD_TYPE",
                 "selected": false
               },
               {
                 "type": "JwtIssuerConfig",
                 "packageInfo": "ballerina:http:2.14.1",
+                "packageName": "http",
                 "kind": "RECORD_TYPE",
                 "selected": false
               },
               {
                 "type": "OAuth2ClientCredentialsGrantConfig",
                 "packageInfo": "ballerina:http:2.14.1",
+                "packageName": "http",
                 "kind": "RECORD_TYPE",
                 "selected": false
               },
               {
                 "type": "OAuth2PasswordGrantConfig",
                 "packageInfo": "ballerina:http:2.14.1",
+                "packageName": "http",
                 "kind": "RECORD_TYPE",
                 "selected": false
               },
               {
                 "type": "OAuth2RefreshTokenGrantConfig",
                 "packageInfo": "ballerina:http:2.14.1",
+                "packageName": "http",
                 "kind": "RECORD_TYPE",
                 "selected": false
               },
               {
                 "type": "OAuth2JwtBearerGrantConfig",
                 "packageInfo": "ballerina:http:2.14.1",
+                "packageName": "http",
                 "kind": "RECORD_TYPE",
                 "selected": false
               },
               {
                 "type": "()",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "BASIC_TYPE",
                 "selected": false
               }
@@ -2049,12 +2087,14 @@
               {
                 "type": "CircuitBreakerConfig",
                 "packageInfo": "ballerina:http:2.14.1",
+                "packageName": "http",
                 "kind": "RECORD_TYPE",
                 "selected": false
               },
               {
                 "type": "()",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "BASIC_TYPE",
                 "selected": false
               }
@@ -2080,12 +2120,14 @@
               {
                 "type": "RetryConfig",
                 "packageInfo": "ballerina:http:2.14.1",
+                "packageName": "http",
                 "kind": "RECORD_TYPE",
                 "selected": false
               },
               {
                 "type": "()",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "BASIC_TYPE",
                 "selected": false
               }
@@ -2111,12 +2153,14 @@
               {
                 "type": "CookieConfig",
                 "packageInfo": "ballerina:http:2.14.1",
+                "packageName": "http",
                 "kind": "RECORD_TYPE",
                 "selected": false
               },
               {
                 "type": "()",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "BASIC_TYPE",
                 "selected": false
               }
@@ -2142,6 +2186,7 @@
               {
                 "type": "ResponseLimitConfigs",
                 "packageInfo": "ballerina:http:2.14.1",
+                "packageName": "http",
                 "kind": "RECORD_TYPE",
                 "selected": false
               }
@@ -2167,12 +2212,14 @@
               {
                 "type": "ProxyConfig",
                 "packageInfo": "ballerina:http:2.14.1",
+                "packageName": "http",
                 "kind": "RECORD_TYPE",
                 "selected": false
               },
               {
                 "type": "()",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "BASIC_TYPE",
                 "selected": false
               }
@@ -2198,6 +2245,7 @@
               {
                 "type": "boolean",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "BASIC_TYPE",
                 "selected": false
               }
@@ -2223,6 +2271,7 @@
               {
                 "type": "ClientSocketConfig",
                 "packageInfo": "ballerina:http:2.14.1",
+                "packageName": "http",
                 "kind": "RECORD_TYPE",
                 "selected": false
               }
@@ -2248,6 +2297,7 @@
               {
                 "type": "boolean",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "BASIC_TYPE",
                 "selected": false
               }
@@ -2273,12 +2323,14 @@
               {
                 "type": "ClientSecureSocket",
                 "packageInfo": "ballerina:http:2.14.1",
+                "packageName": "http",
                 "kind": "RECORD_TYPE",
                 "selected": false
               },
               {
                 "type": "()",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "BASIC_TYPE",
                 "selected": false
               }

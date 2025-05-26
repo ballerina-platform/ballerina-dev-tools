@@ -46,6 +46,7 @@ import io.ballerina.flowmodelgenerator.extension.response.RecordValueGenerateRes
 import io.ballerina.flowmodelgenerator.extension.response.TypeListResponse;
 import io.ballerina.flowmodelgenerator.extension.response.TypeResponse;
 import io.ballerina.flowmodelgenerator.extension.response.TypeUpdateResponse;
+import io.ballerina.modelgenerator.commons.ModuleInfo;
 import io.ballerina.modelgenerator.commons.PackageUtil;
 import io.ballerina.projects.Document;
 import org.ballerinalang.annotation.JavaSPIService;
@@ -59,6 +60,7 @@ import org.eclipse.lsp4j.services.LanguageServer;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
@@ -231,18 +233,15 @@ public class TypesManagerService implements ExtendedLanguageServerService {
             try {
                 Codedata codedata = request.codedata();
                 String orgName = codedata.org();
-                String packageName = codedata.module();
+                String packageName = Objects.isNull(codedata.packageName()) ?
+                        codedata.module() : codedata.packageName();
+                String moduleName = codedata.module();
                 String versionName = codedata.version();
                 Path filePath = Path.of(request.filePath());
 
-                PackageNameModulePartName packageNameModulePartName = PackageNameModulePartName.from(packageName);
-                // Find the semantic model
-                Optional<SemanticModel> semanticModel = PackageUtil.getSemanticModelIfMatched(workspaceManager,
-                        filePath, orgName, packageNameModulePartName.packageName(),
-                        packageNameModulePartName.modulePartName(), versionName);
-                if (semanticModel.isEmpty()) {
-                    semanticModel = PackageUtil.getSemanticModel(orgName, packageName, versionName);
-                }
+                Optional<SemanticModel> semanticModel = getCachedSemanticModel(orgName, packageName, moduleName,
+                        versionName, filePath);
+
                 if (semanticModel.isEmpty()) {
                     throw new IllegalArgumentException(
                             String.format("Package '%s/%s:%s' not found", orgName, packageName, versionName));
@@ -294,11 +293,10 @@ public class TypesManagerService implements ExtendedLanguageServerService {
             try {
                 FindTypeRequest.TypePackageInfo info = FindTypeRequest.TypePackageInfo.from(request.codedata());
                 SemanticModel semanticModel = findSemanticModel(info, request.filePath());
-                Optional<Symbol> typeSymbol = findTypeSymbolFromSemanticModel(semanticModel,
-                        request.typeConstraint());
+                Optional<Symbol> typeSymbol = findTypeSymbolFromSemanticModel(semanticModel, request.typeConstraint());
                 if (typeSymbol.isEmpty()) {
                     throw new IllegalArgumentException(String.format("Type '%s' not found in package '%s/%s:%s'",
-                            request.typeConstraint(), info.org(), info.module(), info.version()));
+                            request.typeConstraint(), info.org(), info.moduleName(), info.version()));
                 }
                 Type type  = TypeSymbolAnalyzerFromTypeModel.analyze(typeSymbol.get(), request.expr(), semanticModel);
                 response.setRecordConfig(type);
@@ -326,7 +324,7 @@ public class TypesManagerService implements ExtendedLanguageServerService {
                 for (PropertyTypeMemberInfo memberInfo : request.typeMembers()) {
                     try {
                         FindTypeRequest.TypePackageInfo info = FindTypeRequest.TypePackageInfo
-                                .from(memberInfo.packageInfo());
+                                .from(memberInfo.packageInfo(), memberInfo.packageName());
                         SemanticModel semanticModel = findSemanticModel(info, request.filePath());
                         Optional<Symbol> typeSymbol = findTypeSymbolFromSemanticModel(semanticModel,
                                 memberInfo.type());
@@ -352,21 +350,17 @@ public class TypesManagerService implements ExtendedLanguageServerService {
         });
     }
 
-    private Optional<SemanticModel> getCachedSemanticModel(String org, String packageName, String version,
-                                                           Path filePath) {
+    private Optional<SemanticModel> getCachedSemanticModel(String org, String packageName, String moduleName,
+                                                           String version, Path filePath) {
         // Check cache with filePath
         CacheKey keyWithPath = new CacheKey(org, packageName, version);
         SemanticModel cachedModel = semanticModelCache.get(keyWithPath);
         if (cachedModel != null) {
             return Optional.of(cachedModel);
         }
-        PackageNameModulePartName packageNameModulePartName = PackageNameModulePartName.from(packageName);
         // Try to load via filePath-specific method
-        Optional<SemanticModel> model = PackageUtil.getSemanticModelIfMatched(
-                workspaceManager, filePath, org, packageNameModulePartName.packageName(),
-                packageNameModulePartName.modulePartName(),
-                version
-        );
+        Optional<SemanticModel> model = PackageUtil.getSemanticModelIfMatched(workspaceManager, filePath, org,
+                packageName, moduleName, version);
         if (model.isPresent()) {
             semanticModelCache.put(keyWithPath, model.get());
             return model;
@@ -379,20 +373,22 @@ public class TypesManagerService implements ExtendedLanguageServerService {
             return Optional.of(cachedModel);
         }
 
-        model = PackageUtil.getSemanticModel(org, packageName, version);
+        ModuleInfo moduleInfo = new ModuleInfo(org, packageName, moduleName, version);
+        model = PackageUtil.getSemanticModel(moduleInfo);
         model.ifPresent(m -> semanticModelCache.put(keyWithoutPath, m));
         return model;
     }
 
-    private SemanticModel findSemanticModel(FindTypeRequest.TypePackageInfo packageInfo,
-                                                          String path) {
+    private SemanticModel findSemanticModel(FindTypeRequest.TypePackageInfo packageInfo, String path) {
         String orgName = packageInfo.org();
-        String packageName = packageInfo.module();
+        String packageName = packageInfo.packageName();
+        String moduleName = packageInfo.moduleName();
         String versionName = packageInfo.version();
         Path filePath = Path.of(path);
 
         // Retrieve cached or load new semantic model
-        Optional<SemanticModel> semanticModel = getCachedSemanticModel(orgName, packageName, versionName, filePath);
+        Optional<SemanticModel> semanticModel = getCachedSemanticModel(orgName, packageName, moduleName, versionName,
+                filePath);
         if (semanticModel.isEmpty()) {
             throw new IllegalArgumentException(
                     String.format("Package '%s/%s:%s' not found", orgName, packageName, versionName)

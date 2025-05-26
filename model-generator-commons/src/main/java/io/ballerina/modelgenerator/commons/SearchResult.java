@@ -38,11 +38,12 @@ public record SearchResult(Package packageInfo, String name, String description,
         return new SearchResult(packageInfo, name, description, new HashMap<>());
     }
 
-    public static SearchResult from(String packageOrg, String packageName, String packageVersion, String name,
+    public static SearchResult from(String packageOrg, String packageName, String moduleName,
+                                    String packageVersion, String name,
             String description) {
-        return from(new Package(packageOrg, packageName, packageVersion), name, description);
+        return from(new Package(packageOrg, packageName, moduleName, packageVersion), name, description);
     }
 
-    public record Package(String org, String name, String version) {
+    public record Package(String org, String packageName, String moduleName, String version) {
     }
 }

@@ -19,6 +19,7 @@
         "node": "NEW_CONNECTION",
         "org": "ballerina",
         "module": "ftp",
+        "packageName": "ftp",
         "object": "Client",
         "symbol": "init",
         "version": "2.13.1",

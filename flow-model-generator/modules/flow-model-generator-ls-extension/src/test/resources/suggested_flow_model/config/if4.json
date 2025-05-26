@@ -324,6 +324,7 @@
                       {
                         "type": "string",
                         "packageInfo": "",
+                        "packageName": "",
                         "kind": "BASIC_TYPE",
                         "selected": true
                       }
@@ -424,6 +425,7 @@
                       {
                         "type": "string",
                         "packageInfo": "",
+                        "packageName": "",
                         "kind": "BASIC_TYPE",
                         "selected": true
                       }
@@ -560,6 +562,7 @@
                               {
                                 "type": "string",
                                 "packageInfo": "",
+                                "packageName": "",
                                 "kind": "BASIC_TYPE",
                                 "selected": true
                               }
@@ -660,6 +663,7 @@
                               {
                                 "type": "string",
                                 "packageInfo": "",
+                                "packageName": "",
                                 "kind": "BASIC_TYPE",
                                 "selected": true
                               }

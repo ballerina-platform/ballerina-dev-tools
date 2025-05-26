@@ -102,7 +102,8 @@ public class SearchDatabaseManager {
                     f.name AS function_name,
                     f.description AS function_description,
                     f.package_id,
-                    p.name AS package_name,
+                    p.name AS module_name,
+                    p.package_name,
                     p.org AS package_org,
                     p.version AS package_version,
                     fts.rank
@@ -126,10 +127,12 @@ public class SearchDatabaseManager {
                 while (rs.next()) {
                     String functionName = rs.getString("function_name");
                     String description = rs.getString("function_description");
+                    String moduleName = rs.getString("module_name");
                     String packageName = rs.getString("package_name");
                     String org = rs.getString("package_org");
                     String version = rs.getString("package_version");
-                    SearchResult result = SearchResult.from(org, packageName, version, functionName, description);
+                    SearchResult result = SearchResult.from(org, packageName, moduleName, version,
+                            functionName, description);
                     results.add(result);
                 }
             }
@@ -161,7 +164,8 @@ public class SearchDatabaseManager {
                     c.name AS connector_name,
                     c.description AS connector_description,
                     c.package_id,
-                    p.name AS package_name,
+                    p.name AS module_name,
+                    p.package_name,
                     p.org AS package_org,
                     p.version AS package_version,
                     fts.rank
@@ -185,10 +189,12 @@ public class SearchDatabaseManager {
                 while (rs.next()) {
                     String connectorName = rs.getString("connector_name");
                     String description = rs.getString("connector_description");
+                    String moduleName = rs.getString("module_name");
                     String packageName = rs.getString("package_name");
                     String org = rs.getString("package_org");
                     String version = rs.getString("package_version");
-                    SearchResult result = SearchResult.from(org, packageName, version, connectorName, description);
+                    SearchResult result = SearchResult.from(org, packageName, moduleName, version, connectorName,
+                            description);
                     results.add(result);
                 }
             }
@@ -222,7 +228,8 @@ public class SearchDatabaseManager {
                 .append("f.name AS function_name, ")
                 .append("f.description AS function_description, ")
                 .append("f.package_id, ")
-                .append("p.name AS package_name, ")
+                .append("p.name AS module_name, ")
+                .append("p.package_name, ")
                 .append("p.org AS package_org, ")
                 .append("p.version AS package_version ")
                 .append("FROM Package p ")
@@ -267,10 +274,11 @@ public class SearchDatabaseManager {
                     String name = rs.getString("function_name");
                     String description = rs.getString("function_description");
                     String org = rs.getString("package_org");
+                    String moduleName = rs.getString("module_name");
                     String pkgName = rs.getString("package_name");
                     String version = rs.getString("package_version");
 
-                    SearchResult.Package packageInfo = new SearchResult.Package(org, pkgName, version);
+                    SearchResult.Package packageInfo = new SearchResult.Package(org, pkgName, moduleName, version);
                     results.add(SearchResult.from(packageInfo, name, description));
                 }
             }
@@ -299,7 +307,8 @@ public class SearchDatabaseManager {
                 .append("c.name AS connector_name, ")
                 .append("c.description AS connector_description, ")
                 .append("c.package_id, ")
-                .append("p.name AS package_name, ")
+                .append("p.name AS module_name, ")
+                .append("p.package_name, ")
                 .append("p.org AS package_org, ")
                 .append("p.version AS package_version ")
                 .append("FROM Package p ")
@@ -338,10 +347,11 @@ public class SearchDatabaseManager {
                     String name = rs.getString("connector_name");
                     String description = rs.getString("connector_description");
                     String org = rs.getString("package_org");
+                    String moduleName = rs.getString("module_name");
                     String pkgName = rs.getString("package_name");
                     String version = rs.getString("package_version");
 
-                    SearchResult.Package packageInfo = new SearchResult.Package(org, pkgName, version);
+                    SearchResult.Package packageInfo = new SearchResult.Package(org, pkgName, moduleName, version);
                     results.add(SearchResult.from(packageInfo, name, description));
                 }
             }
@@ -370,7 +380,8 @@ public class SearchDatabaseManager {
                     t.name AS type_name,
                     t.description AS type_description,
                     t.package_id,
-                    p.name AS package_name,
+                    p.name AS module_name,
+                    p.package_name,
                     p.org AS package_org,
                     p.version AS package_version,
                     fts.rank
@@ -394,10 +405,12 @@ public class SearchDatabaseManager {
                 while (rs.next()) {
                     String typeName = rs.getString("type_name");
                     String description = rs.getString("type_description");
+                    String moduleName = rs.getString("module_name");
                     String packageName = rs.getString("package_name");
                     String org = rs.getString("package_org");
                     String version = rs.getString("package_version");
-                    SearchResult result = SearchResult.from(org, packageName, version, typeName, description);
+                    SearchResult result = SearchResult.from(org, packageName, moduleName, version, typeName,
+                            description);
                     results.add(result);
                 }
             }
@@ -429,7 +442,8 @@ public class SearchDatabaseManager {
                 .append("t.name AS type_name, ")
                 .append("t.description AS type_description, ")
                 .append("t.package_id, ")
-                .append("p.name AS package_name, ")
+                .append("p.name AS module_name, ")
+                .append("p.package_name, ")
                 .append("p.org AS package_org, ")
                 .append("p.version AS package_version ")
                 .append("FROM Package p ")
@@ -459,10 +473,11 @@ public class SearchDatabaseManager {
                     String name = rs.getString("type_name");
                     String description = rs.getString("type_description");
                     String org = rs.getString("package_org");
+                    String moduleName = rs.getString("module_name");
                     String pkgName = rs.getString("package_name");
                     String version = rs.getString("package_version");
 
-                    SearchResult.Package packageInfo = new SearchResult.Package(org, pkgName, version);
+                    SearchResult.Package packageInfo = new SearchResult.Package(org, pkgName, moduleName, version);
                     results.add(SearchResult.from(packageInfo, name, description));
                 }
             }

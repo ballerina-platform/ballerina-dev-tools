@@ -47,6 +47,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "client.config",
+                "packageName": "client.config",
                 "symbol": "ConnectionConfig",
                 "version": "1.0.1"
               },
@@ -62,6 +63,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "client.config",
+                "packageName": "client.config",
                 "symbol": "AuthConfig",
                 "version": "1.0.1"
               },
@@ -77,6 +79,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "client.config",
+                "packageName": "client.config",
                 "symbol": "CredentialBearer",
                 "version": "1.0.1"
               },
@@ -92,6 +95,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "client.config",
+                "packageName": "client.config",
                 "symbol": "ProxyConfig",
                 "version": "1.0.1"
               },
@@ -107,6 +111,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "client.config",
+                "packageName": "client.config",
                 "symbol": "OAuth2RefreshTokenGrantConfig",
                 "version": "1.0.1"
               },
@@ -122,6 +127,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "client.config",
+                "packageName": "client.config",
                 "symbol": "ClientHttp1Settings",
                 "version": "1.0.1"
               },
@@ -137,6 +143,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "client.config",
+                "packageName": "client.config",
                 "symbol": "KeepAlive",
                 "version": "1.0.1"
               },
@@ -152,6 +159,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "client.config",
+                "packageName": "client.config",
                 "symbol": "OAuth2ClientCredentialsGrantConfig",
                 "version": "1.0.1"
               },
@@ -167,6 +175,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "client.config",
+                "packageName": "client.config",
                 "symbol": "OAuth2PasswordGrantConfig",
                 "version": "1.0.1"
               },
@@ -182,6 +191,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "client.config",
+                "packageName": "client.config",
                 "symbol": "OAuth2JwtBearerGrantConfig",
                 "version": "1.0.1"
               },
@@ -206,6 +216,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "commercetools.configuration",
+                "packageName": "commercetools.configuration",
                 "symbol": "OAuth2ClientCredentialsGrantConfig",
                 "version": "1.4.1"
               },
@@ -230,6 +241,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "peoplehr",
+                "packageName": "peoplehr",
                 "symbol": "ConnectionConfig",
                 "version": "2.2.1"
               },
@@ -254,6 +266,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerina",
                 "module": "soap",
+                "packageName": "soap",
                 "symbol": "ClientConfig",
                 "version": "2.3.0"
               },
@@ -278,6 +291,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "microsoft.onenote",
+                "packageName": "microsoft.onenote",
                 "symbol": "ConnectionConfig",
                 "version": "2.4.0"
               },
@@ -302,6 +316,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "microsoft.onedrive",
+                "packageName": "microsoft.onedrive",
                 "symbol": "ConnectionConfig",
                 "version": "2.4.0"
               },
@@ -326,6 +341,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "googleapis.people",
+                "packageName": "googleapis.people",
                 "symbol": "ConnectionConfig",
                 "version": "2.4.0"
               },
@@ -350,6 +366,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "microsoft.excel",
+                "packageName": "microsoft.excel",
                 "symbol": "ConnectionConfig",
                 "version": "2.4.0"
               },
@@ -374,6 +391,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "microsoft.teams",
+                "packageName": "microsoft.teams",
                 "symbol": "ConnectionConfig",
                 "version": "2.4.0"
               },
@@ -398,8 +416,59 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "googleapis.sheets",
+                "packageName": "googleapis.sheets",
                 "symbol": "ConnectionConfig",
                 "version": "3.5.1"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "salesforce.soap",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "ConnectionConfig",
+                "description": "Salesforce client configuration.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_salesforce_8.2.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "salesforce.soap",
+                "packageName": "salesforce",
+                "symbol": "ConnectionConfig",
+                "version": "8.2.0"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "salesforce.bulk",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "ConnectionConfig",
+                "description": "Salesforce client configuration.",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_salesforce_8.2.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "salesforce.bulk",
+                "packageName": "salesforce",
+                "symbol": "ConnectionConfig",
+                "version": "8.2.0"
               },
               "enabled": true
             }
@@ -422,6 +491,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "googleapis.calendar",
+                "packageName": "googleapis.calendar",
                 "symbol": "ConnectionConfig",
                 "version": "3.2.1"
               },
@@ -446,6 +516,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "googleapis.drive",
+                "packageName": "googleapis.drive",
                 "symbol": "ConnectionConfig",
                 "version": "3.3.0"
               },
@@ -470,47 +541,9 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "azure.ad",
+                "packageName": "azure.ad",
                 "symbol": "ConnectionConfig",
                 "version": "2.5.0"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
-            "label": "graphql",
-            "description": "",
-            "keywords": []
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "Graphiql",
-                "description": "Represent GraphiQL client configurations\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.16.1.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerina",
-                "module": "graphql",
-                "symbol": "Graphiql",
-                "version": "1.16.1"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "CookieConfig",
-                "description": "Client configuration for cookies.",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.16.1.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerina",
-                "module": "graphql",
-                "symbol": "CookieConfig",
-                "version": "1.16.1"
               },
               "enabled": true
             }
@@ -533,6 +566,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerina",
                 "module": "ftp",
+                "packageName": "ftp",
                 "symbol": "ClientConfiguration",
                 "version": "2.13.1"
               },

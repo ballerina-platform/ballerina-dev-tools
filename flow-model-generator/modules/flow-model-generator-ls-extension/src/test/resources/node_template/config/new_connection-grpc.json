@@ -9,6 +9,7 @@
     "node": "NEW_CONNECTION",
     "org": "ballerina",
     "module": "grpc",
+    "packageName": "grpc",
     "object": "StreamingClient",
     "version": "1.13.2",
     "symbol": "init"
@@ -24,6 +25,7 @@
       "node": "NEW_CONNECTION",
       "org": "ballerina",
       "module": "grpc",
+      "packageName": "grpc",
       "object": "StreamingClient",
       "symbol": "init",
       "version": "1.13.2",

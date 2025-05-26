@@ -32,6 +32,7 @@ public class FunctionData {
     private final String description;
     private final String returnType;
     private final String packageName;
+    private final String moduleName;
     private final String org;
     private final String version;
     private final String resourcePath;
@@ -43,13 +44,14 @@ public class FunctionData {
     private String packageId;
 
     public FunctionData(int functionId, String name, String description, String returnType,
-                        String packageName, String org, String version, String resourcePath,
+                        String packageName, String moduleName, String org, String version, String resourcePath,
                         Kind kind, boolean returnError, boolean inferredReturnType, String importStatements) {
         this.functionId = functionId;
         this.name = name;
         this.description = description;
         this.returnType = returnType;
         this.packageName = packageName;
+        this.moduleName = moduleName;
         this.org = org;
         this.version = version;
         this.resourcePath = resourcePath;
@@ -86,6 +88,10 @@ public class FunctionData {
 
     public String packageName() {
         return packageName;
+    }
+
+    public String moduleName() {
+        return moduleName;
     }
 
     public String org() {

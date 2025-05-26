@@ -128,15 +128,14 @@ public class ConnectorSearchCommand extends SearchCommand {
         Metadata metadata = new Metadata.Builder<>(null)
                 .label(getConnectorName(searchResult, packageInfo))
                 .description(searchResult.description())
-                .icon(CommonUtils.generateIcon(packageInfo.org(),
-                        packageInfo.name(),
-                        packageInfo.version()))
-                .addData(IS_AGENT_SUPPORT, AGENT_SUPPORT_CONNECTORS.contains(packageInfo.name()))
+                .icon(CommonUtils.generateIcon(packageInfo.org(), packageInfo.packageName(), packageInfo.version()))
+                .addData(IS_AGENT_SUPPORT, AGENT_SUPPORT_CONNECTORS.contains(packageInfo.moduleName()))
                 .build();
         Codedata codedata = new Codedata.Builder<>(null)
                 .node(NodeKind.NEW_CONNECTION)
                 .org(packageInfo.org())
-                .module(packageInfo.name())
+                .module(packageInfo.moduleName())
+                .packageName(packageInfo.packageName())
                 .object(searchResult.name())
                 .symbol(NewConnectionBuilder.INIT_SYMBOL)
                 .version(packageInfo.version())
@@ -147,7 +146,7 @@ public class ConnectorSearchCommand extends SearchCommand {
 
     private static String getConnectorName(SearchResult searchResult, SearchResult.Package packageInfo) {
         String connectorName = searchResult.name();
-        String rawPackageName = packageInfo.name();
+        String rawPackageName = packageInfo.moduleName();
         String packageName = CONNECTOR_NAME_MAP.getOrDefault(rawPackageName, getLastPackagePrefix(rawPackageName));
         if (connectorName.equals(CLIENT)) {
             return packageName;
@@ -192,8 +191,8 @@ public class ConnectorSearchCommand extends SearchCommand {
                     doc = classSymbol.documentation().get().description().orElse("");
                 }
                 SearchResult searchResult = SearchResult.from(id.orgName(),
-                        id.moduleName().substring(id.packageName().length() + 1), id.version(),
-                        classSymbol.getName().orElse(CLIENT), doc);
+                        id.packageName(), id.moduleName().substring(id.packageName().length() + 1),
+                        id.version(), classSymbol.getName().orElse(CLIENT), doc);
                 localConnections.add(searchResult);
             }
         }

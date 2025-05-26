@@ -9,6 +9,7 @@
     "node": "REMOTE_ACTION_CALL",
     "org": "ballerinax",
     "module": "snowflake",
+    "packageName": "snowflake",
     "object": "Client",
     "version": "2.1.0",
     "symbol": "query",
@@ -25,6 +26,7 @@
       "node": "REMOTE_ACTION_CALL",
       "org": "ballerinax",
       "module": "snowflake",
+      "packageName": "snowflake",
       "object": "Client",
       "symbol": "query",
       "version": "2.1.0",
@@ -83,6 +85,7 @@
           {
             "type": "ParameterizedQuery",
             "packageInfo": "ballerina:sql:1.15.0",
+            "packageName": "sql",
             "kind": "OBJECT_TYPE",
             "selected": false
           }

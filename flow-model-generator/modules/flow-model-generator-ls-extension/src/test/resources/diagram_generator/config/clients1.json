@@ -86,9 +86,9 @@
               "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
             },
             "valueType": "TYPE",
-            "valueTypeConstraint": "anydata",
+            "valueTypeConstraint": "http:Response|anydata|stream<http:SseEvent, error?>",
             "value": "json",
-            "placeholder": "anydata",
+            "placeholder": "http:Response|anydata|stream<http:SseEvent, error?>",
             "optional": false,
             "editable": true,
             "advanced": false,
@@ -119,6 +119,7 @@
               {
                 "type": "string",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "BASIC_TYPE",
                 "selected": true
               }
@@ -144,12 +145,14 @@
               {
                 "type": "()",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "BASIC_TYPE",
                 "selected": false
               },
               {
                 "type": "map<string|string[]>",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "MAP_TYPE",
                 "selected": false
               }
@@ -301,6 +304,7 @@
               {
                 "type": "string",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "BASIC_TYPE",
                 "selected": true
               }
@@ -327,6 +331,7 @@
               {
                 "type": "ClientConfiguration",
                 "packageInfo": "ballerina:http:2.14.1",
+                "packageName": "http",
                 "kind": "RECORD_TYPE",
                 "selected": true
               }
@@ -446,9 +451,9 @@
               "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
             },
             "valueType": "TYPE",
-            "valueTypeConstraint": "anydata",
+            "valueTypeConstraint": "http:Response|anydata|stream<http:SseEvent, error?>",
             "value": "json",
-            "placeholder": "anydata",
+            "placeholder": "http:Response|anydata|stream<http:SseEvent, error?>",
             "optional": false,
             "editable": true,
             "advanced": false,
@@ -479,6 +484,7 @@
               {
                 "type": "string",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "BASIC_TYPE",
                 "selected": true
               }
@@ -504,12 +510,14 @@
               {
                 "type": "()",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "BASIC_TYPE",
                 "selected": false
               },
               {
                 "type": "map<string|string[]>",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "MAP_TYPE",
                 "selected": false
               }
@@ -795,6 +803,7 @@
               {
                 "type": "string",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "BASIC_TYPE",
                 "selected": true
               }
@@ -821,6 +830,7 @@
               {
                 "type": "ClientConfiguration",
                 "packageInfo": "ballerina:http:2.14.1",
+                "packageName": "http",
                 "kind": "RECORD_TYPE",
                 "selected": true
               }

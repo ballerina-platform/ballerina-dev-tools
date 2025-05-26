@@ -9,6 +9,7 @@
     "node": "NEW_CONNECTION",
     "org": "ballerinax",
     "module": "redis",
+    "packageName": "redis",
     "object": "Client",
     "symbol": "init"
   },
@@ -23,6 +24,7 @@
       "node": "NEW_CONNECTION",
       "org": "ballerinax",
       "module": "redis",
+      "packageName": "redis",
       "object": "Client",
       "symbol": "init",
       "version": "3.1.0",
@@ -37,7 +39,7 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "redis:ConnectionUri|redis:ConnectionParams",
-        "placeholder": "\"redis://localhost:6379\"",
+        "placeholder": "\"\"",
         "optional": true,
         "editable": true,
         "advanced": true,
@@ -50,12 +52,14 @@
           {
             "type": "ConnectionParams",
             "packageInfo": "ballerinax:redis:3.1.0",
+            "packageName": "redis",
             "kind": "RECORD_TYPE",
             "selected": false
           },
           {
             "type": "ConnectionUri",
             "packageInfo": "ballerinax:redis:3.1.0",
+            "packageName": "redis",
             "kind": "BASIC_TYPE",
             "selected": false
           }
@@ -81,6 +85,7 @@
           {
             "type": "boolean",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }
@@ -106,6 +111,7 @@
           {
             "type": "boolean",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }
@@ -131,6 +137,7 @@
           {
             "type": "SecureSocket",
             "packageInfo": "ballerinax:redis:3.1.0",
+            "packageName": "redis",
             "kind": "RECORD_TYPE",
             "selected": false
           }

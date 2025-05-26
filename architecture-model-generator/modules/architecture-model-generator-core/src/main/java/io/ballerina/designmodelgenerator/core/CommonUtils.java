@@ -79,7 +79,7 @@ public class CommonUtils {
      * @param moduleID the module ID
      */
     public static String generateIcon(ModuleID moduleID) {
-        return String.format(CENTRAL_ICON_URL, moduleID.orgName(), moduleID.moduleName(), moduleID.version());
+        return String.format(CENTRAL_ICON_URL, moduleID.orgName(), moduleID.packageName(), moduleID.version());
     }
 
     /**

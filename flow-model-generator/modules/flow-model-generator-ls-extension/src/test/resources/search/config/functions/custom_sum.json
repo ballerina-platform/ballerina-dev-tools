@@ -136,6 +136,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "lang.int",
+                "packageName": "lang.int",
                 "symbol": "sum",
                 "version": "0.0.0"
               },
@@ -160,6 +161,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "lang.decimal",
+                "packageName": "lang.decimal",
                 "symbol": "sum",
                 "version": "0.0.0"
               },
@@ -184,6 +186,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "lang.float",
+                "packageName": "lang.float",
                 "symbol": "sum",
                 "version": "0.0.0"
               },
@@ -208,6 +211,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "lang.future",
+                "packageName": "lang.future",
                 "symbol": "cancel",
                 "version": "0.0.0"
               },

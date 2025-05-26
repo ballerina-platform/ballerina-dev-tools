@@ -520,6 +520,7 @@ public class TypesManager {
                 codedata.node(),
                 codedata.org(),
                 codedata.module(),
+                codedata.packageName(),
                 codedata.object(),
                 codedata.symbol(),
                 codedata.version(),

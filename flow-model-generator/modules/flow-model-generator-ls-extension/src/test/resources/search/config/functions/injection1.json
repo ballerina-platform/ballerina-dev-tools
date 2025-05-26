@@ -82,6 +82,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "jballerina.java",
+                "packageName": "jballerina.java",
                 "symbol": "toString",
                 "version": "0.0.0"
               },

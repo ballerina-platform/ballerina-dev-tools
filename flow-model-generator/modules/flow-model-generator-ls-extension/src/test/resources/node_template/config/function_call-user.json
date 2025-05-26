@@ -9,7 +9,8 @@
     "node": "FUNCTION_CALL",
     "symbol": "fn",
     "org": "nipunaf",
-    "module": "new_connection1"
+    "module": "new_connection1",
+    "packageName": "new_connection1"
   },
   "output": {
     "id": "31",
@@ -22,6 +23,7 @@
       "node": "FUNCTION_CALL",
       "org": "nipunaf",
       "module": "new_connection1",
+      "packageName": "new_connection1",
       "symbol": "fn",
       "isNew": true
     },
@@ -46,6 +48,7 @@
           {
             "type": "int",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }

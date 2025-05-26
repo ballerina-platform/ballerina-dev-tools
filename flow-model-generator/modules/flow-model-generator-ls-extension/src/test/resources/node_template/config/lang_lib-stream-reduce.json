@@ -9,6 +9,7 @@
     "node": "FUNCTION_CALL",
     "org": "ballerina",
     "module": "lang.stream",
+    "packageName": "lang.stream",
     "symbol": "reduce",
     "version": "0.0.0"
   },
@@ -23,6 +24,7 @@
       "node": "FUNCTION_CALL",
       "org": "ballerina",
       "module": "lang.stream",
+      "packageName": "lang.stream",
       "symbol": "reduce",
       "version": "0.0.0",
       "isNew": true
@@ -49,6 +51,7 @@
           {
             "type": "Type, stream",
             "packageInfo": "",
+            "packageName": "",
             "kind": "STREAM_TYPE",
             "selected": false
           }
@@ -74,6 +77,7 @@
           {
             "type": "Type1 accum, stream",
             "packageInfo": "",
+            "packageName": "",
             "kind": "FUNCTION_TYPE",
             "selected": false
           }
@@ -99,6 +103,7 @@
           {
             "type": "Type1",
             "packageInfo": "ballerina:lang.stream:0.0.0",
+            "packageName": "lang.stream",
             "kind": "OTHER",
             "selected": false
           }

@@ -4,41 +4,48 @@
     {
       "type": "CredentialsConfig",
       "packageInfo": "ballerina:http:2.13.2",
+      "packageName": "http",
       "kind": "RECORD_TYPE",
       "selected": false
     },
     {
       "type": "BearerTokenConfig",
       "packageInfo": "ballerina:http:2.13.2",
+      "packageName": "http",
       "kind": "RECORD_TYPE",
       "selected": false
     },
     {
       "type": "JwtIssuerConfig",
       "packageInfo": "ballerina:http:2.13.2",
+      "packageName": "http",
       "kind": "RECORD_TYPE",
       "selected": false
     },
     {
       "type": "OAuth2ClientCredentialsGrantConfig",
       "packageInfo": "ballerina:http:2.13.2",
+      "packageName": "http",
       "kind": "RECORD_TYPE",
       "selected": false
     },
     {
       "type": "OAuth2PasswordGrantConfig",
+      "packageName": "http",
       "packageInfo": "ballerina:http:2.13.2",
       "kind": "RECORD_TYPE",
       "selected": false
     },
     {
       "type": "OAuth2RefreshTokenGrantConfig",
+      "packageName": "http",
       "packageInfo": "ballerina:http:2.13.2",
       "kind": "RECORD_TYPE",
       "selected": false
     },
     {
       "type": "OAuth2JwtBearerGrantConfig",
+      "packageName": "http",
       "packageInfo": "ballerina:http:2.13.2",
       "kind": "RECORD_TYPE",
       "selected": false
@@ -46,6 +53,7 @@
     {
       "type": "()",
       "packageInfo": "",
+      "packageName": "",
       "kind": "BASIC_TYPE",
       "selected": false
     }
