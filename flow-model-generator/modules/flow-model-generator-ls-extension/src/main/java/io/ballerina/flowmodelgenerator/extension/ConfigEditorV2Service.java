@@ -101,22 +101,7 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
                 Project project = workspaceManager.loadProject(Path.of(req.projectPath()));
                 Package currentPackage = project.currentPackage();
 
-                // Add config variables from main project
-                Map<String, List<FlowNode>> moduleConfigVarMap = new HashMap<>();
-                for (Module module : currentPackage.modules()) {
-                    List<FlowNode> variables = extractModuleConfigVariables(module);
-                    if (!variables.isEmpty()) {
-                        String moduleName = module.moduleName().moduleNamePart() != null ?
-                                module.moduleName().moduleNamePart() : "";
-                        moduleConfigVarMap.put(moduleName, variables);
-                    }
-                }
-                if (!moduleConfigVarMap.isEmpty()) {
-                    String pkgName = currentPackage.packageOrg().value() + "/" + currentPackage.packageName().value();
-                    configVarMap.put(pkgName, moduleConfigVarMap);
-                }
-
-                // Add config variables from dependencies
+                configVarMap.putAll(extractVariablesFromProject(currentPackage));
                 configVarMap.putAll(extractConfigsFromDependencies(currentPackage));
 
                 response.setConfigVariables(gson.toJsonTree(configVarMap));
@@ -125,6 +110,26 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
             }
             return response;
         });
+    }
+
+    /**
+     * Extracts configuration variables from the current package and its submodules.
+     *
+     * @param currentPackage The current package instance
+     * @return A map containing configuration variables organized by package and module
+     */
+    private static Map<String, Map<String, List<FlowNode>>> extractVariablesFromProject(Package currentPackage) {
+        Map<String, List<FlowNode>> moduleConfigVarMap = new HashMap<>();
+        for (Module module : currentPackage.modules()) {
+            List<FlowNode> variables = extractModuleConfigVariables(module);
+            String modName = module.moduleName().moduleNamePart() != null ? module.moduleName().moduleNamePart() : "";
+            moduleConfigVarMap.put(modName, variables);
+        }
+
+        String pkgName = currentPackage.packageOrg().value() + "/" + currentPackage.packageName().value();
+        Map<String, Map<String, List<FlowNode>>> configVarMap = new LinkedHashMap<>();
+        configVarMap.put(pkgName, moduleConfigVarMap);
+        return configVarMap;
     }
 
     /**

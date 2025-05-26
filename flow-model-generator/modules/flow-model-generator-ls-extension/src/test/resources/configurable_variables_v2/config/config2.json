@@ -1,6 +1,9 @@
 {
   "project": "default_module_projects/simple_type_configs_imports",
   "configVariables": {
+    "config_tests/simpleconfigs_imports": {
+      "": []
+    },
     "ballerina/http": {
       "": [
         {
