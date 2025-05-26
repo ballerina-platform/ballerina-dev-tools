@@ -35,6 +35,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerina",
                 "module": "time",
+                "packageName": "time",
                 "symbol": "Date",
                 "version": "2.7.0"
               },
@@ -72,6 +73,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "optitune",
+                "packageName": "optitune",
                 "symbol": "DateParameter",
                 "version": "1.5.1"
               },
@@ -96,31 +98,8 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "gotowebinar",
+                "packageName": "gotowebinar",
                 "symbol": "DateTimeRangeArr",
-                "version": "1.5.1"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
-            "label": "worldtimeapi",
-            "description": "",
-            "keywords": []
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "DateTimeJsonResponse",
-                "description": "",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_worldtimeapi_1.5.1.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerinax",
-                "module": "worldtimeapi",
-                "symbol": "DateTimeJsonResponse",
                 "version": "1.5.1"
               },
               "enabled": true
@@ -144,6 +123,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "asana",
+                "packageName": "asana",
                 "symbol": "DateVariableCompact",
                 "version": "2.0.0"
               },
@@ -159,8 +139,34 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "asana",
+                "packageName": "asana",
                 "symbol": "DateVariableRequest",
                 "version": "2.0.0"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "worldtimeapi",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "DateTimeJsonResponse",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_worldtimeapi_1.5.1.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "worldtimeapi",
+                "packageName": "worldtimeapi",
+                "symbol": "DateTimeJsonResponse",
+                "version": "1.5.1"
               },
               "enabled": true
             }
@@ -183,6 +189,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "adp.paystatements",
+                "packageName": "adp.paystatements",
                 "symbol": "DateType",
                 "version": "1.5.1"
               },
@@ -207,6 +214,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "jira.servicemanagement",
+                "packageName": "jira.servicemanagement",
                 "symbol": "DateDTO",
                 "version": "1.3.1"
               },
@@ -231,6 +239,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "stripe",
+                "packageName": "stripe",
                 "symbol": "arrival_date",
                 "version": "2.0.0"
               },
@@ -246,6 +255,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "stripe",
+                "packageName": "stripe",
                 "symbol": "due_date",
                 "version": "2.0.0"
               },
@@ -261,6 +271,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "stripe",
+                "packageName": "stripe",
                 "symbol": "date_of_birth",
                 "version": "2.0.0"
               },
@@ -276,6 +287,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "stripe",
+                "packageName": "stripe",
                 "symbol": "date_of_birth_specs",
                 "version": "2.0.0"
               },
@@ -300,6 +312,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "amadeus.flightofferssearch",
+                "packageName": "amadeus.flightofferssearch",
                 "symbol": "DateTimeRange",
                 "version": "1.3.1"
               },
@@ -324,6 +337,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "microsoft.outlook.calendar",
+                "packageName": "microsoft.outlook.calendar",
                 "symbol": "DateTimeTimeZone",
                 "version": "2.4.0"
               },
@@ -348,6 +362,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "health.fhir.r4",
+                "packageName": "health.fhir.r4",
                 "symbol": "DateExtension",
                 "version": "6.0.0"
               },
@@ -363,6 +378,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "health.fhir.r4",
+                "packageName": "health.fhir.r4",
                 "symbol": "DateTimeExtension",
                 "version": "6.0.0"
               },
@@ -378,62 +394,9 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "health.fhir.r4",
+                "packageName": "health.fhir.r4",
                 "symbol": "DateSearchParameter",
                 "version": "6.0.0"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
-            "label": "health.fhir.r5",
-            "description": "",
-            "keywords": []
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "DateExtension",
-                "description": "",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.fhir.r5_0.9.0.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerinax",
-                "module": "health.fhir.r5",
-                "symbol": "DateExtension",
-                "version": "0.9.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "DateTimeExtension",
-                "description": "",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.fhir.r5_0.9.0.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerinax",
-                "module": "health.fhir.r5",
-                "symbol": "DateTimeExtension",
-                "version": "0.9.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "DateSearchParameter",
-                "description": "Date type search parameter information.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.fhir.r5_0.9.0.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerinax",
-                "module": "health.fhir.r5",
-                "symbol": "DateSearchParameter",
-                "version": "0.9.0"
               },
               "enabled": true
             }
@@ -456,8 +419,91 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "hubspot.crm.associations",
+                "packageName": "hubspot.crm.associations",
                 "symbol": "DateTime",
                 "version": "1.0.0"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "health.fhir.r5",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "DateExtension",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.fhir.r5_0.9.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "health.fhir.r5",
+                "packageName": "health.fhir.r5",
+                "symbol": "DateExtension",
+                "version": "0.9.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "DateTimeExtension",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.fhir.r5_0.9.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "health.fhir.r5",
+                "packageName": "health.fhir.r5",
+                "symbol": "DateTimeExtension",
+                "version": "0.9.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "DateSearchParameter",
+                "description": "Date type search parameter information.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.fhir.r5_0.9.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "health.fhir.r5",
+                "packageName": "health.fhir.r5",
+                "symbol": "DateSearchParameter",
+                "version": "0.9.0"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "candid.essentials",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "V3EssentialsResponse_dates",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_candid_0.1.1.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "candid.essentials",
+                "packageName": "candid",
+                "symbol": "V3EssentialsResponse_dates",
+                "version": "0.1.1"
               },
               "enabled": true
             }
@@ -480,6 +526,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "health.fhir.r4.aubase410",
+                "packageName": "health.fhir.r4.aubase410",
                 "symbol": "DateAccuracyIndicator",
                 "version": "2.0.0"
               },
@@ -495,6 +542,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "health.fhir.r4.aubase410",
+                "packageName": "health.fhir.r4.aubase410",
                 "symbol": "DateOfArrival",
                 "version": "2.0.0"
               },
@@ -519,6 +567,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "googleapis.people",
+                "packageName": "googleapis.people",
                 "symbol": "Date",
                 "version": "2.4.0"
               },
@@ -543,6 +592,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "whatsapp.business",
+                "packageName": "whatsapp.business",
                 "symbol": "DateTimeComponent",
                 "version": "1.5.1"
               },
@@ -558,6 +608,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "whatsapp.business",
+                "packageName": "whatsapp.business",
                 "symbol": "DateTimeUnixEpoch",
                 "version": "1.5.1"
               },
@@ -582,6 +633,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "cloudmersive.validate",
+                "packageName": "cloudmersive.validate",
                 "symbol": "DateTimeNowResult",
                 "version": "1.5.1"
               },
@@ -606,6 +658,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "postgresql",
+                "packageName": "postgresql",
                 "symbol": "DateRange",
                 "version": "1.15.0"
               },
@@ -630,22 +683,8 @@
                 "node": "TYPEDESC",
                 "org": "ballerina",
                 "module": "constraint",
+                "packageName": "constraint",
                 "symbol": "DateOption",
-                "version": "1.7.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "DateConstraints",
-                "description": "Represents the constraints associated with `Date` type.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_constraint_1.7.0.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerina",
-                "module": "constraint",
-                "symbol": "DateConstraints",
                 "version": "1.7.0"
               },
               "enabled": true

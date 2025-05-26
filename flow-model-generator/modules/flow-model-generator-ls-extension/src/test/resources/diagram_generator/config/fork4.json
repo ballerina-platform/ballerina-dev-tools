@@ -246,6 +246,7 @@
                       {
                         "type": "decimal",
                         "packageInfo": "",
+                        "packageName": "",
                         "kind": "BASIC_TYPE",
                         "selected": true
                       }

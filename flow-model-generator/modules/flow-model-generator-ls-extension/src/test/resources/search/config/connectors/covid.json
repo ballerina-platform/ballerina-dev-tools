@@ -19,6 +19,7 @@
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
         "module": "covid19",
+        "packageName": "covid19",
         "object": "Client",
         "symbol": "init",
         "version": "1.5.1",

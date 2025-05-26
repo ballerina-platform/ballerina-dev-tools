@@ -9,6 +9,7 @@
     "node": "NEW_CONNECTION",
     "org": "ballerinax",
     "module": "rabbitmq",
+    "packageName": "rabbitmq",
     "object": "Client",
     "symbol": "init",
     "version": "3.2.0"
@@ -24,6 +25,7 @@
       "node": "NEW_CONNECTION",
       "org": "ballerinax",
       "module": "rabbitmq",
+      "packageName": "rabbitmq",
       "object": "Client",
       "symbol": "init",
       "version": "3.2.0",
@@ -51,6 +53,7 @@
           {
             "type": "string",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }
@@ -76,6 +79,7 @@
           {
             "type": "int",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }
@@ -101,6 +105,7 @@
           {
             "type": "string",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }
@@ -126,6 +131,7 @@
           {
             "type": "string",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }
@@ -151,6 +157,7 @@
           {
             "type": "string",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }
@@ -176,6 +183,7 @@
           {
             "type": "decimal",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }
@@ -201,6 +209,7 @@
           {
             "type": "decimal",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }
@@ -226,6 +235,7 @@
           {
             "type": "decimal",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }
@@ -251,6 +261,7 @@
           {
             "type": "decimal",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }
@@ -263,7 +274,7 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "boolean",
-        "placeholder": "true",
+        "placeholder": "false",
         "optional": true,
         "editable": true,
         "advanced": true,
@@ -276,6 +287,7 @@
           {
             "type": "boolean",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }
@@ -301,6 +313,7 @@
           {
             "type": "SecureSocket",
             "packageInfo": "ballerinax:rabbitmq:3.2.0",
+            "packageName": "rabbitmq",
             "kind": "RECORD_TYPE",
             "selected": false
           }
@@ -326,6 +339,7 @@
           {
             "type": "Credentials",
             "packageInfo": "ballerinax:rabbitmq:3.2.0",
+            "packageName": "rabbitmq",
             "kind": "RECORD_TYPE",
             "selected": false
           }

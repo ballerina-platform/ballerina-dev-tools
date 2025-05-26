@@ -563,7 +563,7 @@ public class DatabaseManager {
                 "JOIN Package p ON c.package_id = p.package_id " +
                 "WHERE c.name = ? " +
                 "AND p.org = ? " +
-                "AND p.name = ? " +
+                "AND p.package_name = ? " +
                 "AND c.kind = 'CONNECTOR';";
 
         try (Connection conn = DriverManager.getConnection(dbPath);

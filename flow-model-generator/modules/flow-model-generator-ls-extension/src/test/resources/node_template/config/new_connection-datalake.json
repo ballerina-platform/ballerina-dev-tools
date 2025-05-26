@@ -9,6 +9,7 @@
     "node": "NEW_CONNECTION",
     "org": "ballerinax",
     "module": "azure.datalake",
+    "packageName": "azure.datalake",
     "object": "Client",
     "symbol": "init",
     "isGenerated": false
@@ -24,6 +25,7 @@
       "node": "NEW_CONNECTION",
       "org": "ballerinax",
       "module": "azure.datalake",
+      "packageName": "azure.datalake",
       "object": "Client",
       "symbol": "init",
       "version": "1.5.1",
@@ -52,6 +54,7 @@
           {
             "type": "ConnectionConfig",
             "packageInfo": "ballerinax:azure.datalake:1.5.1",
+            "packageName": "azure.datalake",
             "kind": "RECORD_TYPE",
             "selected": false
           }
@@ -77,6 +80,7 @@
           {
             "type": "string",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }

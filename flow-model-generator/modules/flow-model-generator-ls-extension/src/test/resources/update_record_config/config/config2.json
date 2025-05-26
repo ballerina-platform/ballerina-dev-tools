@@ -3,6 +3,7 @@
   "codedata": {
     "org": "org",
     "module": "source",
+    "packageName": "source",
     "version": "0.3.0"
   },
   "typeConstraint": "Employee",

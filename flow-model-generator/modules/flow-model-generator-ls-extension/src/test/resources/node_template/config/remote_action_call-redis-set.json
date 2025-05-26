@@ -9,6 +9,7 @@
     "node": "REMOTE_ACTION_CALL",
     "org": "ballerinax",
     "module": "redis",
+    "packageName": "redis",
     "object": "Client",
     "version": "3.0.2",
     "symbol": "set",
@@ -25,6 +26,7 @@
       "node": "REMOTE_ACTION_CALL",
       "org": "ballerinax",
       "module": "redis",
+      "packageName": "redis",
       "object": "Client",
       "symbol": "set",
       "version": "3.0.2",
@@ -65,6 +67,7 @@
           {
             "type": "string",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }
@@ -90,6 +93,7 @@
           {
             "type": "string",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }

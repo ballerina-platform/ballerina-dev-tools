@@ -68,6 +68,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "io",
+                "packageName": "io",
                 "symbol": "println",
                 "version": "1.8.0"
               },

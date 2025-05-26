@@ -46,6 +46,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "plaid",
+                "packageName": "plaid",
                 "symbol": "HealthIncident",
                 "version": "1.5.1"
               },
@@ -70,6 +71,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "azure.textanalytics",
+                "packageName": "azure.textanalytics",
                 "symbol": "HealthcareAssertion",
                 "version": "1.5.1"
               },
@@ -85,6 +87,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "azure.textanalytics",
+                "packageName": "azure.textanalytics",
                 "symbol": "HealthcareLinkingProperties",
                 "version": "1.5.1"
               },
@@ -100,6 +103,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "azure.textanalytics",
+                "packageName": "azure.textanalytics",
                 "symbol": "HealthcareEntityLink",
                 "version": "1.5.1"
               },
@@ -115,6 +119,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "azure.textanalytics",
+                "packageName": "azure.textanalytics",
                 "symbol": "HealthcareEntity",
                 "version": "1.5.1"
               },
@@ -130,6 +135,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "azure.textanalytics",
+                "packageName": "azure.textanalytics",
                 "symbol": "HealthcareTaskResult",
                 "version": "1.5.1"
               },
@@ -145,6 +151,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "azure.textanalytics",
+                "packageName": "azure.textanalytics",
                 "symbol": "HealthcareResult",
                 "version": "1.5.1"
               },
@@ -160,6 +167,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "azure.textanalytics",
+                "packageName": "azure.textanalytics",
                 "symbol": "HealthcareRelationEntity",
                 "version": "1.5.1"
               },
@@ -175,6 +183,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "azure.textanalytics",
+                "packageName": "azure.textanalytics",
                 "symbol": "HealthcareJobState",
                 "version": "1.5.1"
               },
@@ -199,6 +208,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "health.fhir.r4.international401",
+                "packageName": "health.fhir.r4.international401",
                 "symbol": "HealthcareServiceAvailableTimeDaysOfWeek",
                 "version": "3.0.0"
               },
@@ -214,6 +224,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "health.fhir.r4.international401",
+                "packageName": "health.fhir.r4.international401",
                 "symbol": "HealthcareService",
                 "version": "3.0.0"
               },
@@ -229,6 +240,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "health.fhir.r4.international401",
+                "packageName": "health.fhir.r4.international401",
                 "symbol": "HealthcareServiceEligibility",
                 "version": "3.0.0"
               },
@@ -244,6 +256,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "health.fhir.r4.international401",
+                "packageName": "health.fhir.r4.international401",
                 "symbol": "HealthcareServiceNotAvailable",
                 "version": "3.0.0"
               },
@@ -259,8 +272,34 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "health.fhir.r4.international401",
+                "packageName": "health.fhir.r4.international401",
                 "symbol": "HealthcareServiceAvailableTime",
                 "version": "3.0.0"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "health.base.auth",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "HealthcareSecurityError",
+                "description": "Auth module error",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.base_1.1.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "health.base.auth",
+                "packageName": "health.base",
+                "symbol": "HealthcareSecurityError",
+                "version": "1.1.0"
               },
               "enabled": true
             }
@@ -283,6 +322,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "health.fhir.r5.international500",
+                "packageName": "health.fhir.r5.international500",
                 "symbol": "HealthcareService",
                 "version": "0.9.0"
               },
@@ -298,8 +338,34 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "health.fhir.r5.international500",
+                "packageName": "health.fhir.r5.international500",
                 "symbol": "HealthcareServiceEligibility",
                 "version": "0.9.0"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "health.base.error",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "HealthcareError",
+                "description": "Defines the common error type for the module.",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.base_1.1.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerinax",
+                "module": "health.base.error",
+                "packageName": "health.base",
+                "symbol": "HealthcareError",
+                "version": "1.1.0"
               },
               "enabled": true
             }
@@ -322,6 +388,7 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "health.fhir.templates.international401.healthcareservice",
+                "packageName": "health.fhir.templates.international401.healthcareservice",
                 "symbol": "HealthcareService",
                 "version": "3.0.0"
               },
@@ -346,46 +413,8 @@
                 "node": "TYPEDESC",
                 "org": "ballerinax",
                 "module": "health.hl7v251",
+                "packageName": "health.hl7v251",
                 "symbol": "GenericMessage",
-                "version": "4.0.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "Type",
-                "description": "",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.hl7v251_4.0.0.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerinax",
-                "module": "health.hl7v251",
-                "symbol": "Type",
-                "version": "4.0.0"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
-            "label": "health.hl7v23",
-            "description": "",
-            "keywords": []
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "ST",
-                "description": "",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_health.hl7v23_4.0.0.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerinax",
-                "module": "health.hl7v23",
-                "symbol": "ST",
                 "version": "4.0.0"
               },
               "enabled": true

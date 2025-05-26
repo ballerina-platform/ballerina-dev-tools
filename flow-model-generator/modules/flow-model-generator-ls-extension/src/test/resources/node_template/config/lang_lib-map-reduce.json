@@ -9,6 +9,7 @@
     "node": "FUNCTION_CALL",
     "org": "ballerina",
     "module": "lang.map",
+    "packageName": "lang.map",
     "symbol": "reduce",
     "version": "0.0.0"
   },
@@ -23,6 +24,7 @@
       "node": "FUNCTION_CALL",
       "org": "ballerina",
       "module": "lang.map",
+      "packageName": "lang.map",
       "symbol": "reduce",
       "version": "0.0.0",
       "isNew": true
@@ -49,6 +51,7 @@
           {
             "type": "Type>",
             "packageInfo": "ballerina:lang.map:0.0.0",
+            "packageName": "lang.map",
             "kind": "MAP_TYPE",
             "selected": false
           }
@@ -74,6 +77,7 @@
           {
             "type": "Type1 accum, map",
             "packageInfo": "",
+            "packageName": "",
             "kind": "FUNCTION_TYPE",
             "selected": false
           }
@@ -99,6 +103,7 @@
           {
             "type": "Type1",
             "packageInfo": "ballerina:lang.map:0.0.0",
+            "packageName": "lang.map",
             "kind": "OTHER",
             "selected": false
           }

@@ -270,6 +270,7 @@
               {
                 "type": "int",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "BASIC_TYPE",
                 "selected": true
               }
@@ -399,6 +400,7 @@
               {
                 "type": "int",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "BASIC_TYPE",
                 "selected": true
               }

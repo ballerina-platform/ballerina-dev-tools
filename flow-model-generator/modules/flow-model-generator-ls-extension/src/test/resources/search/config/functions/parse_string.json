@@ -68,6 +68,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "data.jsondata",
+                "packageName": "data.jsondata",
                 "symbol": "parseString",
                 "version": "1.1.0"
               },
@@ -105,6 +106,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "data.xmldata",
+                "packageName": "data.xmldata",
                 "symbol": "parseString",
                 "version": "1.3.1"
               },
@@ -129,6 +131,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "data.yaml",
+                "packageName": "data.yaml",
                 "symbol": "parseString",
                 "version": "0.8.0"
               },
@@ -153,6 +156,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "data.csv",
+                "packageName": "data.csv",
                 "symbol": "parseString",
                 "version": "0.8.0"
               },

@@ -82,6 +82,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "lang.regexp",
+                "packageName": "lang.regexp",
                 "symbol": "find",
                 "version": "0.0.0"
               },
@@ -97,6 +98,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "lang.regexp",
+                "packageName": "lang.regexp",
                 "symbol": "matchAt",
                 "version": "0.0.0"
               },
@@ -112,22 +114,8 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "lang.regexp",
+                "packageName": "lang.regexp",
                 "symbol": "fromString",
-                "version": "0.0.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "findGroups",
-                "description": "Returns the `Groups` for the first match of a regular expression within a string.\n\n```ballerina\nstring:RegExp r = re `([bB].tt[a-z]*)`;\nr.findGroups(\"Not A Match\") is () ⇒ true\nr.findGroups(\"Butter was bought by Betty but the butter was bitter.\") is regexp:Groups ⇒ true\nr.findGroups(\"Butter was bought by Betty but the butter was bitter.\", 7) is regexp:Groups ⇒ true\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.regexp_0.0.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "lang.regexp",
-                "symbol": "findGroups",
                 "version": "0.0.0"
               },
               "enabled": true
@@ -142,7 +130,24 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "lang.regexp",
+                "packageName": "lang.regexp",
                 "symbol": "replace",
+                "version": "0.0.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "findGroups",
+                "description": "Returns the `Groups` for the first match of a regular expression within a string.\n\n```ballerina\nstring:RegExp r = re `([bB].tt[a-z]*)`;\nr.findGroups(\"Not A Match\") is () ⇒ true\nr.findGroups(\"Butter was bought by Betty but the butter was bitter.\") is regexp:Groups ⇒ true\nr.findGroups(\"Butter was bought by Betty but the butter was bitter.\", 7) is regexp:Groups ⇒ true\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.regexp_0.0.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "lang.regexp",
+                "packageName": "lang.regexp",
+                "symbol": "findGroups",
                 "version": "0.0.0"
               },
               "enabled": true
@@ -157,6 +162,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "lang.regexp",
+                "packageName": "lang.regexp",
                 "symbol": "matchGroupsAt",
                 "version": "0.0.0"
               },
@@ -172,6 +178,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "lang.regexp",
+                "packageName": "lang.regexp",
                 "symbol": "fullMatchGroups",
                 "version": "0.0.0"
               },
@@ -187,6 +194,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "lang.regexp",
+                "packageName": "lang.regexp",
                 "symbol": "replaceAll",
                 "version": "0.0.0"
               },
@@ -202,6 +210,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "lang.regexp",
+                "packageName": "lang.regexp",
                 "symbol": "isFullMatch",
                 "version": "0.0.0"
               },
@@ -217,6 +226,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "lang.regexp",
+                "packageName": "lang.regexp",
                 "symbol": "findAllGroups",
                 "version": "0.0.0"
               },
@@ -232,6 +242,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "lang.regexp",
+                "packageName": "lang.regexp",
                 "symbol": "split",
                 "version": "0.0.0"
               },
@@ -247,6 +258,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "lang.regexp",
+                "packageName": "lang.regexp",
                 "symbol": "findAll",
                 "version": "0.0.0"
               },
@@ -271,6 +283,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "lang.string",
+                "packageName": "lang.string",
                 "symbol": "includesMatch",
                 "version": "0.0.0"
               },
@@ -286,6 +299,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "lang.string",
+                "packageName": "lang.string",
                 "symbol": "matches",
                 "version": "0.0.0"
               },

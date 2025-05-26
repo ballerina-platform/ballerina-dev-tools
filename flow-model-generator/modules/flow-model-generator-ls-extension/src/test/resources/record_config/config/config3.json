@@ -3,6 +3,7 @@
   "codedata": {
     "org": "ballerina_integrator",
     "module": "openapi_client.PizzaShop",
+    "packageName": "openapi_client",
     "version": "0.1.0"
   },
   "typeConstraint": "ConnectionConfig",

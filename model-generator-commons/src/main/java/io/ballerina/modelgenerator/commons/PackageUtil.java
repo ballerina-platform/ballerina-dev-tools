@@ -250,11 +250,20 @@ public class PackageUtil {
                     descriptor.name().value().equals(packageName) &&
                     descriptor.version().value().toString().equals(version)) {
                 ModuleId moduleId = currentPackage.getDefaultModule().moduleId();
-                if (Objects.nonNull(modulePartName) && !modulePartName.isEmpty()) {
+                if (Objects.nonNull(modulePartName) && !modulePartName.isEmpty()
+                        && !packageName.equals(modulePartName)) {
                     ModuleName subModuleName = ModuleName.from(PackageName.from(packageName), modulePartName);
                     Module module = currentPackage.module(subModuleName);
                     if (module == null) {
-                        return Optional.empty();
+                        for (Module mod : currentPackage.modules()) {
+                            if (mod.moduleName().toString().equals(modulePartName)) {
+                                module = mod;
+                                break;
+                            }
+                        }
+                        if (module == null) {
+                            return Optional.empty();
+                        }
                     }
                     moduleId = module.moduleId();
                 }

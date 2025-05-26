@@ -4,6 +4,7 @@
     {
       "type": "ListenerSecureSocket",
       "packageInfo": "ballerina:http:2.12.2",
+      "packageName": "http",
       "kind": "RECORD_TYPE",
       "selected": false
     }

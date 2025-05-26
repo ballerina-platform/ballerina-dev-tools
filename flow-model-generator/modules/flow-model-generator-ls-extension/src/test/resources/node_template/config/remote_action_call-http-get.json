@@ -9,6 +9,7 @@
     "node": "REMOTE_ACTION_CALL",
     "org": "ballerina",
     "module": "http",
+    "packageName": "http",
     "object": "Client",
     "symbol": "get",
     "version": "2.12.0",
@@ -25,6 +26,7 @@
       "node": "REMOTE_ACTION_CALL",
       "org": "ballerina",
       "module": "http",
+      "packageName": "http",
       "object": "Client",
       "symbol": "get",
       "version": "2.12.0",
@@ -52,8 +54,8 @@
           "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
         },
         "valueType": "TYPE",
-        "valueTypeConstraint": "anydata",
-        "placeholder": "anydata",
+        "valueTypeConstraint": "http:Response|anydata|stream<http:SseEvent, error?>",
+        "placeholder": "http:Response|anydata|stream<http:SseEvent, error?>",
         "optional": false,
         "editable": true,
         "advanced": false,
@@ -83,6 +85,7 @@
           {
             "type": "string",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }
@@ -108,12 +111,14 @@
           {
             "type": "()",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           },
           {
             "type": "map<string|string[]>",
             "packageInfo": "",
+            "packageName": "",
             "kind": "MAP_TYPE",
             "selected": false
           }

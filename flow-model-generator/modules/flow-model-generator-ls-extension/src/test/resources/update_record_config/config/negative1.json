@@ -3,6 +3,7 @@
   "codedata": {
     "org": "ballerina",
     "module": "http",
+    "packageName": "http",
     "version": "2.13.2"
   },
   "typeConstraint": "ClientAuthConfig",

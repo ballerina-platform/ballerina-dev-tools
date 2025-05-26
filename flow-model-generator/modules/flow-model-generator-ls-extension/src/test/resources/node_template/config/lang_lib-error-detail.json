@@ -9,6 +9,7 @@
     "node": "FUNCTION_CALL",
     "org": "ballerina",
     "module": "lang.error",
+    "packageName": "lang.error",
     "symbol": "detail",
     "version": "0.0.0",
     "isNew": true
@@ -24,6 +25,7 @@
       "node": "FUNCTION_CALL",
       "org": "ballerina",
       "module": "lang.error",
+      "packageName": "lang.error",
       "symbol": "detail",
       "version": "0.0.0",
       "isNew": true
@@ -50,6 +52,7 @@
           {
             "type": "error<error",
             "packageInfo": "ballerina:lang.error:0.0.0",
+            "packageName": "lang.error",
             "kind": "ERROR_TYPE",
             "selected": false
           }

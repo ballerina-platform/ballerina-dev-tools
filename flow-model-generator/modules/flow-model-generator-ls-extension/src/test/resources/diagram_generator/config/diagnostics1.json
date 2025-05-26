@@ -348,6 +348,7 @@
               {
                 "type": "string",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "BASIC_TYPE",
                 "selected": false
               }
@@ -382,6 +383,7 @@
               {
                 "type": "int",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "BASIC_TYPE",
                 "selected": false
               }
@@ -407,6 +409,7 @@
               {
                 "type": "boolean",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "BASIC_TYPE",
                 "selected": true
               }
@@ -441,6 +444,7 @@
               {
                 "type": "map<json>",
                 "packageInfo": "",
+                "packageName": "",
                 "kind": "MAP_TYPE",
                 "selected": false
               }

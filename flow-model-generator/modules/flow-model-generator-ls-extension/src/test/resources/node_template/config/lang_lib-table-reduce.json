@@ -9,6 +9,7 @@
     "node": "FUNCTION_CALL",
     "org": "ballerina",
     "module": "lang.table",
+    "packageName": "lang.table",
     "symbol": "reduce",
     "version": "0.0.0"
   },
@@ -23,6 +24,7 @@
       "node": "FUNCTION_CALL",
       "org": "ballerina",
       "module": "lang.table",
+      "packageName": "lang.table",
       "symbol": "reduce",
       "version": "0.0.0",
       "isNew": true
@@ -49,6 +51,7 @@
           {
             "type": "MapType>",
             "packageInfo": "ballerina:lang.table:0.0.0",
+            "packageName": "lang.table",
             "kind": "TABLE_TYPE",
             "selected": false
           }
@@ -74,6 +77,7 @@
           {
             "type": "Type accum, table",
             "packageInfo": "",
+            "packageName": "",
             "kind": "FUNCTION_TYPE",
             "selected": false
           }
@@ -99,6 +103,7 @@
           {
             "type": "Type",
             "packageInfo": "ballerina:lang.table:0.0.0",
+            "packageName": "lang.table",
             "kind": "OTHER",
             "selected": false
           }

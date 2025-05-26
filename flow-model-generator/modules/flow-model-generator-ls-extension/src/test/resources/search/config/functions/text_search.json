@@ -82,6 +82,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "io",
+                "packageName": "io",
                 "symbol": "fileWriteString",
                 "version": "1.8.0"
               },
@@ -97,6 +98,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "io",
+                "packageName": "io",
                 "symbol": "fileWriteJson",
                 "version": "1.8.0"
               },
@@ -112,6 +114,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "io",
+                "packageName": "io",
                 "symbol": "fileWriteBytes",
                 "version": "1.8.0"
               },
@@ -127,6 +130,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "io",
+                "packageName": "io",
                 "symbol": "fileWriteXml",
                 "version": "1.8.0"
               },
@@ -142,6 +146,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "io",
+                "packageName": "io",
                 "symbol": "fileWriteBlocksFromStream",
                 "version": "1.8.0"
               },
@@ -157,6 +162,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "io",
+                "packageName": "io",
                 "symbol": "fileWriteLines",
                 "version": "1.8.0"
               },
@@ -172,6 +178,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "io",
+                "packageName": "io",
                 "symbol": "fileWriteLinesFromStream",
                 "version": "1.8.0"
               },
@@ -187,6 +194,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "io",
+                "packageName": "io",
                 "symbol": "fileWriteCsv",
                 "version": "1.8.0"
               },
@@ -202,6 +210,7 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "io",
+                "packageName": "io",
                 "symbol": "fileWriteCsvFromStream",
                 "version": "1.8.0"
               },

@@ -18,7 +18,7 @@
     "metadata": {
       "label": "addItem",
       "description": "",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/nipunaf_new_connection1_null.png"
+      "icon": "https://bcentral-packageicons.azureedge.net/images/nipunaf_null_null.png"
     },
     "codedata": {
       "node": "METHOD_CALL",
@@ -62,6 +62,7 @@
           {
             "type": "string",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }

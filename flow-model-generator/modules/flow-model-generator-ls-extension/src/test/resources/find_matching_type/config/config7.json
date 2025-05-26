@@ -4,6 +4,7 @@
     {
       "type": "ConnectionConfig",
       "packageInfo": "ballerinax:mongodb:5.1.0",
+      "packageName": "mongodb",
       "kind": "RECORD_TYPE",
       "selected": false
     }

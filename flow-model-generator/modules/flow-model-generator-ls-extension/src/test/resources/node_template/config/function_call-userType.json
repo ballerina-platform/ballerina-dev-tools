@@ -9,7 +9,8 @@
     "node": "FUNCTION_CALL",
     "symbol": "customFn",
     "org": "nipunaf",
-    "module": "new_connection1"
+    "module": "new_connection1",
+    "packageName": "new_connection1"
   },
   "output": {
     "id": "31",
@@ -22,6 +23,7 @@
       "node": "FUNCTION_CALL",
       "org": "nipunaf",
       "module": "new_connection1",
+      "packageName": "new_connection1",
       "symbol": "customFn",
       "isNew": true
     },
@@ -46,6 +48,7 @@
           {
             "type": "Address",
             "packageInfo": "nipunaf:new_connection1:0.1.0",
+            "packageName": "new_connection1",
             "kind": "RECORD_TYPE",
             "selected": false
           }
@@ -70,6 +73,7 @@
           {
             "type": "Person",
             "packageInfo": "nipunaf:new_connection1:0.1.0",
+            "packageName": "new_connection1",
             "kind": "RECORD_TYPE",
             "selected": false
           }

@@ -9,6 +9,7 @@
     "node": "REMOTE_ACTION_CALL",
     "org": "ballerinax",
     "module": "mysql",
+    "packageName": "mysql",
     "object": "Client",
     "symbol": "queryRow",
     "version": "1.14.0",
@@ -27,6 +28,7 @@
       "node": "REMOTE_ACTION_CALL",
       "org": "ballerinax",
       "module": "mysql",
+      "packageName": "mysql",
       "object": "Client",
       "symbol": "queryRow",
       "version": "1.14.0",
@@ -85,6 +87,7 @@
           {
             "type": "ParameterizedQuery",
             "packageInfo": "ballerina:sql:1.16.0",
+            "packageName": "sql",
             "kind": "OBJECT_TYPE",
             "selected": false
           }

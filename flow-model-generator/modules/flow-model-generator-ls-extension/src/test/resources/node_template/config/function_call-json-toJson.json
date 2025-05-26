@@ -9,6 +9,7 @@
     "node": "FUNCTION_CALL",
     "org": "ballerina",
     "module": "data.jsondata",
+    "packageName": "data.jsondata",
     "symbol": "toJson",
     "version": "1.1.0"
   },
@@ -23,6 +24,7 @@
       "node": "FUNCTION_CALL",
       "org": "ballerina",
       "module": "data.jsondata",
+      "packageName": "data.jsondata",
       "symbol": "toJson",
       "version": "1.1.0",
       "isNew": true
@@ -49,6 +51,7 @@
           {
             "type": "anydata",
             "packageInfo": "",
+            "packageName": "",
             "kind": "OTHER",
             "selected": false
           }

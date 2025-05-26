@@ -9,6 +9,7 @@
     "node": "FUNCTION_CALL",
     "org": "ballerina",
     "module": "lang.array",
+    "packageName": "lang.array",
     "symbol": "lastIndexOf",
     "version": "0.0.0"
   },
@@ -23,6 +24,7 @@
       "node": "FUNCTION_CALL",
       "org": "ballerina",
       "module": "lang.array",
+      "packageName": "lang.array",
       "symbol": "lastIndexOf",
       "version": "0.0.0",
       "isNew": true
@@ -49,6 +51,7 @@
           {
             "type": "AnydataType",
             "packageInfo": "ballerina:lang.array:0.0.0",
+            "packageName": "lang.array",
             "kind": "ARRAY_TYPE",
             "selected": false
           }
@@ -74,6 +77,7 @@
           {
             "type": "AnydataType",
             "packageInfo": "ballerina:lang.array:0.0.0",
+            "packageName": "lang.array",
             "kind": "OTHER",
             "selected": false
           }
@@ -86,7 +90,7 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "int",
-        "placeholder": "arr.length() - 1",
+        "placeholder": "0",
         "optional": true,
         "editable": true,
         "advanced": true,
@@ -99,6 +103,7 @@
           {
             "type": "int",
             "packageInfo": "",
+            "packageName": "",
             "kind": "BASIC_TYPE",
             "selected": false
           }
