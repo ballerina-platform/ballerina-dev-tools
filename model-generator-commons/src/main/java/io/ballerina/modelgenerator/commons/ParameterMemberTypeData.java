@@ -24,6 +24,7 @@ package io.ballerina.modelgenerator.commons;
  * @param type       A member type of the parameter
  * @param packageInfo The package information of the member type
  * @param kind       The kind of the type
+ * @param packageName The name of the package
  * @since 2.0.0
  */
 public record ParameterMemberTypeData(String type, String kind, String packageInfo, String packageName) {
