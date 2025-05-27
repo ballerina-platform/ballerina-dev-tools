@@ -106,7 +106,7 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
                 Package currentPackage = project.currentPackage();
 
                 // Parse Config.toml if it exists
-                Map<String, Object> configTomlValues = parseConfigToml(project);
+                Toml configTomlValues = parseConfigToml(project);
 
                 configVarMap.putAll(extractVariablesFromProject(currentPackage, configTomlValues));
                 configVarMap.putAll(extractConfigsFromDependencies(currentPackage, configTomlValues));
@@ -161,22 +161,19 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
      * @param project The current project
      * @return A map containing configuration values from Config.toml
      */
-    private Map<String, Object> parseConfigToml(Project project) {
-        Map<String, Object> configValues = new HashMap<>();
-
+    private Toml parseConfigToml(Project project) {
         try {
             Path configTomlPath = project.sourceRoot().resolve("Config.toml");
             if (!Files.exists(configTomlPath)) {
-                return configValues;
+                return null;
             }
 
-            Toml toml = Toml.read(configTomlPath);
-            configValues = toml.toMap();
+            return Toml.read(configTomlPath);
         } catch (Exception e) {
             // TODO: add diagnostic handling
         }
 
-        return configValues;
+        return null;
     }
 
     /**
@@ -188,30 +185,10 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
      * @param variableName The variable name
      * @return The configuration value if found, null otherwise
      */
-    private Object getConfigValue(Map<String, Object> configValues, String packageName,
+    private Object getConfigValue(Toml configValues, String packageName,
                                   String moduleName, String variableName) {
-        if (configValues.isEmpty()) {
-            return null;
-        }
-
-        // Try different key formats based on Ballerina configuration conventions
-        // TODO: Remove redundant candidate keys
-        String pkgName = packageName.replace("/", ".");
-        String[] possibleKeys = {
-                variableName,
-                String.join(".", moduleName, variableName),
-                String.join(".", pkgName, variableName),
-                String.join(".", pkgName, moduleName, variableName),
-        };
-
-        for (String key : possibleKeys) {
-            if (key != null && configValues.containsKey(key)) {
-                return configValues.get(key);
-            }
-        }
-
-        // Handle nested configurations
-        return getNestedConfigValue(configValues, packageName, moduleName, variableName);
+        // TODO: Implement method
+        return null;
     }
 
     /**
@@ -276,7 +253,7 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
      * @return A map containing configuration variables organized by package and module
      */
     private Map<String, Map<String, List<FlowNode>>> extractVariablesFromProject(
-            Package currentPackage, Map<String, Object> configTomlValues) {
+            Package currentPackage, Toml configTomlValues) {
         Map<String, List<FlowNode>> moduleConfigVarMap = new HashMap<>();
         String pkgName = currentPackage.packageOrg().value() + "/" + currentPackage.packageName().value();
 
@@ -331,7 +308,7 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
      * @param moduleName       The module name
      * @return A list of configuration variables
      */
-    private List<FlowNode> extractModuleConfigVariables(Module module, Map<String, Object> configTomlValues,
+    private List<FlowNode> extractModuleConfigVariables(Module module, Toml configTomlValues,
                                                         String packageName, String moduleName) {
         List<FlowNode> configVariables = new LinkedList<>();
         Optional<SemanticModel> semanticModel = getSemanticModel(module);
@@ -368,7 +345,7 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
      * Extracts configuration variables from the dependencies of the current package.
      */
     private Map<String, Map<String, List<FlowNode>>> extractConfigsFromDependencies(
-            Package currentPackage, Map<String, Object> configTomlValues) {
+            Package currentPackage, Toml configTomlValues) {
         Map<String, Map<String, List<FlowNode>>> dependencyConfigVarMap = new HashMap<>();
         for (Module module : currentPackage.modules()) {
             List<ModuleDependency> validDependencies = new LinkedList<>();
@@ -395,7 +372,7 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
      */
     private Map<String, Map<String, List<FlowNode>>> getImportedConfigVars(
             Package currentPkg, Collection<ModuleDependency> moduleDependencies,
-            Map<String, Object> configTomlValues) {
+            Toml configTomlValues) {
         Map<String, Map<String, List<FlowNode>>> pkgConfigs = new HashMap<>();
         Collection<ResolvedPackageDependency> dependencies = currentPkg.getResolution().dependencyGraph().getNodes();
         for (ResolvedPackageDependency dependency : dependencies) {
@@ -415,7 +392,7 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
     }
 
     private Map<String, List<FlowNode>> processDependency(ResolvedPackageDependency dependency,
-                                                          Map<String, Object> configTomlValues) {
+                                                          Toml configTomlValues) {
         Map<String, List<FlowNode>> moduleConfigs = new HashMap<>();
         String packageName = dependency.packageInstance().packageOrg().value() + "/" +
                 dependency.packageInstance().packageName().value();
@@ -518,7 +495,7 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
      * @return A FlowNode representing the configuration variable
      */
     private FlowNode constructConfigVarNode(ModuleVariableDeclarationNode variableNode,
-                                            SemanticModel semanticModel, Map<String, Object> configTomlValues,
+                                            SemanticModel semanticModel, Toml configTomlValues,
                                             String packageName, String moduleName) {
 
         NodeBuilder nodeBuilder = NodeBuilder.getNodeFromKind(NodeKind.CONFIG_VARIABLE)
