@@ -29,18 +29,20 @@ import io.ballerina.compiler.syntax.tree.ModuleVariableDeclarationNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeParser;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
-import io.ballerina.flowmodelgenerator.core.ConfigVariablesManager;
 import io.ballerina.flowmodelgenerator.core.DiagnosticHandler;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
+import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.extension.request.ConfigVariableNodeTemplateRequest;
 import io.ballerina.flowmodelgenerator.extension.request.ConfigVariablesGetRequest;
 import io.ballerina.flowmodelgenerator.extension.request.ConfigVariablesUpdateRequest;
 import io.ballerina.flowmodelgenerator.extension.response.ConfigVariableNodeTemplateResponse;
 import io.ballerina.flowmodelgenerator.extension.response.ConfigVariablesResponse;
 import io.ballerina.flowmodelgenerator.extension.response.ConfigVariablesUpdateResponse;
+import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.DocumentId;
 import io.ballerina.projects.Module;
@@ -52,17 +54,21 @@ import io.ballerina.projects.Project;
 import io.ballerina.projects.ProjectKind;
 import io.ballerina.projects.ResolvedPackageDependency;
 import io.ballerina.toml.api.Toml;
+import io.ballerina.tools.text.LinePosition;
+import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.annotation.JavaSPIService;
 import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
 import org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
+import org.eclipse.lsp4j.TextEdit;
 import org.eclipse.lsp4j.jsonrpc.services.JsonRequest;
 import org.eclipse.lsp4j.jsonrpc.services.JsonSegment;
 import org.eclipse.lsp4j.services.LanguageServer;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -71,6 +77,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+
+import static io.ballerina.flowmodelgenerator.core.model.Property.DEFAULT_VALUE_KEY;
 
 @JavaSPIService("org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService")
 @JsonSegment("configEditorV2")
@@ -146,8 +154,7 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
                     return response;
                 }
 
-                ConfigVariablesManager configManager = new ConfigVariablesManager();
-                JsonElement textEdits = configManager.update(document.get(), variableFilePath, configVariable);
+                JsonElement textEdits = constructTextEdits(document.get(), variableFilePath, configVariable);
                 response.setTextEdits(textEdits);
             } catch (Throwable e) {
                 response.setError(e);
@@ -176,6 +183,35 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
             }
             return response;
         });
+    }
+
+    private JsonElement constructTextEdits(Document document, Path configFile, FlowNode configVariable) {
+        LineRange lineRange = configVariable.codedata().lineRange();
+        Map<String, Property> properties = configVariable.properties();
+        String configStatement = constructConfigStatement(properties);
+
+        List<TextEdit> textEdits = new ArrayList<>();
+        if (isNew(configVariable) || lineRange == null) {
+            SyntaxTree syntaxTree = document.syntaxTree();
+            ModulePartNode modulePartNode = syntaxTree.rootNode();
+            LinePosition startPos = LinePosition.from(modulePartNode.lineRange().endLine().line() + 1, 0);
+            textEdits.add(new TextEdit(CommonUtils.toRange(startPos), configStatement));
+        } else {
+            textEdits.add(new TextEdit(CommonUtils.toRange(lineRange), configStatement));
+        }
+
+        Map<Path, List<TextEdit>> textEditsMap = new HashMap<>();
+        textEditsMap.put(configFile, textEdits);
+        return gson.toJsonTree(textEditsMap);
+    }
+
+    private static String constructConfigStatement(Map<String, Property> properties) {
+        String defaultValue = properties.get(DEFAULT_VALUE_KEY).toSourceCode();
+        return String.format("configurable %s %s = %s;",
+                properties.get(Property.TYPE_KEY).toSourceCode(),
+                properties.get(Property.VARIABLE_KEY).toSourceCode(),
+                defaultValue.isEmpty() ? "?" : defaultValue
+        );
     }
 
     /**
