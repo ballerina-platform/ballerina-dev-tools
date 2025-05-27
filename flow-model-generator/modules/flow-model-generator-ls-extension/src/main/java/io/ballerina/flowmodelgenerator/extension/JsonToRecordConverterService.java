@@ -18,7 +18,7 @@
 
 package io.ballerina.flowmodelgenerator.extension;
 
-import io.ballerina.flowmodelgenerator.core.TypesManager;
+import io.ballerina.flowmodelgenerator.core.converters.FromJsonToRecord;
 import io.ballerina.flowmodelgenerator.core.converters.JsonToRecordMapper;
 import io.ballerina.flowmodelgenerator.core.utils.FileSystemUtils;
 import io.ballerina.flowmodelgenerator.extension.request.JsonToRecordRequest;
@@ -65,17 +65,22 @@ public class JsonToRecordConverterService implements ExtendedLanguageServerServi
             String prefix = request.getPrefix();
             boolean isRecordTypeDesc = request.getIsRecordTypeDesc();
             boolean isClosed = request.getIsClosed();
+
+            // TODO: Remove these once `forceFormatRecordFields` and `isNullAsOptional` are removed from the request.
             boolean forceFormatRecordFields = request.getForceFormatRecordFields();
             boolean isNullAsOptional = request.getIsNullAsOptional();
 
             try {
                 Path filePath = Path.of(request.getFilePathUri());
                 FileSystemUtils.createFileIfNotExists(workspaceManager, filePath);
-                Document document = FileSystemUtils.getDocument(workspaceManager, filePath);
-
-                JsonToRecordMapper jsonToRecordMapper = new JsonToRecordMapper(recordName, prefix, document, filePath);
-                response.setTypes(jsonToRecordMapper.convert(jsonString, workspaceManager,
-                        isRecordTypeDesc, isClosed, forceFormatRecordFields, isNullAsOptional));
+                FromJsonToRecord fromJsonToRecord = new FromJsonToRecord(
+                        isRecordTypeDesc,
+                        isClosed,
+                        prefix,
+                        workspaceManager,
+                        filePath
+                );
+                response.setTypes(fromJsonToRecord.convert(jsonString, recordName));
             } catch (Throwable e) {
                 response.setError(e);
             }
