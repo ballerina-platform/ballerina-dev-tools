@@ -672,7 +672,21 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
                 .type(Property.ValueType.EXPRESSION)
                 .optional(true)
                 .editable();
-        addProperty(Property.DEFAULTABLE_KEY, expr);
+        addProperty(Property.DEFAULT_VALUE_KEY, expr);
+        return this;
+    }
+
+    public FormBuilder<T> configValue(ExpressionNode expr) {
+        propertyBuilder
+                .metadata()
+                .label(Property.CONFIG_VALUE_LABEL)
+                .description(Property.CONFIG_VALUE_DOC)
+                .stepOut()
+                .value((expr != null && expr.kind() != SyntaxKind.REQUIRED_EXPRESSION) ? expr.toSourceCode() : "")
+                .type(Property.ValueType.EXPRESSION)
+                .optional(true)
+                .editable();
+        addProperty(Property.CONFIG_VALUE_KEY, expr);
         return this;
     }
 
