@@ -372,8 +372,8 @@ public class AgentsGenerator {
                     Property.CONNECTION_KEY, Property.CHECK_ERROR_KEY));
             keys.removeAll(ignoredKeys);
             List<String> paramList = new ArrayList<>();
-            for (String key : keys) {
-                Property property = properties.get(key);
+            for (String k : keys) {
+                Property property = properties.get(k);
                 if (property == null) {
                     continue;
                 }
@@ -381,9 +381,13 @@ public class AgentsGenerator {
                 if (codedata != null) {
                     String kind = codedata.kind();
                     if (kind != null && kind.equals(ParameterData.Kind.DEFAULTABLE.name())) {
-                        ignoredKeys.add(key);
+                        ignoredKeys.add(k);
                         continue;
                     }
+                }
+                String key = k;
+                if (k.startsWith("$")) {
+                    key = "'" + k.substring(1);
                 }
                 if (hasDescription) {
                     sourceBuilder.token().parameterDoc(key, property.metadata().description());
@@ -465,8 +469,8 @@ public class AgentsGenerator {
             keys.removeAll(ignoredKeys);
             List<String> paramList = new ArrayList<>();
             Set<String> pathParams = new HashSet<>();
-            for (String key : keys) {
-                Property property = properties.get(key);
+            for (String k : keys) {
+                Property property = properties.get(k);
                 if (property == null) {
                     continue;
                 }
@@ -475,11 +479,15 @@ public class AgentsGenerator {
                     String kind = codedata.kind();
                     if (kind.equals(ParameterData.Kind.PATH_PARAM.name()) ||
                             kind.equals(ParameterData.Kind.PATH_REST_PARAM.name())) {
-                        pathParams.add(key);
+                        pathParams.add(k);
                     } else if (kind.equals(ParameterData.Kind.DEFAULTABLE.name())) {
-                        ignoredKeys.add(key);
+                        ignoredKeys.add(k);
                         continue;
                     }
+                }
+                String key = k;
+                if (k.startsWith("$")) {
+                    key = "'" + k.substring(1);
                 }
                 if (hasDescription) {
                     sourceBuilder.token().parameterDoc(key, property.metadata().description());
