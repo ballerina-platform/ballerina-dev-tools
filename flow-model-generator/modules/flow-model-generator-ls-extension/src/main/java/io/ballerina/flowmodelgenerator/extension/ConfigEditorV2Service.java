@@ -35,8 +35,10 @@ import io.ballerina.flowmodelgenerator.core.DiagnosticHandler;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
+import io.ballerina.flowmodelgenerator.extension.request.ConfigVariableNodeTemplateRequest;
 import io.ballerina.flowmodelgenerator.extension.request.ConfigVariablesGetRequest;
 import io.ballerina.flowmodelgenerator.extension.request.ConfigVariablesUpdateRequest;
+import io.ballerina.flowmodelgenerator.extension.response.ConfigVariableNodeTemplateResponse;
 import io.ballerina.flowmodelgenerator.extension.response.ConfigVariablesResponse;
 import io.ballerina.flowmodelgenerator.extension.response.ConfigVariablesUpdateResponse;
 import io.ballerina.projects.Document;
@@ -151,6 +153,27 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
                 response.setError(e);
             }
 
+            return response;
+        });
+    }
+
+    /**
+     * Retrieves the node template for configurable variables.
+     *
+     * @return A future with the node template response
+     */
+    @JsonRequest
+    @SuppressWarnings("unused")
+    public CompletableFuture<ConfigVariableNodeTemplateResponse> getNodeTemplate(ConfigVariableNodeTemplateRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            ConfigVariableNodeTemplateResponse response = new ConfigVariableNodeTemplateResponse();
+            try {
+                FlowNode flowNode = getConfigVariableFlowNodeTemplate();
+                JsonElement nodeTemplate = gson.toJsonTree(flowNode);
+                response.setFlowNode(nodeTemplate);
+            } catch (Throwable e) {
+                response.setError(e);
+            }
             return response;
         });
     }
@@ -532,6 +555,26 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
                 .variableName(variableName)
                 .defaultValue(variableNode.initializer().orElse(null))
                 .configValue(configValueExpr)
+                .stepOut()
+                .build();
+    }
+
+    private static FlowNode getConfigVariableFlowNodeTemplate() {
+        NodeBuilder nodeBuilder = NodeBuilder.getNodeFromKind(NodeKind.CONFIG_VARIABLE)
+                .defaultModuleName(null);
+        return nodeBuilder
+                .metadata()
+                .label("Config variables")
+                .stepOut()
+                .codedata()
+                .node(NodeKind.CONFIG_VARIABLE)
+                .lineRange(null)
+                .stepOut()
+                .properties()
+                .type(null, true)
+                .variableName(null)
+                .defaultValue(null)
+                .configValue(null)
                 .stepOut()
                 .build();
     }
