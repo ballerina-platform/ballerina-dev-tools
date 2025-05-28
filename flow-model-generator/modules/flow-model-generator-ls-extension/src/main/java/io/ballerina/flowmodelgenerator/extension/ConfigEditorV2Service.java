@@ -55,6 +55,12 @@ import io.ballerina.projects.Project;
 import io.ballerina.projects.ProjectKind;
 import io.ballerina.projects.ResolvedPackageDependency;
 import io.ballerina.toml.api.Toml;
+import io.ballerina.toml.semantic.TomlType;
+import io.ballerina.toml.semantic.ast.TomlArrayValueNode;
+import io.ballerina.toml.semantic.ast.TomlKeyValueNode;
+import io.ballerina.toml.semantic.ast.TomlNode;
+import io.ballerina.toml.semantic.ast.TomlTableNode;
+import io.ballerina.toml.semantic.ast.TomlValueNode;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.annotation.JavaSPIService;
@@ -282,61 +288,64 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
      * @param variableName The variable name
      * @return The configuration value if found, null otherwise
      */
-    private Object getConfigValue(Toml configValues, String packageName,
-                                  String moduleName, String variableName) {
-        // TODO: Implement method
-        return null;
+    private Optional<String> getConfigValue(Toml configValues, String packageName,
+                                            String moduleName, String variableName) {
+        if (configValues == null) {
+            return Optional.empty();
+        }
+
+        String pkgName = packageName.replace("/", ".");
+        String tomlPkgEntryKey = moduleName.isEmpty() ? pkgName : String.format("%s.%s", pkgName, moduleName);
+
+        Optional<Toml> moduleConfigValues = configValues.getTable(tomlPkgEntryKey);
+        if (moduleConfigValues.isPresent()) {
+            Optional<TomlValueNode> variableValueNode = moduleConfigValues.get().get(variableName);
+            if (variableValueNode.isPresent()) {
+                String valueStr = getAsString(variableValueNode.get());
+                return Optional.ofNullable(valueStr);
+            }
+
+            Optional<Toml> variableValueTable = moduleConfigValues.get().getTable(variableName);
+            if (variableValueTable.isPresent()) {
+                String valueStr = getAsString(variableValueTable.get().rootNode());
+                return Optional.ofNullable(valueStr);
+            }
+        }
+
+        String dottedVariableName = String.format("%s.%s", tomlPkgEntryKey, variableName);
+        Optional<TomlValueNode> variableValueNode = configValues.get(dottedVariableName);
+        return variableValueNode.map(this::getAsString);
     }
 
-    /**
-     * Handles nested configuration values in Config.toml.
-     *
-     * @param configValues The parsed Config.toml values
-     * @param packageName  The package name
-     * @param moduleName   The module name
-     * @param variableName The variable name
-     * @return The nested configuration value if found, null otherwise
-     */
-    @SuppressWarnings("unchecked")
-    private Object getNestedConfigValue(Map<String, Object> configValues, String packageName,
-                                        String moduleName, String variableName) {
-        try {
-            // Check if there's a package-level section
-            if (packageName != null && configValues.containsKey(packageName)) {
-                Object packageSection = configValues.get(packageName);
-                if (packageSection instanceof Map) {
-                    Map<String, Object> packageMap = (Map<String, Object>) packageSection;
-
-                    // Check module-level configuration
-                    if (moduleName != null && !moduleName.isEmpty() && packageMap.containsKey(moduleName)) {
-                        Object moduleSection = packageMap.get(moduleName);
-                        if (moduleSection instanceof Map) {
-                            Map<String, Object> moduleMap = (Map<String, Object>) moduleSection;
-                            if (moduleMap.containsKey(variableName)) {
-                                return moduleMap.get(variableName);
-                            }
-                        }
+    private String getAsString(TomlNode tomlValueNode) {
+        switch (tomlValueNode.kind()) {
+            case TABLE -> {
+                List<String> keyValuePairs = new LinkedList<>();
+                ((TomlTableNode) tomlValueNode).entries().forEach((key, topLevelNode) -> {
+                    if (topLevelNode.kind() == TomlType.KEY_VALUE) {
+                        TomlKeyValueNode keyValueNode = (TomlKeyValueNode) topLevelNode;
+                        keyValuePairs.add(key + ": " + getAsString(keyValueNode.value()));
                     }
-
-                    // Check package-level variable
-                    if (packageMap.containsKey(variableName)) {
-                        return packageMap.get(variableName);
-                    }
-                }
+                });
+                return "{" + String.join(", ", keyValuePairs) + "}";
             }
-
-            // Check if there's a module-level section at root
-            if (moduleName != null && !moduleName.isEmpty() && configValues.containsKey(moduleName)) {
-                Object moduleSection = configValues.get(moduleName);
-                if (moduleSection instanceof Map) {
-                    Map<String, Object> moduleMap = (Map<String, Object>) moduleSection;
-                    if (moduleMap.containsKey(variableName)) {
-                        return moduleMap.get(variableName);
-                    }
-                }
+            case INTEGER, DOUBLE, BOOLEAN -> {
+                return tomlValueNode.toString();
             }
-        } catch (Exception e) {
-            // Ignore casting or other errors and return null
+            case STRING -> {
+                return "\"" + tomlValueNode + "\"";
+            }
+            case ARRAY -> {
+                List<TomlValueNode> elements = ((TomlArrayValueNode) tomlValueNode).elements();
+                List<String> elementValues = elements.stream().map(this::getAsString).toList();
+                return "[" + String.join(", ", elementValues) + "]";
+            }
+            case TABLE_ARRAY, INLINE_TABLE, UNQUOTED_KEY, KEY_VALUE, NONE -> {
+                // TODO: Handle these cases if needed
+            }
+            default -> {
+                return null;
+            }
         }
 
         return null;
@@ -610,10 +619,10 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
         String variableName = typedBindingPattern.bindingPattern().toSourceCode().trim();
 
         // Get the configuration value from Config.toml
-        Object configTomlValue = getConfigValue(configTomlValues, packageName, moduleName, variableName);
+        Optional<String> configTomlValue = getConfigValue(configTomlValues, packageName, moduleName, variableName);
         ExpressionNode configValueExpr = null;
-        if (configTomlValue != null) {
-            configValueExpr = NodeParser.parseExpression(configTomlValue.toString());
+        if (configTomlValue.isPresent()) {
+            configValueExpr = NodeParser.parseExpression(configTomlValue.get());
         }
 
         return nodeBuilder
