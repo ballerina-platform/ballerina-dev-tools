@@ -219,6 +219,7 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
         ModuleID moduleId = module.get().id();
         String orgName = moduleId.orgName();
         String packageName = moduleId.packageName();
+        String moduleName = moduleId.moduleName();
         String versionName = moduleId.version();
 
         if (!CommonUtils.isDefaultPackage(orgName, packageName, moduleInfo)) {
@@ -226,7 +227,8 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
         }
         codedata()
                 .org(orgName)
-                .module(packageName)
+                .module(moduleName)
+                .packageName(packageName)
                 .version(versionName);
         return this;
     }
