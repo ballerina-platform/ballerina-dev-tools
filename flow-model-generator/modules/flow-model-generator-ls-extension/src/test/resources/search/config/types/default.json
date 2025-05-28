@@ -20,6 +20,95 @@
       "items": [
         {
           "metadata": {
+            "label": "data.jsondata",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "Error",
+                "description": "Represents the error type of the ballerina/data.jsondata module. This error type represents any error that can occur\nduring the execution of jsondata APIs.",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.jsondata_1.1.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerina",
+                "module": "data.jsondata",
+                "packageName": "data.jsondata",
+                "symbol": "Error",
+                "version": "1.1.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "Options",
+                "description": "Represent the options that can be used to modify the behaviour of the projection.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.jsondata_1.1.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerina",
+                "module": "data.jsondata",
+                "packageName": "data.jsondata",
+                "symbol": "Options",
+                "version": "1.1.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "NameConfig",
+                "description": "Defines the name of the JSON Object key.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.jsondata_1.1.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerina",
+                "module": "data.jsondata",
+                "packageName": "data.jsondata",
+                "symbol": "NameConfig",
+                "version": "1.1.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "JsonPathValue",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.jsondata_1.1.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerina",
+                "module": "data.jsondata",
+                "packageName": "data.jsondata",
+                "symbol": "JsonPathValue",
+                "version": "1.1.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "JsonPathRawTemplate",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.jsondata_1.1.0.png"
+              },
+              "codedata": {
+                "node": "TYPEDESC",
+                "org": "ballerina",
+                "module": "data.jsondata",
+                "packageName": "data.jsondata",
+                "symbol": "JsonPathRawTemplate",
+                "version": "1.1.0"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
             "label": "np",
             "description": "",
             "keywords": []
@@ -759,86 +848,6 @@
                 "module": "io",
                 "packageName": "io",
                 "symbol": "BlockStream",
-                "version": "1.8.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "CSVStream",
-                "description": "The `io:CSVStream` is used to initialize a stream of type CSV records. This `io:CSVStream` refers to the stream\nthat is embedded to the I/O record channels.",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.8.0.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerina",
-                "module": "io",
-                "packageName": "io",
-                "symbol": "CSVStream",
-                "version": "1.8.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "LineStream",
-                "description": "The `io:LineStream` is used to initialize a stream of the type strings(lines). This `io:LineStream` refers to the\nstream that is embedded to the I/O character channels.",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.8.0.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerina",
-                "module": "io",
-                "packageName": "io",
-                "symbol": "LineStream",
-                "version": "1.8.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "ReadableDataChannel",
-                "description": "Represents a data channel for reading data.",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.8.0.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerina",
-                "module": "io",
-                "packageName": "io",
-                "symbol": "ReadableDataChannel",
-                "version": "1.8.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "StringReader",
-                "description": "Represents a reader which will wrap string content as a channel.",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.8.0.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerina",
-                "module": "io",
-                "packageName": "io",
-                "symbol": "StringReader",
-                "version": "1.8.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "CsvIterator",
-                "description": "The iterator for the stream returned in `readFileCsvAsStream` function.",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.8.0.png"
-              },
-              "codedata": {
-                "node": "TYPEDESC",
-                "org": "ballerina",
-                "module": "io",
-                "packageName": "io",
-                "symbol": "CsvIterator",
                 "version": "1.8.0"
               },
               "enabled": true

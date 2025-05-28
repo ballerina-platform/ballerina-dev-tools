@@ -268,6 +268,63 @@
         },
         {
           "metadata": {
+            "label": "etl",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "filterDataByRegex",
+                "description": "Filters a dataset based on a regex pattern match.\n```ballerina\nCustomer[] dataset = [\n    { id: 1, city: \"New York\" },\n    { id: 2, city: \"Los Angeles\" },\n    { id: 3, city: \"San Francisco\" }\n];\nstring fieldName = \"city\";\nregexp:RegExp regexPattern = re `^New.*$`;\nCustomer[] filteredDataset = check etl:filterDataByRegex(dataset, \"city\", regexPattern);\n=> [{ id: 1, city: \"New York\"}]\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_etl_0.8.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "etl",
+                "packageName": "etl",
+                "symbol": "filterDataByRegex",
+                "version": "0.8.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "categorizeRegex",
+                "description": "Categorizes a dataset based on a string field using a set of regular expressions.\n```ballerina\nCustomer[] dataset = [\n    { name: \"Alice\", city: \"New York\" },\n    { name: \"Bob\", city: \"Colombo\" },\n    { name: \"Charlie\", city: \"Los Angeles\" },\n    { name: \"John\", city: \"Boston\" }\n];\nregexp:RegExp[] regexArray = [re `A.*$`, re `^B.*$`, re `^C.*$`];\nCustomer[][] categorized = check etl:categorizeRegex(dataset, \"city\", regexArray);\n=>[[{ name: \"Alice\", city: \"New York\" }],\n   [{ name: \"Bob\", city: \"Colombo\" }],\n   [{ name: \"Charlie\", city: \"Los Angeles\" }]]\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_etl_0.8.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "etl",
+                "packageName": "etl",
+                "symbol": "categorizeRegex",
+                "version": "0.8.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "replaceText",
+                "description": "Returns a new dataset where matches of the given regex pattern in a specified string field are replaced with a new value.\n```ballerina\nCustomer[] dataset = [\n    { name: \"Alice\", city: \"New York\" },\n    { name: \"Bob\", city: \"Los Angeles\" },\n    { name: \"Charlie\", city: \"Chicago\" }\n];\nCustomer[] updatedData = check etl:replaceText(dataset, \"city\", re `New York`, \"San Francisco\");\n=> [{ name: \"Alice\", city: \"San Francisco\" },\n    { name: \"Bob\", city: \"Los Angeles\" },\n    { name: \"Charlie\", city: \"Chicago\" }]\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_etl_0.8.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "etl",
+                "packageName": "etl",
+                "symbol": "replaceText",
+                "version": "0.8.0"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
             "label": "lang.string",
             "description": "",
             "keywords": []
