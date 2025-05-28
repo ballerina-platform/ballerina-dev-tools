@@ -296,15 +296,19 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
     }
 
     public FormBuilder<T> variableName(String name) {
+        return variableName(name, true);
+    }
+
+    public FormBuilder<T> variableName(String name, boolean editable) {
         propertyBuilder
                 .metadata()
-                    .label(Property.VARIABLE_NAME)
-                    .description(Property.VARIABLE_DOC)
-                    .stepOut()
+                .label(Property.VARIABLE_NAME)
+                .description(Property.VARIABLE_DOC)
+                .stepOut()
                 .value(name)
                 .type(Property.ValueType.IDENTIFIER)
                 .typeConstraint(Property.GLOBAL_SCOPE)
-                .editable();
+                .editable(editable);
         addProperty(Property.VARIABLE_KEY);
         return this;
     }
@@ -663,15 +667,19 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
     }
 
     public FormBuilder<T> defaultValue(ExpressionNode expr) {
+        return defaultValue(expr, true);
+    }
+
+    public FormBuilder<T> defaultValue(ExpressionNode expr, boolean editable) {
         propertyBuilder
                 .metadata()
-                    .label(Property.DEFAULT_VALUE_LABEL)
-                    .description(Property.DEFAULT_VALUE_DOC)
-                    .stepOut()
+                .label(Property.DEFAULT_VALUE_LABEL)
+                .description(Property.DEFAULT_VALUE_DOC)
+                .stepOut()
                 .value((expr != null && expr.kind() != SyntaxKind.REQUIRED_EXPRESSION) ? expr.toSourceCode() : "")
                 .type(Property.ValueType.EXPRESSION)
                 .optional(true)
-                .editable();
+                .editable(editable);
         addProperty(Property.DEFAULT_VALUE_KEY, expr);
         return this;
     }
