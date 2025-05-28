@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2025, WSO2 LLC. (http://www.wso2.com)
+ *  Copyright (c) 2024, WSO2 LLC. (http://www.wso2.com)
  *
  *  WSO2 LLC. licenses this file to you under the Apache License,
  *  Version 2.0 (the "License"); you may not use this file except
@@ -16,16 +16,24 @@
  *  under the License.
  */
 
-package io.ballerina.flowmodelgenerator.extension.request;
+package io.ballerina.flowmodelgenerator.extension.response;
 
 import com.google.gson.JsonElement;
 
 /**
- * Represents the request to update config variables in Config API V2.
+ * Represents the response for updating config variables.
  *
- * @since 2.0.0
+ * @since 1.4.0
  */
-public record ConfigVariablesV2UpdateRequest(String packageName, String moduleName, String variableFilePath,
-                                             JsonElement configVariable) {
+public class ConfigVariableUpdateResponse extends AbstractFlowModelResponse {
 
+    private JsonElement textEdits;
+
+    public void setTextEdits(JsonElement textEdits) {
+        this.textEdits = textEdits;
+    }
+
+    public JsonElement textEdits() {
+        return textEdits;
+    }
 }

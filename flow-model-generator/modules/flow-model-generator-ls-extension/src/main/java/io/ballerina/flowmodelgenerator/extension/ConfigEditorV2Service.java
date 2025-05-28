@@ -37,11 +37,12 @@ import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.extension.request.ConfigVariableNodeTemplateRequest;
+import io.ballerina.flowmodelgenerator.extension.request.ConfigVariableUpdateRequest;
 import io.ballerina.flowmodelgenerator.extension.request.ConfigVariablesGetRequest;
-import io.ballerina.flowmodelgenerator.extension.request.ConfigVariablesUpdateRequest;
+import io.ballerina.flowmodelgenerator.extension.response.ConfigVariableDeleteResponse;
 import io.ballerina.flowmodelgenerator.extension.response.ConfigVariableNodeTemplateResponse;
+import io.ballerina.flowmodelgenerator.extension.response.ConfigVariableUpdateResponse;
 import io.ballerina.flowmodelgenerator.extension.response.ConfigVariablesResponse;
-import io.ballerina.flowmodelgenerator.extension.response.ConfigVariablesUpdateResponse;
 import io.ballerina.modelgenerator.commons.CommonUtils;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.DocumentId;
@@ -137,9 +138,9 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
      */
     @JsonRequest
     @SuppressWarnings("unused")
-    public CompletableFuture<ConfigVariablesUpdateResponse> updateConfigVariables(ConfigVariablesUpdateRequest req) {
+    public CompletableFuture<ConfigVariableUpdateResponse> updateConfigVariable(ConfigVariableUpdateRequest req) {
         return CompletableFuture.supplyAsync(() -> {
-            ConfigVariablesUpdateResponse response = new ConfigVariablesUpdateResponse();
+            ConfigVariableUpdateResponse response = new ConfigVariableUpdateResponse();
             try {
                 FlowNode configVariable = gson.fromJson(req.configVariable(), FlowNode.class);
                 Path configFilePath = Path.of(req.configFilePath());
@@ -154,7 +155,42 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
                     return response;
                 }
 
-                JsonElement textEdits = constructTextEdits(document.get(), variableFilePath, configVariable);
+                JsonElement textEdits = constructTextEdits(document.get(), variableFilePath, configVariable, false);
+                response.setTextEdits(textEdits);
+            } catch (Throwable e) {
+                response.setError(e);
+            }
+
+            return response;
+        });
+    }
+
+    /**
+     * Update a given config variable with the provided value.
+     *
+     * @param req The req containing config variable and file path
+     * @return A future with update response containing text edits
+     */
+    @JsonRequest
+    @SuppressWarnings("unused")
+    public CompletableFuture<ConfigVariableDeleteResponse> deleteConfigVariable(ConfigVariableUpdateRequest req) {
+        return CompletableFuture.supplyAsync(() -> {
+            ConfigVariableDeleteResponse response = new ConfigVariableDeleteResponse();
+            try {
+                FlowNode configVariable = gson.fromJson(req.configVariable(), FlowNode.class);
+                Path configFilePath = Path.of(req.configFilePath());
+                Path variableFilePath = findVariableFilePath(configVariable, configFilePath);
+
+                if (variableFilePath == null) {
+                    return response;
+                }
+
+                Optional<Document> document = workspaceManager.document(variableFilePath);
+                if (document.isEmpty()) {
+                    return response;
+                }
+
+                JsonElement textEdits = constructTextEdits(document.get(), variableFilePath, configVariable, true);
                 response.setTextEdits(textEdits);
             } catch (Throwable e) {
                 response.setError(e);
@@ -185,17 +221,19 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
         });
     }
 
-    private JsonElement constructTextEdits(Document document, Path configFile, FlowNode configVariable) {
-        LineRange lineRange = configVariable.codedata().lineRange();
-        Map<String, Property> properties = configVariable.properties();
+    private JsonElement constructTextEdits(Document document, Path configFile, FlowNode varNode, boolean isDelete) {
+        LineRange lineRange = varNode.codedata().lineRange();
+        Map<String, Property> properties = varNode.properties();
         String configStatement = constructConfigStatement(properties);
 
         List<TextEdit> textEdits = new ArrayList<>();
-        if (isNew(configVariable) || lineRange == null) {
+        if (isNew(varNode) || lineRange == null) {
             SyntaxTree syntaxTree = document.syntaxTree();
             ModulePartNode modulePartNode = syntaxTree.rootNode();
             LinePosition startPos = LinePosition.from(modulePartNode.lineRange().endLine().line() + 1, 0);
             textEdits.add(new TextEdit(CommonUtils.toRange(startPos), configStatement));
+        } else if (isDelete) {
+            textEdits.add(new TextEdit(CommonUtils.toRange(lineRange), ""));
         } else {
             textEdits.add(new TextEdit(CommonUtils.toRange(lineRange), configStatement));
         }
