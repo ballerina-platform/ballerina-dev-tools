@@ -49,6 +49,7 @@
           "node": "METHOD_CALL",
           "org": "ballerinax",
           "module": "redis",
+          "packageName": "redis",
           "object": "Client",
           "symbol": "close",
           "version": "3.1.0",

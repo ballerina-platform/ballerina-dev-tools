@@ -352,6 +352,7 @@
           "node": "DATA_MAPPER_CALL",
           "org": "nipunaf",
           "module": "new_connection1",
+          "packageName": "new_connection1",
           "symbol": "transformToPerson",
           "version": "0.1.0",
           "lineRange": {
@@ -636,6 +637,7 @@
           "node": "DATA_MAPPER_CALL",
           "org": "nipunaf",
           "module": "new_connection1",
+          "packageName": "new_connection1",
           "symbol": "transformToEmployee",
           "version": "0.1.0",
           "lineRange": {
@@ -779,6 +781,7 @@
           "node": "FUNCTION_CALL",
           "org": "nipunaf",
           "module": "new_connection1",
+          "packageName": "new_connection1",
           "symbol": "logEmployee",
           "version": "0.1.0",
           "lineRange": {

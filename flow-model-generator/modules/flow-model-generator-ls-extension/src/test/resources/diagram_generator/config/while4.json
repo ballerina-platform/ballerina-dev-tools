@@ -248,6 +248,7 @@
                   "node": "REMOTE_ACTION_CALL",
                   "org": "ballerina",
                   "module": "http",
+                  "packageName": "http",
                   "object": "Client",
                   "symbol": "get",
                   "version": "2.14.1",

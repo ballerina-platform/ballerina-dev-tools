@@ -49,6 +49,7 @@
           "node": "FUNCTION_CALL",
           "org": "ballerina",
           "module": "time",
+          "packageName": "time",
           "symbol": "loadSystemZone",
           "version": "2.7.0",
           "lineRange": {

@@ -323,6 +323,7 @@
                           "node": "FUNCTION_CALL",
                           "org": "$anon",
                           "module": ".",
+                          "packageName": ".",
                           "symbol": "print",
                           "version": "0.0.0",
                           "lineRange": {
@@ -424,6 +425,7 @@
                           "node": "FUNCTION_CALL",
                           "org": "$anon",
                           "module": ".",
+                          "packageName": ".",
                           "symbol": "print",
                           "version": "0.0.0",
                           "lineRange": {
@@ -509,6 +511,7 @@
                   "node": "FUNCTION_CALL",
                   "org": "$anon",
                   "module": ".",
+                  "packageName": ".",
                   "symbol": "print",
                   "version": "0.0.0",
                   "lineRange": {
@@ -610,6 +613,7 @@
                   "node": "FUNCTION_CALL",
                   "org": "$anon",
                   "module": ".",
+                  "packageName": ".",
                   "symbol": "print",
                   "version": "0.0.0",
                   "lineRange": {

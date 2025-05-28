@@ -208,6 +208,7 @@
                   "node": "FUNCTION_CALL",
                   "org": "ballerina",
                   "module": "lang.runtime",
+                  "packageName": "lang.runtime",
                   "symbol": "sleep",
                   "version": "0.0.0",
                   "lineRange": {
@@ -365,6 +366,7 @@
                   "node": "FUNCTION_CALL",
                   "org": "ballerina",
                   "module": "lang.runtime",
+                  "packageName": "lang.runtime",
                   "symbol": "sleep",
                   "version": "0.0.0",
                   "lineRange": {
