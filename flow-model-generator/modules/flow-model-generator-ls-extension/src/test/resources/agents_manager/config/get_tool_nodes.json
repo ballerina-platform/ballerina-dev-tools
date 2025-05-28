@@ -126,127 +126,6 @@
       "items": [
         {
           "metadata": {
-            "label": "ai",
-            "description": "",
-            "keywords": []
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "run",
-                "description": "Execute the agent for a given user's query.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai_1.0.1.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerinax",
-                "module": "ai",
-                "packageName": "ai",
-                "symbol": "run",
-                "version": "1.0.1"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "getTools",
-                "description": "Get the tools registered with the agent.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai_1.0.1.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerinax",
-                "module": "ai",
-                "packageName": "ai",
-                "symbol": "getTools",
-                "version": "1.0.1"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "updateMemory",
-                "description": "",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai_1.0.1.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerinax",
-                "module": "ai",
-                "packageName": "ai",
-                "symbol": "updateMemory",
-                "version": "1.0.1"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "extractToolsFromOpenApiSpecFile",
-                "description": "Extracts the Http tools from the given OpenAPI specification file.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai_1.0.1.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerinax",
-                "module": "ai",
-                "packageName": "ai",
-                "symbol": "extractToolsFromOpenApiSpecFile",
-                "version": "1.0.1"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "extractToolsFromOpenApiJsonSpec",
-                "description": "Extracts the Http tools from the given OpenAPI specification as a JSON \n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai_1.0.1.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerinax",
-                "module": "ai",
-                "packageName": "ai",
-                "symbol": "extractToolsFromOpenApiJsonSpec",
-                "version": "1.0.1"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "parseOpenApiSpec",
-                "description": "Parses the given OpenAPI specification as a JSON to a OpenApiSpec object.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai_1.0.1.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerinax",
-                "module": "ai",
-                "packageName": "ai",
-                "symbol": "parseOpenApiSpec",
-                "version": "1.0.1"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "getToolConfigs",
-                "description": "Generates a array of `ToolConfig` from the given list of function pointers.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai_1.0.1.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerinax",
-                "module": "ai",
-                "packageName": "ai",
-                "symbol": "getToolConfigs",
-                "version": "1.0.1"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
             "label": "http",
             "description": "",
             "keywords": []
@@ -361,6 +240,127 @@
                 "packageName": "http",
                 "symbol": "createHttpSecureClient",
                 "version": "2.14.1"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "ai",
+            "description": "",
+            "keywords": []
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "run",
+                "description": "Execute the agent for a given user's query.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai_1.1.2.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerinax",
+                "module": "ai",
+                "packageName": "ai",
+                "symbol": "run",
+                "version": "1.1.2"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getTools",
+                "description": "Get the tools registered with the agent.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai_1.1.2.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerinax",
+                "module": "ai",
+                "packageName": "ai",
+                "symbol": "getTools",
+                "version": "1.1.2"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "updateMemory",
+                "description": "",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai_1.1.2.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerinax",
+                "module": "ai",
+                "packageName": "ai",
+                "symbol": "updateMemory",
+                "version": "1.1.2"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "extractToolsFromOpenApiSpecFile",
+                "description": "Extracts the Http tools from the given OpenAPI specification file.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai_1.1.2.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerinax",
+                "module": "ai",
+                "packageName": "ai",
+                "symbol": "extractToolsFromOpenApiSpecFile",
+                "version": "1.1.2"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "extractToolsFromOpenApiJsonSpec",
+                "description": "Extracts the Http tools from the given OpenAPI specification as a JSON \n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai_1.1.2.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerinax",
+                "module": "ai",
+                "packageName": "ai",
+                "symbol": "extractToolsFromOpenApiJsonSpec",
+                "version": "1.1.2"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "parseOpenApiSpec",
+                "description": "Parses the given OpenAPI specification as a JSON to a OpenApiSpec object.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai_1.1.2.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerinax",
+                "module": "ai",
+                "packageName": "ai",
+                "symbol": "parseOpenApiSpec",
+                "version": "1.1.2"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getToolConfigs",
+                "description": "Generates a array of `ToolConfig` from the given list of function pointers.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_ai_1.1.2.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerinax",
+                "module": "ai",
+                "packageName": "ai",
+                "symbol": "getToolConfigs",
+                "version": "1.1.2"
               },
               "enabled": true
             }
