@@ -68,6 +68,7 @@
           "node": "AGENT_CALL",
           "org": "ballerinax",
           "module": "ai",
+          "packageName": "ai",
           "object": "Agent",
           "symbol": "run",
           "version": "1.0.1",

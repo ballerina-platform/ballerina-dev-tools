@@ -109,6 +109,7 @@
                   "node": "FUNCTION_CALL",
                   "org": "ballerina",
                   "module": "log",
+                  "packageName": "log",
                   "symbol": "printWarn",
                   "version": "2.12.0",
                   "lineRange": {
@@ -264,6 +265,7 @@
           "node": "FUNCTION_CALL",
           "org": "ballerina",
           "module": "log",
+          "packageName": "log",
           "symbol": "printInfo",
           "version": "2.12.0",
           "lineRange": {
@@ -421,6 +423,7 @@
           "node": "REMOTE_ACTION_CALL",
           "org": "ballerina",
           "module": "http",
+          "packageName": "http",
           "object": "Client",
           "symbol": "get",
           "version": "2.14.1",
@@ -641,6 +644,7 @@
                   "node": "FUNCTION_CALL",
                   "org": "ballerina",
                   "module": "log",
+                  "packageName": "log",
                   "symbol": "printError",
                   "version": "2.12.0",
                   "lineRange": {
@@ -813,6 +817,7 @@
                   "node": "FUNCTION_CALL",
                   "org": "ballerina",
                   "module": "log",
+                  "packageName": "log",
                   "symbol": "printInfo",
                   "version": "2.12.0",
                   "lineRange": {

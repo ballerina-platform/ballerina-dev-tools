@@ -671,6 +671,7 @@
             "node": "FUNCTION_CALL",
             "org": "ballerina",
             "module": "log",
+            "packageName": "log",
             "symbol": "printInfo",
             "version": "2.10.0"
           },
@@ -686,6 +687,7 @@
             "node": "FUNCTION_CALL",
             "org": "ballerina",
             "module": "log",
+            "packageName": "log",
             "symbol": "printError",
             "version": "2.10.0"
           },
@@ -701,6 +703,7 @@
             "node": "FUNCTION_CALL",
             "org": "ballerina",
             "module": "log",
+            "packageName": "log",
             "symbol": "printWarn",
             "version": "2.10.0"
           },
@@ -716,6 +719,7 @@
             "node": "FUNCTION_CALL",
             "org": "ballerina",
             "module": "log",
+            "packageName": "log",
             "symbol": "printDebug",
             "version": "2.10.0"
           },

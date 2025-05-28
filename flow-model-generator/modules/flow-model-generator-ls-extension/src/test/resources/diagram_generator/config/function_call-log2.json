@@ -127,6 +127,7 @@
                   "node": "FUNCTION_CALL",
                   "org": "ballerina",
                   "module": "log",
+                  "packageName": "log",
                   "symbol": "printError",
                   "version": "2.12.0",
                   "lineRange": {

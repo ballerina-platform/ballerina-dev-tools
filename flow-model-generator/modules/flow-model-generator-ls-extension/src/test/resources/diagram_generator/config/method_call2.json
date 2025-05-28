@@ -585,6 +585,7 @@
           "node": "FUNCTION_CALL",
           "org": "ballerina",
           "module": "lang.int",
+          "packageName": "lang.int",
           "symbol": "fromString",
           "version": "0.0.0",
           "lineRange": {

@@ -48,6 +48,7 @@
           "node": "FUNCTION_CALL",
           "org": "$anon",
           "module": ".",
+          "packageName": ".",
           "symbol": "fnWithError",
           "version": "0.0.0",
           "lineRange": {
@@ -112,6 +113,7 @@
           "node": "FUNCTION_CALL",
           "org": "$anon",
           "module": ".",
+          "packageName": ".",
           "symbol": "fnWithError",
           "version": "0.0.0",
           "lineRange": {
@@ -176,6 +178,7 @@
           "node": "FUNCTION_CALL",
           "org": "$anon",
           "module": ".",
+          "packageName": ".",
           "symbol": "fnWithErrorAndValue",
           "version": "0.0.0",
           "lineRange": {
@@ -279,6 +282,7 @@
           "node": "FUNCTION_CALL",
           "org": "$anon",
           "module": ".",
+          "packageName": ".",
           "symbol": "fnWithErrorAndValue",
           "version": "0.0.0",
           "lineRange": {
@@ -382,6 +386,7 @@
           "node": "FUNCTION_CALL",
           "org": "$anon",
           "module": ".",
+          "packageName": ".",
           "symbol": "fnWithErrorAndValue",
           "version": "0.0.0",
           "lineRange": {
@@ -485,6 +490,7 @@
           "node": "FUNCTION_CALL",
           "org": "$anon",
           "module": ".",
+          "packageName": ".",
           "symbol": "fnWithErrorAndValue",
           "version": "0.0.0",
           "lineRange": {

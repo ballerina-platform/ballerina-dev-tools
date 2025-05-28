@@ -128,6 +128,7 @@
           "node": "DATA_MAPPER_CALL",
           "org": "nipunaf",
           "module": "new_connection1",
+          "packageName": "new_connection1",
           "symbol": "transform",
           "version": "0.1.0",
           "lineRange": {
@@ -257,6 +258,7 @@
           "node": "DATA_MAPPER_CALL",
           "org": "nipunaf",
           "module": "new_connection1",
+          "packageName": "new_connection1",
           "symbol": "transform",
           "version": "0.1.0",
           "lineRange": {
@@ -386,6 +388,7 @@
           "node": "FUNCTION_CALL",
           "org": "nipunaf",
           "module": "new_connection1",
+          "packageName": "new_connection1",
           "symbol": "fn",
           "version": "0.1.0",
           "lineRange": {
@@ -516,6 +519,7 @@
           "node": "FUNCTION_CALL",
           "org": "ballerina",
           "module": "data.jsondata",
+          "packageName": "data.jsondata",
           "symbol": "prettify",
           "version": "1.1.0",
           "lineRange": {

@@ -53,6 +53,7 @@
           "node": "FUNCTION_CALL",
           "org": "$anon",
           "module": ".",
+          "packageName": ".",
           "symbol": "fn",
           "version": "0.0.0",
           "lineRange": {
@@ -280,6 +281,7 @@
           "node": "FUNCTION_CALL",
           "org": "$anon",
           "module": ".",
+          "packageName": ".",
           "symbol": "fn2",
           "version": "0.0.0",
           "lineRange": {

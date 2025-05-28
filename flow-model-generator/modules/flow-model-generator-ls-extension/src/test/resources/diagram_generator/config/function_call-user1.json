@@ -45,6 +45,7 @@
           "node": "FUNCTION_CALL",
           "org": "$anon",
           "module": ".",
+          "packageName": ".",
           "symbol": "greet",
           "version": "0.0.0",
           "lineRange": {
@@ -162,6 +163,7 @@
           "node": "FUNCTION_CALL",
           "org": "$anon",
           "module": ".",
+          "packageName": ".",
           "symbol": "power",
           "version": "0.0.0",
           "lineRange": {
@@ -304,6 +306,7 @@
           "node": "FUNCTION_CALL",
           "org": "$anon",
           "module": ".",
+          "packageName": ".",
           "symbol": "power",
           "version": "0.0.0",
           "lineRange": {
@@ -448,6 +451,7 @@
           "node": "FUNCTION_CALL",
           "org": "ballerina",
           "module": "io",
+          "packageName": "io",
           "symbol": "println",
           "version": "1.8.0",
           "lineRange": {
@@ -510,6 +514,7 @@
           "node": "FUNCTION_CALL",
           "org": "$anon",
           "module": ".",
+          "packageName": ".",
           "symbol": "asum",
           "version": "0.0.0",
           "lineRange": {
@@ -633,6 +638,7 @@
           "node": "FUNCTION_CALL",
           "org": "$anon",
           "module": ".",
+          "packageName": ".",
           "symbol": "operate",
           "version": "0.0.0",
           "lineRange": {
@@ -803,6 +809,7 @@
           "node": "FUNCTION_CALL",
           "org": "ballerina",
           "module": "io",
+          "packageName": "io",
           "symbol": "println",
           "version": "1.8.0",
           "lineRange": {
@@ -864,6 +871,7 @@
           "node": "FUNCTION_CALL",
           "org": "ballerina",
           "module": "io",
+          "packageName": "io",
           "symbol": "println",
           "version": "1.8.0",
           "lineRange": {
@@ -923,6 +931,7 @@
           "node": "FUNCTION_CALL",
           "org": "$anon",
           "module": ".",
+          "packageName": ".",
           "symbol": "print",
           "version": "0.0.0",
           "lineRange": {
