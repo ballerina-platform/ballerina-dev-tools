@@ -1,4 +1,11 @@
 [config_tests.simpleconfigs]
-fixedDiscount = -700
-discountPercentage = 4.5
-testMode = false
+intVar = 100
+stringVar = "test string"
+decimalVar = 12.34
+stringArrayVar = ["apple", "banana", "cherry"]
+recordVar1 = { name = "Jane Smith", age = 22, grade = "A" }
+
+[config_tests.simpleconfigs.recordVar2]
+name = "John Doe"
+age = 30
+grade = "B"

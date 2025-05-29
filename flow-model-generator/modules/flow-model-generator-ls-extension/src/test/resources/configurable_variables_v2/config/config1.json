@@ -4,6 +4,158 @@
     "config_tests/simpleconfigs": {
       "": [
         {
+          "id": "31773",
+          "metadata": {
+            "label": "Config",
+            "description": "Create a configurable variable"
+          },
+          "codedata": {
+            "node": "CONFIG_VARIABLE",
+            "lineRange": {
+              "fileName": "main.bal",
+              "startLine": {
+                "line": 0,
+                "offset": 0
+              },
+              "endLine": {
+                "line": 0,
+                "offset": 29
+              }
+            }
+          },
+          "returning": false,
+          "properties": {
+            "variable": {
+              "metadata": {
+                "label": "Variable Name",
+                "description": "Name of the variable"
+              },
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "Global",
+              "value": "intVar",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "TYPE",
+              "value": "int",
+              "placeholder": "var",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false,
+              "codedata": {}
+            },
+            "defaultValue": {
+              "metadata": {
+                "label": "Default value",
+                "description": "Default value of the property"
+              },
+              "valueType": "EXPRESSION",
+              "value": "42",
+              "optional": true,
+              "editable": true,
+              "advanced": true,
+              "hidden": false
+            },
+            "configValue": {
+              "metadata": {
+                "label": "Config value",
+                "description": "Config value of the property (defined in Config.toml)"
+              },
+              "valueType": "EXPRESSION",
+              "value": "100",
+              "optional": true,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            }
+          },
+          "flags": 0
+        },
+        {
+          "id": "32770",
+          "metadata": {
+            "label": "Config",
+            "description": "Create a configurable variable"
+          },
+          "codedata": {
+            "node": "CONFIG_VARIABLE",
+            "lineRange": {
+              "fileName": "main.bal",
+              "startLine": {
+                "line": 1,
+                "offset": 0
+              },
+              "endLine": {
+                "line": 1,
+                "offset": 34
+              }
+            }
+          },
+          "returning": false,
+          "properties": {
+            "variable": {
+              "metadata": {
+                "label": "Variable Name",
+                "description": "Name of the variable"
+              },
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "Global",
+              "value": "floatVar",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "TYPE",
+              "value": "float",
+              "placeholder": "var",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false,
+              "codedata": {}
+            },
+            "defaultValue": {
+              "metadata": {
+                "label": "Default value",
+                "description": "Default value of the property"
+              },
+              "valueType": "EXPRESSION",
+              "value": "3.5",
+              "optional": true,
+              "editable": true,
+              "advanced": true,
+              "hidden": false
+            },
+            "configValue": {
+              "metadata": {
+                "label": "Config value",
+                "description": "Config value of the property (defined in Config.toml)"
+              },
+              "valueType": "EXPRESSION",
+              "value": "",
+              "optional": true,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            }
+          },
+          "flags": 0
+        },
+        {
           "id": "33766",
           "metadata": {
             "label": "Config",
@@ -25,20 +177,6 @@
           },
           "returning": false,
           "properties": {
-            "type": {
-              "metadata": {
-                "label": "Variable Type",
-                "description": "Type of the variable"
-              },
-              "valueType": "TYPE",
-              "value": "int",
-              "placeholder": "var",
-              "optional": false,
-              "editable": true,
-              "advanced": false,
-              "hidden": false,
-              "codedata": {}
-            },
             "variable": {
               "metadata": {
                 "label": "Variable Name",
@@ -46,19 +184,45 @@
               },
               "valueType": "IDENTIFIER",
               "valueTypeConstraint": "Global",
-              "value": "fixedDiscount",
+              "value": "stringVar",
               "optional": false,
               "editable": true,
               "advanced": false,
               "hidden": false
             },
-            "defaultable": {
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "TYPE",
+              "value": "string",
+              "placeholder": "var",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false,
+              "codedata": {}
+            },
+            "defaultValue": {
               "metadata": {
                 "label": "Default value",
-                "description": "Default value for the config, if empty your need to provide a value at runtime"
+                "description": "Default value of the property"
               },
               "valueType": "EXPRESSION",
-              "value": "-200",
+              "value": "\"foo\"",
+              "optional": true,
+              "editable": true,
+              "advanced": true,
+              "hidden": false
+            },
+            "configValue": {
+              "metadata": {
+                "label": "Config value",
+                "description": "Config value of the property (defined in Config.toml)"
+              },
+              "valueType": "EXPRESSION",
+              "value": "\"test string\"",
               "optional": true,
               "editable": true,
               "advanced": false,
@@ -68,7 +232,7 @@
           "flags": 0
         },
         {
-          "id": "34764",
+          "id": "34759",
           "metadata": {
             "label": "Config",
             "description": "Create a configurable variable"
@@ -83,26 +247,12 @@
               },
               "endLine": {
                 "line": 3,
-                "offset": 44
+                "offset": 39
               }
             }
           },
           "returning": false,
           "properties": {
-            "type": {
-              "metadata": {
-                "label": "Variable Type",
-                "description": "Type of the variable"
-              },
-              "valueType": "TYPE",
-              "value": "decimal",
-              "placeholder": "var",
-              "optional": false,
-              "editable": true,
-              "advanced": false,
-              "hidden": false,
-              "codedata": {}
-            },
             "variable": {
               "metadata": {
                 "label": "Variable Name",
@@ -110,49 +260,12 @@
               },
               "valueType": "IDENTIFIER",
               "valueTypeConstraint": "Global",
-              "value": "discountPercentage",
+              "value": "booleanVar",
               "optional": false,
               "editable": true,
               "advanced": false,
               "hidden": false
             },
-            "defaultable": {
-              "metadata": {
-                "label": "Default value",
-                "description": "Default value for the config, if empty your need to provide a value at runtime"
-              },
-              "valueType": "EXPRESSION",
-              "value": "",
-              "optional": true,
-              "editable": true,
-              "advanced": false,
-              "hidden": false
-            }
-          },
-          "flags": 0
-        },
-        {
-          "id": "35749",
-          "metadata": {
-            "label": "Config",
-            "description": "Create a configurable variable"
-          },
-          "codedata": {
-            "node": "CONFIG_VARIABLE",
-            "lineRange": {
-              "fileName": "main.bal",
-              "startLine": {
-                "line": 4,
-                "offset": 0
-              },
-              "endLine": {
-                "line": 4,
-                "offset": 37
-              }
-            }
-          },
-          "returning": false,
-          "properties": {
             "type": {
               "metadata": {
                 "label": "Variable Type",
@@ -167,6 +280,55 @@
               "hidden": false,
               "codedata": {}
             },
+            "defaultValue": {
+              "metadata": {
+                "label": "Default value",
+                "description": "Default value of the property"
+              },
+              "valueType": "EXPRESSION",
+              "value": "true",
+              "optional": true,
+              "editable": true,
+              "advanced": true,
+              "hidden": false
+            },
+            "configValue": {
+              "metadata": {
+                "label": "Config value",
+                "description": "Config value of the property (defined in Config.toml)"
+              },
+              "valueType": "EXPRESSION",
+              "value": "",
+              "optional": true,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            }
+          },
+          "flags": 0
+        },
+        {
+          "id": "35766",
+          "metadata": {
+            "label": "Config",
+            "description": "Create a configurable variable"
+          },
+          "codedata": {
+            "node": "CONFIG_VARIABLE",
+            "lineRange": {
+              "fileName": "main.bal",
+              "startLine": {
+                "line": 4,
+                "offset": 0
+              },
+              "endLine": {
+                "line": 4,
+                "offset": 54
+              }
+            }
+          },
+          "returning": false,
+          "properties": {
             "variable": {
               "metadata": {
                 "label": "Variable Name",
@@ -174,19 +336,197 @@
               },
               "valueType": "IDENTIFIER",
               "valueTypeConstraint": "Global",
-              "value": "testMode",
+              "value": "stringArrayVar",
               "optional": false,
               "editable": true,
               "advanced": false,
               "hidden": false
             },
-            "defaultable": {
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "TYPE",
+              "value": "string[]",
+              "placeholder": "var",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false,
+              "codedata": {}
+            },
+            "defaultValue": {
               "metadata": {
                 "label": "Default value",
-                "description": "Default value for the config, if empty your need to provide a value at runtime"
+                "description": "Default value of the property"
               },
               "valueType": "EXPRESSION",
-              "value": "true",
+              "value": "[\"bar\", \"baz\"]",
+              "optional": true,
+              "editable": true,
+              "advanced": true,
+              "hidden": false
+            },
+            "configValue": {
+              "metadata": {
+                "label": "Config value",
+                "description": "Config value of the property (defined in Config.toml)"
+              },
+              "valueType": "EXPRESSION",
+              "value": "[\"apple\", \"banana\", \"cherry\"]",
+              "optional": true,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            }
+          },
+          "flags": 0
+        },
+        {
+          "id": "36830",
+          "metadata": {
+            "label": "Config",
+            "description": "Create a configurable variable"
+          },
+          "codedata": {
+            "node": "CONFIG_VARIABLE",
+            "lineRange": {
+              "fileName": "main.bal",
+              "startLine": {
+                "line": 5,
+                "offset": 0
+              },
+              "endLine": {
+                "line": 9,
+                "offset": 2
+              }
+            }
+          },
+          "returning": false,
+          "properties": {
+            "variable": {
+              "metadata": {
+                "label": "Variable Name",
+                "description": "Name of the variable"
+              },
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "Global",
+              "value": "recordVar1",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "TYPE",
+              "value": "Student",
+              "placeholder": "var",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false,
+              "codedata": {}
+            },
+            "defaultValue": {
+              "metadata": {
+                "label": "Default value",
+                "description": "Default value of the property"
+              },
+              "valueType": "EXPRESSION",
+              "value": "{\n    name: \"John Doe\",\n    age: 20,\n    grade: \"A\"\n}",
+              "optional": true,
+              "editable": true,
+              "advanced": true,
+              "hidden": false
+            },
+            "configValue": {
+              "metadata": {
+                "label": "Config value",
+                "description": "Config value of the property (defined in Config.toml)"
+              },
+              "valueType": "EXPRESSION",
+              "value": "{name: \"Jane Smith\", age: 22, grade: \"A\"}",
+              "optional": true,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            }
+          },
+          "flags": 0
+        },
+        {
+          "id": "41700",
+          "metadata": {
+            "label": "Config",
+            "description": "Create a configurable variable"
+          },
+          "codedata": {
+            "node": "CONFIG_VARIABLE",
+            "lineRange": {
+              "fileName": "main.bal",
+              "startLine": {
+                "line": 10,
+                "offset": 0
+              },
+              "endLine": {
+                "line": 10,
+                "offset": 36
+              }
+            }
+          },
+          "returning": false,
+          "properties": {
+            "variable": {
+              "metadata": {
+                "label": "Variable Name",
+                "description": "Name of the variable"
+              },
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "Global",
+              "value": "recordVar2",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "TYPE",
+              "value": "Student",
+              "placeholder": "var",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false,
+              "codedata": {}
+            },
+            "defaultValue": {
+              "metadata": {
+                "label": "Default value",
+                "description": "Default value of the property"
+              },
+              "valueType": "EXPRESSION",
+              "value": "",
+              "optional": true,
+              "editable": true,
+              "advanced": true,
+              "hidden": false
+            },
+            "configValue": {
+              "metadata": {
+                "label": "Config value",
+                "description": "Config value of the property (defined in Config.toml)"
+              },
+              "valueType": "EXPRESSION",
+              "value": "{name: \"John Doe\", age: 30, grade: \"B\"}",
               "optional": true,
               "editable": true,
               "advanced": false,

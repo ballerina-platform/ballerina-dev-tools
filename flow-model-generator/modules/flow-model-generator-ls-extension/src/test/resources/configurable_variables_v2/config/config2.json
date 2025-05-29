@@ -28,20 +28,6 @@
           },
           "returning": false,
           "properties": {
-            "type": {
-              "metadata": {
-                "label": "Variable Type",
-                "description": "Type of the variable"
-              },
-              "valueType": "TYPE",
-              "value": "int",
-              "placeholder": "var",
-              "optional": false,
-              "editable": true,
-              "advanced": false,
-              "hidden": false,
-              "codedata": {}
-            },
             "variable": {
               "metadata": {
                 "label": "Variable Name",
@@ -51,17 +37,43 @@
               "valueTypeConstraint": "Global",
               "value": "maxActiveConnections",
               "optional": false,
-              "editable": true,
+              "editable": false,
               "advanced": false,
               "hidden": false
             },
-            "defaultable": {
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "TYPE",
+              "value": "int",
+              "placeholder": "var",
+              "optional": false,
+              "editable": false,
+              "advanced": false,
+              "hidden": false,
+              "codedata": {}
+            },
+            "defaultValue": {
               "metadata": {
                 "label": "Default value",
-                "description": "Default value for the config, if empty your need to provide a value at runtime"
+                "description": "Default value of the property"
               },
               "valueType": "EXPRESSION",
               "value": "-1",
+              "optional": true,
+              "editable": false,
+              "advanced": true,
+              "hidden": false
+            },
+            "configValue": {
+              "metadata": {
+                "label": "Config value",
+                "description": "Config value of the property (defined in Config.toml)"
+              },
+              "valueType": "EXPRESSION",
+              "value": "",
               "optional": true,
               "editable": true,
               "advanced": false,
@@ -92,20 +104,6 @@
           },
           "returning": false,
           "properties": {
-            "type": {
-              "metadata": {
-                "label": "Variable Type",
-                "description": "Type of the variable"
-              },
-              "valueType": "TYPE",
-              "value": "int",
-              "placeholder": "var",
-              "optional": false,
-              "editable": true,
-              "advanced": false,
-              "hidden": false,
-              "codedata": {}
-            },
             "variable": {
               "metadata": {
                 "label": "Variable Name",
@@ -115,17 +113,43 @@
               "valueTypeConstraint": "Global",
               "value": "maxIdleConnections",
               "optional": false,
-              "editable": true,
+              "editable": false,
               "advanced": false,
               "hidden": false
             },
-            "defaultable": {
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "TYPE",
+              "value": "int",
+              "placeholder": "var",
+              "optional": false,
+              "editable": false,
+              "advanced": false,
+              "hidden": false,
+              "codedata": {}
+            },
+            "defaultValue": {
               "metadata": {
                 "label": "Default value",
-                "description": "Default value for the config, if empty your need to provide a value at runtime"
+                "description": "Default value of the property"
               },
               "valueType": "EXPRESSION",
               "value": "100",
+              "optional": true,
+              "editable": false,
+              "advanced": true,
+              "hidden": false
+            },
+            "configValue": {
+              "metadata": {
+                "label": "Config value",
+                "description": "Config value of the property (defined in Config.toml)"
+              },
+              "valueType": "EXPRESSION",
+              "value": "",
               "optional": true,
               "editable": true,
               "advanced": false,
@@ -156,20 +180,6 @@
           },
           "returning": false,
           "properties": {
-            "type": {
-              "metadata": {
-                "label": "Variable Type",
-                "description": "Type of the variable"
-              },
-              "valueType": "TYPE",
-              "value": "decimal",
-              "placeholder": "var",
-              "optional": false,
-              "editable": true,
-              "advanced": false,
-              "hidden": false,
-              "codedata": {}
-            },
             "variable": {
               "metadata": {
                 "label": "Variable Name",
@@ -179,17 +189,43 @@
               "valueTypeConstraint": "Global",
               "value": "waitTime",
               "optional": false,
-              "editable": true,
+              "editable": false,
               "advanced": false,
               "hidden": false
             },
-            "defaultable": {
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "TYPE",
+              "value": "decimal",
+              "placeholder": "var",
+              "optional": false,
+              "editable": false,
+              "advanced": false,
+              "hidden": false,
+              "codedata": {}
+            },
+            "defaultValue": {
               "metadata": {
                 "label": "Default value",
-                "description": "Default value for the config, if empty your need to provide a value at runtime"
+                "description": "Default value of the property"
               },
               "valueType": "EXPRESSION",
               "value": "30",
+              "optional": true,
+              "editable": false,
+              "advanced": true,
+              "hidden": false
+            },
+            "configValue": {
+              "metadata": {
+                "label": "Config value",
+                "description": "Config value of the property (defined in Config.toml)"
+              },
+              "valueType": "EXPRESSION",
+              "value": "",
               "optional": true,
               "editable": true,
               "advanced": false,
@@ -220,20 +256,6 @@
           },
           "returning": false,
           "properties": {
-            "type": {
-              "metadata": {
-                "label": "Variable Type",
-                "description": "Type of the variable"
-              },
-              "valueType": "TYPE",
-              "value": "int",
-              "placeholder": "var",
-              "optional": false,
-              "editable": true,
-              "advanced": false,
-              "hidden": false,
-              "codedata": {}
-            },
             "variable": {
               "metadata": {
                 "label": "Variable Name",
@@ -243,17 +265,43 @@
               "valueTypeConstraint": "Global",
               "value": "maxActiveStreamsPerConnection",
               "optional": false,
-              "editable": true,
+              "editable": false,
               "advanced": false,
               "hidden": false
             },
-            "defaultable": {
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "TYPE",
+              "value": "int",
+              "placeholder": "var",
+              "optional": false,
+              "editable": false,
+              "advanced": false,
+              "hidden": false,
+              "codedata": {}
+            },
+            "defaultValue": {
               "metadata": {
                 "label": "Default value",
-                "description": "Default value for the config, if empty your need to provide a value at runtime"
+                "description": "Default value of the property"
               },
               "valueType": "EXPRESSION",
               "value": "100",
+              "optional": true,
+              "editable": false,
+              "advanced": true,
+              "hidden": false
+            },
+            "configValue": {
+              "metadata": {
+                "label": "Config value",
+                "description": "Config value of the property (defined in Config.toml)"
+              },
+              "valueType": "EXPRESSION",
+              "value": "",
               "optional": true,
               "editable": true,
               "advanced": false,
@@ -284,20 +332,6 @@
           },
           "returning": false,
           "properties": {
-            "type": {
-              "metadata": {
-                "label": "Variable Type",
-                "description": "Type of the variable"
-              },
-              "valueType": "TYPE",
-              "value": "decimal",
-              "placeholder": "var",
-              "optional": false,
-              "editable": true,
-              "advanced": false,
-              "hidden": false,
-              "codedata": {}
-            },
             "variable": {
               "metadata": {
                 "label": "Variable Name",
@@ -307,17 +341,43 @@
               "valueTypeConstraint": "Global",
               "value": "minEvictableIdleTime",
               "optional": false,
-              "editable": true,
+              "editable": false,
               "advanced": false,
               "hidden": false
             },
-            "defaultable": {
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "TYPE",
+              "value": "decimal",
+              "placeholder": "var",
+              "optional": false,
+              "editable": false,
+              "advanced": false,
+              "hidden": false,
+              "codedata": {}
+            },
+            "defaultValue": {
               "metadata": {
                 "label": "Default value",
-                "description": "Default value for the config, if empty your need to provide a value at runtime"
+                "description": "Default value of the property"
               },
               "valueType": "EXPRESSION",
               "value": "300",
+              "optional": true,
+              "editable": false,
+              "advanced": true,
+              "hidden": false
+            },
+            "configValue": {
+              "metadata": {
+                "label": "Config value",
+                "description": "Config value of the property (defined in Config.toml)"
+              },
+              "valueType": "EXPRESSION",
+              "value": "",
               "optional": true,
               "editable": true,
               "advanced": false,
@@ -348,20 +408,6 @@
           },
           "returning": false,
           "properties": {
-            "type": {
-              "metadata": {
-                "label": "Variable Type",
-                "description": "Type of the variable"
-              },
-              "valueType": "TYPE",
-              "value": "decimal",
-              "placeholder": "var",
-              "optional": false,
-              "editable": true,
-              "advanced": false,
-              "hidden": false,
-              "codedata": {}
-            },
             "variable": {
               "metadata": {
                 "label": "Variable Name",
@@ -371,17 +417,43 @@
               "valueTypeConstraint": "Global",
               "value": "timeBetweenEvictionRuns",
               "optional": false,
-              "editable": true,
+              "editable": false,
               "advanced": false,
               "hidden": false
             },
-            "defaultable": {
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "TYPE",
+              "value": "decimal",
+              "placeholder": "var",
+              "optional": false,
+              "editable": false,
+              "advanced": false,
+              "hidden": false,
+              "codedata": {}
+            },
+            "defaultValue": {
               "metadata": {
                 "label": "Default value",
-                "description": "Default value for the config, if empty your need to provide a value at runtime"
+                "description": "Default value of the property"
               },
               "valueType": "EXPRESSION",
               "value": "30",
+              "optional": true,
+              "editable": false,
+              "advanced": true,
+              "hidden": false
+            },
+            "configValue": {
+              "metadata": {
+                "label": "Config value",
+                "description": "Config value of the property (defined in Config.toml)"
+              },
+              "valueType": "EXPRESSION",
+              "value": "",
               "optional": true,
               "editable": true,
               "advanced": false,
@@ -412,20 +484,6 @@
           },
           "returning": false,
           "properties": {
-            "type": {
-              "metadata": {
-                "label": "Variable Type",
-                "description": "Type of the variable"
-              },
-              "valueType": "TYPE",
-              "value": "decimal",
-              "placeholder": "var",
-              "optional": false,
-              "editable": true,
-              "advanced": false,
-              "hidden": false,
-              "codedata": {}
-            },
             "variable": {
               "metadata": {
                 "label": "Variable Name",
@@ -435,17 +493,43 @@
               "valueTypeConstraint": "Global",
               "value": "minIdleTimeInStaleState",
               "optional": false,
-              "editable": true,
+              "editable": false,
               "advanced": false,
               "hidden": false
             },
-            "defaultable": {
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "TYPE",
+              "value": "decimal",
+              "placeholder": "var",
+              "optional": false,
+              "editable": false,
+              "advanced": false,
+              "hidden": false,
+              "codedata": {}
+            },
+            "defaultValue": {
               "metadata": {
                 "label": "Default value",
-                "description": "Default value for the config, if empty your need to provide a value at runtime"
+                "description": "Default value of the property"
               },
               "valueType": "EXPRESSION",
               "value": "300",
+              "optional": true,
+              "editable": false,
+              "advanced": true,
+              "hidden": false
+            },
+            "configValue": {
+              "metadata": {
+                "label": "Config value",
+                "description": "Config value of the property (defined in Config.toml)"
+              },
+              "valueType": "EXPRESSION",
+              "value": "",
               "optional": true,
               "editable": true,
               "advanced": false,
@@ -476,20 +560,6 @@
           },
           "returning": false,
           "properties": {
-            "type": {
-              "metadata": {
-                "label": "Variable Type",
-                "description": "Type of the variable"
-              },
-              "valueType": "TYPE",
-              "value": "decimal",
-              "placeholder": "var",
-              "optional": false,
-              "editable": true,
-              "advanced": false,
-              "hidden": false,
-              "codedata": {}
-            },
             "variable": {
               "metadata": {
                 "label": "Variable Name",
@@ -499,17 +569,43 @@
               "valueTypeConstraint": "Global",
               "value": "timeBetweenStaleEviction",
               "optional": false,
-              "editable": true,
+              "editable": false,
               "advanced": false,
               "hidden": false
             },
-            "defaultable": {
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "TYPE",
+              "value": "decimal",
+              "placeholder": "var",
+              "optional": false,
+              "editable": false,
+              "advanced": false,
+              "hidden": false,
+              "codedata": {}
+            },
+            "defaultValue": {
               "metadata": {
                 "label": "Default value",
-                "description": "Default value for the config, if empty your need to provide a value at runtime"
+                "description": "Default value of the property"
               },
               "valueType": "EXPRESSION",
               "value": "30",
+              "optional": true,
+              "editable": false,
+              "advanced": true,
+              "hidden": false
+            },
+            "configValue": {
+              "metadata": {
+                "label": "Config value",
+                "description": "Config value of the property (defined in Config.toml)"
+              },
+              "valueType": "EXPRESSION",
+              "value": "",
               "optional": true,
               "editable": true,
               "advanced": false,
@@ -540,20 +636,6 @@
           },
           "returning": false,
           "properties": {
-            "type": {
-              "metadata": {
-                "label": "Variable Type",
-                "description": "Type of the variable"
-              },
-              "valueType": "TYPE",
-              "value": "int",
-              "placeholder": "var",
-              "optional": false,
-              "editable": true,
-              "advanced": false,
-              "hidden": false,
-              "codedata": {}
-            },
             "variable": {
               "metadata": {
                 "label": "Variable Name",
@@ -563,17 +645,43 @@
               "valueTypeConstraint": "Global",
               "value": "defaultListenerPort",
               "optional": false,
-              "editable": true,
+              "editable": false,
               "advanced": false,
               "hidden": false
             },
-            "defaultable": {
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "TYPE",
+              "value": "int",
+              "placeholder": "var",
+              "optional": false,
+              "editable": false,
+              "advanced": false,
+              "hidden": false,
+              "codedata": {}
+            },
+            "defaultValue": {
               "metadata": {
                 "label": "Default value",
-                "description": "Default value for the config, if empty your need to provide a value at runtime"
+                "description": "Default value of the property"
               },
               "valueType": "EXPRESSION",
               "value": "9090",
+              "optional": true,
+              "editable": false,
+              "advanced": true,
+              "hidden": false
+            },
+            "configValue": {
+              "metadata": {
+                "label": "Config value",
+                "description": "Config value of the property (defined in Config.toml)"
+              },
+              "valueType": "EXPRESSION",
+              "value": "",
               "optional": true,
               "editable": true,
               "advanced": false,
@@ -604,20 +712,6 @@
           },
           "returning": false,
           "properties": {
-            "type": {
-              "metadata": {
-                "label": "Variable Type",
-                "description": "Type of the variable"
-              },
-              "valueType": "TYPE",
-              "value": "ListenerConfiguration",
-              "placeholder": "var",
-              "optional": false,
-              "editable": true,
-              "advanced": false,
-              "hidden": false,
-              "codedata": {}
-            },
             "variable": {
               "metadata": {
                 "label": "Variable Name",
@@ -627,17 +721,43 @@
               "valueTypeConstraint": "Global",
               "value": "defaultListenerConfig",
               "optional": false,
-              "editable": true,
+              "editable": false,
               "advanced": false,
               "hidden": false
             },
-            "defaultable": {
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "TYPE",
+              "value": "ListenerConfiguration",
+              "placeholder": "var",
+              "optional": false,
+              "editable": false,
+              "advanced": false,
+              "hidden": false,
+              "codedata": {}
+            },
+            "defaultValue": {
               "metadata": {
                 "label": "Default value",
-                "description": "Default value for the config, if empty your need to provide a value at runtime"
+                "description": "Default value of the property"
               },
               "valueType": "EXPRESSION",
               "value": "{}",
+              "optional": true,
+              "editable": false,
+              "advanced": true,
+              "hidden": false
+            },
+            "configValue": {
+              "metadata": {
+                "label": "Config value",
+                "description": "Config value of the property (defined in Config.toml)"
+              },
+              "valueType": "EXPRESSION",
+              "value": "",
               "optional": true,
               "editable": true,
               "advanced": false,
@@ -668,20 +788,6 @@
           },
           "returning": false,
           "properties": {
-            "type": {
-              "metadata": {
-                "label": "Variable Type",
-                "description": "Type of the variable"
-              },
-              "valueType": "TYPE",
-              "value": "boolean",
-              "placeholder": "var",
-              "optional": false,
-              "editable": true,
-              "advanced": false,
-              "hidden": false,
-              "codedata": {}
-            },
             "variable": {
               "metadata": {
                 "label": "Variable Name",
@@ -691,17 +797,43 @@
               "valueTypeConstraint": "Global",
               "value": "traceLogConsole",
               "optional": false,
-              "editable": true,
+              "editable": false,
               "advanced": false,
               "hidden": false
             },
-            "defaultable": {
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "TYPE",
+              "value": "boolean",
+              "placeholder": "var",
+              "optional": false,
+              "editable": false,
+              "advanced": false,
+              "hidden": false,
+              "codedata": {}
+            },
+            "defaultValue": {
               "metadata": {
                 "label": "Default value",
-                "description": "Default value for the config, if empty your need to provide a value at runtime"
+                "description": "Default value of the property"
               },
               "valueType": "EXPRESSION",
               "value": "false",
+              "optional": true,
+              "editable": false,
+              "advanced": true,
+              "hidden": false
+            },
+            "configValue": {
+              "metadata": {
+                "label": "Config value",
+                "description": "Config value of the property (defined in Config.toml)"
+              },
+              "valueType": "EXPRESSION",
+              "value": "",
               "optional": true,
               "editable": true,
               "advanced": false,
@@ -732,20 +864,6 @@
           },
           "returning": false,
           "properties": {
-            "type": {
-              "metadata": {
-                "label": "Variable Type",
-                "description": "Type of the variable"
-              },
-              "valueType": "TYPE",
-              "value": "TraceLogAdvancedConfiguration",
-              "placeholder": "var",
-              "optional": false,
-              "editable": true,
-              "advanced": false,
-              "hidden": false,
-              "codedata": {}
-            },
             "variable": {
               "metadata": {
                 "label": "Variable Name",
@@ -755,17 +873,43 @@
               "valueTypeConstraint": "Global",
               "value": "traceLogAdvancedConfig",
               "optional": false,
-              "editable": true,
+              "editable": false,
               "advanced": false,
               "hidden": false
             },
-            "defaultable": {
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "TYPE",
+              "value": "TraceLogAdvancedConfiguration",
+              "placeholder": "var",
+              "optional": false,
+              "editable": false,
+              "advanced": false,
+              "hidden": false,
+              "codedata": {}
+            },
+            "defaultValue": {
               "metadata": {
                 "label": "Default value",
-                "description": "Default value for the config, if empty your need to provide a value at runtime"
+                "description": "Default value of the property"
               },
               "valueType": "EXPRESSION",
               "value": "{}",
+              "optional": true,
+              "editable": false,
+              "advanced": true,
+              "hidden": false
+            },
+            "configValue": {
+              "metadata": {
+                "label": "Config value",
+                "description": "Config value of the property (defined in Config.toml)"
+              },
+              "valueType": "EXPRESSION",
+              "value": "",
               "optional": true,
               "editable": true,
               "advanced": false,
@@ -796,20 +940,6 @@
           },
           "returning": false,
           "properties": {
-            "type": {
-              "metadata": {
-                "label": "Variable Type",
-                "description": "Type of the variable"
-              },
-              "valueType": "TYPE",
-              "value": "AccessLogConfiguration",
-              "placeholder": "var",
-              "optional": false,
-              "editable": true,
-              "advanced": false,
-              "hidden": false,
-              "codedata": {}
-            },
             "variable": {
               "metadata": {
                 "label": "Variable Name",
@@ -819,17 +949,43 @@
               "valueTypeConstraint": "Global",
               "value": "accessLogConfig",
               "optional": false,
-              "editable": true,
+              "editable": false,
               "advanced": false,
               "hidden": false
             },
-            "defaultable": {
+            "type": {
+              "metadata": {
+                "label": "Variable Type",
+                "description": "Type of the variable"
+              },
+              "valueType": "TYPE",
+              "value": "AccessLogConfiguration",
+              "placeholder": "var",
+              "optional": false,
+              "editable": false,
+              "advanced": false,
+              "hidden": false,
+              "codedata": {}
+            },
+            "defaultValue": {
               "metadata": {
                 "label": "Default value",
-                "description": "Default value for the config, if empty your need to provide a value at runtime"
+                "description": "Default value of the property"
               },
               "valueType": "EXPRESSION",
               "value": "{}",
+              "optional": true,
+              "editable": false,
+              "advanced": true,
+              "hidden": false
+            },
+            "configValue": {
+              "metadata": {
+                "label": "Config value",
+                "description": "Config value of the property (defined in Config.toml)"
+              },
+              "valueType": "EXPRESSION",
+              "value": "",
               "optional": true,
               "editable": true,
               "advanced": false,

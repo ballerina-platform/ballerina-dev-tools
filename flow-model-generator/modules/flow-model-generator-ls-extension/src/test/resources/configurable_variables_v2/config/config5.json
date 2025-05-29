@@ -25,6 +25,19 @@
           },
           "returning": false,
           "properties": {
+            "variable": {
+              "metadata": {
+                "label": "Variable Name",
+                "description": "Name of the variable"
+              },
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "Global",
+              "value": "sheetOAuthConfig",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
             "type": {
               "metadata": {
                 "label": "Variable Type",
@@ -39,23 +52,22 @@
               "hidden": false,
               "codedata": {}
             },
-            "variable": {
-              "metadata": {
-                "label": "Variable Name",
-                "description": "Name of the variable"
-              },
-              "valueType": "IDENTIFIER",
-              "valueTypeConstraint": "Global",
-              "value": "sheetOAuthConfig",
-              "optional": false,
-              "editable": true,
-              "advanced": false,
-              "hidden": false
-            },
-            "defaultable": {
+            "defaultValue": {
               "metadata": {
                 "label": "Default value",
-                "description": "Default value for the config, if empty your need to provide a value at runtime"
+                "description": "Default value of the property"
+              },
+              "valueType": "EXPRESSION",
+              "value": "",
+              "optional": true,
+              "editable": true,
+              "advanced": true,
+              "hidden": false
+            },
+            "configValue": {
+              "metadata": {
+                "label": "Config value",
+                "description": "Config value of the property (defined in Config.toml)"
               },
               "valueType": "EXPRESSION",
               "value": "",
@@ -89,6 +101,19 @@
           },
           "returning": false,
           "properties": {
+            "variable": {
+              "metadata": {
+                "label": "Variable Name",
+                "description": "Name of the variable"
+              },
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "Global",
+              "value": "spreadsheetId",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
             "type": {
               "metadata": {
                 "label": "Variable Type",
@@ -103,23 +128,22 @@
               "hidden": false,
               "codedata": {}
             },
-            "variable": {
-              "metadata": {
-                "label": "Variable Name",
-                "description": "Name of the variable"
-              },
-              "valueType": "IDENTIFIER",
-              "valueTypeConstraint": "Global",
-              "value": "spreadsheetId",
-              "optional": false,
-              "editable": true,
-              "advanced": false,
-              "hidden": false
-            },
-            "defaultable": {
+            "defaultValue": {
               "metadata": {
                 "label": "Default value",
-                "description": "Default value for the config, if empty your need to provide a value at runtime"
+                "description": "Default value of the property"
+              },
+              "valueType": "EXPRESSION",
+              "value": "",
+              "optional": true,
+              "editable": true,
+              "advanced": true,
+              "hidden": false
+            },
+            "configValue": {
+              "metadata": {
+                "label": "Config value",
+                "description": "Config value of the property (defined in Config.toml)"
               },
               "valueType": "EXPRESSION",
               "value": "",
@@ -153,6 +177,19 @@
           },
           "returning": false,
           "properties": {
+            "variable": {
+              "metadata": {
+                "label": "Variable Name",
+                "description": "Name of the variable"
+              },
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "Global",
+              "value": "worksheetName",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
             "type": {
               "metadata": {
                 "label": "Variable Type",
@@ -167,23 +204,22 @@
               "hidden": false,
               "codedata": {}
             },
-            "variable": {
-              "metadata": {
-                "label": "Variable Name",
-                "description": "Name of the variable"
-              },
-              "valueType": "IDENTIFIER",
-              "valueTypeConstraint": "Global",
-              "value": "worksheetName",
-              "optional": false,
-              "editable": true,
-              "advanced": false,
-              "hidden": false
-            },
-            "defaultable": {
+            "defaultValue": {
               "metadata": {
                 "label": "Default value",
-                "description": "Default value for the config, if empty your need to provide a value at runtime"
+                "description": "Default value of the property"
+              },
+              "valueType": "EXPRESSION",
+              "value": "",
+              "optional": true,
+              "editable": true,
+              "advanced": true,
+              "hidden": false
+            },
+            "configValue": {
+              "metadata": {
+                "label": "Config value",
+                "description": "Config value of the property (defined in Config.toml)"
               },
               "valueType": "EXPRESSION",
               "value": "",
@@ -217,6 +253,19 @@
           },
           "returning": false,
           "properties": {
+            "variable": {
+              "metadata": {
+                "label": "Variable Name",
+                "description": "Name of the variable"
+              },
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "Global",
+              "value": "gmailOauthConfig",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
             "type": {
               "metadata": {
                 "label": "Variable Type",
@@ -231,23 +280,22 @@
               "hidden": false,
               "codedata": {}
             },
-            "variable": {
-              "metadata": {
-                "label": "Variable Name",
-                "description": "Name of the variable"
-              },
-              "valueType": "IDENTIFIER",
-              "valueTypeConstraint": "Global",
-              "value": "gmailOauthConfig",
-              "optional": false,
-              "editable": true,
-              "advanced": false,
-              "hidden": false
-            },
-            "defaultable": {
+            "defaultValue": {
               "metadata": {
                 "label": "Default value",
-                "description": "Default value for the config, if empty your need to provide a value at runtime"
+                "description": "Default value of the property"
+              },
+              "valueType": "EXPRESSION",
+              "value": "",
+              "optional": true,
+              "editable": true,
+              "advanced": true,
+              "hidden": false
+            },
+            "configValue": {
+              "metadata": {
+                "label": "Config value",
+                "description": "Config value of the property (defined in Config.toml)"
               },
               "valueType": "EXPRESSION",
               "value": "",
@@ -281,6 +329,19 @@
           },
           "returning": false,
           "properties": {
+            "variable": {
+              "metadata": {
+                "label": "Variable Name",
+                "description": "Name of the variable"
+              },
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "Global",
+              "value": "recipientAddress",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
             "type": {
               "metadata": {
                 "label": "Variable Type",
@@ -295,23 +356,22 @@
               "hidden": false,
               "codedata": {}
             },
-            "variable": {
-              "metadata": {
-                "label": "Variable Name",
-                "description": "Name of the variable"
-              },
-              "valueType": "IDENTIFIER",
-              "valueTypeConstraint": "Global",
-              "value": "recipientAddress",
-              "optional": false,
-              "editable": true,
-              "advanced": false,
-              "hidden": false
-            },
-            "defaultable": {
+            "defaultValue": {
               "metadata": {
                 "label": "Default value",
-                "description": "Default value for the config, if empty your need to provide a value at runtime"
+                "description": "Default value of the property"
+              },
+              "valueType": "EXPRESSION",
+              "value": "",
+              "optional": true,
+              "editable": true,
+              "advanced": true,
+              "hidden": false
+            },
+            "configValue": {
+              "metadata": {
+                "label": "Config value",
+                "description": "Config value of the property (defined in Config.toml)"
               },
               "valueType": "EXPRESSION",
               "value": "",
@@ -345,6 +405,19 @@
           },
           "returning": false,
           "properties": {
+            "variable": {
+              "metadata": {
+                "label": "Variable Name",
+                "description": "Name of the variable"
+              },
+              "valueType": "IDENTIFIER",
+              "valueTypeConstraint": "Global",
+              "value": "senderAddress",
+              "optional": false,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
             "type": {
               "metadata": {
                 "label": "Variable Type",
@@ -359,23 +432,22 @@
               "hidden": false,
               "codedata": {}
             },
-            "variable": {
-              "metadata": {
-                "label": "Variable Name",
-                "description": "Name of the variable"
-              },
-              "valueType": "IDENTIFIER",
-              "valueTypeConstraint": "Global",
-              "value": "senderAddress",
-              "optional": false,
-              "editable": true,
-              "advanced": false,
-              "hidden": false
-            },
-            "defaultable": {
+            "defaultValue": {
               "metadata": {
                 "label": "Default value",
-                "description": "Default value for the config, if empty your need to provide a value at runtime"
+                "description": "Default value of the property"
+              },
+              "valueType": "EXPRESSION",
+              "value": "",
+              "optional": true,
+              "editable": true,
+              "advanced": true,
+              "hidden": false
+            },
+            "configValue": {
+              "metadata": {
+                "label": "Config value",
+                "description": "Config value of the property (defined in Config.toml)"
               },
               "valueType": "EXPRESSION",
               "value": "",

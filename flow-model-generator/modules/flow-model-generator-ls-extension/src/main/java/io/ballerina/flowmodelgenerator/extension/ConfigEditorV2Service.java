@@ -681,14 +681,74 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
             List<TextEdit> textEdits = new ArrayList<>();
             if (oldValue.isPresent()) {
                 String fileName = oldValue.get().location().lineRange().fileName();
-                LinePosition startPos = LinePosition.from(oldValue.get().location().lineRange().startLine().line(),
-                        oldValue.get().location().lineRange().startLine().offset());
+                LinePosition startPos = LinePosition.from(oldValue.get().location().lineRange().startLine().line(), 0);
                 LinePosition endPos = LinePosition.from(oldValue.get().location().lineRange().endLine().line(),
                         oldValue.get().location().lineRange().endLine().offset());
                 LineRange lineRange = LineRange.from(fileName, startPos, endPos);
                 textEdits.add(new TextEdit(CommonUtils.toRange(lineRange), newContent));
             } else {
-                // TODO: Implement logic to insert new config entries
+                // if the variable is new, we need to find the relevant section in Config.toml file and add the new
+                // entry after the last entry of the section.
+                if (existingConfigToml != null) {
+                    // Try to find existing section for the module
+                    String pkgNameFormatted = packageName.replace("/", ".");
+                    String sectionKey = moduleName.isEmpty() ? pkgNameFormatted : String.format("%s.%s", pkgNameFormatted, moduleName);
+
+                    Optional<Toml> moduleSection = existingConfigToml.getTable(sectionKey);
+                    if (moduleSection.isPresent()) {
+                        // Section exists - find the last entry and add after it
+                        TomlTableNode moduleTableNode = moduleSection.get().rootNode();
+                        if (!moduleTableNode.entries().isEmpty()) {
+                            // Get the last entry in the section
+                            TomlNode lastEntry = moduleTableNode.entries().values().stream()
+                                    .reduce((first, second) -> second)
+                                    .orElse(null);
+
+                            if (lastEntry != null) {
+                                LinePosition insertPos = LinePosition.from(
+                                        lastEntry.location().lineRange().endLine().line() + 1, 0);
+                                textEdits.add(new TextEdit(CommonUtils.toRange(insertPos),
+                                        String.format("%s = %s%n", variableName, configValue)));
+                            }
+                        } else {
+                            // Section exists but is empty - add right after section header
+                            LinePosition insertPos = LinePosition.from(
+                                    moduleTableNode.location().lineRange().endLine().line() + 1, 0);
+                            textEdits.add(new TextEdit(CommonUtils.toRange(insertPos),
+                                    String.format("%s = %s%n", variableName, configValue)));
+                        }
+                    } else {
+                        // Section doesn't exist - append to end of file
+                        TomlTableNode rootNode = existingConfigToml.rootNode();
+                        LinePosition insertPos;
+
+                        if (!rootNode.entries().isEmpty()) {
+                            // Find the last entry in the root table
+                            TomlNode lastEntry = rootNode.entries().values().stream()
+                                    .reduce((first, second) -> second)
+                                    .orElse(null);
+                            insertPos = LinePosition.from(lastEntry.location().lineRange().endLine().line() + 1, 0);
+                        } else {
+                            // Empty config file
+                            insertPos = LinePosition.from(0, 0);
+                        }
+
+                        textEdits.add(new TextEdit(CommonUtils.toRange(insertPos),
+                                String.format("%n%s%n", newContent)));
+                    }
+                } else {
+                    // Config.toml doesn't exist - create new file with the content
+                    if (!Files.exists(configTomlPath)) {
+                        try {
+                            Files.createFile(configTomlPath);
+                        } catch (Exception createEx) {
+                            // Handle file creation error
+                            return textEditsMap;
+                        }
+                    }
+                    LinePosition startPos = LinePosition.from(0, 0);
+                    textEdits.add(new TextEdit(CommonUtils.toRange(startPos), newContent + System.lineSeparator()));
+                }
             }
 
             textEditsMap.put(configTomlPath, textEdits);
@@ -712,7 +772,11 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
         if (moduleEntryExists) {
             return String.format("%s = %s", variableName, value);
         } else {
-            return String.format("[%s.%s.%s]\n%s = %s", orgName, packageName, moduleName, variableName, value);
+            if (moduleName.isEmpty()) {
+                return String.format("[%s.%s]\n%s = %s", orgName, packageName, variableName, value);
+            } else {
+                return String.format("[%s.%s.%s]\n%s = %s", orgName, packageName, moduleName, variableName, value);
+            }
         }
     }
 }
