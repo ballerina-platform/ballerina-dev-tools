@@ -181,6 +181,7 @@ public class AvailableNodesGenerator {
                         .node(NodeKind.AGENT_CALL)
                         .org(BALLERINAX)
                         .module(AI_AGENT)
+                        .packageName(AI_AGENT)
                         .symbol("run")
                         .object("Agent")
                         .build(),

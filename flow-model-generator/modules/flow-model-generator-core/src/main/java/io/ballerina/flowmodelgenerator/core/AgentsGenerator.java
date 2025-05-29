@@ -129,7 +129,8 @@ public class AgentsGenerator {
 
                 agents.add(new Codedata.Builder<>(null).node(NodeKind.AGENT)
                         .org(id.orgName())
-                        .module(id.packageName())
+                        .module(id.moduleName())
+                        .packageName(id.packageName())
                         .version(id.version())
                         .object(classSymbol.getName().orElse(AGENT))
                         .symbol(INIT)
@@ -167,7 +168,8 @@ public class AgentsGenerator {
             ModuleID id = optModule.get().id();
             models.add(new Codedata.Builder<>(null).node(NodeKind.CLASS_INIT)
                     .org(id.orgName())
-                    .module(id.packageName())
+                    .module(id.moduleName())
+                    .packageName(id.packageName())
                     .version(id.version())
                     .object(model.getName().orElse(MODEL))
                     .symbol(INIT)
@@ -201,7 +203,8 @@ public class AgentsGenerator {
             ModuleID id = optModule.get().id();
             models.add(new Codedata.Builder<>(null).node(NodeKind.CLASS_INIT)
                     .org(id.orgName())
-                    .module(id.packageName())
+                    .module(id.moduleName())
+                    .packageName(id.packageName())
                     .version(id.version())
                     .object(model.getName().orElse(MEMORY))
                     .symbol(INIT)
@@ -692,6 +695,7 @@ public class AgentsGenerator {
         for (FunctionData methodFunction : methodFunctionsData) {
             String org = methodFunction.org();
             String packageName = methodFunction.packageName();
+            String moduleName = methodFunction.moduleName();
             String version = methodFunction.version();
             boolean isHttpModule = org.equals(BALLERINA_ORG) && packageName.equals(HTTP_MODULE);
 
@@ -720,7 +724,8 @@ public class AgentsGenerator {
                     .stepOut()
                     .codedata()
                     .org(org)
-                    .module(packageName)
+                    .module(moduleName)
+                    .packageName(packageName)
                     .object(className)
                     .symbol(methodFunction.name())
                     .version(version)

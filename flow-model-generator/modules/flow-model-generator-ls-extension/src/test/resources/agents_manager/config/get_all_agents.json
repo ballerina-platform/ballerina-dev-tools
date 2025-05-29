@@ -6,6 +6,7 @@
       "node": "AGENT",
       "org": "ballerinax",
       "module": "ai",
+      "packageName": "ai",
       "object": "Agent",
       "symbol": "init",
       "version": "1.0.1"

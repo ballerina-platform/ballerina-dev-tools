@@ -7,6 +7,7 @@
       "node": "CLASS_INIT",
       "org": "ballerinax",
       "module": "ai",
+      "packageName": "ai",
       "object": "OpenAiProvider",
       "symbol": "init",
       "version": "1.0.1"
@@ -15,6 +16,7 @@
       "node": "CLASS_INIT",
       "org": "ballerinax",
       "module": "ai",
+      "packageName": "ai",
       "object": "AzureOpenAiProvider",
       "symbol": "init",
       "version": "1.0.1"
@@ -23,6 +25,7 @@
       "node": "CLASS_INIT",
       "org": "ballerinax",
       "module": "ai",
+      "packageName": "ai",
       "object": "AnthropicProvider",
       "symbol": "init",
       "version": "1.0.1"
@@ -31,6 +34,7 @@
       "node": "CLASS_INIT",
       "org": "ballerinax",
       "module": "ai",
+      "packageName": "ai",
       "object": "MistralAiProvider",
       "symbol": "init",
       "version": "1.0.1"
@@ -39,6 +43,7 @@
       "node": "CLASS_INIT",
       "org": "ballerinax",
       "module": "ai",
+      "packageName": "ai",
       "object": "OllamaProvider",
       "symbol": "init",
       "version": "1.0.1"
