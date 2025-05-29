@@ -210,7 +210,6 @@
                 "description": "Default value of the property"
               },
               "valueType": "EXPRESSION",
-              "value": "",
               "optional": true,
               "editable": false,
               "advanced": true,

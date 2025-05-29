@@ -676,7 +676,7 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
                 .label(Property.DEFAULT_VALUE_LABEL)
                 .description(Property.DEFAULT_VALUE_DOC)
                 .stepOut()
-                .value((expr != null && expr.kind() != SyntaxKind.REQUIRED_EXPRESSION) ? expr.toSourceCode() : "")
+                .value((expr != null && expr.kind() != SyntaxKind.REQUIRED_EXPRESSION) ? expr.toSourceCode() : null)
                 .type(Property.ValueType.EXPRESSION)
                 .optional(true)
                 .advanced(true)
@@ -691,7 +691,7 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
                 .label(Property.CONFIG_VALUE_LABEL)
                 .description(Property.CONFIG_VALUE_DOC)
                 .stepOut()
-                .value((expr != null && expr.kind() != SyntaxKind.REQUIRED_EXPRESSION) ? expr.toSourceCode() : "")
+                .value((expr != null && expr.kind() != SyntaxKind.REQUIRED_EXPRESSION) ? expr.toSourceCode() : null)
                 .type(Property.ValueType.EXPRESSION)
                 .optional(true)
                 .editable();
