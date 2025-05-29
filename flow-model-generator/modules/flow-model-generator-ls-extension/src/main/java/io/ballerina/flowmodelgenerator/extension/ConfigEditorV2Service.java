@@ -64,9 +64,7 @@ import io.ballerina.toml.semantic.ast.TomlValueNode;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.annotation.JavaSPIService;
-import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
 import org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService;
-import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.TextEdit;
 import org.eclipse.lsp4j.jsonrpc.services.JsonRequest;
@@ -85,6 +83,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
+import static io.ballerina.flowmodelgenerator.core.model.Property.CONFIG_VALUE_KEY;
 import static io.ballerina.flowmodelgenerator.core.model.Property.DEFAULT_VALUE_KEY;
 
 @JavaSPIService("org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService")
@@ -150,19 +149,19 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
             try {
                 FlowNode configVariable = gson.fromJson(req.configVariable(), FlowNode.class);
                 Path configFilePath = Path.of(req.configFilePath());
-                Path variableFilePath = findVariableFilePath(configVariable, configFilePath);
+                Project rootProject = workspaceManager.loadProject(configFilePath);
 
-                if (variableFilePath == null) {
-                    return response;
+                Map<Path, List<TextEdit>> allTextEdits = new HashMap<>();
+                // text edits to Ballerina source files
+                if (isPackageInRootProject(req.packageName(), rootProject)) {
+                    allTextEdits.putAll(constructSourceTextEdits(rootProject, configFilePath, configVariable, false));
                 }
+                // text edits to Config.toml
+                Path configTomlPath = rootProject.sourceRoot().resolve("Config.toml");
+                allTextEdits.putAll(constructConfigTomlTextEdits(rootProject, req.packageName(), req.moduleName(),
+                        configVariable, configTomlPath));
 
-                Optional<Document> document = workspaceManager.document(variableFilePath);
-                if (document.isEmpty()) {
-                    return response;
-                }
-
-                JsonElement textEdits = constructTextEdits(document.get(), variableFilePath, configVariable, false);
-                response.setTextEdits(textEdits);
+                response.setTextEdits(gson.toJsonTree(allTextEdits));
             } catch (Throwable e) {
                 response.setError(e);
             }
@@ -185,19 +184,10 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
             try {
                 FlowNode configVariable = gson.fromJson(req.configVariable(), FlowNode.class);
                 Path configFilePath = Path.of(req.configFilePath());
-                Path variableFilePath = findVariableFilePath(configVariable, configFilePath);
+                Project rootProject = workspaceManager.loadProject(configFilePath);
 
-                if (variableFilePath == null) {
-                    return response;
-                }
-
-                Optional<Document> document = workspaceManager.document(variableFilePath);
-                if (document.isEmpty()) {
-                    return response;
-                }
-
-                JsonElement textEdits = constructTextEdits(document.get(), variableFilePath, configVariable, true);
-                response.setTextEdits(textEdits);
+                Map<Path, List<TextEdit>> textEdits = constructSourceTextEdits(rootProject, configFilePath, configVariable, true);
+                response.setTextEdits(gson.toJsonTree(textEdits));
             } catch (Throwable e) {
                 response.setError(e);
             }
@@ -217,7 +207,7 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
         return CompletableFuture.supplyAsync(() -> {
             ConfigVariableNodeTemplateResponse response = new ConfigVariableNodeTemplateResponse();
             try {
-                FlowNode flowNode = getConfigVariableFlowNodeTemplate();
+                FlowNode flowNode = getConfigVariableFlowNodeTemplate(request.isNew());
                 JsonElement nodeTemplate = gson.toJsonTree(flowNode);
                 response.setFlowNode(nodeTemplate);
             } catch (Throwable e) {
@@ -227,26 +217,40 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
         });
     }
 
-    private JsonElement constructTextEdits(Document document, Path configFile, FlowNode varNode, boolean isDelete) {
-        LineRange lineRange = varNode.codedata().lineRange();
-        Map<String, Property> properties = varNode.properties();
-        String configStatement = constructConfigStatement(properties);
-
-        List<TextEdit> textEdits = new ArrayList<>();
-        if (isNew(varNode) || lineRange == null) {
-            SyntaxTree syntaxTree = document.syntaxTree();
-            ModulePartNode modulePartNode = syntaxTree.rootNode();
-            LinePosition startPos = LinePosition.from(modulePartNode.lineRange().endLine().line() + 1, 0);
-            textEdits.add(new TextEdit(CommonUtils.toRange(startPos), configStatement));
-        } else if (isDelete) {
-            textEdits.add(new TextEdit(CommonUtils.toRange(lineRange), ""));
-        } else {
-            textEdits.add(new TextEdit(CommonUtils.toRange(lineRange), configStatement));
-        }
-
+    private Map<Path, List<TextEdit>> constructSourceTextEdits(Project rootProject, Path configTomlPath,
+                                                               FlowNode variable, boolean isDelete) {
         Map<Path, List<TextEdit>> textEditsMap = new HashMap<>();
-        textEditsMap.put(configFile, textEdits);
-        return gson.toJsonTree(textEditsMap);
+        try {
+            Path variableFilePath = findVariableFilePath(variable, configTomlPath, rootProject);
+            if (variableFilePath == null) {
+                return textEditsMap;
+            }
+
+            Optional<Document> document = workspaceManager.document(variableFilePath);
+            if (document.isEmpty()) {
+                return textEditsMap;
+            }
+            LineRange lineRange = variable.codedata().lineRange();
+            Map<String, Property> properties = variable.properties();
+            String configStatement = constructConfigStatement(properties);
+
+            List<TextEdit> textEdits = new ArrayList<>();
+            if (isNew(variable) || lineRange == null) {
+                SyntaxTree syntaxTree = document.get().syntaxTree();
+                ModulePartNode modulePartNode = syntaxTree.rootNode();
+                LinePosition startPos = LinePosition.from(modulePartNode.lineRange().endLine().line() + 1, 0);
+                textEdits.add(new TextEdit(CommonUtils.toRange(startPos), configStatement));
+            } else if (isDelete) {
+                textEdits.add(new TextEdit(CommonUtils.toRange(lineRange), ""));
+            } else {
+                textEdits.add(new TextEdit(CommonUtils.toRange(lineRange), configStatement));
+            }
+
+            textEditsMap.put(configTomlPath, textEdits);
+            return textEditsMap;
+        } catch (Exception e) {
+            return textEditsMap;
+        }
     }
 
     private static String constructConfigStatement(Map<String, Property> properties) {
@@ -282,8 +286,8 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
     /**
      * Gets the configuration value for a variable from Config.toml.
      */
-    private Optional<String> getConfigValue(Toml configValues, String packageName,
-                                            String moduleName, String variableName, boolean isRootProject) {
+    private Optional<TomlNode> getConfigValue(Toml configValues, String packageName,
+                                              String moduleName, String variableName, boolean isRootProject) {
         if (configValues == null) {
             return Optional.empty();
         }
@@ -296,14 +300,12 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
         if (moduleConfigValues.isPresent()) {
             Optional<TomlValueNode> variableValueNode = moduleConfigValues.get().get(variableName);
             if (variableValueNode.isPresent()) {
-                String valueStr = getAsString(variableValueNode.get());
-                return Optional.ofNullable(valueStr);
+                return Optional.of(variableValueNode.get());
             }
 
             Optional<Toml> variableValueTable = moduleConfigValues.get().getTable(variableName);
             if (variableValueTable.isPresent()) {
-                String valueStr = getAsString(variableValueTable.get().rootNode());
-                return Optional.ofNullable(valueStr);
+                return Optional.ofNullable(variableValueTable.get().rootNode());
             }
         }
 
@@ -313,28 +315,24 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
             if (moduleName.isEmpty()) {
                 Optional<TomlValueNode> variableValueNode = configValues.get(variableName);
                 if (variableValueNode.isPresent()) {
-                    String valueStr = getAsString(variableValueNode.get());
-                    return Optional.ofNullable(valueStr);
+                    return Optional.of(variableValueNode.get());
                 }
 
                 Optional<Toml> variableValueTable = configValues.getTable(variableName);
                 if (variableValueTable.isPresent()) {
-                    String valueStr = getAsString(variableValueTable.get().rootNode());
-                    return Optional.ofNullable(valueStr);
+                    return Optional.ofNullable(variableValueTable.get().rootNode());
                 }
             } else {
                 moduleConfigValues = configValues.getTable(moduleName);
                 if (moduleConfigValues.isPresent()) {
                     Optional<TomlValueNode> variableValueNode = moduleConfigValues.get().get(variableName);
                     if (variableValueNode.isPresent()) {
-                        String valueStr = getAsString(variableValueNode.get());
-                        return Optional.ofNullable(valueStr);
+                        return Optional.of(variableValueNode.get());
                     }
 
                     Optional<Toml> variableValueTable = moduleConfigValues.get().getTable(variableName);
                     if (variableValueTable.isPresent()) {
-                        String valueStr = getAsString(variableValueTable.get().rootNode());
-                        return Optional.ofNullable(valueStr);
+                        return Optional.ofNullable(variableValueTable.get().rootNode());
                     }
                 }
             }
@@ -343,7 +341,11 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
         // 3. if the variable is not found, try to access it with a dotted notation
         String dottedVariableName = String.format("%s.%s", tomlPkgEntryKey, variableName);
         Optional<TomlValueNode> variableValueNode = configValues.get(dottedVariableName);
-        return variableValueNode.map(this::getAsString);
+        if (variableValueNode.isPresent()) {
+            return Optional.of(variableValueNode.get());
+        }
+
+        return Optional.empty();
     }
 
     private String getAsString(TomlNode tomlValueNode) {
@@ -400,25 +402,21 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
         return configVarMap;
     }
 
-    private Path findVariableFilePath(FlowNode configVariable, Path configFilePath)
-            throws WorkspaceDocumentException, EventSyncException {
+    private Path findVariableFilePath(FlowNode configVariable, Path configFilePath, Project rootProject) {
         if (isNew(configVariable)) {
-            workspaceManager.loadProject(configFilePath);
             return configFilePath;
         }
 
-        String variableFileName = configVariable.codedata().lineRange().fileName();
-        Project project = workspaceManager.loadProject(configFilePath);
-
-        if (project.kind() == ProjectKind.SINGLE_FILE_PROJECT) {
-            return project.sourceRoot();
+        if (rootProject.kind() == ProjectKind.SINGLE_FILE_PROJECT) {
+            return rootProject.sourceRoot();
         }
+        String variableFileName = configVariable.codedata().lineRange().fileName();
 
-        for (Module module : project.currentPackage().modules()) {
+        for (Module module : rootProject.currentPackage().modules()) {
             for (DocumentId documentId : module.documentIds()) {
                 Document document = module.document(documentId);
                 if (document.name().equals(variableFileName)) {
-                    return project.sourceRoot().resolve(document.syntaxTree().filePath());
+                    return rootProject.sourceRoot().resolve(document.syntaxTree().filePath());
                 }
             }
         }
@@ -612,11 +610,11 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
         String variableName = typedBindingPattern.bindingPattern().toSourceCode().trim();
 
         // Get the configuration value from Config.toml
-        Optional<String> configTomlValue = getConfigValue(configTomlValues, packageName, moduleName, variableName,
+        Optional<TomlNode> configTomlValue = getConfigValue(configTomlValues, packageName, moduleName, variableName,
                 isRootProject);
         ExpressionNode configValueExpr = null;
         if (configTomlValue.isPresent()) {
-            configValueExpr = NodeParser.parseExpression(configTomlValue.get());
+            configValueExpr = NodeParser.parseExpression(getAsString(configTomlValue.get()));
         }
 
         return nodeBuilder
@@ -636,7 +634,7 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
                 .build();
     }
 
-    private static FlowNode getConfigVariableFlowNodeTemplate() {
+    private static FlowNode getConfigVariableFlowNodeTemplate(boolean isNew) {
         NodeBuilder nodeBuilder = NodeBuilder.getNodeFromKind(NodeKind.CONFIG_VARIABLE)
                 .defaultModuleName(null);
         return nodeBuilder
@@ -646,6 +644,7 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
                 .codedata()
                 .node(NodeKind.CONFIG_VARIABLE)
                 .lineRange(null)
+                .isNew(isNew)
                 .stepOut()
                 .properties()
                 .type(null, true)
@@ -654,5 +653,66 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
                 .configValue(null)
                 .stepOut()
                 .build();
+    }
+
+    /**
+     * Constructs text edits for updating Config.toml file with the new config value.
+     */
+    private Map<Path, List<TextEdit>> constructConfigTomlTextEdits(Project project, String packageName,
+                                                                   String moduleName, FlowNode configVariable,
+                                                                   Path configTomlPath) {
+        Map<Path, List<TextEdit>> textEditsMap = new HashMap<>();
+        try {
+            if (!configVariable.properties().containsKey(CONFIG_VALUE_KEY)) {
+                return textEditsMap;
+            }
+            Map<String, Property> properties = configVariable.properties();
+            String variableName = properties.get(Property.VARIABLE_KEY).value().toString();
+            String configValue = properties.get(CONFIG_VALUE_KEY).toSourceCode();
+
+            Toml existingConfigToml = parseConfigToml(project);
+            Optional<TomlNode> oldValue = getConfigValue(existingConfigToml, packageName, moduleName, variableName,
+                    isPackageInRootProject(packageName, project));
+            String orgName = packageName.split("/")[0];
+            String pkgName = packageName.split("/")[1];
+            String newContent = constructConfigTomlStatement(orgName, pkgName, moduleName, variableName, configValue,
+                    oldValue.isPresent());
+
+            List<TextEdit> textEdits = new ArrayList<>();
+            if (oldValue.isPresent()) {
+                String fileName = oldValue.get().location().lineRange().fileName();
+                LinePosition startPos = LinePosition.from(oldValue.get().location().lineRange().startLine().line(),
+                        oldValue.get().location().lineRange().startLine().offset());
+                LinePosition endPos = LinePosition.from(oldValue.get().location().lineRange().endLine().line(),
+                        oldValue.get().location().lineRange().endLine().offset());
+                LineRange lineRange = LineRange.from(fileName, startPos, endPos);
+                textEdits.add(new TextEdit(CommonUtils.toRange(lineRange), newContent));
+            } else {
+                // TODO: Implement logic to insert new config entries
+            }
+
+            textEditsMap.put(configTomlPath, textEdits);
+            return textEditsMap;
+        } catch (Exception e) {
+            return new HashMap<>();
+        }
+    }
+
+    /**
+     * Check if the package is the root project package.
+     */
+    private static boolean isPackageInRootProject(String packageName, Project rootProject) {
+        String rootPackageName = rootProject.currentPackage().packageOrg().value() + "/" +
+                rootProject.currentPackage().packageName().value();
+        return packageName.equals(rootPackageName);
+    }
+
+    private static String constructConfigTomlStatement(String orgName, String packageName, String moduleName,
+                                                       String variableName, String value, boolean moduleEntryExists) {
+        if (moduleEntryExists) {
+            return String.format("%s = %s", variableName, value);
+        } else {
+            return String.format("[%s.%s.%s]\n%s = %s", orgName, packageName, moduleName, variableName, value);
+        }
     }
 }

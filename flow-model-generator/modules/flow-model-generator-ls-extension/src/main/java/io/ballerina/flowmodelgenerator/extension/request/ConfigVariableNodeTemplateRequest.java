@@ -21,8 +21,9 @@ package io.ballerina.flowmodelgenerator.extension.request;
 /**
  * Represents a request to getNodeTemplate API for config variable nodes.
  *
+ * @param isNew Indicates whether the node template is related to variable creation or not.
  * @since 2.0.0
  */
-public class ConfigVariableNodeTemplateRequest {
+public record ConfigVariableNodeTemplateRequest(boolean isNew) {
 
 }

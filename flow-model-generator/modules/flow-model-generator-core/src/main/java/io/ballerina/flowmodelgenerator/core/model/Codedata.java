@@ -157,6 +157,11 @@ public record Codedata(NodeKind node, String org, String module, String object, 
             return this;
         }
 
+        public Builder<T> isNew(boolean isNew) {
+            this.isNew = isNew;
+            return this;
+        }
+
         public Builder<T> isGenerated(Boolean isGenerated) {
             this.isGenerated = isGenerated;
             return this;
