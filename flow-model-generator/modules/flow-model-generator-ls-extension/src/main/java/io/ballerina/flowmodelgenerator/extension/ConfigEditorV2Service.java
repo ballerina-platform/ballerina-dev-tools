@@ -24,10 +24,14 @@ import com.google.gson.JsonElement;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
+import io.ballerina.compiler.syntax.tree.ListConstructorExpressionNode;
+import io.ballerina.compiler.syntax.tree.MappingConstructorExpressionNode;
+import io.ballerina.compiler.syntax.tree.MappingFieldNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.ModuleVariableDeclarationNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeParser;
+import io.ballerina.compiler.syntax.tree.SpecificFieldNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
@@ -159,7 +163,7 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
                 // text edits to Config.toml
                 Path configTomlPath = rootProject.sourceRoot().resolve("Config.toml");
                 allTextEdits.putAll(constructConfigTomlTextEdits(rootProject, req.packageName(), req.moduleName(),
-                        configVariable, configTomlPath));
+                        configVariable, configTomlPath, false));
 
                 response.setTextEdits(gson.toJsonTree(allTextEdits));
             } catch (Throwable e) {
@@ -186,8 +190,15 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
                 Path configFilePath = Path.of(req.configFilePath());
                 Project rootProject = workspaceManager.loadProject(configFilePath);
 
-                Map<Path, List<TextEdit>> textEdits = constructSourceTextEdits(rootProject, configFilePath, configVariable, true);
-                response.setTextEdits(gson.toJsonTree(textEdits));
+                Map<Path, List<TextEdit>> allTextEdits = new HashMap<>();
+                allTextEdits.putAll(constructSourceTextEdits(rootProject, configFilePath, configVariable, true));
+
+                // text edits to Config.toml
+                Path configTomlPath = rootProject.sourceRoot().resolve("Config.toml");
+                allTextEdits.putAll(constructConfigTomlTextEdits(rootProject, req.packageName(), req.moduleName(),
+                        configVariable, configTomlPath, true));
+
+                response.setTextEdits(gson.toJsonTree(allTextEdits));
             } catch (Throwable e) {
                 response.setError(e);
             }
@@ -660,7 +671,7 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
      */
     private Map<Path, List<TextEdit>> constructConfigTomlTextEdits(Project project, String packageName,
                                                                    String moduleName, FlowNode configVariable,
-                                                                   Path configTomlPath) {
+                                                                   Path configTomlPath, boolean isDelete) {
         Map<Path, List<TextEdit>> textEditsMap = new HashMap<>();
         try {
             if (!configVariable.properties().containsKey(CONFIG_VALUE_KEY)) {
@@ -673,10 +684,14 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
             Toml existingConfigToml = parseConfigToml(project);
             Optional<TomlNode> oldValue = getConfigValue(existingConfigToml, packageName, moduleName, variableName,
                     isPackageInRootProject(packageName, project));
+            if (isDelete && oldValue.isEmpty()) {
+                return textEditsMap;
+            }
+
             String orgName = packageName.split("/")[0];
             String pkgName = packageName.split("/")[1];
-            String newContent = constructConfigTomlStatement(orgName, pkgName, moduleName, variableName, configValue,
-                    oldValue.isPresent());
+            String newContent = isDelete ? "" : constructConfigTomlStatement(orgName, pkgName, moduleName, variableName,
+                    configValue, oldValue.isPresent());
 
             List<TextEdit> textEdits = new ArrayList<>();
             if (oldValue.isPresent()) {
@@ -691,8 +706,8 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
                 // entry after the last entry of the section.
                 if (existingConfigToml != null) {
                     // Try to find existing section for the module
-                    String pkgNameFormatted = packageName.replace("/", ".");
-                    String sectionKey = moduleName.isEmpty() ? pkgNameFormatted : String.format("%s.%s", pkgNameFormatted, moduleName);
+                    String sectionKey = moduleName.isEmpty() ? String.format("%s.%s", orgName, pkgName)
+                            : String.format("%s.%s.%s", orgName, pkgName, moduleName);
 
                     Optional<Toml> moduleSection = existingConfigToml.getTable(sectionKey);
                     if (moduleSection.isPresent()) {
@@ -769,13 +784,57 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
 
     private static String constructConfigTomlStatement(String orgName, String packageName, String moduleName,
                                                        String variableName, String value, boolean moduleEntryExists) {
+        ExpressionNode configValueExpr = NodeParser.parseExpression(value);
+        String tomlValue = getInTomlSyntax(configValueExpr);
         if (moduleEntryExists) {
-            return String.format("%s = %s", variableName, value);
+            return String.format("%s = %s", variableName, tomlValue);
         } else {
             if (moduleName.isEmpty()) {
-                return String.format("[%s.%s]\n%s = %s", orgName, packageName, variableName, value);
+                return String.format("[%s.%s]\n%s = %s", orgName, packageName, variableName, tomlValue);
             } else {
-                return String.format("[%s.%s.%s]\n%s = %s", orgName, packageName, moduleName, variableName, value);
+                return String.format("[%s.%s.%s]\n%s = %s", orgName, packageName, moduleName, variableName, tomlValue);
+            }
+        }
+    }
+
+    private static String getInTomlSyntax(ExpressionNode configValueExpr) {
+        switch (configValueExpr.kind()) {
+            case MAPPING_CONSTRUCTOR -> {
+                MappingConstructorExpressionNode recordTypeDesc = (MappingConstructorExpressionNode) configValueExpr;
+                StringBuilder sb = new StringBuilder("{");
+                for (MappingFieldNode field : recordTypeDesc.fields()) {
+                    if (field.kind() == SyntaxKind.SPECIFIC_FIELD) {
+                        SpecificFieldNode mappingField = (SpecificFieldNode) field;
+                        String key = mappingField.fieldName().toSourceCode();
+                        String value = mappingField.valueExpr().isPresent() ?
+                                getInTomlSyntax(mappingField.valueExpr().get()) : null;
+                        if (value != null) {
+                            sb.append(key).append(" = ").append(value).append(", ");
+                        }
+                    }
+                }
+                if (sb.length() > 1) {
+                    sb.setLength(sb.length() - 2);
+                }
+                sb.append("}");
+                return sb.toString();
+            }
+            case LIST_CONSTRUCTOR -> {
+                ListConstructorExpressionNode arrayTypeDesc = (ListConstructorExpressionNode) configValueExpr;
+                StringBuilder sb = new StringBuilder("[");
+                List<String> memberValues = new LinkedList<>();
+                for (Node element : arrayTypeDesc.expressions()) {
+                    if (element instanceof ExpressionNode expressionNode) {
+                        memberValues.add(getInTomlSyntax(expressionNode));
+                    }
+                }
+                sb.append(String.join(", ", memberValues));
+                sb.append("]");
+                return sb.toString();
+            }
+            default -> {
+                // TODO: Add support for other types if needed
+                return configValueExpr.toSourceCode();
             }
         }
     }
