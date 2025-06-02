@@ -704,7 +704,7 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
         return documentation(docNode, true);
     }
 
-    public FormBuilder<T> documentation(Node docNode, boolean isEditable) {
+    public FormBuilder<T> documentation(Node docNode, boolean editable) {
         propertyBuilder
                 .metadata()
                 .label(Property.CONFIG_VAR_DOC_LABEL)
@@ -713,7 +713,8 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
                 .value(docNode != null ? docNode.toSourceCode() : null)
                 .type(Property.ValueType.STRING)
                 .optional(true)
-                .editable(isEditable);
+                .advanced(true)
+                .editable(editable);
         addProperty(Property.CONFIG_VAR_DOC_KEY, docNode);
         return this;
     }

@@ -85,7 +85,7 @@
               "value": "\n# Configurable variable with integer value.\n",
               "optional": true,
               "editable": true,
-              "advanced": false,
+              "advanced": true,
               "hidden": false
             }
           },
@@ -171,7 +171,7 @@
               "valueType": "STRING",
               "optional": true,
               "editable": true,
-              "advanced": false,
+              "advanced": true,
               "hidden": false
             }
           },
@@ -258,7 +258,7 @@
               "valueType": "STRING",
               "optional": true,
               "editable": true,
-              "advanced": false,
+              "advanced": true,
               "hidden": false
             }
           },
@@ -344,7 +344,7 @@
               "valueType": "STRING",
               "optional": true,
               "editable": true,
-              "advanced": false,
+              "advanced": true,
               "hidden": false
             }
           },
@@ -432,7 +432,7 @@
               "value": "\n# Configurable variable with array value.\n",
               "optional": true,
               "editable": true,
-              "advanced": false,
+              "advanced": true,
               "hidden": false
             }
           },
@@ -520,7 +520,7 @@
               "value": "\n# Configurable variable with record value.\n",
               "optional": true,
               "editable": true,
-              "advanced": false,
+              "advanced": true,
               "hidden": false
             }
           },
@@ -606,7 +606,7 @@
               "valueType": "STRING",
               "optional": true,
               "editable": true,
-              "advanced": false,
+              "advanced": true,
               "hidden": false
             }
           },

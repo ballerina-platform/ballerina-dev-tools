@@ -86,7 +86,7 @@
               "valueType": "STRING",
               "optional": true,
               "editable": false,
-              "advanced": false,
+              "advanced": true,
               "hidden": false
             }
           },
@@ -172,7 +172,7 @@
               "valueType": "STRING",
               "optional": true,
               "editable": false,
-              "advanced": false,
+              "advanced": true,
               "hidden": false
             }
           },
@@ -258,7 +258,7 @@
               "valueType": "STRING",
               "optional": true,
               "editable": false,
-              "advanced": false,
+              "advanced": true,
               "hidden": false
             }
           },
@@ -344,7 +344,7 @@
               "valueType": "STRING",
               "optional": true,
               "editable": false,
-              "advanced": false,
+              "advanced": true,
               "hidden": false
             }
           },
@@ -430,7 +430,7 @@
               "valueType": "STRING",
               "optional": true,
               "editable": false,
-              "advanced": false,
+              "advanced": true,
               "hidden": false
             }
           },
@@ -516,7 +516,7 @@
               "valueType": "STRING",
               "optional": true,
               "editable": false,
-              "advanced": false,
+              "advanced": true,
               "hidden": false
             }
           },
@@ -602,7 +602,7 @@
               "valueType": "STRING",
               "optional": true,
               "editable": false,
-              "advanced": false,
+              "advanced": true,
               "hidden": false
             }
           },
@@ -688,7 +688,7 @@
               "valueType": "STRING",
               "optional": true,
               "editable": false,
-              "advanced": false,
+              "advanced": true,
               "hidden": false
             }
           },
@@ -775,7 +775,7 @@
               "value": "\n# Default HTTP listener port used by the HTTP Default Listener.\n# The default value is 9090.\n",
               "optional": true,
               "editable": false,
-              "advanced": false,
+              "advanced": true,
               "hidden": false
             }
           },
@@ -862,7 +862,7 @@
               "value": "\n# Default HTTP listener configuration used by the HTTP Default Listener.\n",
               "optional": true,
               "editable": false,
-              "advanced": false,
+              "advanced": true,
               "hidden": false
             }
           },
@@ -948,7 +948,7 @@
               "valueType": "STRING",
               "optional": true,
               "editable": false,
-              "advanced": false,
+              "advanced": true,
               "hidden": false
             }
           },
@@ -1034,7 +1034,7 @@
               "valueType": "STRING",
               "optional": true,
               "editable": false,
-              "advanced": false,
+              "advanced": true,
               "hidden": false
             }
           },
@@ -1120,7 +1120,7 @@
               "valueType": "STRING",
               "optional": true,
               "editable": false,
-              "advanced": false,
+              "advanced": true,
               "hidden": false
             }
           },

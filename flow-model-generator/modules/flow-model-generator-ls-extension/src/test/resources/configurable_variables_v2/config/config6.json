@@ -84,7 +84,7 @@
               "valueType": "STRING",
               "optional": true,
               "editable": false,
-              "advanced": false,
+              "advanced": true,
               "hidden": false
             }
           },
@@ -171,7 +171,7 @@
               "valueType": "STRING",
               "optional": true,
               "editable": false,
-              "advanced": false,
+              "advanced": true,
               "hidden": false
             }
           },
@@ -257,7 +257,7 @@
               "valueType": "STRING",
               "optional": true,
               "editable": false,
-              "advanced": false,
+              "advanced": true,
               "hidden": false
             }
           },
@@ -346,7 +346,7 @@
               "valueType": "STRING",
               "optional": true,
               "editable": false,
-              "advanced": false,
+              "advanced": true,
               "hidden": false
             }
           },

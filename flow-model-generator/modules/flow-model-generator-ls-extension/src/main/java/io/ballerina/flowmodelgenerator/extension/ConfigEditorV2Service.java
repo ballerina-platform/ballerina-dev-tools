@@ -267,13 +267,16 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
 
     private static String constructConfigStatement(FlowNode node) {
         String defaultValue = node.properties().get(DEFAULT_VALUE_KEY).toSourceCode();
-        String documentation = node.properties().get(CONFIG_VAR_DOC_KEY).toSourceCode();
+        String variableDocs = node.properties().get(CONFIG_VAR_DOC_KEY).toSourceCode();
 
         StringBuilder configStatementBuilder = new StringBuilder();
-
-        if (documentation != null && !documentation.isEmpty()) {
-            configStatementBuilder.append(documentation);
+        if (variableDocs != null && !variableDocs.isEmpty()) {
+            configStatementBuilder.append(variableDocs);
+            if (!variableDocs.endsWith(System.lineSeparator())) {
+                configStatementBuilder.append(System.lineSeparator());
+            }
         }
+
         configStatementBuilder.append(String.format("configurable %s %s = %s;",
                 node.properties().get(Property.TYPE_KEY).toSourceCode(),
                 node.properties().get(Property.VARIABLE_KEY).toSourceCode(),
