@@ -699,6 +699,25 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
         return this;
     }
 
+
+    public FormBuilder<T> documentation(Node docNode) {
+        return documentation(docNode, true);
+    }
+
+    public FormBuilder<T> documentation(Node docNode, boolean isEditable) {
+        propertyBuilder
+                .metadata()
+                .label(Property.CONFIG_VAR_DOC_LABEL)
+                .description(Property.CONFIG_VAR_DOC_DOC)
+                .stepOut()
+                .value(docNode != null ? docNode.toSourceCode() : null)
+                .type(Property.ValueType.STRING)
+                .optional(true)
+                .editable(isEditable);
+        addProperty(Property.CONFIG_VAR_DOC_KEY, docNode);
+        return this;
+    }
+
     public FormBuilder<T> statement(Node node) {
         propertyBuilder
                 .metadata()

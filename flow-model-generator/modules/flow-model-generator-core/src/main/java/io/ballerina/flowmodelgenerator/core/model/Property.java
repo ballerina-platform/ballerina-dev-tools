@@ -200,12 +200,16 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
     public static final String RETRY_COUNT_DOC = "Number of retries";
 
     public static final String DEFAULT_VALUE_KEY = "defaultValue";
-    public static final String DEFAULT_VALUE_LABEL = "Default value";
-    public static final String DEFAULT_VALUE_DOC = "Default value of the property";
+    public static final String DEFAULT_VALUE_LABEL = "Default Value";
+    public static final String DEFAULT_VALUE_DOC = "Default value of the variable";
 
     public static final String CONFIG_VALUE_KEY = "configValue";
-    public static final String CONFIG_VALUE_LABEL = "Config value";
-    public static final String CONFIG_VALUE_DOC = "Config value of the property (defined in Config.toml)";
+    public static final String CONFIG_VALUE_LABEL = "Default Value";
+    public static final String CONFIG_VALUE_DOC = "Config value of the variable, to be used in Config.toml";
+
+    public static final String CONFIG_VAR_DOC_KEY = "documentation";
+    public static final String CONFIG_VAR_DOC_LABEL = "Variable Documentation";
+    public static final String CONFIG_VAR_DOC_DOC = "Documentation for the variable, provided in Markdown format.";
 
     public static final String PARAMETER_LABEL = "Parameter";
     public static final String PARAMETER_DOC = "Function parameter";

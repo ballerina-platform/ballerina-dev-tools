@@ -27,6 +27,7 @@ import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.ListConstructorExpressionNode;
 import io.ballerina.compiler.syntax.tree.MappingConstructorExpressionNode;
 import io.ballerina.compiler.syntax.tree.MappingFieldNode;
+import io.ballerina.compiler.syntax.tree.MetadataNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.ModuleVariableDeclarationNode;
 import io.ballerina.compiler.syntax.tree.Node;
@@ -88,6 +89,7 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 import static io.ballerina.flowmodelgenerator.core.model.Property.CONFIG_VALUE_KEY;
+import static io.ballerina.flowmodelgenerator.core.model.Property.CONFIG_VAR_DOC_KEY;
 import static io.ballerina.flowmodelgenerator.core.model.Property.DEFAULT_VALUE_KEY;
 
 @JavaSPIService("org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService")
@@ -242,8 +244,7 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
                 return textEditsMap;
             }
             LineRange lineRange = variable.codedata().lineRange();
-            Map<String, Property> properties = variable.properties();
-            String configStatement = constructConfigStatement(properties);
+            String configStatement = constructConfigStatement(variable);
 
             List<TextEdit> textEdits = new ArrayList<>();
             if (isNew(variable) || lineRange == null) {
@@ -264,13 +265,22 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
         }
     }
 
-    private static String constructConfigStatement(Map<String, Property> properties) {
-        String defaultValue = properties.get(DEFAULT_VALUE_KEY).toSourceCode();
-        return String.format("configurable %s %s = %s;",
-                properties.get(Property.TYPE_KEY).toSourceCode(),
-                properties.get(Property.VARIABLE_KEY).toSourceCode(),
-                defaultValue.isEmpty() ? "?" : defaultValue
+    private static String constructConfigStatement(FlowNode node) {
+        String defaultValue = node.properties().get(DEFAULT_VALUE_KEY).toSourceCode();
+        String documentation = node.properties().get(CONFIG_VAR_DOC_KEY).toSourceCode();
+
+        StringBuilder configStatementBuilder = new StringBuilder();
+
+        if (documentation != null && !documentation.isEmpty()) {
+            configStatementBuilder.append(documentation);
+        }
+        configStatementBuilder.append(String.format("configurable %s %s = %s;",
+                node.properties().get(Property.TYPE_KEY).toSourceCode(),
+                node.properties().get(Property.VARIABLE_KEY).toSourceCode(),
+                defaultValue == null ? "?" : defaultValue)
         );
+
+        return configStatementBuilder.toString();
     }
 
     /**
@@ -619,6 +629,7 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
 
         TypedBindingPatternNode typedBindingPattern = variableNode.typedBindingPattern();
         String variableName = typedBindingPattern.bindingPattern().toSourceCode().trim();
+        Optional<Node> markdownDocs = extractVariableDocs(variableNode);
 
         // Get the configuration value from Config.toml
         Optional<TomlNode> configTomlValue = getConfigValue(configTomlValues, packageName, moduleName, variableName,
@@ -630,7 +641,6 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
 
         return nodeBuilder
                 .metadata()
-                .label("Config variables")
                 .stepOut()
                 .codedata()
                 .node(NodeKind.CONFIG_VARIABLE)
@@ -641,8 +651,20 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
                 .type(typedBindingPattern.typeDescriptor(), isRootProject)
                 .defaultValue(variableNode.initializer().orElse(null), isRootProject)
                 .configValue(configValueExpr)
+                .documentation(markdownDocs.orElse(null), isRootProject)
                 .stepOut()
                 .build();
+    }
+
+    /**
+     * Extracts the markdown documentation from the variable node.
+     */
+    private static Optional<Node> extractVariableDocs(ModuleVariableDeclarationNode variableNode) {
+        Optional<MetadataNode> metadata = variableNode.metadata();
+        if (metadata.isEmpty()) {
+            return Optional.empty();
+        }
+        return metadata.get().documentationString();
     }
 
     private static FlowNode getConfigVariableFlowNodeTemplate(boolean isNew) {
@@ -650,7 +672,6 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
                 .defaultModuleName(null);
         return nodeBuilder
                 .metadata()
-                .label("Config variables")
                 .stepOut()
                 .codedata()
                 .node(NodeKind.CONFIG_VARIABLE)
@@ -662,6 +683,7 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
                 .variableName(null)
                 .defaultValue(null)
                 .configValue(null)
+                .documentation(null)
                 .stepOut()
                 .build();
     }
@@ -680,6 +702,9 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
             Map<String, Property> properties = configVariable.properties();
             String variableName = properties.get(Property.VARIABLE_KEY).value().toString();
             String configValue = properties.get(CONFIG_VALUE_KEY).toSourceCode();
+            if (configValue == null) {
+                return textEditsMap;
+            }
 
             Toml existingConfigToml = parseConfigToml(project);
             Optional<TomlNode> oldValue = getConfigValue(existingConfigToml, packageName, moduleName, variableName,

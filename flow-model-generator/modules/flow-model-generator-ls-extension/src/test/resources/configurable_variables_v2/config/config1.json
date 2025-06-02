@@ -4,7 +4,7 @@
     "config_tests/simpleconfigs": {
       "": [
         {
-          "id": "31773",
+          "id": "32796",
           "metadata": {
             "label": "Config",
             "description": "Create a configurable variable"
@@ -14,11 +14,11 @@
             "lineRange": {
               "fileName": "main.bal",
               "startLine": {
-                "line": 0,
+                "line": 1,
                 "offset": 0
               },
               "endLine": {
-                "line": 0,
+                "line": 2,
                 "offset": 29
               }
             }
@@ -54,8 +54,8 @@
             },
             "defaultValue": {
               "metadata": {
-                "label": "Default value",
-                "description": "Default value of the property"
+                "label": "Default Value",
+                "description": "Default value of the variable"
               },
               "valueType": "EXPRESSION",
               "value": "42",
@@ -66,11 +66,23 @@
             },
             "configValue": {
               "metadata": {
-                "label": "Config value",
-                "description": "Config value of the property (defined in Config.toml)"
+                "label": "Default Value",
+                "description": "Config value of the variable, to be used in Config.toml"
               },
               "valueType": "EXPRESSION",
               "value": "100",
+              "optional": true,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "documentation": {
+              "metadata": {
+                "label": "Variable Documentation",
+                "description": "Documentation for the variable, provided in Markdown format."
+              },
+              "valueType": "STRING",
+              "value": "\n# Configurable variable with integer value.\n",
               "optional": true,
               "editable": true,
               "advanced": false,
@@ -80,7 +92,7 @@
           "flags": 0
         },
         {
-          "id": "32770",
+          "id": "34754",
           "metadata": {
             "label": "Config",
             "description": "Create a configurable variable"
@@ -90,11 +102,11 @@
             "lineRange": {
               "fileName": "main.bal",
               "startLine": {
-                "line": 1,
+                "line": 3,
                 "offset": 0
               },
               "endLine": {
-                "line": 1,
+                "line": 3,
                 "offset": 34
               }
             }
@@ -130,8 +142,8 @@
             },
             "defaultValue": {
               "metadata": {
-                "label": "Default value",
-                "description": "Default value of the property"
+                "label": "Default Value",
+                "description": "Default value of the variable"
               },
               "valueType": "EXPRESSION",
               "value": "3.5",
@@ -142,10 +154,21 @@
             },
             "configValue": {
               "metadata": {
-                "label": "Config value",
-                "description": "Config value of the property (defined in Config.toml)"
+                "label": "Default Value",
+                "description": "Config value of the variable, to be used in Config.toml"
               },
               "valueType": "EXPRESSION",
+              "optional": true,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "documentation": {
+              "metadata": {
+                "label": "Variable Documentation",
+                "description": "Documentation for the variable, provided in Markdown format."
+              },
+              "valueType": "STRING",
               "optional": true,
               "editable": true,
               "advanced": false,
@@ -155,7 +178,7 @@
           "flags": 0
         },
         {
-          "id": "33766",
+          "id": "35750",
           "metadata": {
             "label": "Config",
             "description": "Create a configurable variable"
@@ -165,11 +188,11 @@
             "lineRange": {
               "fileName": "main.bal",
               "startLine": {
-                "line": 2,
+                "line": 4,
                 "offset": 0
               },
               "endLine": {
-                "line": 2,
+                "line": 4,
                 "offset": 38
               }
             }
@@ -205,8 +228,8 @@
             },
             "defaultValue": {
               "metadata": {
-                "label": "Default value",
-                "description": "Default value of the property"
+                "label": "Default Value",
+                "description": "Default value of the variable"
               },
               "valueType": "EXPRESSION",
               "value": "\"foo\"",
@@ -217,11 +240,22 @@
             },
             "configValue": {
               "metadata": {
-                "label": "Config value",
-                "description": "Config value of the property (defined in Config.toml)"
+                "label": "Default Value",
+                "description": "Config value of the variable, to be used in Config.toml"
               },
               "valueType": "EXPRESSION",
               "value": "\"test string\"",
+              "optional": true,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "documentation": {
+              "metadata": {
+                "label": "Variable Documentation",
+                "description": "Documentation for the variable, provided in Markdown format."
+              },
+              "valueType": "STRING",
               "optional": true,
               "editable": true,
               "advanced": false,
@@ -231,7 +265,7 @@
           "flags": 0
         },
         {
-          "id": "34759",
+          "id": "36743",
           "metadata": {
             "label": "Config",
             "description": "Create a configurable variable"
@@ -241,11 +275,11 @@
             "lineRange": {
               "fileName": "main.bal",
               "startLine": {
-                "line": 3,
+                "line": 5,
                 "offset": 0
               },
               "endLine": {
-                "line": 3,
+                "line": 5,
                 "offset": 39
               }
             }
@@ -281,8 +315,8 @@
             },
             "defaultValue": {
               "metadata": {
-                "label": "Default value",
-                "description": "Default value of the property"
+                "label": "Default Value",
+                "description": "Default value of the variable"
               },
               "valueType": "EXPRESSION",
               "value": "true",
@@ -293,10 +327,21 @@
             },
             "configValue": {
               "metadata": {
-                "label": "Config value",
-                "description": "Config value of the property (defined in Config.toml)"
+                "label": "Default Value",
+                "description": "Config value of the variable, to be used in Config.toml"
               },
               "valueType": "EXPRESSION",
+              "optional": true,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "documentation": {
+              "metadata": {
+                "label": "Variable Documentation",
+                "description": "Documentation for the variable, provided in Markdown format."
+              },
+              "valueType": "STRING",
               "optional": true,
               "editable": true,
               "advanced": false,
@@ -306,7 +351,7 @@
           "flags": 0
         },
         {
-          "id": "35766",
+          "id": "38773",
           "metadata": {
             "label": "Config",
             "description": "Create a configurable variable"
@@ -316,11 +361,11 @@
             "lineRange": {
               "fileName": "main.bal",
               "startLine": {
-                "line": 4,
+                "line": 7,
                 "offset": 0
               },
               "endLine": {
-                "line": 4,
+                "line": 8,
                 "offset": 54
               }
             }
@@ -356,8 +401,8 @@
             },
             "defaultValue": {
               "metadata": {
-                "label": "Default value",
-                "description": "Default value of the property"
+                "label": "Default Value",
+                "description": "Default value of the variable"
               },
               "valueType": "EXPRESSION",
               "value": "[\"bar\", \"baz\"]",
@@ -368,11 +413,23 @@
             },
             "configValue": {
               "metadata": {
-                "label": "Config value",
-                "description": "Config value of the property (defined in Config.toml)"
+                "label": "Default Value",
+                "description": "Config value of the variable, to be used in Config.toml"
               },
               "valueType": "EXPRESSION",
               "value": "[\"apple\", \"banana\", \"cherry\"]",
+              "optional": true,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "documentation": {
+              "metadata": {
+                "label": "Variable Documentation",
+                "description": "Documentation for the variable, provided in Markdown format."
+              },
+              "valueType": "STRING",
+              "value": "\n# Configurable variable with array value.\n",
               "optional": true,
               "editable": true,
               "advanced": false,
@@ -382,7 +439,7 @@
           "flags": 0
         },
         {
-          "id": "36830",
+          "id": "41821",
           "metadata": {
             "label": "Config",
             "description": "Create a configurable variable"
@@ -392,11 +449,11 @@
             "lineRange": {
               "fileName": "main.bal",
               "startLine": {
-                "line": 5,
+                "line": 10,
                 "offset": 0
               },
               "endLine": {
-                "line": 9,
+                "line": 15,
                 "offset": 2
               }
             }
@@ -432,8 +489,8 @@
             },
             "defaultValue": {
               "metadata": {
-                "label": "Default value",
-                "description": "Default value of the property"
+                "label": "Default Value",
+                "description": "Default value of the variable"
               },
               "valueType": "EXPRESSION",
               "value": "{\n    name: \"John Doe\",\n    age: 20,\n    grade: \"A\"\n}",
@@ -444,11 +501,23 @@
             },
             "configValue": {
               "metadata": {
-                "label": "Config value",
-                "description": "Config value of the property (defined in Config.toml)"
+                "label": "Default Value",
+                "description": "Config value of the variable, to be used in Config.toml"
               },
               "valueType": "EXPRESSION",
               "value": "{name: \"Jane Smith\", age: 22, grade: \"A\"}",
+              "optional": true,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "documentation": {
+              "metadata": {
+                "label": "Variable Documentation",
+                "description": "Documentation for the variable, provided in Markdown format."
+              },
+              "valueType": "STRING",
+              "value": "\n# Configurable variable with record value.\n",
               "optional": true,
               "editable": true,
               "advanced": false,
@@ -458,7 +527,7 @@
           "flags": 0
         },
         {
-          "id": "41700",
+          "id": "47652",
           "metadata": {
             "label": "Config",
             "description": "Create a configurable variable"
@@ -468,11 +537,11 @@
             "lineRange": {
               "fileName": "main.bal",
               "startLine": {
-                "line": 10,
+                "line": 16,
                 "offset": 0
               },
               "endLine": {
-                "line": 10,
+                "line": 16,
                 "offset": 36
               }
             }
@@ -508,8 +577,8 @@
             },
             "defaultValue": {
               "metadata": {
-                "label": "Default value",
-                "description": "Default value of the property"
+                "label": "Default Value",
+                "description": "Default value of the variable"
               },
               "valueType": "EXPRESSION",
               "optional": true,
@@ -519,11 +588,22 @@
             },
             "configValue": {
               "metadata": {
-                "label": "Config value",
-                "description": "Config value of the property (defined in Config.toml)"
+                "label": "Default Value",
+                "description": "Config value of the variable, to be used in Config.toml"
               },
               "valueType": "EXPRESSION",
               "value": "{name: \"John Doe\", age: 30, grade: \"B\"}",
+              "optional": true,
+              "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "documentation": {
+              "metadata": {
+                "label": "Variable Documentation",
+                "description": "Documentation for the variable, provided in Markdown format."
+              },
+              "valueType": "STRING",
               "optional": true,
               "editable": true,
               "advanced": false,

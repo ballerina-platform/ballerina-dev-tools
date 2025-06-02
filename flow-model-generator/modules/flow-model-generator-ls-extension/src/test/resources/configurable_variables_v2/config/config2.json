@@ -57,8 +57,8 @@
             },
             "defaultValue": {
               "metadata": {
-                "label": "Default value",
-                "description": "Default value of the property"
+                "label": "Default Value",
+                "description": "Default value of the variable"
               },
               "valueType": "EXPRESSION",
               "value": "-1",
@@ -69,12 +69,23 @@
             },
             "configValue": {
               "metadata": {
-                "label": "Config value",
-                "description": "Config value of the property (defined in Config.toml)"
+                "label": "Default Value",
+                "description": "Config value of the variable, to be used in Config.toml"
               },
               "valueType": "EXPRESSION",
               "optional": true,
               "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "documentation": {
+              "metadata": {
+                "label": "Variable Documentation",
+                "description": "Documentation for the variable, provided in Markdown format."
+              },
+              "valueType": "STRING",
+              "optional": true,
+              "editable": false,
               "advanced": false,
               "hidden": false
             }
@@ -132,8 +143,8 @@
             },
             "defaultValue": {
               "metadata": {
-                "label": "Default value",
-                "description": "Default value of the property"
+                "label": "Default Value",
+                "description": "Default value of the variable"
               },
               "valueType": "EXPRESSION",
               "value": "100",
@@ -144,12 +155,23 @@
             },
             "configValue": {
               "metadata": {
-                "label": "Config value",
-                "description": "Config value of the property (defined in Config.toml)"
+                "label": "Default Value",
+                "description": "Config value of the variable, to be used in Config.toml"
               },
               "valueType": "EXPRESSION",
               "optional": true,
               "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "documentation": {
+              "metadata": {
+                "label": "Variable Documentation",
+                "description": "Documentation for the variable, provided in Markdown format."
+              },
+              "valueType": "STRING",
+              "optional": true,
+              "editable": false,
               "advanced": false,
               "hidden": false
             }
@@ -207,8 +229,8 @@
             },
             "defaultValue": {
               "metadata": {
-                "label": "Default value",
-                "description": "Default value of the property"
+                "label": "Default Value",
+                "description": "Default value of the variable"
               },
               "valueType": "EXPRESSION",
               "value": "30",
@@ -219,12 +241,23 @@
             },
             "configValue": {
               "metadata": {
-                "label": "Config value",
-                "description": "Config value of the property (defined in Config.toml)"
+                "label": "Default Value",
+                "description": "Config value of the variable, to be used in Config.toml"
               },
               "valueType": "EXPRESSION",
               "optional": true,
               "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "documentation": {
+              "metadata": {
+                "label": "Variable Documentation",
+                "description": "Documentation for the variable, provided in Markdown format."
+              },
+              "valueType": "STRING",
+              "optional": true,
+              "editable": false,
               "advanced": false,
               "hidden": false
             }
@@ -282,8 +315,8 @@
             },
             "defaultValue": {
               "metadata": {
-                "label": "Default value",
-                "description": "Default value of the property"
+                "label": "Default Value",
+                "description": "Default value of the variable"
               },
               "valueType": "EXPRESSION",
               "value": "100",
@@ -294,12 +327,23 @@
             },
             "configValue": {
               "metadata": {
-                "label": "Config value",
-                "description": "Config value of the property (defined in Config.toml)"
+                "label": "Default Value",
+                "description": "Config value of the variable, to be used in Config.toml"
               },
               "valueType": "EXPRESSION",
               "optional": true,
               "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "documentation": {
+              "metadata": {
+                "label": "Variable Documentation",
+                "description": "Documentation for the variable, provided in Markdown format."
+              },
+              "valueType": "STRING",
+              "optional": true,
+              "editable": false,
               "advanced": false,
               "hidden": false
             }
@@ -357,8 +401,8 @@
             },
             "defaultValue": {
               "metadata": {
-                "label": "Default value",
-                "description": "Default value of the property"
+                "label": "Default Value",
+                "description": "Default value of the variable"
               },
               "valueType": "EXPRESSION",
               "value": "300",
@@ -369,12 +413,23 @@
             },
             "configValue": {
               "metadata": {
-                "label": "Config value",
-                "description": "Config value of the property (defined in Config.toml)"
+                "label": "Default Value",
+                "description": "Config value of the variable, to be used in Config.toml"
               },
               "valueType": "EXPRESSION",
               "optional": true,
               "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "documentation": {
+              "metadata": {
+                "label": "Variable Documentation",
+                "description": "Documentation for the variable, provided in Markdown format."
+              },
+              "valueType": "STRING",
+              "optional": true,
+              "editable": false,
               "advanced": false,
               "hidden": false
             }
@@ -432,8 +487,8 @@
             },
             "defaultValue": {
               "metadata": {
-                "label": "Default value",
-                "description": "Default value of the property"
+                "label": "Default Value",
+                "description": "Default value of the variable"
               },
               "valueType": "EXPRESSION",
               "value": "30",
@@ -444,12 +499,23 @@
             },
             "configValue": {
               "metadata": {
-                "label": "Config value",
-                "description": "Config value of the property (defined in Config.toml)"
+                "label": "Default Value",
+                "description": "Config value of the variable, to be used in Config.toml"
               },
               "valueType": "EXPRESSION",
               "optional": true,
               "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "documentation": {
+              "metadata": {
+                "label": "Variable Documentation",
+                "description": "Documentation for the variable, provided in Markdown format."
+              },
+              "valueType": "STRING",
+              "optional": true,
+              "editable": false,
               "advanced": false,
               "hidden": false
             }
@@ -507,8 +573,8 @@
             },
             "defaultValue": {
               "metadata": {
-                "label": "Default value",
-                "description": "Default value of the property"
+                "label": "Default Value",
+                "description": "Default value of the variable"
               },
               "valueType": "EXPRESSION",
               "value": "300",
@@ -519,12 +585,23 @@
             },
             "configValue": {
               "metadata": {
-                "label": "Config value",
-                "description": "Config value of the property (defined in Config.toml)"
+                "label": "Default Value",
+                "description": "Config value of the variable, to be used in Config.toml"
               },
               "valueType": "EXPRESSION",
               "optional": true,
               "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "documentation": {
+              "metadata": {
+                "label": "Variable Documentation",
+                "description": "Documentation for the variable, provided in Markdown format."
+              },
+              "valueType": "STRING",
+              "optional": true,
+              "editable": false,
               "advanced": false,
               "hidden": false
             }
@@ -582,8 +659,8 @@
             },
             "defaultValue": {
               "metadata": {
-                "label": "Default value",
-                "description": "Default value of the property"
+                "label": "Default Value",
+                "description": "Default value of the variable"
               },
               "valueType": "EXPRESSION",
               "value": "30",
@@ -594,12 +671,23 @@
             },
             "configValue": {
               "metadata": {
-                "label": "Config value",
-                "description": "Config value of the property (defined in Config.toml)"
+                "label": "Default Value",
+                "description": "Config value of the variable, to be used in Config.toml"
               },
               "valueType": "EXPRESSION",
               "optional": true,
               "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "documentation": {
+              "metadata": {
+                "label": "Variable Documentation",
+                "description": "Documentation for the variable, provided in Markdown format."
+              },
+              "valueType": "STRING",
+              "optional": true,
+              "editable": false,
               "advanced": false,
               "hidden": false
             }
@@ -657,8 +745,8 @@
             },
             "defaultValue": {
               "metadata": {
-                "label": "Default value",
-                "description": "Default value of the property"
+                "label": "Default Value",
+                "description": "Default value of the variable"
               },
               "valueType": "EXPRESSION",
               "value": "9090",
@@ -669,12 +757,24 @@
             },
             "configValue": {
               "metadata": {
-                "label": "Config value",
-                "description": "Config value of the property (defined in Config.toml)"
+                "label": "Default Value",
+                "description": "Config value of the variable, to be used in Config.toml"
               },
               "valueType": "EXPRESSION",
               "optional": true,
               "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "documentation": {
+              "metadata": {
+                "label": "Variable Documentation",
+                "description": "Documentation for the variable, provided in Markdown format."
+              },
+              "valueType": "STRING",
+              "value": "\n# Default HTTP listener port used by the HTTP Default Listener.\n# The default value is 9090.\n",
+              "optional": true,
+              "editable": false,
               "advanced": false,
               "hidden": false
             }
@@ -732,8 +832,8 @@
             },
             "defaultValue": {
               "metadata": {
-                "label": "Default value",
-                "description": "Default value of the property"
+                "label": "Default Value",
+                "description": "Default value of the variable"
               },
               "valueType": "EXPRESSION",
               "value": "{}",
@@ -744,12 +844,24 @@
             },
             "configValue": {
               "metadata": {
-                "label": "Config value",
-                "description": "Config value of the property (defined in Config.toml)"
+                "label": "Default Value",
+                "description": "Config value of the variable, to be used in Config.toml"
               },
               "valueType": "EXPRESSION",
               "optional": true,
               "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "documentation": {
+              "metadata": {
+                "label": "Variable Documentation",
+                "description": "Documentation for the variable, provided in Markdown format."
+              },
+              "valueType": "STRING",
+              "value": "\n# Default HTTP listener configuration used by the HTTP Default Listener.\n",
+              "optional": true,
+              "editable": false,
               "advanced": false,
               "hidden": false
             }
@@ -807,8 +919,8 @@
             },
             "defaultValue": {
               "metadata": {
-                "label": "Default value",
-                "description": "Default value of the property"
+                "label": "Default Value",
+                "description": "Default value of the variable"
               },
               "valueType": "EXPRESSION",
               "value": "false",
@@ -819,12 +931,23 @@
             },
             "configValue": {
               "metadata": {
-                "label": "Config value",
-                "description": "Config value of the property (defined in Config.toml)"
+                "label": "Default Value",
+                "description": "Config value of the variable, to be used in Config.toml"
               },
               "valueType": "EXPRESSION",
               "optional": true,
               "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "documentation": {
+              "metadata": {
+                "label": "Variable Documentation",
+                "description": "Documentation for the variable, provided in Markdown format."
+              },
+              "valueType": "STRING",
+              "optional": true,
+              "editable": false,
               "advanced": false,
               "hidden": false
             }
@@ -882,8 +1005,8 @@
             },
             "defaultValue": {
               "metadata": {
-                "label": "Default value",
-                "description": "Default value of the property"
+                "label": "Default Value",
+                "description": "Default value of the variable"
               },
               "valueType": "EXPRESSION",
               "value": "{}",
@@ -894,12 +1017,23 @@
             },
             "configValue": {
               "metadata": {
-                "label": "Config value",
-                "description": "Config value of the property (defined in Config.toml)"
+                "label": "Default Value",
+                "description": "Config value of the variable, to be used in Config.toml"
               },
               "valueType": "EXPRESSION",
               "optional": true,
               "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "documentation": {
+              "metadata": {
+                "label": "Variable Documentation",
+                "description": "Documentation for the variable, provided in Markdown format."
+              },
+              "valueType": "STRING",
+              "optional": true,
+              "editable": false,
               "advanced": false,
               "hidden": false
             }
@@ -957,8 +1091,8 @@
             },
             "defaultValue": {
               "metadata": {
-                "label": "Default value",
-                "description": "Default value of the property"
+                "label": "Default Value",
+                "description": "Default value of the variable"
               },
               "valueType": "EXPRESSION",
               "value": "{}",
@@ -969,12 +1103,23 @@
             },
             "configValue": {
               "metadata": {
-                "label": "Config value",
-                "description": "Config value of the property (defined in Config.toml)"
+                "label": "Default Value",
+                "description": "Config value of the variable, to be used in Config.toml"
               },
               "valueType": "EXPRESSION",
               "optional": true,
               "editable": true,
+              "advanced": false,
+              "hidden": false
+            },
+            "documentation": {
+              "metadata": {
+                "label": "Variable Documentation",
+                "description": "Documentation for the variable, provided in Markdown format."
+              },
+              "valueType": "STRING",
+              "optional": true,
+              "editable": false,
               "advanced": false,
               "hidden": false
             }
