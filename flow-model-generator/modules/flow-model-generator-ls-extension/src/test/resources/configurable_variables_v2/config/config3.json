@@ -62,11 +62,12 @@
               "optional": true,
               "editable": true,
               "advanced": true,
-              "hidden": false
+              "hidden": false,
+              "isModified": false
             },
             "configValue": {
               "metadata": {
-                "label": "Default Value",
+                "label": "Config Value",
                 "description": "Config value of the variable, to be used in Config.toml"
               },
               "valueType": "EXPRESSION",
@@ -74,7 +75,8 @@
               "optional": true,
               "editable": true,
               "advanced": false,
-              "hidden": false
+              "hidden": false,
+              "isModified": false
             },
             "documentation": {
               "metadata": {
@@ -85,7 +87,8 @@
               "optional": true,
               "editable": true,
               "advanced": true,
-              "hidden": false
+              "hidden": false,
+              "isModified": false
             }
           },
           "flags": 0
@@ -148,11 +151,12 @@
               "optional": true,
               "editable": true,
               "advanced": true,
-              "hidden": false
+              "hidden": false,
+              "isModified": false
             },
             "configValue": {
               "metadata": {
-                "label": "Default Value",
+                "label": "Config Value",
                 "description": "Config value of the variable, to be used in Config.toml"
               },
               "valueType": "EXPRESSION",
@@ -160,7 +164,8 @@
               "optional": true,
               "editable": true,
               "advanced": false,
-              "hidden": false
+              "hidden": false,
+              "isModified": false
             },
             "documentation": {
               "metadata": {
@@ -171,7 +176,8 @@
               "optional": true,
               "editable": true,
               "advanced": true,
-              "hidden": false
+              "hidden": false,
+              "isModified": false
             }
           },
           "flags": 0
@@ -234,11 +240,12 @@
               "optional": true,
               "editable": true,
               "advanced": true,
-              "hidden": false
+              "hidden": false,
+              "isModified": false
             },
             "configValue": {
               "metadata": {
-                "label": "Default Value",
+                "label": "Config Value",
                 "description": "Config value of the variable, to be used in Config.toml"
               },
               "valueType": "EXPRESSION",
@@ -246,7 +253,8 @@
               "optional": true,
               "editable": true,
               "advanced": false,
-              "hidden": false
+              "hidden": false,
+              "isModified": false
             },
             "documentation": {
               "metadata": {
@@ -257,7 +265,8 @@
               "optional": true,
               "editable": true,
               "advanced": true,
-              "hidden": false
+              "hidden": false,
+              "isModified": false
             }
           },
           "flags": 0
@@ -321,18 +330,20 @@
               "optional": true,
               "editable": true,
               "advanced": true,
-              "hidden": false
+              "hidden": false,
+              "isModified": false
             },
             "configValue": {
               "metadata": {
-                "label": "Default Value",
+                "label": "Config Value",
                 "description": "Config value of the variable, to be used in Config.toml"
               },
               "valueType": "EXPRESSION",
               "optional": true,
               "editable": true,
               "advanced": false,
-              "hidden": false
+              "hidden": false,
+              "isModified": false
             },
             "documentation": {
               "metadata": {
@@ -343,7 +354,8 @@
               "optional": true,
               "editable": true,
               "advanced": true,
-              "hidden": false
+              "hidden": false,
+              "isModified": false
             }
           },
           "flags": 0
@@ -407,11 +419,12 @@
               "optional": true,
               "editable": true,
               "advanced": true,
-              "hidden": false
+              "hidden": false,
+              "isModified": false
             },
             "configValue": {
               "metadata": {
-                "label": "Default Value",
+                "label": "Config Value",
                 "description": "Config value of the variable, to be used in Config.toml"
               },
               "valueType": "EXPRESSION",
@@ -419,7 +432,8 @@
               "optional": true,
               "editable": true,
               "advanced": false,
-              "hidden": false
+              "hidden": false,
+              "isModified": false
             },
             "documentation": {
               "metadata": {
@@ -430,7 +444,8 @@
               "optional": true,
               "editable": true,
               "advanced": true,
-              "hidden": false
+              "hidden": false,
+              "isModified": false
             }
           },
           "flags": 0

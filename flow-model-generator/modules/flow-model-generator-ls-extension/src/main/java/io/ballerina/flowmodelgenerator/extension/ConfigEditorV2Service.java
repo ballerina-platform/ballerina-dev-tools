@@ -102,7 +102,7 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
     @Override
     public void init(LanguageServer langServer, WorkspaceManager workspaceManager) {
         this.workspaceManager = workspaceManager;
-        this.gson = new GsonBuilder().serializeNulls().create();
+        this.gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
     }
 
     @Override

@@ -680,6 +680,7 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
                 .type(Property.ValueType.EXPRESSION)
                 .optional(true)
                 .advanced(true)
+                .isModified(false)
                 .editable(editable);
         addProperty(Property.DEFAULT_VALUE_KEY, expr);
         return this;
@@ -694,6 +695,7 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
                 .value((expr != null && expr.kind() != SyntaxKind.REQUIRED_EXPRESSION) ? expr.toSourceCode() : null)
                 .type(Property.ValueType.EXPRESSION)
                 .optional(true)
+                .isModified(false)
                 .editable();
         addProperty(Property.CONFIG_VALUE_KEY, expr);
         return this;
