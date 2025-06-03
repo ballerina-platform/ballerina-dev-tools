@@ -62,6 +62,7 @@ import java.util.Optional;
 import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
+import java.util.StringJoiner;
 
 import static io.ballerina.flowmodelgenerator.core.model.node.DataMapperBuilder.INPUTS_DOC;
 import static io.ballerina.flowmodelgenerator.core.model.node.DataMapperBuilder.INPUTS_KEY;
@@ -168,20 +169,25 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
         return type(node, Property.TYPE_LABEL, editable);
     }
 
+    public FormBuilder<T> type(Node node, boolean editable, boolean modified) {
+        String typeName = (node == null) ? "" : CommonUtils.getVariableName(node);
+        return type(typeName, Property.TYPE_LABEL, editable, modified, node == null ? null : node.lineRange());
+    }
+
     public FormBuilder<T> type(Node node, String label, boolean editable) {
         String typeName = (node == null) ? "" : CommonUtils.getVariableName(node);
-        return type(typeName, label, editable, node == null ? null : node.lineRange());
+        return type(typeName, label, editable, null, node == null ? null : node.lineRange());
     }
 
     public FormBuilder<T> type(String typeName, boolean editable, String importStatements) {
-        return type(typeName, Property.TYPE_LABEL, editable, null, importStatements);
+        return type(typeName, Property.TYPE_LABEL, editable, null, null, importStatements);
     }
 
-    public FormBuilder<T> type(String typeName, String label, boolean editable, LineRange lineRange) {
-        return type(typeName, label, editable, lineRange, null);
+    public FormBuilder<T> type(String typeName, String label, boolean editable, Boolean modified, LineRange lineRange) {
+        return type(typeName, label, editable, modified, lineRange, null);
     }
 
-    public FormBuilder<T> type(String typeName, String label, boolean editable, LineRange lineRange,
+    public FormBuilder<T> type(String typeName, String label, boolean editable, Boolean modified, LineRange lineRange,
                                String importStatements) {
         propertyBuilder
                 .metadata()
@@ -194,7 +200,8 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
                 .value(typeName)
                 .imports(importStatements)
                 .type(Property.ValueType.TYPE)
-                .editable(editable);
+                .editable(editable)
+                .modified(modified);
 
         addProperty(Property.TYPE_KEY, lineRange);
         return this;
@@ -268,7 +275,7 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
         String typeName = node == null ? "" : CommonUtils.getTypeSymbol(semanticModel, node)
                 .map(typeSymbol -> CommonUtils.getTypeSignature(semanticModel, typeSymbol, true, moduleInfo))
                 .orElse(CommonUtils.getVariableName(node));
-        return type(typeName, typeDoc, editable, node == null ? null : node.typeDescriptor().lineRange());
+        return type(typeName, typeDoc, editable, null, node == null ? null : node.typeDescriptor().lineRange());
     }
 
     public Property.Builder<FormBuilder<T>> custom() {
@@ -302,6 +309,10 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
     }
 
     public FormBuilder<T> variableName(String name, boolean editable) {
+        return variableName(name, editable, null);
+    }
+
+    public FormBuilder<T> variableName(String name, boolean editable, Boolean modified) {
         propertyBuilder
                 .metadata()
                 .label(Property.VARIABLE_NAME)
@@ -310,7 +321,8 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
                 .value(name)
                 .type(Property.ValueType.IDENTIFIER)
                 .typeConstraint(Property.GLOBAL_SCOPE)
-                .editable(editable);
+                .editable(editable)
+                .modified(modified);
         addProperty(Property.VARIABLE_KEY);
         return this;
     }
@@ -682,7 +694,7 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
                 .type(Property.ValueType.EXPRESSION)
                 .optional(true)
                 .advanced(true)
-                .isModified(false)
+                .modified(false)
                 .editable(editable);
         addProperty(Property.DEFAULT_VALUE_KEY, expr);
         return this;
@@ -697,7 +709,7 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
                 .value((expr != null && expr.kind() != SyntaxKind.REQUIRED_EXPRESSION) ? expr.toSourceCode() : null)
                 .type(Property.ValueType.EXPRESSION)
                 .optional(true)
-                .isModified(false)
+                .modified(false)
                 .editable();
         addProperty(Property.CONFIG_VALUE_KEY, expr);
         return this;
@@ -718,29 +730,25 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
                 .type(Property.ValueType.STRING)
                 .optional(true)
                 .advanced(true)
-                .editable(editable);
+                .editable(editable)
+                .modified(false);
         addProperty(Property.CONFIG_VAR_DOC_KEY, docNode);
         return this;
     }
 
-    private static String[] concatDocLines(Node docNode) {
-        List<String> docLines = new LinkedList<>();
+    private static String concatDocLines(Node docNode) {
+        StringJoiner docLineJoiner = new StringJoiner(System.lineSeparator());
         if (docNode == null || docNode.kind() != SyntaxKind.MARKDOWN_DOCUMENTATION) {
-            return docLines.toArray(new String[0]);
+            return "";
         }
 
         NodeList<Node> docLineNodes = ((MarkdownDocumentationNode) docNode).documentationLines();
         for (Node docLineNode : docLineNodes) {
-            if (docLineNode.kind() == SyntaxKind.MARKDOWN_DOCUMENTATION_LINE) {
-                // removes the leading '#' from the documentation line
-                String docLine = ((MarkdownDocumentationLineNode) docLineNode).children().get(1).toSourceCode();
-                if (!docLine.isEmpty()) {
-                    docLines.add(docLine);
-                }
-            }
+            String docLine = docLineNode.toSourceCode().trim();
+            docLineJoiner.add(docLine.replaceFirst("# ", ""));
         }
 
-        return docLines.toArray(new String[0]);
+        return docLineJoiner.toString();
     }
 
     public FormBuilder<T> statement(Node node) {

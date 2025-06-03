@@ -43,7 +43,7 @@ import java.util.Set;
  * @param editable            whether the property is not readonly
  * @param advanced            whether the property should be shown in the advanced tab
  * @param hidden              whether the property should be hidden
- * @param isModified          Whether the property is modified in the UI.
+ * @param modified            Whether the property is modified in the UI.
  * @param diagnostics         diagnostics of the property
  * @param codedata            codedata of the property
  * @param typeMembers         member types of the type constrain
@@ -53,12 +53,13 @@ import java.util.Set;
  */
 public record Property(Metadata metadata, String valueType, Object valueTypeConstraint, Object value,
                        String placeholder, boolean optional, boolean editable, boolean advanced, boolean hidden,
-                       Boolean isModified, Diagnostics diagnostics, PropertyCodedata codedata,
+                       Boolean modified, Diagnostics diagnostics, PropertyCodedata codedata,
                        List<PropertyTypeMemberInfo> typeMembers, Object advancedValue, Map<String, String> imports) {
 
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 
-    public static final TypeToken<List<Property>> LIST_PROPERTY_TYPE_TOKEN = new TypeToken<List<Property>>() { };
+    public static final TypeToken<List<Property>> LIST_PROPERTY_TYPE_TOKEN = new TypeToken<List<Property>>() {
+    };
 
     @SuppressWarnings("unchecked")
     public <T> T valueAsType(TypeToken<T> typeToken) {
@@ -271,7 +272,7 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
         private boolean editable;
         private boolean advanced;
         private boolean hidden;
-        private Boolean isModified;
+        private Boolean modified;
         private Object typeConstraint;
         private Metadata.Builder<Builder<T>> metadataBuilder;
         private Diagnostics.Builder<Builder<T>> diagnosticsBuilder;
@@ -325,8 +326,8 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
             return this;
         }
 
-        public Builder<T> isModified(Boolean isModified) {
-            this.isModified = isModified;
+        public Builder<T> modified(Boolean modified) {
+            this.modified = modified;
             return this;
         }
 
@@ -416,7 +417,7 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
 
         public Property build() {
             Property property = new Property(metadataBuilder == null ? null : metadataBuilder.build(), type,
-                    typeConstraint, value, placeholder, optional, editable, advanced, hidden, isModified,
+                    typeConstraint, value, placeholder, optional, editable, advanced, hidden, modified,
                     diagnosticsBuilder == null ? null : diagnosticsBuilder.build(),
                     codedataBuilder == null ? null : codedataBuilder.build(), typeMembers, advancedValue,
                     imports == null ? null : imports);

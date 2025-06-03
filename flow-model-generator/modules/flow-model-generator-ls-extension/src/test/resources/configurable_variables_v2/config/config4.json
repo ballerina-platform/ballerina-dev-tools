@@ -63,7 +63,7 @@
               "editable": true,
               "advanced": true,
               "hidden": false,
-              "isModified": false
+              "modified": false
             },
             "configValue": {
               "metadata": {
@@ -75,7 +75,7 @@
               "editable": true,
               "advanced": false,
               "hidden": false,
-              "isModified": false
+              "modified": false
             },
             "documentation": {
               "metadata": {
@@ -83,12 +83,12 @@
                 "description": "Documentation for the variable, provided in Markdown format."
               },
               "valueType": "STRING",
-              "value": [],
+              "value": "",
               "optional": true,
               "editable": true,
               "advanced": true,
               "hidden": false,
-              "isModified": false
+              "modified": false
             }
           },
           "flags": 0
@@ -153,7 +153,7 @@
               "editable": true,
               "advanced": true,
               "hidden": false,
-              "isModified": false
+              "modified": false
             },
             "configValue": {
               "metadata": {
@@ -165,7 +165,7 @@
               "editable": true,
               "advanced": false,
               "hidden": false,
-              "isModified": false
+              "modified": false
             },
             "documentation": {
               "metadata": {
@@ -173,12 +173,12 @@
                 "description": "Documentation for the variable, provided in Markdown format."
               },
               "valueType": "STRING",
-              "value": [],
+              "value": "",
               "optional": true,
               "editable": true,
               "advanced": true,
               "hidden": false,
-              "isModified": false
+              "modified": false
             }
           },
           "flags": 0
@@ -243,7 +243,7 @@
               "editable": true,
               "advanced": true,
               "hidden": false,
-              "isModified": false
+              "modified": false
             },
             "configValue": {
               "metadata": {
@@ -255,7 +255,7 @@
               "editable": true,
               "advanced": false,
               "hidden": false,
-              "isModified": false
+              "modified": false
             },
             "documentation": {
               "metadata": {
@@ -263,12 +263,12 @@
                 "description": "Documentation for the variable, provided in Markdown format."
               },
               "valueType": "STRING",
-              "value": [],
+              "value": "",
               "optional": true,
               "editable": true,
               "advanced": true,
               "hidden": false,
-              "isModified": false
+              "modified": false
             }
           },
           "flags": 0
@@ -333,7 +333,7 @@
               "editable": true,
               "advanced": true,
               "hidden": false,
-              "isModified": false
+              "modified": false
             },
             "configValue": {
               "metadata": {
@@ -345,7 +345,7 @@
               "editable": true,
               "advanced": false,
               "hidden": false,
-              "isModified": false
+              "modified": false
             },
             "documentation": {
               "metadata": {
@@ -353,12 +353,12 @@
                 "description": "Documentation for the variable, provided in Markdown format."
               },
               "valueType": "STRING",
-              "value": [],
+              "value": "",
               "optional": true,
               "editable": true,
               "advanced": true,
               "hidden": false,
-              "isModified": false
+              "modified": false
             }
           },
           "flags": 0
@@ -423,7 +423,7 @@
               "editable": true,
               "advanced": true,
               "hidden": false,
-              "isModified": false
+              "modified": false
             },
             "configValue": {
               "metadata": {
@@ -435,7 +435,7 @@
               "editable": true,
               "advanced": false,
               "hidden": false,
-              "isModified": false
+              "modified": false
             },
             "documentation": {
               "metadata": {
@@ -443,12 +443,12 @@
                 "description": "Documentation for the variable, provided in Markdown format."
               },
               "valueType": "STRING",
-              "value": [],
+              "value": "",
               "optional": true,
               "editable": true,
               "advanced": true,
               "hidden": false,
-              "isModified": false
+              "modified": false
             }
           },
           "flags": 0
@@ -513,7 +513,7 @@
               "editable": true,
               "advanced": true,
               "hidden": false,
-              "isModified": false
+              "modified": false
             },
             "configValue": {
               "metadata": {
@@ -525,7 +525,7 @@
               "editable": true,
               "advanced": false,
               "hidden": false,
-              "isModified": false
+              "modified": false
             },
             "documentation": {
               "metadata": {
@@ -533,12 +533,12 @@
                 "description": "Documentation for the variable, provided in Markdown format."
               },
               "valueType": "STRING",
-              "value": [],
+              "value": "",
               "optional": true,
               "editable": true,
               "advanced": true,
               "hidden": false,
-              "isModified": false
+              "modified": false
             }
           },
           "flags": 0
@@ -602,7 +602,7 @@
               "editable": true,
               "advanced": true,
               "hidden": false,
-              "isModified": false
+              "modified": false
             },
             "configValue": {
               "metadata": {
@@ -614,7 +614,7 @@
               "editable": true,
               "advanced": false,
               "hidden": false,
-              "isModified": false
+              "modified": false
             },
             "documentation": {
               "metadata": {
@@ -622,12 +622,12 @@
                 "description": "Documentation for the variable, provided in Markdown format."
               },
               "valueType": "STRING",
-              "value": [],
+              "value": "",
               "optional": true,
               "editable": true,
               "advanced": true,
               "hidden": false,
-              "isModified": false
+              "modified": false
             }
           },
           "flags": 0
@@ -692,7 +692,7 @@
               "editable": true,
               "advanced": true,
               "hidden": false,
-              "isModified": false
+              "modified": false
             },
             "configValue": {
               "metadata": {
@@ -704,7 +704,7 @@
               "editable": true,
               "advanced": false,
               "hidden": false,
-              "isModified": false
+              "modified": false
             },
             "documentation": {
               "metadata": {
@@ -712,12 +712,12 @@
                 "description": "Documentation for the variable, provided in Markdown format."
               },
               "valueType": "STRING",
-              "value": [],
+              "value": "",
               "optional": true,
               "editable": true,
               "advanced": true,
               "hidden": false,
-              "isModified": false
+              "modified": false
             }
           },
           "flags": 0
@@ -781,7 +781,7 @@
               "editable": true,
               "advanced": true,
               "hidden": false,
-              "isModified": false
+              "modified": false
             },
             "configValue": {
               "metadata": {
@@ -793,7 +793,7 @@
               "editable": true,
               "advanced": false,
               "hidden": false,
-              "isModified": false
+              "modified": false
             },
             "documentation": {
               "metadata": {
@@ -801,12 +801,12 @@
                 "description": "Documentation for the variable, provided in Markdown format."
               },
               "valueType": "STRING",
-              "value": [],
+              "value": "",
               "optional": true,
               "editable": true,
               "advanced": true,
               "hidden": false,
-              "isModified": false
+              "modified": false
             }
           },
           "flags": 0
@@ -870,7 +870,7 @@
               "editable": true,
               "advanced": true,
               "hidden": false,
-              "isModified": false
+              "modified": false
             },
             "configValue": {
               "metadata": {
@@ -882,7 +882,7 @@
               "editable": true,
               "advanced": false,
               "hidden": false,
-              "isModified": false
+              "modified": false
             },
             "documentation": {
               "metadata": {
@@ -890,12 +890,12 @@
                 "description": "Documentation for the variable, provided in Markdown format."
               },
               "valueType": "STRING",
-              "value": [],
+              "value": "",
               "optional": true,
               "editable": true,
               "advanced": true,
               "hidden": false,
-              "isModified": false
+              "modified": false
             }
           },
           "flags": 0
