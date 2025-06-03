@@ -79,6 +79,7 @@ import org.eclipse.lsp4j.services.LanguageServer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -269,15 +270,14 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
 
     private static String constructConfigStatement(FlowNode node) {
         String defaultValue = node.properties().get(DEFAULT_VALUE_KEY).toSourceCode();
-        String variableDocs = node.properties().get(CONFIG_VAR_DOC_KEY).toSourceCode();
+        String variableDoc = node.properties().get(CONFIG_VAR_DOC_KEY).toSourceCode();
+        List<String> docLines = Arrays.stream(variableDoc.split(System.lineSeparator())).toList();
 
         StringBuilder configStatementBuilder = new StringBuilder();
-        if (variableDocs != null && !variableDocs.isEmpty()) {
-            configStatementBuilder.append(variableDocs);
-            if (!variableDocs.endsWith(System.lineSeparator())) {
-                configStatementBuilder.append(System.lineSeparator());
-            }
-        }
+        docLines.forEach(docLine -> configStatementBuilder
+                .append("# ")
+                .append(docLine)
+                .append(System.lineSeparator()));
 
         configStatementBuilder.append(String.format("configurable %s %s = %s;",
                 node.properties().get(Property.TYPE_KEY).toSourceCode(),

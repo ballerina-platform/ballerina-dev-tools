@@ -80,11 +80,13 @@
             },
             "documentation": {
               "metadata": {
-                "label": "Variable Documentation",
+                "label": "Description",
                 "description": "Documentation for the variable, provided in Markdown format."
               },
               "valueType": "STRING",
-              "value": "\n# Configurable variable with integer value.\n",
+              "value": [
+                "Configurable variable with integer value.\n"
+              ],
               "optional": true,
               "editable": true,
               "advanced": true,
@@ -170,10 +172,11 @@
             },
             "documentation": {
               "metadata": {
-                "label": "Variable Documentation",
+                "label": "Description",
                 "description": "Documentation for the variable, provided in Markdown format."
               },
               "valueType": "STRING",
+              "value": [],
               "optional": true,
               "editable": true,
               "advanced": true,
@@ -260,10 +263,11 @@
             },
             "documentation": {
               "metadata": {
-                "label": "Variable Documentation",
+                "label": "Description",
                 "description": "Documentation for the variable, provided in Markdown format."
               },
               "valueType": "STRING",
+              "value": [],
               "optional": true,
               "editable": true,
               "advanced": true,
@@ -349,10 +353,11 @@
             },
             "documentation": {
               "metadata": {
-                "label": "Variable Documentation",
+                "label": "Description",
                 "description": "Documentation for the variable, provided in Markdown format."
               },
               "valueType": "STRING",
+              "value": [],
               "optional": true,
               "editable": true,
               "advanced": true,
@@ -439,11 +444,13 @@
             },
             "documentation": {
               "metadata": {
-                "label": "Variable Documentation",
+                "label": "Description",
                 "description": "Documentation for the variable, provided in Markdown format."
               },
               "valueType": "STRING",
-              "value": "\n# Configurable variable with array value.\n",
+              "value": [
+                "Configurable variable with array value.\n"
+              ],
               "optional": true,
               "editable": true,
               "advanced": true,
@@ -530,11 +537,13 @@
             },
             "documentation": {
               "metadata": {
-                "label": "Variable Documentation",
+                "label": "Description",
                 "description": "Documentation for the variable, provided in Markdown format."
               },
               "valueType": "STRING",
-              "value": "\n# Configurable variable with record value.\n",
+              "value": [
+                "Configurable variable with record value.\n"
+              ],
               "optional": true,
               "editable": true,
               "advanced": true,
@@ -620,10 +629,11 @@
             },
             "documentation": {
               "metadata": {
-                "label": "Variable Documentation",
+                "label": "Description",
                 "description": "Documentation for the variable, provided in Markdown format."
               },
               "valueType": "STRING",
+              "value": [],
               "optional": true,
               "editable": true,
               "advanced": true,

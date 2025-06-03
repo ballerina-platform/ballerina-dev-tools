@@ -27,6 +27,8 @@ import io.ballerina.compiler.syntax.tree.CheckExpressionNode;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.FunctionArgumentNode;
 import io.ballerina.compiler.syntax.tree.IdentifierToken;
+import io.ballerina.compiler.syntax.tree.MarkdownDocumentationLineNode;
+import io.ballerina.compiler.syntax.tree.MarkdownDocumentationNode;
 import io.ballerina.compiler.syntax.tree.NamedArgumentNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeList;
@@ -712,13 +714,33 @@ public class FormBuilder<T> extends FacetedBuilder<T> {
                 .label(Property.CONFIG_VAR_DOC_LABEL)
                 .description(Property.CONFIG_VAR_DOC_DOC)
                 .stepOut()
-                .value(docNode != null ? docNode.toSourceCode() : null)
+                .value(concatDocLines(docNode))
                 .type(Property.ValueType.STRING)
                 .optional(true)
                 .advanced(true)
                 .editable(editable);
         addProperty(Property.CONFIG_VAR_DOC_KEY, docNode);
         return this;
+    }
+
+    private static String[] concatDocLines(Node docNode) {
+        List<String> docLines = new LinkedList<>();
+        if (docNode == null || docNode.kind() != SyntaxKind.MARKDOWN_DOCUMENTATION) {
+            return docLines.toArray(new String[0]);
+        }
+
+        NodeList<Node> docLineNodes = ((MarkdownDocumentationNode) docNode).documentationLines();
+        for (Node docLineNode : docLineNodes) {
+            if (docLineNode.kind() == SyntaxKind.MARKDOWN_DOCUMENTATION_LINE) {
+                // removes the leading '#' from the documentation line
+                String docLine = ((MarkdownDocumentationLineNode) docLineNode).children().get(1).toSourceCode();
+                if (!docLine.isEmpty()) {
+                    docLines.add(docLine);
+                }
+            }
+        }
+
+        return docLines.toArray(new String[0]);
     }
 
     public FormBuilder<T> statement(Node node) {

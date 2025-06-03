@@ -79,10 +79,11 @@
             },
             "documentation": {
               "metadata": {
-                "label": "Variable Documentation",
+                "label": "Description",
                 "description": "Documentation for the variable, provided in Markdown format."
               },
               "valueType": "STRING",
+              "value": [],
               "optional": true,
               "editable": true,
               "advanced": true,
@@ -168,10 +169,11 @@
             },
             "documentation": {
               "metadata": {
-                "label": "Variable Documentation",
+                "label": "Description",
                 "description": "Documentation for the variable, provided in Markdown format."
               },
               "valueType": "STRING",
+              "value": [],
               "optional": true,
               "editable": true,
               "advanced": true,
@@ -257,10 +259,11 @@
             },
             "documentation": {
               "metadata": {
-                "label": "Variable Documentation",
+                "label": "Description",
                 "description": "Documentation for the variable, provided in Markdown format."
               },
               "valueType": "STRING",
+              "value": [],
               "optional": true,
               "editable": true,
               "advanced": true,
@@ -346,10 +349,11 @@
             },
             "documentation": {
               "metadata": {
-                "label": "Variable Documentation",
+                "label": "Description",
                 "description": "Documentation for the variable, provided in Markdown format."
               },
               "valueType": "STRING",
+              "value": [],
               "optional": true,
               "editable": true,
               "advanced": true,
@@ -435,10 +439,11 @@
             },
             "documentation": {
               "metadata": {
-                "label": "Variable Documentation",
+                "label": "Description",
                 "description": "Documentation for the variable, provided in Markdown format."
               },
               "valueType": "STRING",
+              "value": [],
               "optional": true,
               "editable": true,
               "advanced": true,
@@ -524,10 +529,11 @@
             },
             "documentation": {
               "metadata": {
-                "label": "Variable Documentation",
+                "label": "Description",
                 "description": "Documentation for the variable, provided in Markdown format."
               },
               "valueType": "STRING",
+              "value": [],
               "optional": true,
               "editable": true,
               "advanced": true,
@@ -612,10 +618,11 @@
             },
             "documentation": {
               "metadata": {
-                "label": "Variable Documentation",
+                "label": "Description",
                 "description": "Documentation for the variable, provided in Markdown format."
               },
               "valueType": "STRING",
+              "value": [],
               "optional": true,
               "editable": true,
               "advanced": true,
@@ -701,10 +708,11 @@
             },
             "documentation": {
               "metadata": {
-                "label": "Variable Documentation",
+                "label": "Description",
                 "description": "Documentation for the variable, provided in Markdown format."
               },
               "valueType": "STRING",
+              "value": [],
               "optional": true,
               "editable": true,
               "advanced": true,
@@ -789,10 +797,11 @@
             },
             "documentation": {
               "metadata": {
-                "label": "Variable Documentation",
+                "label": "Description",
                 "description": "Documentation for the variable, provided in Markdown format."
               },
               "valueType": "STRING",
+              "value": [],
               "optional": true,
               "editable": true,
               "advanced": true,
@@ -877,10 +886,11 @@
             },
             "documentation": {
               "metadata": {
-                "label": "Variable Documentation",
+                "label": "Description",
                 "description": "Documentation for the variable, provided in Markdown format."
               },
               "valueType": "STRING",
+              "value": [],
               "optional": true,
               "editable": true,
               "advanced": true,
