@@ -698,28 +698,27 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
             Map<String, Property> properties = configVariable.properties();
             String variableName = properties.get(Property.VARIABLE_KEY).value().toString();
             String configValue = properties.get(CONFIG_VALUE_KEY).toSourceCode();
-            if (configValue.isEmpty()) {
-                return textEditsMap;
-            }
 
             Toml existingConfigToml = parseConfigToml(project);
-            Optional<TomlNode> oldValue = getConfigValue(existingConfigToml, packageName, moduleName, variableName,
-                    isPackageInRootProject(packageName, project));
-            if (isDelete && oldValue.isEmpty()) {
+            Optional<TomlNode> oldConfigValue = getConfigValue(existingConfigToml, packageName, moduleName,
+                    variableName, isPackageInRootProject(packageName, project));
+            if (isDelete && oldConfigValue.isEmpty()) {
+                return textEditsMap;
+            } else if (oldConfigValue.isEmpty() && configValue.isEmpty()) {
                 return textEditsMap;
             }
 
             String orgName = packageName.split("/")[0];
             String pkgName = packageName.split("/")[1];
-            String newContent = isDelete ? "" : constructConfigTomlStatement(orgName, pkgName, moduleName, variableName,
-                    configValue, oldValue.isPresent());
+            String newContent = isDelete || configValue.isEmpty() ? "" : constructConfigTomlStatement(
+                    orgName, pkgName, moduleName, variableName, configValue, oldConfigValue.isPresent());
 
             List<TextEdit> textEdits = new ArrayList<>();
-            if (oldValue.isPresent()) {
-                String fileName = oldValue.get().location().lineRange().fileName();
-                LinePosition startPos = LinePosition.from(oldValue.get().location().lineRange().startLine().line(), 0);
-                LinePosition endPos = LinePosition.from(oldValue.get().location().lineRange().endLine().line(),
-                        oldValue.get().location().lineRange().endLine().offset());
+            if (oldConfigValue.isPresent()) {
+                String fileName = oldConfigValue.get().location().lineRange().fileName();
+                LinePosition startPos = LinePosition.from(oldConfigValue.get().location().lineRange().startLine().line(), 0);
+                LinePosition endPos = LinePosition.from(oldConfigValue.get().location().lineRange().endLine().line(),
+                        oldConfigValue.get().location().lineRange().endLine().offset());
                 LineRange lineRange = LineRange.from(fileName, startPos, endPos);
                 textEdits.add(new TextEdit(CommonUtils.toRange(lineRange), newContent));
             } else {

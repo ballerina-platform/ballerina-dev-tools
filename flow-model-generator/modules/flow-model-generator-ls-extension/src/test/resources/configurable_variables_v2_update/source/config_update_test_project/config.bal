@@ -1,5 +1,5 @@
 configurable int requiredConfig = ?;
-configurable string optionalConfig = "optionalConfig";
+configurable string optionalConfig = "defaultValue";
 # Doc line 1
 # Doc line 2
 # Doc line 3

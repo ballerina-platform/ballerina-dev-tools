@@ -6,7 +6,7 @@
     "moduleName": "",
     "configFilePath": "config.bal",
     "configVariable": {
-      "id": "32790",
+      "id": "31780",
       "metadata": {
         "label": "Config",
         "description": "Create a configurable variable"
@@ -16,12 +16,12 @@
         "lineRange": {
           "fileName": "config.bal",
           "startLine": {
-            "line": 1,
+            "line": 0,
             "offset": 0
           },
           "endLine": {
-            "line": 1,
-            "offset": 54
+            "line": 0,
+            "offset": 36
           }
         }
       },
@@ -34,7 +34,7 @@
           },
           "valueType": "IDENTIFIER",
           "valueTypeConstraint": "Global",
-          "value": "optionalConfig",
+          "value": "requiredConfig",
           "optional": false,
           "editable": true,
           "advanced": false,
@@ -46,7 +46,7 @@
             "description": "Type of the variable"
           },
           "valueType": "TYPE",
-          "value": "string",
+          "value": "int",
           "placeholder": "var",
           "optional": false,
           "editable": true,
@@ -60,12 +60,12 @@
             "description": "Default value of the variable"
           },
           "valueType": "EXPRESSION",
-          "value": "\"defaultValue\"",
           "optional": true,
           "editable": true,
           "advanced": true,
           "hidden": false,
-          "modified": false
+          "modified": false,
+          "value": ""
         },
         "configValue": {
           "metadata": {
@@ -73,12 +73,12 @@
             "description": "Config value of the variable, to be used in Config.toml"
           },
           "valueType": "EXPRESSION",
+          "value": "",
           "optional": true,
           "editable": true,
           "advanced": false,
           "hidden": false,
-          "modified": false,
-          "value": ""
+          "modified": false
         },
         "documentation": {
           "metadata": {
@@ -103,30 +103,30 @@
         {
           "range": {
             "start": {
-              "line": 1,
+              "line": 2,
               "character": 0
             },
             "end": {
-              "line": 1,
-              "character": 0
+              "line": 2,
+              "character": 19
             }
           },
-          "newText": "\n[config_tests.config_update_test_project]\noptionalConfig = \"configValue\"\n"
+          "newText": ""
         }
       ],
       "/Users/nino/Desktop/repos/ballerina-dev-tools/flow-model-generator/modules/flow-model-generator-ls-extension/src/test/resources/configurable_variables_v2_update/source/config_update_test_project/config.bal": [
         {
           "range": {
             "start": {
-              "line": 1,
+              "line": 0,
               "character": 0
             },
             "end": {
-              "line": 1,
-              "character": 54
+              "line": 0,
+              "character": 36
             }
           },
-          "newText": "configurable string optionalConfig = \"defaultValue\";"
+          "newText": "configurable int requiredConfig = ?;"
         }
       ]
     }

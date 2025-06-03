@@ -1,2 +1,3 @@
-required_config = 30;
 
+[config_tests.config_update_test_project]
+requiredConfig = 20;
