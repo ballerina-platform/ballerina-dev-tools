@@ -19,7 +19,7 @@
 package io.ballerina.flowmodelgenerator.extension;
 
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
-import io.ballerina.flowmodelgenerator.extension.request.ConfigVariablesGetRequest;
+import io.ballerina.flowmodelgenerator.extension.request.ConfigVariableGetRequest;
 import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -45,7 +45,9 @@ public class ConfigVariablesV2Test extends AbstractLSTest {
                 ConfigVariablesTestConfig.class);
 
         String projectPath = sourceDir.resolve(testConfig.project()).toAbsolutePath().toString();
-        ConfigVariablesGetRequest request = new ConfigVariablesGetRequest(projectPath);
+
+        boolean includeImports = !projectPath.endsWith("simple_type_configs_exclude_imports");
+        ConfigVariableGetRequest request = new ConfigVariableGetRequest(projectPath, includeImports);
         ConfigVariableResponse actualResponse = gson.fromJson(getResponse(request), ConfigVariableResponse.class);
 
         if (!actualResponse.configVariables().equals(testConfig.configVariables())) {

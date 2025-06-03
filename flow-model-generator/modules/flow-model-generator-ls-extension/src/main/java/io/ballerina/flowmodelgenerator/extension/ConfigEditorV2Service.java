@@ -41,9 +41,9 @@ import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
+import io.ballerina.flowmodelgenerator.extension.request.ConfigVariableGetRequest;
 import io.ballerina.flowmodelgenerator.extension.request.ConfigVariableNodeTemplateRequest;
 import io.ballerina.flowmodelgenerator.extension.request.ConfigVariableUpdateRequest;
-import io.ballerina.flowmodelgenerator.extension.request.ConfigVariablesGetRequest;
 import io.ballerina.flowmodelgenerator.extension.response.ConfigVariableDeleteResponse;
 import io.ballerina.flowmodelgenerator.extension.response.ConfigVariableNodeTemplateResponse;
 import io.ballerina.flowmodelgenerator.extension.response.ConfigVariableUpdateResponse;
@@ -118,7 +118,7 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
      */
     @JsonRequest
     @SuppressWarnings("unused")
-    public CompletableFuture<ConfigVariablesResponse> getConfigVariables(ConfigVariablesGetRequest req) {
+    public CompletableFuture<ConfigVariablesResponse> getConfigVariables(ConfigVariableGetRequest req) {
         return CompletableFuture.supplyAsync(() -> {
             ConfigVariablesResponse response = new ConfigVariablesResponse();
             // Need to preserve the insertion order (default package first)
@@ -131,7 +131,9 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
                 Toml configTomlValues = parseConfigToml(project);
 
                 configVarMap.putAll(extractVariablesFromProject(rootPackage, configTomlValues));
-                configVarMap.putAll(extractConfigsFromDependencies(rootPackage, configTomlValues));
+                if (req.includeLibraries()) {
+                    configVarMap.putAll(extractConfigsFromDependencies(rootPackage, configTomlValues));
+                }
 
                 response.setConfigVariables(gson.toJsonTree(configVarMap));
             } catch (Throwable e) {
@@ -280,7 +282,7 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
         configStatementBuilder.append(String.format("configurable %s %s = %s;",
                 node.properties().get(Property.TYPE_KEY).toSourceCode(),
                 node.properties().get(Property.VARIABLE_KEY).toSourceCode(),
-                defaultValue == null ? "?" : defaultValue)
+                defaultValue.isEmpty() ? "?" : defaultValue)
         );
 
         return configStatementBuilder.toString();
@@ -558,21 +560,10 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
     private static void populateValidDependencies(Package packageInstance, Module module,
                                                   Collection<ModuleDependency> dependencies) {
         for (ModuleDependency moduleDependency : module.moduleDependencies()) {
-            if (!isDefaultScope(moduleDependency)) {
+            if (!isDefaultScope(moduleDependency) || isSamePackage(packageInstance, moduleDependency)) {
                 continue;
             }
             dependencies.add(moduleDependency);
-
-            if (!isSamePackage(packageInstance, moduleDependency)) {
-                continue;
-            }
-
-            for (Module mod : packageInstance.modules()) {
-                String moduleName = mod.descriptor().name().moduleNamePart();
-                if (moduleName != null && moduleName.equals(moduleDependency.descriptor().name().moduleNamePart())) {
-                    populateValidDependencies(packageInstance, mod, dependencies);
-                }
-            }
         }
     }
 
@@ -590,8 +581,8 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
     private static boolean isSamePackage(Package packageInstance, ModuleDependency moduleDependency) {
         String orgValue = moduleDependency.descriptor().org().value();
         String packageVal = moduleDependency.descriptor().packageName().value();
-        return orgValue.equals(packageInstance.packageOrg().value()) &&
-                packageVal.equals(packageInstance.packageName().value());
+        return orgValue.equals(packageInstance.packageOrg().value())
+                && packageVal.equals(packageInstance.packageName().value());
     }
 
     /**
@@ -705,7 +696,7 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
             Map<String, Property> properties = configVariable.properties();
             String variableName = properties.get(Property.VARIABLE_KEY).value().toString();
             String configValue = properties.get(CONFIG_VALUE_KEY).toSourceCode();
-            if (configValue == null) {
+            if (configValue.isEmpty()) {
                 return textEditsMap;
             }
 

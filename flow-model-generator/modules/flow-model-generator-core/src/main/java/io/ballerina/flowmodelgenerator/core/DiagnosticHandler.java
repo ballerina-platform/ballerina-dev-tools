@@ -65,7 +65,8 @@ public class DiagnosticHandler {
 
         while (currentDiagnostic != null) {
             // Check if the diagnostic is in the same file as the node
-            if (!nodeLineRange.fileName().equals(currentDiagnostic.location().lineRange().fileName())) {
+            String fileName = nodeLineRange.fileName();
+            if (fileName != null && !fileName.equals(currentDiagnostic.location().lineRange().fileName())) {
                 next();
                 continue;
             }
