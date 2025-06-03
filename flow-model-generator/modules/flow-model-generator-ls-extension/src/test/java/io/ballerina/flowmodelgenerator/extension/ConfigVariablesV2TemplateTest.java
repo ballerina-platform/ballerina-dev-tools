@@ -70,16 +70,10 @@ public class ConfigVariablesV2TemplateTest extends AbstractLSTest {
         return "configEditorV2";
     }
 
-    /**
-     * Represents the test configuration for the model generator test.
-     */
     private record TestConfig(FlowNode flowNode) {
 
     }
 
-    /**
-     * Represents the response of the `getNodeTemplate()` API.
-     */
     private record ConfigVariableResponse(FlowNode flowNode) {
 
     }

@@ -77,16 +77,10 @@ public class ConfigVariablesV2Test extends AbstractLSTest {
         return "configEditorV2";
     }
 
-    /**
-     * Represents the test configuration for the model generator test.
-     */
     private record ConfigVariablesTestConfig(String project, Map<String, Map<String, List<FlowNode>>> configVariables) {
 
     }
 
-    /**
-     * Represents the response of the `getConfigVariables` API.
-     */
     private record ConfigVariableResponse(Map<String, Map<String, List<FlowNode>>> configVariables) {
 
     }

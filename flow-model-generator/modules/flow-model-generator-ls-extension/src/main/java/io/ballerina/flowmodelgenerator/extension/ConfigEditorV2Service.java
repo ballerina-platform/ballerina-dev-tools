@@ -274,10 +274,12 @@ public class ConfigEditorV2Service implements ExtendedLanguageServerService {
         List<String> docLines = Arrays.stream(variableDoc.split(System.lineSeparator())).toList();
 
         StringBuilder configStatementBuilder = new StringBuilder();
-        docLines.forEach(docLine -> configStatementBuilder
-                .append("# ")
-                .append(docLine)
-                .append(System.lineSeparator()));
+        docLines.forEach(docLine -> {
+                    if (!docLine.isBlank()) {
+                        configStatementBuilder.append("# ").append(docLine).append(System.lineSeparator());
+                    }
+                }
+        );
 
         configStatementBuilder.append(String.format("configurable %s %s = %s;",
                 node.properties().get(Property.TYPE_KEY).toSourceCode(),

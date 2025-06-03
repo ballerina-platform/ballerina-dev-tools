@@ -19,7 +19,6 @@
 package io.ballerina.flowmodelgenerator.extension;
 
 import com.google.gson.JsonElement;
-import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.extension.request.ConfigVariableUpdateRequest;
 import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import org.eclipse.lsp4j.TextEdit;
@@ -29,7 +28,7 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
+import java.nio.file.Paths;
 import java.util.Map;
 
 /**
@@ -43,24 +42,49 @@ public class ConfigVariablesV2UpdateTest extends AbstractLSTest {
     @Test(dataProvider = "data-provider")
     public void test(Path config) throws IOException {
         Path configJsonPath = configDir.resolve(config);
-        ConfigVariablesTestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath),
-                ConfigVariablesTestConfig.class);
+        ConfigVariableUpdateTestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath),
+                ConfigVariableUpdateTestConfig.class);
 
         String projectPath = sourceDir.resolve(testConfig.project()).toAbsolutePath().toString();
 
         ConfigVariableUpdateRequest request = new ConfigVariableUpdateRequest(
                 testConfig.request().packageName(),
                 testConfig.request().moduleName(),
-                testConfig.request().configFilePath(),
+                Paths.get(projectPath, testConfig.request().configFilePath()).toAbsolutePath().toString(),
                 testConfig.request().configVariable()
         );
         ConfigVariableUpdateResponse actualResponse = gson.fromJson(getResponse(request), ConfigVariableUpdateResponse.class);
 
-        if (!actualResponse.configVariables().equals(testConfig.response())) {
-//            updateConfig(configJsonPath, new ConfigVariablesTestConfig(testConfig.project(),
-//                    actualResponse.configVariables()));
+        if (!isEqual(testConfig.response().textEdits(), actualResponse.textEdits())) {
+//            updateConfig(configJsonPath, new ConfigVariableUpdateTestConfig(
+//                    testConfig.description(),
+//                    testConfig.project(),
+//                    testConfig.request(),
+//                    new Response(actualResponse.textEdits()))
+//            );
             Assert.fail(String.format("Failed test: '%s'", configJsonPath));
         }
+    }
+
+    private boolean isEqual(Map<String, TextEdit[]> expected, Map<String, TextEdit[]> actual) {
+        if (expected.size() != actual.size()) {
+            return false;
+        }
+
+        for (Map.Entry<String, TextEdit[]> entry : expected.entrySet()) {
+            String key = entry.getKey();
+            TextEdit[] expectedEdits = entry.getValue();
+            TextEdit[] actualEdits = actual.get(key);
+            if (actualEdits == null || expectedEdits.length != actualEdits.length) {
+                return false;
+            }
+            for (int i = 0; i < expectedEdits.length; i++) {
+                if (!expectedEdits[i].equals(actualEdits[i])) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     @Override
@@ -83,17 +107,12 @@ public class ConfigVariablesV2UpdateTest extends AbstractLSTest {
         return "configEditorV2";
     }
 
-    /**
-     * Represents the response of the `updateConfigVariable()` API.
-     */
-    private record ConfigVariableUpdateResponse(Map<String, Map<String, List<FlowNode>>> configVariables) {
+    private record ConfigVariableUpdateResponse(Map<String, TextEdit[]> textEdits) {
 
     }
 
-    /**
-     * Represents the test configuration for the model generator test.
-     */
-    private record ConfigVariablesTestConfig(String project, Request request, Response response) {
+    private record ConfigVariableUpdateTestConfig(String description, String project, Request request,
+                                                  Response response) {
 
     }
 
@@ -101,7 +120,7 @@ public class ConfigVariablesV2UpdateTest extends AbstractLSTest {
 
     }
 
-    private record Response(TextEdit[] textEdits) {
+    private record Response(Map<String, TextEdit[]> textEdits) {
 
     }
 }
