@@ -1,0 +1,119 @@
+{
+  "description": "Update the documentation + default value of a variable",
+  "project": "config_update_test_project",
+  "request": {
+    "packageName": "config_tests/config_update_test_project",
+    "moduleName": "",
+    "configFilePath": "config.bal",
+    "configVariable": {
+      "id": "32790",
+      "metadata": {
+        "label": "Config",
+        "description": "Create a configurable variable"
+      },
+      "codedata": {
+        "node": "CONFIG_VARIABLE",
+        "lineRange": {
+          "fileName": "config.bal",
+          "startLine": {
+            "line": 1,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 1,
+            "offset": 54
+          }
+        }
+      },
+      "returning": false,
+      "properties": {
+        "variable": {
+          "metadata": {
+            "label": "Variable Name",
+            "description": "Name of the variable"
+          },
+          "valueType": "IDENTIFIER",
+          "valueTypeConstraint": "Global",
+          "value": "optionalConfig",
+          "optional": false,
+          "editable": true,
+          "advanced": false,
+          "hidden": false
+        },
+        "type": {
+          "metadata": {
+            "label": "Variable Type",
+            "description": "Type of the variable"
+          },
+          "valueType": "TYPE",
+          "value": "string",
+          "placeholder": "var",
+          "optional": false,
+          "editable": true,
+          "advanced": false,
+          "hidden": false,
+          "codedata": {}
+        },
+        "defaultValue": {
+          "metadata": {
+            "label": "Default Value",
+            "description": "Default value of the variable"
+          },
+          "valueType": "EXPRESSION",
+          "value": "",
+          "optional": true,
+          "editable": true,
+          "advanced": true,
+          "hidden": false,
+          "modified": false
+        },
+        "configValue": {
+          "metadata": {
+            "label": "Config Value",
+            "description": "Config value of the variable, to be used in Config.toml"
+          },
+          "valueType": "EXPRESSION",
+          "optional": true,
+          "editable": true,
+          "advanced": false,
+          "hidden": false,
+          "modified": false,
+          "value": ""
+        },
+        "documentation": {
+          "metadata": {
+            "label": "Description",
+            "description": "Documentation for the variable, provided in Markdown format."
+          },
+          "valueType": "STRING",
+          "value": "This is the new documentation",
+          "optional": true,
+          "editable": true,
+          "advanced": true,
+          "hidden": false,
+          "modified": false
+        }
+      },
+      "flags": 0
+    }
+  },
+  "response": {
+    "textEdits": {
+      "/Users/nino/Desktop/repos/ballerina-dev-tools/flow-model-generator/modules/flow-model-generator-ls-extension/src/test/resources/configurable_variables_v2_update/source/config_update_test_project/config.bal": [
+        {
+          "range": {
+            "start": {
+              "line": 1,
+              "character": 0
+            },
+            "end": {
+              "line": 1,
+              "character": 54
+            }
+          },
+          "newText": "# This is the new documentation\nconfigurable string optionalConfig = ?;"
+        }
+      ]
+    }
+  }
+}
