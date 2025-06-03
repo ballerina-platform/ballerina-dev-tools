@@ -1,0 +1,82 @@
+{
+  "flowNode": {
+    "id": "31",
+    "metadata": {
+      "label": "Config",
+      "description": "Create a configurable variable"
+    },
+    "codedata": {
+      "node": "CONFIG_VARIABLE",
+      "isNew": true
+    },
+    "returning": false,
+    "properties": {
+      "type": {
+        "metadata": {
+          "label": "Variable Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "",
+        "placeholder": "var",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "hidden": false,
+        "modified": false,
+        "codedata": {}
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable Name",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "valueTypeConstraint": "Global",
+        "optional": false,
+        "editable": true,
+        "advanced": false,
+        "hidden": false,
+        "modified": false
+      },
+      "defaultValue": {
+        "metadata": {
+          "label": "Default Value",
+          "description": "Default value of the variable"
+        },
+        "valueType": "EXPRESSION",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "hidden": false,
+        "modified": false
+      },
+      "configValue": {
+        "metadata": {
+          "label": "Config Value",
+          "description": "Config value of the variable, to be used in Config.toml"
+        },
+        "valueType": "EXPRESSION",
+        "optional": true,
+        "editable": true,
+        "advanced": false,
+        "hidden": false,
+        "modified": false
+      },
+      "documentation": {
+        "metadata": {
+          "label": "Description",
+          "description": "Documentation for the variable, provided in Markdown format."
+        },
+        "valueType": "STRING",
+        "value": "",
+        "optional": true,
+        "editable": true,
+        "advanced": true,
+        "hidden": false,
+        "modified": false
+      }
+    },
+    "flags": 0
+  }
+}

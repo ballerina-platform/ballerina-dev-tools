@@ -1,0 +1,7 @@
+[package]
+org = "config_tests"
+name = "config_update_test_project"
+version = "0.1.0"
+
+[build-options]
+observabilityIncluded = false

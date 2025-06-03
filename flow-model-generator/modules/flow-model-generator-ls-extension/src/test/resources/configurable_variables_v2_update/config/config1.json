@@ -1,0 +1,12 @@
+{
+  "project": "config_update_test_project",
+  "request": {
+    "packageName": "config_update_test_project",
+    "moduleName": "",
+    "configFilePath": "Config.bal",
+    "configVariable": {}
+  },
+  "response": {
+    "textEdits": []
+  }
+}

@@ -18,9 +18,11 @@
 
 package io.ballerina.flowmodelgenerator.extension;
 
+import com.google.gson.JsonElement;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
-import io.ballerina.flowmodelgenerator.extension.request.ConfigVariableGetRequest;
+import io.ballerina.flowmodelgenerator.extension.request.ConfigVariableUpdateRequest;
 import io.ballerina.modelgenerator.commons.AbstractLSTest;
+import org.eclipse.lsp4j.TextEdit;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -31,11 +33,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Test class for 'getConfigVariables()' API in config API V2.
+ * Test class for 'updateConfigVariable()' API in config API V2.
  *
  * @since 2.0.0
  */
-public class ConfigVariablesV2Test extends AbstractLSTest {
+public class ConfigVariablesV2UpdateTest extends AbstractLSTest {
 
     @Override
     @Test(dataProvider = "data-provider")
@@ -46,11 +48,15 @@ public class ConfigVariablesV2Test extends AbstractLSTest {
 
         String projectPath = sourceDir.resolve(testConfig.project()).toAbsolutePath().toString();
 
-        boolean includeImports = !projectPath.endsWith("simple_type_configs_exclude_imports");
-        ConfigVariableGetRequest request = new ConfigVariableGetRequest(projectPath, includeImports);
-        ConfigVariableResponse actualResponse = gson.fromJson(getResponse(request), ConfigVariableResponse.class);
+        ConfigVariableUpdateRequest request = new ConfigVariableUpdateRequest(
+                testConfig.request().packageName(),
+                testConfig.request().moduleName(),
+                testConfig.request().configFilePath(),
+                testConfig.request().configVariable()
+        );
+        ConfigVariableUpdateResponse actualResponse = gson.fromJson(getResponse(request), ConfigVariableUpdateResponse.class);
 
-        if (!actualResponse.configVariables().equals(testConfig.configVariables())) {
+        if (!actualResponse.configVariables().equals(testConfig.response())) {
 //            updateConfig(configJsonPath, new ConfigVariablesTestConfig(testConfig.project(),
 //                    actualResponse.configVariables()));
             Assert.fail(String.format("Failed test: '%s'", configJsonPath));
@@ -59,17 +65,17 @@ public class ConfigVariablesV2Test extends AbstractLSTest {
 
     @Override
     protected String getResourceDir() {
-        return "configurable_variables_v2";
+        return "configurable_variables_v2_update";
     }
 
     @Override
     protected Class<? extends AbstractLSTest> clazz() {
-        return ConfigVariablesV2Test.class;
+        return ConfigVariablesV2UpdateTest.class;
     }
 
     @Override
     protected String getApiName() {
-        return "getConfigVariables";
+        return "updateConfigVariable";
     }
 
     @Override
@@ -78,16 +84,24 @@ public class ConfigVariablesV2Test extends AbstractLSTest {
     }
 
     /**
-     * Represents the test configuration for the model generator test.
+     * Represents the response of the `updateConfigVariable()` API.
      */
-    private record ConfigVariablesTestConfig(String project, Map<String, Map<String, List<FlowNode>>> configVariables) {
+    private record ConfigVariableUpdateResponse(Map<String, Map<String, List<FlowNode>>> configVariables) {
 
     }
 
     /**
-     * Represents the response of the `getConfigVariables` API.
+     * Represents the test configuration for the model generator test.
      */
-    private record ConfigVariableResponse(Map<String, Map<String, List<FlowNode>>> configVariables) {
+    private record ConfigVariablesTestConfig(String project, Request request, Response response) {
+
+    }
+
+    private record Request(String packageName, String moduleName, String configFilePath, JsonElement configVariable) {
+
+    }
+
+    private record Response(TextEdit[] textEdits) {
 
     }
 }

@@ -19,7 +19,7 @@
 package io.ballerina.flowmodelgenerator.extension;
 
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
-import io.ballerina.flowmodelgenerator.extension.request.ConfigVariableGetRequest;
+import io.ballerina.flowmodelgenerator.extension.request.ConfigVariableNodeTemplateRequest;
 import io.ballerina.modelgenerator.commons.AbstractLSTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -27,49 +27,42 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
-import java.util.Map;
 
 /**
- * Test class for 'getConfigVariables()' API in config API V2.
+ * Test class for 'getNodeTemplate()' API in config API V2.
  *
  * @since 2.0.0
  */
-public class ConfigVariablesV2Test extends AbstractLSTest {
+public class ConfigVariablesV2TemplateTest extends AbstractLSTest {
 
     @Override
     @Test(dataProvider = "data-provider")
     public void test(Path config) throws IOException {
         Path configJsonPath = configDir.resolve(config);
-        ConfigVariablesTestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath),
-                ConfigVariablesTestConfig.class);
+        TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
 
-        String projectPath = sourceDir.resolve(testConfig.project()).toAbsolutePath().toString();
-
-        boolean includeImports = !projectPath.endsWith("simple_type_configs_exclude_imports");
-        ConfigVariableGetRequest request = new ConfigVariableGetRequest(projectPath, includeImports);
+        ConfigVariableNodeTemplateRequest request = new ConfigVariableNodeTemplateRequest(true);
         ConfigVariableResponse actualResponse = gson.fromJson(getResponse(request), ConfigVariableResponse.class);
 
-        if (!actualResponse.configVariables().equals(testConfig.configVariables())) {
-//            updateConfig(configJsonPath, new ConfigVariablesTestConfig(testConfig.project(),
-//                    actualResponse.configVariables()));
+        if (!actualResponse.flowNode().equals(testConfig.flowNode())) {
+//            updateConfig(configJsonPath, new TestConfig(actualResponse.flowNode()));
             Assert.fail(String.format("Failed test: '%s'", configJsonPath));
         }
     }
 
     @Override
     protected String getResourceDir() {
-        return "configurable_variables_v2";
+        return "configurable_variables_v2_template";
     }
 
     @Override
     protected Class<? extends AbstractLSTest> clazz() {
-        return ConfigVariablesV2Test.class;
+        return ConfigVariablesV2TemplateTest.class;
     }
 
     @Override
     protected String getApiName() {
-        return "getConfigVariables";
+        return "getNodeTemplate";
     }
 
     @Override
@@ -80,14 +73,14 @@ public class ConfigVariablesV2Test extends AbstractLSTest {
     /**
      * Represents the test configuration for the model generator test.
      */
-    private record ConfigVariablesTestConfig(String project, Map<String, Map<String, List<FlowNode>>> configVariables) {
+    private record TestConfig(FlowNode flowNode) {
 
     }
 
     /**
-     * Represents the response of the `getConfigVariables` API.
+     * Represents the response of the `getNodeTemplate()` API.
      */
-    private record ConfigVariableResponse(Map<String, Map<String, List<FlowNode>>> configVariables) {
+    private record ConfigVariableResponse(FlowNode flowNode) {
 
     }
 }
