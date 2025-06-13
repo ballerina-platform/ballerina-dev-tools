@@ -38,6 +38,7 @@ import io.ballerina.tools.text.LineRange;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -63,6 +64,9 @@ public class ConnectionFinder {
     }
 
     public void findConnection(Symbol symbol, List<String> referenceLocations) {
+        if (symbol.getLocation().isEmpty()) {
+            return;
+        }
         String hashKey = String.valueOf(symbol.getLocation().get().hashCode());
         referenceLocations.add(hashKey);
         if (this.intermediateModel.connectionMap.containsKey(hashKey)) {
@@ -78,7 +82,7 @@ public class ConnectionFinder {
                 ModulePartNode modulePartNode = documentMap.get(location.lineRange().fileName());
                 NonTerminalNode node = modulePartNode.findNode(location.textRange());
                 if (node instanceof ObjectFieldNode objectFieldNode) {
-                    if (isNewConnection(objectFieldNode.expression().orElse(null))) {
+                    if (isNewConnection(Objects.requireNonNull(objectFieldNode.expression().orElse(null)))) {
                         LineRange lineRange = node.lineRange();
                         String sortText = lineRange.fileName() + lineRange.startLine().line();
                         String icon = CommonUtils.generateIcon(classFieldSymbol.typeDescriptor());
