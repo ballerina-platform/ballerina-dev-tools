@@ -46,4 +46,20 @@ service /api/v1 on refListener {
             return http:INTERNAL_SERVER_ERROR;
         }
     }
+
+    resource function get path2() returns json|http:InternalServerError {
+        do {
+            worker processExpenditureTime {
+                do {
+                    http:Client keyVaultClient = check new ("http://localhost:9090/keyVault");
+                    json keyVaultResponse = check keyVaultClient->get("gSolutionP");
+                } on fail error e {
+                    // Update instance status as failed
+                }
+            }
+        } on fail error e {
+            log:printError("Error: ", 'error = e);
+            return http:INTERNAL_SERVER_ERROR;
+        }
+    }
 }
