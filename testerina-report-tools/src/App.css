@@ -92,6 +92,7 @@ header {
 }
 .summary-card.white-font {
     color: #fff;
+    word-wrap: normal;
 }
 .summary-card.white-font h1{
     font-weight: 100;

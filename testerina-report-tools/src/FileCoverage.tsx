@@ -5,7 +5,7 @@ import { SourceFile} from './TestData';
 import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter';
 import { vs } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
-class FileCoverage extends Component<{ moduleName: string, modIndex: number, file: SourceFile, updateState: Function}> {
+class FileCoverage extends Component<{ pkgIndex?: number, moduleName: string, modIndex: number, file: SourceFile, updateState: Function}> {
     render () {
         let moduleName = this.props.moduleName;
         let modIndex = this.props.modIndex
@@ -16,7 +16,7 @@ class FileCoverage extends Component<{ moduleName: string, modIndex: number, fil
         let codeSnippet
         return <div className="module-content">
             <div className="title row">
-            <span className="back-arrow report" onClick={() => this.props.updateState("module", modIndex)}>&#60;</span>
+            <span className="back-arrow report" onClick={() => this.props.updateState("module", modIndex, 0, this.props.pkgIndex)}>&#60;</span>
             <h5 id={moduleName}>{moduleName}/{sourceFile.name}</h5>
             </div>
             <div className="col card coverage-content overflow-auto">
