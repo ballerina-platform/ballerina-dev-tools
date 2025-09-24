@@ -1,6 +1,6 @@
 {
     "name": "@ballerina/testerina-report",
-    "version": "2.6.0",
+    "version": "2.6.1-SNAPSHOT",
     "private": true,
     "homepage": ".",
     "dependencies": {
@@ -28,7 +28,7 @@
     },
     "scripts": {
         "start": "react-scripts start",
-        "build": "react-scripts build",
+        "build": "NODE_OPTIONS='--openssl-legacy-provider' react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
         "update-version": "node ./scripts/update-version.js"
