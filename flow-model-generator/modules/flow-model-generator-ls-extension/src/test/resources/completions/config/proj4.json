@@ -8,6 +8,7 @@
       "offset": 0
     },
     "offset": 1,
+    "lineOffset": 0,
     "codedata": {
       "node": "NEW_CONNECTION",
       "org": "ballerinax",
@@ -62,6 +63,14 @@
       "insertTextFormat": "Snippet"
     },
     {
+      "label": "connectionTestQuery",
+      "kind": "Field",
+      "detail": "sql:ConnectionPool.connectionTestQuery",
+      "sortText": "K",
+      "insertText": "connectionTestQuery: ${1:()}",
+      "insertTextFormat": "Snippet"
+    },
+    {
       "label": "maxOpenConnections",
       "kind": "Field",
       "detail": "sql:ConnectionPool.maxOpenConnections",
@@ -78,11 +87,107 @@
       "insertTextFormat": "Snippet"
     },
     {
+      "label": "poolName",
+      "kind": "Field",
+      "detail": "sql:ConnectionPool.poolName",
+      "sortText": "K",
+      "insertText": "poolName: ${1:()}",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "initializationFailTimeout",
+      "kind": "Field",
+      "detail": "sql:ConnectionPool.initializationFailTimeout",
+      "sortText": "K",
+      "insertText": "initializationFailTimeout: ${1:0}",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "connectionTimeout",
+      "kind": "Field",
+      "detail": "sql:ConnectionPool.connectionTimeout",
+      "sortText": "K",
+      "insertText": "connectionTimeout: ${1:0}",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "isolateInternalQueries",
+      "kind": "Field",
+      "detail": "sql:ConnectionPool.isolateInternalQueries",
+      "sortText": "K",
+      "insertText": "isolateInternalQueries: ${1:false}",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "transactionIsolation",
+      "kind": "Field",
+      "detail": "sql:ConnectionPool.transactionIsolation",
+      "sortText": "K",
+      "insertText": "transactionIsolation: ${1:()}",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "connectionInitSql",
+      "kind": "Field",
+      "detail": "sql:ConnectionPool.connectionInitSql",
+      "sortText": "K",
+      "insertText": "connectionInitSql: ${1:()}",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "allowPoolSuspension",
+      "kind": "Field",
+      "detail": "sql:ConnectionPool.allowPoolSuspension",
+      "sortText": "K",
+      "insertText": "allowPoolSuspension: ${1:false}",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "validationTimeout",
+      "kind": "Field",
+      "detail": "sql:ConnectionPool.validationTimeout",
+      "sortText": "K",
+      "insertText": "validationTimeout: ${1:0}",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "leakDetectionThreshold",
+      "kind": "Field",
+      "detail": "sql:ConnectionPool.leakDetectionThreshold",
+      "sortText": "K",
+      "insertText": "leakDetectionThreshold: ${1:0}",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "idleTimeout",
+      "kind": "Field",
+      "detail": "sql:ConnectionPool.idleTimeout",
+      "sortText": "K",
+      "insertText": "idleTimeout: ${1:0}",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "keepAliveTime",
+      "kind": "Field",
+      "detail": "sql:ConnectionPool.keepAliveTime",
+      "sortText": "K",
+      "insertText": "keepAliveTime: ${1:0}",
+      "insertTextFormat": "Snippet"
+    },
+    {
       "label": "minIdleConnections",
       "kind": "Field",
       "detail": "sql:ConnectionPool.minIdleConnections",
       "sortText": "K",
       "insertText": "minIdleConnections: ${1:0}",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "readOnly",
+      "kind": "Field",
+      "detail": "sql:ConnectionPool.readOnly",
+      "sortText": "K",
+      "insertText": "readOnly: ${1:false}",
       "insertTextFormat": "Snippet"
     }
   ]

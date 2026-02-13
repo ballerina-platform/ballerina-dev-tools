@@ -75,6 +75,7 @@ export type Test = {
     name: string;
     status: string;
     failureMessage?: string;
+    evaluationSummary?: EvaluationSummary;
 }
 
 export type ModuleCoverage = {
@@ -93,3 +94,30 @@ export type SourceFile = {
     sourceCode: string;
 }
 
+// Outcome for data-provider based evaluation
+export type EvalOutcome = {
+    id: string;
+    errorMessage?: string;
+}
+
+// Single evaluation run
+export type EvalRun = {
+    id: number;
+    errorMessage?: string;        // For simple evals (no data provider)
+    outcomes?: EvalOutcome[];     // For data-provider evals
+    passRate?: number;
+}
+
+// Evaluation summary structure (as it appears in JSON)
+export type EvaluationSummary = {
+    evaluationRuns: EvalRun[];
+    targetPassRate: number;
+    observedPassRate: number;
+}
+
+// Helper function to check if a test is an evaluation test
+export function isEvaluationTest(test: Test): boolean {
+    return test.evaluationSummary !== undefined &&
+        Array.isArray(test.evaluationSummary.evaluationRuns) &&
+        test.evaluationSummary.evaluationRuns.length > 0;
+}

@@ -11,5 +11,5 @@
   "kind": "AVAILABLE",
   "functionCall": "log:printInfo(${1})",
   "prefix": "log",
-  "moduleId": "ballerina/log:2.12.0"
+  "moduleId": "ballerina/log:2.16.1"
 }

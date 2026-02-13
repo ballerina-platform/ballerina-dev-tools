@@ -4,5 +4,5 @@
   "importStatement": "import ballerina/log;\n",
   "expression": "log:p",
   "prefix": "log",
-  "moduleId": "ballerina/log:2.12.0"
+  "moduleId": "ballerina/log:2.16.1"
 }

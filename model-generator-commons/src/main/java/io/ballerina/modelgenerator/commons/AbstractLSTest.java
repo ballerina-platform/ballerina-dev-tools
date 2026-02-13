@@ -125,7 +125,7 @@ public abstract class AbstractLSTest {
      * @return The list of tests to be skipped
      */
     protected String[] skipList() {
-        return new String[]{ };
+        return new String[]{};
     }
 
     /**
@@ -248,27 +248,119 @@ public abstract class AbstractLSTest {
     }
 
     /**
+     * Compares two JSON trees for structural and value equality while allowing
+     * certain fields to be ignored globally by field name.
+     * <p>
+     * Ignored fields are skipped regardless of where they appear in the JSON hierarchy
+     * (root object, nested objects, or inside arrays).
+     * </p>
+     *
+     * @param actualJson   the actual JSON produced by the system under test
+     * @param expectedJson the expected JSON
+     * @param ignoreFields set of field names to be ignored globally during comparison
+     * @return {@code true} if the JSON structures are equal (after ignoring fields),
+     *         {@code false} otherwise
+     */
+    protected boolean jsonEquals(JsonElement actualJson, JsonElement expectedJson, Set<String> ignoreFields) {
+        return jsonEqualsRecursive(actualJson, expectedJson, ignoreFields);
+    }
+
+
+    private boolean jsonEqualsRecursive(JsonElement actual, JsonElement expected, Set<String> ignoreFields) {
+        if (actual == null || actual.isJsonNull()) {
+            return expected == null || expected.isJsonNull();
+        }
+        if (expected == null || expected.isJsonNull()) {
+            return false;
+        }
+
+        if (actual.isJsonObject() && expected.isJsonObject()) {
+            JsonObject aObj = actual.getAsJsonObject();
+            JsonObject eObj = expected.getAsJsonObject();
+            for (Map.Entry<String, JsonElement> entry : aObj.entrySet()) {
+                String key = entry.getKey();
+                if (ignoreFields.contains(key)) {
+                    continue;
+                }
+                if (!eObj.has(key)) {
+                    return false;
+                }
+                if (!jsonEqualsRecursive(entry.getValue(), eObj.get(key), ignoreFields)) {
+                    return false;
+                }
+            }
+
+            // Compare keys in expected (to catch missing fields in actual)
+            for (Map.Entry<String, JsonElement> entry : eObj.entrySet()) {
+                String key = entry.getKey();
+                if (ignoreFields.contains(key)) {
+                    continue;
+                }
+                if (!aObj.has(key)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        if (actual.isJsonArray() && expected.isJsonArray()) {
+            JsonArray aArr = actual.getAsJsonArray();
+            JsonArray eArr = expected.getAsJsonArray();
+
+            if (aArr.size() != eArr.size()) {
+                return false;
+            }
+            for (int i = 0; i < aArr.size(); i++) {
+                if (!jsonEqualsRecursive(aArr.get(i), eArr.get(i), ignoreFields)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        if (actual.isJsonPrimitive() && expected.isJsonPrimitive()) {
+            return actual.equals(expected);
+        }
+        return false;
+    }
+
+    /**
      * Compare the actual JSON with the expected JSON.
      *
      * @param actualJson   the actual JSON produced by the LS extension
      * @param expectedJson the expected JSON
      */
     protected void compareJsonElements(JsonElement actualJson, JsonElement expectedJson) {
-        log.info("Differences in JSON elements:");
-        compareJsonElementsRecursive(actualJson, expectedJson, "");
+        compareJsonElements(actualJson, expectedJson, Set.of());
     }
 
-    private void compareJsonElementsRecursive(JsonElement actualJson, JsonElement expectedJson, String path) {
+    /**
+     * Compare the actual JSON with the expected JSON.
+     * Fields whose names are listed in {@code ignoreFields} are skipped during comparison,
+     * regardless of where they appear in the JSON hierarchy (objects, nested objects, or arrays).
+     *
+     * @param actualJson   the actual JSON produced by the LS extension
+     * @param expectedJson the expected JSON
+     * @param ignoreFields set of field names to ignore globally during comparison
+     */
+    protected void compareJsonElements(JsonElement actualJson, JsonElement expectedJson, Set<String> ignoreFields) {
+        log.info("Differences in JSON elements:");
+        compareJsonElementsRecursive(actualJson, expectedJson, "", ignoreFields);
+    }
+
+    private void compareJsonElementsRecursive(JsonElement actualJson, JsonElement expectedJson, String path,
+                                              Set<String> ignoreFields) {
         if (actualJson.isJsonObject() && expectedJson.isJsonObject()) {
-            compareJsonObjects(actualJson.getAsJsonObject(), expectedJson.getAsJsonObject(), path);
+            compareJsonObjects(actualJson.getAsJsonObject(), expectedJson.getAsJsonObject(), path, ignoreFields);
         } else if (actualJson.isJsonArray() && expectedJson.isJsonArray()) {
-            compareJsonArrays(actualJson.getAsJsonArray(), expectedJson.getAsJsonArray(), path);
+            compareJsonArrays(actualJson.getAsJsonArray(), expectedJson.getAsJsonArray(), path, ignoreFields);
         } else if (!actualJson.equals(expectedJson)) {
             log.info("- Value mismatch at '" + path + "'\n  actual: " + actualJson + "\n  expected: " + expectedJson);
         }
     }
 
-    private void compareJsonObjects(JsonObject actualJson, JsonObject expectedJson, String path) {
+    private void compareJsonObjects(JsonObject actualJson, JsonObject expectedJson, String path,
+                                    Set<String> ignoreFields) {
         Set<Map.Entry<String, JsonElement>> entrySet1 = actualJson.entrySet();
         Set<Map.Entry<String, JsonElement>> entrySet2 = expectedJson.entrySet();
 
@@ -276,10 +368,16 @@ public abstract class AbstractLSTest {
             String key = entry.getKey();
             String currentPath = path.isEmpty() ? key : path + "." + key;
 
+            if (ignoreFields.contains(key)) {
+                String ignoredPath = path.isEmpty() ? key : path + "." + key;
+                log.info("- Ignoring field '{}' in actual json", ignoredPath);
+                continue;
+            }
+
             if (!expectedJson.has(key)) {
                 log.info("- Key '" + currentPath + "' is missing in the expected JSON");
             } else {
-                compareJsonElementsRecursive(entry.getValue(), expectedJson.get(key), currentPath);
+                compareJsonElementsRecursive(entry.getValue(), expectedJson.get(key), currentPath, ignoreFields);
             }
         }
 
@@ -287,19 +385,27 @@ public abstract class AbstractLSTest {
             String key = entry.getKey();
             String currentPath = path.isEmpty() ? key : path + "." + key;
 
+            if (ignoreFields.contains(key)) {
+                String ignoredPath = path.isEmpty() ? key : path + "." + key;
+                log.info("- Ignoring field '{}' in expected json", ignoredPath);
+                continue;
+            }
+
             if (!actualJson.has(key)) {
                 log.info("- Key '" + currentPath + "' is missing in the actual JSON");
             }
         }
     }
 
-    private void compareJsonArrays(JsonArray actualArray, JsonArray expectedArray, String path) {
+    private void compareJsonArrays(JsonArray actualArray, JsonArray expectedArray, String path,
+                                   Set<String> ignoreFields) {
         int size1 = actualArray.size();
         int size2 = expectedArray.size();
         int minSize = Math.min(size1, size2);
 
         for (int i = 0; i < minSize; i++) {
-            compareJsonElementsRecursive(actualArray.get(i), expectedArray.get(i), path + "[" + i + "]");
+            compareJsonElementsRecursive(actualArray.get(i), expectedArray.get(i), path + "[" + i + "]",
+                    ignoreFields);
         }
 
         if (size1 > size2) {
