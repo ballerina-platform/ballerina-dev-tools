@@ -66,13 +66,13 @@ dependencies {
     implementation "org.ballerinalang:toml-parser:${ballerinaLangVersion}"
 }
 
-def balDistribution = file("$project.buildDir/extracted-distribution/jballerina-tools-${ballerinaLangVersion}")
+def balDistribution = layout.buildDirectory.dir("extracted-distribution/jballerina-tools-${ballerinaLangVersion}").get().asFile
 task jBallerinaPack() {
     doLast {
         configurations.balTools.resolvedConfiguration.resolvedArtifacts.each { artifact ->
             copy {
                 from project.zipTree(artifact.getFile())
-                into new File(project.buildDir, "extracted-distribution/")
+                into layout.buildDirectory.dir("extracted-distribution/").get().asFile
             }
         }
     }
@@ -85,7 +85,7 @@ task unpackStdLibs() {
         configurations.ballerinaStdLibs.resolvedConfiguration.resolvedArtifacts.each { artifact ->
             copy {
                 from project.zipTree(artifact.getFile())
-                into new File("${project.buildDir}/extracted-stdlibs/" + artifact.name + "-zip")
+                into layout.buildDirectory.dir("extracted-stdlibs/" + artifact.name + "-zip").get().asFile
             }
         }
     }
@@ -96,7 +96,7 @@ task copyStdlibs() {
     doLast {
         /* Standard Libraries */
         configurations.ballerinaStdLibs.resolvedConfiguration.resolvedArtifacts.each { artifact ->
-            def artifactExtractedPath = "${project.buildDir}/extracted-stdlibs/" + artifact.name + '-zip'
+            def artifactExtractedPath = layout.buildDirectory.dir("extracted-stdlibs/" + artifact.name + '-zip').get().asFile.absolutePath
             project.copy {
                 def ballerinaDist = "build/extracted-distribution/jballerina-tools-${project.ballerinaLangVersion}"
                 into ballerinaDist

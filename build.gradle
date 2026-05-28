@@ -62,6 +62,13 @@ allprojects {
 
 subprojects {
     apply plugin: "java"
+    plugins.withId('java') {
+        java {
+            toolchain {
+                languageVersion = JavaLanguageVersion.of(25)
+            }
+        }
+    }
     configurations {
         ballerinaStdLibs
     }
@@ -165,12 +172,17 @@ def targetSequenceDiagramGeneratorCore = file("$project.rootDir/sequence-model-g
 def targetSequenceDiagramGeneratorLSExt = file("$project.rootDir/sequence-model-generator/modules/sequence-model-generator-ls-extension/build/libs/sequence-model-generator-ls-extension-${project.version}.jar")
 def targetTestManagerServiceLSExt = file("$project.rootDir/test-manager-service/modules/test-manager-service-ls-extension/build/libs/test-manager-service-ls-extension-${project.version}.jar")
 
+abstract class RootBallerinaExecHelper {
+    @javax.inject.Inject abstract org.gradle.process.ExecOperations getExecOperations()
+}
+
 // TODO: Remove this once the workspace manager is refactored to import modules where necessary.
 def pullBallerinaModule(String packageName, String version = null, String orgName = "ballerinax") {
     tasks.register("pullBallerinaModule_${packageName.replace('/', '_')}") {
         doLast {
+            def execHelper = project.objects.newInstance(RootBallerinaExecHelper)
             def errOutput = new ByteArrayOutputStream()
-            def result = exec {
+            def result = execHelper.execOperations.exec {
                 ignoreExitValue = true
 
                 // Check if the package exists in the ballerina user home
@@ -305,12 +317,12 @@ test.dependsOn rootProject.pullBallerinaModule('kafka', ballerinaxKafkaVersion)
 test.dependsOn rootProject.pullBallerinaModule('rabbitmq', ballerinaxRabbitmqVersion)
 test.dependsOn rootProject.pullBallerinaModule('trigger.github', ballerinaxGithubTriggerVersion)
 
-task build {
+tasks.named('build') {
     dependsOn test
     dependsOn createArtifactZip
 }
 
-task clean {
+tasks.named('clean') {
     delete "build"
     delete "dist"
 }
