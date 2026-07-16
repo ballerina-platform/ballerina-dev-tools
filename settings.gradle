@@ -15,8 +15,15 @@
  *
  */
 
+pluginManagement {
+    repositories {
+        mavenLocal()
+        gradlePluginPortal()
+    }
+}
+
 plugins {
-    id "com.gradle.enterprise" version "3.13.2"
+    id "com.gradle.develocity" version "3.19.2"
 }
 
 rootProject.name = 'ballerina-dev-tools'
@@ -57,9 +64,9 @@ project(':service-model-generator:service-model-generator-ls-extension').project
 project(':service-model-generator:service-model-index-generator').projectDir = file('service-model-generator/modules/service-model-index-generator')
 project(':test-manager-service:test-manager-service-ls-extension').projectDir = file('test-manager-service/modules/test-manager-service-ls-extension')
 
-gradleEnterprise {
+develocity {
     buildScan {
-        termsOfServiceUrl = 'https://gradle.com/terms-of-service'
-        termsOfServiceAgree = 'yes'
+        termsOfUseUrl = 'https://gradle.com/terms-of-service'
+        termsOfUseAgree = 'yes'
     }
 }

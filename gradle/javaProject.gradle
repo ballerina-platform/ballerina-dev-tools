@@ -43,7 +43,7 @@ dependencies {
     }
 }
 
-sourceCompatibility = JavaVersion.VERSION_21
+// sourceCompatibility removed — Java 25 toolchain is configured in root build.gradle
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
@@ -79,13 +79,13 @@ spotbugsMain {
     effort = SpotBugsEffort.MAX
     reportLevel = SpotBugsConfidence.LOW
     ignoreFailures = true
-    reportsDir = file("$project.buildDir/reports/spotbugs")
+    reportsDir = layout.buildDirectory.dir("reports/spotbugs").get().asFile
     def excludeFile = file("${rootDir}/spotbugs-exclude.xml")
     if (excludeFile.exists()) {
         it.excludeFilter = excludeFile
     }
     reports {
-        text.enabled = true
+        text.required = true
     }
 }
 
@@ -94,7 +94,7 @@ spotbugsTest {
 }
 
 test {
-    systemProperty "ballerina.home", "$buildDir"
+    systemProperty "ballerina.home", layout.buildDirectory.get().asFile
     systemProperty "org.apache.commons.logging.Log", "org.apache.commons.logging.impl.NoOpLog"
     testLogging {
         showStackTraces = true
@@ -104,7 +104,7 @@ test {
     }
     jacoco {
         enabled = true
-        destinationFile = file("$buildDir/coverage-reports/jacoco.exec")
+        destinationFile = layout.buildDirectory.file("coverage-reports/jacoco.exec").get().asFile
         includeNoLocationClasses = true
         excludes = ['jdk.internal.*']
     }
